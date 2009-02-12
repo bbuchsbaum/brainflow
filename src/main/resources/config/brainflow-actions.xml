@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<action-set id="brainflow-actions">
+    <action-list id="main-menu">
+        <action id="main-open"
+                name="Open"
+                mnemonic="O"
+                accel="control L"
+                desc="Load and display an image"
+                smicon="/resources/icons/folderOpen.png"/>
+        <action id="main-remount"
+                name="Remount"
+                mnemonic="R"
+                accel="control M"
+                desc="Remount a directory"/>
+        <action id="main-exit"
+                name="Exit"
+                mnemonic="E"
+                accel="control X"
+                actionClass="brainflow.application.actions.ExitApplicationCommand"
+                desc="Exits the application"/>
+        <action id="main-save-colorbar"
+                name="Save color bar"
+                mnemonic="C"
+                accel="control alt s"
+                actionClass="brainflow.application.actions.SaveColorBarAction"
+                desc="Captures color bar for currently selected layer"/>
+    </action-list>
+    <action-list id="view-menu" name="View">
+        <action id="view-sagittal"
+                name="sagittal"
+                mnemonic="S"
+                accel="control S"
+                smicon="/resources/icons/sagit_16.png"
+                actionClass="brainflow.application.actions.CreateSagittalViewAction"
+                desc="Creates a new sagittal image view">
+        </action>
+        <action id="view-coronal"
+                name="coronal"
+                mnemonic="C"
+                accel="control C"
+                smicon="/resources/icons/coronal_16.png"
+                actionClass="brainflow.application.actions.CreateCoronalViewAction"
+                desc="Creates a new coronal image view">
+        </action>
+        <action id="view-axial"
+                name="axial"
+                mnemonic="A"
+                accel="control A"
+                smicon="/resources/icons/axial_16.png"
+                actionClass="brainflow.application.actions.CreateAxialViewCommand"
+                desc="Creates a new axial image view">
+        </action>
+        <action id="view-orthogonal"
+                name="orthogonal"
+                mnemonic="O"
+                accel="control O"
+                smicon="/resources/icons/bundled_obj.gif"
+                actionClass="brainflow.application.actions.CreateOrthogonalViewAction"
+                desc="Creates three-plane orthogonal view">
+        </action>
+        <action id="view-montage"
+                name="montage"
+                mnemonic="m"
+                accel="control M"
+                smicon="/resources/icons/application_view_tile.png"
+                actionClass="brainflow.application.actions.CreateMontageViewAction"
+                desc="Creates a montage image view">
+        </action>
+        <action id="view-expanded"
+                name="expanded"
+                mnemonic="e"
+                accel="control E"
+                smicon="/resources/icons/application_view_tile.png"
+                actionClass="brainflow.application.actions.CreateExpandedViewAction"
+                desc="Creates an expanded (non-stacked) image view">
+        </action>
+        <action id="view-random"
+                name="random"
+                mnemonic="r"
+                accel="control R"
+                smicon="/resources/icons/application_go.png"
+                actionClass="brainflow.application.actions.DoRandomThingAction"
+                desc="Do an Action">
+        </action>
+    </action-list>
+    <action-list id="annotation-menu" name="Annotations">
+        <action id="annotation-crosshair"
+                name="crosshair"
+                mnemonic="h"
+                accel="control H"
+                smicon="/resources/icons/addtsk_tsk.gif"
+                actionClass="brainflow.application.actions.CrosshairDialogAction"
+                desc="Change crosshair appearance">
+        </action>
+        <action id="annotation-colorbar"
+                name="colorbar"
+                mnemonic="c"
+                accel="control Q"
+                smicon="/resources/icons/colorbar.png"
+                actionClass="brainflow.application.actions.ColorBarAnnotationDialogAction"
+                desc="Change color bar annotation properties">
+        </action>
+        <action id="annotation-margins"
+                name="margins"
+                mnemonic="m"
+                accel="control M"
+                smicon="/resources/icons/layout_header.png"
+                actionClass="brainflow.application.actions.AdjustMarginsAction"
+                desc="Change crosshair appearance">
+        </action>
+        <action id="annotation-coordinates"
+                name="coordinates"
+                mnemonic="n"
+                accel="control alt c"
+                smicon="/resources/icons/layout_header.png"
+                actionClass="brainflow.application.actions.LoadCoordinatesAction"
+                desc="Load and view a set of image coordinates ">
+        </action>
+    </action-list>
+    <action-list id="navigation-menu" name="Navigation">
+        <action id="navigation-next"
+                name="next slice"
+                mnemonic="n"
+                accel="control F"
+                smicon="/resources/icons/forward_nav.gif"
+                actionClass="brainflow.application.actions.NextSliceCommand"
+                desc="Go to the next slice in the z-plane">
+        </action>
+        <action id="navigation-prev"
+                name="previous slice"
+                mnemonic="b"
+                accel="control B"
+                smicon="/resources/icons/backward_nav.gif"
+                actionClass="brainflow.application.actions.PreviousSliceAction"
+                desc="Go to the previous slice in the z-plane">
+        </action>
+    </action-list>
+    <action id="yoke-views"
+            name="yoke views"
+            mnemonic="y"
+            accel="control Y"
+            actionClass="brainflow.application.actions.YokeAction"
+            desc="Yoke view to other views of same data set">
+    </action>
+    <action id="unyoke-views"
+            name="unyoke views"
+            mnemonic="u"
+            accel="control U"
+            actionClass="brainflow.application.actions.UnyokeAction"
+            desc="unyoke selected view from other views of data set">
+    </action>
+    <action id="toggle-cross"
+            name="toggle crosshair"
+            mnemonic="t"
+            accel="control R"
+            smicon="/resources/icons/add_exc.gif"
+            actionClass="brainflow.application.actions.ToggleCrosshairAction"
+            desc="Toggle crosshair visibility on/off">
+    </action>
+    <action id="toggle-axislabel"
+            name="toggle axis annotation"
+            mnemonic="l"
+            accel="control L"
+            smicon="/resources/icons/att_class_obj.gif"
+            actionClass="brainflow.application.actions.ToggleAxisLabelCommand"
+            desc="Toggle axis label visibility on/off">
+    </action>
+    <action id="toggle-colorbar"
+            name="toggle colorbar"
+            mnemonic="c"
+            accel="control K"
+            smicon="/resources/icons/colorbar.png"
+            actionClass="brainflow.application.actions.ToggleColorbarAction"
+            desc="Toggle color bar visibility on/off">
+    </action>
+
+    <action id="modify-colors"
+            name="modify color map"
+            mnemonic="D"
+            accel="control P"
+            actionClass="brainflow.application.actions.DesignLinearColorMapAction"
+            desc="Interactively modify an existing color map">
+    </action>
+    <action id="set-smoothing"
+            name="smoothing"
+            mnemonic="K"
+            accel="control K"
+            actionClass="brainflow.application.actions.SmoothingAction"
+            desc="Set Smoothing parameters for Gaussian blur operation">
+    </action>
+
+
+    <action-list id="debug-menu" name="Debug">
+        <action id="view info"
+                name="view info"
+                mnemonic="I"
+                accel="control I"
+                actionClass="brainflow.application.actions.CollectInfoAction"
+                desc="information about the current view">
+        </action>
+
+
+    </action-list>
+
+
+    <action id="Unload"
+            name="Unload"
+            mnemonic="D"
+            accel="control D"
+            desc="Unload the selected image"
+            actionClass="brainflow.application.actions.UnloadImageAction"/>
+
+</action-set>

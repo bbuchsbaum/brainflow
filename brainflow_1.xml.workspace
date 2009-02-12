@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This is auto-generated workspace property file for ant build, generated with BuildDesk.
+ This file is used as a place for all absolute paths or other settings which may vary
+ depending on a machine, where you perfrom an ant build.
+-->
+<project name="imported" basedir="." default="...">
+  <property name="jdk.home" value="${java.home}" />
+  <!--Path to NSIS  - a Windows installer generator-->
+  <!--NSIS is not included in your project's redist file (.xml.zip) because of its big size.-->
+  <property name="makensis.path" value="C:/Program Files/ProductiveMe/BuildDesk/tools/NSIS/makensis.exe" />
+  <!--Used path variables-->
+  <!--Used JDKs-->
+  <property name="jdk.1.6..1..home" value="C:/Program Files/Java/jdk1.6.0_10" />
+  <path id="jdk.1.6..1..classpath">
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/charsets.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/deploy.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/javaws.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/jce.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/jsse.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/management-agent.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/plugin.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/resources.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/rt.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/ext/dnsns.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/ext/localedata.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/ext/sunjce_provider.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/ext/sunmscapi.jar" />
+    <pathelement path="C:/Program Files/Java/jdk1.6.0_10/jre/lib/ext/sunpkcs11.jar" />
+  </path>
+  <!--Used global libraries-->
+  <path id="global.library.jide.2.4.3.path">
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-action.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dock.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dashboard.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-synthetica.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dialogs.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-components.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-common.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-grids.jar" />
+  </path>
+  <path id="global.library.bean.properties.path">
+    <pathelement path="${project.dir}/../../javalibs/bean-poroperties_M1/props.jar" />
+  </path>
+  <path id="global.library.eventbus.path">
+    <pathelement path="${project.dir}/../../javalibs/eventbus/EventBus.jar" />
+  </path>
+  <path id="global.library.gui.commands.path">
+    <pathelement path="${project.dir}/../../javalibs/gui-commands-2.1/gui-commands-2.1.jar" />
+  </path>
+  <path id="global.library.commons.vfs.path">
+    <pathelement path="${project.dir}/../../javalibs/commons-vfs-20070724-src/target/commons-vfs-1.1-SNAPSHOT.jar" />
+  </path>
+  <path id="global.library.jgoodies.forms.path">
+    <pathelement path="${project.dir}/../../javalibs/forms-1.1.0/forms-1.1.0.jar" />
+  </path>
+  <path id="global.library.xstream.path">
+    <pathelement path="${project.dir}/../../javalibs/xstream-1.2.2/lib/xstream-1.2.2.jar" />
+  </path>
+  <path id="global.library.jgoodies.binding.path">
+    <pathelement path="${project.dir}/../../javalibs/binding-2.0.1/binding-2.0.1.jar" />
+  </path>
+  <path id="global.library.datatips.path">
+    <pathelement path="${project.dir}/../../javalibs/datatips/datatips.jar" />
+  </path>
+  <path id="global.library.jdom.path">
+    <pathelement path="${project.dir}/../../javalibs/jide-2.2.1/lib/jdom.jar" />
+  </path>
+  <path id="global.library.commons.logging.path">
+    <pathelement path="${project.dir}/../../javalibs/commons-logging-1.1.1/commons-logging-1.1.1.jar" />
+  </path>
+  <path id="global.library.colt.path">
+    <pathelement path="${project.dir}/../../javalibs/colt/lib/colt.jar" />
+  </path>
+  <path id="global.library.jfreechart.path">
+    <pathelement path="${project.dir}/../../javalibs/jfreechart-1.0.9/lib/jfreechart-1.0.9.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jfreechart-1.0.9/lib/jcommon-1.0.12.jar" />
+  </path>
+  <path id="global.library.junit.path">
+    <pathelement path="${project.dir}/../../javalibs/junit4.4/junit-4.4.jar" />
+  </path>
+  <path id="global.library.jparsec.path">
+    <pathelement path="${project.dir}/../../javalibs/jparsec-2.0/jparsec-2.0.jar" />
+  </path>
+  <path id="global.library.synthetica.path">
+    <pathelement path="${project.dir}/../../javalibs/synthetica/synthetica.jar" />
+    <pathelement path="${project.dir}/../../javalibs/synthetica/syntheticaWhiteVision.jar" />
+    <pathelement path="${project.dir}/../../javalibs/synthetica/syntheticaSimple2D.jar" />
+    <pathelement path="${project.dir}/../../javalibs/synthetica/syntheticaBatik.jar" />
+    <pathelement path="${project.dir}/../../javalibs/synthetica/syntheticaAddons.jar" />
+  </path>
+  <path id="global.library.jvyaml.path">
+    <pathelement path="${project.dir}/../../javalibs/jvyaml-0.2.1/lib/jvyaml.jar" />
+  </path>
+  <path id="global.library.jxlayer.3.0.path">
+    <pathelement path="${project.dir}/../../javalibs/jxlayer-3.0/jxlayer.jar" />
+  </path>
+  <path id="global.library.args4j.path">
+    <pathelement path="${project.dir}/../../javalibs/args4j-2.0.1/args4j-2.0.1/args4j-2.0.1.jar" />
+  </path>
+  <path id="global.library.quaqua.path">
+    <pathelement path="${project.dir}/../../javalibs/Quaqua 5.0/dist/quaqua.jar" />
+  </path>
+  <path id="global.library.balloontip.path">
+    <pathelement path="${project.dir}/../../javalibs/Balloontip/balloontip_2008-11-14.jar" />
+  </path>
+</project>
+

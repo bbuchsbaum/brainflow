@@ -1,0 +1,407 @@
+<project name="brainflow" basedir="." default="justDoIt">
+  <!--Workspace properties-->
+  <property name="project.workspace.file" value="${basedir}/brainflow_1.xml.workspace" />
+  <property name="project.redist.file" value="${basedir}/brainflow_1.xml.zip" />
+  <import file="${project.workspace.file}" />
+  <property name="jdk.home" value="${java.home}" />
+  <property name="project.dir" value="${basedir}/." />
+  <property name="temp.dir" value="${project.dir}/dist_1/tmp" />
+  <property name="build.work.dir" value="${temp.dir}/work" />
+  <property name="build.redist.dir" value="${temp.dir}/redist" />
+  <property name="target.dir" value="${project.dir}/dist_1/build" />
+  <!--Used path variables-->
+  <!--Build targets properties-->
+  <property name="layout.dir.Release.AnyOS" value="${target.dir}/Release/AnyOS" />
+  <property name="package.file.Release.Generic" value="${target.dir}/Release/brainflow-0.6.9-Generic.zip" />
+  <property name="package.file.Release.Windows" value="${target.dir}/Release/brainflow-0.6.9.exe" />
+  <property name="package.file.Release.Mac" value="${target.dir}/Release/brainflow-0.6.9-Mac.zip" />
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**" />
+    <exclude name="**/SCCS/**" />
+    <exclude name="**/RCS/**" />
+    <exclude name="**/rcs/**" />
+    <exclude name="**/.DS_Store/**" />
+    <exclude name="**/.svn/**" />
+    <exclude name="**/.sbas/**" />
+    <exclude name="**/.IJI.*/**" />
+    <exclude name="**/vssver.scc/**" />
+    <exclude name="**/vssver2.scc/**" />
+    <exclude name="**/*.pyc/**" />
+    <exclude name="**/*.pyo/**" />
+    <exclude name="**/.git/**" />
+  </patternset>
+  <!--Generic compilation settings-->
+  <property name="source.encoding" value="Cp1252" />
+  <property name="compile.debug" value="true" />
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties" />
+    <include name="**/?*.xml" />
+    <include name="**/?*.gif" />
+    <include name="**/?*.png" />
+    <include name="**/?*.jpeg" />
+    <include name="**/?*.jpg" />
+    <include name="**/?*.html" />
+    <include name="**/?*.dtd" />
+    <include name="**/?*.tld" />
+    <include name="**/?*.rgba" />
+    <include name="**/*?.class" />
+  </patternset>
+  <!--Module compilation in/out-->
+  <path id="module.brainflow.source.path">
+    <pathelement path="${project.dir}/src" />
+  </path>
+  <property name="module.brainflow.output.main" value="${build.work.dir}/javac_output/production/brainflow" />
+  <property name="module.brainflow.output.test" value="${build.work.dir}/javac_output/test/brainflow" />
+  <!--Global libraries-->
+  <path id="global.library.eventbus.path">
+    <pathelement path="${project.dir}/../../javalibs/eventbus/EventBus.jar" />
+  </path>
+  <path id="global.library.datatips.path">
+    <pathelement path="${project.dir}/../../javalibs/datatips/datatips.jar" />
+  </path>
+  <path id="global.library.bean.properties.path">
+    <pathelement path="${project.dir}/../../javalibs/bean-poroperties_M1/props.jar" />
+  </path>
+  <path id="global.library.gui.commands.path">
+    <pathelement path="${project.dir}/../../javalibs/gui-commands-2.1/gui-commands-2.1.jar" />
+  </path>
+  <path id="global.library.commons.vfs.path">
+    <pathelement path="${project.dir}/../../javalibs/commons-vfs-20070724-src/target/commons-vfs-1.1-SNAPSHOT.jar" />
+  </path>
+  <path id="global.library.jgoodies.forms.path">
+    <pathelement path="${project.dir}/../../javalibs/forms-1.1.0/forms-1.1.0.jar" />
+  </path>
+  <path id="global.library.xstream.path">
+    <pathelement path="${project.dir}/../../javalibs/xstream-1.2.2/lib/xstream-1.2.2.jar" />
+  </path>
+  <path id="global.library.jgoodies.binding.path">
+    <pathelement path="${project.dir}/../../javalibs/binding-2.0.1/binding-2.0.1.jar" />
+  </path>
+  <path id="global.library.jdom.path">
+    <pathelement path="${project.dir}/../../javalibs/jide-2.2.1/lib/jdom.jar" />
+  </path>
+  <path id="global.library.commons.logging.path">
+    <pathelement path="${project.dir}/../../javalibs/commons-logging-1.1.1/commons-logging-1.1.1.jar" />
+  </path>
+  <path id="global.library.colt.path">
+    <pathelement path="${project.dir}/../../javalibs/colt/lib/colt.jar" />
+  </path>
+  <path id="global.library.jfreechart.path">
+    <pathelement path="${project.dir}/../../javalibs/jfreechart-1.0.9/lib/jfreechart-1.0.9.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jfreechart-1.0.9/lib/jcommon-1.0.12.jar" />
+  </path>
+  <path id="global.library.junit.path">
+    <pathelement path="${project.dir}/../../javalibs/junit4.4/junit-4.4.jar" />
+  </path>
+  <path id="global.library.jparsec.path">
+    <pathelement path="${project.dir}/../../javalibs/jparsec-2.0/jparsec-2.0.jar" />
+  </path>
+  <path id="global.library.jvyaml.path">
+    <pathelement path="${project.dir}/../../javalibs/jvyaml-0.2.1/lib/jvyaml.jar" />
+  </path>
+  <path id="global.library.jxlayer.3.0.path">
+    <pathelement path="${project.dir}/../../javalibs/jxlayer-3.0/jxlayer.jar" />
+  </path>
+  <path id="global.library.args4j.path">
+    <pathelement path="${project.dir}/../../javalibs/args4j-2.0.1/args4j-2.0.1/args4j-2.0.1.jar" />
+  </path>
+  <path id="global.library.quaqua.path">
+    <pathelement path="${project.dir}/../../javalibs/Quaqua 5.0/dist/quaqua.jar" />
+  </path>
+  <path id="global.library.jide.2.4.3.path">
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-action.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dock.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dashboard.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-synthetica.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dialogs.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-components.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-common.jar" />
+    <pathelement path="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-grids.jar" />
+  </path>
+  <path id="global.library.synthetica.path">
+    <pathelement path="${project.dir}/../../javalibs/synthetica/synthetica.jar" />
+    <pathelement path="${project.dir}/../../javalibs/synthetica/syntheticaWhiteVision.jar" />
+    <pathelement path="${project.dir}/../../javalibs/synthetica/syntheticaSimple2D.jar" />
+    <pathelement path="${project.dir}/../../javalibs/synthetica/syntheticaBatik.jar" />
+    <pathelement path="${project.dir}/../../javalibs/synthetica/syntheticaAddons.jar" />
+  </path>
+  <path id="global.library.balloontip.path">
+    <pathelement path="${project.dir}/../../javalibs/Balloontip/balloontip_2008-11-14.jar" />
+  </path>
+  <!--Module classpaths-->
+  <path id="project.jdk.classpath">
+    <path refid="jdk.1.6..1..classpath" />
+  </path>
+  <path id="module.brainflow.jdk.classpath">
+    <path refid="project.jdk.classpath" />
+  </path>
+  <path id="module.brainflow.classpath">
+    <pathelement path="${module.brainflow.output.main}" />
+    <pathelement path="${project.dir}/../../scala-2.7.2.final/lib/scala-compiler.jar" />
+    <pathelement path="${project.dir}/../../scala-2.7.2.final/lib/scala-dbc.jar" />
+    <pathelement path="${project.dir}/../../scala-2.7.2.final/lib/scala-library.jar" />
+    <pathelement path="${project.dir}/../../scala-2.7.2.final/lib/scala-swing.jar" />
+    <path refid="global.library.eventbus.path" />
+    <path refid="global.library.datatips.path" />
+    <path refid="global.library.bean.properties.path" />
+    <path refid="global.library.gui.commands.path" />
+    <path refid="global.library.commons.vfs.path" />
+    <path refid="global.library.jgoodies.forms.path" />
+    <path refid="global.library.xstream.path" />
+    <path refid="global.library.jgoodies.binding.path" />
+    <path refid="global.library.jdom.path" />
+    <path refid="global.library.commons.logging.path" />
+    <path refid="global.library.colt.path" />
+    <path refid="global.library.jfreechart.path" />
+    <path refid="global.library.junit.path" />
+    <path refid="global.library.jparsec.path" />
+    <path refid="global.library.jvyaml.path" />
+    <path refid="global.library.jxlayer.3.0.path" />
+    <path refid="global.library.args4j.path" />
+    <path refid="global.library.quaqua.path" />
+    <path refid="global.library.jide.2.4.3.path" />
+    <path refid="global.library.synthetica.path" />
+    <path refid="global.library.balloontip.path" />
+    <path refid="module.brainflow.jdk.classpath" />
+  </path>
+  <!--Module JDK settings-->
+  <property name="compiler.max.memory" value="512m" />
+  <property name="compiler.arg" value="" />
+  <property name="jdk.1.6..1..home" value="${jdk.home}" />
+  <property name="project.jdk.home" value="${jdk.1.6..1..home}" />
+  <property name="module.brainflow.jdk.home" value="${jdk.1.6..1..home}" />
+  <property name="module.brainflow.compiler.arg" value="${compiler.arg}" />
+  <property name="compiled.ready.dir" value="${build.work.dir}/compiled-ready" />
+  <!--Preparation of ANT extensions-->
+  <target name="prepare.extensions" unless="prepare.extensions.done">
+    <property name="prepare.extensions.done" value="true" />
+    <condition property="is.windows">
+      <os family="windows" />
+    </condition>
+    <unzip dest="${build.redist.dir}" src="${project.redist.file}" />
+    <path id="extensions.classpath">
+      <pathelement path="${build.redist.dir}/tools/bd-ant-extensions.jar" />
+      <pathelement path="${build.redist.dir}/tools/proguard.jar" />
+      <pathelement path="${build.redist.dir}/tools/javac2.jar" />
+      <pathelement path="${build.redist.dir}/tools/forms_rt.jar" />
+      <pathelement path="${build.redist.dir}/tools/jgoodies-forms.jar" />
+      <pathelement path="${build.redist.dir}/tools/asm.jar" />
+      <pathelement path="${build.redist.dir}/tools/asm-commons.jar" />
+      <pathelement path="${build.redist.dir}/tools/jdom.jar" />
+    </path>
+    <taskdef name="innerCall" classname="com.pme.InnerCall">
+      <classpath refid="extensions.classpath" />
+    </taskdef>
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2">
+      <classpath refid="extensions.classpath" />
+    </taskdef>
+    <taskdef name="barsuchok" classname="com.pme.Barsuchok">
+      <classpath refid="extensions.classpath" />
+    </taskdef>
+    <taskdef name="launchergeneratortask" classname="com.pme.LauncherGeneratorTask">
+      <classpath refid="extensions.classpath" />
+    </taskdef>
+  </target>
+  <!--Entry point for the build-->
+  <target name="justDoIt" depends="prepare.extensions">
+    <innerCall target="clean.Release" />
+    <condition property="buildphase-cleanup.disabled">
+      <not>
+        <isset property="clean.Release.disabled" />
+      </not>
+    </condition>
+    <condition property="buildphase-compile.disabled">
+      <not>
+        <isset property="clean.Release.disabled" />
+      </not>
+    </condition>
+  </target>
+  <target name="clear" depends="prepare.extensions">
+    <delete dir="${build.work.dir}" />
+    <delete dir="${target.dir}" />
+  </target>
+  <target name="prepare" depends="prepare.extensions" unless="buildphase-cleanup.disabled">
+    <innerCall target="clear" />
+    <mkdir dir="${build.work.dir}" />
+    <mkdir dir="${target.dir}" />
+    <innerCall target="precompile" />
+  </target>
+  <target name="precompile" />
+  <target name="compile.brainflow" depends="prepare.extensions">
+    <mkdir dir="${module.brainflow.output.main}" />
+    <mkdir dir="${module.brainflow.output.test}" />
+    <echo message="Used JDK: ${module.brainflow.jdk.home}" />
+    <echo message="Used language level: 1.6" />
+    <javac2 classpathref="extensions.classpath" destdir="${module.brainflow.output.main}" encoding="${source.encoding}" executable="${module.brainflow.jdk.home}/bin/javac" fork="yes" memoryMaximumSize="${compiler.max.memory}" source="1.6" target="1.6" debug="${compile.debug}">
+      <src refid="module.brainflow.source.path" />
+      <classpath refid="module.brainflow.classpath" />
+      <compilerarg line="${module.brainflow.compiler.arg}" />
+      <patternset refid="ignored.files" />
+    </javac2>
+  </target>
+  <target name="compile" depends="prepare.extensions" unless="buildphase-compile.disabled">
+    <innerCall target="compile.execute" />
+  </target>
+  <target name="compile.execute" depends="compile.brainflow,prepare.classes,copy.resources,postcompile" />
+  <target name="postcompile" />
+  <target name="copy.resources">
+    <copy todir="${compiled.ready.dir}/brainflow/src">
+      <fileset dir="${project.dir}/src">
+        <patternset refid="compiler.resources" />
+      </fileset>
+    </copy>
+  </target>
+  <target name="prepare.classes" depends="prepare.extensions">
+    <delete dir="${compiled.ready.dir}" />
+    <mkdir dir="${compiled.ready.dir}" />
+    <mkdir dir="${compiled.ready.dir}/brainflow" />
+    <barsuchok>
+      <classes dir="${module.brainflow.output.main}" />
+      <classes dir="${module.brainflow.output.test}" />
+      <roots destroot="${compiled.ready.dir}/brainflow/src" srcroot="${project.dir}/src" />
+      <roots destroot="${compiled.ready.dir}/brainflow/test" srcroot="${project.dir}/test" />
+    </barsuchok>
+  </target>
+  <target name="create.win.launcher" depends="prepare.extensions" unless="buildphase-layout.disabled">
+    <launchergeneratortask FileVersion="0.6.9" VI_PROP_COMPANY_NAME="Brad Buchsbaum" VI_PROP_FILE_VERSION="0.6.9" VI_PROP_LEGAL_COPYRIGHT="none" VI_PROP_ORIGINAL_FILE_NAME="brainflow.exe" VI_PROP_PRODUCT_NAME="Brainflow" VI_PROP_PRODUCT_VERSION="0.6.9" VmParameters="-Xmx800m -Dapple.laf.useScreenMenuBar=true -Dcom.apple.mrj.application.apple.menu.about.name=&quot;Brainflow&quot; -splash:bflow_logo.jpg" iconpath="${build.redist.dir}/templates/launcher.ico" javaversion="1.6+" launcherpath="${build.work.dir}/brainflow.exe" startjar="brainflow.jar" templatepath="${build.redist.dir}/templates/WinLauncher.exe" />
+  </target>
+  <target name="clean.Release" depends="prepare.extensions" unless="clean.Release.disabled">
+    <innerCall target="prepare" />
+    <innerCall target="compile" />
+    <innerCall target="prepare.folders" />
+    <innerCall target="create.win.launcher" />
+    <innerCall target="layout.Release.AnyOS" />
+    <innerCall target="package.Release.AnyOS" />
+    <innerCall target="summary.Release.AnyOS" />
+  </target>
+  <target name="summary.Release.AnyOS">
+    <echo message="Built target: Release.AnyOS" />
+    <echo message="Target directory: ${target.dir}/Release/AnyOS" />
+    <echo message="Generic zipped application: ${target.dir}/Release/brainflow-0.6.9-Generic.zip" />
+    <echo message="Windows installer: ${target.dir}/Release/brainflow-0.6.9.exe" />
+    <echo message="Mac zipped application: ${target.dir}/Release/brainflow-0.6.9-Mac.zip" />
+  </target>
+  <target name="layout.Release.AnyOS" unless="buildphase-layout.disabled">
+    <delete dir="${target.dir}/Release/AnyOS" />
+    <mkdir dir="${target.dir}/Release/AnyOS" />
+    <mkdir dir="${target.dir}/Release/AnyOS/lib" />
+    <copy file="${project.dir}/../../javalibs/eventbus/EventBus.jar" tofile="${target.dir}/Release/AnyOS/lib/EventBus.jar" />
+    <copy file="${project.dir}/../../javalibs/jparsec-2.0/jparsec-2.0.jar" tofile="${target.dir}/Release/AnyOS/lib/jparsec-2.0.jar" />
+    <copy file="${project.dir}/../../javalibs/jfreechart-1.0.9/lib/jfreechart-1.0.9.jar" tofile="${target.dir}/Release/AnyOS/lib/jfreechart-1.0.9.jar" />
+    <copy file="${project.dir}/../../javalibs/jfreechart-1.0.9/lib/jcommon-1.0.12.jar" tofile="${target.dir}/Release/AnyOS/lib/jcommon-1.0.12.jar" />
+    <copy file="${project.dir}/../../javalibs/colt/lib/colt.jar" tofile="${target.dir}/Release/AnyOS/lib/colt.jar" />
+    <copy file="${project.dir}/../../javalibs/commons-logging-1.1.1/commons-logging-1.1.1.jar" tofile="${target.dir}/Release/AnyOS/lib/commons-logging-1.1.1.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.2.1/lib/jdom.jar" tofile="${target.dir}/Release/AnyOS/lib/jdom.jar" />
+    <copy file="${project.dir}/../../javalibs/binding-2.0.1/binding-2.0.1.jar" tofile="${target.dir}/Release/AnyOS/lib/binding-2.0.1.jar" />
+    <copy file="${project.dir}/../../javalibs/xstream-1.2.2/lib/xstream-1.2.2.jar" tofile="${target.dir}/Release/AnyOS/lib/xstream-1.2.2.jar" />
+    <copy file="${project.dir}/../../javalibs/forms-1.1.0/forms-1.1.0.jar" tofile="${target.dir}/Release/AnyOS/lib/forms-1.1.0.jar" />
+    <copy file="${project.dir}/../../javalibs/commons-vfs-20070724-src/target/commons-vfs-1.1-SNAPSHOT.jar" tofile="${target.dir}/Release/AnyOS/lib/commons-vfs-1.1-SNAPSHOT.jar" />
+    <copy file="${project.dir}/../../javalibs/gui-commands-2.1/gui-commands-2.1.jar" tofile="${target.dir}/Release/AnyOS/lib/gui-commands-2.1.jar" />
+    <copy file="${project.dir}/../../javalibs/bean-poroperties_M1/props.jar" tofile="${target.dir}/Release/AnyOS/lib/props.jar" />
+    <copy file="${project.dir}/../../javalibs/datatips/datatips.jar" tofile="${target.dir}/Release/AnyOS/lib/datatips.jar" />
+    <copy file="${project.dir}/../../javalibs/jxlayer-3.0/jxlayer.jar" tofile="${target.dir}/Release/AnyOS/lib/jxlayer.jar" />
+    <copy file="${project.dir}/../../javalibs/jvyaml-0.2.1/lib/jvyaml.jar" tofile="${target.dir}/Release/AnyOS/lib/jvyaml.jar" />
+    <copy file="${project.dir}/../../javalibs/args4j-2.0.1/args4j-2.0.1/args4j-2.0.1.jar" tofile="${target.dir}/Release/AnyOS/lib/args4j-2.0.1.jar" />
+    <copy file="${project.dir}/../../javalibs/Quaqua 5.0/dist/quaqua.jar" tofile="${target.dir}/Release/AnyOS/lib/quaqua.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-action.jar" tofile="${target.dir}/Release/AnyOS/lib/jide-action.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dock.jar" tofile="${target.dir}/Release/AnyOS/lib/jide-dock.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dashboard.jar" tofile="${target.dir}/Release/AnyOS/lib/jide-dashboard.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-synthetica.jar" tofile="${target.dir}/Release/AnyOS/lib/jide-synthetica.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-dialogs.jar" tofile="${target.dir}/Release/AnyOS/lib/jide-dialogs.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-components.jar" tofile="${target.dir}/Release/AnyOS/lib/jide-components.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-common.jar" tofile="${target.dir}/Release/AnyOS/lib/jide-common.jar" />
+    <copy file="${project.dir}/../../javalibs/jide-2.4.3/lib/jide-grids.jar" tofile="${target.dir}/Release/AnyOS/lib/jide-grids.jar" />
+    <copy file="${project.dir}/../../javalibs/synthetica/synthetica.jar" tofile="${target.dir}/Release/AnyOS/lib/synthetica.jar" />
+    <copy file="${project.dir}/../../javalibs/synthetica/syntheticaWhiteVision.jar" tofile="${target.dir}/Release/AnyOS/lib/syntheticaWhiteVision.jar" />
+    <copy file="${project.dir}/../../javalibs/synthetica/syntheticaSimple2D.jar" tofile="${target.dir}/Release/AnyOS/lib/syntheticaSimple2D.jar" />
+    <copy file="${project.dir}/../../javalibs/synthetica/syntheticaBatik.jar" tofile="${target.dir}/Release/AnyOS/lib/syntheticaBatik.jar" />
+    <copy file="${project.dir}/../../javalibs/synthetica/syntheticaAddons.jar" tofile="${target.dir}/Release/AnyOS/lib/syntheticaAddons.jar" />
+    <copy file="${project.dir}/../../javalibs/Balloontip/balloontip_2008-11-14.jar" tofile="${target.dir}/Release/AnyOS/lib/balloontip_2008-11-14.jar" />
+    <copy file="${project.dir}/src/resources/icons/bflow_logo.jpg" tofile="${target.dir}/Release/AnyOS/bflow_logo.jpg" />
+    <jar destfile="${target.dir}/Release/AnyOS/brainflow.jar">
+      <manifest>
+        <attribute name="Main-Class" value="brainflow.application.toplevel.BrainFlow" />
+        <attribute name="Class-Path" value="lib/EventBus.jar lib/jparsec-2.0.jar lib/jfreechart-1.0.9.jar lib/jcommon-1.0.12.jar lib/colt.jar lib/commons-logging-1.1.1.jar lib/jdom.jar lib/binding-2.0.1.jar lib/xstream-1.2.2.jar lib/forms-1.1.0.jar lib/commons-vfs-1.1-SNAPSHOT.jar lib/gui-commands-2.1.jar lib/props.jar lib/datatips.jar lib/jxlayer.jar lib/jvyaml.jar lib/args4j-2.0.1.jar lib/quaqua.jar lib/jide-action.jar lib/jide-dock.jar lib/jide-dashboard.jar lib/jide-synthetica.jar lib/jide-dialogs.jar lib/jide-components.jar lib/jide-common.jar lib/jide-grids.jar lib/synthetica.jar lib/syntheticaWhiteVision.jar lib/syntheticaSimple2D.jar lib/syntheticaBatik.jar lib/syntheticaAddons.jar lib/balloontip_2008-11-14.jar" />
+      </manifest>
+      <fileset dir="${compiled.ready.dir}/brainflow/src" />
+    </jar>
+    <copy file="${build.work.dir}/brainflow.exe" tofile="${target.dir}/Release/AnyOS/brainflow.exe" />
+  </target>
+  <target name="package.Release.AnyOS" unless="buildphase-package.disabled">
+    <innerCall target="create.generic.package.Release.AnyOS" />
+    <innerCall target="report.nsis.error" />
+    <innerCall target="create.win.installer.Release.AnyOS" />
+    <innerCall target="create.mac.installer.Release.AnyOS" />
+  </target>
+  <target name="create.generic.package.Release.AnyOS">
+    <zip destfile="${target.dir}/Release/brainflow-0.6.9-Generic.zip">
+      <zipfileset dir="${target.dir}/Release/AnyOS" prefix="brainflow-0.6.9">
+        <exclude name="brainflow.exe" />
+      </zipfileset>
+    </zip>
+  </target>
+  <target name="create.installer.prepare.template.Release.AnyOS">
+    <replace file="${nsis.template.name}" token="#OUTPUT_DIR#" value="${target.dir}/Release" />
+    <replace file="${nsis.template.name}" token="#BINARIES_LOCATION#" value="${target.dir}/Release/AnyOS" />
+    <replace file="${nsis.template.name}" token="#PACKAGE_NAME#" value="brainflow-0.6.9" />
+    <replace file="${nsis.template.name}" token="#PRODUCT_NAME#" value="Brainflow" />
+    <replace file="${nsis.template.name}" token="#VERSION#" value="0.6.9" />
+    <replace file="${nsis.template.name}" token="#MANUFACTURER#" value="Brad Buchsbaum" />
+    <replace file="${nsis.template.name}" token="#COPYRIGHT#" value="none" />
+    <replace file="${nsis.template.name}" token=";#SetCompressor#" value="" />
+    <replace file="${nsis.template.name}" token=";#HEADER_IMAGE_COMMENT#" value="" />
+    <replace file="${nsis.template.name}" token="#HEADER_IMAGE#" value="${build.redist.dir}\templates\white_pixel.bmp" />
+    <replace file="${nsis.template.name}" token=";#ICON_FOR_INSTALLER_COMMENT#" value="" />
+    <replace file="${nsis.template.name}" token="#ICON_FOR_INSTALLER#" value="${build.redist.dir}\templates\installer.ico" />
+    <replace file="${nsis.template.name}" token=";#ICON_FOR_UNINSTALLER_COMMENT#" value="" />
+    <replace file="${nsis.template.name}" token="#ICON_FOR_UNINSTALLER#" value="${build.redist.dir}\templates\uninstaller.ico" />
+    <replace file="${nsis.template.name}" token="#LAUNCHER_PATH#" value="\brainflow.exe" />
+    <replace file="${nsis.template.name}" token="#FILES#" value="File /nonfatal /r &quot;${BINARIES_LOCATION}\bflow_logo.jpg&quot;&#xA;File /nonfatal /r &quot;${BINARIES_LOCATION}\brainflow.jar&quot;&#xA;File /nonfatal /r &quot;${BINARIES_LOCATION}\lib&quot;&#xA;File /nonfatal /r &quot;${BINARIES_LOCATION}\brainflow.exe&quot;&#xA;" />
+    <exec dir="${basedir}" executable="${makensis.path}" failonerror="true">
+      <arg line="&quot;${nsis.template.name}&quot;" />
+    </exec>
+  </target>
+  <target name="create.win.installer.Release.AnyOS" if="is.windows">
+    <delete dir="${build.work.dir}/Templates/Release.AnyOS" />
+    <copy file="${build.redist.dir}/templates/installer.nsi" todir="${build.work.dir}/Templates/Release.AnyOS" />
+    <copy file="${build.redist.dir}/templates/Desktop.ini" todir="${build.work.dir}/Templates/Release.AnyOS" />
+    <copy file="${build.redist.dir}/templates/ConfirmDeleteUserData.ini" todir="${build.work.dir}/Templates/Release.AnyOS" />
+    <antcall target="create.installer.prepare.template.Release.AnyOS">
+      <param name="nsis.template.name" value="${build.work.dir}/Templates/Release.AnyOS/installer.nsi" />
+    </antcall>
+  </target>
+  <target name="create.mac.installer.Release.AnyOS">
+    <copy todir="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app">
+      <fileset dir="${build.redist.dir}/templates/mac.app" />
+    </copy>
+    <copy file="${build.redist.dir}/templates/launcher.icns" todir="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Resources" />
+    <copy todir="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Resources/Java">
+      <fileset dir="${target.dir}/Release/AnyOS">
+        <exclude name="brainflow.exe" />
+      </fileset>
+    </copy>
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#LAUNCHER_NAME#" value="brainflow" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#COPYRIGHT#" value="none" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#ICNS_FILE#" value="launcher.icns" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#PRODUCT_NAME#" value="Brainflow" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#VERSION#" value="0.6.9" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#JAVA_VERSION#" value="1.6+" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#WORK_DIR#" value="/" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#VM_PARAMETERS#" value="-Xmx800m -Dapple.laf.useScreenMenuBar=true -Dcom.apple.mrj.application.apple.menu.about.name=&quot;Brainflow&quot; -splash:bflow_logo.jpg" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#MAINCLASS#" value="brainflowlication.toplevel.BrainFlow" />
+    <replace file="${build.work.dir}/Installers/Release.AnyOS/Brainflow.app/Contents/Info.plist" token="#CLASSPATH#" value="$JAVAROOT/brainflow.jar:$JAVAROOT/lib/EventBus.jar:$JAVAROOT/lib/jparsec-2.0.jar:$JAVAROOT/lib/jfreechart-1.0.9.jar:$JAVAROOT/lib/jcommon-1.0.12.jar:$JAVAROOT/lib/colt.jar:$JAVAROOT/lib/commons-logging-1.1.1.jar:$JAVAROOT/lib/jdom.jar:$JAVAROOT/lib/binding-2.0.1.jar:$JAVAROOT/lib/xstream-1.2.2.jar:$JAVAROOT/lib/forms-1.1.0.jar:$JAVAROOT/lib/commons-vfs-1.1-SNAPSHOT.jar:$JAVAROOT/lib/gui-commands-2.1.jar:$JAVAROOT/lib/props.jar:$JAVAROOT/lib/datatips.jar:$JAVAROOT/lib/jxlayer.jar:$JAVAROOT/lib/jvyaml.jar:$JAVAROOT/lib/args4j-2.0.1.jar:$JAVAROOT/lib/quaqua.jar:$JAVAROOT/lib/jide-action.jar:$JAVAROOT/lib/jide-dock.jar:$JAVAROOT/lib/jide-dashboard.jar:$JAVAROOT/lib/jide-synthetica.jar:$JAVAROOT/lib/jide-dialogs.jar:$JAVAROOT/lib/jide-components.jar:$JAVAROOT/lib/jide-common.jar:$JAVAROOT/lib/jide-grids.jar:$JAVAROOT/lib/synthetica.jar:$JAVAROOT/lib/syntheticaWhiteVision.jar:$JAVAROOT/lib/syntheticaSimple2D.jar:$JAVAROOT/lib/syntheticaBatik.jar:$JAVAROOT/lib/syntheticaAddons.jar:$JAVAROOT/lib/balloontip_2008-11-14.jar" />
+    <zip basedir="${build.work.dir}/Installers/Release.AnyOS/" destfile="${target.dir}/Release/brainflow-0.6.9-Mac.zip">
+      <zipfileset file="${build.redist.dir}/templates/maclauncher" filemode="755" fullpath="Brainflow.app/Contents/MacOS/brainflow" />
+    </zip>
+  </target>
+  <target name="report.nsis.error" unless="is.windows">
+    <echo level="error" message="Generation of Windows installer is supported only if you run this build script under Windows." />
+    <echo level="error" message="The will be fixed in the next BuildDesk release." />
+  </target>
+  <target name="prepare.folders">
+    <mkdir dir="${compiled.ready.dir}/brainflow/src" />
+  </target>
+  <target name="summary">
+    <innerCall target="summary.Release.AnyOS" />
+  </target>
+</project>

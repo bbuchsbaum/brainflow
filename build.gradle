@@ -1,0 +1,8 @@
+//name = "brainflow"
+version = "0.1"
+
+usePlugin("java")
+sourceCompatibility = 1.5
+
+targetCompatibility = 1.5
+srcDirs = ["src"]

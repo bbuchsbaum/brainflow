@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  XML Serialized RGBA Color Map
+  <MapInfo mapSize="10" mapName="bonnard" />
+  <Table>
+    <color index="0" r="76" g="59" b="48" a="255" />
+    <color index="1" r="160" g="78" b="30" a="255" />
+    <color index="2" r="93" g="95" b="113" a="255" />
+    <color index="3" r="140" g="103" b="76" a="255" />
+    <color index="4" r="205" g="133" b="56" a="255" />
+    <color index="5" r="165" g="136" b="123" a="255" />    
+    <color index="6" r="123" g="130" b="176" a="255" />
+    <color index="7" r="183" g="166" b="178" a="255" />
+    <color index="8" r="224" g="196" b="121" a="255" />
+    <color index="9" r="235" g="233" b="224" a="255" />   
+  </Table>
+</root>
+

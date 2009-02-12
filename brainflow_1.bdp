@@ -1,0 +1,299 @@
+<build-desk-project version="0">
+  <bee name="IDEA" version="5.0" path="brainflow.ipr">
+    <model jdk="1.6 (1)">
+      <jdk-list>
+        <jdk name="1.6 (1)" />
+      </jdk-list>
+      <settings />
+      <global>
+        <library name="jide-2.4.3">
+          <path>C:/javacode/javalibs/jide-2.4.3/lib/jide-action.jar</path>
+          <path>C:/javacode/javalibs/jide-2.4.3/lib/jide-dock.jar</path>
+          <path>C:/javacode/javalibs/jide-2.4.3/lib/jide-dashboard.jar</path>
+          <path>C:/javacode/javalibs/jide-2.4.3/lib/jide-synthetica.jar</path>
+          <path>C:/javacode/javalibs/jide-2.4.3/lib/jide-dialogs.jar</path>
+          <path>C:/javacode/javalibs/jide-2.4.3/lib/jide-components.jar</path>
+          <path>C:/javacode/javalibs/jide-2.4.3/lib/jide-common.jar</path>
+          <path>C:/javacode/javalibs/jide-2.4.3/lib/jide-grids.jar</path>
+        </library>
+        <library name="bean-properties">
+          <path>C:/javacode/javalibs/bean-poroperties_M1/props.jar</path>
+        </library>
+        <library name="eventbus">
+          <path>C:/javacode/javalibs/eventbus/EventBus.jar</path>
+        </library>
+        <library name="gui-commands">
+          <path>C:/javacode/javalibs/gui-commands-2.1/gui-commands-2.1.jar</path>
+        </library>
+        <library name="commons-vfs">
+          <path>C:/javacode/javalibs/commons-vfs-20070724-src/target/commons-vfs-1.1-SNAPSHOT.jar</path>
+        </library>
+        <library name="jgoodies-forms">
+          <path>C:/javacode/javalibs/forms-1.1.0/forms-1.1.0.jar</path>
+        </library>
+        <library name="substance-5.0">
+          <path>C:/javacode/javalibs/substance-5.0/substance.jar</path>
+          <path>C:/javacode/javalibs/substance-5.0/substance-jide.jar</path>
+        </library>
+        <library name="xstream">
+          <path>C:/javacode/javalibs/xstream-1.2.2/lib/xstream-1.2.2.jar</path>
+        </library>
+        <library name="jgoodies-binding">
+          <path>C:/javacode/javalibs/binding-2.0.1/binding-2.0.1.jar</path>
+        </library>
+        <library name="datatips">
+          <path>C:/javacode/javalibs/datatips/datatips.jar</path>
+        </library>
+        <library name="jdom">
+          <path>C:/javacode/javalibs/jide-2.2.1/lib/jdom.jar</path>
+        </library>
+        <library name="commons-logging">
+          <path>C:/javacode/javalibs/commons-logging-1.1.1/commons-logging-1.1.1.jar</path>
+        </library>
+        <library name="colt">
+          <path>C:/javacode/javalibs/colt/lib/colt.jar</path>
+        </library>
+        <library name="jfreechart">
+          <path>C:/javacode/javalibs/jfreechart-1.0.9/lib/jfreechart-1.0.9.jar</path>
+          <path>C:/javacode/javalibs/jfreechart-1.0.9/lib/jcommon-1.0.12.jar</path>
+        </library>
+        <library name="junit">
+          <path>C:/javacode/javalibs/junit4.4/junit-4.4.jar</path>
+        </library>
+        <library name="jparsec">
+          <path>C:/javacode/javalibs/jparsec-2.0/jparsec-2.0.jar</path>
+        </library>
+        <library name="yago">
+          <path>C:/javacode/javalibs/yago-0.1/yago.jar</path>
+        </library>
+        <library name="GROOVY">
+          <path>C:/Program Files/Groovy/Groovy-1.5.6/embeddable/groovy-all-1.5.6.jar</path>
+          <path>C:/Program Files/Groovy/Groovy-1.5.6/lib/jline-0.9.94.jar</path>
+          <path>C:/Program Files/Groovy/Groovy-1.5.6/lib/ant-1.7.0.jar</path>
+          <path>C:/Program Files/Groovy/Groovy-1.5.6/lib/commons-cli-1.0.jar</path>
+          <path>C:/Program Files/Groovy/Groovy-1.5.6/lib/ant-launcher-1.7.0.jar</path>
+        </library>
+        <library name="bislider">
+          <path>C:/javacode/javalibs/bislider/bislider.jar</path>
+        </library>
+        <library name="pulpcore">
+          <path>C:/javacode/javalibs/pulpcore-0.11.3/build/pulpcore-applet-debug-0.11.jar</path>
+          <path>C:/javacode/javalibs/pulpcore-0.11.3/build/pulpcore-applet-release-0.11.jar</path>
+          <path>C:/javacode/javalibs/pulpcore-0.11.3/build/pulpcore-assettools-0.11.jar</path>
+          <path>C:/javacode/javalibs/pulpcore-0.11.3/build/pulpcore-player-0.11.jar</path>
+        </library>
+        <library name="proguard">
+          <path>C:/javacode/javalibs/proguard4.2/lib/proguardgui.jar</path>
+          <path>C:/javacode/javalibs/proguard4.2/lib/retrace.jar</path>
+          <path>C:/javacode/javalibs/proguard4.2/lib/proguard.jar</path>
+        </library>
+        <library name="jgoodies-looks">
+          <path>C:/javacode/javalibs/looks-2.1.4/looks-2.1.4.jar</path>
+        </library>
+        <library name="synthetica">
+          <path>C:/javacode/javalibs/synthetica/synthetica.jar</path>
+          <path>C:/javacode/javalibs/synthetica/syntheticaWhiteVision.jar</path>
+          <path>C:/javacode/javalibs/synthetica/syntheticaSimple2D.jar</path>
+          <path>C:/javacode/javalibs/synthetica/syntheticaBatik.jar</path>
+          <path>C:/javacode/javalibs/synthetica/syntheticaAddons.jar</path>
+        </library>
+        <library name="jvyaml">
+          <path>C:/javacode/javalibs/jvyaml-0.2.1/lib/jvyaml.jar</path>
+        </library>
+        <library name="jxlayer-3.0">
+          <path>C:/javacode/javalibs/jxlayer-3.0/jxlayer.jar</path>
+        </library>
+        <library name="cli-parser">
+          <path>C:/javacode/javalibs/cli-parser/cli-10.jar</path>
+        </library>
+        <library name="args4j">
+          <path>C:/javacode/javalibs/args4j-2.0.1/args4j-2.0.1/args4j-2.0.1.jar</path>
+        </library>
+        <library name="quaqua">
+          <path>C:/javacode/javalibs/Quaqua 5.0/dist/quaqua.jar</path>
+        </library>
+        <library name="jide-2.2.12">
+          <path>C:/javacode/javalibs/jide.2.2.12/lib/jide-grids.jar</path>
+          <path>C:/javacode/javalibs/jide.2.2.12/lib/jide-dashboard.jar</path>
+          <path>C:/javacode/javalibs/jide.2.2.12/lib/jide-common.jar</path>
+          <path>C:/javacode/javalibs/jide.2.2.12/lib/jide-dock.jar</path>
+          <path>C:/javacode/javalibs/jide.2.2.12/lib/jide-components.jar</path>
+          <path>C:/javacode/javalibs/jide.2.2.12/lib/jide-action.jar</path>
+          <path>C:/javacode/javalibs/jide.2.2.12/lib/jide-dialogs.jar</path>
+        </library>
+        <library name="balloontip">
+          <path>C:/javacode/javalibs/Balloontip/balloontip_2008-11-14.jar</path>
+        </library>
+        <library name="ActiveObjects">
+          <path>C:/javacode/javalibs/activeobjects-0.8.2/activeobjects-0.8.2.jar</path>
+        </library>
+        <library name="derby">
+          <path>C:/javacode/javalibs/db-derby-10.4.2.0-lib/lib/derbyclient.jar</path>
+          <path>C:/javacode/javalibs/db-derby-10.4.2.0-lib/lib/derby.jar</path>
+        </library>
+      </global>
+      <library name="scala-2.7.2.final">
+        <path>C:/javacode/scala-2.7.2.final/lib/scala-compiler.jar</path>
+        <path>C:/javacode/scala-2.7.2.final/lib/scala-dbc.jar</path>
+        <path>C:/javacode/scala-2.7.2.final/lib/scala-library.jar</path>
+        <path>C:/javacode/scala-2.7.2.final/lib/scala-swing.jar</path>
+      </library>
+      <module name="brainflow" path="$PROJECT_DIR$">
+        <output-path />
+        <path>$MODULE_DIR$/src</path>
+        <path>$MODULE_DIR$/test</path>
+        <dependency path="bee@projectLib=scala-2.7.2.final" />
+        <dependency path="bee@globalLib=eventbus" />
+        <dependency path="bee@globalLib=datatips" />
+        <dependency path="bee@globalLib=bean-properties" />
+        <dependency path="bee@globalLib=gui-commands" />
+        <dependency path="bee@globalLib=commons-vfs" />
+        <dependency path="bee@globalLib=jgoodies-forms" />
+        <dependency path="bee@globalLib=xstream" />
+        <dependency path="bee@globalLib=jgoodies-binding" />
+        <dependency path="bee@globalLib=jdom" />
+        <dependency path="bee@globalLib=commons-logging" />
+        <dependency path="bee@globalLib=colt" />
+        <dependency path="bee@globalLib=jfreechart" />
+        <dependency path="bee@globalLib=junit" />
+        <dependency path="bee@globalLib=jparsec" />
+        <dependency path="bee@globalLib=jvyaml" />
+        <dependency path="bee@globalLib=jxlayer-3.0" />
+        <dependency path="bee@globalLib=args4j" />
+        <dependency path="bee@globalLib=quaqua" />
+        <dependency path="bee@globalLib=jide-2.4.3" />
+        <dependency path="bee@globalLib=synthetica" />
+        <dependency path="bee@globalLib=balloontip" />
+      </module>
+      <output-path>$PROJECT_DIR$/classes</output-path>
+    </model>
+    <excluded-layout>
+      <element path="bee@globalLib=junit" />
+      <element path="bee@globalLib=GROOVY" />
+      <element path="bee@globalLib=bislider" />
+      <element path="bee@globalLib=substance-5.0" />
+      <element path="bee@projectLib=scala-2.7.2.final" />
+    </excluded-layout>
+    <excluded-compile>
+      <element path="bee@module=brainflow@source=test" />
+    </excluded-compile>
+  </bee>
+  <fly>
+    <layout>
+      <folder name="root">
+        <jar name="brainflow.jar">
+          <source module="brainflow" path="src" />
+          <manifest>
+            <startable>true</startable>
+            <mainClass>com.brainflow.application.toplevel.BrainFlow</mainClass>
+            <everythingToClassPath>true</everythingToClassPath>
+          </manifest>
+        </jar>
+        <folder name="lib">
+          <library name="eventbus" container="global" />
+          <library name="jparsec" container="global" />
+          <library name="jfreechart" container="global" />
+          <library name="colt" container="global" />
+          <library name="commons-logging" container="global" />
+          <library name="jdom" container="global" />
+          <library name="jgoodies-binding" container="global" />
+          <library name="xstream" container="global" />
+          <library name="jgoodies-forms" container="global" />
+          <library name="commons-vfs" container="global" />
+          <library name="gui-commands" container="global" />
+          <library name="bean-properties" container="global" />
+          <library name="datatips" container="global" />
+          <library name="jxlayer-3.0" container="global" />
+          <library name="jvyaml" container="global" />
+          <library name="args4j" container="global" />
+          <library name="quaqua" container="global" />
+          <library name="jide-2.4.3" container="global" />
+          <library name="synthetica" container="global" />
+          <library name="balloontip" container="global" />
+        </folder>
+        <copy name="bflow_logo.jpg" path="src/resources/icons/bflow_logo.jpg" />
+      </folder>
+    </layout>
+  </fly>
+  <target-model>
+    <target-defs>
+      <target>
+        <name>Release</name>
+        <buildDistributions>true</buildDistributions>
+        <obfuscate>false</obfuscate>
+        <includeTests>false</includeTests>
+      </target>
+    </target-defs>
+    <deps />
+  </target-model>
+  <beetle>
+    <jars>
+      <element path="fly@layout@root@file=brainflow.jar" />
+    </jars>
+    <config>
+      <keepAllPublic>false</keepAllPublic>
+      <keepAllProtected>false</keepAllProtected>
+      <repackageObfuscated>false</repackageObfuscated>
+      <shrink>false</shrink>
+      <optimize>false</optimize>
+      <keepByExtends />
+      <keepByImplements />
+      <keepByPackage />
+    </config>
+  </beetle>
+  <wasp>
+    <startJar>/brainflow.jar</startJar>
+    <launcherName>brainflow</launcherName>
+    <workingDir>/</workingDir>
+    <xms />
+    <xmx>800</xmx>
+    <javaVersion>1.6+</javaVersion>
+    <runUnderJdk>false</runUnderJdk>
+    <ea>false</ea>
+    <splash />
+    <splashTime>0</splashTime>
+    <productName>Brainflow</productName>
+    <manufacturer>Brad Buchsbaum</manufacturer>
+    <copyright>none</copyright>
+    <version>0.6.9</version>
+    <packageFileName>brainflow-0.6.9</packageFileName>
+    <eulaPath />
+    <vmOptions>-splash:bflow_logo.jpg</vmOptions>
+    <mac>
+      <icnsFile />
+      <dockApplicationName>Brainflow</dockApplicationName>
+      <screenMenuBar>true</screenMenuBar>
+      <brushedMetalLook>false</brushedMetalLook>
+    </mac>
+    <windows>
+      <icoFile />
+      <installerIcoFile />
+      <uninstallerIcoFile />
+      <bundleJre>false</bundleJre>
+      <jrePath />
+      <doCustomCleanup>false</doCustomCleanup>
+      <doCustomPostinstall>false</doCustomPostinstall>
+    </windows>
+    <generic />
+  </wasp>
+  <flow>
+    <buildphase-cleanup />
+    <buildphase-compile />
+    <buildphase-obfuscate />
+    <buildphase-layout />
+    <buildphase-package />
+  </flow>
+  <config>
+    <fork>true</fork>
+    <memoryMaximumSize>512</memoryMaximumSize>
+    <buildFile>brainflow_1.xml</buildFile>
+    <buildOutputDirectory>dist_1/build</buildOutputDirectory>
+    <buildTempDirectory>dist_1/tmp</buildTempDirectory>
+    <useJavac2>true</useJavac2>
+    <checkSourceRootsForExistance>true</checkSourceRootsForExistance>
+    <checkIfThereIsFilesInSourceRoot>true</checkIfThereIsFilesInSourceRoot>
+    <installerCompressorSet>true</installerCompressorSet>
+    <honorDepsOnCompile>true</honorDepsOnCompile>
+    <useConfiguredOutputPaths>false</useConfiguredOutputPaths>
+  </config>
+</build-desk-project>
