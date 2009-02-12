@@ -1,0 +1,105 @@
+Date: Thu, 11 Oct 2007 17:29:22 -0700
+From: Hans Muller <Hans.Muller@Sun.COM>
+Content-type: text/plain; format=flowed; charset=ISO-8859-1
+Subject: Questions About Exception Handling
+
+
+
+Mark Fortner wrote:
+> I was recently adding some Exception Handling code to a project that
+> I'm working on and it occurred to me that I hadn't seen a "best
+> practice" from the AppFramework group on how Exception Handling
+> "should" be done with respect to the framework.
+>
+>    1. Should exceptions bubble up to the main method be caught and
+>       handled by a dialog (something like SwingX's JXErrorDialog)?
+>    2. Should exceptions be caught and handled "in-situ"?
+>    3. Should both strategies be applied so that uncaught exceptions (
+>       i.e. Runtime exceptions) are handled in the main, and other
+>       exceptions are dealt with in-situ.
+>    4. Are there any components planned to handle the display of error
+>       messages?
+>
+> Regards,
+>
+> Mark Fortner
+
+
+I looked into this early on in the project but have not returned to
+the topic.  It certainly is worthy of some framework support.
+Shannon Hickey (the Swing project's technical lead) provided the
+following material about handling uncaught exceptions in general.  If
+you're
+interested in this topic, I think you'll find this all helpful.
+
+The problem really does need to be addressed by the framework.
+
+------------------
+
+I've done some more research on the concept of dealing with uncaught
+exceptions in Swing and would like to present the answers. Like you've
+discovered with other things recently, there are multiple approaches.
+I'll discuss them all below:
+
+1) Calling Toolkit.getSystemEventQueue.push() with a new HandlerQueue()
+that deals with uncaught exceptions.
+
+- The benefit of this approach is that it is very clear and is clearly
+supported by the current API.
+
+- The downside is that I've spoken with the AWT technical lead and he's
+suggested that using EventQueue.push() is deadlock-prone. That is, the
+area of code that deals with EventQueues is quite complex and there may
+be unknown bugs that could cause deadlocks. If you were to call push()
+at the very beginning of your app, and be sure to call System.exit()
+rather than wait for auto-shutdown, this approach is probably okay. But
+the AWT lead recommends choosing another approach.
+
+
+2) Using the "sun.awt.exception.handler" system property.
+
+- The benefit is that this does *exactly* what you want and is probably
+the easiest to use.
+
+- The downside is that the documentation mentions it will go away in the
+future in favor of proper API. That being said, I've discussed it with
+the AWT lead and he's confident that there's very little chance of this
+ever being removed. When proper API is added, this property will likely
+remain.
+
+- Another downside is that this property may be specific to Sun's
+implementation as this is a "sun.*" property.
+
+3) A third approach was just brought to my attention and is what our
+Swing architect has previously recommended to customers.
+
+java.lang.Thread has a
+"setUncaughtExceptionHandler(UncaughtExceptionHandler)" method. Using
+this method, you can explicitly set an UncaughtExceptionHandler on the
+EDT. I believe the approach is:
+
+// make sure this happens on the EDT
+// so we can fetch the EDT with Thread.currentThread()
+SwingUtilities.invokeLater(new Runnable() {
+    public void run() {
+        Thread.currentThread().setUncaughtExceptionHandler(...);
+    }
+});
+
+
+Two down sides to this approach, it doesn't work when a modal dialog
+is shown, and it won't work in sandboxed applets or apps.
+
+
+Finally, I'll point out that there is an existing RFE in our system that
+proposes to provide proper API for this. If you are members or can
+become members of Sun's Developer Network (free to do so), please feel
+free to vote for this bug. Or of course, if you sign up for support and
+have a channel to escalate this, you can do that to. Here's a link to
+the bug report:
+
+http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4714232
+
+
+
+

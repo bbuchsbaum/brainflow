@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  XML Serialized RGBA Color Map
+  <MapInfo mapSize="8" mapName="monet" />
+  <Table>
+    <color index="0" r="41" g="51" b="40" a="255" />
+    <color index="1" r="63" g="89" b="79" a="255" />
+    <color index="2" r="87" g="117" b="114" a="255" />
+    <color index="3" r="121" g="124" b="152" a="255" />
+    <color index="4" r="168" g="151" b="156" a="255" />
+    <color index="5" r="160" g="147" b="98" a="255" />    
+    <color index="6" r="123" g="89" b="54" a="255" />
+    <color index="7" r="203" g="201" b="170" a="255" />
+    
+  </Table>
+</root>
+

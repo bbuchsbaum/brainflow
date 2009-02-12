@@ -1,0 +1,4 @@
+foo: whatever
+bar:
+ - uno
+ - dos
