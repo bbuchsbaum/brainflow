@@ -3,10 +3,7 @@ package brainflow.application.presentation;
 import brainflow.application.presentation.controls.CrosshairForm;
 import brainflow.core.annotations.CrosshairAnnotation;
 import brainflow.gui.AbstractPresenter;
-import com.jgoodies.binding.adapter.Bindings;
-import com.jgoodies.binding.adapter.SpinnerAdapterFactory;
-import com.jgoodies.binding.beans.PropertyAdapter;
-import com.jgoodies.binding.value.ValueModel;
+
 import com.jidesoft.combobox.ColorComboBox;
 
 import javax.swing.*;
@@ -47,13 +44,13 @@ public class CrosshairPresenter extends AbstractPresenter {
         // bind line width property to JSpinner
         JSpinner lineWidthSpinner = form.getLineWidthSpinner();
 
-        ValueModel lineWidth = new PropertyAdapter(annotation, CrosshairAnnotation.LINE_WIDTH_PROPERTY, true);
+        //ValueModel lineWidth = new PropertyAdapter(annotation, CrosshairAnnotation.LINE_WIDTH_PROPERTY, true);
         SpinnerModel spinnerModel = new SpinnerNumberModel(annotation.getLineWidth(), 1.0, 10.0, .3);
-        SpinnerAdapterFactory.connect(spinnerModel, lineWidth, 1);
+        //SpinnerAdapterFactory.connect(spinnerModel, lineWidth, 1);
         lineWidthSpinner.setModel(spinnerModel);
 
         // bind visible property to JCheckBox
-        Bindings.bind(form.getVisibleBox(), new PropertyAdapter(annotation, CrosshairAnnotation.VISIBLE_PROPERTY));
+        //Bindings.bind(form.getVisibleBox(), new PropertyAdapter(annotation, CrosshairAnnotation.VISIBLE_PROPERTY));
 
         // bind linePaint to ColorComboBox
         form.getColorChooser().addPropertyChangeListener(new PropertyChangeListener() {
@@ -71,16 +68,16 @@ public class CrosshairPresenter extends AbstractPresenter {
 
         // bind gap to JSpinner
         JSpinner gapSpinner = form.getGapSpinner();
-        ValueModel gapModel = new PropertyAdapter(annotation, CrosshairAnnotation.GAP_PROPERTY, true);
+        //ValueModel gapModel = new PropertyAdapter(annotation, CrosshairAnnotation.GAP_PROPERTY, true);
         spinnerModel = new SpinnerNumberModel(annotation.getGap(), 0, 20, 1);
-        SpinnerAdapterFactory.connect(spinnerModel, gapModel, 1);
+       // SpinnerAdapterFactory.connect(spinnerModel, gapModel, 1);
         gapSpinner.setModel(spinnerModel);
 
         // bind lineLength to JSpinner
         JSpinner lengthSpinner = form.getLineLengthSpinner();
-        ValueModel lengthModel = new PropertyAdapter(annotation, CrosshairAnnotation.LINE_LENGTH_PROPERTY, true);
+       // ValueModel lengthModel = new PropertyAdapter(annotation, CrosshairAnnotation.LINE_LENGTH_PROPERTY, true);
         spinnerModel = new SpinnerNumberModel(annotation.getLineLength(), .1, 1, .1);
-        SpinnerAdapterFactory.connect(spinnerModel, lengthModel, 1);
+        //SpinnerAdapterFactory.connect(spinnerModel, lengthModel, 1);
         lengthSpinner.setModel(spinnerModel);
         //form.getCancelButton().addActionListener();
 

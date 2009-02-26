@@ -1,6 +1,6 @@
 package brainflow.display;
 
-import com.jgoodies.binding.beans.Model;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +11,7 @@ import com.jgoodies.binding.beans.Model;
  */
 
 
-public class InterpolationMethod extends Model {
+public class InterpolationMethod  {
 
 
     public static final String INTERPOLATION_PROPERTY = "interpolation";
@@ -33,10 +33,8 @@ public class InterpolationMethod extends Model {
     }
 
     public void setInterpolation(InterpolationType interpolation) {
-        InterpolationType old = this.interpolation;
         this.interpolation = interpolation;
         
-        firePropertyChange(INTERPOLATION_PROPERTY, old, interpolation);
 
     }
 

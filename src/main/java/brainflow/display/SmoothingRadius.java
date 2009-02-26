@@ -43,6 +43,6 @@ public class SmoothingRadius extends LayerProperty {
         double old = getSmoothingRadius();
         this.smoothingRadius = smoothingRadius;
 
-        firePropertyChange(RADIUS_PROPERTY, old, getSmoothingRadius());
+       
     }
 }

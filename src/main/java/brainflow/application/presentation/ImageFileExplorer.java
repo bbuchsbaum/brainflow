@@ -49,15 +49,15 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     private FileSelector selector;
 
-    private ImageIcon folderIcon = new ImageIcon(ResourceLoader.getResource("resources/icons/folder.png"));
+    private ImageIcon folderIcon = new ImageIcon(ResourceLoader.getResource("icons/folder.png"));
 
-    private ImageIcon brickIcon = new ImageIcon(ResourceLoader.getResource("resources/icons/brick.png"));
+    private ImageIcon brickIcon = new ImageIcon(ResourceLoader.getResource("icons/brick.png"));
 
-    private ImageIcon folderOpenIcon = new ImageIcon(ResourceLoader.getResource("resources/icons/folderOpen.png"));
+    private ImageIcon folderOpenIcon = new ImageIcon(ResourceLoader.getResource("icons/folderOpen.png"));
 
-    private ImageIcon imageBucketOpenIcon = new ImageIcon(ResourceLoader.getResource("resources/icons/bin.png"));
+    private ImageIcon imageBucketOpenIcon = new ImageIcon(ResourceLoader.getResource("icons/bin.png"));
 
-    private ImageIcon imageBucketIcon = new ImageIcon(ResourceLoader.getResource("resources/icons/bin_closed.png"));
+    private ImageIcon imageBucketIcon = new ImageIcon(ResourceLoader.getResource("icons/bin_closed.png"));
 
     private DefaultOverlayable overlayPanel;
 

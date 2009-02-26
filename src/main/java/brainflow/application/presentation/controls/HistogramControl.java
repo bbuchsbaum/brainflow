@@ -9,6 +9,7 @@ import brainflow.image.io.IImageDataSource;
 import brainflow.application.BrainFlowException;
 import brainflow.utils.Range;
 import brainflow.utils.IRange;
+import brainflow.core.BF;
 
 import javax.swing.*;
 
@@ -20,7 +21,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.NumberFormat;
 
-import test.TestUtils;
 import org.jdesktop.jxlayer.JXLayer;
 import org.jdesktop.jxlayer.plaf.AbstractLayerUI;
 import net.java.balloontip.BalloonTip;
@@ -256,7 +256,7 @@ public class HistogramControl extends JPanel implements MouseListener {
 
 
     public static void main(String[] args) {
-        IImageDataSource dataSource = TestUtils.quickDataSource("resources/data/global_mean+orig.HEAD");
+        IImageDataSource dataSource = null; //BF.quickDataSource("resources/data/global_mean+orig.HEAD");
         try {
             dataSource.load();
         } catch (BrainFlowException e) {

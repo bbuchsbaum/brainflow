@@ -2,7 +2,7 @@ package brainflow.display;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import test.Testable;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,7 +30,7 @@ public class Opacity extends LayerProperty {
         this.opacity = opacity;
     }
 
-    @Testable
+
     public double getOpacity() {
         return opacity;
     }
@@ -47,7 +47,7 @@ public class Opacity extends LayerProperty {
         double old = getOpacity();
         this.opacity = opacity;
 
-       firePropertyChange(OPACITY_PROPERTY, old, getOpacity());
+      
     }
 
     public boolean equals(Object o) {

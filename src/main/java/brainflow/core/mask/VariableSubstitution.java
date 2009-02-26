@@ -4,7 +4,7 @@ import brainflow.core.IImageDisplayModel;
 import brainflow.image.data.IImageData;
 import brainflow.image.data.ImageData;
 
-import test.Testable;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,7 +18,7 @@ public class VariableSubstitution extends AnalysisAdapter {
     private IImageDisplayModel model;
 
 
-    @Testable
+   
     public VariableSubstitution(IImageDisplayModel model) {
         this.model = model;
     }

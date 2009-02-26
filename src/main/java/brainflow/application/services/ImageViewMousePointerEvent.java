@@ -30,10 +30,12 @@ public class ImageViewMousePointerEvent extends ImageViewMouseEvent {
             MouseEvent event = getEvent();
             AnatomicalPoint3D cursorPos = getImageView().getCursorPos();
             AnatomicalPoint3D tmp = getImageView().getAnatomicalLocation(event.getComponent(), event.getPoint());
-            ap = tmp.convertTo(cursorPos.getSpace());
 
 
-            IImageSpace3D space = (IImageSpace3D)getImageView().getModel().getImageSpace();
+                ap = tmp.convertTo(cursorPos.getSpace());
+
+
+            IImageSpace3D space = getImageView().getModel().getImageSpace();
             float[] gridpos = space.worldToGrid((float)ap.getX(), (float)ap.getY(), (float)ap.getZ());
             double x1 = space.getImageAxis(Axis.X_AXIS).gridToReal(gridpos[0]);
             double y1 = space.getImageAxis(Axis.Y_AXIS).gridToReal(gridpos[1]);

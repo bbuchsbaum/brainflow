@@ -55,8 +55,7 @@ public class ImageViewFactory {
 
 
     public static ImageView createOrthogonalView(ImageView source, OrthoPlotLayout.ORIENTATION orientation) {
-        ImageView view = new ImageView(source.getModel());
-        view.initPlotLayout(new OrthoPlotLayout(view,  orientation));
+        ImageView view = new OrthoImageView(source.getModel(), orientation);
         addDefaultAnnotations(view);
 
         return view;
@@ -65,7 +64,7 @@ public class ImageViewFactory {
 
     public static ImageView createYokedAxialView(ImageView source) {
         ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalAxial());
-        //view.initPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalAxial()));
+        //view.resetPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalAxial()));
 
         addDefaultAnnotations(view);
 
@@ -73,16 +72,14 @@ public class ImageViewFactory {
     }
 
     public static ImageView createYokedCoronalView(ImageView source) {
-        ImageView view = new ImageView(source.getModel());
-        view.initPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalCoronal()));
+        ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalCoronal());
         DisplayManager.getInstance().yoke(source, view);
         return view;
     }
 
 
     public static ImageView createYokedSagittalView(ImageView source) {
-        ImageView view = new ImageView(source.getModel());
-        view.initPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalSagittal()));
+        ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalSagittal());
         DisplayManager.getInstance().yoke(source, view);
         return view;
 
@@ -114,17 +111,15 @@ public class ImageViewFactory {
 
 
     public static ImageView createSagittalView(ImageView source) {
-        ImageView view = new ImageView(source.getModel());
-        view.initPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalSagittal()));
-        view.cursorPos.set(source.cursorPos.get());
+        ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalSagittal());
+         view.cursorPos.set(source.cursorPos.get());
         addDefaultAnnotations(view);
         return view;
 
     }
 
     public static ImageView createCoronalView(ImageView source) {
-        ImageView view = new ImageView(source.getModel());
-        view.initPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalCoronal()));
+        ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalCoronal());
         addDefaultAnnotations(view);
         return view;
 
@@ -132,8 +127,7 @@ public class ImageViewFactory {
     }
 
     public static ImageView createAxialView(ImageView source) {
-        ImageView view = new ImageView(source.getModel());
-        view.initPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalAxial()));
+        ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalAxial());
         addDefaultAnnotations(view);
         return view;
 

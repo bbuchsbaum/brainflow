@@ -1,9 +1,6 @@
 package brainflow.application.presentation;
 
 import brainflow.colormap.*;
-import com.jgoodies.binding.PresentationModel;
-import com.jgoodies.binding.adapter.BasicComponentFactory;
-import com.jgoodies.binding.value.ValueModel;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.Sizes;
@@ -54,7 +51,7 @@ public class ColorGradientEditor extends JPanel {
 
     private JRadioButton twoColorButton;
 
-    private PresentationModel choiceModel;
+   // private PresentationModel choiceModel;
 
     //private ExecutorService threadService = Executors.newSingleThreadExecutor();
 
@@ -82,10 +79,10 @@ public class ColorGradientEditor extends JPanel {
         colorComboTwo = new ColorComboBox();
         colorComboTwo.setSelectedColor(colorTwo);
 
-        choiceModel = new PresentationModel(this);
-        ValueModel gradientValue = choiceModel.getModel(ColorGradientEditor.GRADIENT_SETTING_PROPERTY);
-        oneColorButton = BasicComponentFactory.createRadioButton(gradientValue, ColorGradientEditor.ONE_COLOR_GRADIENT, "One Color");
-        twoColorButton = BasicComponentFactory.createRadioButton(gradientValue, ColorGradientEditor.TWO_COLOR_GRADIENT, "Two Color");
+    //    choiceModel = new PresentationModel(this);
+    //    ValueModel gradientValue = choiceModel.getModel(ColorGradientEditor.GRADIENT_SETTING_PROPERTY);
+     //   oneColorButton = BasicComponentFactory.createRadioButton(gradientValue, ColorGradientEditor.ONE_COLOR_GRADIENT, "One Color");
+     //   twoColorButton = BasicComponentFactory.createRadioButton(gradientValue, ColorGradientEditor.TWO_COLOR_GRADIENT, "Two Color");
 
 
         initBindings();

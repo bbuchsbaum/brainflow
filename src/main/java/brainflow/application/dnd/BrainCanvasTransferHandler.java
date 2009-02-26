@@ -63,7 +63,8 @@ public class BrainCanvasTransferHandler extends ImageDropHandler {
             ImageView view = canvas.whichView(c, p);
 
             if (view == null) {
-                IImageDisplayModel model = ProjectManager.getInstance().addToActiveProject(layer);
+                //todo hack cast
+                IImageDisplayModel model = ProjectManager.getInstance().addToActiveProject((ImageLayer3D)layer);
                 DisplayManager.getInstance().displayView(ImageViewFactory.createAxialView(model));
             } else {
 

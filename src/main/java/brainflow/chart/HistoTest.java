@@ -3,7 +3,6 @@ package brainflow.chart;
 import brainflow.image.Histogram;
 import brainflow.image.io.IImageDataSource;
 import brainflow.display.ColoredHistogram;
-import test.TestUtils;
 import brainflow.colormap.LinearColorMap2;
 import brainflow.colormap.ColorTable;
 
@@ -41,7 +40,7 @@ public class HistoTest extends JPanel {
     }
 
     public static void main(String[] args) {
-        IImageDataSource dataSource = TestUtils.quickDataSource("resources/data/global_mean+orig.HEAD");
+        IImageDataSource dataSource = null; //TestUtils.quickDataSource("resources/data/global_mean+orig.HEAD");
         Histogram histo = new Histogram(dataSource.getData(),256);
 
         JFrame jf = new JFrame();

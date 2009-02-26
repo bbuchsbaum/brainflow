@@ -1,6 +1,6 @@
 package brainflow.image.anatomy;
 
-import com.jgoodies.binding.beans.ExtendedPropertyChangeSupport;
+
 import brainflow.image.space.ImageSpace2D;
 import brainflow.image.axis.ImageAxis;
 
@@ -21,7 +21,6 @@ public class AnatomicalPoint2D implements AnatomicalPoint {
     private double y;
 
 
-    private PropertyChangeSupport changeSupport = new ExtendedPropertyChangeSupport(this);
 
     public AnatomicalPoint2D(Anatomy2D _anatomy, double x, double y) {
         this.x = x;
@@ -53,9 +52,6 @@ public class AnatomicalPoint2D implements AnatomicalPoint {
 
     public void setX(double x) {
         this.x = x;
-        double oldProperty = this.x;
-        this.x = x;
-        changeSupport.firePropertyChange("zero", oldProperty, this.x);
 
     }
 
@@ -64,10 +60,8 @@ public class AnatomicalPoint2D implements AnatomicalPoint {
     }
 
     public void setY(double y) {
-        double oldProperty = this.y;
         this.y = y;
-        changeSupport.firePropertyChange("zero", oldProperty, this.y);
-    }
+       }
 
     public Anatomy2D getAnatomy() {
         return anatomy;

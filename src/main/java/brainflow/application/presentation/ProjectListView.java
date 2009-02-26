@@ -3,12 +3,13 @@ package brainflow.application.presentation;
 import brainflow.application.BrainFlowProject;
 import brainflow.core.layer.AbstractLayer;
 import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageView;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.image.space.Axis;
 import brainflow.image.space.ICoordinateSpace;
-import com.jgoodies.binding.list.ArrayListModel;
+
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.JideTitledBorder;
@@ -62,7 +63,7 @@ public class ProjectListView extends ImageViewPresenter {
 
         layout = new FormLayout("6dlu, l:max(p;65dlu), 1dlu, 12dlu, l:max(p;100dlu):g, 1dlu, 4dlu", "8dlu, max(p;50dlu), 6dlu, max(p;30dlu), 4dlu");
 
-        modelList = new JList(new ArrayListModel(project.getModelList()));
+        modelList = new JList(project.getModelList().toArray());
 
 
         if (project.size() > 0) {
@@ -135,8 +136,8 @@ public class ProjectListView extends ImageViewPresenter {
 
     }
 
-    public ImageLayer getSelectedLayer() {
-        return (ImageLayer) layerList.getSelectedValue();
+    public ImageLayer3D getSelectedLayer() {
+        return (ImageLayer3D)layerList.getSelectedValue();
     }
 
     public void viewSelected(ImageView view) {

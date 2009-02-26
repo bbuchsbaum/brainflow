@@ -16,6 +16,7 @@ import brainflow.core.AbsClipRange;
 import brainflow.core.IClipRange;
 import brainflow.core.ClipRange;
 import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.BiSlider;
 import brainflow.gui.NumberRangeModel;
 
@@ -89,7 +90,7 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
     }
 
     @Override
-    protected void layerSelected(ImageLayer layer) {
+    protected void layerSelected(ImageLayer3D layer) {
         bind();
     }
 

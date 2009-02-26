@@ -36,11 +36,11 @@ public class FileExplorer extends AbstractPresenter {
 
     protected DefaultTreeModel treeModel;
 
-    private ImageIcon folderIcon = new ImageIcon(ResourceLoader.getResource("resources/icons/folder.png"));
+    private ImageIcon folderIcon = new ImageIcon(ResourceLoader.getResource("icons/folder.png"));
 
-    private ImageIcon folderOpenIcon = new ImageIcon(ResourceLoader.getResource("resources/icons/folderOpen.png"));
+    private ImageIcon folderOpenIcon = new ImageIcon(ResourceLoader.getResource("icons/folderOpen.png"));
 
-    private ImageIcon leafIcon = new ImageIcon(ResourceLoader.getResource("resources/icons/intf_obj.gif"));
+    private ImageIcon leafIcon = new ImageIcon(ResourceLoader.getResource("icons/intf_obj.gif"));
 
     protected FileSelector selector;
 

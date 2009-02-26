@@ -35,6 +35,7 @@ package brainflow.math;
 import java.util.logging.Logger;
 
 public class Eigen3f {
+
     private static final Logger logger = Logger.getLogger(Eigen3f.class
             .getName());
 

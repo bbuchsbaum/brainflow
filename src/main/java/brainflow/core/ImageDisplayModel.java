@@ -8,6 +8,7 @@ import brainflow.image.data.IImageData;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ImageSpace3D;
+import brainflow.image.space.IImageSpace3D;
 import brainflow.utils.WeakEventListenerList;
 import brainflow.core.layer.*;
 import net.java.dev.properties.BaseProperty;
@@ -35,11 +36,11 @@ public class ImageDisplayModel implements IImageDisplayModel {
 
     private final static Logger log = Logger.getLogger(ImageDisplayModel.class.getName());
 
-    private static IImageSpace EMPTY_SPACE = new ImageSpace3D(new ImageAxis(0, 100, Anatomy3D.getCanonicalAxial().XAXIS, 100),
+    private static IImageSpace3D EMPTY_SPACE = new ImageSpace3D(new ImageAxis(0, 100, Anatomy3D.getCanonicalAxial().XAXIS, 100),
             new ImageAxis(0, 100, Anatomy3D.getCanonicalAxial().YAXIS, 100),
             new ImageAxis(0, 100, Anatomy3D.getCanonicalAxial().ZAXIS, 100));
 
-    private IImageSpace imageSpace = EMPTY_SPACE;
+    private IImageSpace3D imageSpace = EMPTY_SPACE;
 
 
     public static final String IMAGE_SPACE_PROPERTY = "imageSpace";
@@ -180,8 +181,7 @@ public class ImageDisplayModel implements IImageDisplayModel {
 
         visListener = new ImageLayerListenerImpl() {
             public void visibilityChanged(ImageLayerEvent event) {
-                //todo hack cast
-                ImageLayer3D layer = (ImageLayer3D) event.getAffectedLayer();
+                 ImageLayer3D layer = event.getAffectedLayer();
                 int index = ImageDisplayModel.this.indexOf(layer);
                 if (layer.isVisible()) {
                     visibleSelection.add(index);
@@ -649,7 +649,7 @@ public class ImageDisplayModel implements IImageDisplayModel {
         return size();
     }
 
-    public IImageSpace getImageSpace() {
+    public IImageSpace3D getImageSpace() {
         return imageSpace;
 
     }

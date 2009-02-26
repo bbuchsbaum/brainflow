@@ -1,6 +1,6 @@
 package brainflow.application.presentation.inspection;
 
-import test.TestUtils;
+
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.io.ImageInfo;
 import brainflow.utils.IDimension;
@@ -49,7 +49,7 @@ public class ImageInfoInspector {
         try {
             //UIManager.setLookAndFeel(new org.jvnet.substance.skin.SubstanceBusinessBlueSteelLookAndFeel());
 
-            IImageDataSource source = TestUtils.quickDataSource("icbm452_atlas_probability_gray.hdr");
+            IImageDataSource source = null; //TestUtils.quickDataSource("icbm452_atlas_probability_gray.hdr");
             ImageInfo info = source.getImageInfo();
 
             ImageInfoInspector inspector = new ImageInfoInspector(info);

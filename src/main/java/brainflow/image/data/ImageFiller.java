@@ -7,7 +7,7 @@ import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ImageSpace2D;
-import test.Testable;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,7 +22,7 @@ public class ImageFiller {
 
 
 
-    @Testable
+    
     public BasicImageData2D fillImage(DataAccessor3D inputData, Anatomy3D displayAnatomy, int displayIndex) {
 
         ispace = inputData.getImageSpace();

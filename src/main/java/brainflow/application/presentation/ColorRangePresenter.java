@@ -4,6 +4,7 @@ import brainflow.application.presentation.binding.Bindable;
 import brainflow.application.presentation.binding.ExtBind;
 
 import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.ImageView;
 import brainflow.gui.BiSlider;
 import brainflow.gui.NumberRangeModel;
@@ -61,7 +62,7 @@ public class ColorRangePresenter extends ImageViewPresenter implements Bindable 
     }
 
     @Override
-    protected void layerSelected(ImageLayer layer) {
+    protected void layerSelected(ImageLayer3D layer) {
         bind();
     }
 

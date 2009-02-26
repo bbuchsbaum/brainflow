@@ -14,6 +14,7 @@ import brainflow.application.presentation.binding.PercentageRangeConverter;
 import brainflow.application.presentation.controls.RenderingParamsForm;
 import brainflow.core.ImageView;
 import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 
 import javax.swing.*;
 
@@ -65,7 +66,7 @@ public class RenderingParamsPresenter extends ImageViewPresenter implements Bind
     }
 
     @Override
-    protected void layerSelected(ImageLayer layer) {
+    protected void layerSelected(ImageLayer3D layer) {
         bind();
         //SelectionInList sel = layer.getImageLayerProperties().getInterpolationMethod();
         //Bindings.bind(form.getInterpolationChoices(), sel);

@@ -97,7 +97,7 @@ public class ThresholdRange extends LayerProperty implements MaskPredicate, IRan
         }
 
 
-        firePropertyChange(ThresholdRange.INCLUSIVE_PROPERTY, old, isInclusive());
+
     }
 
     /*public void setRange(double min, double max) {

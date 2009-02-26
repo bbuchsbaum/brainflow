@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module relativePaths="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Groovy" name="Groovy">
+      <configuration />
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/lib" />
     </content>
+    <orderEntry type="library" name="GROOVY" level="application" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="eventbus" level="application" />
@@ -17,7 +26,6 @@
     <orderEntry type="library" name="commons-vfs" level="application" />
     <orderEntry type="library" name="jgoodies-forms" level="application" />
     <orderEntry type="library" name="xstream" level="application" />
-    <orderEntry type="library" name="jgoodies-binding" level="application" />
     <orderEntry type="library" name="datatips" level="application" />
     <orderEntry type="library" name="jdom" level="application" />
     <orderEntry type="library" name="commons-logging" level="application" />

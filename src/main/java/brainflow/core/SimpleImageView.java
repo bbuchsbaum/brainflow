@@ -2,6 +2,7 @@ package brainflow.core;
 
 import brainflow.image.anatomy.Anatomy3D;
 import com.pietschy.command.CommandContainer;
+import com.pietschy.command.ActionCommand;
 import com.pietschy.command.group.GroupBuilder;
 import com.pietschy.command.toggle.ToggleCommand;
 import com.pietschy.command.toggle.ToggleVetoException;
@@ -9,6 +10,7 @@ import com.pietschy.command.toggle.ToggleGroup;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,9 +22,10 @@ import java.awt.*;
 public class SimpleImageView extends ImageView {
 
 
-    private CommandContainer commandContainer;
+    private CommandContainer commandContainer = new CommandContainer();
 
-    private ToggleCommand switchSagittal = new ToggleCommand() {
+    protected class SwitchSagittal extends ToggleCommand {
+
         protected void handleSelection(boolean b) throws ToggleVetoException {
             if (b && !getPlotLayout().getDisplayAnatomy().isSagittal()) {
                 getPlotLayout().setDisplayAnatomy(Anatomy3D.getCanonicalSagittal());
@@ -31,7 +34,7 @@ public class SimpleImageView extends ImageView {
 
     };
 
-    private ToggleCommand switchAxial = new ToggleCommand() {
+    protected class SwitchAxial extends ToggleCommand  {
         protected void handleSelection(boolean b) throws ToggleVetoException {
             if (b && !getPlotLayout().getDisplayAnatomy().isAxial()) {
                 getPlotLayout().setDisplayAnatomy(Anatomy3D.getCanonicalAxial());
@@ -40,7 +43,7 @@ public class SimpleImageView extends ImageView {
 
     };
 
-    private ToggleCommand switchCoronal = new ToggleCommand() {
+     protected class SwitchCoronal extends ToggleCommand  {
         protected void handleSelection(boolean b) throws ToggleVetoException {
             if (b && !getPlotLayout().getDisplayAnatomy().isCoronal()) {
                 getPlotLayout().setDisplayAnatomy(Anatomy3D.getCanonicalCoronal());
@@ -50,43 +53,79 @@ public class SimpleImageView extends ImageView {
 
     };
 
+
+    private ToggleCommand switchAxial = new SwitchAxial();
+
+    private ToggleCommand switchCoronal = new SwitchCoronal();
+
+    private ToggleCommand switchSagittal = new SwitchSagittal();
+
+    private Anatomy3D displayAnatomy;
+
+    private ImagePlotLayout plotLayout;
+
     public SimpleImageView(IImageDisplayModel imodel, Anatomy3D displayAnatomy) {
         super(imodel);
+        this.displayAnatomy = displayAnatomy;
 
-
-        initPlotLayout(new SimplePlotLayout(this, displayAnatomy));
-        commandContainer = new CommandContainer();
+        layoutPlots();
+        initDisplayAnatomy(displayAnatomy);
+              
         commandContainer.bind(this);
-        
+
+        initToolBar();
+    }
+
+    protected void layoutPlots() {
+        plotLayout = createPlotLayout(displayAnatomy);
+        resetPlotLayout(plotLayout);
+
+    }
+
+    public SimplePlotLayout getPlotLayout() {
+        return (SimplePlotLayout)plotLayout;
+    }
+
+    protected ImagePlotLayout createPlotLayout(Anatomy3D displayAnatomy) {
+       return new SimplePlotLayout(this, displayAnatomy);
+
+    }
+
+    protected CommandContainer getCommandContainer() {
+        return commandContainer;
+    }
+
+    protected void initDisplayAnatomy(Anatomy3D displayAnatomy) {
         if (displayAnatomy.isAxial()) {
             switchAxial.setSelected(true);
         } else if (displayAnatomy.isCoronal()) {
             switchCoronal.setSelected(true);
-        } else {
+        } else if (displayAnatomy.isSagittal()){
             switchSagittal.setSelected(true);
+        } else {
+            Logger.getAnonymousLogger().severe("DisplayAnatomy not one of : [Axial, Coronal, Sagittal] -- this should never happen");
         }
 
-        initToolBar();
+    }
+
+
+    protected void initCommand(ActionCommand command, String text, String iconpath) {
+        command.getDefaultFace(true).setText(text);
+        ImageIcon icon = new ImageIcon(getClass().getResource(iconpath));
+        command.getDefaultFace().setIcon(icon);
+        command.bind(commandContainer);
+
     }
 
 
 
     protected void initToolBar() {
-
-
-        switchSagittal.getDefaultFace(true).setText("");
-        switchSagittal.getDefaultFace().setIcon(new ImageIcon(getClass().getResource("sagit_16.png")));
-        switchSagittal.bind(commandContainer);
-
-
-        switchAxial.getDefaultFace(true).setText("");
-        switchAxial.getDefaultFace().setIcon(new ImageIcon(getClass().getResource("axial_16.png")));
-        switchAxial.bind(commandContainer);
-
-
-        switchCoronal.getDefaultFace(true).setText("cor");
-        switchCoronal.bind(commandContainer);
-        switchCoronal.getDefaultFace().setIcon(new ImageIcon(getClass().getResource("coronal_16.png")));
+        ToggleCommand switchAxial = new SwitchAxial();
+        ToggleCommand switchCoronal = new SwitchCoronal();
+        ToggleCommand switchSagittal = new SwitchSagittal();
+        initCommand(switchAxial, "", "axial_16.png");
+        initCommand(switchCoronal, "", "coronal_16.png");
+        initCommand(switchSagittal, "", "sagit_16.png");
 
         ToggleGroup switchGroup = new ToggleGroup();
 

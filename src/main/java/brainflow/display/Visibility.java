@@ -1,7 +1,7 @@
 package brainflow.display;
 
 import brainflow.core.layer.ImageLayerProperties;
-import com.jgoodies.binding.beans.Model;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -15,7 +15,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
  */
 
 @XStreamAlias("visible")
-public class Visibility extends Model {
+public class Visibility  {
 
     @XStreamAsAttribute()
     @XStreamAlias("value")
@@ -45,7 +45,7 @@ public class Visibility extends Model {
         boolean old = isVisible();
         this.visible = visible;
 
-        firePropertyChange(VISIBLE_PROPERTY, old, this.visible);
+       
     }
 
     public boolean equals(Object o) {

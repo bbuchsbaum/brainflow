@@ -209,21 +209,21 @@ public class BrainFlow {
             String osname = System.getProperty("os.name");
             System.out.println("os name is : " + osname);
             if (osname.toUpperCase().contains("WINDOWS")) {
-                //UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
-                UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
+                UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
+                //UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
                 //UIManager.setLookAndFeel(new WindowsLookAndFeel());
                 LookAndFeelFactory.installJideExtension();
 
             } else if (osname.toUpperCase().contains("LINUX")) {
                 //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
                 //LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
-                UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
+                UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
                 //UIManager.setLookAndFeel(new WindowsLookAndFeel());
                 LookAndFeelFactory.installJideExtension();
 
             } else if (osname.toUpperCase().contains("MAC")) {
                 //System.setProperty("Quaqua.tabLayoutPolicy","wrap");
-                UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
+                UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
                 //UIManager.setLookAndFeel(new ch.randelshofer.quaqua.QuaquaLookAndFeel());
                 LookAndFeelFactory.installJideExtension();
             }
@@ -296,8 +296,8 @@ public class BrainFlow {
     private boolean loadCommands() {
         try {
 
-            GuiCommands.load("resources/commands/ImageViewCommands");
-            GuiCommands.load("resources/commands/BrainFlowCommands");
+            GuiCommands.load("commands/ImageViewCommands");
+            GuiCommands.load("commands/BrainFlowCommands");
 
 
         } catch (ParseException e) {
@@ -584,7 +584,7 @@ public class BrainFlow {
             SearchableImageFileExplorer explorer = new SearchableImageFileExplorer(loadingDock);
 
             DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("File Manager",
-                    "resources/icons/fldr_obj.gif",
+                    "icons/fldr_obj.gif",
                     DockContext.STATE_FRAMEDOCKED,
                     DockContext.DOCK_SIDE_WEST);
 
@@ -610,7 +610,7 @@ public class BrainFlow {
 
         ProjectTreeView projectTreeView = new ProjectTreeView(ProjectManager.getInstance().getActiveProject());
         DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Project",
-                "resources/icons/folder_page.png",
+                "icons/folder_page.png",
                 DockContext.STATE_FRAMEDOCKED,
                 DockContext.DOCK_SIDE_WEST, 2);
 
@@ -632,7 +632,7 @@ public class BrainFlow {
 
         LoadableImageTableView loadView = new LoadableImageTableView();
         DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Loaded Images",
-                "resources/icons/det_pane_hide.gif",
+                "icons/det_pane_hide.gif",
                 DockContext.STATE_HIDDEN,
                 DockContext.DOCK_SIDE_WEST,
                 1);
@@ -645,7 +645,7 @@ public class BrainFlow {
 
     private void initLogMonitor() {
         DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Log Monitor",
-                "resources/icons/console_view.gif",
+                "icons/console_view.gif",
                 DockContext.STATE_AUTOHIDE,
                 DockContext.DOCK_SIDE_SOUTH,
                 1);
@@ -663,7 +663,7 @@ public class BrainFlow {
 
     private void initEventBusMonitor() {
         DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Event Monitor",
-                "resources/icons/console_view.gif",
+                "icons/console_view.gif",
                 DockContext.STATE_AUTOHIDE,
                 DockContext.DOCK_SIDE_SOUTH,
                 1);
@@ -682,7 +682,7 @@ public class BrainFlow {
         JideTabbedPane tabbedPane = new JideTabbedPane();
 
         DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Tool Box",
-                "resources/icons/types.gif",
+                "icons/types.gif",
                 DockContext.STATE_FRAMEDOCKED,
                 DockContext.DOCK_SIDE_EAST);
 

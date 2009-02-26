@@ -45,6 +45,7 @@ import java.util.logging.Logger;
  * @author Mark Powell
  * @version $Id: Plane.java,v 1.15 2007/09/21 15:45:26 nca Exp $
  */
+
 public class Plane implements Serializable {
     private static final Logger logger = Logger
             .getLogger(Plane.class.getName());

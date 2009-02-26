@@ -6,8 +6,6 @@ import brainflow.core.*;
 import brainflow.core.annotations.BoxAnnotation;
 import brainflow.image.anatomy.AnatomicalPoint2D;
 import brainflow.image.anatomy.Anatomy3D;
-import com.jgoodies.binding.adapter.BoundedRangeAdapter;
-import com.jgoodies.binding.beans.BeanAdapter;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.JideBorderLayout;
@@ -47,11 +45,11 @@ public class ImageViewportPresenter extends ImageViewPresenter {
 
     private SpinnerNumberModel yspinnerModel;
 
-    private BeanAdapter viewportAdapter;
+  //  private BeanAdapter viewportAdapter;
 
-    private BoundedRangeAdapter xfovAdapter;
+  //  private BoundedRangeAdapter xfovAdapter;
 
-    private BoundedRangeAdapter yfovAdapter;
+  //  private BoundedRangeAdapter yfovAdapter;
 
     private PropertyConnector xoriginConnector;
 
@@ -123,9 +121,8 @@ public class ImageViewportPresenter extends ImageViewPresenter {
         //form.add(ypan, cc.xy(4, 2));
 
         viewPanel = new JPanel();
-        boxView = new ImageView(new ImageDisplayModel("NULL"));
+        boxView = new SimpleImageView(new ImageDisplayModel("NULL"), Anatomy3D.getCanonicalAxial());
         boxView.pixelsPerUnit.set(.7);
-        boxView.initPlotLayout(new SimplePlotLayout(boxView, Anatomy3D.getCanonicalAxial()));
         boxView.clearAnnotations();
         boxView.getSelectedPlot().setPlotInsets(new Insets(2, 2, 2, 2));
         boxAnnotation.setVisible(false);
@@ -239,10 +236,9 @@ public class ImageViewportPresenter extends ImageViewPresenter {
 
 
         //if (boxView == null) {
-            boxView = new ImageView(view.getModel());
+            boxView = new SimpleImageView(view.getModel(), Anatomy3D.getCanonicalAxial());
             boxView.identifier.set("Viewport Editor");
-            boxView.initPlotLayout(new SimplePlotLayout(boxView, view.getSelectedPlot().getDisplayAnatomy()));
-            boxView.clearAnnotations();
+             boxView.clearAnnotations();
             boxView.getSelectedPlot().setPlotInsets(new Insets(2, 2, 2, 2));
             boxAnnotation.setVisible(true);
 
@@ -292,11 +288,11 @@ public class ImageViewportPresenter extends ImageViewPresenter {
         Viewport3D viewport = view.getViewport();
         IImagePlot plot = view.getSelectedPlot();
         
-        if (viewportAdapter == null) {
-            viewportAdapter = new BeanAdapter(viewport, true);
-        } else {
-            viewportAdapter.setBean(viewport);
-        }
+       // if (viewportAdapter == null) {
+       //     viewportAdapter = new BeanAdapter(viewport, true);
+       // } else {
+       //     viewportAdapter.setBean(viewport);
+       // }
 
         //ValueModel xextent = viewportAdapter.getValueModel(viewport.getExtentProperty(plot.getXAxisRange().getAnatomicalAxis()));
         //ValueModel yextent = viewportAdapter.getValueModel(viewport.getExtentProperty(plot.getYAxisRange().getAnatomicalAxis()));

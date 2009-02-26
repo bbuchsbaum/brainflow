@@ -8,7 +8,7 @@ import brainflow.image.space.IImageSpace3D;
 import brainflow.math.ArrayUtils;
 import brainflow.math.Index3D;
 import brainflow.utils.DataType;
-import test.TestUtils;
+
 
 import java.awt.image.DataBuffer;
 
@@ -346,7 +346,7 @@ public class BasicImageData3D extends BasicImageData implements IImageData3D {
 
     public static void main(String[] args) {
         try {
-            IImageData data = TestUtils.quickDataSource("mean-BRB-EPI-001.nii").load();
+            IImageData data = null;//TestUtils.quickDataSource("mean-BRB-EPI-001.nii").load();
             Index3D vox = new Index3D(0,0,0);
 
          

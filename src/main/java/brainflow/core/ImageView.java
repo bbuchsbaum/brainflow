@@ -2,7 +2,7 @@ package brainflow.core;
 
 import brainflow.application.services.ImageViewLayerSelectionEvent;
 import brainflow.core.annotations.IAnnotation;
-import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 import brainflow.display.InterpolationType;
 import brainflow.image.anatomy.*;
 import brainflow.image.axis.ImageAxis;
@@ -49,7 +49,7 @@ import java.util.logging.Logger;
  */
 
 
-public class ImageView extends JPanel implements ListDataListener, ImageDisplayModelListener {
+public abstract class ImageView extends JPanel implements ListDataListener, ImageDisplayModelListener {
 
     private static final Logger log = Logger.getLogger(ImageView.class.getName());
 
@@ -81,6 +81,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
         public void set(AnatomicalPoint3D ap) {
 
             ap = ap.snapToBounds();
+
             if (!ap.equals(get())) {
                 super.set(ap);
             }
@@ -97,7 +98,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
             }
 
 
-            IImageSpace3D space = (IImageSpace3D) getModel().getImageSpace();
+            IImageSpace3D space = getModel().getImageSpace();
             float[] gridpos = space.worldToGrid((float) ap.getX(), (float) ap.getY(), (float) ap.getZ());
             double x1 = space.getImageAxis(Axis.X_AXIS).gridToReal(gridpos[0]);
             double y1 = space.getImageAxis(Axis.Y_AXIS).gridToReal(gridpos[1]);
@@ -108,7 +109,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
         public AnatomicalPoint3D get() {
             RProperty<AnatomicalPoint3D> cpos = (RProperty<AnatomicalPoint3D>) getProperties()[0];
-            IImageSpace3D space = (IImageSpace3D) getModel().getImageSpace();
+            IImageSpace3D space =  getModel().getImageSpace();
             double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(cpos.get().getX());
             double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(cpos.get().getY());
             double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(cpos.get().getZ());
@@ -122,7 +123,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
     public final Property<Double> cursorX = new ObservableProperty<Double>() {
         public void set(Double aDouble) {
             super.set(aDouble);
-            cursorPos.set(new AnatomicalPoint3D((IImageSpace3D) getModel().getImageSpace(), aDouble, cursorPos.get().getY(), cursorPos.get().getZ()));
+            cursorPos.set(new AnatomicalPoint3D(getModel().getImageSpace(), aDouble, cursorPos.get().getY(), cursorPos.get().getZ()));
         }
 
         public Double get() {
@@ -133,7 +134,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
     public final Property<Double> cursorY = new ObservableProperty<Double>() {
         public void set(Double aDouble) {
             super.set(aDouble);
-            cursorPos.set(new AnatomicalPoint3D((IImageSpace3D) getModel().getImageSpace(), cursorPos.get().getX(), aDouble, cursorPos.get().getZ()));
+            cursorPos.set(new AnatomicalPoint3D(getModel().getImageSpace(), cursorPos.get().getX(), aDouble, cursorPos.get().getZ()));
         }
 
         public Double get() {
@@ -144,7 +145,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
     public final Property<Double> cursorZ = new ObservableProperty<Double>() {
         public void set(Double aDouble) {
             super.set(aDouble);
-            cursorPos.set(new AnatomicalPoint3D((IImageSpace3D) getModel().getImageSpace(), cursorPos.get().getX(), cursorPos.get().getY(), aDouble));
+            cursorPos.set(new AnatomicalPoint3D( getModel().getImageSpace(), cursorPos.get().getX(), cursorPos.get().getY(), aDouble));
         }
 
         public Double get() {
@@ -155,7 +156,6 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
     private InterpolationType screenInterpolation = InterpolationType.NEAREST_NEIGHBOR;
 
-    private ImagePlotLayout plotLayout = new SimplePlotLayout(this, Anatomy3D.getCanonicalAxial());
 
     private SliceController sliceController;
 
@@ -177,33 +177,32 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
     public ImageView(IImageDisplayModel imodel) {
         BeanContainer.bind(this);
-        displayModel.set(imodel);
 
+        displayModel.set(imodel);
         setLayout(new BorderLayout());
         add(contentPane, BorderLayout.CENTER);
 
         initView();
     }
 
+  
 
-    public ImagePlotLayout getPlotLayout() {
-        return plotLayout;
-    }
 
-    public void initPlotLayout(ImagePlotLayout plotLayout) {
-        this.plotLayout = plotLayout;
+
+
+    public abstract ImagePlotLayout getPlotLayout();
+
+    protected void resetPlotLayout(ImagePlotLayout plotLayout) {
+        //this.plotLayout = plotLayout;
         List<IImagePlot> plots = plotLayout.layoutPlots();
-
-        assert plots.size() > 0 : "assertion failure, plot layout returned empty plot list";
-
-
         plotList.set(plots);
         plotSelection.set(0);
 
         sliceController = plotLayout.createSliceController();
-
         revalidate();
     }
+
+    protected abstract void layoutPlots();
 
     public void clearListeners() {
         displayModel.get().removeImageDisplayModelListener(this);
@@ -215,39 +214,35 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
 
     protected void registerListeners() {
+        BeanContainer.get().addListener(displayModel.get().getListSelection(), layerSelectionListener);
         displayModel.get().addImageDisplayModelListener(this);
 
         addMouseListener(plotSelectionHandler);
-        BeanContainer.get().addListener(displayModel.get().getListSelection(), layerSelectionListener);
+
 
 
     }
 
     private void updateView() {
         clearListeners();
-        plotLayout.setView(this);
-        initPlotLayout(plotLayout);
-
+        getPlotLayout().setView(this);
         initView();
-
+        resetPlotLayout(getPlotLayout());
 
     }
 
-    private void initView() {
 
-
+    protected void initViewport() {
         viewport = new Viewport3D(getModel());
+        AnatomicalPoint3D centroid = getModel().getImageSpace().getCentroid();
+        cursorPos.set(new CursorPosition(getModel().getImageSpace(), centroid.getX(), centroid.getY(), centroid.getZ()));
 
-        AnatomicalPoint3D centroid = (AnatomicalPoint3D) getModel().getImageSpace().getCentroid();
+    }
 
-        // centroid is in world space
-
-        cursorPos.set(new CursorPosition((IImageSpace3D) getModel().getImageSpace(), centroid.getX(), centroid.getY(), centroid.getZ()));
-
+    protected void initView() {
+        initViewport();
         registerListeners();
-        initPlotLayout(plotLayout);
-
-
+       
     }
 
     protected JPanel getContentPane() {
@@ -304,7 +299,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
     }
 
-    public ImageLayer getSelectedLayer() {
+    public ImageLayer3D getSelectedLayer() {
         return displayModel.get().getSelectedLayer();
     }
 
@@ -373,14 +368,14 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
     }
 
     public void setAnnotation(String name, IAnnotation annotation) {
-        Iterator<IImagePlot> iter = plotLayout.iterator();
+        Iterator<IImagePlot> iter = getPlotLayout().iterator();
         while (iter.hasNext()) {
             setAnnotation(iter.next(), name, annotation);
         }
     }
 
     public void setAnnotation(IImagePlot plot, String name, IAnnotation annotation) {
-        if (!plotLayout.containsPlot(plot)) {
+        if (!getPlotLayout().containsPlot(plot)) {
             throw new IllegalArgumentException("View does not contain plot : " + plot);
         }
 
@@ -390,7 +385,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
     }
 
     public Point getCrosshairLocation(IImagePlot plot) {
-        if (!plotLayout.containsPlot(plot)) {
+        if (!getPlotLayout().containsPlot(plot)) {
             throw new IllegalArgumentException("View does not contain plot : " + plot);
         }
 
@@ -419,7 +414,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
     public boolean pointInPlot(Component source, Point p) {
         Point viewPoint = SwingUtilities.convertPoint(source, p, this);
-        return (!(whichPlot(viewPoint) == null));
+        return !(whichPlot(viewPoint) == null);
 
     }
 
@@ -429,6 +424,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
         IImagePlot plot = whichPlot(viewPoint);
 
         if (plot == null) {
+            log.warning("point outside view, returning null");
             return null;
         }
 
@@ -452,15 +448,15 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
 
     public IImagePlot whichPlot(Point p) {
-        return plotLayout.whichPlot(p);
+        return getPlotLayout().whichPlot(p);
     }
 
     public List<IImagePlot> getPlots() {
-        return plotLayout.getPlots();
+        return getPlotLayout().getPlots();
     }
 
     public ListIterator<IImagePlot> plotIterator() {
-        return plotLayout.iterator();
+        return getPlotLayout().iterator();
     }
 
     public RenderedImage captureImage() {
@@ -512,7 +508,7 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
     @Override
     public Dimension getPreferredSize() {
-        Dimension d = plotLayout.getPreferredSize();
+        Dimension d = getPlotLayout().getPreferredSize();
 
         d.setSize(d.getWidth() * pixelsPerUnit.get(), d.getHeight() * pixelsPerUnit.get());
         return d;
@@ -529,8 +525,8 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
             int selectionIndex = (Integer) newValue;
             int oldIndex = (Integer) oldValue;
 
-            ImageLayer selectedLayer = getModel().getLayer(selectionIndex);
-            ImageLayer deselectedLayer = getModel().getLayer(oldIndex);
+            ImageLayer3D selectedLayer = getModel().getLayer(selectionIndex);
+            ImageLayer3D deselectedLayer = getModel().getLayer(oldIndex);
 
             if (selectionIndex >= 0) {
                 EventBus.publish(new ImageViewLayerSelectionEvent(ImageView.this, deselectedLayer, selectedLayer));
@@ -596,11 +592,6 @@ public class ImageView extends JPanel implements ListDataListener, ImageDisplayM
 
    
 
-    public static class SelectableLayerImageView extends ImageView {
-
-        public SelectableLayerImageView(IImageDisplayModel imodel) {
-            super(imodel);
-        }
-    }
+    
 
 }

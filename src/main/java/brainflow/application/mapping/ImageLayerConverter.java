@@ -8,7 +8,7 @@ import com.thoughtworks.xstream.converters.MarshallingContext;
 import com.thoughtworks.xstream.converters.UnmarshallingContext;
 import com.thoughtworks.xstream.io.HierarchicalStreamReader;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
-import test.Testable;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,7 +35,7 @@ public class ImageLayerConverter implements Converter {
        
     }
 
-    @Testable
+
     public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
         reader.moveDown();
         IImageDataSource dataSource = (IImageDataSource)context.convertAnother(new Object(), IImageDataSource.class);
@@ -49,7 +49,7 @@ public class ImageLayerConverter implements Converter {
 
     }
 
-    @Testable
+
     public boolean canConvert(Class aClass) {
         if (ImageLayer.class.isAssignableFrom(aClass)) {
             return true;

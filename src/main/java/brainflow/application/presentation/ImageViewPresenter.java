@@ -5,6 +5,7 @@ import brainflow.application.services.ImageViewLayerSelectionEvent;
 import brainflow.application.services.ImageViewSelectionEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.AbstractPresenter;
 import brainflow.image.space.IImageSpace;
 import org.bushe.swing.event.EventBus;
@@ -69,12 +70,12 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
                 ImageViewLayerSelectionEvent event = (ImageViewLayerSelectionEvent) evt;
                 if (event.getSource() == getSelectedView()) {
 
-                    ImageLayer oldLayer = event.getDeselectedLayer();
+                    ImageLayer3D oldLayer = event.getDeselectedLayer();
                     if (oldLayer != null) {
                         layerDeselected(oldLayer);
                     }
 
-                    ImageLayer layer = event.getSelectedLayer();
+                    ImageLayer3D layer = event.getSelectedLayer();
                     layerSelected(layer);
 
                 }
@@ -126,11 +127,11 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
     protected void layerChangeNotification() {
     }
 
-    protected void layerDeselected(ImageLayer layer) {
+    protected void layerDeselected(ImageLayer3D layer) {
 
     }
 
-    protected void layerSelected(ImageLayer layer) {
+    protected void layerSelected(ImageLayer3D layer) {
         
     }
 
@@ -154,7 +155,7 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
         return selectedView;
     }
 
-    public ImageLayer getSelectedLayer() {
+    public ImageLayer3D getSelectedLayer() {
         if (selectedView == null) return null;
         return selectedView.getSelectedLayer();
 

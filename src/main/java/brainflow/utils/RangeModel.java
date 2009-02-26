@@ -1,6 +1,5 @@
 package brainflow.utils;
 
-import com.jgoodies.binding.beans.Model;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,7 +8,7 @@ import com.jgoodies.binding.beans.Model;
  * Time: 6:48:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RangeModel extends Model implements IRange {
+public class RangeModel  implements IRange {
 
     public static final String RANGE_MIN_PROPERTY = "min";
     
@@ -37,14 +36,14 @@ public class RangeModel extends Model implements IRange {
         double old = range.getMin();
         //todo check bounds
         range = new Range(min, getMax());
-        this.firePropertyChange(RANGE_MIN_PROPERTY, old, range.getMin());
+       // this.firePropertyChange(RANGE_MIN_PROPERTY, old, range.getMin());
     }
 
     public void setMax(double max) {
         double old = range.getMax();
         //todo check bounds
         range = new Range(getMin(), max);
-        this.firePropertyChange(RANGE_MAX_PROPERTY, old, range.getMax());
+      //  this.firePropertyChange(RANGE_MAX_PROPERTY, old, range.getMax());
     }
 
     public double getMax() {

@@ -231,6 +231,7 @@ public class ImageInfo implements java.io.Serializable {
             if (getDimensionality() == 4) {
                 imageLabel = getHeaderFile().getName().getBaseName() + ":" + getImageIndex();
             } else {
+                //todo fix bug here NullPointerException caused by "freezing" mask
                 imageLabel = getHeaderFile().getName().getBaseName();
             }
         }

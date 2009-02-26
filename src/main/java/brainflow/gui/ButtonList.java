@@ -1,7 +1,5 @@
 package brainflow.gui;
 
-import com.jgoodies.binding.adapter.SingleListSelectionAdapter;
-import com.jgoodies.binding.list.SelectionInList;
 import com.jidesoft.swing.JideToggleButton;
 import com.jidesoft.swing.SplitButtonGroup;
 
@@ -223,7 +221,7 @@ public class ButtonList extends JComponent implements ListDataListener {
         canvasModel.addElement("A3");
 
 
-        SelectionInList tmp = new SelectionInList(canvasModel);
+        //SelectionInList tmp = new SelectionInList(canvasModel);
 
         ButtonFactory factory = new ButtonFactory() {
             public AbstractButton createButton(Object elem) {
@@ -231,12 +229,12 @@ public class ButtonList extends JComponent implements ListDataListener {
             }
 
         };
-        ButtonList blist = new ButtonList(tmp, factory);
+        //ButtonList blist = new ButtonList(tmp, factory);
 
 
-        blist.setSelectionModel(new SingleListSelectionAdapter(tmp.getSelectionIndexHolder()));
+       // blist.setSelectionModel(new SingleListSelectionAdapter(tmp.getSelectionIndexHolder()));
 
-        toolbar.add(blist);
+        //toolbar.add(blist);
 
 
         JPanel panel = new JPanel();
@@ -257,13 +255,13 @@ public class ButtonList extends JComponent implements ListDataListener {
 
 
         JPanel mainPanel = new JPanel();
-        JList list = new JList(tmp);
-        list.setSelectionModel(new SingleListSelectionAdapter(tmp.getSelectionIndexHolder()));
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+     //   JList list = new JList(tmp);
+     //   list.setSelectionModel(new SingleListSelectionAdapter(tmp.getSelectionIndexHolder()));
+   //     list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(panel, BorderLayout.NORTH);
-        mainPanel.add(list, BorderLayout.CENTER);
+     //   mainPanel.add(list, BorderLayout.CENTER);
 
         jf1.add(toolbar, BorderLayout.NORTH);
         jf1.add(mainPanel, BorderLayout.CENTER);

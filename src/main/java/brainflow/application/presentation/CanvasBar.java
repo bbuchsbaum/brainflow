@@ -91,8 +91,8 @@ public class CanvasBar extends ImageViewPresenter {
             public void stateChanged(ChangeEvent e) {
                 String label = (String)imageSpinner.getValue();
 
-                //todo hack cast
-                final ImageLayer3D layer = (ImageLayer3D)getSelectedLayer();
+                
+                final ImageLayer3D layer = getSelectedLayer();
                 IImageDataSource dsource = layer.getDataSource();
 
                 //todo List<ImageInfo> might be Map<String, ImageInfo> (or something?)

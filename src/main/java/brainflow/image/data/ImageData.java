@@ -10,7 +10,7 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.utils.DataType;
 import brainflow.math.Index3D;
-import test.Testable;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -183,7 +183,7 @@ public class ImageData {
         };
     }
 
-    @Testable
+  
     public static IImageData3D createConstantData(final double value, final IImageSpace3D space) {
         return new AbstractImageData3D(space, DataType.DOUBLE) {
             public double value(int index) {

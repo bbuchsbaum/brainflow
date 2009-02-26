@@ -1,6 +1,6 @@
 package brainflow.colormap;
 
-import test.Testable;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -161,7 +161,7 @@ public final class LinearColorMap2 extends AbstractColorMap {
         return new LinearColorBar(this, SwingConstants.HORIZONTAL);
     }
 
-    @Testable
+
     public Color getColor(double value) {
         int bin = (int) Math.round((((value - getLowClip()) / getClipRange()) * getMapSize()));
         if (bin < 0) bin = 0;
@@ -170,7 +170,7 @@ public final class LinearColorMap2 extends AbstractColorMap {
         return colors.get(bin);
     }
 
-    @Testable
+
     public double getBinSize() {
          return binSize;
     }

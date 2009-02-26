@@ -27,6 +27,8 @@ public class OrthoPlotLayout extends ImagePlotLayout {
 
     private ORIENTATION orientation = ORIENTATION.HORIZONTAL;
 
+    private Anatomy3D leadAnatomy = Anatomy3D.getCanonicalAxial();
+
     private LinkedSliceController sliceController = null;
 
     public OrthoPlotLayout(ImageView view) {
@@ -38,12 +40,20 @@ public class OrthoPlotLayout extends ImagePlotLayout {
         this.orientation = orientation;
     }
 
-    protected List<IImagePlot> createPlots() {
+    public OrthoPlotLayout(ImageView view, Anatomy3D leadAnatomy, ORIENTATION orientation) {
+        super(view);
+        this.orientation = orientation;
+        this.leadAnatomy = leadAnatomy;
+    }
 
+
+
+    protected List<IImagePlot> createPlots() {
+        Anatomy3D[] anat = leadAnatomy.getCanonicalOrthogonal();
         List<IImagePlot> plots = new ArrayList<IImagePlot>();
-        plots.add(super.createPlot(Anatomy3D.getCanonicalAxial()));
-        plots.add(super.createPlot(Anatomy3D.getCanonicalSagittal()));
-        plots.add(super.createPlot(Anatomy3D.getCanonicalCoronal()));
+        plots.add(super.createPlot(leadAnatomy));
+        plots.add(super.createPlot(anat[1]));
+        plots.add(super.createPlot(anat[2]));
         return plots;
 
 
@@ -75,13 +85,13 @@ public class OrthoPlotLayout extends ImagePlotLayout {
 
     public List<IImagePlot> layoutPlots() {
         plots = createPlots();
-        getView().removeAll();
+        getView().getContentPane().removeAll();
         switch (orientation) {
             case HORIZONTAL:
-                BoxLayout layout1 = new BoxLayout(getView(), BoxLayout.X_AXIS);
-                getView().setLayout(layout1);
+                BoxLayout layout1 = new BoxLayout(getView().getContentPane(), BoxLayout.X_AXIS);
+                getView().getContentPane().setLayout(layout1);
                 for (IImagePlot plot : plots) {
-                    getView().add(plot.getComponent());
+                    getView().getContentPane().add(plot.getComponent());
                 }
 
                 break;
@@ -89,18 +99,18 @@ public class OrthoPlotLayout extends ImagePlotLayout {
             case TRIANGULAR:
                 FormLayout layout2a = new FormLayout("p:grow(.85), p:grow(.15)", "p:g, 1dlu:g, p:g, 1dlu:g");
                 layout2a.setColumnGroups(new int[][]{{1, 2}});
-                getView().setLayout(layout2a);
+                getView().getContentPane().setLayout(layout2a);
                 CellConstraints cc = new CellConstraints();
-                getView().add(plots.get(0).getComponent(), cc.xywh(1, 1, 1, 4));
-                getView().add(plots.get(1).getComponent(), cc.xywh(2, 1, 1, 2));
-                getView().add(plots.get(2).getComponent(), cc.xywh(2, 3, 1, 2));
+                getView().getContentPane().add(plots.get(0).getComponent(), cc.xywh(1, 1, 1, 4));
+                getView().getContentPane().add(plots.get(1).getComponent(), cc.xywh(2, 1, 1, 2));
+                getView().getContentPane().add(plots.get(2).getComponent(), cc.xywh(2, 3, 1, 2));
                 break;
 
             case VERTICAL:
                 BoxLayout layout3 = new BoxLayout(getView(), BoxLayout.Y_AXIS);
-                getView().setLayout(layout3);
+                getView().getContentPane().setLayout(layout3);
                 for (IImagePlot plot : plots) {
-                    getView().add(plot.getComponent());
+                    getView().getContentPane().add(plot.getComponent());
                 }
 
                 break;

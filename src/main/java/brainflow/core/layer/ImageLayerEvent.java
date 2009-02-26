@@ -15,11 +15,11 @@ import java.util.EventObject;
 
 public class ImageLayerEvent extends EventObject {
 
-    private ImageLayer affectedLayer;
+    private ImageLayer3D affectedLayer;
 
     private IImageDisplayModel model;
 
-    public ImageLayerEvent(IImageDisplayModel _model, ImageLayer layer) {
+    public ImageLayerEvent(IImageDisplayModel _model, ImageLayer3D layer) {
         super(_model);
         model = _model;
         affectedLayer = layer;
@@ -27,12 +27,11 @@ public class ImageLayerEvent extends EventObject {
     }
 
     public int getLayerIndex() {
-        //hack cast
-        return model.indexOf((ImageLayer3D)affectedLayer);
+        return model.indexOf(affectedLayer);
     }
 
 
-    public ImageLayer getAffectedLayer() {
+    public ImageLayer3D getAffectedLayer() {
         return affectedLayer;
     }
 

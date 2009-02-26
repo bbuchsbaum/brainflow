@@ -2,7 +2,104 @@
 version = "0.1"
 
 usePlugin("java")
-sourceCompatibility = 1.5
 
+sourceCompatibility = 1.5
 targetCompatibility = 1.5
-srcDirs = ["src"]
+
+
+
+dependencies {
+  libDir = new File(rootDir, "lib")
+  addFlatDirResolver("lib", new File(rootDir, "lib")).addArtifactPattern(new File(libDir.absolutePath, '[artifact].[ext]').absolutePath)
+
+  compile(":bean-properties:jar", ":gui-commands-2.1:jar", ":xstream-1.2.2:jar",
+          ":jide-common:jar", ":jide-dock:jar", ":jide-action:jar", ":jide-components:jar", ":jide-dialogs:jar", ":jide-synthetica:jar", ":jide-grids:jar",
+          ":forms-1.1.0:jar", ":jfreechart-1.0.9:jar", ":jcommon-1.0.12:jar", ":args4j-2.0.1:jar", ":jxlayer:jar",
+          ":colt:jar", ":commons-vfs-1.0:jar", ":commons-logging-1.1.1:jar", ":Eventbus-1.3beta:jar", ":jparsec-2.0:jar", ":jdom:jar",
+          ":balloontip:jar", ":datatips:jar", ":syntheticaSimple2D:jar", ":synthetica:jar", ":syntheticaWhiteVision:jar", ":syntheticaAddons:jar")
+
+
+}
+
+
+File runtimeLibsDir = new File(buildDir, 'runtimeLibs')
+
+createTask('collectRuntimeLibs', dependsOn: 'libs') {
+
+  runtimeLibsDir.mkdirs()
+  dependencies.resolve('runtime').each {File file ->
+    ant.copy(file: file, todir: runtimeLibsDir)
+  }
+}
+
+
+
+libs {
+  archive_jar.configure {
+    zipFileSet(dir: "build/classes") {
+      exclude("data/**")
+    }
+  }
+ 
+  jar(appendix: "lean") {
+    zipFileSet(dir: "build/classes") {
+      exclude("data/**")
+    }
+  }
+
+  classpath = new java.lang.StringBuffer()
+
+  dependencies.resolve('compile').each{ dep->
+    classpath.append(' ')
+    classpath.append('../lib/'+dep.getName())
+  }
+  
+  classpath.delete(0,1)
+
+  manifest.mainAttributes(
+                    'Main-Class': 'brainflow.application.toplevel.BrainFlow',
+                    'Implementation-Version': version,
+                    'SplashScreen-Image': 'icons/brainflow_logo2.jpg',
+                    'Class-Path': classpath.toString())
+  
+}
+
+dists {
+  String zipRoot = "$archivesBaseName-$version"
+
+  jar(appendix: "app") {
+    zipFileSet(dir: "build/classes") {
+      include("brainflow/application/**")
+    }
+  }
+
+  jar(appendix: "core") {
+    zipFileSet(dir: "build/classes") {
+      include("brainflow/**")
+      exclude("brainflow/application/**")
+    }
+  }
+
+
+  zip() {
+    zipFileSet(dir: runtimeLibsDir, prefix: "$zipRoot/lib")
+    zipFileSet(dir: buildDir, prefix: "$zipRoot/bin") {
+      include("brainflow-lean*.jar")
+    }
+
+   
+  }
+
+
+  archive_zip.dependsOn('collectRuntimeLibs')
+
+
+}
+
+
+
+
+
+
+ 
+

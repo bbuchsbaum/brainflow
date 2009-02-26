@@ -162,7 +162,7 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
 
         public ColorGradientAction() {
             try {
-                putValue(Action.SMALL_ICON, new ImageIcon(ImageIO.read(ResourceLoader.getResource("resources/icons/problemview.gif"))));
+                putValue(Action.SMALL_ICON, new ImageIcon(ImageIO.read(ResourceLoader.getResource("icons/problemview.gif"))));
                 putValue(Action.SHORT_DESCRIPTION, "Adds a color gradient to selected region.");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -215,8 +215,8 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
 
         public SelectAllAction() {
             try {
-                putValue(Action.SMALL_ICON, new ImageIcon(ImageIO.read(ResourceLoader.getResource("resources/icons/lprio_tsk.gif"))));
-                //putValue(Action.SMALL_ICON, new ImageIcon(ImageIO.read(ResourceLoader.getResource("resources/icons/logical_package_obj.gif"))));
+                putValue(Action.SMALL_ICON, new ImageIcon(ImageIO.read(ResourceLoader.getResource("icons/lprio_tsk.gif"))));
+                //putValue(Action.SMALL_ICON, new ImageIcon(ImageIO.read(ResourceLoader.getResource("icons/logical_package_obj.gif"))));
 
                 putValue(Action.SHORT_DESCRIPTION, "Select All");
             } catch (IOException e) {
@@ -241,7 +241,7 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
 
         public EqualBinsAction() {
             try {
-                putValue(Action.SMALL_ICON, new ImageIcon(ImageIO.read(ResourceLoader.getResource("resources/icons/stkfrm_obj.gif"))));
+                putValue(Action.SMALL_ICON, new ImageIcon(ImageIO.read(ResourceLoader.getResource("icons/stkfrm_obj.gif"))));
                 putValue(Action.SHORT_DESCRIPTION, "make the size of all bin intervals equal");
             } catch (IOException e) {
                 //TODO log e

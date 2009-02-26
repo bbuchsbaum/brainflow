@@ -47,7 +47,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
         return activeProject;
     }
 
-    public IImageDisplayModel addToActiveProject(ImageLayer layer) {
+    public IImageDisplayModel addToActiveProject(ImageLayer3D layer) {
 
         boolean registered = DataSourceManager.getInstance().isRegistered(layer.getDataSource());
 
@@ -58,8 +58,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
         //todo give sensible name
         IImageDisplayModel displayModel = new ImageDisplayModel("model #" + (activeProject.size() + 1));
 
-        //todo hack cast
-        displayModel.addLayer((ImageLayer3D)layer);
+        displayModel.addLayer(layer);
         activeProject.addModel(displayModel);
 
 
@@ -123,15 +122,14 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
 
             if (idx.size() > 0) {
 
-                List<ImageLayer> removables = new ArrayList<ImageLayer>();
+                List<ImageLayer3D> removables = new ArrayList<ImageLayer3D>();
 
                 for (int i : idx) {
                     removables.add(dmodel.getLayer(i));
                 }
 
-                for (ImageLayer layer : removables) {
-                    //todo hack cast
-                    dmodel.removeLayer((ImageLayer3D)layer);
+                for (ImageLayer3D layer : removables) {
+                     dmodel.removeLayer(layer);
                 }
             }
         }

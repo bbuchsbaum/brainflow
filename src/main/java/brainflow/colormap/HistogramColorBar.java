@@ -13,7 +13,7 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import cern.colt.list.DoubleArrayList;
-import test.TestUtils;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -288,7 +288,7 @@ public class HistogramColorBar extends JComponent {
     }
 
     public static void main(String[] args) {
-        IImageDataSource dataSource = TestUtils.quickDataSource("resources/data/global_mean+orig.HEAD");
+        IImageDataSource dataSource = null;//TestUtils.quickDataSource("resources/data/global_mean+orig.HEAD");
         try {
             dataSource.load();
         } catch (BrainFlowException e) {

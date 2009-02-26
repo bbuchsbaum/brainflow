@@ -3,6 +3,7 @@ package brainflow.application.presentation;
 import brainflow.core.ImageView;
 import brainflow.core.ImageDisplayModel;
 import brainflow.core.IImageDisplayModel;
+import brainflow.core.SimpleImageView;
 import brainflow.core.layer.*;
 import brainflow.display.InterpolationType;
 import brainflow.application.presentation.binding.CoordinateToIndexConverter2;
@@ -45,7 +46,7 @@ public class MaskPresenter extends ImageViewPresenter {
     private void buildGUI() {
         mainPanel = new Box(BoxLayout.Y_AXIS);
 
-        maskView = new ImageView(new ImageDisplayModel("empty"));
+        maskView = new SimpleImageView(new ImageDisplayModel("empty"), Anatomy3D.getCanonicalAxial());
         maskView.setScreenInterpolation(InterpolationType.NEAREST_NEIGHBOR);
 
         mainPanel.add(maskView);
@@ -89,18 +90,18 @@ public class MaskPresenter extends ImageViewPresenter {
     }
 
     @Override
-    protected void layerSelected(ImageLayer layer) {
+    protected void layerSelected(ImageLayer3D layer) {
         IImageDisplayModel model = createMaskModel();
         maskView.setModel(model);
         BeanContainer.get().addListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
-        //todo hack cast
-        BeanContainer.get().addListener(((ImageLayer3D) layer).maskProperty, thresholdListener);
+       
+        BeanContainer.get().addListener((layer).maskProperty, thresholdListener);
     }
 
     @Override
-    protected void layerDeselected(ImageLayer layer) {
+    protected void layerDeselected(ImageLayer3D layer) {
         BeanContainer.get().removeListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
-        BeanContainer.get().removeListener(((ImageLayer3D) layer).maskProperty, thresholdListener);
+        BeanContainer.get().removeListener(( layer).maskProperty, thresholdListener);
 
     }
 

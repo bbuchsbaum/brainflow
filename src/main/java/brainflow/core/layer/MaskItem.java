@@ -6,7 +6,7 @@ import brainflow.image.data.MaskPredicate;
 import brainflow.core.layer.AbstractLayer;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.IMaskItem;
-import com.jgoodies.binding.beans.Model;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +15,7 @@ import com.jgoodies.binding.beans.Model;
  * Time: 10:45:44 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MaskItem extends Model implements IMaskItem {
+public class MaskItem implements IMaskItem {
 
     private ImageLayer source;
 
@@ -56,9 +56,8 @@ public class MaskItem extends Model implements IMaskItem {
     }
 
     public void setOperation(BinaryOperation operation) {
-        BinaryOperation old = getOperation();
-        this.operation = operation;
-        firePropertyChange(IMaskItem.BINARY_OPERATION_PROPERTY, old, getOperation());
+         this.operation = operation;
+
     }
 
     public ImageLayer getSource() {
@@ -66,9 +65,7 @@ public class MaskItem extends Model implements IMaskItem {
     }
 
     public void setSource(ImageLayer source) {
-        AbstractLayer old = getSource();
-        this.source = source;
-        firePropertyChange(IMaskItem.SOURCE_IMAGE_PROPERTY, old, getSource());
+         this.source = source;
 
     }
 
@@ -83,18 +80,14 @@ public class MaskItem extends Model implements IMaskItem {
     }
 
     public void setActive(boolean active) {
-        boolean old = isActive();
         this.active = active;
-        firePropertyChange(IMaskItem.ACTIVE_PROPERTY, old, isActive());
-    }
+     }
 
     public int getGroup() {
         return group;
     }
 
     public void setGroup(int group) {
-        int old = getGroup();
         this.group = group;
-        firePropertyChange(IMaskItem.GROUP_PROPERTY, old, getGroup());
     }
 }

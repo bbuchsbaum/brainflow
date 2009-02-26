@@ -1,6 +1,6 @@
 package brainflow.core;
 
-import test.TestUtils;
+
 import brainflow.image.space.IImageSpace;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
@@ -91,11 +91,11 @@ public class ImageViewClientSupport {
     }
 
     public static void main(String[] args) {
-        ImageLayer3D layer = (ImageLayer3D)TestUtils.quickLayer("icbm452_atlas_probability_gray.hdr");
+        ImageLayer3D layer = null; //(ImageLayer3D)TestUtils.quickLayer("icbm452_atlas_probability_gray.hdr");
         IImageDisplayModel model = new ImageDisplayModel("junk");
         model.addLayer(layer);
         
-        ImageLayer3D layer2 = (ImageLayer3D)TestUtils.quickLayer("icbm452_atlas_probability_white.hdr");
+        ImageLayer3D layer2 = null;//(ImageLayer3D)TestUtils.quickLayer("icbm452_atlas_probability_white.hdr");
         model.addLayer(layer2);
         model.setSelectedIndex(1);
 

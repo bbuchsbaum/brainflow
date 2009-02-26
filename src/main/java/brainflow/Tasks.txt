@@ -15,7 +15,7 @@
 
 ** Fix: Thresholding and scaling of Discrete Color Map.
         -- the shrinking and expanding of the discrete color bar still needs work.
-Fix: Toolbar and Popup menu items need to be properly bound to Bean Properties.
+[Fix: Toolbar and Popup menu items need to be properly bound to Bean Properties.]
 
 Fix: Color Bar not updated when modifying color map in RGB editor.
 FIX: RGB Editor should work with Discrete Color Maps
@@ -25,4 +25,4 @@ Fix: Command accelerators need to be fixed.
 Fix: Annotations edited according to plot or "apply all"
 Fix: Progress Dialog is messed up.
 [Fix: transparent "box" over histogram "shakes" as values change] 
-Fix: adding same layer to model twice causees havoc. Should clone layer first
+[Fix: adding same layer to model twice causees havoc. Should clone layer first]

@@ -3,10 +3,7 @@ package brainflow.application.presentation;
 import brainflow.application.presentation.controls.ColorBarAnnotationForm;
 import brainflow.core.annotations.ColorBarAnnotation;
 import brainflow.gui.AbstractPresenter;
-import com.jgoodies.binding.adapter.Bindings;
-import com.jgoodies.binding.adapter.SpinnerAdapterFactory;
-import com.jgoodies.binding.beans.PropertyAdapter;
-import com.jgoodies.binding.value.ValueModel;
+
 
 import javax.swing.*;
 
@@ -42,7 +39,7 @@ public class ColorBarAnnotationPresenter extends AbstractPresenter {
         // bind lbar length property to JSpinner
         JSpinner barLengthSpinner = form.getBarLengthSpinner();
 
-        ValueModel barLength = new PropertyAdapter(annotation, ColorBarAnnotation.BAR_LENGTH_PROPERTY, true);
+        /*ValueModel barLength = new PropertyAdapter(annotation, ColorBarAnnotation.BAR_LENGTH_PROPERTY, true);
         SpinnerModel spinnerModel = new SpinnerNumberModel(annotation.getBarLength(), .1, 1, .1);
         SpinnerAdapterFactory.connect(spinnerModel, barLength, 1);
         barLengthSpinner.setModel(spinnerModel);
@@ -62,7 +59,7 @@ public class ColorBarAnnotationPresenter extends AbstractPresenter {
         ValueModel marginModel = new PropertyAdapter(annotation, ColorBarAnnotation.MARGIN_PROPERTY, true);
         spinnerModel = new SpinnerNumberModel(annotation.getMargin(), 1, 80, 1);
         SpinnerAdapterFactory.connect(spinnerModel, marginModel, annotation.getMargin());
-        marginSpinner.setModel(spinnerModel);
+        marginSpinner.setModel(spinnerModel);    */
 
         // bind lineLength to JSpinner
         //JSpinner lengthSpinner = form.getLineLengthSpinner();

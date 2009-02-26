@@ -11,6 +11,7 @@ package brainflow.application.services;
 
 import brainflow.core.ImageView;
 import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 
 /**
  * @author buchs
@@ -18,26 +19,26 @@ import brainflow.core.layer.ImageLayer;
 public class ImageViewLayerSelectionEvent extends ImageViewEvent {
 
 
-    private ImageLayer deselectedLayer;
+    private ImageLayer3D deselectedLayer;
 
-    private ImageLayer selectedLayer;
+    private ImageLayer3D selectedLayer;
 
     /**
      * Creates a new instance of ImageLayerSelectionEvent
      */
 
-    public ImageViewLayerSelectionEvent(ImageView view, ImageLayer deselectedLayer, ImageLayer selectedLayer) {
+    public ImageViewLayerSelectionEvent(ImageView view, ImageLayer3D deselectedLayer, ImageLayer3D selectedLayer) {
         super(view);
         this.selectedLayer = selectedLayer;
         this.deselectedLayer = deselectedLayer;
 
     }
 
-    public ImageLayer getSelectedLayer() {
+    public ImageLayer3D getSelectedLayer() {
         return selectedLayer;
     }
 
-    public ImageLayer getDeselectedLayer() {
+    public ImageLayer3D getDeselectedLayer() {
         return deselectedLayer;
     }
 

@@ -1,7 +1,5 @@
 package brainflow.core;
 
-import com.jgoodies.binding.list.SelectionInList;
-import com.jgoodies.binding.list.ArrayListModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,9 +15,9 @@ import java.util.List;
  */
 public abstract class AbstractGriddedImageView extends ImageView  {
 
-    private ArrayListModel plots = new ArrayListModel();
+   // private ArrayListModel plots = new ArrayListModel();
 
-    private SelectionInList plotSelection = new SelectionInList((ListModel) plots);
+   // private SelectionInList plotSelection = new SelectionInList((ListModel) plots);
 
     private int NRows = 3;
 
@@ -45,7 +43,7 @@ public abstract class AbstractGriddedImageView extends ImageView  {
     }
 
     protected void layoutGrid() {
-        plots.clear();
+        //plots.clear();
         if (gridPanel == null) {
             gridPanel = new JPanel();
         } else {
@@ -60,21 +58,21 @@ public abstract class AbstractGriddedImageView extends ImageView  {
         for (int i=0; i<getNRows(); i++) {
             for (int j=0; j<getNCols(); j++) {
                 IImagePlot plot = makePlot(count++, i,j);
-                plots.add(plot);
+                //plots.add(plot);
                 gridPanel.add(plot.getComponent());
             }
 
         }
 
-        plotSelection.setSelection(plots.get(0));
+        //plotSelection.setSelection(plots.get(0));
         add(gridPanel, BorderLayout.CENTER);
        
 
     }
 
-    public SelectionInList getPlotSelection() {
-        return plotSelection;
-    }
+    //public SelectionInList getPlotSelection() {
+    //    return plotSelection;
+   // }
 
     protected abstract IImagePlot makePlot(int index, int row, int column);
 
@@ -90,35 +88,35 @@ public abstract class AbstractGriddedImageView extends ImageView  {
     }
 
 
-    public int getNumPlots() {
-        return plots.size();
-    }
+   // public int getNumPlots() {
+   //     return plots.size();
+   // }
 
-    public int getSelectedPlotIndex() {
-        return plotSelection.getSelectionIndex();
-    }
+   // public int getSelectedPlotIndex() {
+   //     return plotSelection.getSelectionIndex();
+   // }
 
-    public IImagePlot whichPlot(Point p) {
-        for (int i = 0; i < plots.size(); i++) {
-            IImagePlot plot = (IImagePlot) plots.get(i);
+  //  public IImagePlot whichPlot(Point p) {
+  //     for (int i = 0; i < plots.size(); i++) {
+   //         IImagePlot plot = (IImagePlot) plots.get(i);
+  //
+  //          Point plotPoint = SwingUtilities.convertPoint(this, p, plot.getComponent());
+  //          if (plot.getComponent().contains(plotPoint)) {
+  //              return plot;
+   //         }
 
-            Point plotPoint = SwingUtilities.convertPoint(this, p, plot.getComponent());
-            if (plot.getComponent().contains(plotPoint)) {
-                return plot;
-            }
+  //      }
 
-        }
+  //      return null;
+  //  }
 
-        return null;
-    }
+   // public List<IImagePlot> getPlots() {
+   //     List<IImagePlot> ret = new ArrayList();
+   //     for (int i = 0; i < plots.size(); i++) {
+    //        ret.add((IImagePlot) plots.get(i));
+   //     }
 
-    public List<IImagePlot> getPlots() {
-        List<IImagePlot> ret = new ArrayList();
-        for (int i = 0; i < plots.size(); i++) {
-            ret.add((IImagePlot) plots.get(i));
-        }
-
-        return ret;
+   //     return ret;
 
     }
 
@@ -128,4 +126,4 @@ public abstract class AbstractGriddedImageView extends ImageView  {
    
 
 
-}
+

@@ -7,7 +7,7 @@
                 mnemonic="O"
                 accel="control L"
                 desc="Load and display an image"
-                smicon="/resources/icons/folderOpen.png"/>
+                smicon="/icons/folderOpen.png"/>
         <action id="main-remount"
                 name="Remount"
                 mnemonic="R"

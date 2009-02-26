@@ -6,6 +6,7 @@ import brainflow.image.axis.ImageAxis;
 import brainflow.image.data.IImageData;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
+import brainflow.image.space.IImageSpace3D;
 import brainflow.core.layer.ImageLayerListener;
 import brainflow.core.layer.ImageLayerProperties;
 import brainflow.core.layer.ImageLayer3D;
@@ -73,7 +74,7 @@ public interface IImageDisplayModel extends Iterable<ImageLayer3D> {
 
     public int getNumLayers();
 
-    public IImageSpace getImageSpace();
+    public IImageSpace3D getImageSpace();
 
     public ImageAxis getImageAxis(Axis axis);
 

@@ -1,6 +1,6 @@
 package brainflow.core.mask;
 
-import test.Testable;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,7 +13,7 @@ public class MaskEvaluator extends AnalysisAdapter {
 
 
     @Override
-    @Testable
+    
     public void inComparison(ComparisonNode node) {
 
         if (node.left().isLeaf() && node.right().isLeaf()) {

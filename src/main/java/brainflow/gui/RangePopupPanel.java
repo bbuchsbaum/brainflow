@@ -1,8 +1,7 @@
 package brainflow.gui;
 
 import brainflow.utils.RangeModel;
-import com.jgoodies.binding.adapter.Bindings;
-import com.jgoodies.binding.beans.BeanAdapter;
+
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.combobox.PopupPanel;
@@ -22,14 +21,14 @@ public class RangePopupPanel extends PopupPanel {
     private RangeModel rangeModel;
     private JFormattedTextField minField;
     private JFormattedTextField maxField;
-    private BeanAdapter adapter;
+    //private BeanAdapter adapter;
 
     private FormLayout layout;
 
     public RangePopupPanel(RangeModel range) {
 
         rangeModel = range;
-        adapter = new BeanAdapter(rangeModel);
+        //adapter = new BeanAdapter(rangeModel);
         init();
         setDefaultFocusComponent(minField);
         setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
@@ -37,7 +36,7 @@ public class RangePopupPanel extends PopupPanel {
 
     public void setRangeModel(RangeModel range) {
         rangeModel = range;
-        adapter.setBean(rangeModel);
+        //adapter.setBean(rangeModel);
 
     }
 
@@ -60,7 +59,7 @@ public class RangePopupPanel extends PopupPanel {
         minField = new JFormattedTextField(NumberFormat.getNumberInstance());
         minField.setValue(rangeModel.getMin());
         minField.setColumns(7);
-        Bindings.bind(minField, adapter.getValueModel(RangeModel.RANGE_MIN_PROPERTY));
+        //Bindings.bind(minField, adapter.getValueModel(RangeModel.RANGE_MIN_PROPERTY));
 
         add(minField, cc.xy(4, 2));
         add(new JLabel("To:"), cc.xy(6, 2));
@@ -70,7 +69,7 @@ public class RangePopupPanel extends PopupPanel {
         maxField.setValue(rangeModel.getMax());
         maxField.setColumns(7);
 
-        Bindings.bind(maxField, adapter.getValueModel(RangeModel.RANGE_MAX_PROPERTY));
+        //Bindings.bind(maxField, adapter.getValueModel(RangeModel.RANGE_MAX_PROPERTY));
         add(maxField, cc.xy(8, 2));
 
 

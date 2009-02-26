@@ -1,9 +1,8 @@
 package brainflow.image.io;
 
 import brainflow.application.BrainFlowException;
-import test.TestUtils;
-import brainflow.image.io.ImageInfo;
-import brainflow.image.io.ImageInfoReader;
+
+
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.space.AffineMapping3D;
 import brainflow.utils.DataType;
@@ -469,7 +468,7 @@ public class NiftiInfoReader implements ImageInfoReader {
 
             NiftiInfoReader reader = new NiftiInfoReader();
            
-            URL url = TestUtils.getDataURL("BRB-20071214-09-t1_mprage-001.nii");
+            URL url = null; //TestUtils.getDataURL("BRB-20071214-09-t1_mprage-001.nii");
             ImageInfo info = reader.readInfo(VFS.getManager().resolveFile(url.toString())).get(0);
 
 

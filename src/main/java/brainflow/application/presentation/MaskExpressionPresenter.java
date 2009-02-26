@@ -125,9 +125,8 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
 
         freezeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //todo hack cast
-                                
-                final ImageLayer3D layer = (ImageLayer3D)getSelectedLayer();
+
+                final ImageLayer3D layer = getSelectedLayer();
 
                 if (layer != null) {
                     System.out.println("freeze action");
@@ -227,7 +226,7 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
     }
 
     @Override
-    protected void layerSelected(ImageLayer layer) {
+    protected void layerSelected(ImageLayer3D layer) {
         updateThresholdString();
 
     }
@@ -235,8 +234,7 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
     private String convertThresholdToString(IClipRange clip) {
         IRange range = clip.getInnerRange();
 
-        //todo hack cast
-        int index = getSelectedView().getModel().indexOf((ImageLayer3D) getSelectedLayer());
+        int index = getSelectedView().getModel().indexOf(getSelectedLayer());
         String varName = "V" + (index + 1);
 
         NumberFormat format = NumberFormat.getNumberInstance();

@@ -77,7 +77,7 @@ public class ResourceManager {
         cachedMaps.put("Greens", ColorBrewer.Greens);
         cachedMaps.put("BrownBlueGreen", ColorBrewer.BrownBlueGreen);
 
-        InputStream istream = getClass().getClassLoader().getResourceAsStream("resources/colormaps/colormap.properties");
+        InputStream istream = getClass().getClassLoader().getResourceAsStream("colormaps/colormap.properties");
 
 
         Properties props = new Properties();

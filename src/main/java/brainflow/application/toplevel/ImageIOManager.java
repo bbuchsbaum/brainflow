@@ -128,7 +128,7 @@ public class ImageIOManager {
 
     public void initialize() throws BrainFlowException {
         if (initialized) return;
-        InputStream istream = getClass().getClassLoader().getResourceAsStream("resources/config/imageio-config.xml");
+        InputStream istream = getClass().getClassLoader().getResourceAsStream("config/imageio-config.xml");
 
         try {
 

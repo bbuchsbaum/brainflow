@@ -1,6 +1,5 @@
 package brainflow.display;
 
-import com.jgoodies.binding.beans.Model;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,7 +8,7 @@ import com.jgoodies.binding.beans.Model;
  * Time: 6:16:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class LayerProperty extends Model {
+public abstract class LayerProperty  {
 
     public abstract String getName();
 

@@ -4,15 +4,13 @@ import com.jidesoft.status.StatusBar;
 import com.jidesoft.status.LabelStatusBarItem;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
-import brainflow.core.IImageDisplayModel;
-import brainflow.core.BF;
-import brainflow.core.ImageView;
-import brainflow.core.ImageDisplayModel;
+import brainflow.core.*;
 import brainflow.core.layer.MaskLayer3D;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.application.BrainFlowException;
 import brainflow.application.presentation.binding.ExtBind;
 import brainflow.gui.MultiSelectToggleBar;
+import brainflow.image.anatomy.Anatomy3D;
 
 import javax.swing.*;
 import javax.swing.tree.TreeModel;
@@ -64,8 +62,8 @@ public class BinaryExpressionTester {
         mainPanel.setLayout(new BorderLayout());
         model = loadModel();
 
-        dataView = new ImageView(model);
-        maskView = new ImageView(createMaskModel(model));
+        dataView = new SimpleImageView(model, Anatomy3D.getCanonicalAxial());
+        maskView = new SimpleImageView(createMaskModel(model), Anatomy3D.getCanonicalAxial());
 
         JPanel leftPanel = wrapImageView(dataView);
         JPanel rightPanel = wrapImageView(maskView);

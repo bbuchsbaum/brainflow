@@ -36,8 +36,7 @@ public class SliceAnnotation extends AbstractAnnotation {
 
         AnatomicalPoint3D pt = plot.getSlice();
 
-        //todo hack cast
-        IImageSpace3D space = (IImageSpace3D)plot.getModel().getImageSpace();
+        IImageSpace3D space = plot.getModel().getImageSpace();
         pt = AnatomicalPoint3D.convertToWorld(pt, space);
         AnatomicalAxis zaxis = Anatomy3D.REFERENCE_ANATOMY.matchAxis(plot.getDisplayAnatomy().ZAXIS);
 
