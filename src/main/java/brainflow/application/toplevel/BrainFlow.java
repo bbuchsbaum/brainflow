@@ -493,15 +493,27 @@ public class BrainFlow {
 
     }
 
+    private void initCanvas() {
+        BrainCanvasTransferHandler handler = new BrainCanvasTransferHandler();
+        DisplayManager.getInstance().getSelectedCanvas().getComponent().setTransferHandler(handler);
+
+    }
+
     public void addCanvas(IBrainCanvas canvas) {
         //todo sync with DisplayManager?
         JComponent comp = canvas.getComponent();
         comp.setRequestFocusEnabled(true);
         comp.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        BrainCanvasTransferHandler handler = new BrainCanvasTransferHandler();
+        comp.setTransferHandler(handler);
+        CanvasBar cbar = new CanvasBar();
+
+
+        canvas.getComponent().add(cbar.getComponent(), BorderLayout.NORTH);
         String canvasName = "Canvas-" + (documentPane.getDocumentCount() + 1);
         documentPane.openDocument(new DocumentComponent(new JScrollPane(comp), canvasName));
         documentPane.setActiveDocument(canvasName);
-
+        DisplayManager.getInstance().setSelectedCanvas(canvas);
     }
 
 

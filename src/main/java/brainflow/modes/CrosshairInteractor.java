@@ -32,6 +32,7 @@ public class CrosshairInteractor extends ImageViewInteractor {
     }
 
     public void mousePressed(MouseEvent event) {
+        System.out.println("mouse pressed for cross " + event.getPoint());
         ImageView iview = getView();
         if (iview == null) {
             return;
@@ -40,7 +41,6 @@ public class CrosshairInteractor extends ImageViewInteractor {
         AnatomicalPoint3D cursorPos = iview.getCursorPos();
         AnatomicalPoint3D ap = iview.getAnatomicalLocation(event.getComponent(), event.getPoint());
         AnatomicalPoint3D tap = ap.convertTo(cursorPos.getSpace());
-
 
         Viewport3D viewport = iview.getViewport();
 
@@ -52,6 +52,7 @@ public class CrosshairInteractor extends ImageViewInteractor {
     }
 
     private void moveCrosshair(Point p, Component source) {
+        System.out.println("moving cross " + p);
         ImageView iview = getView();
 
         if (!iview.pointInPlot(source, p)) {

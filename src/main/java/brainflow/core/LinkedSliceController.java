@@ -24,18 +24,21 @@ public class LinkedSliceController extends SimpleSliceController {
     protected void initCursorListener() {
         BeanContainer.get().addListener(getView().cursorPos, new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
+
                 AnatomicalPoint3D oldval = (AnatomicalPoint3D)oldValue;
                 AnatomicalPoint3D newval = (AnatomicalPoint3D)newValue;
 
                 if (!oldval.equals(newval)) {
                     Iterator<IImagePlot> iter = getView().plotIterator();
-                    IImagePlot selPlot = getView().getSelectedPlot();
+                    //IImagePlot selPlot = getView().getSelectedPlot();
                     while (iter.hasNext()) {
                         IImagePlot plot = iter.next();
-                        if (plot == selPlot) continue;
+
                         AnatomicalPoint3D crossSlice = getView().getCursorPos();
-                        plot.setSlice(crossSlice);
-                        //System.out.println("cross slice anatomy : " + crossSlice.getSpace().getAnatomy());
+
+                        if (!plot.getSlice().equals(crossSlice))
+                            plot.setSlice(crossSlice);
+                        
                     }
 
 

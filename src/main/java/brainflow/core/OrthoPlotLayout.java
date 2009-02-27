@@ -107,7 +107,7 @@ public class OrthoPlotLayout extends ImagePlotLayout {
                 break;
 
             case VERTICAL:
-                BoxLayout layout3 = new BoxLayout(getView(), BoxLayout.Y_AXIS);
+                BoxLayout layout3 = new BoxLayout(getView().getContentPane(), BoxLayout.Y_AXIS);
                 getView().getContentPane().setLayout(layout3);
                 for (IImagePlot plot : plots) {
                     getView().getContentPane().add(plot.getComponent());
@@ -147,7 +147,7 @@ public class OrthoPlotLayout extends ImagePlotLayout {
             Anatomy3D danat = anatomy[i];
             AxisRange xrange = getView().getModel().getImageAxis(danat.XAXIS).getRange();
             AxisRange yrange = getView().getModel().getImageAxis(danat.YAXIS).getRange();
-            ViewBounds vb = new ViewBounds(displayAnatomy, xrange, yrange);
+            ViewBounds vb = new ViewBounds(danat, xrange, yrange);
 
             plots.get(i).setViewBounds(vb);
         }
