@@ -12,11 +12,11 @@ import brainflow.math.Index3D;
  */
 public interface IImageData3D extends IImageData, DataAccessor3D {
 
+
     public int indexOf(int x, int y, int z);
 
     public Index3D indexToGrid(int idx);
 
-    
     public IImageSpace3D getImageSpace();
 
     public DataWriter3D createWriter(boolean clear);

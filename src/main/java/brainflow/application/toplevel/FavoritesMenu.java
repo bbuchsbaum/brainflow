@@ -5,6 +5,7 @@ import com.pietschy.command.group.GroupBuilder;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.face.Face;
 import brainflow.application.services.DataSourceStatusEvent;
+import brainflow.application.BrainFlowException;
 import brainflow.image.io.IImageDataSource;
 
 import java.util.prefs.Preferences;
@@ -14,9 +15,13 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
+
+import javax.swing.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -43,11 +48,8 @@ public class FavoritesMenu {
                     String uri = dsource.getImageInfo().getHeaderFile().getName().getURI();
                     Favorite fav = favMap.get(uri);
                     if (fav != null) {
-                        System.out.println("incrementing favorite " + fav);
                         fav.increment();
-                        System.out.println("after incrementing favorite " + fav);
                     } else {
-                        System.out.println("creating new favorite " + uri);
                         favMap.put(uri, new Favorite(uri));
                     }
 
@@ -114,7 +116,6 @@ public class FavoritesMenu {
             if (curstr != null) {
                 try {
                     Favorite fav = Favorite.createFavorite(curstr);
-                    System.out.println("found a favorite ! " + fav);
                     favMap.put(fav.uri, fav);
 
                     //updateMenu();
@@ -209,6 +210,7 @@ public class FavoritesMenu {
             this.URI = URI;
             this.name = name;
             getFace(Face.MENU, true).setText(name);
+
         }
 
         public String getURI() {
@@ -220,6 +222,18 @@ public class FavoritesMenu {
         }
 
         protected void handleExecute() {
+            System.out.println("want to load " + URI);
+            System.out.println("name is " + name);
+
+            try {
+                IImageDataSource dsource = BrainFlow.get().createDataSource(new URI(getURI()));
+                BrainFlow.get().loadAndDisplay(dsource);
+            } catch(BrainFlowException e) {
+                throw new RuntimeException(e);
+            } catch(URISyntaxException e2) {
+                throw new RuntimeException(e2);
+            }
+
 
         }
     }

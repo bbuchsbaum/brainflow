@@ -18,9 +18,11 @@ import brainflow.core.ClipRange;
 import brainflow.core.IClipRange;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.AbstractLayer;
+import brainflow.chart.XAxis;
 
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -55,6 +57,8 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
 
     private HistogramColorBar colorBar;
 
+    private HistogramWithAxis histoBar;
+
     private JXLayer<HistogramColorBar> layer;
 
     private IRange overlayRange;
@@ -69,8 +73,11 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         this.overlayRange = overlayRange;
 
         colorBar = new HistogramColorBar(map, histogram);
-        initLayer();
 
+        initLayer();
+        histoBar = new HistogramWithAxis();
+
+        
         slider = new JSlider(JSlider.VERTICAL, 1, 200, 100);
 
         slider.addChangeListener(new ChangeListener() {
@@ -85,7 +92,7 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
 
         setLayout(new BorderLayout());
 
-        add(layer, BorderLayout.CENTER);
+        add(histoBar, BorderLayout.CENTER);
         add(slider, BorderLayout.WEST);
 
         support = new BrainFlowClientSupport(this);
@@ -296,8 +303,9 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
     }
 
     public void setColorMap(IColorMap colorMap) {
-        this.colorMap = colorMap;
+        this.colorMap = colorMap;     
         colorBar.setColorMap(colorMap);
+        histoBar.updateAxis(colorMap.getMinimumValue(), colorMap.getMaximumValue());
     }
 
     public Histogram getHistogram() {
@@ -355,6 +363,48 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
 
     public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    class HistogramWithAxis extends JPanel {
+        XAxis axis = new XAxis(0, 255);
+
+
+        JPanel axispanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+               super.paintComponent(g);
+                //axis.setYoffset(0);
+
+                Rectangle bounds = getBounds();
+                bounds = new Rectangle(bounds.x, bounds.y, bounds.width - colorBar.RIGHT_CUSHION, bounds.height);
+                axis.draw((Graphics2D)g, bounds);
+            }
+
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(256, 20);
+            }
+        };
+
+
+        public HistogramWithAxis() {
+            setBorder(new EmptyBorder(0,0,0,0));
+            setLayout(new BorderLayout());
+            axis.setXoffset(0);
+            axis.setYoffset(0);
+            add(layer, BorderLayout.CENTER);
+            add(axispanel, BorderLayout.SOUTH);
+        }
+
+        public void updateAxis(double min, double max) {
+            axis.setMin(min);
+            axis.setMax(max);
+            repaint();
+
+
+        }
+
+
     }
 
     public static void main(String[] args) {

@@ -30,11 +30,11 @@ public class HistogramColorBar extends JComponent {
 
     private double yaxisFraction = 1;
 
-    private int RIGHT_CUSHION = 12;
+    public int RIGHT_CUSHION = 12;
 
-    private int BOTTOM_CUSHION = 12;
+    public int BOTTOM_CUSHION = 12;
 
-    private int TOP_CUSHION = 4;
+    public int TOP_CUSHION = 4;
 
 
     private int selectedBin = -1;

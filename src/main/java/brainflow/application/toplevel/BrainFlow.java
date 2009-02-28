@@ -66,6 +66,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.net.URI;
 
 
 import de.javasoft.plaf.synthetica.*;
@@ -352,7 +353,6 @@ public class BrainFlow {
         menuBar.add(fileMenuGroup.createMenuItem());
         menuBar.add(viewMenuGroup.createMenuItem());
         menuBar.add(gotoMenuGroup.createMenuItem());
-        menuBar.add(favoritesMenu.getCommandGroup().createMenuItem());
 
         brainFrame.setJMenuBar(menuBar);
 
@@ -366,7 +366,12 @@ public class BrainFlow {
         builder.add(pathMenu.getCommandGroup());
         builder.applyChanges();
 
-        brainFrame.getJMenuBar().add(DockWindowManager.getInstance().getDockMenu());
+        menuBar.add(DockWindowManager.getInstance().getDockMenu());
+
+        JMenuItem favMenu = favoritesMenu.getCommandGroup().createMenuItem();
+        favMenu.setMnemonic('F');
+        menuBar.add(favMenu);
+
 
 
     }
@@ -852,6 +857,12 @@ public class BrainFlow {
         id.execute();
 
 
+    }
+
+
+    public IImageDataSource createDataSource(URI uri) throws BrainFlowException {
+        File file = new File(uri);
+        return createDataSource(file.getAbsolutePath());
     }
 
     public IImageDataSource createDataSource(String path) throws BrainFlowException {

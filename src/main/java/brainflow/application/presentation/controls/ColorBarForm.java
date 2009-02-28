@@ -74,19 +74,10 @@ public class ColorBarForm extends javax.swing.JPanel {
 
     private void buildGUI() {
 
-        //colorBar.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
-        //layer = createLayer();
-
         layout = new FormLayout("5px, l:max(100dlu;p):g, 3dlu, 6dlu", "3dlu, p, 3dlu, max(35dlu;p), 3dlu");
-        //colorBar = colorMap.createColorBar();
-        //colorBarPlot.setBorder(new EtchedBorder());
-        //colorBarPlot.setBorder(new EmptyBorder(0,0,0,0));
         CellConstraints cc = new CellConstraints();
         setLayout(layout);
 
-
-        //add(layer, cc.xywh(2, 4, 2, 1));
         add(colorMenu, cc.xy(2, 2));
         add(cbar, cc.xywh(2, 4, 2, 2));
 

@@ -10,8 +10,10 @@ Fix: project view drag and drop within same model should reorder rather than cop
 [Fix: snapshot buttons don't work]
 
 Add: Montage view
+Add: x axis to histogram
 Add: color bar wizard
 Add: cross hair toggle and crosshair configuration dialog
+Add: copy & paste to project tree view
 Finish: conjunction module
 
 
