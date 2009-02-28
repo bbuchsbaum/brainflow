@@ -31,11 +31,20 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/LinkedSliceController.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/LinkedSliceController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/chart/XAxis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt" afterPath="$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorAdjustmentControl.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorAdjustmentControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/HistogramControl.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/HistogramControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/SnapshotForm.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/SnapshotForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/BrainFlowClientAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/modes/CrosshairInteractor.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/modes/CrosshairInteractor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/OrthoPlotLayout.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/OrthoPlotLayout.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlow.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorGradientEditor.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorGradientEditor.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\HistogramPresenterX.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/HistogramPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorBarPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorBarPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/SnapshotDialog.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/SnapshotDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/actions/SnapshotCommand.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/actions/SnapshotCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/ColorBarForm.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/ColorBarForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/chart/XAxis.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/chart/XAxis.java" />
     </list>
     <list name="Failed commit: Default (3)" comment="Added number labels to BiSlider" />
     <list name="Failed commit: Default (5)" comment="Added number labels to BiSlider" />
@@ -155,33 +164,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicImageSliceRenderer.java" line="117" class="brainflow.core.rendering.BasicImageSliceRenderer" package="brainflow.core.rendering">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/DataSourceManager.java" line="73" class="brainflow.application.toplevel.DataSourceManager" package="brainflow.application.toplevel">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/core/SimpleImageView.java" line="113" class="brainflow.core.SimpleImageView" package="brainflow.core">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -317,19 +300,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="OrthoPlotLayout.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/OrthoPlotLayout.java">
+      <file leaf-file-name="ColorBarPresenter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorBarPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="76" selection-start="3524" selection-end="3524" vertical-scroll-proportion="0.0">
+            <state line="193" column="0" selection-start="5510" selection-end="5510" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="XAxis.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/XAxis.java">
+      <file leaf-file-name="ColorGradientEditor.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorGradientEditor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="29" selection-start="1607" selection-end="1607" vertical-scroll-proportion="0.5314685">
+            <state line="116" column="25" selection-start="3316" selection-end="3316" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tasks.txt" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="36" selection-start="1041" selection-end="1041" vertical-scroll-proportion="1.1977273">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SnapshotCommand.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/actions/SnapshotCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="46" selection-start="753" selection-end="753" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -337,73 +338,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AxisLabelAnnotation.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/annotations/AxisLabelAnnotation.java">
+      <file leaf-file-name="ImageView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="68" selection-start="1602" selection-end="1661" vertical-scroll-proportion="0.0">
+            <state line="463" column="16" selection-start="14337" selection-end="14337" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LogHistogramDataset.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/LogHistogramDataset.java">
+      <file leaf-file-name="JComponent.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.6.0_11/src.zip!/javax/swing/JComponent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="13" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
+            <state line="966" column="16" selection-start="36889" selection-end="36889" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AxisPointer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/AxisPointer.java">
+      <file leaf-file-name="SnapshotDialog.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/SnapshotDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="43" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
+            <state line="25" column="98" selection-start="545" selection-end="545" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GraphicalPointer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/graphics/GraphicalPointer.java">
+      <file leaf-file-name="SnapshotForm.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/SnapshotForm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="13" selection-start="262" selection-end="262" vertical-scroll-proportion="0.0">
+            <state line="67" column="6" selection-start="1880" selection-end="1880" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CircleRenderer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/CircleRenderer.java">
+      <file leaf-file-name="CrosshairInteractor.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/modes/CrosshairInteractor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="25" selection-start="542" selection-end="556" vertical-scroll-proportion="0.0">
+            <state line="54" column="5" selection-start="1428" selection-end="1428" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HistoTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/HistoTest.java">
+      <file leaf-file-name="ColorBandChartPresenter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorBandChartPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="13" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HistogramDatasetX.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/HistogramDatasetX.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="13" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BrainFlow.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="510" column="28" selection-start="16337" selection-end="16337" vertical-scroll-proportion="0.0">
+            <state line="99" column="0" selection-start="3126" selection-end="3126" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -625,6 +608,36 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="application" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
@@ -732,7 +745,7 @@
       <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.XAxis">
+  <component name="RunManager" selected="Application.BrainFlow">
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -1339,24 +1352,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="65" width="1680" height="884" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3260274" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.09259259" sideWeight="0.64657533" order="1" side_tool="false" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.09259259" sideWeight="0.66164386" order="1" side_tool="false" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49863014" sideWeight="0.0" order="4" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32896462" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32883435" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32739726" sideWeight="0.5" order="8" side_tool="false" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34383562" sideWeight="0.5" order="8" side_tool="false" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.0" order="7" side_tool="false" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34383562" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32876712" sideWeight="0.0" order="7" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21111111" sideWeight="0.6631717" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993865" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962275" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962963" sideWeight="0.64657533" order="0" side_tool="false" x="121" y="37" width="406" height="883" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962963" sideWeight="0.66164386" order="0" side_tool="false" x="121" y="37" width="406" height="883" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32896462" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39954337" sideWeight="0.5" order="6" side_tool="false" />
@@ -1398,7 +1411,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="&#10;# Brief commit desciption here&#10;&#10;# Full commit description here (comment lines starting with '#' will not be included)&#10;&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="started XAxis class, fixed plot layout issues and CanvasBar now show up on new BrainCanvas" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -1422,6 +1435,7 @@
     <MESSAGE value="adding izpack install file" />
     <MESSAGE value="&#10;not much" />
     <MESSAGE value="&#10;# Brief commit desciption here&#10;&#10;# Full commit description here (comment lines starting with '#' will not be included)&#10;&#10;" />
+    <MESSAGE value="started XAxis class, fixed plot layout issues and CanvasBar now show up on new BrainCanvas" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1503,117 +1517,121 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/dnd/ImageDropHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/HistogramPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="22" selection-start="417" selection-end="417" vertical-scroll-proportion="0.0">
+        <state line="32" column="31" selection-start="965" selection-end="983" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/dnd/ImageViewTransferHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/IBrainFlowClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="38" selection-start="1056" selection-end="1056" vertical-scroll-proportion="0.0">
+        <state line="16" column="17" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/dnd/AbstractLayerTransferable.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/BrainFlowClientAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="431" selection-end="431" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ImageFileExplorer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="30" selection-start="1377" selection-end="1394" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/SearchableImageFileExplorer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="12" selection-start="1273" selection-end="1273" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/dnd/BrainCanvasTransferHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="38" selection-start="543" selection-end="569" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/OrthoPlotLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="76" selection-start="3524" selection-end="3524" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/AxisPointer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="43" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/graphics/GraphicalPointer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="13" selection-start="262" selection-end="262" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/LogHistogramDataset.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/CircleRenderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="25" selection-start="542" selection-end="556" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/HistoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="13" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/HistogramDatasetX.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="13" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="510" column="28" selection-start="16337" selection-end="16337" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/annotations/AxisLabelAnnotation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="68" selection-start="1602" selection-end="1661" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/chart/XAxis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="29" selection-start="1607" selection-end="1607" vertical-scroll-proportion="0.5314685">
+        <state line="19" column="8" selection-start="554" selection-end="631" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlowClientSupport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="11" selection-start="714" selection-end="714" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/HistogramControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="147" column="36" selection-start="4769" selection-end="4769" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/display/ColorBandChart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="219" column="0" selection-start="6128" selection-end="6128" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorBandChartPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="99" column="0" selection-start="3126" selection-end="3126" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorBarPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="193" column="0" selection-start="5510" selection-end="5510" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/modes/CrosshairInteractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="5" selection-start="1428" selection-end="1428" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/ColorGradientEditor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="116" column="25" selection-start="3316" selection-end="3316" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/controls/SnapshotForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="6" selection-start="1880" selection-end="1880" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/presentation/SnapshotDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="98" selection-start="545" selection-end="545" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/application/actions/SnapshotCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="46" selection-start="753" selection-end="753" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0_11/src.zip!/javax/swing/JComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="966" column="16" selection-start="36889" selection-end="36889" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="463" column="16" selection-start="14337" selection-end="14337" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="36" selection-start="1041" selection-end="1041" vertical-scroll-proportion="1.1977273">
+          <folding />
         </state>
       </provider>
     </entry>

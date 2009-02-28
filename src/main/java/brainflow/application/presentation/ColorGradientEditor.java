@@ -47,9 +47,9 @@ public class ColorGradientEditor extends JPanel {
 
     private String gradientSetting = ONE_COLOR_GRADIENT;
 
-    private JRadioButton oneColorButton;
+    private JRadioButton oneColorButton = new JRadioButton();
 
-    private JRadioButton twoColorButton;
+    private JRadioButton twoColorButton = new JRadioButton();
 
    // private PresentationModel choiceModel;
 
@@ -102,6 +102,20 @@ public class ColorGradientEditor extends JPanel {
         colorComboTwo.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 colorTwo = colorComboTwo.getSelectedColor();
+                updateColorMap();
+            }
+        });
+
+        oneColorButton.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                gradientSetting = ONE_COLOR_GRADIENT;
+                updateColorMap();
+            }
+        });
+
+        twoColorButton.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                gradientSetting = TWO_COLOR_GRADIENT;
                 updateColorMap();
             }
         });

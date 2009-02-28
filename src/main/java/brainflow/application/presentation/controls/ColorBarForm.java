@@ -7,11 +7,20 @@
 package brainflow.application.presentation.controls;
 
 import brainflow.colormap.*;
+import brainflow.chart.XAxis;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.JideSplitButton;
 
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.*;
+
+import org.jdesktop.jxlayer.JXLayer;
+import org.jdesktop.jxlayer.plaf.AbstractLayerUI;
+
+import java.awt.*;
 
 /**
  * @author buchs
@@ -22,7 +31,7 @@ public class ColorBarForm extends javax.swing.JPanel {
 
     private AbstractColorBar colorBar;
 
-    //private ColorBarPlot colorBarPlot;
+    private ColorBarWithAxis cbar;
 
     private JideSplitButton colorMenu;
 
@@ -33,20 +42,19 @@ public class ColorBarForm extends javax.swing.JPanel {
      */
     public ColorBarForm(IColorMap _colorMap) {
         colorMap = _colorMap;
-        //colorBarPlot = new ColorBarPlot(colorMap);
         colorBar = colorMap.createColorBar();
-        //colorBarPlot.setBorder(new EtchedBorder());
+        colorBar.setBorder(BorderFactory.createEtchedBorder());
+        cbar = new ColorBarWithAxis();
         colorMenu = new JideSplitButton("Select Map");
 
         buildGUI();
     }
 
     public ColorBarForm() {
-        colorMap = new LinearColorMapDeprecated(0, 255, ColorTable.SPECTRUM);
-        //colorBarPlot = new ColorBarPlot(colorMap);
+        colorMap = new LinearColorMap2(0, 255, ColorTable.SPECTRUM);
         colorBar = colorMap.createColorBar();
-        colorBar.setBorder(new EtchedBorder());
-        //colorBarPlot.setBorder(new EtchedBorder());
+        colorBar.setBorder(BorderFactory.createEtchedBorder());
+        cbar = new ColorBarWithAxis();
         colorMenu = new JideSplitButton("Select Map");
 
         buildGUI();
@@ -60,22 +68,71 @@ public class ColorBarForm extends javax.swing.JPanel {
 
     public void setColorMap(IColorMap colorMap) {
         colorBar.setColorMap(colorMap);
-
+        cbar.updateAxis(colorMap.getMinimumValue(), colorMap.getMaximumValue());
     }
 
 
     private void buildGUI() {
 
-        layout = new FormLayout("3dlu, l:max(100dlu;p):g, 3dlu, 6dlu", "3dlu, p, 3dlu, max(35dlu;p), 3dlu");
+        //colorBar.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        //layer = createLayer();
+
+        layout = new FormLayout("5px, l:max(100dlu;p):g, 3dlu, 6dlu", "3dlu, p, 3dlu, max(35dlu;p), 3dlu");
         //colorBar = colorMap.createColorBar();
         //colorBarPlot.setBorder(new EtchedBorder());
         //colorBarPlot.setBorder(new EmptyBorder(0,0,0,0));
         CellConstraints cc = new CellConstraints();
         setLayout(layout);
 
-        add(colorBar, cc.xywh(2, 4, 2, 1));
-        add(colorMenu, cc.xy(2, 2));
 
+        //add(layer, cc.xywh(2, 4, 2, 1));
+        add(colorMenu, cc.xy(2, 2));
+        add(cbar, cc.xywh(2, 4, 2, 2));
+
+    }
+
+
+  
+
+    class ColorBarWithAxis extends JPanel {
+        XAxis axis = new XAxis(0, 255);
+
+
+        JPanel axispanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+               super.paintComponent(g);
+                //axis.setYoffset(0);
+
+                axis.draw((Graphics2D)g, getBounds());
+            }
+
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(256, 20);
+            }
+        };
+
+
+        public ColorBarWithAxis() {
+            setBorder(new EmptyBorder(0,0,0,0));
+            setLayout(new BorderLayout());
+            axis.setXoffset(0);
+            axis.setYoffset(0);
+            add(colorBar, BorderLayout.CENTER);
+            add(axispanel, BorderLayout.SOUTH);
+        }
+
+        public void updateAxis(double min, double max) {
+            axis.setMin(min);
+            axis.setMax(max);
+            repaint();
+
+
+        }
+
+        
     }
 
 

@@ -35,6 +35,14 @@ public class SnapshotDialog extends JDialog {
         buildGUI();
     }
 
+    public SnapshotForm getForm() {
+        return form;
+    }
+
+    public RenderedImage getSnapshot() {
+        return snapshot;
+    }
+
     private void buildGUI() {
         setLayout(new BorderLayout());
         form = new SnapshotForm(snapshot);

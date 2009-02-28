@@ -28,7 +28,7 @@ public class ColorAdjustmentControl extends AbstractPresenter {
 
     private ColorRangePresenter colorRangePresenter;
 
-    private HistogramPresenterX histogramPresenter;
+    private HistogramPresenter histogramPresenter;
 
     private ThresholdRangePresenter thresholdRangePresenter;
 
@@ -92,7 +92,7 @@ public class ColorAdjustmentControl extends AbstractPresenter {
         colorRangePresenter = new ColorRangePresenter();
         addCollapsiblePane(colorRangePresenter, "Color Range", false);
 
-        histogramPresenter = new HistogramPresenterX();
+        histogramPresenter = new HistogramPresenter();
         addCollapsiblePane(histogramPresenter, "Histogram", true);
 
 

@@ -30,7 +30,7 @@ import java.util.Map;
  * Time: 4:46:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HistogramPresenterX extends ImageViewPresenter {
+public class HistogramPresenter extends ImageViewPresenter {
 
     private HistogramControl control;
 
@@ -49,7 +49,7 @@ public class HistogramPresenterX extends ImageViewPresenter {
         }
     };
 
-    public HistogramPresenterX() {
+    public HistogramPresenter() {
         control = new HistogramControl(new LinearColorMap2(0, 100, ColorTable.GRAYSCALE),
                 new Histogram(new BasicImageData3D(Space.createImageSpace(2, 2, 2, 1, 1, 1), DataType.DOUBLE), 10),
                 new Range(0,0));

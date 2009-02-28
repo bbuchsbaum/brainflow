@@ -54,6 +54,19 @@ public class SnapshotForm extends JPanel {
 
     private String formatSelection = ".png";
 
+
+    private Action saveAction = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+    };
+
+    private Action cancelAction = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+    };
+
     public SnapshotForm(RenderedImage snapShot) {
         this.snapShot = snapShot;
         String userDir = System.getProperty("user.home");
@@ -64,7 +77,22 @@ public class SnapshotForm extends JPanel {
 
     private void initFormats() {
         imageFormats = ImageIO.getWriterFileSuffixes();
+    }
 
+    public Action getSaveAction() {
+        return saveAction;
+    }
+
+    public void setSaveAction(Action saveAction) {
+        this.saveAction = saveAction;
+    }
+
+    public Action getCancelAction() {
+        return cancelAction;
+    }
+
+    public void setCancelAction(Action cancelAction) {
+        this.cancelAction = cancelAction;
     }
 
     private void buildGUI() {
@@ -77,8 +105,8 @@ public class SnapshotForm extends JPanel {
 
         JPanel tp = new JPanel();
         snapShotLabel = new JLabel(icon);
-        tp.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Image Snapshot"), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
 
+        tp.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Image Snapshot"), BorderFactory.createEmptyBorder(3, 3, 3, 3)));
 
         JPanel bp = new JPanel();
         FormLayout layout = new FormLayout("5dlu, l:p, 3dlu, l:max(60dlu;p):g, 1dlu, 3dlu, p, 8dlu", "8dlu, p, 10dlu, p, 10dlu, p, 18dlu, p, 8dlu");
@@ -126,6 +154,12 @@ public class SnapshotForm extends JPanel {
         add(tp);
         add(bp);
 
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cancelAction.actionPerformed(e);
+            }
+        });
+
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String path = filePathComboBox.getSelectedItem().toString();
@@ -146,6 +180,9 @@ public class SnapshotForm extends JPanel {
                         
                     }
                 }
+
+
+                saveAction.actionPerformed(e);
 
 
 

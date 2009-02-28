@@ -6,7 +6,13 @@
 
 
 
+Fix: project view drag and drop within same model should reorder rather than copy
+[Fix: snapshot buttons don't work]
 
+Add: Montage view
+Add: color bar wizard
+Add: cross hair toggle and crosshair configuration dialog
+Finish: conjunction module
 
 
 [Fix: Images loaded from within AFNI bricks are incorrectly colored ImageFileExplorer tree labels.
@@ -21,8 +27,8 @@ Fix: Color Bar not updated when modifying color map in RGB editor.
 FIX: RGB Editor should work with Discrete Color Maps
         -- works but converts to linear color map.
 
-Fix: Command accelerators need to be fixed.
+[Fix: Command accelerators need to be fixed.]
 Fix: Annotations edited according to plot or "apply all"
-Fix: Progress Dialog is messed up.
-[Fix: transparent "box" over histogram "shakes" as values change] 
+[Fix: Progress Dialog is messed up.]
+[Fix: transparent "box" over histogram "shakes" as values change]
 [Fix: adding same layer to model twice causees havoc. Should clone layer first]

@@ -87,7 +87,7 @@ public class ColorBarPresenter extends ImageViewPresenter {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
 
                 IColorMap cmap = (IColorMap) newValue;
-
+                
                 form.setColorMap(cmap);
             }
         };

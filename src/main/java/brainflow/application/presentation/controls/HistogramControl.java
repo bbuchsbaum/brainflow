@@ -5,20 +5,31 @@ import brainflow.colormap.HistogramColorBar;
 import brainflow.colormap.LinearColorMap2;
 import brainflow.colormap.ColorTable;
 import brainflow.image.Histogram;
+import brainflow.image.space.IImageSpace;
 import brainflow.image.io.IImageDataSource;
 import brainflow.application.BrainFlowException;
+import brainflow.application.IBrainFlowClient;
+import brainflow.application.toplevel.BrainFlowClientSupport;
 import brainflow.utils.Range;
 import brainflow.utils.IRange;
-import brainflow.core.BF;
+import brainflow.core.ImageView;
+import brainflow.core.IImageDisplayModel;
+import brainflow.core.ClipRange;
+import brainflow.core.IClipRange;
+import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.AbstractLayer;
+
 
 import javax.swing.*;
 
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.text.NumberFormat;
 
 import org.jdesktop.jxlayer.JXLayer;
@@ -36,7 +47,7 @@ import net.java.balloontip.styles.ModernBalloonStyle;
  * Time: 4:19:26 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HistogramControl extends JPanel implements MouseListener {
+public class HistogramControl extends JPanel implements MouseListener, IBrainFlowClient {
 
     private Histogram histogram;
 
@@ -49,6 +60,8 @@ public class HistogramControl extends JPanel implements MouseListener {
     private IRange overlayRange;
 
     private JSlider slider;
+
+    private BrainFlowClientSupport support;
 
     public HistogramControl(IColorMap map, Histogram histogram, Range overlayRange) {
         this.colorMap = map;
@@ -71,31 +84,32 @@ public class HistogramControl extends JPanel implements MouseListener {
         });
 
         setLayout(new BorderLayout());
+
         add(layer, BorderLayout.CENTER);
         add(slider, BorderLayout.WEST);
 
-        //addMouseListener();
+        support = new BrainFlowClientSupport(this);
+
+
+
     }
 
     private void initLayer() {
         layer = new JXLayer<HistogramColorBar>(colorBar);
         AbstractLayerUI<HistogramColorBar> layerUI = new AbstractLayerUI<HistogramColorBar>() {
 
-            private boolean drawTip = false;
-
-            private Point tiploc;
-
-            private double xvalue = 0;
-
-            private int count = 0;
 
             private NumberFormat formatter = NumberFormat.getNumberInstance();
+
+
+            boolean resizeMin = false;
+
+            boolean resizeMax = false;
 
 
             @Override
             protected void paintLayer(Graphics2D g2, JXLayer<HistogramColorBar> l) {
                 formatter.setMaximumFractionDigits(2);
-                // this paints layer as is
                 super.paintLayer(g2, l);
                 // custom painting:
                 // here we paint translucent foreground
@@ -116,21 +130,6 @@ public class HistogramControl extends JPanel implements MouseListener {
 
             }
 
-            private void paintTip(Graphics2D g2, Point p, double value, int count) {
-                Composite oldcomposite = g2.getComposite();
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .4f));
-                Rectangle rect = new Rectangle(colorBar.getWidth() - 100, 4, 95, 40);
-                g2.setColor(Color.BLACK);
-                g2.fill(rect);
-                g2.setColor(Color.WHITE);
-                g2.draw(rect);
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-                g2.drawString("count : " + count, colorBar.getWidth() - 96, 15);
-                g2.drawString("value : " + formatter.format(value), colorBar.getWidth() - 96, 30);
-
-                g2.setComposite(oldcomposite);
-
-            }
 
             @Override
             protected void processMouseEvent(MouseEvent e, JXLayer<HistogramColorBar> l) {
@@ -138,21 +137,75 @@ public class HistogramControl extends JPanel implements MouseListener {
                     mousePressed(e);
             }
 
+
             protected void processMouseMotionEvent(MouseEvent e, JXLayer<HistogramColorBar> l) {
+                if (e.getID() == MouseEvent.MOUSE_MOVED) {
+                    mouseMoved(e);
+                } else if(e.getID() == MouseEvent.MOUSE_DRAGGED) {
+                    mouseDragged(e);
+                } else if(e.getID() == MouseEvent.MOUSE_EXITED) {
+                    resizeMin=false;
+                    resizeMax=false;
+                }
+
+
+
+            }
+
+            public void mouseDragged(MouseEvent e) {
                 Point p = e.getPoint();
-                xvalue = colorBar.locationToValueX(p.x);
+                if (resizeMin) {
+                    double xmin = colorBar.locationToValueX(p.x);
+                    AbstractLayer layer = getSelectedLayer();
+                    IClipRange clip = layer.getImageLayerProperties().thresholdRange.get();
+
+                    if (xmin > clip.getHighClip()) return;
+                    //AbstractLayer layer = getSelectedLayer();
+                    layer.getImageLayerProperties().thresholdRange.set(
+                            clip.newClipRange(clip.getMin(), clip.getMax(), xmin, clip.getHighClip()));
+                } else if (resizeMax) {
+                    double xmax = colorBar.locationToValueX(p.x);
+                    AbstractLayer layer = getSelectedLayer();
+                    IClipRange clip = layer.getImageLayerProperties().thresholdRange.get();
+                    if (xmax < clip.getLowClip()) return;
+                    //AbstractLayer layer = getSelectedLayer();
+                    layer.getImageLayerProperties().thresholdRange.set(
+                            clip.newClipRange(clip.getMin(), clip.getMax(), clip.getLowClip(), xmax));
+
+                }
+
+
+            }
+
+
+
+            private void mouseMoved(MouseEvent e) {
+                Point p = e.getPoint();
+                double xvalue = colorBar.locationToValueX(p.x);
+
                 int bin = colorBar.getBin(xvalue);
                 colorBar.setSelectedBin(bin);
-                double yval = colorBar.locationToValueY(p.y);
-                count = (int) colorBar.getCount(xvalue);
+
+                double xstart = colorBar.valueToLocationX(overlayRange.getMin());
+                double xend = colorBar.valueToLocationX(overlayRange.getMax());
+
+                if (Math.abs(xend - p.x) < 3) {
+                    HistogramControl.this.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                    resizeMax = true;
+                    resizeMin= false;
+                } else if (Math.abs(xstart - p.x) < 3) {
+                    HistogramControl.this.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
+                    resizeMin = true;
+                    resizeMax=false;
+
+                } else {
+                    HistogramControl.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    resizeMin = false;
+                    resizeMax = false;
+                }
 
 
-                drawTip = true;
-                tiploc = e.getPoint();
                 repaint();
-
-                //System.out.println("mouse id = " + e.getID());
-
 
             }
         };
@@ -166,7 +219,6 @@ public class HistogramControl extends JPanel implements MouseListener {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    //private JidePopup infoPopup;
 
     private BalloonTip customBalloon;
 
@@ -192,7 +244,7 @@ public class HistogramControl extends JPanel implements MouseListener {
 
         Rectangle2D barBounds = colorBar.getBarBounds(colorBar.getSelectedBin());
 
-        barBounds = new Rectangle((int)(barBounds.getX() -2), (int)(barBounds.getY()-2), (int)(barBounds.getWidth() +5), (int)(barBounds.getHeight()+5));
+        barBounds = new Rectangle((int) (barBounds.getX() - 2), (int) (barBounds.getY() - 2), (int) (barBounds.getWidth() + 5), (int) (barBounds.getHeight() + 5));
         if (!barBounds.contains(p)) {
             return;
         }
@@ -200,7 +252,7 @@ public class HistogramControl extends JPanel implements MouseListener {
         customBalloon = new CustomBalloonTip(colorBar,
 
                 "<html> bin: " + "[" + format.format(binRange.getMin()) + " -> " + format.format(binRange.getMax()) + "]" +
-                "<br> count: " + count + "</html>",
+                        "<br> count: " + count + "</html>",
                 barBounds.getBounds(),
                 new ModernBalloonStyle(3, 3, Color.WHITE, Color.WHITE.darker(), Color.GRAY),
                 BalloonTip.Orientation.LEFT_ABOVE,
@@ -208,9 +260,8 @@ public class HistogramControl extends JPanel implements MouseListener {
                 10, 10,
                 false);
 
-        
-        customBalloon.setVisible(true);
 
+        customBalloon.setVisible(true);
 
 
     }
@@ -232,8 +283,12 @@ public class HistogramControl extends JPanel implements MouseListener {
     }
 
     public void setOverlayRange(IRange overlayRange) {
-        this.overlayRange = overlayRange;
-        repaint();
+        if (!this.overlayRange.equals(overlayRange)) {
+            this.overlayRange = overlayRange;
+            repaint();
+        } else {
+            System.out.println("overlayrange not new ...");
+        }
     }
 
     public IColorMap getColorMap() {
@@ -254,6 +309,53 @@ public class HistogramControl extends JPanel implements MouseListener {
         colorBar.setHistogram(histogram);
     }
 
+    public void viewSelected(ImageView view) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void allViewsDeselected() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void layerChangeNotification() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void layerSelected(ImageLayer layer) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void layerAdded(ListDataEvent event) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void layerRemoved(ListDataEvent event) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void layerChanged(ListDataEvent event) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void layerIntervalAdded(ListDataEvent event) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void layerIntervalRemoved(ListDataEvent event) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public ImageView getSelectedView() {
+        return support.getSelectedView();
+    }
+
+    public AbstractLayer getSelectedLayer() {
+        return support.getSelectedLayer();
+    }
+
+    public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     public static void main(String[] args) {
         IImageDataSource dataSource = null; //BF.quickDataSource("resources/data/global_mean+orig.HEAD");

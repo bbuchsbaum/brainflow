@@ -460,8 +460,9 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     }
 
     public RenderedImage captureImage() {
-        BufferedImage img = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-        paint(img.createGraphics());
+        BufferedImage img = new BufferedImage(getContentPane().getWidth(),
+                getContentPane().getHeight(), BufferedImage.TYPE_INT_ARGB);
+        getContentPane().paint(img.createGraphics());
         return img;
 
 

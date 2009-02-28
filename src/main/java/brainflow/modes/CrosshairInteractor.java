@@ -52,7 +52,6 @@ public class CrosshairInteractor extends ImageViewInteractor {
     }
 
     private void moveCrosshair(Point p, Component source) {
-        System.out.println("moving cross " + p);
         ImageView iview = getView();
 
         if (!iview.pointInPlot(source, p)) {
