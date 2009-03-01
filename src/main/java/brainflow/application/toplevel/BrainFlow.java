@@ -69,9 +69,6 @@ import java.util.logging.Logger;
 import java.net.URI;
 
 
-import de.javasoft.plaf.synthetica.*;
-
-
 /**
  * Created by IntelliJ IDEA.
  * User: Owner
@@ -472,7 +469,7 @@ public class BrainFlow {
         bindCommand(new LinearInterpolationToggleCommand(), true);
         bindCommand(new CubicInterpolationToggleCommand(), true);
         bindCommand(new ToggleAxisLabelCommand(), true);
-
+        bindCommand(new ToggleCrossHairCommand(), true);
 
         JToolBar mainToolbar = mainToolbarGroup.createToolBar();
 

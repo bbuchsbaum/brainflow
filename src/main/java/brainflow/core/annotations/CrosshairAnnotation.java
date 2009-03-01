@@ -27,10 +27,10 @@ public class CrosshairAnnotation extends AbstractAnnotation {
     public static final String GAP_PROPERTY = "gap";
 
 
-    public static final Paint DEFAULT_LINE_PAINT = Color.GREEN;
+    public static final Paint DEFAULT_LINE_PAINT = Color.GREEN.darker().darker();
     public static final Float DEFAULT_LINE_LENGTH = 1.0f;
-    public static final Float DEFAULT_LINE_WIDTH = 1.8f;
-    public static final Integer DEFAULT_GAP = 0;
+    public static final Float DEFAULT_LINE_WIDTH = 1f;
+    public static final Integer DEFAULT_GAP = 4;
 
     private Paint linePaint = DEFAULT_LINE_PAINT;
     private double lineLength = DEFAULT_LINE_LENGTH;

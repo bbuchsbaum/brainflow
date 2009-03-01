@@ -32,6 +32,8 @@ public class SliceAnnotation extends AbstractAnnotation {
         g2d.setColor(fontColor);
         g2d.setFont(font);
 
+
+
         FontMetrics fmetric = g2d.getFontMetrics(font);
 
         AnatomicalPoint3D pt = plot.getSlice();
@@ -43,8 +45,12 @@ public class SliceAnnotation extends AbstractAnnotation {
         String label = "" + (int)Math.round(pt.getValue(zaxis).getValue());
         Rectangle2D strBounds = fmetric.getStringBounds(label, g2d);
 
-        g2d.drawString(label, (int)(plotArea.getX() + (plotArea.getWidth()/2) - strBounds.getWidth()), (int)plotArea.getY() -2);
-        
+
+        //Rectangle bounds = plot.getComponent().getBounds();
+        g2d.drawString(label, (int)(plotArea.getX() + (plotArea.getWidth()/2) - strBounds.getWidth()/2), (int)(strBounds.getHeight() + 4));
+
+       //g2d.drawString(label, (int)(bounds.getX() + (bounds.getWidth()/2) - strBounds.getWidth()/2), (int)(bounds.getY() + strBounds.getHeight() + 2));
+
 
     }
 

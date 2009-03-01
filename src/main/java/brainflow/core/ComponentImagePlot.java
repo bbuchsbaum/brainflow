@@ -27,7 +27,7 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
 
     private AnatomicalPoint3D slice;
 
-    ViewBounds viewBounds;
+    private ViewBounds viewBounds;
 
     private LinkedHashMap<String, IAnnotation> annotationMap = new LinkedHashMap<String, IAnnotation>();
 

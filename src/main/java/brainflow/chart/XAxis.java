@@ -169,14 +169,33 @@ public class XAxis {
     }
 
     private String[] getTickLabels(float[] ticks, float xmin, float xmax) {
-        String[] ret = new String[ticks.length];
-        for (int i=0; i<ticks.length; i++) {
-            float perc = (ticks[i] - xmin)/(xmax-xmin);
-            int val = (int)Math.round(perc * (max-min) + min);
-            ret[i] = String.valueOf(val);
+        NumberFormat format = NumberFormat.getNumberInstance();
+
+        if ((max - min) > 20) {
+            format.setMaximumFractionDigits(0);
+        } else {
+
+            format.setMinimumFractionDigits(1);
+            format.setMaximumFractionDigits(2);
         }
 
-        return ret;
+        
+        String[] labs = new String[ticks.length];
+        double[] vals = new double[ticks.length];
+        for (int i=0; i<ticks.length; i++) {
+            float perc = (ticks[i] - xmin)/(xmax-xmin);
+            vals[i] = perc * (max-min) + min;
+            labs[i] = format.format(vals[i]);
+        }
+
+
+        return labs;
+
+
+
+
+
+
     }
 
     private float[] getTickLocations(int nticks, float xmin, float xmax) {

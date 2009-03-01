@@ -109,8 +109,12 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
                     Point p = support.getDropLocation().getDropPoint();
                     TreePath path = tree.getClosestPathForLocation(p.x, p.y);
                     IImageDisplayModel model = findParentModel(path);
-                    if (model != null) {
+
+                    if (model == null) return;
+                    if (!model.containsLayer((ImageLayer3D)layer)) {
                         model.addLayer(new ImageLayer3D((ImageLayer3D) layer));
+                    } else {
+                        //todo drop layer in correct location rather than just adding it to end ....
                     }
                 }
 

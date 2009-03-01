@@ -39,8 +39,10 @@ public class ImageViewFactory {
     public static void addDefaultAnnotations(ImageView view) {
         CrosshairAnnotation crosshairAnnotation = new CrosshairAnnotation(view.cursorPos);
         view.setAnnotation(CrosshairAnnotation.ID, crosshairAnnotation);
-        view.setAnnotation(SelectedPlotAnnotation.ID, new SelectedPlotAnnotation(view));
+
         view.setAnnotation(SliceAnnotation.ID, new SliceAnnotation());
+        if (view.getPlotLayout().getNumPlots() > 1)
+            view.setAnnotation(SelectedPlotAnnotation.ID, new SelectedPlotAnnotation(view));
     }
 
 

@@ -18,9 +18,11 @@ public class SelectedPlotAnnotation extends AbstractAnnotation {
 
     private ImageView view;
 
-    private Stroke stroke = new BasicStroke(1, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND, 10f, new float[]{2f, 2f}, 0f);
+    private Stroke stroke = new BasicStroke(1, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND);
 
-    private Composite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .8f);
+    private Composite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .5f);
+
+    private Color selectionColor = Color.LIGHT_GRAY;
 
     public SelectedPlotAnnotation(ImageView view) {
         this.view = view;
@@ -33,7 +35,7 @@ public class SelectedPlotAnnotation extends AbstractAnnotation {
             Stroke oldStroke = g2d.getStroke();
             Composite oldComposite = g2d.getComposite();
 
-            g2d.setPaint(Color.WHITE);
+            g2d.setPaint(selectionColor);
             g2d.setStroke(stroke);
             g2d.setComposite(composite);
             g2d.draw(plotArea);
