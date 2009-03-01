@@ -15,9 +15,9 @@ import javax.swing.*;
  * Time: 11:52:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ToggleCrossHairCommandX extends BrainFlowToggleCommand {
+public class ToggleCrossCommand extends BrainFlowToggleCommand {
 
-    public ToggleCrossHairCommandX() {
+    public ToggleCrossCommand() {
         super("toggle-crosshair");
         //putValue(ActionManager.BUTTON_TYPE, ActionManager.BUTTON_TYPE_VALUE_TOGGLE);
     }
