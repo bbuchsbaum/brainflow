@@ -32,7 +32,7 @@ public class ImagePlotFactory {
         IImagePlot plot = new ComponentImagePlot(model, new ViewBounds(displayAnatomy, xrange, yrange));
         plot.setName(displayAnatomy.XY_PLANE.getOrientation().toString());
 
-        AnatomicalPoint3D slice = (AnatomicalPoint3D)model.getImageSpace().getCentroid();
+        AnatomicalPoint3D slice = model.getImageSpace().getCentroid();
         IImageProducer producer = new CompositeImageProducer(plot, displayAnatomy, slice, threadService);
         plot.setImageProducer(producer);
 

@@ -4,13 +4,17 @@ import brainflow.core.ImageView;
 import brainflow.core.layer.ImageLayer;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.space.IImageSpace;
+import brainflow.image.data.IImageData;
 import com.jidesoft.grid.*;
 import com.jidesoft.converter.ObjectConverterManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.util.ArrayList;
+import java.util.List;
+import java.text.NumberFormat;
 import java.awt.*;
+
 
 import org.apache.commons.vfs.FileObject;
 
@@ -29,6 +33,8 @@ public class ImageLayerInfoPresenter extends ImageViewPresenter {
 
     private JPanel panel = new JPanel(new BorderLayout());
 
+    private NumberFormat format = NumberFormat.getNumberInstance();
+
     public ImageLayerInfoPresenter() {
         ObjectConverterManager.initDefaultConverter();
         CellEditorManager.initDefaultEditor();
@@ -42,39 +48,20 @@ public class ImageLayerInfoPresenter extends ImageViewPresenter {
     }
 
     private PropertyTable buildTable() {
+        format.setMaximumFractionDigits(2);
+
         ImageLayer layer = getSelectedLayer();
         IImageSpace space = layer.getCoordinateSpace();
 
         ArrayList<Property> list = new ArrayList<Property>();
         IImageDataSource source = layer.getDataSource();
 
-        Property property = createProperty("Path", source.getDataFile(), "Data Source", FileObject.class, "The full path of the image file");
-        list.add(property);
+        list.addAll(fileProps(source));
+        list.addAll(spaceProps(source));
+        list.addAll(dataProps(source));
 
-        property = createProperty("Name", source.getImageInfo().getImageLabel(), "Data Source", String.class, "The name of the image");
-        list.add(property);
 
-        property = createProperty("Index", ""+source.getImageIndex(), "Data Source", String.class, "The index of the image volume in the case of a multi-dimensional data file");
-        list.add(property);
-
-        property = createProperty("Image Format", source.getFileFormat(), "Data Source", String.class, "The image file format from which the data was loaded.");
-        list.add(property);
-
-        property = createProperty("Dimensions", space.getDimension().toString(), "Image Space", String.class, "The image data dimensions (x, y, z)");
-        list.add(property);
-
-        property = createProperty("Spacing", source.getImageInfo().getSpacing(), "Image Space", String.class, "The voxel sizes for each dimension (x, y, z)");
-        list.add(property);
-
-        property = createProperty("Data Orientation", space.getAnatomy(), "Image Space", String.class, "The anatomical orientation of the data axes (non-transformed)");
-        list.add(property);
-
-        property = createProperty("Origin", space.getOrigin().toString(), "Image Space", String.class, "The origin in world coordinates of the image data");
-        list.add(property);
-        
         // rotation? translation? origin?
-
-
 
 
         PropertyTableModel model = new PropertyTableModel(list);
@@ -85,6 +72,63 @@ public class ImageLayerInfoPresenter extends ImageViewPresenter {
 
         return table;
 
+
+    }
+
+    private List<Property> fileProps(IImageDataSource source) {
+
+        List<Property> list = new ArrayList<Property>();
+        Property property = createProperty("Path", source.getDataFile(), "Data Source", FileObject.class, "The full path of the image file");
+        list.add(property);
+
+        property = createProperty("Name", source.getImageInfo().getImageLabel(), "Data Source", String.class, "The name of the image");
+        list.add(property);
+
+        property = createProperty("Index", "" + source.getImageIndex(), "Data Source", String.class, "The index of the image volume in the case of a multi-dimensional data file");
+        list.add(property);
+
+        property = createProperty("Image Format", source.getFileFormat(), "Data Source", String.class, "The image file format from which the data was loaded.");
+        list.add(property);
+
+        return list;
+
+    }
+
+
+    private List<Property> spaceProps(IImageDataSource source) {
+        IImageSpace space = source.getData().getImageSpace();
+
+        List<Property> list = new ArrayList<Property>();
+
+        Property property = createProperty("Dimensions", space.getDimension().toString(), "Image Space", String.class, "The image data dimensions (x, y, z)");
+        list.add(property);
+
+        property = createProperty("Spacing", source.getImageInfo().getSpacing(), "Image Space", String.class, "The voxel sizes for each dimension (x, y, z)");
+        list.add(property);
+
+        property = createProperty("Data Orientation", space.getAnatomy(), "Image Space", String.class, "The anatomical orientation of the data axes (non-transformed)");
+        list.add(property);
+
+        property = createProperty("Origin", space.getOrigin().toString(), "Image Space", String.class, "The origin in world coordinates of the image data");
+        list.add(property);
+
+        return list;
+
+    }
+
+
+    private List<Property> dataProps(IImageDataSource source) {
+        IImageData data = source.getData();
+
+        List<Property> list = new ArrayList<Property>();
+
+        Property property = createProperty("Range", "(" + format.format(data.minValue()) + ", " + format.format(data.maxValue()) + ")", "Image Data", String.class, "Data range (min, max)");
+        list.add(property);
+
+        property = createProperty("Data Type", data.getDataType(), "Image Data", String.class, "Data Storage Type");
+        list.add(property);
+
+        return list;
 
     }
 

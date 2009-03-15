@@ -303,7 +303,7 @@ public class BasicImageData3D extends BasicImageData implements IImageData3D {
             return data.value(index);
         }
 
-        public int index() {
+        public final int index() {
             return index;
         }
 

@@ -6,6 +6,7 @@ import brainflow.core.annotations.SelectedPlotAnnotation;
 import brainflow.core.annotations.SliceAnnotation;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.AxisRange;
+import brainflow.image.io.IImageDataSource;
 import brainflow.utils.StringGenerator;
 
 import java.util.logging.Logger;
@@ -24,6 +25,13 @@ public class ImageViewFactory {
     private static final Logger log = Logger.getLogger(ImageViewFactory.class.getCanonicalName());
 
 
+    public static IImageDisplayModel createModel(String name, IImageDataSource dataSource) {
+        IImageDisplayModel model = new ImageDisplayModel(name);
+        model.addLayer(ImageLayerFactory.createImageLayer(dataSource));
+        return model;
+    }
+
+
     public static IImagePlot createAxialPlot(IImageDisplayModel displayModel) {
         return ImageViewFactory.createPlot(displayModel, Anatomy3D.getCanonicalAxial());
     }
@@ -37,7 +45,7 @@ public class ImageViewFactory {
     }
 
     public static void addDefaultAnnotations(ImageView view) {
-        CrosshairAnnotation crosshairAnnotation = new CrosshairAnnotation(view.cursorPos);
+        CrosshairAnnotation crosshairAnnotation = new CrosshairAnnotation(view.cursorPos, view);
         view.setAnnotation(CrosshairAnnotation.ID, crosshairAnnotation);
 
         view.setAnnotation(SliceAnnotation.ID, new SliceAnnotation());

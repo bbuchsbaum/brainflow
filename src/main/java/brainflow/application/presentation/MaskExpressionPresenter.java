@@ -119,7 +119,20 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
     private void initControls() {
         computeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                parseExpression();
+                SwingWorker worker = new SwingWorker() {
+                    protected Object doInBackground() throws Exception {
+                        parseExpression();
+                        return null;
+                    }
+
+                    @Override
+                    protected void done() {
+                        computeButton.setEnabled(true);
+                    }
+                };
+
+                computeButton.setEnabled(false);
+                worker.execute();
             }
         });
 
@@ -309,9 +322,9 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
 
             MaskDataNode maskNode = (MaskDataNode) res.getChild();
 
-            ImageLayer3D layer = (ImageLayer3D) getSelectedLayer();
+            ImageLayer3D layer = getSelectedLayer();
 
-            MaskProperty3D newmask = layer.getMaskProperty().setMask(IMaskProperty.MASK_KEY.EXPRESSION_MASK, maskNode.getData());
+            MaskProperty3D newmask = layer.getMaskProperty().copyMask(IMaskProperty.MASK_KEY.EXPRESSION_MASK, maskNode.getData());
             layer.setMaskProperty(newmask);
 
             //ComparisonNode cnode = (ComparisonNode)node;

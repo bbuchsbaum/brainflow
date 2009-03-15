@@ -21,39 +21,52 @@ import java.util.List;
  * Time: 2:19:21 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MontageImageView extends AbstractGriddedImageView {
+public class MontageImageView extends ImageView {
 
     private Anatomy3D displayAnatomy;
 
-    private MontageSliceController sliceController;
+    private int nrows = 3;
 
-    private ImagePlotLayout plotLayout;
+    private int ncols = 3;
+
+
+    private MontagePlotLayout plotLayout;
 
     //private MontageControlPanel controlPanel;
 
     public MontageImageView(IImageDisplayModel imodel, Anatomy3D displayAnatomy) {
         super(imodel);
         this.displayAnatomy = displayAnatomy;
-
-        sliceController = new MontageSliceController(getCursorPos().getValue(displayAnatomy.ZAXIS));
-
-        layoutGrid();
-        initLocal();
-        initControlPanel();
-
+        //initControlPanel();
+        init();
 
     }
 
     public MontageImageView(IImageDisplayModel imodel, Anatomy3D displayAnatomy, int nrows, int ncols, double sliceGap) {
-        super(imodel, nrows, ncols);
+        super(imodel);
         this.displayAnatomy = displayAnatomy;
+        this.nrows= nrows;
+        this.ncols = ncols;
 
-        sliceController = new MontageSliceController(getCursorPos().getValue(displayAnatomy.ZAXIS), sliceGap);
-        sliceController.sliceGap = sliceGap;
-     
-        layoutGrid();
-        initLocal();
+        init();
         //initControlPanel();
+    }
+
+     private void init() {
+        layoutPlots();
+    }
+
+    public int getNrows() {
+        return nrows;
+    }
+
+    public int getNcols() {
+        return ncols;
+    }
+
+    protected MontagePlotLayout createPlotLayout(Anatomy3D displayAnatomy) {
+        plotLayout = new MontagePlotLayout(this, displayAnatomy, nrows, ncols);
+        return plotLayout;
     }
 
 
@@ -65,11 +78,12 @@ public class MontageImageView extends AbstractGriddedImageView {
     }
 
     protected void layoutPlots() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        plotLayout = createPlotLayout(displayAnatomy);
+        resetPlotLayout(plotLayout);
     }
 
-    public ImagePlotLayout getPlotLayout() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public MontagePlotLayout getPlotLayout() {
+        return plotLayout;
     }
 
     public Anatomy3D getDisplayAnatomy() {
@@ -77,72 +91,15 @@ public class MontageImageView extends AbstractGriddedImageView {
     }
 
 
-    private void initLocal() {
 
-        CrosshairAnnotation crosshairAnnotation = new CrosshairAnnotation(cursorPos);
-
-        SelectedPlotAnnotation plotAnnotation = new SelectedPlotAnnotation(this);
-
-        SliceAnnotation sliceAnnotation = new SliceAnnotation();
-
-        for (IImagePlot plot : getPlots()) {
-            setAnnotation(plot, SelectedPlotAnnotation.ID, plotAnnotation);
-            setAnnotation(plot, CrosshairAnnotation.ID, crosshairAnnotation);
-            setAnnotation(plot, SliceAnnotation.ID, sliceAnnotation);
-
-        }
-
-
-    }
-
-    public SliceController getSliceController() {
-        return sliceController;
-    }
-
-    private void updateSlices() {
-        List<IImagePlot> plotList = getPlots();
-
-        int i = 0;
-        for (IImagePlot plot : plotList) {
-            AnatomicalPoint3D slice = sliceController.getSliceForPlot(i);
-            plot.setSlice(slice);
-            i++;
-        }
-
-    }
-
-    //public void setDisplayAnatomy(Anatomy3D displayAnatomy) {
-    //    this.displayAnatomy = displayAnatomy;
-    //}
-
-    @Override
-    protected IImagePlot makePlot(int index, int row, int column) {
-        AxisRange xrange = getModel().getImageAxis(displayAnatomy.XAXIS).getRange();
-        AxisRange yrange = getModel().getImageAxis(displayAnatomy.YAXIS).getRange();
-
-
-        IImagePlot plot = new ComponentImagePlot(getModel(), new ViewBounds(displayAnatomy, xrange, yrange));
-        plot.setName(displayAnatomy.XY_PLANE.getOrientation().toString() + row + ", " + column);
-
-        CompositeImageProducer producer = new CompositeImageProducer(plot, getDisplayAnatomy());
-        producer = new CompositeImageProducer(plot, getDisplayAnatomy());
-        plot.setImageProducer(producer);
-
-
-        AnatomicalPoint3D nextSlice = sliceController.getSliceForPlot(index);
-
-        plot.setSlice(nextSlice);
-
-        return plot;
-
-    }
+    
 
 
     public Dimension getPreferredSize() {
-        return new Dimension(150 * getNRows(), 150 * getNCols());
+        return new Dimension(150 * getNrows(), 150 * getNcols());
     }
 
-    class CrosshairHandler implements PropertyChangeListener {
+    /*class CrosshairHandler implements PropertyChangeListener {
 
 
         public void propertyChange(PropertyChangeEvent evt) {
@@ -161,66 +118,22 @@ public class MontageImageView extends AbstractGriddedImageView {
             }
 
         }
-    }
-
-    class MontageSliceController implements SliceController {
-
-        private AnatomicalPoint1D sentinel;
-
-        private double sliceGap = 4;
-
-        private AxisRange sliceRange;
+    }*/
 
 
-        public MontageSliceController(AnatomicalPoint1D sentinel) {
-            this.sentinel = sentinel;
-            sliceGap = getModel().getImageSpace().getImageAxis(displayAnatomy.ZAXIS, true).getSpacing();
-            //sliceRange = new AxisRange(sentinel.getAnatomy(), sentinel.getValue(), sentinel.getValue() + getNumPlots() * sliceGap);
-        }
-
-
-        public MontageSliceController(AnatomicalPoint1D sentinel, double sliceGap) {
-            this.sentinel = sentinel;
-            this.sliceGap = sliceGap;
-            //sliceRange = new AxisRange(sentinel.getAnatomy(), sentinel.getValue(), sentinel.getValue() + getNumPlots() * sliceGap);
-        }
-
-        public void setSlice(AnatomicalPoint3D slice) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        public double getSliceGap() {
-            return sliceGap;
-        }
-
-
-        public AnatomicalPoint3D getSlice() {
-            return null;
-            //return sentinel;
-        }
-
-
-        public AxisRange getSliceRange() {
-            return sliceRange;
-        }
-
-        public AnatomicalPoint3D getSliceForPlot(int plotIndex) {
-            return  null;
-        }
-
-        public double nearestSlice(AnatomicalPoint1D slice) {
-            double minDist = Double.MAX_VALUE;
+        //public double nearestSlice(AnatomicalPoint1D slice) {
+        //    double minDist = Double.MAX_VALUE;
             //for (int i = 0; i < getNumPlots(); i++) {
                 //AnatomicalPoint1D pt = getSliceForPlot(i);
                 //minDist = Math.min(Math.abs(pt.evaluate() - slice.evaluate()), minDist);
            // }
 
-            return minDist;
-        }
+        //    return minDist;
+        //}
 
-        public int whichPlot(AnatomicalPoint1D slice, double tolerance) {
-            int index = -1;
-            double minDist = Double.MAX_VALUE;
+        //public int whichPlot(AnatomicalPoint1D slice, double tolerance) {
+        //    int index = -1;
+        //    double minDist = Double.MAX_VALUE;
             //for (int i = 0; i < getNumPlots(); i++) {
            //     AnatomicalPoint3D pt = getSliceForPlot(i);
             //    double dist = Math.abs(pt.getX() - slice.getValue());
@@ -230,17 +143,17 @@ public class MontageImageView extends AbstractGriddedImageView {
             //    }
            // }
 
-            if (minDist < tolerance) {
-                return index;
-            } else {
-                return -1;
-            }
+          //  if (minDist < tolerance) {
+          //      return index;
+           // } else {
+           //     return -1;
+           // }
 
 
-        }
+       // }
 
 
-        public void setSlice(AnatomicalPoint1D slice) {
+        /*public void setSlice(AnatomicalPoint1D slice) {
 
             AxisRange range = getViewport().getRange(getDisplayAnatomy().ZAXIS);
             if (slice.getAnatomy() != range.getAnatomicalAxis()) {
@@ -268,7 +181,7 @@ public class MontageImageView extends AbstractGriddedImageView {
         public void pageForward() {
             //To change body of implemented methods use File | Settings | File Templates.
         }
-    }
+    } */
 
     /*class MontageControlPanel extends JPanel {
 

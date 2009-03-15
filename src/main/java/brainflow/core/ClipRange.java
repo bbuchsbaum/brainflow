@@ -122,11 +122,13 @@ public class ClipRange implements IClipRange {
 
 
     public boolean contains(double val) {
-        if (lowClip <= val && highClip >= val) {
+        if (val > highClip || val < lowClip) {
+            return false;
+        } else {
             return true;
         }
+       
 
-        return false;
     }
 
     @Override

@@ -23,11 +23,17 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.java.balloontip.CustomBalloonTip;
+import net.java.balloontip.BalloonTip;
+import net.java.balloontip.styles.ModernBalloonStyle;
 
 /**
  * Created by IntelliJ IDEA.
@@ -74,7 +80,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
         imageTableModel = new ImageTableModel();
         table = new HierarchicalTable() {
 
-            
+
             public TableModel getStyleModel() {
                 return imageTableModel; // designate it as the style model
             }
@@ -143,7 +149,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
     }
 
     private String convertBytesToString(long bytes) {
-        String ret = null;
+        String ret;
 
         if (bytes >= 1048576) {
             // we're dealing with megabytes
@@ -185,25 +191,71 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
             //supportButton.addActionListener(new ClickAction(program, "Support", supportButton));
             panel.add(supportButton);
             panel.add(new NullPanel());
+
+            //propertiesButton.setVerticalAlignment(SwingConstants.BOTTOM);
+            //propertiesButton.addActionListener(new ClickAction(program, "Help", propertiesButton));
+            panel.add(createInfoButton());
+            return panel;
+        }
+
+        private String infoString() {
+            table.getSelectedRow();
+            StringBuilder builder = new StringBuilder();
+            builder.append("<html>");
+            builder.append("Name: " + limg.getStem());
+            builder.append("<br>");
+            builder.append("Format: " + limg.getFileFormat());
+            builder.append("<br>");
+            builder.append("Dim: " + limg.getImageInfo().getArrayDim());
+            builder.append("<br>");
+            builder.append("Spacing: " + limg.getImageInfo().getSpacing());
+            builder.append("<br>");
+            builder.append("Anatomy: " + limg.getImageInfo().getAnatomy());
+            builder.append("<br>");
+            builder.append("Origin: " + limg.getImageInfo().getOrigin());
+            builder.append("</html>");
+            return builder.toString();
+        }
+
+        private BalloonTip createBalloon(JComponent comp) {
+            return new CustomBalloonTip(comp,
+
+                    infoString(),
+                    new Rectangle(comp.getWidth(), 0, 0, 0),
+                    new ModernBalloonStyle(3, 3, Color.WHITE, Color.WHITE.darker(), Color.GRAY),
+                    BalloonTip.Orientation.RIGHT_ABOVE,
+                    BalloonTip.AttachLocation.EAST,
+                    10, 10,
+                    true);
+
+
+        }
+
+        private NullJideButton createInfoButton() {
             final NullJideButton propertiesButton = new NullJideButton("More Info");
             propertiesButton.setButtonStyle(NullJideButton.HYPERLINK_STYLE);
             propertiesButton.setHorizontalAlignment(SwingConstants.LEADING);
 
-            URL url = getClass().getClassLoader().getResource("resources/icons/information.png");
+            URL url = getClass().getClassLoader().getResource("icons/information.png");
             ImageIcon icon = null;
             try {
-                //icon = com.jidesoft.icons.IconsFactory.findImageIcon(getClass(), "resources/icons/info_tsk.gif");
                 icon = new ImageIcon(ImageIO.read(url));
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+
             propertiesButton.setIcon(icon);
-            //propertiesButton.setVerticalAlignment(SwingConstants.BOTTOM);
-            //propertiesButton.addActionListener(new ClickAction(program, "Help", propertiesButton));
-            panel.add(propertiesButton);
-            return panel;
+            propertiesButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+
+                    createBalloon(propertiesButton).setVisible(true);
+                }
+            });
+
+            return propertiesButton;
+
         }
 
         JComponent createControlPanel() {

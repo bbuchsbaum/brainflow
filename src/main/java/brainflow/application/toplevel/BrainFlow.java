@@ -469,7 +469,7 @@ public class BrainFlow {
         bindCommand(new LinearInterpolationToggleCommand(), true);
         bindCommand(new CubicInterpolationToggleCommand(), true);
         bindCommand(new ToggleAxisLabelCommand(), true);
-        bindCommand(new ToggleCrossHairCommand(), true);
+        bindCommand(new ToggleCrossCommand(), true);
 
         JToolBar mainToolbar = mainToolbarGroup.createToolBar();
 
@@ -647,7 +647,7 @@ public class BrainFlow {
         LoadableImageTableView loadView = new LoadableImageTableView();
         DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Loaded Images",
                 "icons/det_pane_hide.gif",
-                DockContext.STATE_HIDDEN,
+                DockContext.STATE_AUTOHIDE_SHOWING,
                 DockContext.DOCK_SIDE_WEST,
                 1);
 
@@ -802,14 +802,31 @@ public class BrainFlow {
 
 
     public void loadAndDisplay(final IImageDataSource dataSource) {
+        //this whole set of methods is a horror
+        //todo need a set of related methods that allow
+        // 1. loading image in background
+        // 2. registering image
+        // 3. creating model if necessary
+        // 4. creating layer if necessary
+        // 5. creating view if necessary
+        
         log.info("loading and displaying : " + dataSource);
 
         final IImageDataSource checkedDataSource = specialHandling(dataSource);
         register(checkedDataSource);
 
-        ImageProgressDialog id = DataSourceManager.getInstance().createProgressDialog(checkedDataSource, new ActionListener() {
+        ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
+        monitor.loadImage(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                IImageDisplayModel displayModel = ProjectManager.getInstance().addToActiveProject(dataSource);
+                IImageDisplayModel displayModel = ProjectManager.getInstance().createDisplayModel(checkedDataSource, true);
+                ImageView iview = ImageViewFactory.createAxialView(displayModel);
+                DisplayManager.getInstance().getSelectedCanvas().addImageView(iview);
+            }
+        });
+
+        /*ImageProgressDialog id = DataSourceManager.getInstance().createProgressDialog(checkedDataSource, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                IImageDisplayModel displayModel = ProjectManager.getInstance().createDisplayModel(dataSource);
                 ImageView iview = ImageViewFactory.createAxialView(displayModel);
 
                 DisplayManager.getInstance().getSelectedCanvas().addImageView(iview);
@@ -822,7 +839,7 @@ public class BrainFlow {
         JDialog dialog = id.getDialog();
         dialog.setVisible(true);
 
-        id.execute();
+        id.execute();  */
 
 
     }
@@ -835,6 +852,7 @@ public class BrainFlow {
         ImageProgressDialog id = DataSourceManager.getInstance().createProgressDialog(checkedDataSource, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 IImageDisplayModel dset = view.getModel();
+
                 IImageData data = dataSource.getData();
                 //todo data range should be a property of ImageLayerProperties, not IColorMap
                 ImageLayerProperties params = new ImageLayerProperties(new Range(data.minValue(), data.maxValue()));

@@ -14,6 +14,7 @@ import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayerProperties;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.utils.SoftCache;
+import brainflow.utils.StopWatch;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -71,11 +72,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         this.displayAnatomy = renderer.displayAnatomy;
         this.lastColorMap = renderer.lastColorMap;
 
-        if (refSpace.equals(layer.getData().getImageSpace())) {
-            slicer = new ImageSlicer(layer.getData());
-        } else {
-            slicer = new ImageSlicer(new MappedDataAcessor3D(refSpace, (IImageData3D) layer.getData()));
-        }
+        slicer = ImageSlicer.createSlicer(refSpace, layer.getData());
 
         if (keepCache) {
             dataCache = renderer.dataCache;
@@ -94,11 +91,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         this.refSpace = refSpace;
 
 
-        if (refSpace.equals(layer.getData().getImageSpace())) {
-            slicer = new ImageSlicer(layer.getData());
-        } else {
-            slicer = new ImageSlicer(new MappedDataAcessor3D(refSpace,layer.getData()));
-        }
+        slicer = ImageSlicer.createSlicer(refSpace, layer.getData());
 
         initCache();
 
@@ -110,17 +103,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         this.refSpace = refSpace;
         this.displayAnatomy = displayAnatomy;
 
-        if (refSpace == null) System.out.println("refSpace == null");
-        if (layer == null) System.out.println("layer == null");
-        if (layer.getData() == null) {
-            System.out.println("layer.data == null"); 
-        }
-        if (refSpace.equals(layer.getData().getImageSpace())) {
-
-            slicer = new ImageSlicer(layer.getData());
-        } else {
-            slicer = new ImageSlicer(new MappedDataAcessor3D(refSpace,  layer.getData()));
-        }
+        slicer = ImageSlicer.createSlicer(refSpace, layer.getData());
 
         initCache();
 
@@ -157,9 +140,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         if (data != null) return data;
 
 
-
-
-       AnatomicalPoint1D zdisp = getZSlice();
+        AnatomicalPoint1D zdisp = getZSlice();
 
         IImageData2D ret = dataCache.get(zdisp);
 
@@ -191,7 +172,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         double gridy = refSpace.getImageAxis(Axis.Y_AXIS).gridPosition(slice.getY());
         double gridz = refSpace.getImageAxis(Axis.Z_AXIS).gridPosition(slice.getZ());
 
- 
+
         AnatomicalPoint3D gridloc = new AnatomicalPoint3D(refSpace, gridx, gridy, gridz);
 
 
@@ -220,7 +201,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
         if (rgbaImage == null) {
             IColorMap cmap = layer.getImageLayerProperties().colorMap.get();
-            
+
             lastColorMap = cmap;
             rgbaImage = cmap.getRGBAImage(getData());
             rgbaCache.put(zdisp, rgbaImage);
@@ -403,29 +384,52 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
 
     protected RGBAImage thresholdRGBA(RGBAImage rgba) {
-        ImageSlicer slicer = new ImageSlicer(new MappedDataAcessor3D(refSpace, layer.getMaskProperty().buildMask()));
+        StopWatch watch = new StopWatch();
+        
+        //watch.start("thresholdRGBA");
+
+        //watch.start("create slicer");
+        ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
+
+        //watch.stopAndReport("create slicer");
+        
+
         AnatomicalPoint1D zdisp = getZSlice();
+        System.out.println("layer name " + layer.getLabel());
+        System.out.println("slice " + zdisp.getValue());
 
 
+        //watch.start("mask data");
         IImageData2D maskData = slicer.getSlice(getDisplayAnatomy(), (int) Math.round(zdisp.getValue()));
+        //watch.stopAndReport("mask data");
 
+        //watch.start("creating rgba");
         UByteImageData2D alpha = rgba.getAlpha();
         UByteImageData2D out = new UByteImageData2D(alpha.getImageSpace());
+        //watch.stopAndReport("creating rgba");
 
         ImageIterator sourceIter = alpha.iterator();
         ImageIterator maskIter = maskData.iterator();
 
+        //watch.start("iteration");
         while (sourceIter.hasNext()) {
             int index = sourceIter.index();
             double a = sourceIter.next();
+
             double b = maskIter.next();
 
             double val = a * b;
 
             out.set(index, (byte) val);
         }
+        //watch.stopAndReport("iteration");
 
+
+
+        //watch.start("creating rgba");
         RGBAImage ret = new RGBAImage(rgba.getSource(), rgba.getRed(), rgba.getGreen(), rgba.getBlue(), out);
+        //watch.stopAndReport("creating rgba");
+        //watch.stopAndReport("thresholdRGBA");
         return ret;
 
     }

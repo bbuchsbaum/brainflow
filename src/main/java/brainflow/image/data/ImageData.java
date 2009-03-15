@@ -11,6 +11,8 @@ import brainflow.image.iterators.ImageIterator;
 import brainflow.utils.DataType;
 import brainflow.math.Index3D;
 
+import java.util.Arrays;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -38,6 +40,23 @@ public class ImageData {
         }
 
         throw new IllegalArgumentException("could not create mask, wrong data class " + dat.getClass());
+    }
+
+    public static double[] toArray(IImageData data) {
+        ImageIterator iter = data.iterator();
+        double[] ret = new double[data.numElements()];
+
+        while(iter.hasNext()) {
+            ret[iter.index()] = iter.next();
+
+        }
+
+        return ret;
+    }
+    public static double[] sort(IImageData data) {
+        double[] ret = toArray(data);
+        Arrays.sort(ret);
+        return ret;
     }
 
     public static double meanDeviation(IImageData data, double referenceVal) {

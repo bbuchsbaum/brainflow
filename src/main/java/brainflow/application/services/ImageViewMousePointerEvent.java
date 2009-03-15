@@ -29,10 +29,13 @@ public class ImageViewMousePointerEvent extends ImageViewMouseEvent {
         if (ap == null) {
             MouseEvent event = getEvent();
             AnatomicalPoint3D cursorPos = getImageView().getCursorPos();
+            if (!getImageView().pointInPlot(event.getComponent(), event.getPoint())) {
+                return new AnatomicalPoint3D(cursorPos.getSpace().getAnatomy(), 0,0,0);
+            }
+
             AnatomicalPoint3D tmp = getImageView().getAnatomicalLocation(event.getComponent(), event.getPoint());
-
-
-                ap = tmp.convertTo(cursorPos.getSpace());
+           
+            ap = tmp.convertTo(cursorPos.getSpace());
 
 
             IImageSpace3D space = getImageView().getModel().getImageSpace();

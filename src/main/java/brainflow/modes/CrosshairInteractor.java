@@ -32,9 +32,9 @@ public class CrosshairInteractor extends ImageViewInteractor {
     }
 
     public void mousePressed(MouseEvent event) {
-        System.out.println("mouse pressed for cross " + event.getPoint());
         ImageView iview = getView();
-        if (iview == null) {
+
+        if (iview == null || !iview.pointInPlot(event.getComponent(), event.getPoint())) {
             return;
         }
 

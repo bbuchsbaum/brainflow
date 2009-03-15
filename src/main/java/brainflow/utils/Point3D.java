@@ -1,5 +1,7 @@
 package brainflow.utils;
 
+import java.text.NumberFormat;
+
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -95,7 +97,10 @@ public class Point3D implements java.io.Serializable {
     }
 
     public String toString() {
-        return "x = " + x + " y = " + y + " z = " + z;
+        NumberFormat f = NumberFormat.getNumberInstance();
+        f.setMaximumFractionDigits(2);
+        return "[" + f.format(x) + ", " + f.format(y) + ", " + f.format(z) + "]";
+
     }
 
 

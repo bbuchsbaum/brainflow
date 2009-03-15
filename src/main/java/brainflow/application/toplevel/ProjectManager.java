@@ -4,12 +4,8 @@ import brainflow.application.BrainFlowProject;
 import brainflow.image.io.IImageDataSource;
 import brainflow.application.services.ImageDisplayModelEvent;
 import brainflow.application.services.DataSourceStatusEvent;
-import brainflow.colormap.LinearColorMap2;
 import brainflow.core.*;
-import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.ImageLayerProperties;
-import brainflow.utils.Range;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 
@@ -47,19 +43,25 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
         return activeProject;
     }
 
-    public IImageDisplayModel addToActiveProject(ImageLayer3D layer) {
-
-        boolean registered = DataSourceManager.getInstance().isRegistered(layer.getDataSource());
+    private void registerDataSource(IImageDataSource dsource) {
+        boolean registered = DataSourceManager.getInstance().isRegistered(dsource);
 
         if (!registered) {
-            DataSourceManager.getInstance().register(layer.getDataSource());
+            DataSourceManager.getInstance().register(dsource);
         }
 
-        //todo give sensible name
+    }
+
+    public IImageDisplayModel createDisplayModel(ImageLayer3D layer, boolean addToActiveProject) {
+        registerDataSource(layer.getDataSource());
+
         IImageDisplayModel displayModel = new ImageDisplayModel("model #" + (activeProject.size() + 1));
 
         displayModel.addLayer(layer);
-        activeProject.addModel(displayModel);
+
+        if (addToActiveProject) {
+            activeProject.addModel(displayModel);
+        }
 
 
         return displayModel;
@@ -67,35 +69,16 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
     }
 
 
-    public IImageDisplayModel addToActiveProject(IImageDataSource limg) {
+    public IImageDisplayModel createDisplayModel(IImageDataSource dataSource, boolean addToActiveProject) {
+        registerDataSource(dataSource);
 
-        boolean registered = DataSourceManager.getInstance().isRegistered(limg);
+        IImageDisplayModel displayModel = ImageViewFactory.createModel("model #" + (activeProject.size() + 1), dataSource);
 
-        if (!registered) {
-            DataSourceManager.getInstance().register(limg);
+        if (addToActiveProject) {
+            activeProject.addModel(displayModel);
         }
 
-        //todo give sensible name
-        IImageDisplayModel displayModel = new ImageDisplayModel("model #" + (activeProject.size() + 1));
-
-
-
-        ImageLayerProperties params = new ImageLayerProperties(
-                new Range(limg.getData().minValue(),
-                          limg.getData().maxValue()));
-
-        params.colorMap.set(new LinearColorMap2(limg.getData().minValue(),
-                limg.getData().maxValue(),
-                ResourceManager.getInstance().getDefaultColorMap()));
-
-        ImageLayer3D layer = new ImageLayer3D(limg, params);
-        displayModel.addLayer(layer);
-
-        activeProject.addModel(displayModel);
-
-
         return displayModel;
-
     }
 
 
@@ -108,17 +91,17 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
                 break;
             case IMAGE_REMOVED:
                 //todo if only zero image is in model, then this is effectively removing the view.
-                clearLoadableImage(event.getLoadableImage());
+                clearDataSource(event.getLoadableImage());
             case IMAGE_UNLOADED:
                 break;
         }
     }
 
-    protected void clearLoadableImage(IImageDataSource limg) {
+    protected void clearDataSource(IImageDataSource dataSource) {
         Iterator<IImageDisplayModel> iter = activeProject.iterator();
         while (iter.hasNext()) {
             IImageDisplayModel dmodel = iter.next();
-            List<Integer> idx = dmodel.indexOf(limg.getData());
+            List<Integer> idx = dmodel.indexOf(dataSource.getData());
 
             if (idx.size() > 0) {
 
@@ -129,7 +112,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
                 }
 
                 for (ImageLayer3D layer : removables) {
-                     dmodel.removeLayer(layer);
+                    dmodel.removeLayer(layer);
                 }
             }
         }

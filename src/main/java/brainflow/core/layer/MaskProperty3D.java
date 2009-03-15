@@ -34,7 +34,7 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
 
     }
 
-    public MaskProperty3D setMask(MASK_KEY key, IMaskedData3D mask) {
+    public MaskProperty3D copyMask(MASK_KEY key, IMaskedData3D mask) {
         HashMap<MASK_KEY, IMaskedData3D> newmap = (HashMap<MASK_KEY, IMaskedData3D>) maskMap.clone();
         newmap.put(key, mask);
         return new MaskProperty3D(layer, newmap);
@@ -62,6 +62,7 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
 
 
             final IClipRange range = layer.getImageLayerProperties().thresholdRange.get();
+
             MaskPredicate pred = new MaskPredicate() {
                 public boolean mask(double value) {
                     return !range.contains(value);

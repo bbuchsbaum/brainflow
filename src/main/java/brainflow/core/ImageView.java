@@ -418,15 +418,18 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
     }
 
+    //todo this method is just really, really bad. fix it.
     public AnatomicalPoint3D getAnatomicalLocation(Component source, Point p) {
 
         Point viewPoint = SwingUtilities.convertPoint(source, p, this);
         IImagePlot plot = whichPlot(viewPoint);
 
         if (plot == null) {
-            log.warning("point outside view, returning null");
-            return null;
+            throw new IllegalArgumentException("Point p: " + p +  " is not within bounds of component");
+
         }
+
+        //System.out.println("plot loc " + plot.getSlice());
 
         Point plotPoint = SwingUtilities.convertPoint(this, viewPoint, plot.getComponent());
 
@@ -440,7 +443,11 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
                         plot.getYAxisRange().getAnatomicalAxis(),
                         plot.getDisplayAnatomy().ZAXIS),
                 apoint.getX(), apoint.getY(),
-                getCursorPos().getValue(displayAnatomy.ZAXIS).getValue());
+                plot.getSlice().getValue(displayAnatomy.ZAXIS).getValue());
+
+                //getCursorPos().getValue(displayAnatomy.ZAXIS).getValue());
+
+        //System.out.println("ap3d " + ap3d);
 
 
         return ap3d;

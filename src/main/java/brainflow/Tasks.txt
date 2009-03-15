@@ -5,10 +5,18 @@
 
 
 
+Fix: loadable image pane. "info button" does nothing.
+Fix: unload currently visible image? should popup message box: image is visible, do you want to do this?
+Fix: mask operation appears to be excruciatingly slow!
+Fix: adjusting threshold after "freezing" mask causes exception
+
+[Fix: switching between views is excruciatingly slow]
+
 
 Fix: project view drag and drop within same model should reorder rather than copy
 [Fix: snapshot buttons don't work]
 
+[Add: button to refresh directory] instead added file monitor that automatically updates folders.
 Add: Montage view
 [Add: x axis to histogram]
 Add: color bar wizard
@@ -26,7 +34,7 @@ Finish: conjunction module
 [Fix: Toolbar and Popup menu items need to be properly bound to Bean Properties.]
 
 Fix: Color Bar not updated when modifying color map in RGB editor.
-FIX: RGB Editor should work with Discrete Color Maps
+Fix: RGB Editor should work with Discrete Color Maps
         -- works but converts to linear color map.
 
 [Fix: Command accelerators need to be fixed.]

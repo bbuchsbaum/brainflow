@@ -17,6 +17,8 @@ import org.codehaus.jparsec.functors.Unary;
  */
 public class BinaryExpressionParser {
 
+    //todo move class to more appropriate package (interpreter? calc?)
+
     private static final Terminals OPERATORS = Terminals.operators("+", "-", "*", "/", "(", ")", "or", "and", "not", ">", "<");
 
     private static final Parser<Void> IGNORED = Scanners.WHITESPACES.skipMany();
@@ -208,7 +210,7 @@ public class BinaryExpressionParser {
     public static void main(String[] args) {
 
         Parser<INode> parser = new BinaryExpressionParser().createParser();
-        INode node = parser.parse("-5 > 6");
+        INode node = parser.parse("-5 >> 6");
 
         MaskEvaluator ms = new MaskEvaluator();
         ms.start(new RootNode(node));

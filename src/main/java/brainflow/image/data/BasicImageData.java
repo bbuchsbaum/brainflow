@@ -27,14 +27,15 @@ public abstract class BasicImageData extends AbstractImageData {
 
     protected Object storage;
 
-    private Future<Double> maxValue;
+    private double maxValue;
 
-    private Future<Double> minValue;
+    private double minValue;
 
-    private static ExecutorService service = Executors.newCachedThreadPool();
+    private boolean maxComputed = false;
 
+    private boolean minComputed = false;
 
-    private Future<Long> hashid;
+    private long hashid;
 
 
     public BasicImageData(IImageSpace space) {
@@ -56,39 +57,7 @@ public abstract class BasicImageData extends AbstractImageData {
 
 
 
-    private void computeStats() {
 
-        //todo eliminate this hack
-        maxValue = service.submit(new Callable<Double>() {
-            public Double call() {
-                return computeMax();
-
-            }
-        });
-
-        //todo eliminate this hack
-        minValue = service.submit(new Callable<Double>() {
-
-
-            public Double call() {
-
-                return computeMin();
-
-            }
-        });
-        
-        //todo eliminate this hack
-        hashid = service.submit(new Callable<Long>() {
-            Long result = null;
-
-            public Long call() {
-                return computeHash();
-
-            }
-        });
-
-
-    }
 
     private long computeHash() {
         ImageIterator iter = this.iterator();
@@ -117,13 +86,13 @@ public abstract class BasicImageData extends AbstractImageData {
             }
         }
 
-
+        minComputed = true;
         return _min;
 
     }
 
     protected double computeMax() {
-
+        long start = System.currentTimeMillis();
         ImageIterator iter = this.iterator();
 
         double _max = -Double.MAX_VALUE;
@@ -135,7 +104,9 @@ public abstract class BasicImageData extends AbstractImageData {
             }
         }
 
-
+        maxComputed = true;
+        long end = System.currentTimeMillis();
+        System.out.println("computing max took: " + (end-start));
         return _max;
 
     }
@@ -168,7 +139,6 @@ public abstract class BasicImageData extends AbstractImageData {
             throw new IllegalArgumentException("BasicImageData: cannot allocate data of type " + datatype.toString());
         }
 
-        computeStats();
 
 
     }
@@ -219,49 +189,28 @@ public abstract class BasicImageData extends AbstractImageData {
             throw new IllegalArgumentException("BasicImageData: cannot allocate data of type " + datatype.toString());
         }
 
-        computeStats();
 
         return data;
     }
 
     protected long hashid() {
-        //todo eliminate this hack
-        try {
-            return hashid.get();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        return hashid;
 
     }
 
 
     public double maxValue() {
-        //todo eliminate this hack
-
-        try {
-            return maxValue.get();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        if (maxComputed) return maxValue;
+        maxValue = computeMax();
+        return maxValue;
 
     }
 
     public double minValue() {
-        //todo eliminate this hack
-        try {
-            return minValue.get();
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        if (minComputed) return minValue;
+        minValue = computeMin();
+        return minValue;
 
-        }
 
 
     }
@@ -281,7 +230,7 @@ public abstract class BasicImageData extends AbstractImageData {
         BasicImageData that = (BasicImageData) o;
 
         if (!that.space.equals(o)) return false;
-        if (!(that.hashid() == hashid())) return false;
+        //if (!(that.hashid() == hashid())) return false;
         if (!that.getImageLabel().equals(getImageLabel())) return false;
 
         return true;

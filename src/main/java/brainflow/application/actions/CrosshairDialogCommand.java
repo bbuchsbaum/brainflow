@@ -41,7 +41,7 @@ public class CrosshairDialogCommand extends BrainFlowCommand {
             final CrosshairAnnotation safeCopy = (CrosshairAnnotation) icross.safeCopy();
 
             if (icross != null) {
-                CrosshairPresenter presenter = new CrosshairPresenter((CrosshairAnnotation) icross);
+                CrosshairPresenter presenter = new CrosshairPresenter(icross);
                 Container c = JOptionPane.getFrameForComponent(view);
 
 

@@ -15,6 +15,7 @@ import com.jidesoft.swing.DefaultOverlayable;
 import com.jidesoft.swing.InfiniteProgressPanel;
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import org.apache.commons.vfs.*;
+import org.apache.commons.vfs.impl.DefaultFileMonitor;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -30,8 +31,6 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -61,6 +60,12 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     private DefaultOverlayable overlayPanel;
 
+    private InfiniteProgressPanel progressPanel = new InfiniteProgressPanel() {
+        public Dimension getPreferredSize() {
+            return new Dimension(20, 20);
+        }
+    };
+
     private JScrollPane scrollPane;
 
 
@@ -79,64 +84,31 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
         explorer.addTreeSelectionListener(this);
 
-        overlayPanel = new DefaultOverlayable(explorer.getJTree());
+        explorer.addTreeSelectionListener(new TreeSelectionListener() {
+            public void valueChanged(TreeSelectionEvent e) {
 
-        final InfiniteProgressPanel progressPanel = new InfiniteProgressPanel() {
-            public Dimension getPreferredSize() {
-                return new Dimension(20, 20);
-            }
-        };
-
-        overlayPanel.addOverlayComponent(progressPanel);
-        overlayPanel.setOverlayVisible(false);
-
-        progressPanel.stop();
-
-
-        explorer.addTreeExpansionListener(new TreeExpansionListener() {
-
-            public void treeExpanded(TreeExpansionEvent event) {
-                LazyNode node = (LazyNode) event.getPath().getLastPathComponent();
-
-                if (!node.areChildrenDefined()) {
-                    ImageNodeWorker worker = new ImageNodeWorker(node);
-                    progressPanel.start();
-                    overlayPanel.setOverlayVisible(true);
-
-                    try {
-                        worker.execute();
-                    } catch (Throwable t) {
-                        throw new RuntimeException(t);
-                    }
-
-
-                    worker.addPropertyChangeListener(new PropertyChangeListener() {
-
-                        public void propertyChange(PropertyChangeEvent evt) {
-                            SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
-
-                            switch (state) {
-                                case DONE:
-                                    progressPanel.stop();
-                                    overlayPanel.setOverlayVisible(false);
-                                    break;
-                                case PENDING:
-                                    break;
-                                case STARTED:
-                                    break;
-                            }
-
-                        }
-                    });
-
+                TreePath path = e.getNewLeadSelectionPath();
+                if (path != null) {
+                    System.out.println("last path component: " + path.getLastPathComponent());
                 }
-
-            }
-
-            public void treeCollapsed(TreeExpansionEvent event) {
             }
         });
 
+        overlayPanel = new DefaultOverlayable(explorer.getJTree());
+        overlayPanel.addOverlayComponent(progressPanel);
+        overlayPanel.setOverlayVisible(false);
+        progressPanel.stop();
+
+        initTreeExpansionListener();
+        initCellRenderer();
+        initDnD();
+
+        scrollPane = new JScrollPane(overlayPanel);
+
+
+    }
+
+    private void initCellRenderer() {
         explorer.getJTree().setCellRenderer(new DefaultTreeCellRenderer() {
 
 
@@ -163,15 +135,13 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                     label.setIcon(brickIcon);
 
                     if (limg.isLoaded()) {
-                    
+
                     }
                     if (limg.isLoaded() && !selected) {
-
                         label.setForeground(Color.GREEN.darker().darker());
                     }
 
                 }
-
 
                 return label;
             }
@@ -179,8 +149,53 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
         });
 
-        scrollPane = new JScrollPane(overlayPanel);
-        initDnD();
+
+    }
+
+    private void initTreeExpansionListener() {
+        explorer.addTreeExpansionListener(new TreeExpansionListener() {
+
+            public void treeExpanded(TreeExpansionEvent event) {
+                LazyNode node = (LazyNode) event.getPath().getLastPathComponent();
+
+                if (!node.areChildrenDefined()) {
+                    ImageNodeWorker worker = new ImageNodeWorker(node) {
+                        @Override
+                        protected void done() {
+                            super.done();
+                            hideProgressSignal();
+                        }
+                    };
+
+                    startProgressSignal();
+
+                    try {
+                        worker.execute();
+                    } catch (Throwable t) {
+                        hideProgressSignal();
+                        throw new RuntimeException(t);
+                    }
+
+
+                }
+
+            }
+
+            public void treeCollapsed(TreeExpansionEvent event) {
+            }
+        });
+
+    }
+
+    private void startProgressSignal() {
+        progressPanel.start();
+        overlayPanel.setOverlayVisible(true);
+
+    }
+
+    private void hideProgressSignal() {
+        progressPanel.stop();
+        overlayPanel.setOverlayVisible(false);
 
 
     }
@@ -205,10 +220,10 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                     Object[] obj = path.getPath();
 
                     // extracting last object in path ...
-                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) obj[obj.length-1];
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) obj[obj.length - 1];
 
-                    if (node instanceof DataSourceNode)  {
-                        DataSourceNode dnode = (DataSourceNode)node;
+                    if (node instanceof DataSourceNode) {
+                        DataSourceNode dnode = (DataSourceNode) node;
                         IImageDataSource source = dnode.getUserObject();
                         ret = DnDUtils.createTransferable(source);
                     }
@@ -258,22 +273,50 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
     public void addFileRoot(FileObject fobj) {
-        TreeNode root = (TreeNode)explorer.getJTree().getModel().getRoot();
+        System.out.println("adding file root " + fobj);
+        TreeNode root = (TreeNode) explorer.getJTree().getModel().getRoot();
         Enumeration e = root.children();
 
+        boolean hasnode = false;
         while (e.hasMoreElements()) {
-            TreeNode node = (TreeNode)e.nextElement();
+            TreeNode node = (TreeNode) e.nextElement();
             if (node instanceof FolderNode) {
-                FolderNode folder = (FolderNode)node;
+                FolderNode folder = (FolderNode) node;
                 if (folder.getFileObject().equals(fobj)) {
-                    folder.resynch();
-                    return;
+                    hasnode = true;
+                    //todo this just silently does nothing wheras it might be better to notify user
+                    break;
                 }
             }
         }
 
-        
-        explorer.addFileRoot(fobj);
+        if (!hasnode)
+            explorer.addFileRoot(fobj);
+    }
+
+    private void monitorFolder(final FolderNode folder) {
+        DefaultFileMonitor fm = new DefaultFileMonitor(new FileListener() {
+            public void fileCreated(FileChangeEvent fileChangeEvent) throws Exception {
+
+                folder.resync();
+                updateNodeContent(folder);
+            }
+
+            public void fileDeleted(FileChangeEvent fileChangeEvent) throws Exception {
+                folder.resync();
+                updateNodeContent(folder);
+            }
+
+            public void fileChanged(FileChangeEvent fileChangeEvent) throws Exception {
+
+            }
+        });
+
+
+        fm.addFile(folder.getFileObject());
+        fm.start();
+
+
     }
 
     public void valueChanged(TreeSelectionEvent e) {
@@ -286,23 +329,45 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
 
-
-    public void updateNode(TreeNode node) {
-
+    private DefaultTreeModel getDefaultTreeModel() {
         TreeModel model = explorer.getJTree().getModel();
         DefaultTreeModel dtm = null;
         if (model instanceof DefaultTreeModelWrapper) {
             DefaultTreeModelWrapper wrapper = (DefaultTreeModelWrapper) model;
+
             dtm = (DefaultTreeModel) wrapper.getActualModel();
         } else if (model instanceof DefaultTreeModel) {
             dtm = (DefaultTreeModel) model;
         }
 
+        return dtm;
+
+    }
+    public void updateNodeStructure(TreeNode node) {
+
+
+        DefaultTreeModel dtm = getDefaultTreeModel();
 
         if (dtm != null) {
             //workaraound for JIDE bug found in forum
             Enumeration<TreePath> state = TreeUtils.saveExpansionStateByTreePath(getJTree());
             dtm.nodeStructureChanged(node);
+            TreeUtils.loadExpansionStateByTreePath(getJTree(), state);
+
+        }
+
+    }
+
+
+    public void updateNodeContent(TreeNode node) {
+       DefaultTreeModel dtm = getDefaultTreeModel();
+
+        if (dtm != null) {
+            //workaraound for JIDE bug found in forum
+            Enumeration<TreePath> state = TreeUtils.saveExpansionStateByTreePath(getJTree());
+            dtm.nodeStructureChanged(node);
+
+            //dtm.nodesWereInserted(node);
             TreeUtils.loadExpansionStateByTreePath(getJTree(), state);
 
         }
@@ -391,7 +456,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         }
 
         protected List<LazyNode> doInBackground() throws Exception {
-            log.fine("fetching image file nodes in background");
             return parent.fetchChildNodes();
 
 
@@ -409,7 +473,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                     parent.add(node);
                 }
 
-                updateNode(parent);
+                updateNodeStructure(parent);
 
             } catch (InterruptedException e) {
                 log.fine("file expansion interrupted");
@@ -427,14 +491,9 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             }
 
 
-            TreeModel model = explorer.getJTree().getModel();
-            DefaultTreeModel dtm = null;
-            if (model instanceof DefaultTreeModelWrapper) {
-                DefaultTreeModelWrapper wrapper = (DefaultTreeModelWrapper) model;
-                dtm = (DefaultTreeModel) wrapper.getActualModel();
-            } else if (model instanceof DefaultTreeModel) {
-                dtm = (DefaultTreeModel) model;
-            }
+
+            DefaultTreeModel dtm = getDefaultTreeModel();
+
 
             if (dtm != null) {
 
@@ -452,6 +511,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         try {
             if (fobj.getType() == FileType.FOLDER) {
                 ret = new FolderNode(fobj);
+                monitorFolder((FolderNode)ret);
             } else if (fobj.getType() == FileType.FILE && ImageIOManager.getInstance().isLoadableImage(fobj)) {
                 ImageIODescriptor desc = ImageIOManager.getInstance().getDescriptor(fobj);
                 IImageDataSource source = desc.createLoadableImage(fobj);
@@ -499,8 +559,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     public abstract class LazyNode extends DefaultMutableTreeNode {
 
-
-
         public abstract List<LazyNode> fetchChildNodes();
 
         public abstract boolean areChildrenDefined();
@@ -510,7 +568,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     public abstract class DataSourceNode extends LazyNode {
         public IImageDataSource getUserObject() {
-            return (IImageDataSource)super.getUserObject();
+            return (IImageDataSource) super.getUserObject();
         }
 
     }
@@ -526,6 +584,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             if (dataSource.getImageInfoList().size() < 2) {
                 throw new IllegalArgumentException("invalid data source ( < 2 images) for ImageContainerNode");
             }
+
             setUserObject(dataSource);
         }
 
@@ -546,7 +605,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         }
 
 
-
         public List<LazyNode> fetchChildNodes() {
             if (!areChildrenDefined()) {
                 childNodes.clear();
@@ -563,7 +621,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
             return childNodes;
         }
-
 
 
         public int priority() {
@@ -603,9 +660,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         }
 
         public String toString() {
-
             return getUserObject().getImageInfo().getImageLabel();
-
         }
 
         public int priority() {
@@ -629,16 +684,25 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                 throw new RuntimeException(e);
             }
             setUserObject(folder);
+
+
         }
 
         public boolean isLeaf() {
             return false;
         }
 
-        public void resynch() {
+        public void resync() {
             if (areChildrenDefined) {
                 areChildrenDefined = false;
-                findChildren();               
+                childNodes.clear();
+                removeAllChildren();
+                fetchChildNodes();
+
+                for (int i=0; i<childNodes.size(); i++) {
+                    add(childNodes.get(i));
+                }
+               
             }
 
         }
@@ -682,7 +746,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             }
 
             findChildren();
-
 
             areChildrenDefined = true;
             return childNodes;

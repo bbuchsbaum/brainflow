@@ -354,6 +354,8 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
 
         double x = (screenPoint.getX() - insets.left - plotMargins.left) / getScaleX();
         double y = (screenPoint.getY() - insets.top - plotMargins.top) / getScaleY();
+
+     
         return new AnatomicalPoint2D(Anatomy2D.matchAnatomy(
                 getXAxisRange().getAnatomicalAxis(),
                 getYAxisRange().getAnatomicalAxis()),

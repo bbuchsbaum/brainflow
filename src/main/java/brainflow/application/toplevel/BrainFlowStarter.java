@@ -247,7 +247,7 @@ public class BrainFlowStarter {
         try {
             if (loadTask != null) {
                 List<IImageDataSource> dlist = loadTask.get();
-                //IImageDisplayModel displayModel = ProjectManager.get().addToActiveProject(dataSource);
+                //IImageDisplayModel displayModel = ProjectManager.get().createDisplayModel(dataSource);
                 //ImageView iview = ImageViewFactory.createAxialView(displayModel);
 
                 //DisplayManager.get().getSelectedCanvas().addImageView(iview);

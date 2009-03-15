@@ -16,7 +16,7 @@ import java.net.URL;
 public class BF {
 
 
-   private static final String dataDir = "resources/data/";
+   private static final String dataDir = "data/";
 
 
     public static URL getDataURL(String fileName) {

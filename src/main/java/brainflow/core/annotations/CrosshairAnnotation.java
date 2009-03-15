@@ -1,6 +1,7 @@
 package brainflow.core.annotations;
 
 import brainflow.core.IImagePlot;
+import brainflow.core.ImageView;
 import brainflow.image.anatomy.AnatomicalPoint1D;
 import brainflow.image.anatomy.AnatomicalPoint3D;
 import net.java.dev.properties.Property;
@@ -27,12 +28,16 @@ public class CrosshairAnnotation extends AbstractAnnotation {
     public static final String GAP_PROPERTY = "gap";
 
 
-    public static final Paint DEFAULT_LINE_PAINT = Color.GREEN.darker().darker();
+    public static final Paint DEFAULT_LINE_PAINT = Color.GREEN;
+    public static final Paint DEFAULT_UNSELECTED_LINE_PAINT = Color.GREEN.darker().darker();
+
+
     public static final Float DEFAULT_LINE_LENGTH = 1.0f;
     public static final Float DEFAULT_LINE_WIDTH = 1f;
     public static final Integer DEFAULT_GAP = 4;
 
     private Paint linePaint = DEFAULT_LINE_PAINT;
+
     private double lineLength = DEFAULT_LINE_LENGTH;
     private double lineWidth = DEFAULT_LINE_WIDTH;
 
@@ -45,12 +50,13 @@ public class CrosshairAnnotation extends AbstractAnnotation {
 
     private Property<AnatomicalPoint3D> crosshair;
 
+    private ImageView view;
 
-    public CrosshairAnnotation(Property<AnatomicalPoint3D> _crosshair) {
+    public CrosshairAnnotation(Property<AnatomicalPoint3D> _crosshair, ImageView _view) {
         crosshair = _crosshair;
         linePaint = DEFAULT_LINE_PAINT;
         lineLength = DEFAULT_LINE_LENGTH.doubleValue();
-
+        view  =_view;
         resetStroke();
 
     }
@@ -69,7 +75,7 @@ public class CrosshairAnnotation extends AbstractAnnotation {
     }*/
 
     public IAnnotation safeCopy() {
-        CrosshairAnnotation annot = new CrosshairAnnotation(crosshair);
+        CrosshairAnnotation annot = new CrosshairAnnotation(crosshair, view);
         annot.setVisible(super.isVisible());
         annot.location = new Point(location);
         annot.linePaint = linePaint;
@@ -99,8 +105,13 @@ public class CrosshairAnnotation extends AbstractAnnotation {
 
         location = new Point((int) Math.round(screenX), (int) Math.round(screenY));
 
-        //double width = Math.max(lineLength * plotArea.getWidth(), lineLength * plotArea.getHeight());
-        g2d.setPaint(linePaint);
+        if (view.getSelectedPlot() == plot) {
+            g2d.setPaint(linePaint);
+        } else {
+            g2d.setComposite(AlphaComposite.SrcOver.derive(.8f));
+            g2d.setPaint(DEFAULT_UNSELECTED_LINE_PAINT);
+        }
+
         g2d.setStroke(stroke);
 
         double span = Math.max(plotArea.getWidth(), plotArea.getHeight());

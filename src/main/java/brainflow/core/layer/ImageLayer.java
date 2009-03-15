@@ -12,6 +12,7 @@ package brainflow.core.layer;
 import brainflow.image.io.IImageDataSource;
 import brainflow.colormap.ColorTable;
 import brainflow.image.data.IImageData;
+import brainflow.image.data.ImageData;
 import brainflow.image.space.IImageSpace;
 import brainflow.utils.Range;
 import brainflow.core.layer.AbstractLayer;
@@ -33,8 +34,6 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
     //private IImageData data;
 
 
-
-
     public ImageLayer(ImageLayer layer) {
         super(layer.getLabel() + "*", layer.getImageLayerProperties());
         this.dataSource = layer.getDataSource();
@@ -52,13 +51,14 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
         this.dataSource = dataSource;
 
         if (dataSource.isLoaded()) {
-            IClipRange clip = new ClipRange(getData().minValue(), getData().maxValue(), getData().minValue(), getData().maxValue());
+            initClip();
+            //IClipRange clip = new ClipRange(getData().minValue(), getData().maxValue(), getData().minValue(), getData().maxValue());
             //getImageLayerProperties().getClipRange().setLowClip(getData().minValue());
             //getImageLayerProperties().getClipRange().setHighClip(getData().maxValue());
-            getImageLayerProperties().clipRange.set(clip);
+            //getImageLayerProperties().clipRange.set(clip);
 
         }
-        
+
 
     }
 
@@ -73,7 +73,9 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
         //todo need to clone properties
         if (dataSource.isLoaded()) {
-            IClipRange clip = _properties.getClipRange();
+            IClipRange clip = getImageLayerProperties().getClipRange();
+
+
             IClipRange newclip = clip.newClipRange(getData().minValue(), getData().maxValue(), clip.getLowClip(), clip.getHighClip());
             _properties.clipRange.set(newclip);
             _properties.colorMap.set(_properties.colorMap.get().newClipRange(
@@ -84,13 +86,20 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
         }
 
-        
 
     }
 
+    private void initClip() {
+        ImageLayerProperties props = getImageLayerProperties();
+        IClipRange clip = getImageLayerProperties().getClipRange();
+
+        IClipRange newclip = clip.newClipRange(clip.getMin(), clip.getMax(), clip.getLowClip(), clip.getHighClip());
+        props.clipRange.set(newclip);
+        props.colorMap.set(props.colorMap.get().newClipRange(
+                newclip.getLowClip(), newclip.getHighClip(), newclip.getMin(), newclip.getMax()));
 
 
-
+    }
 
 
     public IImageData getData() {

@@ -155,7 +155,7 @@
             mnemonic="t"
             accel="control R"
             smicon="/resources/icons/add_exc.gif"
-            actionClass="brainflow.application.actions.ToggleCrossHairCommand"
+            actionClass="brainflow.application.actions.ToggleCrossCommand"
             desc="Toggle crosshair visibility on/off">
     </action>
     <action id="toggle-axislabel"

@@ -61,7 +61,7 @@ public final class Operations {
             return (left > 0 && right > 0);
         }
 
-        public boolean isTrue(boolean left, boolean right) {
+        public final boolean isTrue(boolean left, boolean right) {
             return left && right;
         }
 

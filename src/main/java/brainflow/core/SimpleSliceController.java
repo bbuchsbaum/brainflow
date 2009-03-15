@@ -46,13 +46,13 @@ class SimpleSliceController implements SliceController {
 
     public AnatomicalPoint3D getSlice() {
         return imageView.getCursorPos();
-
     }
 
     public AnatomicalPoint1D getSlice(IImagePlot plot) {
         return imageView.getCursorPos().getValue(plot.getDisplayAnatomy().ZAXIS);
-
     }
+
+    
 
     public void setSlice(AnatomicalPoint3D slice) {
 
@@ -70,19 +70,23 @@ class SimpleSliceController implements SliceController {
 
     }
 
+    protected AnatomicalPoint3D incrementSlice(double incr) {
+        AnatomicalPoint3D slice = getSlice();
+        ImageAxis iaxis = zaxis();
+        AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
+        pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + incr);
+        return slice.replace(pt);
+    }
+
+    private ImageAxis zaxis() {
+        Axis axis = imageView.getViewport().getBounds().findAxis(imageView.getSelectedPlot().getDisplayAnatomy().ZAXIS);
+        return imageView.getModel().getImageAxis(axis);
+
+    }
+
     public void nextSlice() {
 
-        AnatomicalPoint3D slice = getSlice();
-
-        Axis axis = imageView.getViewport().getBounds().findAxis(imageView.getSelectedPlot().getDisplayAnatomy().ZAXIS);
-        ImageAxis iaxis = imageView.getModel().getImageAxis(axis);
-
-        AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
-        pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + iaxis.getSpacing());
-
-        //todo check bounds
-
-        imageView.cursorPos.set(slice.replace(pt));
+        imageView.cursorPos.set(incrementSlice(zaxis().getSpacing()));
 
 
     }
@@ -90,8 +94,7 @@ class SimpleSliceController implements SliceController {
     public void previousSlice() {
         AnatomicalPoint3D slice = getSlice();
 
-        Axis axis = imageView.getViewport().getBounds().findAxis(imageView.getSelectedPlot().getDisplayAnatomy().ZAXIS);
-        ImageAxis iaxis = imageView.getModel().getImageAxis(axis);
+        ImageAxis iaxis = zaxis();
 
         AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
         pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - iaxis.getSpacing());
@@ -106,8 +109,7 @@ class SimpleSliceController implements SliceController {
     public void pageBack() {
         AnatomicalPoint3D slice = getSlice();
 
-        Axis axis = imageView.getViewport().getBounds().findAxis(imageView.getSelectedPlot().getDisplayAnatomy().ZAXIS);
-        ImageAxis iaxis = imageView.getModel().getImageAxis(axis);
+        ImageAxis iaxis = zaxis();
 
         AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
         pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - iaxis.getExtent() * pageStep);
@@ -122,8 +124,7 @@ class SimpleSliceController implements SliceController {
     public void pageForward() {
         AnatomicalPoint3D slice = getSlice();
 
-        Axis axis = imageView.getViewport().getBounds().findAxis(imageView.getSelectedPlot().getDisplayAnatomy().ZAXIS);
-        ImageAxis iaxis = imageView.getModel().getImageAxis(axis);
+        ImageAxis iaxis = zaxis();
 
         AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
         pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + iaxis.getExtent() * pageStep);

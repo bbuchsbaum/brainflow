@@ -141,11 +141,11 @@ public class MaskedData3D implements IMaskedData3D {
             iter = source.iterator();
         }
 
-        public double next() {
+        public final double next() {
             return predicate.mask(iter.next()) ? 1 : 0;
         }
 
-        public void advance() {
+        public final void advance() {
             iter.advance();
         }
 
@@ -153,7 +153,7 @@ public class MaskedData3D implements IMaskedData3D {
             return predicate.mask(iter.previous()) ? 1 : 0;
         }
 
-        public boolean hasNext() {
+        public final boolean hasNext() {
             return iter.hasNext();
         }
 
@@ -201,7 +201,7 @@ public class MaskedData3D implements IMaskedData3D {
             iter.set(val);
         }
 
-        public int index() {
+        public final int index() {
             return iter.index();
         }
     }

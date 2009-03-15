@@ -158,14 +158,14 @@ public class BooleanMaskNode3D implements IMaskedData3D {
             iter = left.iterator();
         }
 
-        public double next() {
+        public final double next() {
             int idx = iter.index();
             advance();
             return operation.isTrue(left.isTrue(idx), right.isTrue(idx)) ? 1 : 0;
 
         }
 
-        public void advance() {
+        public final void advance() {
             iter.advance();
         }
 
@@ -175,7 +175,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
 
         }
 
-        public boolean hasNext() {
+        public final boolean hasNext() {
             return iter.hasNext();
         }
 
@@ -223,7 +223,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
             throw new UnsupportedOperationException();
         }
 
-        public int index() {
+        public final int index() {
             return iter.index();
         }
     }

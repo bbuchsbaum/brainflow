@@ -18,7 +18,7 @@ public interface IMaskProperty<T extends IMaskedData> {
     }
 
 
-    public IMaskProperty<T> setMask(IMaskProperty.MASK_KEY key, T mask );
+    public IMaskProperty<T> copyMask(IMaskProperty.MASK_KEY key, T mask );
 
     public T getMask(IMaskProperty.MASK_KEY key, T mask );
 

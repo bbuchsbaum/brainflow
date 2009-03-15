@@ -1,9 +1,8 @@
 package brainflow.image.operations;
 
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.data.BasicImageData2D;
-import brainflow.image.data.ImageFiller;
-import brainflow.image.data.DataAccessor3D;
+import brainflow.image.data.*;
+import brainflow.image.space.IImageSpace3D;
 
 
 /**
@@ -22,6 +21,17 @@ public class ImageSlicer {
     private DataAccessor3D image;
 
     private Anatomy3D displayAnatomy = Anatomy3D.AXIAL_LAI;
+
+
+    public static ImageSlicer createSlicer(IImageSpace3D refSpace, IImageData3D data) {
+        if (refSpace.equals(data.getImageSpace())) {
+            return new ImageSlicer(data);
+        } else {
+            System.out.println("creating mapped data accesor");
+            return new ImageSlicer(new MappedDataAcessor3D(refSpace, data));
+        }
+
+    }
 
 
     public ImageSlicer(DataAccessor3D _image) {
