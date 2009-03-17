@@ -41,8 +41,6 @@ public class SearchKernel3D implements ISearchKernel3D {
         i6 = dimx+planexy;
         i7 = 1+dimy+planexy;
 
-
-
     }
 
   

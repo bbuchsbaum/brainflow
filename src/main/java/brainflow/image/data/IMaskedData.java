@@ -11,7 +11,6 @@ public interface IMaskedData {
 
     public int cardinality();
 
-
     public boolean isTrue(int index);
 
 

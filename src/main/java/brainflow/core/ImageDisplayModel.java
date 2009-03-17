@@ -547,7 +547,7 @@ public class ImageDisplayModel implements IImageDisplayModel {
         for (int i = 0; i < listModel.size(); i++) {
             ImageLayer layer = listModel.get(i);
 
-            if (layer.getDataSource() == data) {
+            if (layer.getDataSource().getData() == data) {
                 ret.add(i);
 
             }
@@ -624,7 +624,9 @@ public class ImageDisplayModel implements IImageDisplayModel {
     }
 
     public void removeLayer(ImageLayer3D layer) {
-        assert listModel.get().contains(layer);
+        if (!listModel.get().contains(layer)) {
+            throw new IllegalArgumentException("cannot remove layer " + layer.getLabel() + " as it is not contained in model");
+        }
         int idx = listModel.get().indexOf(layer);
         removeLayer(idx);
     }

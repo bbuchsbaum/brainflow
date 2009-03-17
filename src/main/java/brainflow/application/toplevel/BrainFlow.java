@@ -340,7 +340,6 @@ public class BrainFlow {
         CommandGroup gotoMenuGroup = new CommandGroup("goto-menu");
         gotoMenuGroup.bind(getApplicationFrame());
 
-        
 
         CommandBar menuBar = new CommandMenuBar();
 
@@ -368,7 +367,6 @@ public class BrainFlow {
         JMenuItem favMenu = favoritesMenu.getCommandGroup().createMenuItem();
         favMenu.setMnemonic('F');
         menuBar.add(favMenu);
-
 
 
     }
@@ -446,7 +444,7 @@ public class BrainFlow {
         bindCommand(new CreateHorizontalOrthogonalCommand(), true);
         bindCommand(new CreateTriangularOrthogonalCommand(), true);
 
-        
+
         CommandGroup orthoGroup = new CommandGroup("ortho-view-group");
         orthoGroup.bind(getApplicationFrame());
 
@@ -749,7 +747,7 @@ public class BrainFlow {
 
 
     private void register(IImageDataSource limg) {
-        DataSourceManager manager = DataSourceManager.getInstance();
+        DataSourceManager manager = DataSourceManager.get();
         boolean alreadyRegistered = manager.isRegistered(limg);
 
         if (alreadyRegistered) {
@@ -809,7 +807,7 @@ public class BrainFlow {
         // 3. creating model if necessary
         // 4. creating layer if necessary
         // 5. creating view if necessary
-        
+
         log.info("loading and displaying : " + dataSource);
 
         final IImageDataSource checkedDataSource = specialHandling(dataSource);
@@ -824,23 +822,6 @@ public class BrainFlow {
             }
         });
 
-        /*ImageProgressDialog id = DataSourceManager.getInstance().createProgressDialog(checkedDataSource, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                IImageDisplayModel displayModel = ProjectManager.getInstance().createDisplayModel(dataSource);
-                ImageView iview = ImageViewFactory.createAxialView(displayModel);
-
-                DisplayManager.getInstance().getSelectedCanvas().addImageView(iview);
-
-
-            }
-        });
-
-
-        JDialog dialog = id.getDialog();
-        dialog.setVisible(true);
-
-        id.execute();  */
-
 
     }
 
@@ -849,27 +830,15 @@ public class BrainFlow {
         final IImageDataSource checkedDataSource = specialHandling(dataSource);
         register(checkedDataSource);
 
-        ImageProgressDialog id = DataSourceManager.getInstance().createProgressDialog(checkedDataSource, new ActionListener() {
+        ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
+        monitor.loadImage(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                IImageDisplayModel dset = view.getModel();
-
-                IImageData data = dataSource.getData();
-                //todo data range should be a property of ImageLayerProperties, not IColorMap
-                ImageLayerProperties params = new ImageLayerProperties(new Range(data.minValue(), data.maxValue()));
-
-                //todo check data caches min and max values
-                params.colorMap.set(new LinearColorMap2(data.minValue(), data.maxValue(), ResourceManager.getInstance().getDefaultColorMap()));
-                ImageLayer3D layer = new ImageLayer3D(dataSource, params);
-                dset.addLayer(layer);
-
+                IImageDisplayModel displayModel = view.getModel();
+                ImageLayer3D layer = ImageLayerFactory.createImageLayer(dataSource);
+                displayModel.addLayer(layer);
 
             }
         });
-
-        JDialog dialog = id.getDialog();
-        dialog.setVisible(true);
-
-        id.execute();
 
 
     }

@@ -30,6 +30,15 @@ public class MaskEvaluator extends AnalysisAdapter {
 
 
     public void outComparison(ComparisonNode node) {
+        if (node.left().isLeaf() && node.right().isLeaf()) {
+            LeafNode left = (LeafNode) node.left();
+            LeafNode right = (LeafNode) node.right();
+
+            LeafNode mnode = left.accept(right, node.getOp());
+            node.replaceBy(mnode);
+
+        }
+
 
     }
 

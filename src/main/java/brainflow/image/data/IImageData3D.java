@@ -1,6 +1,8 @@
 package brainflow.image.data;
 
 import brainflow.image.space.IImageSpace3D;
+import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.Index3D;
 
 /**
@@ -20,4 +22,6 @@ public interface IImageData3D extends IImageData, DataAccessor3D {
     public IImageSpace3D getImageSpace();
 
     public DataWriter3D createWriter(boolean clear);
+
+    public Anatomy3D getAnatomy();
 }

@@ -44,10 +44,10 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
     }
 
     private void registerDataSource(IImageDataSource dsource) {
-        boolean registered = DataSourceManager.getInstance().isRegistered(dsource);
+        boolean registered = DataSourceManager.get().isRegistered(dsource);
 
         if (!registered) {
-            DataSourceManager.getInstance().register(dsource);
+            DataSourceManager.get().register(dsource);
         }
 
     }
@@ -70,6 +70,8 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
 
 
     public IImageDisplayModel createDisplayModel(IImageDataSource dataSource, boolean addToActiveProject) {
+        //todo maybe this isn't the right place for this?
+        
         registerDataSource(dataSource);
 
         IImageDisplayModel displayModel = ImageViewFactory.createModel("model #" + (activeProject.size() + 1), dataSource);
@@ -99,6 +101,8 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
 
     protected void clearDataSource(IImageDataSource dataSource) {
         Iterator<IImageDisplayModel> iter = activeProject.iterator();
+        List<IImageDisplayModel> purged = new ArrayList<IImageDisplayModel>();
+
         while (iter.hasNext()) {
             IImageDisplayModel dmodel = iter.next();
             List<Integer> idx = dmodel.indexOf(dataSource.getData());
@@ -111,10 +115,25 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
                     removables.add(dmodel.getLayer(i));
                 }
 
-                for (ImageLayer3D layer : removables) {
-                    dmodel.removeLayer(layer);
+                if (removables.size() == dmodel.getNumLayers()) {
+                    //removing all layers from model, which invalidates the model.
+                    List<ImageView> views = DisplayManager.getInstance().getImageViews(dmodel);
+                    for (ImageView view : views) {
+                        DisplayManager.getInstance().removeView(view);
+                    }
+                    purged.add(dmodel);
+                    
+                } else {
+
+                    for (ImageLayer3D layer : removables) {
+                        dmodel.removeLayer(layer);
+                    }
                 }
             }
+        }
+
+        for (IImageDisplayModel  model : purged) {
+            activeProject.removeModel(model);
         }
     }
 

@@ -38,8 +38,12 @@ public class AnalysisAdapter implements TreeWalker {
 
     public void caseComparisonNode(ComparisonNode node) {
         inComparison(node);
-        node.left().apply(this);
+
+
+        node.left().apply(this);      
         node.right().apply(this);
+
+
         outComparison(node);
 
     }
@@ -49,6 +53,8 @@ public class AnalysisAdapter implements TreeWalker {
     }
 
     public void outComparison(ComparisonNode node) {
+        
+
 
     }
 

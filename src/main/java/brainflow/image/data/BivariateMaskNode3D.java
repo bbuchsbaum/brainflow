@@ -4,6 +4,7 @@ import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.operations.BinaryOperation;
@@ -80,7 +81,7 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         throw new UnsupportedOperationException();
     }
 
-    public Anatomy getAnatomy() {
+    public Anatomy3D getAnatomy() {
         return left.getAnatomy();
     }
 

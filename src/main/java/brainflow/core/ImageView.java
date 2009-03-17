@@ -533,11 +533,14 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
             int selectionIndex = (Integer) newValue;
             int oldIndex = (Integer) oldValue;
 
-            ImageLayer3D selectedLayer = getModel().getLayer(selectionIndex);
-            ImageLayer3D deselectedLayer = getModel().getLayer(oldIndex);
-
             if (selectionIndex >= 0) {
-                EventBus.publish(new ImageViewLayerSelectionEvent(ImageView.this, deselectedLayer, selectedLayer));
+
+                ImageLayer3D selectedLayer = getModel().getLayer(selectionIndex);
+                ImageLayer3D deselectedLayer = getModel().getLayer(oldIndex);
+
+                if (selectionIndex >= 0) {
+                    EventBus.publish(new ImageViewLayerSelectionEvent(ImageView.this, deselectedLayer, selectedLayer));
+                }
             }
 
         }

@@ -75,8 +75,11 @@ public class BrainFlowProject {
     public void removeModel(IImageDisplayModel model) {
         if (modelList.contains(model)) {
             modelList.remove(model);
-            removeSources(model);
+            if (model.getNumLayers() > 0)
+                removeSources(model);
+
             fireModelRemoved(new BrainFlowProjectEvent(this, model, null));
+            
         } else {
             log.warning("BrainFlowProject does not contain model supplied as argument, cannot remove");
         }

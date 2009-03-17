@@ -9,16 +9,19 @@ package brainflow.application.toplevel;
 import brainflow.application.services.ImageViewMousePointerEvent;
 import brainflow.application.services.ImageViewSelectionEvent;
 import brainflow.application.services.ImageViewCursorEvent;
+import brainflow.application.services.DataSourceStatusEvent;
 import brainflow.application.dnd.ImageViewTransferHandler;
 import brainflow.application.presentation.ImageViewPresenter;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.modes.ImageViewInteractor;
+import brainflow.image.io.IImageDataSource;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.events.PropertyListener;
 import net.java.dev.properties.BaseProperty;
 
 import org.bushe.swing.event.EventBus;
+import org.bushe.swing.event.EventSubscriber;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +49,6 @@ public class DisplayManager {
    
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-
     private CanvasSelectionListener canvasListener;
 
     private ImageViewMouseMotionListener cursorListener;
@@ -60,6 +62,7 @@ public class DisplayManager {
 
     protected DisplayManager() {
 
+        
     }
 
 
@@ -125,6 +128,31 @@ public class DisplayManager {
 
     public List<ImageView> getImageViews(IImageDisplayModel model) {
         return selectedCanvas.getViews(model);
+    }
+
+    public void removeView(ImageView view) {
+        for (IBrainCanvas canvas : canvasList) {
+            canvas.removeImageView(view);
+        }
+    }
+
+    public boolean isShowing(IImageDataSource dsource) {
+        for (IBrainCanvas canvas : canvasList) {
+            List<ImageView> views = canvas.getViews();
+            for (ImageView v : views) {
+                IImageDisplayModel model = v.getModel();
+                for (int i=0; i<model.getNumLayers(); i++) {
+                    if (model.getLayer(i).getDataSource().equals(dsource)) {
+                        return true;
+                    }
+                }
+            }
+
+        }
+
+        return false;
+
+
     }
 
     public void displayView(ImageView view) {

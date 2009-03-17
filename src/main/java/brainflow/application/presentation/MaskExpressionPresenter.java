@@ -216,7 +216,7 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
 
     public void viewSelected(ImageView view) {
         updateThresholdString();
-
+        expressionArea.setText(view.getSelectedLayer().getMaskProperty().getMaskExpression());
         view.getModel().addImageLayerListener(threshListener);
 
     }
@@ -241,6 +241,7 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
     @Override
     protected void layerSelected(ImageLayer3D layer) {
         updateThresholdString();
+        expressionArea.setText(layer.getMaskProperty().getMaskExpression());
 
     }
 
@@ -325,6 +326,7 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
             ImageLayer3D layer = getSelectedLayer();
 
             MaskProperty3D newmask = layer.getMaskProperty().copyMask(IMaskProperty.MASK_KEY.EXPRESSION_MASK, maskNode.getData());
+            newmask.setMaskExpression(lastExpression);
             layer.setMaskProperty(newmask);
 
             //ComparisonNode cnode = (ComparisonNode)node;

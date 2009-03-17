@@ -12,6 +12,8 @@ import java.util.HashMap;
  * Time: 10:21:52 PM
  * To change this template use File | Settings | File Templates.
  */
+
+
 public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
 
 
@@ -22,6 +24,8 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
 
     private IMaskedData3D frozenMask;
 
+    private String maskExpression = "";
+
 
     public MaskProperty3D(ImageLayer3D _layer) {
         layer = _layer;
@@ -31,17 +35,30 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
     private MaskProperty3D(ImageLayer3D _layer, HashMap<MASK_KEY, IMaskedData3D> map) {
         layer = _layer;
         maskMap = map;
+    }
 
+    private MaskProperty3D(ImageLayer3D _layer, HashMap<MASK_KEY, IMaskedData3D> map, String expression) {
+        layer = _layer;
+        maskMap = map;
+        maskExpression = expression;
     }
 
     public MaskProperty3D copyMask(MASK_KEY key, IMaskedData3D mask) {
         HashMap<MASK_KEY, IMaskedData3D> newmap = (HashMap<MASK_KEY, IMaskedData3D>) maskMap.clone();
         newmap.put(key, mask);
-        return new MaskProperty3D(layer, newmap);
+        return new MaskProperty3D(layer, newmap, getMaskExpression());
     }
 
     public IMaskedData3D getMask(MASK_KEY key, IMaskedData3D mask) {
         return maskMap.get(key);
+    }
+
+    public String getMaskExpression() {
+        return maskExpression;
+    }
+
+    public void setMaskExpression(String maskExpression) {
+        this.maskExpression = maskExpression;
     }
 
     public boolean isOpaque() {
@@ -76,7 +93,6 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
 
             if (secondaryMask != null) {
                 retmask = new BooleanMaskNode3D(retmask, secondaryMask);
-
             }
 
             return retmask;

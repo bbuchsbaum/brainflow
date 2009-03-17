@@ -101,7 +101,7 @@ public class CanvasBar extends ImageViewPresenter {
 
                 assert index >= 0;
 
-                final IImageDataSource dsource2 = DataSourceManager.getInstance().createDataSource(dsource.getDescriptor(), dsource.getImageInfoList(), index, true);
+                final IImageDataSource dsource2 = DataSourceManager.get().createDataSource(dsource.getDescriptor(), dsource.getImageInfoList(), index, true);
                 //todo progress mechanism needed here
 
                 SwingWorker worker = new SwingWorker() {

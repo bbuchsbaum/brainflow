@@ -3,11 +3,10 @@ package brainflow.image.operations;
 import brainflow.application.BrainFlowException;
 import brainflow.image.io.IImageDataSource;
 import brainflow.application.MemoryImageDataSource;
-import brainflow.image.data.BasicImageData3D;
-import brainflow.image.data.IImageData;
-import brainflow.image.data.IImageData3D;
+import brainflow.image.data.*;
 import brainflow.image.io.BrainIO;
 import brainflow.image.space.Axis;
+import brainflow.core.BF;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,7 +35,7 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
 
     public IImageData getOutput() {
         List<IImageData> sources = getSources();
-        connect((BasicImageData3D) sources.get(0));
+        connect((IImageData3D) sources.get(0));
         return null;
     }
 
@@ -276,15 +275,24 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
     public static void main(String[] args) {
         try {
 
-            IImageDataSource img = new MemoryImageDataSource(BrainIO.readAnalyzeImage("C:/DTI/slopes/bAge.Norm.hdr"));
-            IImageData3D data = (IImageData3D) img.getData();
+            IImageData img = BrainIO.readNiftiImage(BF.getDataURL("anat_alepi.nii"));
+            IImageData3D data = (IImageData3D) img;
+            IMaskedData3D mask = new MaskedData3D(data, new MaskPredicate() {
+                public boolean mask(double value) {
+                    return value > 2500;
 
-            ConnectedComponentsFilter filter = null;
+                    }
+
+            });
+
+            System.out.println("cardinality = " + mask.cardinality());
+
+            ConnectedComponentsFilter3 filter = null;
             long btime = System.currentTimeMillis();
             for (int i = 0; i < 200; i++) {
                 System.out.println("" + i);
-                filter = new ConnectedComponentsFilter();
-                filter.addInput(data);
+                filter = new ConnectedComponentsFilter3();
+                filter.addInput(mask);
                 filter.getOutput();
             }
 

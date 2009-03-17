@@ -5,6 +5,7 @@ import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.math.Index3D;
@@ -81,7 +82,7 @@ public class MaskedData3D implements IMaskedData3D {
         return DataType.INTEGER;
     }
 
-    public Anatomy getAnatomy() {
+    public Anatomy3D getAnatomy() {
         return source.getAnatomy();
     }
 

@@ -3,6 +3,8 @@ package brainflow.image.data;
 import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
+import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.utils.DataType;
 
 /**
@@ -38,14 +40,20 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
         return (z * planeSize) + dim0 * y + x;
     }
 
-    /*public Index3D indexToGrid(int idx, Index3D voxel) {
-        voxel.setZ(idx / planeSize);
-        int remainder = (idx % planeSize);
-        voxel.setY(remainder / space.getDimension(Axis.X_AXIS));
-        voxel.setValue(remainder % space.getDimension(Axis.X_AXIS));
+    @Override
+    public Anatomy3D getAnatomy() {
+        return getImageSpace().getAnatomy();
+    }
 
-        return voxel;
-    }  */
+
+    /*public Index3D indexToGrid(int idx, Index3D voxel) {
+      voxel.setZ(idx / planeSize);
+      int remainder = (idx % planeSize);
+      voxel.setY(remainder / space.getDimension(Axis.X_AXIS));
+      voxel.setValue(remainder % space.getDimension(Axis.X_AXIS));
+
+      return voxel;
+  }  */
 }
 
 

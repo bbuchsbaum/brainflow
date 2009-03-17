@@ -210,7 +210,7 @@ public class BinaryExpressionParser {
     public static void main(String[] args) {
 
         Parser<INode> parser = new BinaryExpressionParser().createParser();
-        INode node = parser.parse("-5 >> 6");
+        INode node = parser.parse("5 < -6");
 
         MaskEvaluator ms = new MaskEvaluator();
         ms.start(new RootNode(node));

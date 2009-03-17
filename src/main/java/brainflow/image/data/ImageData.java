@@ -1,13 +1,13 @@
 package brainflow.image.data;
 
-import brainflow.image.space.ImageSpace3D;
-import brainflow.image.space.Axis;
-import brainflow.image.space.IImageSpace;
-import brainflow.image.space.IImageSpace3D;
+import brainflow.image.space.*;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.AnatomicalAxis;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.axis.ImageAxis;
 import brainflow.utils.DataType;
 import brainflow.math.Index3D;
 
@@ -23,6 +23,18 @@ import java.util.Arrays;
  */
 public class ImageData {
 
+
+
+    public static BasicImageData2D createData(int[][] data) {
+        BasicImageData2D dat = new BasicImageData2D(new ImageSpace2D(
+                new ImageAxis(0,1, AnatomicalAxis.LEFT_RIGHT, data[0].length),
+                new ImageAxis(0,1, AnatomicalAxis.POSTERIOR_ANTERIOR, data.length)),
+                DataType.INTEGER);
+
+        return dat;
+
+
+    }
 
     public static IImageData3D createConstantData(final double value, final IImageSpace space) {
         if (space instanceof ImageSpace3D) {
@@ -132,7 +144,7 @@ public class ImageData {
             }
 
 
-            public Anatomy getAnatomy() {
+            public Anatomy3D getAnatomy() {
                 return data.getAnatomy();
             }
 

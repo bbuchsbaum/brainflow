@@ -1,7 +1,7 @@
 package brainflow.application.presentation;
 
 import brainflow.image.io.IImageDataSource;
-import brainflow.application.actions.RemoveLoadableImageCommand;
+import brainflow.application.actions.RemoveDataSourceCommand;
 import brainflow.application.services.DataSourceStatusEvent;
 import brainflow.gui.AbstractPresenter;
 import com.jidesoft.grid.*;
@@ -61,7 +61,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
 
     private List<IImageDataSource> imageList = new ArrayList<IImageDataSource>();
 
-    private ActionCommand removeCommand = new RemoveLoadableImageCommand();
+    private ActionCommand removeCommand = new RemoveDataSourceCommand();
 
     public LoadableImageTableView() {
         EventBus.subscribe(DataSourceStatusEvent.class, this);
@@ -142,6 +142,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
                 int idx = imageList.indexOf(event.getLoadableImage());
                 imageList.remove(idx);
                 imageTableModel.fireTableRowsDeleted(idx, idx);
+                imageTableModel.update();
                 break;
             case IMAGE_UNLOADED:
                 break;
@@ -213,7 +214,10 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
             builder.append("Anatomy: " + limg.getImageInfo().getAnatomy());
             builder.append("<br>");
             builder.append("Origin: " + limg.getImageInfo().getOrigin());
+            builder.append("<br>");
+            builder.append("Scaling: " + limg.getImageInfo().getScaleFactor());
             builder.append("</html>");
+
             return builder.toString();
         }
 
@@ -293,7 +297,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
             panel.add(loadButton);
 
             NullButton removeButton = new NullButton("Remove");
-            removeCommand.putParameter(RemoveLoadableImageCommand.SELECTED_DATASOURCE, limg);
+            removeCommand.putParameter(RemoveDataSourceCommand.SELECTED_DATASOURCE, limg);
 
             removeButton.addActionListener(removeCommand.getActionAdapter());
             panel.add(removeButton);

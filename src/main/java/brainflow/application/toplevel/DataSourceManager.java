@@ -42,16 +42,13 @@ public class DataSourceManager {
         // Exists only to thwart instantiation.
     }
 
-    public static DataSourceManager getInstance() {
+    public static DataSourceManager get() {
         return (DataSourceManager) SingletonRegistry.REGISTRY.getInstance("brainflow.application.toplevel.DataSourceManager");
     }
 
 
     public boolean requestRemoval(IImageDataSource limg) {
-        assert imageMap.containsKey(limg.getUniqueID());
-        if (limg == null) {
-            return false;
-        }
+        //todo need to rethink mechanism for image removal/unloading
 
         if (imageMap.containsKey(limg.getUniqueID())) {
             imageMap.remove(limg.getUniqueID());
@@ -103,8 +100,6 @@ public class DataSourceManager {
         return source;
     }
 
-    
-
 
     public int getNumLoadableImages() {
         return imageMap.size();
@@ -120,19 +115,19 @@ public class DataSourceManager {
             protected void done() {
                 try {
                     IImageData data = get();
-                } catch(ExecutionException e1) {
+                } catch (ExecutionException e1) {
                     throw new RuntimeException(e1);
-                } catch(InterruptedException e2) {
+                } catch (InterruptedException e2) {
                     throw new RuntimeException(e2);
                 }
 
 
                 listener.actionPerformed(new ActionEvent(dataSource, 0, "LOADED"));
                 getDialog().setVisible(false);
-               
+
             }
 
-            
+
         };
 
         return id;

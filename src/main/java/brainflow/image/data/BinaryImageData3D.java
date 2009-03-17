@@ -5,6 +5,8 @@ import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.Index3D;
 import cern.colt.bitvector.BitVector;
 
@@ -103,6 +105,10 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
         return (z * planeSize) + dim0 * y + x;
     }
 
+    @Override
+    public Anatomy3D getAnatomy() {
+        return getImageSpace().getAnatomy();
+    }
 
     public double value(float x, float y, float z, InterpolationFunction3D interp) {
         return interp.interpolate(x, y, z, this);

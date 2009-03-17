@@ -5,9 +5,9 @@
 
 
 
-Fix: loadable image pane. "info button" does nothing.
+[Fix: loadable image pane. "info button" does nothing.]
 Fix: unload currently visible image? should popup message box: image is visible, do you want to do this?
-Fix: mask operation appears to be excruciatingly slow!
+[Fix: mask operation appears to be excruciatingly slow!]
 Fix: adjusting threshold after "freezing" mask causes exception
 
 [Fix: switching between views is excruciatingly slow]

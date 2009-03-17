@@ -31,6 +31,7 @@ public class BasicImageData2D extends BasicImageData implements IImageData2D {
     }
 
     public BasicImageData2D(ImageSpace2D space, DataType _type) {
+        //todo ImageSpace2D should be IImageSpace2D
         super(space, _type);
         data = allocateBuffer(space.getNumSamples());
 

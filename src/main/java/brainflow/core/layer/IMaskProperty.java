@@ -24,6 +24,8 @@ public interface IMaskProperty<T extends IMaskedData> {
 
     public T buildMask();
 
+    public String getMaskExpression();
+
     public void reduce();
     
     public boolean isOpaque();

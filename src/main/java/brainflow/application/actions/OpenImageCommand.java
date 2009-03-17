@@ -28,7 +28,7 @@ public class OpenImageCommand extends AbstractFileOpenCommand {
         IImageDataSource[] dsource = ImageIOManager.getInstance().findLoadableImages(files);
         for (int i=0; i<dsource.length; i++) {
             BrainFlow.get().loadAndDisplay(dsource[i]);
-            //DataSourceManager.getInstance().register(dsource[i]);
+            //DataSourceManager.get().register(dsource[i]);
         }
 
     }

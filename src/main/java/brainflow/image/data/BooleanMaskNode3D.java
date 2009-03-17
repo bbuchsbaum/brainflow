@@ -2,6 +2,7 @@ package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.io.ImageInfo;
@@ -88,7 +89,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
         return left.indexToGrid(idx);
     }
 
-    public Anatomy getAnatomy() {
+    public Anatomy3D getAnatomy() {
         return left.getAnatomy();
     }
 

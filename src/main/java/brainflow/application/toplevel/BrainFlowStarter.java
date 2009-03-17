@@ -197,7 +197,7 @@ public class BrainFlowStarter {
                 public List<IImageDataSource> call() throws Exception {
                     List<IImageDataSource> dataList = new ArrayList<IImageDataSource>();
                     for (IImageDataSource dsource : fileSources) {
-                        DataSourceManager.getInstance().register(dsource);
+                        DataSourceManager.get().register(dsource);
                         //System.out.println("loading data");
                         dsource.load();
                         dataList.add(dsource);

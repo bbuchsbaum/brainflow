@@ -5,6 +5,8 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
+import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.ArrayUtils;
 import brainflow.math.Index3D;
 import brainflow.utils.DataType;
@@ -85,11 +87,10 @@ public class BasicImageData3D extends BasicImageData implements IImageData3D {
 
     }
 
-   
-
-
-
-   
+    @Override
+    public Anatomy3D getAnatomy() {
+        return (Anatomy3D)space.getAnatomy();
+    }
 
     public ImageInfo getImageInfo() {
         // todo is this  what we really want to do?
