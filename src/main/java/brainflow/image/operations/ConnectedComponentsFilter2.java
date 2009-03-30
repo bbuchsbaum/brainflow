@@ -1,8 +1,8 @@
 package brainflow.image.operations;
 
-import brainflow.application.BrainFlowException;
+import brainflow.app.BrainFlowException;
 import brainflow.image.io.IImageDataSource;
-import brainflow.application.MemoryImageDataSource;
+import brainflow.app.MemoryImageDataSource;
 import brainflow.image.data.BasicImageData;
 import brainflow.image.data.BasicImageData3D;
 import brainflow.image.data.IImageData;

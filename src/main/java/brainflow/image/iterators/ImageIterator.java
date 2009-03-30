@@ -18,10 +18,10 @@ public interface ImageIterator {
   public double previous();
 
   public boolean hasNext();
-  //public double element(int number);
+    
   public double jump(int number);
 
-  public boolean canJump(int number);
+  //public boolean canJump(int number);
 
   public double nextRow();
 

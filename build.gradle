@@ -57,7 +57,7 @@ libs {
   classpath.delete(0,1)
 
   manifest.mainAttributes(
-                    'Main-Class': 'brainflow.application.toplevel.BrainFlow',
+                    'Main-Class': 'brainflow.app.toplevel.BrainFlow',
                     'Implementation-Version': version,
                     'SplashScreen-Image': 'icons/brainflow_logo2.jpg',
                     'Class-Path': classpath.toString())
@@ -69,14 +69,14 @@ dists {
 
   jar(appendix: "app") {
     zipFileSet(dir: "build/classes") {
-      include("brainflow/application/**")
+      include("brainflow/app/**")
     }
   }
 
   jar(appendix: "core") {
     zipFileSet(dir: "build/classes") {
       include("brainflow/**")
-      exclude("brainflow/application/**")
+      exclude("brainflow/app/**")
     }
   }
 

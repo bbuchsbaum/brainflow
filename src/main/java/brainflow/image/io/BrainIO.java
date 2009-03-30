@@ -1,10 +1,11 @@
 package brainflow.image.io;
 
 
-import brainflow.application.BrainFlowException;
+import brainflow.app.BrainFlowException;
 import brainflow.image.data.BasicImageData;
 import brainflow.image.data.IImageData;
 import brainflow.image.data.IImageData3D;
+import brainflow.image.data.AbstractImageData;
 
 import brainflow.utils.DataType;
 import brainflow.utils.IDimension;
@@ -214,7 +215,7 @@ public class BrainIO {
         String fname = info.getDataFile().getName().getPath();
 
         IDimension dim3d = info.getArrayDim();
-        int pos = (int) (imgNum * info.getDataType().getBytesPerUnit() * dim3d.getDim(0).intValue() * dim3d.getDim(1).intValue() * dim3d.getDim(2).intValue());
+        int pos = (imgNum * info.getDataType().getBytesPerUnit() * dim3d.getDim(0).intValue() * dim3d.getDim(1).intValue() * dim3d.getDim(2).intValue());
 
 
         try {
@@ -260,7 +261,7 @@ public class BrainIO {
         }
     }
 
-    public static void writeAnalyzeImage(String fname, BasicImageData data) throws BrainFlowException {
+    public static void writeAnalyzeImage(String fname, AbstractImageData data) throws BrainFlowException {
 
         FileImageOutputStream ostream = null;
 
@@ -286,6 +287,7 @@ public class BrainIO {
             DataType dtype = data.getDataType();
             Object storage = data.getStorage();
 
+            
 
             assert storage != null;
 

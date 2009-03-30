@@ -76,7 +76,7 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
 
     }
 
-    public DataWriter2D createWriter(boolean clear) {
+    public ImageBuffer2D createWriter(boolean clear) {
         throw new UnsupportedOperationException("MaskedData2D does not support data writing");
     }
 
@@ -153,10 +153,7 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
             return iter.jump(number);
         }
 
-        public boolean canJump(int number) {
-            return iter.canJump(number);
-        }
-
+       
         public double nextRow() {
             return iter.nextRow();
         }

@@ -1,6 +1,6 @@
 package brainflow.core;
 
-import brainflow.application.services.ImageViewLayerSelectionEvent;
+import brainflow.app.services.ImageViewLayerSelectionEvent;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.display.InterpolationType;

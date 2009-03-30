@@ -6,8 +6,8 @@ import brainflow.image.io.ImageReader;
 import brainflow.utils.ProgressListener;
 import brainflow.utils.ProgressAdapter;
 import brainflow.image.io.AbstractImageDataSource;
-import brainflow.application.ImageIODescriptor;
-import brainflow.application.BrainFlowException;
+import brainflow.app.ImageIODescriptor;
+import brainflow.app.BrainFlowException;
 import org.apache.commons.vfs.FileObject;
 
 import java.util.logging.Logger;
@@ -77,10 +77,10 @@ public class ImageDataSource extends AbstractImageDataSource {
             dataRef = data;
 
         } catch (IllegalAccessException e) {
-            log.warning("Error caught in BasicImageData.load()");
+            log.warning("Error caught in DataBufferSupport.load()");
             throw new BrainFlowException(e);
         } catch (InstantiationException e) {
-            log.warning("Error caught in BasicImageData.load()");
+            log.warning("Error caught in DataBufferSupport.load()");
             throw new BrainFlowException(e);
         }
 
@@ -102,10 +102,10 @@ public class ImageDataSource extends AbstractImageDataSource {
             //data.setImageLabel(getStem());
             dataRef = data;
         } catch (IllegalAccessException e) {
-            log.warning("Error caught in BasicImageData.load()");
+            log.warning("Error caught in DataBufferSupport.load()");
             throw new BrainFlowException(e);
         } catch (InstantiationException e) {
-            log.warning("Error caught in BasicImageData.load()");
+            log.warning("Error caught in DataBufferSupport.load()");
             throw new BrainFlowException(e);
         }
 

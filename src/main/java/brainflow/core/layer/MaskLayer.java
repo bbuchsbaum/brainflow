@@ -1,6 +1,6 @@
 package brainflow.core.layer;
 
-import brainflow.application.MemoryImageDataSource;
+import brainflow.app.MemoryImageDataSource;
 import brainflow.colormap.BinaryColorMap;
 import brainflow.colormap.DiscreteColorMap;
 import brainflow.core.layer.ImageLayer;

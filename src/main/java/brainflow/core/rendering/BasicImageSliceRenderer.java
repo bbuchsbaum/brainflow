@@ -384,52 +384,30 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
 
     protected RGBAImage thresholdRGBA(RGBAImage rgba) {
-        StopWatch watch = new StopWatch();
-        
-        //watch.start("thresholdRGBA");
+        //StopWatch watch = new StopWatch();
 
-        //watch.start("create slicer");
         ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
 
-        //watch.stopAndReport("create slicer");
-        
-
         AnatomicalPoint1D zdisp = getZSlice();
-        System.out.println("layer name " + layer.getLabel());
-        System.out.println("slice " + zdisp.getValue());
-
-
-        //watch.start("mask data");
-        IImageData2D maskData = slicer.getSlice(getDisplayAnatomy(), (int) Math.round(zdisp.getValue()));
-        //watch.stopAndReport("mask data");
-
-        //watch.start("creating rgba");
+      
+        //todo what is the correct way to round zdisp  here?
+        // todo check if zdisp is valid?
+        IImageData2D maskData = slicer.getSlice(getDisplayAnatomy(), (int) (zdisp.getValue()));
         UByteImageData2D alpha = rgba.getAlpha();
         UByteImageData2D out = new UByteImageData2D(alpha.getImageSpace());
-        //watch.stopAndReport("creating rgba");
 
         ImageIterator sourceIter = alpha.iterator();
         ImageIterator maskIter = maskData.iterator();
 
-        //watch.start("iteration");
         while (sourceIter.hasNext()) {
             int index = sourceIter.index();
             double a = sourceIter.next();
-
             double b = maskIter.next();
 
-            double val = a * b;
-
-            out.set(index, (byte) val);
+            out.set(index, (byte) (a * b));
         }
-        //watch.stopAndReport("iteration");
 
-
-
-        //watch.start("creating rgba");
         RGBAImage ret = new RGBAImage(rgba.getSource(), rgba.getRed(), rgba.getGreen(), rgba.getBlue(), out);
-        //watch.stopAndReport("creating rgba");
-        //watch.stopAndReport("thresholdRGBA");
         return ret;
 
     }

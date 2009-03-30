@@ -320,7 +320,7 @@
     <copy file="${project.dir}/src/resources/icons/bflow_logo.jpg" tofile="${target.dir}/Release/AnyOS/bflow_logo.jpg" />
     <jar destfile="${target.dir}/Release/AnyOS/brainflow.jar">
       <manifest>
-        <attribute name="Main-Class" value="brainflow.application.toplevel.BrainFlow" />
+        <attribute name="Main-Class" value="brainflow.appl.BrainFlow" />
         <attribute name="Class-Path" value="lib/EventBus.jar lib/jparsec-2.0.jar lib/jfreechart-1.0.9.jar lib/jcommon-1.0.12.jar lib/colt.jar lib/commons-logging-1.1.1.jar lib/jdom.jar lib/binding-2.0.1.jar lib/xstream-1.2.2.jar lib/forms-1.1.0.jar lib/commons-vfs-1.1-SNAPSHOT.jar lib/gui-commands-2.1.jar lib/props.jar lib/datatips.jar lib/jxlayer.jar lib/jvyaml.jar lib/args4j-2.0.1.jar lib/quaqua.jar lib/jide-action.jar lib/jide-dock.jar lib/jide-dashboard.jar lib/jide-synthetica.jar lib/jide-dialogs.jar lib/jide-components.jar lib/jide-common.jar lib/jide-grids.jar lib/synthetica.jar lib/syntheticaWhiteVision.jar lib/syntheticaSimple2D.jar lib/syntheticaBatik.jar lib/syntheticaAddons.jar lib/balloontip_2008-11-14.jar" />
       </manifest>
       <fileset dir="${compiled.ready.dir}/brainflow/src" />

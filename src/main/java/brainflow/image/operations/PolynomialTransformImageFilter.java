@@ -40,7 +40,7 @@ public class PolynomialTransformImageFilter extends AbstractTransformImageFilter
         if (outputSpace == null) 
             outputSpace = new ImageSpace3D((ImageSpace3D)first.getDisplaySpace());
         
-        BasicImageData3D odata = (BasicImageData3D)BasicImageData.create(outputSpace, outputDataType);
+        BasicImageData3D odata = (BasicImageData3D)DataBufferSupport.create(outputSpace, outputDataType);
         ((ImageSpace3D)first.getDisplaySpace()).setMinPoint(new Point3D(0,0,0));
         
         //outputSpace.setMinPoint(new Point3D(0,0,0));

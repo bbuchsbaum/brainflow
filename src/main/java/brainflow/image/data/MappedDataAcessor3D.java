@@ -4,6 +4,8 @@ import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.interpolation.TrilinearInterpolator;
 import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.IImageSpace3D;
+import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.Iterator3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -67,5 +69,9 @@ public class MappedDataAcessor3D implements DataAccessor3D {
 
     public int numElements() {
         return refSpace.getNumSamples();
+    }
+
+    public ImageIterator iterator() {
+        return new Iterator3D(this);
     }
 }

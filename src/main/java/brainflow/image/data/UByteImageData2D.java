@@ -154,7 +154,7 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
         data[indexOf(x, y)] = (byte) val;
     }
 
-    public DataWriter2D createWriter(boolean clear) {
+    public ImageBuffer2D createWriter(boolean clear) {
         throw new UnsupportedOperationException();
     }
 

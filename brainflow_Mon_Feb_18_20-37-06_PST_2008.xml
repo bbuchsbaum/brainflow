@@ -298,7 +298,7 @@
     <copy file="${project.dir}/../../javalibs/junit-4.4/junit-4.4.jar" tofile="${target.dir}/Release/AnyOS/lib/junit-4.4.jar" />
     <jar destfile="${target.dir}/Release/AnyOS/brainflow.jar">
       <manifest>
-        <attribute name="Main-Class" value="brainflow.application.toplevel.BrainFlow" />
+        <attribute name="Main-Class" value="brainflow.appl.BrainFlow" />
         <attribute name="Class-Path" value="lib/commons-vfs-1.0-RC8-SNAPSHOT.jar lib/jcommon-1.0.12.jar lib/jfreechart-1.0.9.jar lib/jdom.jar lib/colt.jar lib/commons-logging-api.jar lib/commons-logging.jar lib/SwingActionManager.jar lib/xstream-1.2.2.jar lib/EventBus.jar lib/forms-1.0.7.jar lib/substance4.2.jar lib/gui-commands-2.1.jar lib/datatips.jar lib/yago.jar lib/binding-2.0.1.jar lib/props.jar lib/jide-grids.jar lib/jide-common.jar lib/jide-components.jar lib/jide-dialogs.jar lib/jide-dock.jar lib/jide-action.jar lib/jparsec-1.2.jar lib/junit-4.4.jar" />
       </manifest>
       <fileset dir="${compiled.ready.dir}/brainflow/src" />

@@ -1,6 +1,6 @@
 package brainflow.image.io;
 
-import brainflow.application.BrainFlowException;
+import brainflow.app.BrainFlowException;
 import brainflow.image.io.ImageInfoReader;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.anatomy.AnatomicalAxis;

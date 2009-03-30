@@ -3,8 +3,8 @@ package brainflow.image.io;
 import brainflow.image.data.IImageData;
 import brainflow.image.io.ImageInfo;
 import brainflow.utils.ProgressListener;
-import brainflow.application.ImageIODescriptor;
-import brainflow.application.BrainFlowException;
+import brainflow.app.ImageIODescriptor;
+import brainflow.app.BrainFlowException;
 import org.apache.commons.vfs.FileObject;
 
 import java.awt.image.BufferedImage;

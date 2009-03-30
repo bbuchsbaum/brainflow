@@ -65,7 +65,7 @@ public class RegionGrowingImageFilter extends AbstractImageFilter {
     public IImageData getOutput() {
         List imageList = getSources();
 
-        BasicImageData data = (BasicImageData) imageList.get(0);
+        AbstractImageData data = (AbstractImageData) imageList.get(0);
 
         ndim = data.getImageSpace().getNumDimensions();
 
@@ -117,7 +117,7 @@ public class RegionGrowingImageFilter extends AbstractImageFilter {
 
         IntArrayList regionIndices = new IntArrayList(50);
 
-        DataWriter3D visited = null;
+        ImageBuffer3D visited = null;
 
         Stack<int[]> searchStack = new Stack<int[]>();
 

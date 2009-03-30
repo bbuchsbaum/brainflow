@@ -4,6 +4,7 @@ import brainflow.image.anatomy.Anatomy;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
+import brainflow.image.iterators.ImageIterator;
 import brainflow.utils.DataType;
 import brainflow.utils.IDimension;
 
@@ -27,6 +28,13 @@ public abstract class AbstractImageData implements IImageData {
 
     private ImageInfo info = new ImageInfo();
 
+    private boolean maxComputed = false;
+
+    private boolean minComputed = false;
+
+    private double maxValue;
+
+    private double minValue;
 
     public AbstractImageData(IImageSpace space) {
         this.space = space;
@@ -46,7 +54,7 @@ public abstract class AbstractImageData implements IImageData {
         this.imageLabel = imageLabel;
     }
 
-     public IDimension<Integer> getDimension() {
+    public IDimension<Integer> getDimension() {
         return space.getDimension();
     }
 
@@ -70,10 +78,61 @@ public abstract class AbstractImageData implements IImageData {
         return info;
     }
 
-    
+    public double maxValue() {
+        if (maxComputed) return maxValue;
+        maxValue = computeMax();
+        return maxValue;
+
+    }
+
+    public double minValue() {
+        if (minComputed) return minValue;
+        minValue = computeMin();
+        return minValue;
+
+
+    }
+
+
+    protected double computeMin() {
+        ImageIterator iter = this.iterator();
+
+        double _min = Double.MAX_VALUE;
+        while (iter.hasNext()) {
+            double val = iter.next();
+            if (val < _min) {
+                _min = val;
+
+            }
+        }
+
+        minComputed = true;
+        return _min;
+
+    }
+
+
+    protected double computeMax() {
+        ImageIterator iter = this.iterator();
+
+        double _max = -Double.MAX_VALUE;
+        while (iter.hasNext()) {
+            double val = iter.next();
+            if (val > _max) {
+                _max = val;
+
+            }
+        }
+
+        maxComputed = true;
+        return _max;
+
+    }
+
+
     public String getImageLabel() {
         return imageLabel;
     }
 
-    
+
 }

@@ -1,6 +1,6 @@
 package brainflow.image.io;
 
-import brainflow.application.BrainFlowException;
+import brainflow.app.BrainFlowException;
 import brainflow.image.data.IImageData;
 import brainflow.utils.ProgressListener;
 

@@ -2,7 +2,7 @@ package brainflow;
 
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.axis.ImageAxis;
-import brainflow.image.data.BasicImageData;
+import brainflow.image.data.AbstractImageData;
 import brainflow.image.data.BasicImageData3D;
 import brainflow.image.data.IImageData3D;
 import brainflow.image.io.BrainIO;
@@ -44,10 +44,10 @@ public class MakeData {
 
 
         try {
-            BrainIO.writeAnalyzeImage("c:/horizontal_stripes", (BasicImageData) data1);
-            BrainIO.writeAnalyzeImage("c:/vertical_stripes", (BasicImageData) data2);
-            BrainIO.writeAnalyzeImage("c:/checkered_stripes", (BasicImageData) data3);
-            BrainIO.writeAnalyzeImage("c:/diagonal_stripes", (BasicImageData) data4);
+            BrainIO.writeAnalyzeImage("c:/horizontal_stripes", (AbstractImageData) data1);
+            BrainIO.writeAnalyzeImage("c:/vertical_stripes", (AbstractImageData) data2);
+            BrainIO.writeAnalyzeImage("c:/checkered_stripes", (AbstractImageData) data3);
+            BrainIO.writeAnalyzeImage("c:/diagonal_stripes", (AbstractImageData) data4);
         } catch (Exception e) {
             e.printStackTrace();
         }

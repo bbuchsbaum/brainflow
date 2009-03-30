@@ -1,6 +1,6 @@
 package brainflow.display;
 
-import brainflow.application.BrainFlowException;
+import brainflow.app.BrainFlowException;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.colormap.LinearColorMapDeprecated;

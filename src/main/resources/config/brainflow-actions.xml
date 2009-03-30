@@ -17,13 +17,13 @@
                 name="Exit"
                 mnemonic="E"
                 accel="control X"
-                actionClass="brainflow.application.actions.ExitApplicationCommand"
+                actionClass="brainflow.app.actions.ExitApplicationCommand"
                 desc="Exits the application"/>
         <action id="main-save-colorbar"
                 name="Save color bar"
                 mnemonic="C"
                 accel="control alt s"
-                actionClass="brainflow.application.actions.SaveColorBarAction"
+                actionClass="brainflow.app.actions.SaveColorBarAction"
                 desc="Captures color bar for currently selected layer"/>
     </action-list>
     <action-list id="view-menu" name="View">
@@ -32,7 +32,7 @@
                 mnemonic="S"
                 accel="control S"
                 smicon="/resources/icons/sagit_16.png"
-                actionClass="brainflow.application.actions.CreateSagittalViewAction"
+                actionClass="brainflow.app.actions.CreateSagittalViewAction"
                 desc="Creates a new sagittal image view">
         </action>
         <action id="view-coronal"
@@ -40,7 +40,7 @@
                 mnemonic="C"
                 accel="control C"
                 smicon="/resources/icons/coronal_16.png"
-                actionClass="brainflow.application.actions.CreateCoronalViewAction"
+                actionClass="brainflow.app.actions.CreateCoronalViewAction"
                 desc="Creates a new coronal image view">
         </action>
         <action id="view-axial"
@@ -48,7 +48,7 @@
                 mnemonic="A"
                 accel="control A"
                 smicon="/resources/icons/axial_16.png"
-                actionClass="brainflow.application.actions.CreateAxialViewCommand"
+                actionClass="brainflow.app.actions.CreateAxialViewCommand"
                 desc="Creates a new axial image view">
         </action>
         <action id="view-orthogonal"
@@ -56,7 +56,7 @@
                 mnemonic="O"
                 accel="control O"
                 smicon="/resources/icons/bundled_obj.gif"
-                actionClass="brainflow.application.actions.CreateOrthogonalViewAction"
+                actionClass="brainflow.app.actions.CreateOrthogonalViewAction"
                 desc="Creates three-plane orthogonal view">
         </action>
         <action id="view-montage"
@@ -64,7 +64,7 @@
                 mnemonic="m"
                 accel="control M"
                 smicon="/resources/icons/application_view_tile.png"
-                actionClass="brainflow.application.actions.CreateMontageViewAction"
+                actionClass="brainflow.app.actions.CreateMontageViewAction"
                 desc="Creates a montage image view">
         </action>
         <action id="view-expanded"
@@ -72,7 +72,7 @@
                 mnemonic="e"
                 accel="control E"
                 smicon="/resources/icons/application_view_tile.png"
-                actionClass="brainflow.application.actions.CreateExpandedViewAction"
+                actionClass="brainflow.app.actions.CreateExpandedViewAction"
                 desc="Creates an expanded (non-stacked) image view">
         </action>
         <action id="view-random"
@@ -80,7 +80,7 @@
                 mnemonic="r"
                 accel="control R"
                 smicon="/resources/icons/application_go.png"
-                actionClass="brainflow.application.actions.DoRandomThingAction"
+                actionClass="brainflow.app.actions.DoRandomThingAction"
                 desc="Do an Action">
         </action>
     </action-list>
@@ -90,7 +90,7 @@
                 mnemonic="h"
                 accel="control H"
                 smicon="/resources/icons/addtsk_tsk.gif"
-                actionClass="brainflow.application.actions.CrosshairDialogAction"
+                actionClass="brainflow.app.actions.CrosshairDialogAction"
                 desc="Change crosshair appearance">
         </action>
         <action id="annotation-colorbar"
@@ -98,7 +98,7 @@
                 mnemonic="c"
                 accel="control Q"
                 smicon="/resources/icons/colorbar.png"
-                actionClass="brainflow.application.actions.ColorBarAnnotationDialogAction"
+                actionClass="brainflow.app.actions.ColorBarAnnotationDialogAction"
                 desc="Change color bar annotation properties">
         </action>
         <action id="annotation-margins"
@@ -106,7 +106,7 @@
                 mnemonic="m"
                 accel="control M"
                 smicon="/resources/icons/layout_header.png"
-                actionClass="brainflow.application.actions.AdjustMarginsAction"
+                actionClass="brainflow.app.actions.AdjustMarginsAction"
                 desc="Change crosshair appearance">
         </action>
         <action id="annotation-coordinates"
@@ -114,7 +114,7 @@
                 mnemonic="n"
                 accel="control alt c"
                 smicon="/resources/icons/layout_header.png"
-                actionClass="brainflow.application.actions.LoadCoordinatesAction"
+                actionClass="brainflow.app.actions.LoadCoordinatesAction"
                 desc="Load and view a set of image coordinates ">
         </action>
     </action-list>
@@ -124,7 +124,7 @@
                 mnemonic="n"
                 accel="control F"
                 smicon="/resources/icons/forward_nav.gif"
-                actionClass="brainflow.application.actions.NextSliceCommand"
+                actionClass="brainflow.app.actions.NextSliceCommand"
                 desc="Go to the next slice in the z-plane">
         </action>
         <action id="navigation-prev"
@@ -132,7 +132,7 @@
                 mnemonic="b"
                 accel="control B"
                 smicon="/resources/icons/backward_nav.gif"
-                actionClass="brainflow.application.actions.PreviousSliceAction"
+                actionClass="brainflow.app.actions.PreviousSliceAction"
                 desc="Go to the previous slice in the z-plane">
         </action>
     </action-list>
@@ -140,14 +140,14 @@
             name="yoke views"
             mnemonic="y"
             accel="control Y"
-            actionClass="brainflow.application.actions.YokeAction"
+            actionClass="brainflow.app.actions.YokeAction"
             desc="Yoke view to other views of same data set">
     </action>
     <action id="unyoke-views"
             name="unyoke views"
             mnemonic="u"
             accel="control U"
-            actionClass="brainflow.application.actions.UnyokeAction"
+            actionClass="brainflow.app.actions.UnyokeAction"
             desc="unyoke selected view from other views of data set">
     </action>
     <action id="toggle-cross"
@@ -155,7 +155,7 @@
             mnemonic="t"
             accel="control R"
             smicon="/resources/icons/add_exc.gif"
-            actionClass="brainflow.application.actions.ToggleCrossCommand"
+            actionClass="brainflow.app.actions.ToggleCrossCommand"
             desc="Toggle crosshair visibility on/off">
     </action>
     <action id="toggle-axislabel"
@@ -163,7 +163,7 @@
             mnemonic="l"
             accel="control L"
             smicon="/resources/icons/att_class_obj.gif"
-            actionClass="brainflow.application.actions.ToggleAxisLabelCommand"
+            actionClass="brainflow.app.actions.ToggleAxisLabelCommand"
             desc="Toggle axis label visibility on/off">
     </action>
     <action id="toggle-colorbar"
@@ -171,7 +171,7 @@
             mnemonic="c"
             accel="control K"
             smicon="/resources/icons/colorbar.png"
-            actionClass="brainflow.application.actions.ToggleColorbarAction"
+            actionClass="brainflow.app.actions.ToggleColorbarAction"
             desc="Toggle color bar visibility on/off">
     </action>
 
@@ -179,14 +179,14 @@
             name="modify color map"
             mnemonic="D"
             accel="control P"
-            actionClass="brainflow.application.actions.DesignLinearColorMapAction"
+            actionClass="brainflow.app.actions.DesignLinearColorMapAction"
             desc="Interactively modify an existing color map">
     </action>
     <action id="set-smoothing"
             name="smoothing"
             mnemonic="K"
             accel="control K"
-            actionClass="brainflow.application.actions.SmoothingAction"
+            actionClass="brainflow.app.actions.SmoothingAction"
             desc="Set Smoothing parameters for Gaussian blur operation">
     </action>
 
@@ -196,7 +196,7 @@
                 name="view info"
                 mnemonic="I"
                 accel="control I"
-                actionClass="brainflow.application.actions.CollectInfoAction"
+                actionClass="brainflow.app.actions.CollectInfoAction"
                 desc="information about the current view">
         </action>
 
@@ -209,6 +209,6 @@
             mnemonic="D"
             accel="control D"
             desc="Unload the selected image"
-            actionClass="brainflow.application.actions.UnloadImageAction"/>
+            actionClass="brainflow.app.actions.UnloadImageAction"/>
 
 </action-set>

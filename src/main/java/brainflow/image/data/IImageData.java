@@ -23,8 +23,6 @@ public interface IImageData extends DataAccessor {
 
     public int getDimension(Axis axisNum);
 
-    //public void setValue(int idx, double val);
-
     public double maxValue();
 
     public double minValue();
@@ -33,11 +31,9 @@ public interface IImageData extends DataAccessor {
    
     public String getImageLabel();
 
-    public ImageIterator iterator();
-
     public IImageSpace getImageSpace();
 
-    //public DataWriter createWriter(boolean clear);
+    //public ImageBuffer createWriter(boolean clear);
 
     //public IImageData multiply(double val);
 

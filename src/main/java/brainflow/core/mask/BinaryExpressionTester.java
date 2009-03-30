@@ -7,8 +7,8 @@ import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import brainflow.core.*;
 import brainflow.core.layer.MaskLayer3D;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.application.BrainFlowException;
-import brainflow.application.presentation.binding.ExtBind;
+import brainflow.app.BrainFlowException;
+import brainflow.app.presentation.binding.ExtBind;
 import brainflow.gui.MultiSelectToggleBar;
 import brainflow.image.anatomy.Anatomy3D;
 

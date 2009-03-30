@@ -14,32 +14,32 @@ public class UnionFindArray {
     private IntArrayList P;
 
     public UnionFindArray(int size) {
-        P = new IntArrayList(size);
+        P = new IntArrayList(new int[size]);
         
     }
 
     public void add(int label) {
         P.add(label);
     }
+
+    public void set(int i, int label) {
+        P.setQuick(i, label);
+    }
+    
     public void add(int[] labels) {
         for (int i=0; i<labels.length; i++) {
             P.add(labels[i]);
         }
     }
 
-    private int p(int i) {
-        return P.getQuick(i-1);
-    }
 
-    private void sp(int i, int val) {
-        P.setQuick(i-1, val);
-    }
+
 
 
     public int findRoot(int i) {
         int root = i;
-        while (p(root) < root) {
-            root = p(root);
+        while (P.getQuick(root) < root) {
+            root = P.getQuick(root);
         }
 
         return root;
@@ -47,16 +47,18 @@ public class UnionFindArray {
 
     public void setRoot(int i, int root) {
         int j;
-        while (p(i) < i) {
-            j = p(i);
-            sp(i, root);
+
+        while (P.getQuick(i) < i) {
+            j = P.getQuick(i);
+            P.setQuick(i, root);
             i = j;
         }
 
-        sp(i, root);
+        P.setQuick(i, root);
     }
 
     public int find(int i) {
+
         int root = findRoot(i);
         setRoot(i, root);
         return root;
@@ -76,6 +78,18 @@ public class UnionFindArray {
         setRoot(i,root);
 
         return root;
+    }
+
+    public void flattenL() {
+        int k=1;
+        for (int i= 1; i<P.size(); i++) {
+            if (P.getQuick(i) < i ) {
+                P.setQuick(i, P.getQuick(i));
+            } else {
+                P.setQuick(i,k);
+                k = k + 1;
+            }
+        }
     }
 
     @Override

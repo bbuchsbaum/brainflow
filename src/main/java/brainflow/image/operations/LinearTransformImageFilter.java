@@ -50,7 +50,7 @@ public class LinearTransformImageFilter extends AbstractTransformImageFilter {
         if (outputSpace == null)
             outputSpace = new ImageSpace3D((ImageSpace3D) first.getImageSpace());
 
-        //BasicImageData3D odata = (BasicImageData3D)BasicImageData.create(ImageSpace3D.transformSpace(outputSpace, transform), outputDataType);
+        //BasicImageData3D odata = (BasicImageData3D)DataBufferSupport.create(ImageSpace3D.transformSpace(outputSpace, transform), outputDataType);
 
         //((ImageSpace3D)first.getDisplaySpace()).setMinPoint(new Point3D(0,0,0));
 
@@ -67,7 +67,7 @@ public class LinearTransformImageFilter extends AbstractTransformImageFilter {
         outputSpace.anchorAxis(a2.getAnatomicalAxis(), a2.getAnatomicalAxis().getMinDirection(), origin.getY());
         outputSpace.anchorAxis(a3.getAnatomicalAxis(), a3.getAnatomicalAxis().getMinDirection(), origin.getZ());
 
-        DataWriter3D odata = ((IImageData3D) BasicImageData.create(outputSpace, outputDataType)).createWriter(false);
+        ImageBuffer3D odata = ((IImageData3D) BasicImageData.create(outputSpace, outputDataType)).createWriter(false);
 
 
         return resample(first, odata);
@@ -75,7 +75,7 @@ public class LinearTransformImageFilter extends AbstractTransformImageFilter {
 
     }
 
-    private IImageData3D resample(BasicImageData3D src, DataWriter3D odat) {
+    private IImageData3D resample(BasicImageData3D src, ImageBuffer3D odat) {
 
         XYZIterator iter = Space.createXYZiterator((ImageSpace3D) odat.getImageSpace());
         Vector3f holder = new Vector3f();

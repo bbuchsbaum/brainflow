@@ -1,5 +1,7 @@
 package brainflow.image.data;
 
+import brainflow.image.iterators.ImageIterator;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Brad Buchsbaum
@@ -14,6 +16,8 @@ public interface DataAccessor {
 
     public int numElements();
 
-    //public IImageSpace getImageSpace();
+    public ImageIterator iterator();
+
+    
 
 }

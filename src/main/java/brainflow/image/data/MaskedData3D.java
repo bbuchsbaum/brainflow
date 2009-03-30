@@ -4,7 +4,6 @@ import brainflow.utils.DataType;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
-import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
@@ -117,7 +116,7 @@ public class MaskedData3D implements IMaskedData3D {
         return new MaskedIterator();
     }
 
-    public DataWriter3D createWriter(boolean clear) {
+    public ImageBuffer3D createWriter(boolean clear) {
         throw new UnsupportedOperationException("Cannot create writer for class " + getClass());
     }
 
@@ -162,10 +161,7 @@ public class MaskedData3D implements IMaskedData3D {
             return iter.jump(number);
         }
 
-        public boolean canJump(int number) {
-            return iter.canJump(number);
-        }
-
+    
         public double nextRow() {
             return iter.nextRow();
         }

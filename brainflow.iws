@@ -30,47 +30,446 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt" afterPath="$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/actions/RemoveDataSourceCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/ProjectManager.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/ProjectManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/UnionFindArray.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/BrainFlowProject.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/BrainFlowProject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp.java" />
-      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\RemoveLoadableImageCommand.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/SearchKernel3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/SearchKernel3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/DisplayManager.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/DisplayManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/mask/MaskEvaluator.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/mask/MaskEvaluator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/actions/OpenImageCommand.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/actions/OpenImageCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/CanvasBar.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/CanvasBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/MaskExpressionPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/MaskExpressionPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlow.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/mask/AnalysisAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/mask/AnalysisAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IMaskedData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IMaskedData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BooleanMaskNode3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BooleanMaskNode3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/NearestInterpolationToggleCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\GitAction.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AnalyzeInfoReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AnalyzeInfoReader.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/wizards/CoordinateTableSetupInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/ListIndexAdapterX.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/MultiImageDataSource.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/MultiImageDataSource.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\dnd\DnDUtils.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorRangePresenter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/SelectColorMapCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\mapping\ImageLayerConverter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\RenderingParamsPresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/YokeHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/ExtendedRangeSlider.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\mapping\FileObjectConverter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\MemoryImageDataSource.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\DesignColorMapCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/DoubleToStringConverter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\NearestInterpolationToggleCommand.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/SelectedLayerPresenter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IntImageBuffer2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/LoadableImageProvider.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ThresholdRangePresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ImageViewCursorEvent.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CreateSagittalViewCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CrosshairDialogCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\LinearInterpolationToggleCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\ToggleAxisLabelCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\ImageLoader.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\SnapshotDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ImageViewMousePointerEvent.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageInfoWriter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageInfoWriter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\CoordinateControls.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageInfoReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageInfoReader.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/SearchableImageFileExplorer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/ToggleCrossCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/ColorBarAnnotationForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/LinearTransformImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/LinearTransformImageFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/dnd/ImageDropHandler.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ColorGradientEditor.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\BiSliderAdapter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/TripleSliderForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorMapTablePresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\OpacityForm.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/HistogramControl.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\BrainFlowProjectListener.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageViewportPresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\LogMonitor.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/CrosshairCoordinates.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ColorBarPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\BrainCanvasPresenter.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/BF.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/BF.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/ImageIODescriptor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CanvasBar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/display/ColoredHistogram.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/display/ColoredHistogram.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\ImageProgressMonitor.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BrainIO.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BrainIO.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\ActivateDockableFrameCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\inspection\JidePropertyWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\ColorBarForm.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/MountFileSystemCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/ActivateDockableFrameCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\ExtBind.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorTable.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorTable.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\NextSliceCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/LoadableImageReceiver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/LinearInterpolationToggleCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/SnapshotDialog.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CreateVerticalOrthogonalCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\SaveColorBarCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\SelectColorMapCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\mapping\TestXStream.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/DataSourceManager.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/DataSourceManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskProperty3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskProperty3D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/DataSourceProgressEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter2.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/ImageIterator.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/ImageIterator.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\FileSystemEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\CrosshairCoordinates.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\ActionContext.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageDisplayModelEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/SetPreserveAspectCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/BrainFlowClientAdapter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\DoubleSliderForm.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewAnnotationEvent.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\CoordinateToIndexConverter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\YokeHandler.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ThresholdRangePresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\RemoveDataSourceCommand.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageFiller.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageFiller.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\VisibilityWrapper.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AnalyzeInfoWriter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AnalyzeInfoWriter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ImageViewAnnotationEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\mapping\ThresholdRangeConverter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\WorldCoordinatePresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\TestPropertyPane.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CreateVerticalOrthogonalCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ImageLayerInfoPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\SelectedLayerPresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/RenderingParamsPresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\ImageProgressDialog.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer2D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\FileSystemEventListener.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\MaskControl.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\ResourceManager.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/BrainFlowException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageViewPresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\ExitApplicationCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\mapping\InterpolationMethodConverter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/ToggleAxisLabelCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewSelectionEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/wizards/LoadCoordinatesWizard.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\BasicAction.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\CrosshairForm.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/ImageProgressDialog.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ProjectTreeView.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\SearchableImageFileExplorer.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/mask/BinaryExpressionParser.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/mask/BinaryExpressionParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BivariateMaskNode3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BivariateMaskNode3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageDisplayModel.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageDisplayModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/LoadableImageTableView.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/presentation/LoadableImageTableView.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\IntegerToStringConverter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/BrainFlowProject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\colormap.properties" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/colormap.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config/brainflow-actions.xml" afterPath="$PROJECT_DIR$/src/main/resources/config/brainflow-actions.xml" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\PreviousSliceCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DesignColorMapCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/BiSliderAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter3.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter3.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorBarPlot.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorBarPlot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractDataWriter2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractDataWriter2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/GitAction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/LinkedViewsPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/IMultiImageDataSource.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/IMultiImageDataSource.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\BrainFlow.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorBarAnnotationPresenter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/ImageLayerConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/LinearColorMap2.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/LinearColorMap2.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\BrainFlowClientAdapter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/MountDirectoryCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/PageBackSliceCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\BrainFrame.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\wizards\CoordinateTableView.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BasicImageReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BasicImageReader.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/BrainFlowToggleCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CreateMontageViewCommand.java" afterPath="" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\brainflow-logging.properties" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/brainflow-logging.properties" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\inspection\ImageInfoInspector.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\CompositeFileSelector.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\BrainFlowStarter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\inspection\JideUtils.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlowClientSupport.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ColorMapTablePresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\SnapshotForm.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/NewCanvasCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ColorBarAnnotationPresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/FileSystemEventListener.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/VisibilityWrapper.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\LoadableImageProvider.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CreateTriangularOrthogonalCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\data\DataWriter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\DecreaseContrastCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\BrainFlowProject.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/LoadableImageTransferable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/HistogramColorBar.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/HistogramColorBar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/SpaceIterator3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/SpaceIterator3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BooleanMaskNode3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BooleanMaskNode3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/RegionGrowingImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/RegionGrowingImageFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/DirectoryManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AbstractImageDataSource.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AbstractImageDataSource.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\BrainFlowToggleCommand.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/BrainCanvasModel.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/BrainCanvasModel.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\dnd\ImageViewTransferHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\PanelBuilderTest.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ImageViewLayerSelectionEvent.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/RotateOrientationCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/wizards/CoordinateTableSetupForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageLayerInfoPresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CreateSagittalViewCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/InterpolationMethodConverter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\dnd\BrainCanvasTransferHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\PropertyConnector.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\PageBackSliceCommand.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageDataSource.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageDataSource.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/PreviousSliceCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/MemoryImageDataSource.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/WorldToAxisConverter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/IncreaseContrastCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ImageViewPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\DirectoryManager.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/ToggleBarAdapterX.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/wizards/CoordinateTableSetupPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/SingletonRegistry.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/ExtBind.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/MultiSelectToggleBarAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/TripleRangeSliderForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ProgressEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/IBrainFlowClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/ImageLayer3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/ImageLayer3D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/ThresholdRangeForm.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\BrainFlowClientSupport.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/FileSystemEvent.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\RecentPathMenu.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CrosshairPresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ProjectTreeView.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\CheckBoxListAdapter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\DataSourceProgressEvent.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewMousePointerEvent.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\HistogramPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ImageViewEvent.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewCursorEvent.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\GoToVoxelCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\ColorBarAnnotationForm.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/UnionFindArray.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/UnionFindArray.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/dnd/AbstractLayerTransferable.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/IImageDataSourceConverter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\ImageIODescriptor.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/RemoveDataSourceCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\IncreaseContrastCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/MaskExpressionPresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\DataSourceStatusEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\MountDirectoryCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/dnd/BrainCanvasTransferHandler.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\EventBusMonitor.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/TestPropertyPane.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ImageIOManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewLayerSelectionEvent.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\wizards\CoordinateTableSetupInfo.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CommandProvider.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\WorldToAxisConverter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/RotateLayersCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/SaveColorBarCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/MeanImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/MeanImageFilter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\ImageIOManager.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/BrainFlowCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\mapping\XStreamUtils.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/ColorBarForm.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\PercentageRangeConverter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter2.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/EventBusMonitor.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\data\DataWriter3D.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorAdjustmentControl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/CoordinateSpinner.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlowProjectListener.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/TestXStream.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\TripleRangeSliderForm.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CreateCoronalViewCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\ListIndexAdapterX.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\AdjustMarginsCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/BrainCanvasPresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ColorBandChartPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\CursorCoordinates.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CommandProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskLayer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskLayer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/BasicAction.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\IndexCoordinatePresenter2.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/UByteImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/UByteImageData2D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\OpenImageCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ViewListPresenter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ImageViewFactory.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\BrainFlowCommand.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AFNIInfoReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AFNIInfoReader.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/LogMonitor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/LoadableImageTableView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CubicInterpolationToggleCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/dnd/DnDUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/OpacityForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/ExitApplicationCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\LayerInfoControl.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/RenderingParamsForm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/inspection/JideUtils.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\DockWindowManager.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/LayerInfoControl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/DataSourceManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/build_brainflow.xml" afterPath="$PROJECT_DIR$/src/main/java/brainflow/build_brainflow.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CreateAxialViewCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IntImageData3D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\ProjectManager.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/NextSliceCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ImageLoader.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\LoadableImageReceiver.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\ToggleCrossCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\SetPreserveAspectCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ViewListPresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/ActionContext.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/Iterator3D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IntImageData2D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\MultiSelectToggleBarAdapter.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlowStarter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/application/toplevel/BrainFlowStarter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicImageSliceRenderer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicImageSliceRenderer.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\LoadableImageTransferable.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\WorldCoordinatePresenter2.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ProjectListView.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\ThresholdRangeForm.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\NewCanvasCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CoordinateControls.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData2D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\data\DataWriter2D.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewMouseEvent.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\BrainFlowException.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/MakeData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/MakeData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/IntegerToStringConverter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ImageDisplayModelEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\DataSourceManager.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ColorRangePresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataBufferSupport.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\DoubleToStringConverter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\RenderingParamsForm.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlowStarter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\FavoritesMenu.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiInfoReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiInfoReader.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\SnapshotCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CreateCoronalViewCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ColorAdjustmentControl.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/wizards/CoordinateTableView.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CreateHorizontalOrthogonalCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\RotateOrientationCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\ToggleBarAdapterX.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/BrainFrame.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\ColorBarAnnotationDialogCommand.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataAccessor.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataAccessor.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\dnd\AbstractLayerTransferable.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ImageLayerFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BivariateMaskNode3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BivariateMaskNode3D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\LoadableImageTableView.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\ExtendedRangeSlider.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/inspection/ImageInfoInspector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ProjectManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/XStreamUtils.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\CanvasBar.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ImageViewSelectionEvent.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/misc/TextConsole.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/misc/TextConsole.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/GoToVoxelCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/CursorCoordinates.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow_1.xml" afterPath="$PROJECT_DIR$/brainflow_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/Bindable.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\CoordinateToIndexConverter2.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/CheckBoxListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorBandChartPresenter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CreateMontageViewCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\PageForwardSliceCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\mapping\IImageDataSourceConverter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\CrosshairPresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/CoordinateToIndexConverter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\LinkedViewsPresenter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\wizards\CoordinateTableSetupPresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/OpenImageCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/DataSourceStatusEvent.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ImageViewportPresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/HistogramPresenter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/MaskPresenter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\SingletonRegistry.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\dnd\ImageDropHandler.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/dnd/ImageViewTransferHandler.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlowProjectEvent.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CubicInterpolationToggleCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DecreaseContrastCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/DockWindowManager.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CrosshairDialogCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\ImageViewFactory.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\RotateLayersCommand.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\TripleSliderForm.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/CompositeFileSelector.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ColorMapChooser.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\MountFileSystemCommand.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/mask/BinaryExpressionTester.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/mask/BinaryExpressionTester.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ProgressEvent.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/SoftImageDataSource.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/SoftImageDataSource.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ResourceManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/AdjustMarginsCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\MaskExpressionPresenter.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\DisplayManager.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/RecentPathMenu.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CreateTriangularOrthogonalCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/DisplayManager.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\ImageLayerFactory.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IntImageBuffer3D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\actions\CreateAxialViewCommand.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/CoordinateToIndexConverter2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/SnapShooter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/SnapShooter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/CrosshairForm.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\services\ImageViewMouseEvent.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/FileObjectConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/ThresholdRangeConverter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ImageProgressMonitor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageFileExplorer.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\MaskPresenter.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ProjectListView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/IMaskProperty.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/IMaskProperty.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData3D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorMapChooser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/IndexCoordinatePresenter2.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/DoubleSliderForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/PolynomialTransformImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/PolynomialTransformImageFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorBarPresenter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/PageForwardSliceCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\wizards\LoadCoordinatesWizard.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/modes/CrosshairInteractor.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/modes/CrosshairInteractor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/SnapshotCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/SnapshotForm.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\HistogramControl.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/ColorBarAnnotationDialogCommand.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\controls\CoordinateSpinner.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataAccessor2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataAccessor2D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\toplevel\BrainFlowProjectEvent.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/IImageDataSource.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/IImageDataSource.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorGradientEditor.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/MaskControl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/FavoritesMenu.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/PanelBuilderTest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/inspection/JidePropertyWrapper.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\ImageFileExplorer.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\wizards\CoordinateTableSetupForm.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\IBrainFlowClient.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\application\presentation\binding\Bindable.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/PropertyConnector.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/PercentageRangeConverter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/CreateHorizontalOrthogonalCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow_Mon_Feb_18_20-37-06_PST_2008.xml" afterPath="$PROJECT_DIR$/brainflow_Mon_Feb_18_20-37-06_PST_2008.xml" />
     </list>
     <list name="Failed commit: Default (3)" comment="Added number labels to BiSlider" />
     <list name="Failed commit: Default (5)" comment="Added number labels to BiSlider" />
     <list name="Failed commit: Default (4)" comment="Added number labels to BiSlider" />
-    <list name="Failed commit: Default" comment="Failed commit: Default" />
     <list name="Failed commit: Default (7)" comment="Failed commit: Default (7)" />
+    <list name="Failed commit: Default" comment="Failed commit: Default" />
     <list name="Failed commit: Default (2)" comment="Failed commit: Default (2)" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
@@ -106,7 +505,7 @@
         <option name="CONDITION" value="model.getLowClip() == model.getHighClip()" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/application/dnd/DnDUtils.java" line="65" class="brainflow.application.dnd.DnDUtils" package="brainflow.application.dnd">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/dnd/DnDUtils.java" line="65" class="brainflow.app.dnd.DnDUtils" package="brainflow.app.dnd">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -119,7 +518,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/application/actions/IncreaseContrastCommand.java" line="56" class="brainflow.application.actions.IncreaseContrastCommand" package="brainflow.application.actions">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/actions/IncreaseContrastCommand.java" line="56" class="brainflow.app.actions.IncreaseContrastCommand" package="brainflow.app.actions">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -197,7 +596,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter.java" line="329" class="brainflow.image.operations.ConnectedComponentsFilter" package="brainflow.image.operations">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter.java" line="327" class="brainflow.image.operations.ConnectedComponentsFilter" package="brainflow.image.operations">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -210,20 +609,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/UnionFindArray.java" line="90" class="brainflow.image.operations.UnionFindArray" package="brainflow.image.operations">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp.java" line="47" class="brainflow.image.operations.ConnComp" package="brainflow.image.operations">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/UnionFindArray.java" line="104" class="brainflow.image.operations.UnionFindArray" package="brainflow.image.operations">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -284,8 +670,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -359,73 +745,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BasicImageData2D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java">
+      <file leaf-file-name="MakeData.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/MakeData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="13" selection-start="533" selection-end="533" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IImageData3D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="17" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestMask.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/TestMask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RGBAImage.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/RGBAImage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="329" selection-end="329" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QuickIterator.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/QuickIterator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="17" selection-start="217" selection-end="217" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImageFiller.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageFiller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="13" selection-start="502" selection-end="502" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SnapShooter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/SnapShooter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="78" selection-start="1710" selection-end="1978" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ConnComp.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="331" column="8" selection-start="10485" selection-end="10485" vertical-scroll-proportion="0.0">
+            <state line="48" column="79" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -433,19 +756,86 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TextConsole.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/misc/TextConsole.java">
+      <file leaf-file-name="BasicImageData.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="6" selection-start="741" selection-end="741" vertical-scroll-proportion="0.21825963">
+            <state line="21" column="22" selection-start="449" selection-end="449" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="method#computeHash#0;class#BasicImageData#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BasicImageData2D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="42" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompositeImageProducer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/CompositeImageProducer.java">
+      <file leaf-file-name="AbstractImageData2D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData2D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="13" selection-start="907" selection-end="907" vertical-scroll-proportion="0.0">
+            <state line="26" column="32" selection-start="777" selection-end="777" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractImageData3D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData3D.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="52" column="22" selection-start="1500" selection-end="1500" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BasicImageData3D.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData3D.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="127" column="8" selection-start="3286" selection-end="3286" vertical-scroll-proportion="0.71165645">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BrainIO.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/io/BrainIO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="289" column="12" selection-start="9029" selection-end="9029" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageData.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="8" selection-start="1225" selection-end="1225" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DifferenceImageFilter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/DifferenceImageFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="32" selection-start="911" selection-end="916" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Test.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/sc/brainflow/image/data/Test.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="24" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -592,6 +982,10 @@
           <option name="myItemId" value="scala" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="data" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -689,6 +1083,108 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="image" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="operations" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="image" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="iterators" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="image" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="data" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
@@ -733,17 +1229,17 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth4" value="854" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth3" value="180" />
     <property name="cvs_file_history_flatWidth2" value="298" />
-    <property name="cvs_file_history_flatWidth3" value="298" />
     <property name="cvs_file_history_treeOrder0" value="0" />
+    <property name="cvs_file_history_flatWidth3" value="298" />
     <property name="cvs_file_history_flatWidth0" value="298" />
-    <property name="cvs_file_history_flatWidth1" value="298" />
     <property name="GoToClass.includeLibraries" value="false" />
+    <property name="cvs_file_history_flatWidth1" value="298" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
     <property name="options.lastSelected" value="preferences.pluginManager" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="234" />
     <property name="project.structure.last.edited" value="Facets" />
@@ -769,16 +1265,16 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="897" />
     <property name="cvs_file_history_flatOrder2" value="2" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="cvs_file_history_flatOrder3" value="3" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="cvs_file_history_flatOrder0" value="0" />
-    <property name="cvs_file_history_flatOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
+    <property name="cvs_file_history_flatOrder1" value="1" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -788,6 +1284,9 @@
       <recent name="com.brainflow.application.presentation.controls" />
       <recent name="com.brainflow.application.presentation.forms" />
     </key>
+    <key name="MoveMembersDialog.RECENTS_KEY">
+      <recent name="brainflow.image.iterators.Iterator3D" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="src.main.resources" />
       <recent name="com.brainflow.application.dnd" />
@@ -796,9 +1295,9 @@
       <recent name="test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ConnComp">
-    <tempConfiguration default="false" name="UnionFindArray" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
-      <option name="MAIN_CLASS_NAME" value="brainflow.image.operations.UnionFindArray" />
+  <component name="RunManager" selected="Application.Test">
+    <tempConfiguration default="false" name="Test" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+      <option name="MAIN_CLASS_NAME" value="Test" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -809,42 +1308,26 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="brainflow" />
       <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="62580" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
       <RunnerSettings RunnerId="Profile ">
         <option name="myExternalizedOptions" />
       </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
+    <configuration default="true" type="ScalaScriptConsoleRunConfiguration" factoryName="Scala Console">
+      <module name="" />
+      <setting name="vmparams" value="" />
+      <setting name="consoleArgs" value="" />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="XSLT" factoryName="XSLT">
-      <option name="myOutputFile" />
-      <option name="myOpenOutputFile" value="false" />
-      <option name="myOpenInBrowser" value="false" />
-      <option name="mySmartErrorHandling" value="true" />
-      <option name="myRunnerPort" value="34873" />
-      <option name="myVmArguments" />
-      <option name="myWorkingDirectory" />
-      <option name="myModule" />
-      <option name="myJdk" />
-      <parameters />
-      <OutputType value="CONSOLE" />
-      <FileType name="XML" />
-      <JdkChoice value="FROM_MODULE" />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false" runner="emma">
       <module name="" />
@@ -874,6 +1357,21 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="XSLT" factoryName="XSLT">
+      <option name="myOutputFile" />
+      <option name="myOpenOutputFile" value="false" />
+      <option name="myOpenInBrowser" value="false" />
+      <option name="mySmartErrorHandling" value="true" />
+      <option name="myRunnerPort" value="34873" />
+      <option name="myVmArguments" />
+      <option name="myWorkingDirectory" />
+      <option name="myModule" />
+      <option name="myJdk" />
+      <parameters />
+      <OutputType value="CONSOLE" />
+      <FileType name="XML" />
+      <JdkChoice value="FROM_MODULE" />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -940,7 +1438,7 @@
       <setting name="debug" value="false" />
     </configuration>
     <configuration default="false" name="BrainFlow" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
-      <option name="MAIN_CLASS_NAME" value="brainflow.application.toplevel.BrainFlow" />
+      <option name="MAIN_CLASS_NAME" value="brainflow.app.toplevel.BrainFlow" />
       <option name="VM_PARAMETERS" value="-Xmx800m -Xverify:none -ea  -splash:$PROJECT_DIR$/src/main/resources/icons/brainflow-logo-fancy.png" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -968,7 +1466,7 @@
       </method>
     </configuration>
     <configuration default="false" name="TestXStream" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
-      <option name="MAIN_CLASS_NAME" value="brainflow.application.mapping.TestXStream" />
+      <option name="MAIN_CLASS_NAME" value="brainflow.app.mapping.TestXStream" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -995,7 +1493,7 @@
       </method>
     </configuration>
     <configuration default="false" name="CrosshairForm" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
-      <option name="MAIN_CLASS_NAME" value="brainflow.application.presentation.controls.CrosshairForm" />
+      <option name="MAIN_CLASS_NAME" value="brainflow.app.presentation.controls.CrosshairForm" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -1388,7 +1886,7 @@
       <item index="15" class="java.lang.String" itemvalue="Application.XAxis" />
       <item index="16" class="java.lang.String" itemvalue="Application.Hello" />
       <item index="17" class="java.lang.String" itemvalue="Application.ConnComp" />
-      <item index="18" class="java.lang.String" itemvalue="Application.UnionFindArray" />
+      <item index="18" class="java.lang.String" itemvalue="Application.Test" />
     </list>
   </component>
   <component name="ScopeChooserConfigurable.UI">
@@ -1398,6 +1896,7 @@
   </component>
   <component name="ScopeViewComponent">
     <subPane subId="Problems" />
+    <subPane subId="Tests" />
     <subPane subId="Production">
       <PATH>
         <PATH_ELEMENT USER_OBJECT="Root">
@@ -1406,7 +1905,6 @@
         </PATH_ELEMENT>
       </PATH>
     </subPane>
-    <subPane subId="Tests" />
     <subPane subId="Project">
       <PATH>
         <PATH_ELEMENT USER_OBJECT="Root">
@@ -1489,31 +1987,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="20" width="1680" height="898" extended-state="0" />
+    <frame x="129" y="41" width="1679" height="973" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3260274" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09197531" sideWeight="0.66164386" order="1" side_tool="false" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27688172" sideWeight="0.5" order="1" side_tool="false" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40994623" sideWeight="0.0" order="4" side_tool="false" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2759463" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4090354" sideWeight="0.0" order="4" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32896462" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32883435" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32739726" sideWeight="0.5" order="8" side_tool="false" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34274194" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34188035" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.0" order="7" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21111111" sideWeight="0.66714907" order="1" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993865" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962275" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962963" sideWeight="0.71370965" order="0" side_tool="false" x="121" y="37" width="406" height="883" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32983324" sideWeight="0.6495727" order="0" side_tool="false" x="121" y="37" width="406" height="883" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39954337" sideWeight="0.5" order="6" side_tool="false" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53763443" sideWeight="0.5" order="2" side_tool="false" />
-      <window_info id="Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33577535" sideWeight="0.5" order="2" side_tool="false" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
+      <window_info id="Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="TestDox" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944787" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dynamic properties" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32962275" sideWeight="0.5" order="3" side_tool="false" x="573" y="77" width="533" height="866" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="3" side_tool="false" />
@@ -1528,8 +2026,8 @@
       <window_info id="FileBrowser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20552148" sideWeight="0.5" order="3" side_tool="false" x="672" y="218" width="335" height="584" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" />
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
     </layout>
   </component>
@@ -1549,7 +2047,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="some bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="#commit" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -1560,7 +2058,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Failed commit: Default (2)" />
     <MESSAGE value="Reworked AnatomicalPoint3D implementation" />
     <MESSAGE value="fixed SnapshotDialog, reworked SliceController&#10;" />
     <MESSAGE value="reworked SelectedLayerPresenter, added visibleSelection property to IImageDisplayModel" />
@@ -1584,6 +2081,8 @@
     <MESSAGE value="jjj" />
     <MESSAGE value="bbb" />
     <MESSAGE value="some bug fixes" />
+    <MESSAGE value="commit" />
+    <MESSAGE value="#commit" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1665,116 +2164,122 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="44" selection-start="2925" selection-end="2925" vertical-scroll-proportion="0.0">
+        <state line="54" column="18" selection-start="1164" selection-end="1347" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/io/BrainIO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/DataBufferSupport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="0" selection-start="3700" selection-end="3700" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImagePlotFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="414" selection-end="414" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/UByteImageData2D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="13" selection-start="474" selection-end="474" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData2D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData2D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="13" selection-start="533" selection-end="533" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/TestMask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="212" selection-end="212" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/RGBAImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="329" selection-end="329" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/QuickIterator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="17" selection-start="217" selection-end="217" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageFiller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="13" selection-start="502" selection-end="502" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/SnapShooter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="78" selection-start="1710" selection-end="1978" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/CompositeImageProducer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="13" selection-start="907" selection-end="907" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="331" column="8" selection-start="10485" selection-end="10485" vertical-scroll-proportion="0.0">
+        <state line="16" column="10" selection-start="336" selection-end="336" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/misc/TextConsole.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/AbstractImageFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="6" selection-start="741" selection-end="741" vertical-scroll-proportion="0.21825963">
+        <state line="19" column="22" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/RegionGrowingImageFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="16" selection-start="1714" selection-end="1714" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/MeanImageFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="43" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/io/BasicImageReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="196" column="16" selection-start="5930" selection-end="5930" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="22" selection-start="449" selection-end="449" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="method#computeHash#0;class#BasicImageData#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData2D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="32" selection-start="777" selection-end="777" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/MakeData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="79" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="8" selection-start="1225" selection-end="1225" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/DifferenceImageFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="32" selection-start="911" selection-end="916" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/sc/brainflow/image/data/Test.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="24" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/io/BrainIO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="289" column="12" selection-start="9029" selection-end="9029" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData3D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="22" selection-start="1500" selection-end="1500" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="42" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData3D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="127" column="8" selection-start="3286" selection-end="3286" vertical-scroll-proportion="0.71165645">
           <folding />
         </state>
       </provider>

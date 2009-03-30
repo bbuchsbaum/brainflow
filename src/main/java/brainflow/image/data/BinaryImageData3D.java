@@ -5,7 +5,6 @@ import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.iterators.ImageIterator;
-import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.Index3D;
 import cern.colt.bitvector.BitVector;
@@ -171,7 +170,7 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
 
     }
 
-    public DataWriter3D createWriter(boolean clear) {
+    public ImageBuffer3D createWriter(boolean clear) {
         throw new UnsupportedOperationException();
     }
 }

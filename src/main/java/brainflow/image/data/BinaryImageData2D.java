@@ -101,7 +101,7 @@ public class BinaryImageData2D extends BinaryImageData implements IImageData2D {
         getBitVector().putQuick(indexOf(x, y), val > 0);
     }
 
-    public DataWriter2D createWriter(boolean clear) {
+    public ImageBuffer2D createWriter(boolean clear) {
         throw new UnsupportedOperationException();
     }
 }

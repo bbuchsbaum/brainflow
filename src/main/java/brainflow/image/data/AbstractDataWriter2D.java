@@ -7,7 +7,7 @@ package brainflow.image.data;
  * Time: 5:35:27 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractDataWriter2D implements DataWriter2D {
+public abstract class AbstractDataWriter2D implements ImageBuffer2D {
 
 
 

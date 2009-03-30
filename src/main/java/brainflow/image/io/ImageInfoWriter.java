@@ -6,7 +6,7 @@
 
 package brainflow.image.io;
 
-import brainflow.application.BrainFlowException;
+import brainflow.app.BrainFlowException;
 
 import java.io.File;
 

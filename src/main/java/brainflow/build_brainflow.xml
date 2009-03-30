@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Written to assume that classpath is rooted in the current directory. --><!-- So this should be OK if you make this script in the root of a filesystem. --><!-- If not, you may prefer to adjust the basedir, or move some directories around. --><!-- The idea is that both Ant and NetBeans have to know what the package root is --><!-- for the classes in your application. -->
+<!-- Written to assume that classpath is rooted in the current directory. --><!-- So this should be OK if you make this script in the root of a filesystem. --><!-- If not, you may prefer to adjust the basedir, or move some directories around. --><!-- The idea is that both Ant and NetBeans have to know what the package root is --><!-- for the classes in your app. -->
 <project basedir="../.." default="all" name="brainflow">
 
     <!-- Don'three worry if you don'three know the Ant syntax completely or need help on some tasks! -->

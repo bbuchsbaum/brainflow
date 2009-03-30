@@ -21,7 +21,7 @@ import java.awt.image.DataBuffer;
  * @version 1.0
  */
 
-public class BasicImageData2D extends BasicImageData implements IImageData2D {
+public class BasicImageData2D extends AbstractImageData2D  {
 
 
     public BasicImageData2D(BasicImageData2D src) {
@@ -113,8 +113,8 @@ public class BasicImageData2D extends BasicImageData implements IImageData2D {
         return new Iterator2D();
     }
 
-    public DataWriter2D createWriter(boolean clear) {
-        return new DataWriter2D() {
+    public ImageBuffer2D createWriter(boolean clear) {
+        return new ImageBuffer2D() {
 
             ImageSpace2D space = BasicImageData2D.this.getImageSpace();
             DataBuffer buffer = BasicImageData2D.this.copyBuffer();
@@ -163,6 +163,10 @@ public class BasicImageData2D extends BasicImageData implements IImageData2D {
 
             public double value(int x, int y) {
                 return delegate.value(x,y);
+            }
+
+            public ImageIterator iterator() {
+                return delegate.iterator();
             }
         };
 

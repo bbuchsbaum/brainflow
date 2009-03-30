@@ -5,8 +5,8 @@ import brainflow.image.space.IImageSpace;
 import brainflow.image.space.Axis;
 import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageDataSource;
-import brainflow.application.MemoryImageDataSource;
-import brainflow.application.BrainFlowException;
+import brainflow.app.MemoryImageDataSource;
+import brainflow.app.BrainFlowException;
 //import brainflow.display.ThresholdRange;
 
 import java.util.List;
@@ -300,7 +300,7 @@ public class ConnectedComponentsFilter3 extends AbstractImageFilter {
             System.out.println("avg time " + (etime - btime) / 200.00);
 
             //IImageData idata = filter.getOutput();
-            //BrainIO.writeAnalyzeImage("\"F:/data/anyback/tRepeat-stat-clustered-meth3", (BasicImageData) idata);
+            //BrainIO.writeAnalyzeImage("\"F:/data/anyback/tRepeat-stat-clustered-meth3", (DataBufferSupport) idata);
 
 
         } catch (BrainFlowException e) {

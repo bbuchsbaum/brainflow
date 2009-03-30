@@ -48,14 +48,12 @@ public class ImageFiller {
             fastIterator = makeIterator(xaxis, axis1);
             slowIterator = makeIterator(yaxis, axis2);
             values = fillXYZ(inputData, fastIterator, slowIterator, displayIndex);
-            //values = fillXYZ(inputData, fastIterator, slowIterator, getFixedValue(zaxis, sliceIndex));
         }
         // YXZ
         else if (yaxis.sameAxis(axis1) & xaxis.sameAxis(axis2)) {
             fastIterator = makeIterator(yaxis, axis1);
             slowIterator = makeIterator(xaxis, axis2);
             values = fillYXZ(inputData, fastIterator, slowIterator, displayIndex);
-            //values = fillYXZ(inputData, fastIterator, slowIterator, getFixedValue(zaxis, sliceIndex));
 
         }
 
@@ -64,14 +62,12 @@ public class ImageFiller {
             fastIterator = makeIterator(yaxis, axis1);
             slowIterator = makeIterator(zaxis, axis2);
             values = fillYZX(inputData, fastIterator, slowIterator, displayIndex);
-            //values = fillYZX(inputData, fastIterator, slowIterator, getFixedValue(xaxis, sliceIndex));
         }
         //XZY
         else if (xaxis.sameAxis(axis1) && zaxis.sameAxis(axis2)) {
             fastIterator = makeIterator(xaxis, axis1);
             slowIterator = makeIterator(zaxis, axis2);
             values = fillXZY(inputData, fastIterator, slowIterator, displayIndex);
-            //values = fillXZY(inputData, fastIterator, slowIterator, getFixedValue(yaxis, sliceIndex));
         }
 
         //ZYX
@@ -79,7 +75,6 @@ public class ImageFiller {
             fastIterator = makeIterator(zaxis, axis1);
             slowIterator = makeIterator(yaxis, axis2);
             values = fillZYX(inputData, fastIterator, slowIterator, displayIndex);
-            //values = fillZYX(inputData, fastIterator, slowIterator, getFixedValue(xaxis, sliceIndex));
         }
 
         //ZXY
@@ -87,8 +82,6 @@ public class ImageFiller {
             fastIterator = makeIterator(zaxis, axis1);
             slowIterator = makeIterator(xaxis, axis2);
             values = fillZXY(inputData, fastIterator, slowIterator, displayIndex);
-            //values = fillZXY(inputData, fastIterator, slowIterator, getFixedValue(yaxis, sliceIndex));
-
         } else{
             throw new IllegalArgumentException("illegal combination of axes: " + axis1 + " and " + axis2);
         }

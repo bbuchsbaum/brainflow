@@ -2,6 +2,7 @@ package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.space.ImageSpace2D;
+import brainflow.image.iterators.ImageIterator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,4 +20,6 @@ public interface DataAccessor2D extends DataAccessor {
     public double value(int x, int y);
 
     public ImageSpace2D getImageSpace();
+
+    
 }

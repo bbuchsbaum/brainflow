@@ -7,7 +7,6 @@ import brainflow.image.space.ImageSpace3D;
 import brainflow.utils.DataType;
 
 import java.awt.image.*;
-import java.util.concurrent.*;
 
 
 /**
@@ -27,16 +26,7 @@ public abstract class BasicImageData extends AbstractImageData {
 
     protected Object storage;
 
-    private double maxValue;
-
-    private double minValue;
-
-    private boolean maxComputed = false;
-
-    private boolean minComputed = false;
-
-    private long hashid;
-
+   
 
     public BasicImageData(IImageSpace space) {
         super(space);
@@ -57,8 +47,6 @@ public abstract class BasicImageData extends AbstractImageData {
 
 
 
-
-
     private long computeHash() {
         ImageIterator iter = this.iterator();
         double sum = 0;
@@ -74,42 +62,6 @@ public abstract class BasicImageData extends AbstractImageData {
 
     }
 
-    protected final double computeMin() {
-        ImageIterator iter = this.iterator();
-
-        double _min = Double.MAX_VALUE;
-        while (iter.hasNext()) {
-            double val = iter.next();
-            if (val < _min) {
-                _min = val;
-
-            }
-        }
-
-        minComputed = true;
-        return _min;
-
-    }
-
-    protected double computeMax() {
-        long start = System.currentTimeMillis();
-        ImageIterator iter = this.iterator();
-
-        double _max = -Double.MAX_VALUE;
-        while (iter.hasNext()) {
-            double val = iter.next();
-            if (val > _max) {
-                _max = val;
-
-            }
-        }
-
-        maxComputed = true;
-        long end = System.currentTimeMillis();
-        System.out.println("computing max took: " + (end-start));
-        return _max;
-
-    }
 
 
     public static DataType establishDataType(Object array) {
@@ -119,7 +71,7 @@ public abstract class BasicImageData extends AbstractImageData {
         else if (array instanceof int[]) return DataType.INTEGER;
         else if (array instanceof double[]) return DataType.DOUBLE;
         else {
-            throw new IllegalArgumentException("BasicImageData: illegal array type: " + array);
+            throw new IllegalArgumentException("DataBufferSupport: illegal array type: " + array);
         }
 
     }
@@ -136,7 +88,7 @@ public abstract class BasicImageData extends AbstractImageData {
         } else if (datatype == DataType.DOUBLE) {
             data = new DataBufferDouble((double[]) storage, size);
         } else {
-            throw new IllegalArgumentException("BasicImageData: cannot allocate data of type " + datatype.toString());
+            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + datatype.toString());
         }
 
 
@@ -159,7 +111,7 @@ public abstract class BasicImageData extends AbstractImageData {
         } else if (datatype == DataType.DOUBLE) {
             return new DataBufferDouble((double[]) storage, ((double[])storage).length);
         } else {
-            throw new IllegalArgumentException("BasicImageData: cannot allocate data of type " + datatype.toString());
+            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + datatype.toString());
         }
         
     }
@@ -186,39 +138,15 @@ public abstract class BasicImageData extends AbstractImageData {
                 storage = new double[size];
             data = new DataBufferDouble((double[]) storage, size);
         } else {
-            throw new IllegalArgumentException("BasicImageData: cannot allocate data of type " + datatype.toString());
+            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + datatype.toString());
         }
 
 
         return data;
     }
 
-    protected long hashid() {
-        return hashid;
-
-    }
 
 
-    public double maxValue() {
-        if (maxComputed) return maxValue;
-        maxValue = computeMax();
-        return maxValue;
-
-    }
-
-    public double minValue() {
-        if (minComputed) return minValue;
-        minValue = computeMin();
-        return minValue;
-
-
-
-    }
-
-
-    public final int numElements() {
-        return data.getSize();
-    }
 
     public abstract ImageIterator iterator();
 
@@ -236,19 +164,16 @@ public abstract class BasicImageData extends AbstractImageData {
         return true;
     }
 
-    public int hashCode() {
-        int result = (int) hashid() + getImageLabel().hashCode() + space.hashCode();
-        return result;
-    }
 
-    public static BasicImageData create(IImageSpace space, DataType type) {
+
+    public static AbstractImageData create(IImageSpace space, DataType type) {
         if (space.getNumDimensions() == 2) {
             return new BasicImageData2D((ImageSpace2D) space, type);
         }
         if (space.getNumDimensions() == 3) {
             return new BasicImageData3D((ImageSpace3D) space, type);
         } else
-            throw new IllegalArgumentException("Cannot create BasicImageData with dimensionality " + space.getNumDimensions());
+            throw new IllegalArgumentException("Cannot create DataBufferSupport with dimensionality " + space.getNumDimensions());
     }
 
 

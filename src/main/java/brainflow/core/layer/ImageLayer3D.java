@@ -1,7 +1,7 @@
 package brainflow.core.layer;
 
 import brainflow.image.io.IImageDataSource;
-import brainflow.application.MemoryImageDataSource;
+import brainflow.app.MemoryImageDataSource;
 import brainflow.core.rendering.BasicImageSliceRenderer;
 import brainflow.core.layer.ImageLayerProperties;
 import brainflow.core.SliceRenderer;

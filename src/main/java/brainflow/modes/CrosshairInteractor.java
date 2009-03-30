@@ -38,9 +38,8 @@ public class CrosshairInteractor extends ImageViewInteractor {
             return;
         }
 
-        AnatomicalPoint3D cursorPos = iview.getCursorPos();
         AnatomicalPoint3D ap = iview.getAnatomicalLocation(event.getComponent(), event.getPoint());
-        AnatomicalPoint3D tap = ap.convertTo(cursorPos.getSpace());
+        AnatomicalPoint3D tap = ap.convertTo(iview.getCursorPos().getSpace());
 
         Viewport3D viewport = iview.getViewport();
 

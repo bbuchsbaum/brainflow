@@ -1,7 +1,7 @@
 package brainflow.core;
 
 import brainflow.image.io.IImageDataSource;
-import brainflow.application.MemoryImageDataSource;
+import brainflow.app.MemoryImageDataSource;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.LinearColorMapDeprecated;
 import brainflow.colormap.DiscreteColorMap;
@@ -130,7 +130,7 @@ public class SnapShooter {
 
             ImageDisplayModel dset = new ImageDisplayModel("snapper");
             IImageDataSource il1 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/ch2"));
-            IImageDataSource il2 = new brainflow.application.MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAgeXDiag"));
+            IImageDataSource il2 = new brainflow.app.MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAgeXDiag"));
             IImageDataSource il3 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAge.Schiz"));
             IImageDataSource il4 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAge.Norm"));
             IImageDataSource il5 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/bAge.Schiz"));

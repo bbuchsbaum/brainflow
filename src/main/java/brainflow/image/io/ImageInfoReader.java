@@ -1,6 +1,6 @@
 package brainflow.image.io;
 
-import brainflow.application.BrainFlowException;
+import brainflow.app.BrainFlowException;
 import org.apache.commons.vfs.FileObject;
 
 import java.io.File;

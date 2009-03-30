@@ -1,8 +1,6 @@
 package brainflow.image.operations;
 
-import brainflow.application.BrainFlowException;
-import brainflow.image.io.IImageDataSource;
-import brainflow.application.MemoryImageDataSource;
+import brainflow.app.BrainFlowException;
 import brainflow.image.data.*;
 import brainflow.image.io.BrainIO;
 import brainflow.image.space.Axis;
@@ -302,7 +300,7 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
             /*ConnectedComponentsFilter filter = new ConnectedComponentsFilter();
          filter.addInput(data);
          IImageData idata = filter.getOutput();
-         BrainIO.writeAnalyzeImage("c:/DTI/slopes/bAge.Norm_index.hdr", (BasicImageData) idata); */
+         BrainIO.writeAnalyzeImage("c:/DTI/slopes/bAge.Norm_index.hdr", (DataBufferSupport) idata); */
 
         } catch (BrainFlowException e) {
             e.printStackTrace();
