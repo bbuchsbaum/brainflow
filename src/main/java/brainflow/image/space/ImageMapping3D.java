@@ -21,7 +21,6 @@ public interface ImageMapping3D {
 
     public Vector3f gridToWorld(float i, float j, float k, Vector3f out);
 
-    public Vector3f gridToWorld(Vector3f in);
 
     public Vector3f worldToGrid(Vector3f in, Vector3f out);
 

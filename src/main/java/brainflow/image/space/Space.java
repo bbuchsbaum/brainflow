@@ -4,6 +4,7 @@ import brainflow.image.iterators.XYZIterator;
 import brainflow.image.LinearSet1D;
 import brainflow.image.LinearSet3D;
 import brainflow.image.anatomy.AnatomicalAxis;
+import brainflow.image.anatomy.AnatomicalPoint3D;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.CoordinateAxis;
@@ -23,6 +24,19 @@ public class Space {
         ImageAxis zaxis = new ImageAxis(0, zdim*dz, AnatomicalAxis.INFERIOR_SUPERIOR, zdim);
 
         return new ImageSpace3D(xaxis, yaxis, zaxis);
+    }
+
+    public static boolean containsPoint(IImageSpace3D space, AnatomicalPoint3D pt) {
+        AnatomicalPoint3D cpt = pt.convertTo(space);
+        if (space.getImageAxis(Axis.X_AXIS).contains(cpt.getValue(Axis.X_AXIS.getId())) &&
+            space.getImageAxis(Axis.Y_AXIS).contains(cpt.getValue(Axis.Y_AXIS.getId())) &&
+            space.getImageAxis(Axis.Z_AXIS).contains(cpt.getValue(Axis.Z_AXIS.getId()))) {
+            return true;
+        }
+
+        return false;
+
+
     }
 
     

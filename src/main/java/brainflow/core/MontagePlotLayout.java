@@ -6,6 +6,7 @@ import brainflow.image.anatomy.AnatomicalPoint1D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
+import brainflow.image.space.Space;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,16 +30,26 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
     private int nrows = 3;
 
+    private float sliceGap = 3;
+
     private Anatomy3D displayAnatomy = Anatomy3D.getCanonicalAxial();
 
     private MontageSliceController sliceController = null;
 
+    public MontagePlotLayout(ImageView view, Anatomy3D displayAnatomy, int nrows, int ncols, float sliceGap) {
+        super(view);
+        this.displayAnatomy = displayAnatomy;
+        this.nrows = nrows;
+        this.ncols = ncols;
+        this.sliceGap = sliceGap;
+    }
 
     public MontagePlotLayout(ImageView view, Anatomy3D displayAnatomy, int nrows, int ncols) {
         super(view);
         this.displayAnatomy = displayAnatomy;
         this.nrows = nrows;
         this.ncols = ncols;
+        sliceGap = (float) view.getModel().getImageSpace().getImageAxis(displayAnatomy.ZAXIS, true).getSpacing();
     }
 
     public MontageSliceController createSliceController() {
@@ -133,18 +144,20 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
     }
 
+    protected void repaintPlots() {
+        for (IImagePlot plot : getPlots()) {
+            plot.getComponent().repaint();
+        }
+    }
+
     class MontageSliceController extends SimpleSliceController {
 
 
         private AnatomicalPoint3D sentinel;
 
-        private double sliceGap = 3;
-
-
 
         MontageSliceController(ImageView imageView) {
             super(imageView);
-            sliceGap = getView().getModel().getImageSpace().getImageAxis(displayAnatomy.ZAXIS, true).getSpacing();
             sentinel = getView().getCursorPos();
         }
 
@@ -183,8 +196,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
 
                         int nplots = getNcols() * getNrows();
-                        if ( (zselected.getValue() > (zsentinel.getValue() + sliceGap * nplots)) || (zselected.getValue() < zsentinel.getValue())) {
-                            //System.out.println("slice out of range");
+                        if ((zselected.getValue() > (zsentinel.getValue() + sliceGap * nplots)) || (zselected.getValue() < zsentinel.getValue())) {
                             setSlice(newval);
                         } else {
                             IImagePlot nearPlot = nearestPlot(zselected);
@@ -192,16 +204,16 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
                             int i = getPlots().indexOf(nearPlot);
                             if (i > 0) {
-                                System.out.println("nearz greater than newval");
-                                setSlice(sentinel.replace(new AnatomicalPoint1D(nearz.getAnatomy(), nearz.getValue() - sliceGap*i)));
+                                setSlice(sentinel.replace(new AnatomicalPoint1D(nearz.getAnatomy(), nearz.getValue() - sliceGap * i)));
                                 //todo forced repaint is a hack to repaint cross hair when slice doesn't change
-                                getView().getSelectedPlot().getComponent().repaint();
+                                //getView().getSelectedPlot().getComponent().repaint();
+                                repaintPlots();
                             } else {
                                 setSlice(sentinel.replace(new AnatomicalPoint1D(nearz.getAnatomy(), nearz.getValue())));
-                                getView().getSelectedPlot().getComponent().repaint();
+                                //getView().getSelectedPlot().getComponent().repaint();
+                                repaintPlots();
                                 //selectedPlot.getComponent().repaint();
                             }
-
 
 
                         }
@@ -213,7 +225,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
 
         private ImageAxis zaxis() {
-            //IImagePlot plot = getPlots().get(0);
+
             Axis axis = getView().getViewport().getBounds().findAxis(displayAnatomy.ZAXIS);
             return getView().getModel().getImageAxis(axis);
 
@@ -225,7 +237,15 @@ public class MontagePlotLayout extends ImagePlotLayout {
             int i = 0;
             for (IImagePlot plot : plotList) {
                 AnatomicalPoint3D slice = getSliceForPlot(i);
-                plot.setSlice(slice);
+                if (Space.containsPoint(getView().getModel().getImageSpace(), slice)) {
+                    System.out.println("setting plot slice to " + slice);
+                    plot.setSlice(slice);
+                } else {
+                    System.out.println("should be clearing slice " + slice);
+                    // plot.clear()
+
+                }
+
                 i++;
             }
 
@@ -233,8 +253,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
 
         public void setSlice(AnatomicalPoint3D slice) {
-            slice = slice.snapToBounds();
-
+            //slice = slice.snapToBounds();
             if (!slice.equals(sentinel)) {
                 sentinel = slice;
                 updateSlices();
@@ -244,21 +263,28 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
         public void nextSlice() {
             AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
-            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + sliceGap)));
+            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + sliceGap)).snapToBounds());
         }
 
         public void previousSlice() {
             AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
-            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - sliceGap)));
+            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - sliceGap)).snapToBounds());
 
         }
 
         public void pageBack() {
-            //To change body of implemented methods use File | Settings | File Templates.
+            AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
+            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - (sliceGap * getPlots().size()))).snapToBounds());
+
+
         }
 
         public void pageForward() {
-            //To change body of implemented methods use File | Settings | File Templates.
+
+            AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
+            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + (sliceGap * getPlots().size()))).snapToBounds());
+
+
         }
     }
 }

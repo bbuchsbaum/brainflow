@@ -173,7 +173,11 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         double gridz = refSpace.getImageAxis(Axis.Z_AXIS).gridPosition(slice.getZ());
 
 
+        //todo this is not actually the correct space for the point
         AnatomicalPoint3D gridloc = new AnatomicalPoint3D(refSpace, gridx, gridy, gridz);
+
+        //todo forces gridloc to be legal, but this is a bit of a hack...
+
 
 
         //get the value along whatever the z axis is for the current display anatomy
@@ -392,6 +396,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
       
         //todo what is the correct way to round zdisp  here?
         // todo check if zdisp is valid?
+
         IImageData2D maskData = slicer.getSlice(getDisplayAnatomy(), (int) (zdisp.getValue()));
         UByteImageData2D alpha = rgba.getAlpha();
         UByteImageData2D out = new UByteImageData2D(alpha.getImageSpace());

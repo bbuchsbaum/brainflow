@@ -2,7 +2,6 @@ package brainflow.image.data;
 
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.io.ImageInfo;
-import brainflow.image.iterators.ImageIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.utils.DataType;
@@ -14,7 +13,7 @@ import brainflow.utils.DataType;
  * Time: 1:00:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IImageData extends DataAccessor {
+public interface IImageData extends DataGrid {
 
 
     public DataType getDataType();

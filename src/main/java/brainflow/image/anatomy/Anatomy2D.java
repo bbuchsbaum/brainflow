@@ -4,6 +4,9 @@ import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.IndexConverter2D;
 import brainflow.image.IndexConverter1D;
+import brainflow.math.Matrix4f;
+import brainflow.math.Matrix3f;
+import brainflow.math.Vector3f;
 
 /**
  * Created by IntelliJ IDEA.
@@ -53,10 +56,20 @@ public class Anatomy2D implements Anatomy {
 
     AnatomicalOrientation orientation;
 
+    private final Matrix3f referenceTransform;
+
     private Anatomy2D(AnatomicalOrientation _orientation, AnatomicalAxis xAxis, AnatomicalAxis yAxis) {
         orientation = _orientation;
         this.XAXIS = xAxis;
         this.YAXIS = yAxis;
+
+        Vector3f v1 = XAXIS.getDirectionVector();
+        Vector3f v2 = YAXIS.getDirectionVector();
+
+
+        referenceTransform = new Matrix3f(v1.getX(), v1.getY(), 0, v2.getX(), v2.getY(), 0, 0, 0, 1);
+
+
         instances[count] = this;
         count++;
 
@@ -150,6 +163,10 @@ public class Anatomy2D implements Anatomy {
 
         return false;
 
+    }
+
+    public Matrix3f getReferenceTransform() {
+        return referenceTransform;
     }
 
 

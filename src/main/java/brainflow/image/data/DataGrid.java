@@ -9,7 +9,7 @@ import brainflow.image.iterators.ImageIterator;
  * Time: 10:04:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface DataAccessor {
+public interface DataGrid {
 
 
     public double value(int index);

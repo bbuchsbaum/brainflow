@@ -29,6 +29,7 @@ public class MontageImageView extends ImageView {
 
     private int ncols = 3;
 
+    private float sliceGap;
 
     private MontagePlotLayout plotLayout;
 
@@ -42,11 +43,12 @@ public class MontageImageView extends ImageView {
 
     }
 
-    public MontageImageView(IImageDisplayModel imodel, Anatomy3D displayAnatomy, int nrows, int ncols, double sliceGap) {
+    public MontageImageView(IImageDisplayModel imodel, Anatomy3D displayAnatomy, int nrows, int ncols, float sliceGap) {
         super(imodel);
         this.displayAnatomy = displayAnatomy;
         this.nrows= nrows;
         this.ncols = ncols;
+        this.sliceGap = sliceGap;
 
         init();
         //initControlPanel();

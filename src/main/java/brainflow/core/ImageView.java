@@ -97,25 +97,13 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
                 throw new IllegalArgumentException("world point " + ap + " must have Anatomy " + Anatomy3D.REFERENCE_ANATOMY);
             }
 
-
-            IImageSpace3D space = getModel().getImageSpace();
-            float[] gridpos = space.worldToGrid((float) ap.getX(), (float) ap.getY(), (float) ap.getZ());
-            double x1 = space.getImageAxis(Axis.X_AXIS).gridToReal(gridpos[0]);
-            double y1 = space.getImageAxis(Axis.Y_AXIS).gridToReal(gridpos[1]);
-            double z1 = space.getImageAxis(Axis.Z_AXIS).gridToReal(gridpos[2]);
-
-            super.set(new AnatomicalPoint3D(space, x1, y1, z1));
+            super.set(AnatomicalPoint3D.convertFromWorld(ap, getModel().getImageSpace()));
         }
 
         public AnatomicalPoint3D get() {
             RProperty<AnatomicalPoint3D> cpos = (RProperty<AnatomicalPoint3D>) getProperties()[0];
-            IImageSpace3D space =  getModel().getImageSpace();
-            double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(cpos.get().getX());
-            double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(cpos.get().getY());
-            double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(cpos.get().getZ());
+            return AnatomicalPoint3D.convertToWorld(cpos.get(), getModel().getImageSpace());
 
-            float[] ret = space.gridToWorld((float) gridx, (float) gridy, (float) gridz);
-            return new AnatomicalPoint3D(Anatomy3D.REFERENCE_ANATOMY, ret[0], ret[1], ret[2]);
         }
     };
 

@@ -18,7 +18,7 @@ import brainflow.image.space.IImageSpace3D;
 public class ImageSlicer {
 
 
-    private DataAccessor3D image;
+    private DataGrid3D image;
 
     private Anatomy3D displayAnatomy = Anatomy3D.AXIAL_LAI;
 
@@ -34,7 +34,7 @@ public class ImageSlicer {
     }
 
 
-    public ImageSlicer(DataAccessor3D _image) {
+    public ImageSlicer(DataGrid3D _image) {
         image = _image;
 
     }

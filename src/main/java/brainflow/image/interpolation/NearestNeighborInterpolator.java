@@ -6,7 +6,7 @@
 
 package brainflow.image.interpolation;
 
-import brainflow.image.data.DataAccessor3D;
+import brainflow.image.data.DataGrid3D;
 import brainflow.image.space.Axis;
 
 /**
@@ -20,7 +20,7 @@ public class NearestNeighborInterpolator implements InterpolationFunction3D {
     public NearestNeighborInterpolator() {
     }
 
-    public double interpolate(double dx, double dy, double dz, DataAccessor3D data) {
+    public double interpolate(double dx, double dy, double dz, DataGrid3D data) {
         int x_up = (int) Math.floor(dx + .5);
         int y_up = (int) Math.floor(dy + .5);
         int z_up = (int) Math.floor(dz + .5);

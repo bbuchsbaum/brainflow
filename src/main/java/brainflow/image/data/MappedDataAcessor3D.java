@@ -14,7 +14,7 @@ import brainflow.image.iterators.Iterator3D;
  * Time: 5:55:11 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MappedDataAcessor3D implements DataAccessor3D {
+public class MappedDataAcessor3D implements DataGrid3D {
 
     private final IImageSpace3D refSpace;
 

@@ -2,15 +2,16 @@
 
 
 
-
-
-
-[Fix: loadable image pane. "info button" does nothing.]
+Fix: Montage View fails to update crosshair location in non-selected plots
+Fix: Montage View intial size is odd
+Fix: make pageup and page down work for montage views
+Fix: favorites should open progress monitor on loading; favorites should show check box for loaded items
 Fix: unload currently visible image? should popup message box: image is visible, do you want to do this?
-[Fix: mask operation appears to be excruciatingly slow!]
 Fix: adjusting threshold after "freezing" mask causes exception
 
 [Fix: switching between views is excruciatingly slow]
+[Fix: mask operation appears to be excruciatingly slow!]
+[Fix: loadable image pane. "info button" does nothing.]
 
 
 Fix: project view drag and drop within same model should reorder rather than copy

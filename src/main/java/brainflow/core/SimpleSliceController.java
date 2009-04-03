@@ -86,22 +86,14 @@ class SimpleSliceController implements SliceController {
 
     public void nextSlice() {
 
-        imageView.cursorPos.set(incrementSlice(zaxis().getSpacing()));
+        imageView.cursorPos.set(incrementSlice(zaxis().getSpacing()).snapToBounds());
 
 
     }
 
     public void previousSlice() {
-        AnatomicalPoint3D slice = getSlice();
 
-        ImageAxis iaxis = zaxis();
-
-        AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
-        pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - iaxis.getSpacing());
-
-        //todo check bounds
-
-        imageView.cursorPos.set(slice.replace(pt));
+        imageView.cursorPos.set(incrementSlice(-zaxis().getSpacing()).snapToBounds());
 
 
     }

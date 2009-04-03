@@ -21,8 +21,8 @@ public class AnatomicalAxis implements Anatomy {
     public static final AnatomicalAxis INFERIOR_SUPERIOR = new AnatomicalAxis(AnatomicalDirection.INFERIOR, AnatomicalDirection.SUPERIOR, new Vector3f(0,  0,  1));
     public static final AnatomicalAxis SUPERIOR_INFERIOR = new AnatomicalAxis(AnatomicalDirection.SUPERIOR, AnatomicalDirection.INFERIOR, new Vector3f(0,  0, -1));
 
-    public static final AnatomicalAxis LEFT_RIGHT = new AnatomicalAxis(AnatomicalDirection.LEFT, AnatomicalDirection.RIGHT, new Vector3f(1, 0, 0));
-    public static final AnatomicalAxis RIGHT_LEFT = new AnatomicalAxis(AnatomicalDirection.RIGHT, AnatomicalDirection.LEFT, new Vector3f(-1,0, 0));
+    public static final AnatomicalAxis LEFT_RIGHT = new AnatomicalAxis(AnatomicalDirection.LEFT, AnatomicalDirection.RIGHT, new Vector3f(1,  0, 0));
+    public static final AnatomicalAxis RIGHT_LEFT = new AnatomicalAxis(AnatomicalDirection.RIGHT, AnatomicalDirection.LEFT, new Vector3f(-1, 0, 0));
 
 
     public final AnatomicalDirection min;

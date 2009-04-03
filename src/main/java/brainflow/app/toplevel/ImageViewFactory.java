@@ -112,10 +112,11 @@ public class ImageViewFactory {
 
 
 
-    public static ImageView createMontageView(IImageDisplayModel displayModel, int nrows, int ncols, double sliceGap) {
-        MontageImageView view = new MontageImageView(displayModel, Anatomy3D.getCanonicalAxial(), nrows, ncols, sliceGap);
-
+    public static ImageView createMontageView(IImageDisplayModel displayModel, int nrows, int ncols, float sliceGap) {
+        ImageView view = new MontageImageView(displayModel, Anatomy3D.getCanonicalAxial(), nrows, ncols, sliceGap);
+        addDefaultAnnotations(view);
         return view;
+
     }
 
 

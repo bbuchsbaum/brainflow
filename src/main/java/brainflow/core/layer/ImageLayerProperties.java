@@ -34,7 +34,7 @@ public class ImageLayerProperties implements Serializable {
 
 
 
-    public final ObservableProperty<IColorMap> colorMap = ObservableProperty.create();
+    public final Property<IColorMap> colorMap = ObservableProperty.create();
 
 
     public final IndexedProperty<InterpolationType> interpolationSet = new ObservableIndexed<InterpolationType>(

@@ -1,6 +1,6 @@
 package brainflow.image.interpolation;
 
-import brainflow.image.data.DataAccessor3D;
+import brainflow.image.data.DataGrid3D;
 
 /**
  * <p>Title: </p>
@@ -14,6 +14,6 @@ import brainflow.image.data.DataAccessor3D;
 
 public interface InterpolationFunction3D {
 
-    public double interpolate(double dx, double dy, double dz, DataAccessor3D data);
+    public double interpolate(double dx, double dy, double dz, DataGrid3D data);
 
 }

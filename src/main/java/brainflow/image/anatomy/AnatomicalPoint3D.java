@@ -44,45 +44,45 @@ public class AnatomicalPoint3D implements AnatomicalPoint {
     }
 
     public AnatomicalPoint3D snapToBounds() {
-        double newx=x.getValue();
-        double newy=y.getValue();
-        double newz=z.getValue();
+        //todo this is not a very good method
+
+        double newx = x.getValue();
+        double newy = y.getValue();
+        double newz = z.getValue();
 
         boolean changed = false;
 
         if (x.getValue() < space.getImageAxis(Axis.X_AXIS).getMinimum()) {
             newx = space.getImageAxis(Axis.X_AXIS).getMinimum();
-            changed=true;
+            changed = true;
         } else if (x.getValue() > space.getImageAxis(Axis.X_AXIS).getMaximum()) {
             newx = space.getImageAxis(Axis.X_AXIS).getMaximum();
-            changed=true;
+            changed = true;
         }
 
         if (y.getValue() < space.getImageAxis(Axis.Y_AXIS).getMinimum()) {
             newy = space.getImageAxis(Axis.Y_AXIS).getMinimum();
-            changed=true;
+            changed = true;
         } else if (y.getValue() > space.getImageAxis(Axis.Y_AXIS).getMaximum()) {
             newy = space.getImageAxis(Axis.Y_AXIS).getMaximum();
-            changed=true;
+            changed = true;
         }
 
         if (z.getValue() < space.getImageAxis(Axis.Z_AXIS).getMinimum()) {
             newz = space.getImageAxis(Axis.Z_AXIS).getMinimum();
-            changed=true;
+            changed = true;
         } else if (z.getValue() > space.getImageAxis(Axis.Z_AXIS).getMaximum()) {
             newz = space.getImageAxis(Axis.Z_AXIS).getMaximum();
-            changed=true;
+            changed = true;
         }
 
         if (changed) {
-            AnatomicalPoint3D ret = new AnatomicalPoint3D(space, newx, newy,newz);
+            AnatomicalPoint3D ret = new AnatomicalPoint3D(space, newx, newy, newz);
             return ret;
 
         } else {
             return this;
         }
-
-
 
 
     }
@@ -120,27 +120,36 @@ public class AnatomicalPoint3D implements AnatomicalPoint {
         AnatomicalPoint1D retz = to_z.convertTo(other.getImageAxis(Axis.Z_AXIS));
 
 
-
         return new AnatomicalPoint3D(other, retx.getValue(), rety.getValue(), retz.getValue());
 
 
     }
 
-    public static AnatomicalPoint3D convertToWorld(AnatomicalPoint3D pt, IImageSpace3D space)  {
-        pt = pt.convertTo(space);
+    public static AnatomicalPoint3D convertToWorld(AnatomicalPoint3D pt, IImageSpace3D space) {
+        if (space.getAnatomy() != pt.getAnatomy()) {
+            throw new IllegalArgumentException("AnatomicalPoint3D and ImageSpace arguments must have same anatomical orientation");
+        }
+        //pt = pt.convertTo(space);
 
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(pt.getX());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(pt.getY());
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(pt.getZ());
 
-        float[] ret = space.gridToWorld((float)gridx, (float)gridy, (float)gridz);
+        float[] ret = space.gridToWorld((float) gridx, (float) gridy, (float) gridz);
         pt = new AnatomicalPoint3D(Anatomy3D.REFERENCE_ANATOMY, ret[0], ret[1], ret[2]);
         return pt;
-        
 
     }
 
+    public static AnatomicalPoint3D convertFromWorld(AnatomicalPoint3D worldpt, IImageSpace3D space) {
 
+        float[] gridpos = space.worldToGrid((float) worldpt.getX(), (float) worldpt.getY(), (float) worldpt.getZ());
+        double x1 = space.getImageAxis(Axis.X_AXIS).gridToReal(gridpos[0]);
+        double y1 = space.getImageAxis(Axis.Y_AXIS).gridToReal(gridpos[1]);
+        double z1 = space.getImageAxis(Axis.Z_AXIS).gridToReal(gridpos[2]);
+
+        return new AnatomicalPoint3D(space, x1, y1, z1);
+    }
 
 
     private AnatomicalPoint1D get(AnatomicalAxis axis) {
@@ -169,8 +178,6 @@ public class AnatomicalPoint3D implements AnatomicalPoint {
             throw new IllegalArgumentException("illegal axis " + axis + " for this coordinate space");
         }
     }
-
-
 
 
     public AnatomicalPoint1D getValue(AnatomicalAxis axis, double min, double max) {
@@ -267,6 +274,6 @@ public class AnatomicalPoint3D implements AnatomicalPoint {
         AnatomicalPoint3D a = new AnatomicalPoint3D(Anatomy3D.AXIAL_LAI, 12, 50, 12);
         AnatomicalPoint3D b = new AnatomicalPoint3D(Anatomy3D.AXIAL_LPI, 12, 50, 12);
 
-    
+
     }
 }

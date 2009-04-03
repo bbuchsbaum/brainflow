@@ -2,7 +2,6 @@ package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.space.ImageSpace2D;
-import brainflow.image.iterators.ImageIterator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +10,7 @@ import brainflow.image.iterators.ImageIterator;
  * Time: 10:05:32 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface DataAccessor2D extends DataAccessor {
+public interface DataGrid2D extends DataGrid {
 
     public double value(double x, double y, InterpolationFunction2D interp);
 

@@ -9,6 +9,7 @@ import brainflow.image.anatomy.AnatomicalPoint3D;
 import brainflow.image.anatomy.AnatomicalPoint1D;
 import brainflow.image.axis.AxisRange;
 import brainflow.utils.OndeckTaskExecutor;
+import brainflow.utils.NumberUtils;
 import org.apache.commons.pipeline.Feeder;
 import org.apache.commons.pipeline.driver.SynchronousStageDriverFactory;
 import org.apache.commons.pipeline.validation.ValidationException;
@@ -44,7 +45,7 @@ public class CompositeImageProducer extends AbstractImageProducer {
 
 
     public CompositeImageProducer(IImagePlot plot, Anatomy3D displayAnatomy) {
-        this(plot, displayAnatomy, (AnatomicalPoint3D) plot.getModel().getImageSpace().getCentroid());
+        this(plot, displayAnatomy, plot.getModel().getImageSpace().getCentroid());
 
     }
 
@@ -92,7 +93,7 @@ public class CompositeImageProducer extends AbstractImageProducer {
 
     public void setSlice(AnatomicalPoint3D slice) {
         AnatomicalPoint1D pt = slice.getValue(getDisplayAnatomy().ZAXIS);
-         if (pt.getValue() == getSlice().getValue(getDisplayAnatomy().ZAXIS).getValue()) {
+         if (NumberUtils.equals(pt.getValue(), getSlice().getValue(getDisplayAnatomy().ZAXIS).getValue(), .0001)) {
             return;
         }
 
@@ -171,16 +172,21 @@ public class CompositeImageProducer extends AbstractImageProducer {
 
 
     public synchronized BufferedImage render() {
+        try {
+
+            ImagePlotPipeline pipeline = createPipeline();
+
+            pipeline.getSourceFeeder().feed(getModel());
+            pipeline.run();
 
 
-        ImagePlotPipeline pipeline = createPipeline();
-
-        pipeline.getSourceFeeder().feed(getModel());
-        pipeline.run();
-
-
-        lastImage = ((TerminalFeeder) pipeline.getTerminalFeeder()).getImage();
-        dirty = false;
+            lastImage = ((TerminalFeeder) pipeline.getTerminalFeeder()).getImage();
+            dirty = false;
+        } catch(Throwable t) {
+            t.printStackTrace();
+            System.out.println("slice is " + this.getSlice());
+            System.out.println("space is " + plot.getModel().getImageSpace());
+        }
 
 
         return lastImage;

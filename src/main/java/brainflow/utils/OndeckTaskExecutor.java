@@ -43,7 +43,6 @@ public class OndeckTaskExecutor<T> {
         if (runningTask == null || runningTask.isDone()) {
             submitPrivate(new Task<T>(task));
         } else {
-
             waitingTask = new Task<T>(task);
         }
     }

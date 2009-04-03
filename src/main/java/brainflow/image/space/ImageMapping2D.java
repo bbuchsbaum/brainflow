@@ -1,6 +1,7 @@
 package brainflow.image.space;
 
 import brainflow.math.Vector2f;
+import brainflow.math.Vector3f;
 
 import java.awt.geom.Point2D;
 
@@ -13,11 +14,31 @@ import java.awt.geom.Point2D;
  */
 public interface ImageMapping2D extends ImageMapping {
 
-    public void gridToWorld(int i, int j, Vector2f out);
+    public Vector2f getOrigin();
 
-    public Point2D gridToWorld(int i, int j, int k);
+    public Vector2f gridToWorld(int i, int j, Vector2f out);
 
-    public void worldToGrid(Vector2f in, Vector2f out);
+    public Vector2f gridToWorld(int i, int j);
+
+    public Vector2f gridToWorld(float i, float j);
+
+    public Vector2f gridToWorld(float i, float j, Vector2f out);
+
+    public Vector2f gridToWorld(Vector2f in);
+
+    public Vector2f worldToGrid(Vector2f in, Vector2f out);
 
     public Vector2f worldToGrid(Vector2f in);
+
+    public float worldToGridX(float x, float y);
+
+    public float worldToGridY(float x, float y);
+
+   
+
+    public float gridToWorldX(float x, float y);
+
+    public float gridToWorldY(float x, float y);
+
+
 }

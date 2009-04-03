@@ -7,7 +7,7 @@ package brainflow.image.data;
  * Time: 12:40:06 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface ImageBuffer3D extends ImageBuffer, DataAccessor3D {
+public interface ImageBuffer3D extends ImageBuffer, DataGrid3D {
 
 
     public void setValue(int x, int y, int z, double val);

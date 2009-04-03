@@ -27,9 +27,11 @@ public class DynamicXYDataset extends AbstractDataset implements org.jfree.data.
     
     
     public static final int DOMAIN = 0;
+
     public static final int RANGE = 1;
     
     private ArrayList<Pair> seriesPairs = new ArrayList<Pair>();
+
     private ArrayList<String> seriesNames = new ArrayList<String>();
     
     private ArrayList changeListeners = new ArrayList();
@@ -44,7 +46,7 @@ public class DynamicXYDataset extends AbstractDataset implements org.jfree.data.
         
         //assert (seriesType == 0) || (seriesType == 1);
         
-        Pair p = (Pair) seriesPairs.get(series);
+        Pair p = seriesPairs.get(series);
         if (seriesType == DOMAIN) {
             DoubleArrayList dlist = (DoubleArrayList) p.left();
             return dlist;
@@ -65,7 +67,7 @@ public class DynamicXYDataset extends AbstractDataset implements org.jfree.data.
     public void setXYSeries(int series, double[] xvals, double[] yvals) {
         //  assert (series > 0) && (series < getSeriesCount());
         
-        seriesPairs.set(series, new Pair(new DoubleArrayList(xvals), new DoubleArrayList(yvals)));
+        seriesPairs.set(series, new Pair<DoubleArrayList, DoubleArrayList>(new DoubleArrayList(xvals), new DoubleArrayList(yvals)));
         fireDatasetChanged();
     }
     

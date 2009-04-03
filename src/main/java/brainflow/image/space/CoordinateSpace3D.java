@@ -27,8 +27,6 @@ public class CoordinateSpace3D extends AbstractCoordinateSpace implements ICoord
     private CoordinateAxis[] axes;
 
 
-
-
     public CoordinateSpace3D(Anatomy3D anatomy) {
 
         setAnatomy(anatomy);
@@ -88,8 +86,7 @@ public class CoordinateSpace3D extends AbstractCoordinateSpace implements ICoord
 
 
     public ICoordinateSpace union(ICoordinateSpace other) {
-        assert sameAxes(other) : "cannot perform union for ImageSpaces with different axis orientations";
-        if (!sameAxes(other)) {
+         if (!sameAxes(other)) {
             throw new IllegalArgumentException("cannot perform union for ImageSpaces with different axis orientations");
         }
 

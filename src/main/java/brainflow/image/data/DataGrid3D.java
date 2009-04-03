@@ -10,7 +10,7 @@ import brainflow.image.space.IImageSpace3D;
  * Time: 10:07:01 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface DataAccessor3D extends DataAccessor {
+public interface DataGrid3D extends DataGrid {
 
     public double value(float x, float y, float z, InterpolationFunction3D interp);
 

@@ -22,12 +22,7 @@ public class CursorPosition extends AnatomicalPoint3D {
 
     }
 
-    //public CursorPosition(double x, double y, double z, IImageSpace3D refSpace) {
-    //    this.refSpace = refSpace;
-    ///    ap = new AnatomicalPoint3D(refSpace, x, y, z);
-    //}
-
-
+ 
     public IImageSpace3D getSpace() {
         return (IImageSpace3D)super.getSpace();
     }

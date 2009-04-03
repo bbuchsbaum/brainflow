@@ -22,7 +22,7 @@ public class ExitApplicationCommand extends ActionCommand {
      * Creates a new instance of OpenAnalyzeAction
      */
     public ExitApplicationCommand() {
-        super("exit-app");
+        super("exit-application");
 
     }
 

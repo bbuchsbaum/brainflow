@@ -21,6 +21,10 @@ import javax.swing.*;
 public class CreateMontageViewCommand extends BrainFlowCommand {
 
 
+    public CreateMontageViewCommand() {
+        super("create-montage");
+    }
+
     protected void handleExecute() {
         ImageView view = getSelectedView();
 
@@ -32,7 +36,7 @@ public class CreateMontageViewCommand extends BrainFlowCommand {
             IBrainCanvas canvas = getSelectedCanvas();
 
             JOptionPane.showMessageDialog(canvas.getComponent(), ip);
-            ImageView sview = ImageViewFactory.createMontageView(displayModel, ip.getRows(), ip.getColumns(), ip.getSliceGap());
+            ImageView sview = ImageViewFactory.createMontageView(displayModel, ip.getRows(), ip.getColumns(), (float)ip.getSliceGap());
 
             if (canvas != null) {
                 canvas.addImageView(sview);

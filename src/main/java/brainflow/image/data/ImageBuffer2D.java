@@ -7,7 +7,7 @@ package brainflow.image.data;
  * Time: 12:37:40 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface ImageBuffer2D extends ImageBuffer, DataAccessor2D {
+public interface ImageBuffer2D extends ImageBuffer, DataGrid2D {
 
 
     public void setValue(int x, int y, double val);

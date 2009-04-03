@@ -1,9 +1,6 @@
 package brainflow.image.data;
 
-import brainflow.image.space.IImageSpace;
-import brainflow.image.space.ImageSpace2D;
-import brainflow.image.space.IImageSpace3D;
-import brainflow.image.space.Axis;
+import brainflow.image.space.*;
 import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.utils.DataType;
@@ -19,12 +16,18 @@ public abstract class AbstractImageData2D extends AbstractImageData implements I
 
     private int dim0;
 
-    public AbstractImageData2D(ImageSpace2D space) {
+    public AbstractImageData2D(IImageSpace2D space) {
         super(space);
         dim0 = space.getDimension(Axis.X_AXIS);
     }
 
-    protected AbstractImageData2D(IImageSpace3D space, DataType dtype) {
+    public AbstractImageData2D(IImageSpace2D space, DataType dtype, String imageLabel) {
+        super(space, dtype, imageLabel);
+        dim0 = space.getDimension(Axis.X_AXIS);
+
+    }
+
+    public AbstractImageData2D(IImageSpace2D space, DataType dtype) {
         super(space, dtype);
         dim0 = space.getDimension(Axis.X_AXIS);
 

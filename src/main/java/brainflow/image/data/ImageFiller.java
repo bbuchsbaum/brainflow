@@ -23,7 +23,7 @@ public class ImageFiller {
 
 
     
-    public BasicImageData2D fillImage(DataAccessor3D inputData, Anatomy3D displayAnatomy, int displayIndex) {
+    public BasicImageData2D fillImage(DataGrid3D inputData, Anatomy3D displayAnatomy, int displayIndex) {
 
         ispace = inputData.getImageSpace();
 
@@ -118,7 +118,7 @@ public class ImageFiller {
     }
 
 
-    private float[] fillXYZ(DataAccessor3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillXYZ(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x, y, z;
         z = fixed;
 
@@ -139,7 +139,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillYXZ(DataAccessor3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillYXZ(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x, y, z;
         z = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
@@ -161,7 +161,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillXZY(DataAccessor3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillXZY(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x, y, z;
         y = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
@@ -181,7 +181,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillYZX(DataAccessor3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillYZX(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x, y, z;
         x = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
@@ -201,7 +201,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillZYX(DataAccessor3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillZYX(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x, y, z;
         x = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
@@ -222,7 +222,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillZXY(DataAccessor3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillZXY(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x, y, z;
         y = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];

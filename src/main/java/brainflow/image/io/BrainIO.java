@@ -262,7 +262,7 @@ public class BrainIO {
     }
 
     public static void writeAnalyzeImage(String fname, AbstractImageData data) throws BrainFlowException {
-
+        if (true) throw new UnsupportedOperationException();
         FileImageOutputStream ostream = null;
 
         try {
@@ -285,12 +285,15 @@ public class BrainIO {
             ostream.setByteOrder(info.getEndian());
 
             DataType dtype = data.getDataType();
-            Object storage = data.getStorage();
+            Object storage = null;
+
+
+            //todo fixme
+            //Object storage = data.getStorage();
 
             
 
-            assert storage != null;
-
+           
 
             if (dtype == DataType.BYTE) {
                 ostream.write((byte[]) storage, 0, ((byte[]) storage).length);

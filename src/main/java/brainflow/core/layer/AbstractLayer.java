@@ -29,7 +29,7 @@ public abstract class AbstractLayer {
     protected AbstractLayer(String name, ImageLayerProperties properties) {
         this.properties = properties;
         this.name = name;
-        init();
+
     }
 
     public ImageLayerProperties getImageLayerProperties() {
@@ -64,16 +64,7 @@ public abstract class AbstractLayer {
 
     public abstract IMaskProperty getMaskProperty();
 
-
-
     public abstract Object getDataSource();
-
-    private void init() {
-
-
-
-    }
-
 
     public abstract ICoordinateSpace getCoordinateSpace();
 

@@ -107,6 +107,8 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
 
         }
 
+        
+
         repaint();
     }
 

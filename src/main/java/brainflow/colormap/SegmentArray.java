@@ -27,6 +27,7 @@ public class SegmentArray {
         
         int numIntervals = boundaries.length-1;
         intervals = new ArrayList<Interval>(numIntervals);
+
         for (int i=1; i<numIntervals+1; i++) {
             IndexedInterval ival = new IndexedInterval(i, boundaries);
             intervals.add(ival);          

@@ -3,6 +3,7 @@ package brainflow.image.space;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.AnatomicalDirection;
 import brainflow.image.anatomy.Anatomy;
+import brainflow.image.anatomy.Anatomy2D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.ImageAxis;
 
@@ -16,10 +17,11 @@ import brainflow.image.axis.ImageAxis;
 public abstract class AbstractImageSpace implements IImageSpace {
 
 
-    private ImageAxis[] axes = new ImageAxis[0];
+    private ImageAxis[] axes;
 
-    private Anatomy anatomy = null;
+    private Anatomy anatomy;
 
+    
 
     protected void createImageAxes(int num) {
         axes = new ImageAxis[num];
@@ -28,6 +30,8 @@ public abstract class AbstractImageSpace implements IImageSpace {
     protected void initAxis(ImageAxis iaxis, Axis aaxis) {
         axes[aaxis.getId()] = iaxis;
     }
+
+
 
 
     public void anchorAxis(AnatomicalAxis aaxis, AnatomicalDirection adir, double value) {
@@ -172,11 +176,11 @@ public abstract class AbstractImageSpace implements IImageSpace {
     }
 
     public IImageSpace union(ICoordinateSpace other) {
-       if (!sameAxes(other)) {
+        if (!sameAxes(other)) {
             throw new IllegalArgumentException("cannot perform union for ImageSpaces with different axis orientations");
         }
 
-    
+
         ImageAxis[] axes = new ImageAxis[getNumDimensions()];
 
         for (int i = 0; i < axes.length; i++) {
@@ -203,7 +207,7 @@ public abstract class AbstractImageSpace implements IImageSpace {
     public boolean sameGeometry(IImageSpace other) {
         if (other.getNumDimensions() != getNumDimensions()) return false;
 
-        for (int i=0; i<getNumDimensions(); i++) {
+        for (int i = 0; i < getNumDimensions(); i++) {
             ImageAxis axis1 = getImageAxis(Axis.getAxis(i));
             ImageAxis axis2 = other.getImageAxis(Axis.getAxis(i));
             if (!axis1.equals(axis2)) {
@@ -230,12 +234,15 @@ public abstract class AbstractImageSpace implements IImageSpace {
     }
 
     public int getNumSamples() {
+        //todo broken?
         int tot = 1;
+
         for (int i = 0; i < axes.length; i++) {
             tot = tot * axes[i].getNumSamples();
         }
 
         if (tot == 1) return 0;
+
 
         return tot;
 

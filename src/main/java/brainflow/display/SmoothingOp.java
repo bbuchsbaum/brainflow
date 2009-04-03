@@ -20,7 +20,9 @@ public class SmoothingOp {
     public static final String OP_NAME = "smoothing_op";
 
     float[] kernel = new float[]{.11f, .11f, .11f, .11f, .11f, .11f, .11f, .11f, .11f};
+
     float radius = 1;
+
     Normal normal;
 
 

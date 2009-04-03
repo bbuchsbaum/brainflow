@@ -177,16 +177,15 @@ public class ImageAxis extends CoordinateAxis {
 
 
     public final double gridPosition(double pt) {
-        return ((pt - getRange().getMinimum()) / spacing);
+        //todo double check to make sure this is right
+        return ((pt - getRange().getMinimum()) / spacing) -1;
     }
 
     public final double gridToReal(double gridpt) {
+        //todo double check to make sure this is right
         return gridpt * spacing + getRange().getMinimum();
     }
 
-    //public final double gridPosition(double pt) {
-   //     return ((pt - getRange().getMinimum()) / spacing);
-    //}
 
 
     public double taxi(double current, double step, AnatomicalDirection adir) {

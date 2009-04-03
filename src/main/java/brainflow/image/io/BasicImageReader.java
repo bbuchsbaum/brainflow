@@ -194,7 +194,7 @@ public class BasicImageReader implements ImageReader {
             //}
 
             if (fileDimensionality == 2) {
-                BasicImageData dat = new BasicImageData2D((ImageSpace2D) imageSpace, data, info.getDataFile().getName().getBaseName());
+                IImageData2D dat = new BasicImageData2D((ImageSpace2D) imageSpace, data, info.getDataFile().getName().getBaseName());
 
                 //dat.setImageLabel(info.getDataFile().getName().getBaseName());
                 listener.finished();

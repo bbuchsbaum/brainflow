@@ -8,7 +8,7 @@ package brainflow.image.interpolation;
 
 import cern.colt.list.DoubleArrayList;
 import brainflow.image.data.IImageData3D;
-import brainflow.image.data.DataAccessor3D;
+import brainflow.image.data.DataGrid3D;
 import brainflow.image.operations.FormatImageFilter;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
@@ -195,7 +195,7 @@ public class BSplineInterpolator implements InterpolationFunction3D {
     } /* end InitialAntiCausalCoefficient */
 
 
-    public double interpolate(double x, double y, double z, DataAccessor3D data) {
+    public double interpolate(double x, double y, double z, DataGrid3D data) {
         DBGvaluect++;
         double[] xWeight = new double[6];
         double[] yWeight = new double[6];

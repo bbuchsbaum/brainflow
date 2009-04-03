@@ -9,7 +9,7 @@ import brainflow.image.space.ImageSpace2D;
  * Time: 1:10:25 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IImageData2D extends IImageData, DataAccessor2D {
+public interface IImageData2D extends IImageData, DataGrid2D {
 
 
     public int indexOf(int x, int y);

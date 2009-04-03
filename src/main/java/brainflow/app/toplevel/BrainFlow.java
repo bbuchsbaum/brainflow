@@ -434,7 +434,7 @@ public class BrainFlow {
         bindCommand(new CreateSagittalViewCommand(), true);
 
         bindCommand(new CreateCoronalViewCommand(), true);
-        bindCommand(new RotateOrientationCommand(), true);
+        bindCommand(new CreateMontageViewCommand(), true);
         bindCommand(new CreateVerticalOrthogonalCommand(), true);
 
         bindCommand(new CreateHorizontalOrthogonalCommand(), true);

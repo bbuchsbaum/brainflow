@@ -25,14 +25,11 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
     private final Dimension3D<Float> origin;
 
-    
-
-
 
     public ImageSpace3D(ICoordinateSpace cspace) {
         this(new ImageAxis(cspace.getImageAxis(Axis.X_AXIS).getRange(), 1),
-             new ImageAxis(cspace.getImageAxis(Axis.Y_AXIS).getRange(), 1),
-             new ImageAxis(cspace.getImageAxis(Axis.Z_AXIS).getRange(), 1), null);
+                new ImageAxis(cspace.getImageAxis(Axis.Y_AXIS).getRange(), 1),
+                new ImageAxis(cspace.getImageAxis(Axis.Z_AXIS).getRange(), 1), null);
 
         //todo total hack
 
@@ -42,8 +39,8 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
     public ImageSpace3D(ImageSpace3D space) {
 
         this(space.getImageAxis(Axis.X_AXIS),
-             space.getImageAxis(Axis.Y_AXIS),
-             space.getImageAxis(Axis.Z_AXIS), null);
+                space.getImageAxis(Axis.Y_AXIS),
+                space.getImageAxis(Axis.Z_AXIS), null);
     }
 
 
@@ -53,33 +50,50 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
     }
 
     public ImageSpace3D(ImageAxis xaxis, ImageAxis yaxis, ImageAxis zaxis, ImageMapping3D _mapping) {
+
+        initAnatomy(xaxis, yaxis, zaxis);
+
+        if (_mapping == null) {
+            mapping = createMapping(xaxis, yaxis, zaxis, getAnatomy());
+        } else {
+            mapping = _mapping;
+        }
+
+
+        initAxes(xaxis, yaxis, zaxis);
+
+        Vector3f og = mapping.getOrigin();
+        origin = new Dimension3D<Float>(og.getX(), og.getY(), og.getZ());
+
+
+        planeSize = getDimension(Axis.X_AXIS) * getDimension(Axis.Y_AXIS);
+        dim0 = getDimension(Axis.X_AXIS);
+
+
+    }
+
+    private Anatomy3D initAnatomy(ImageAxis xaxis, ImageAxis yaxis, ImageAxis zaxis) {
         Anatomy3D check = Anatomy3D.matchAnatomy(xaxis.getAnatomicalAxis(), yaxis.getAnatomicalAxis(), zaxis.getAnatomicalAxis());
+
         if (check == null) {
             throw new IllegalArgumentException("could not initialize axes from supplied ImageAxes : " + xaxis + " : " + yaxis + ": " + zaxis);
         }
 
-         if (_mapping == null) {
-
-            this.mapping = new AffineMapping3D(new Vector3f((float)xaxis.getRange().getBeginning().getValue(),
-                                                            (float)yaxis.getRange().getBeginning().getValue(),
-                                                            (float)zaxis.getRange().getBeginning().getValue()),
-
-                    new Vector3f((float) xaxis.getSpacing(), (float) yaxis.getSpacing(), (float) zaxis.getSpacing()), check);
-        } else {
-            this.mapping = _mapping;
-        }
-
-
         setAnatomy(check);
+        return getAnatomy();
 
-        
-        double xinterval = xaxis.getSpacing()*xaxis.getNumSamples();
-        double yinterval = yaxis.getSpacing()*yaxis.getNumSamples();
-        double zinterval = zaxis.getSpacing()*zaxis.getNumSamples();
+    }
 
-        xaxis = new ImageAxis(xaxis.getAnatomicalAxis(), 0-xinterval/2, xaxis.getSpacing(), xaxis.getNumSamples());
-        yaxis = new ImageAxis(yaxis.getAnatomicalAxis(), 0-yinterval/2, yaxis.getSpacing(), yaxis.getNumSamples());
-        zaxis = new ImageAxis(zaxis.getAnatomicalAxis(), 0-zinterval/2, zaxis.getSpacing(), zaxis.getNumSamples());
+    private void initAxes(ImageAxis xaxis, ImageAxis yaxis, ImageAxis zaxis) {
+        //for some reason we decided to automatically center axes supplied as constructor arguments.
+
+        double xinterval = xaxis.getSpacing() * xaxis.getNumSamples();
+        double yinterval = yaxis.getSpacing() * yaxis.getNumSamples();
+        double zinterval = zaxis.getSpacing() * zaxis.getNumSamples();
+
+        xaxis = new ImageAxis(xaxis.getAnatomicalAxis(), 0 - xinterval / 2, xaxis.getSpacing(), xaxis.getNumSamples());
+        yaxis = new ImageAxis(yaxis.getAnatomicalAxis(), 0 - yinterval / 2, yaxis.getSpacing(), yaxis.getNumSamples());
+        zaxis = new ImageAxis(zaxis.getAnatomicalAxis(), 0 - zinterval / 2, zaxis.getSpacing(), zaxis.getNumSamples());
 
         createImageAxes(3);
 
@@ -87,15 +101,14 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
         initAxis(yaxis, Axis.Y_AXIS);
         initAxis(zaxis, Axis.Z_AXIS);
 
-        Vector3f og = mapping.getOrigin();
-        origin =  new Dimension3D<Float>(og.getX(), og.getY(), og.getZ());
+    }
 
+    private ImageMapping3D createMapping(ImageAxis xaxis, ImageAxis yaxis, ImageAxis zaxis, Anatomy3D anatomy) {
+        return new AffineMapping3D(new Vector3f((float) xaxis.getRange().getBeginning().getValue(),
+                (float) yaxis.getRange().getBeginning().getValue(),
+                (float) zaxis.getRange().getBeginning().getValue()),
 
-
-        planeSize = getDimension(Axis.X_AXIS) * getDimension(Axis.Y_AXIS);
-        dim0 = getDimension(Axis.X_AXIS);
-
-
+                new Vector3f((float) xaxis.getSpacing(), (float) yaxis.getSpacing(), (float) zaxis.getSpacing()), anatomy);
 
     }
 
@@ -114,14 +127,16 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
         return origin;
     }
 
+
     public Dimension3D<Integer> getDimension() {
         return new Dimension3D<Integer>(getDimension(Axis.X_AXIS), getDimension(Axis.Y_AXIS), getDimension(Axis.Z_AXIS));
     }
 
 
-
     public float[] gridToWorld(float[] gridpos) {
-        if (gridpos.length != 3) { throw new IllegalArgumentException("array length must be 3"); }
+        if (gridpos.length != 3) {
+            throw new IllegalArgumentException("array length must be 3");
+        }
 
         float[] ret = new float[3];
         ret[0] = gridToWorldX(gridpos[0], gridpos[1], gridpos[2]);
@@ -136,10 +151,10 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
         return ret.toArray(new float[3]);
     }
 
-    
+
     public float[] indexToWorld(int x, int y, int z) {
 
-        Vector3f ret = mapping.gridToWorld(x+.5f, y+.5f, z+.5f);
+        Vector3f ret = mapping.gridToWorld(x + .5f, y + .5f, z + .5f);
         return ret.toArray(new float[3]);
     }
 
@@ -149,7 +164,9 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
 
     public float[] worldToGrid(float[] coord) {
-        if (coord.length != 3) { throw new IllegalArgumentException("float array length must be 3"); }
+        if (coord.length != 3) {
+            throw new IllegalArgumentException("float array length must be 3");
+        }
 
         float[] ret = new float[3];
         ret[0] = worldToGridX(coord[0], coord[1], coord[2]);
@@ -221,9 +238,6 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
         ImageAxis a2 = getImageAxis(Axis.Y_AXIS);
         ImageAxis a3 = getImageAxis(Axis.Z_AXIS);
 
-        float x = a1.getNumSamples()/2;
-        float y = a2.getNumSamples()/2;
-        float z = a3.getNumSamples()/2;
 
         return new AnatomicalPoint3D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue(), a3.getCenter().getValue());
         //Vector3f p = mapping.gridToWorld(x,y,z);

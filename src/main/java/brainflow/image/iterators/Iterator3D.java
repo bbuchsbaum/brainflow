@@ -1,7 +1,6 @@
 package brainflow.image.iterators;
 
-import brainflow.image.data.IImageData3D;
-import brainflow.image.data.DataAccessor3D;
+import brainflow.image.data.DataGrid3D;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.Axis;
 
@@ -16,7 +15,7 @@ public class Iterator3D implements ImageIterator {
 
     private int index;
 
-    private DataAccessor3D data;
+    private DataGrid3D data;
 
     private IImageSpace3D space;
 
@@ -25,7 +24,7 @@ public class Iterator3D implements ImageIterator {
     private int begin = 0;
     private int planeSize;
 
-    public Iterator3D(DataAccessor3D _data) {
+    public Iterator3D(DataGrid3D _data) {
         data = _data;
         space = data.getImageSpace();
         index = 0;

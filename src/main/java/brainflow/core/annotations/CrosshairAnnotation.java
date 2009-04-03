@@ -29,8 +29,7 @@ public class CrosshairAnnotation extends AbstractAnnotation {
 
 
     public static final Paint DEFAULT_LINE_PAINT = Color.GREEN;
-    public static final Paint DEFAULT_UNSELECTED_LINE_PAINT = Color.GREEN.darker().darker();
-
+    public static final Paint DEFAULT_UNSELECTED_LINE_PAINT = Color.PINK.darker().darker();
 
     public static final Float DEFAULT_LINE_LENGTH = 1.0f;
     public static final Float DEFAULT_LINE_WIDTH = 1f;

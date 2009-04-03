@@ -77,11 +77,6 @@
   </component>
   <component name="FacetAutodetectingManager">
     <autodetection-disabled>
-      <facet-type id="Scala">
-        <modules>
-          <module name="brainflow" />
-        </modules>
-      </facet-type>
       <facet-type id="Groovy">
         <modules>
           <module name="brainflow" />
@@ -331,9 +326,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/brainflow.iml" filepath="$PROJECT_DIR$/brainflow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scalaflow/scalaflow.iml" filepath="$PROJECT_DIR$/scalaflow/scalaflow.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6 (2)" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6 (3)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="ResourceManagerContainer">
@@ -386,19 +382,27 @@
   <component name="libraryTable">
     <library name="scala-2.7.3-final">
       <CLASSES>
-        <root url="jar://C:/Program Files/Scala/lib/scala-compiler.jar!/" />
-        <root url="jar://C:/Program Files/Scala/lib/scala-decoder.jar!/" />
-        <root url="jar://C:/Program Files/Scala/lib/scala-library.jar!/" />
-        <root url="jar://C:/Program Files/Scala/lib/scala-dbc.jar!/" />
-        <root url="jar://C:/Program Files/Scala/lib/scala-swing.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-partest.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-library.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-dbc.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-compiler.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-swing.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES>
-        <root url="jar://C:/Program Files/Scala/src/scala-swing-src.jar!/" />
-        <root url="jar://C:/Program Files/Scala/src/scala-library-src.jar!/" />
-        <root url="jar://C:/Program Files/Scala/src/scala-compiler-src.jar!/" />
-        <root url="jar://C:/Program Files/Scala/src/scala-dbc-src.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-dbc-src.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-swing-src.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-compiler-src.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-library-src.jar!/" />
       </SOURCES>
+    </library>
+    <library name="scala-2.7.3">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/scalaflow/lib/scala-compiler.jar!/" />
+        <root url="jar://$PROJECT_DIR$/scalaflow/lib/scala-library.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
     </library>
   </component>
 </project>

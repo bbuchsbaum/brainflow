@@ -7,7 +7,7 @@
 package brainflow.image.interpolation;
 
 import brainflow.image.space.Axis;
-import brainflow.image.data.DataAccessor3D;
+import brainflow.image.data.DataGrid3D;
 
 /**
  * @author bradley
@@ -20,7 +20,7 @@ public class TrilinearInterpolator implements InterpolationFunction3D {
     public TrilinearInterpolator() {
     }
 
-    public double interpolate(double dx, double dy, double dz, DataAccessor3D data) {
+    public double interpolate(double dx, double dy, double dz, DataGrid3D data) {
         double a, b, c, d, e, f;
         if (dx < 0 || dy < 0 || dz < 0)
             return 0;

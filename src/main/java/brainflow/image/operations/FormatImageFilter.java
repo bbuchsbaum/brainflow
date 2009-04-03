@@ -8,6 +8,7 @@ package brainflow.image.operations;
 
 import brainflow.image.data.BasicImageData;
 import brainflow.image.data.IImageData;
+import brainflow.image.data.AbstractImageData;
 import brainflow.image.iterators.ImageIterator;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class FormatImageFilter extends AbstractImageFilter {
         BasicImageData first = (BasicImageData) sources.get(0);
         if (first == null) return null;
 
-        BasicImageData opdata = BasicImageData.create(first.getImageSpace(), outputDataType);
+        AbstractImageData opdata = BasicImageData.create(first.getImageSpace(), outputDataType);
         ImageIterator opiter = opdata.iterator();
 
         ImageIterator[] iters = getSourceIterators();
