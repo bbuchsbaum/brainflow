@@ -30,16 +30,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\BrainCanvasPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/.svn/text-base/BrainCanvasPresenter.java.svn-base" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
-      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\mapping\ThresholdRangeConverter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/.svn/text-base/ThresholdRangeConverter.java.svn-base" />
+    </list>
+    <list name="Failed commit: Default (3)" comment="Added number labels to BiSlider">
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\BrainCanvasPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/.svn/text-base/BrainCanvasPresenter.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\binding\VisibilityWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/binding/.svn/text-base/VisibilityWrapper.java.svn-base" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\mapping\ThresholdRangeConverter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/mapping/.svn/text-base/ThresholdRangeConverter.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\WorldCoordinatePresenter2.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/.svn/text-base/WorldCoordinatePresenter2.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\BrainFlowClientAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/.svn/text-base/BrainFlowToggleCommand.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\ColorMapChooser.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/.svn/text-base/ColorMapChooser.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\actions\ActionContext.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/.svn/text-base/ActionContext.java.svn-base" />
     </list>
-    <list name="Failed commit: Default (3)" comment="Added number labels to BiSlider" />
     <list name="Failed commit: Default (5)" comment="Added number labels to BiSlider" />
     <list name="Failed commit: Default (4)" comment="Added number labels to BiSlider" />
     <list name="Failed commit: Default (7)" comment="Failed commit: Default (7)" />
@@ -319,43 +320,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ImageDisplayModel.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageDisplayModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="52" selection-start="1252" selection-end="1252" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1239373771467" expanded="true" signature="1991:2254" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="2034:2246" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="2540:3482" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="2680:3424" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="2786:2937" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="3027:3174" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="3263:3414" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="3541:3574" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="3624:3661" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="3708:4124" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="3754:4115" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="3818:3919" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="3960:4018" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="4053:4105" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="4188:4440" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="4487:4730" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="4766:4809" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="4854:4912" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="4943:4971" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="5055:5245" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="5331:5412" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="5481:5744" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="5816:5890" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="5933:6071" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="6119:6357" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="6434:6945" placeholder="{...}" />
-                <marker date="1239373771467" expanded="true" signature="7003:7681" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="IImageDisplayModel.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/IImageDisplayModel.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -387,10 +351,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HistogramControl.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="HistogramControl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/HistogramControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="358" column="4" selection-start="11633" selection-end="11633" vertical-scroll-proportion="0.71702945">
+            <state line="355" column="24" selection-start="11560" selection-end="11560" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RotateLayersCommand.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/actions/RotateLayersCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="21" selection-start="944" selection-end="944" vertical-scroll-proportion="0.5552764">
               <folding />
             </state>
           </provider>
@@ -632,102 +605,6 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="java" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="app" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -1632,7 +1509,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored ImageView to use ImageViewModel; deprecated IImageDisplayModel;" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored ImageViewModel" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -1643,7 +1520,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Worked on BiSlider" />
     <MESSAGE value="Added number labels to BiSlider" />
     <MESSAGE value="Failed commit: Default (7)" />
     <MESSAGE value="Failed commit: Default (6)" />
@@ -1668,6 +1544,7 @@
     <MESSAGE value="&#10;commit" />
     <MESSAGE value="fixed some things with MontageSliceController" />
     <MESSAGE value="refactored ImageView to use ImageViewModel; deprecated IImageDisplayModel;" />
+    <MESSAGE value="refactored ImageViewModel" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1749,13 +1626,6 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/layer/ImageLayerProperties.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="3" selection-start="3812" selection-end="3812" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/SliceRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="31" selection-start="840" selection-end="840" vertical-scroll-proportion="0.0">
@@ -1890,7 +1760,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/HistogramControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="358" column="4" selection-start="11633" selection-end="11633" vertical-scroll-proportion="0.71702945">
+        <state line="355" column="24" selection-start="11560" selection-end="11560" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/actions/RotateLayersCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="21" selection-start="944" selection-end="944" vertical-scroll-proportion="0.5552764">
           <folding />
         </state>
       </provider>
