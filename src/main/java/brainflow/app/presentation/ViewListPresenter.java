@@ -37,9 +37,9 @@ public class ViewListPresenter extends ImageViewPresenter {
                 if (e.getValueIsAdjusting()) return;
                 int f = e.getFirstIndex();
                 int n = e.getLastIndex();
-                for (int i=f; i<=n; i++) {
+                for (int i = f; i <= n; i++) {
                     if (viewList.isSelectedIndex(i)) {
-                        ImageView iview = (ImageView)viewList.getModel().getElementAt(i);
+                        ImageView iview = (ImageView) viewList.getModel().getElementAt(i);
                         if (iview != getSelectedView()) {
                             BrainFlow.get().getSelectedCanvas().setSelectedView(iview);
                         }
@@ -53,7 +53,7 @@ public class ViewListPresenter extends ImageViewPresenter {
         List<ImageView> list = BrainFlow.get().getSelectedCanvas().getViews(getSelectedView().getModel());
         DefaultListModel model = new DefaultListModel();
 
-        int i=0;
+        int i = 0;
         for (ImageView view : list) {
             model.add(i, view);
             i++;
@@ -69,6 +69,11 @@ public class ViewListPresenter extends ImageViewPresenter {
 
     public void viewSelected(ImageView imageView) {
         //System.out.println("view selected " + imageView);
+        populateList();
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
         populateList();
     }
 

@@ -1,24 +1,25 @@
 
-
-
-
-Fix: Montage View fails to update crosshair location in non-selected plots
-Fix: Montage View intial size is odd
-Fix: make pageup and page down work for montage views
+Fix: drag and drop from file manager to project tree appears not to work
+Performance: performance is sluggish with montageimageview and large grid
 Fix: favorites should open progress monitor on loading; favorites should show check box for loaded items
 Fix: unload currently visible image? should popup message box: image is visible, do you want to do this?
 Fix: adjusting threshold after "freezing" mask causes exception
+Fix: Favorites menu has some quirks
+
+[Fix: Montage View fails to update crosshair location in non-selected plots]
+[Fix: Montage View intial size is odd]
+[Fix: make pageup and page down work for montage views]
 
 [Fix: switching between views is excruciatingly slow]
 [Fix: mask operation appears to be excruciatingly slow!]
 [Fix: loadable image pane. "info button" does nothing.]
-
+[Fix: colorbar fails to track layer switch when viewing montageImageview with two layers...]
 
 Fix: project view drag and drop within same model should reorder rather than copy
 [Fix: snapshot buttons don't work]
 
 [Add: button to refresh directory] instead added file monitor that automatically updates folders.
-Add: Montage view
+[Add: Montage view]
 [Add: x axis to histogram]
 Add: color bar wizard
 Add: cross hair toggle and crosshair configuration dialog
@@ -30,13 +31,15 @@ Finish: conjunction module
 [Fix: Images dragged from ImageFileExplorer are not properly overlaid on an ImageView
 [Fix: ProjectTreeView does not always show all layers within model.]
 
-** Fix: Thresholding and scaling of Discrete Color Map.
-        -- the shrinking and expanding of the discrete color bar still needs work.
+(Fix: Thresholding and scaling of Discrete Color Map.
+        -- the shrinking and expanding of the discrete color bar still needs work.)
+
+
 [Fix: Toolbar and Popup menu items need to be properly bound to Bean Properties.]
 
-Fix: Color Bar not updated when modifying color map in RGB editor.
-Fix: RGB Editor should work with Discrete Color Maps
-        -- works but converts to linear color map.
+[Fix: Color Bar not updated when modifying color map in RGB editor.]
+(Fix: RGB Editor should work with Discrete Color Maps
+        -- works but converts to linear color map. )
 
 [Fix: Command accelerators need to be fixed.]
 Fix: Annotations edited according to plot or "apply all"

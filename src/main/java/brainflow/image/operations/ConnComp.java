@@ -417,7 +417,7 @@ public class ConnComp {
 
     public static ConnComp go(IImageData3D dat) {
         ConnComp comp = null;
-        for (int i = 1; i < 120; i++) {
+        for (int i = 55; i < 56; i++) {
             IMaskedData2D dat2d = getSlice(dat, i);
             comp = new ConnComp(dat2d);
             comp.labelImage2();
@@ -434,19 +434,18 @@ public class ConnComp {
         ConnComp comp = null;
         StopWatch watch = new StopWatch();
         watch.start("conncomp");
-        for (int i = 0; i < 100; i++) {
-            System.out.println("i " + i);
-            comp = go(dat);
-        }
+
+        comp = go(dat);
 
         watch.stopAndReport("conncomp");
 
 
         IImageData3D dat3d = ImageData.asImageData3D(comp.labels.asImageData(), new AnatomicalPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new AnatomicalPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
-        IImageDisplayModel model = new ImageDisplayModel("test");
-        model.addLayer(new ImageLayer3D(new MemoryImageDataSource(dat3d), new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()))));
+        ImageViewModel model = new ImageViewModel("test",
+                new ImageLayer3D(new MemoryImageDataSource(dat3d), new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()))));
 
+      
         ImageView view = ImageViewFactory.createAxialView(model);
         JFrame frame = new JFrame();
         frame.add(view, BorderLayout.CENTER);

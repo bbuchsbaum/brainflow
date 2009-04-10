@@ -133,7 +133,7 @@ public class BasicImageData3D extends AbstractImageData3D  {
     public ImageBuffer3D createWriter(boolean clear) {
         return new ImageBuffer3D() {
             IImageSpace3D space = BasicImageData3D.this.getImageSpace();
-            DataBuffer buffer = BasicImageData3D.this.dataSupport.copyBuffer();
+            //DataBuffer buffer = BasicImageData3D.this.dataSupport.copyBuffer();
             Object storage = BasicImageData3D.this.dataSupport.getStorage();
 
             BasicImageData3D delegate = new BasicImageData3D(space, storage);

@@ -33,7 +33,7 @@ public class DataBufferSupport {
     protected DataBufferSupport(IImageSpace space, DataType datatype) {
         this.space = space;
         this.datatype = datatype;
-        storage = allocateBuffer(space.getNumSamples());
+        data = allocateBuffer(space.getNumSamples());
     }
 
 

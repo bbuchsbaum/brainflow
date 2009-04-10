@@ -49,6 +49,11 @@ public abstract class BrainFlowToggleCommand extends ToggleCommand implements IB
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public void viewModelChanged(ImageView view) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.
     }

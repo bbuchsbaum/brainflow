@@ -319,6 +319,11 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public void viewModelChanged(ImageView view) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.
     }

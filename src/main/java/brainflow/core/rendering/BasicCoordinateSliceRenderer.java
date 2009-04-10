@@ -140,8 +140,9 @@ public class BasicCoordinateSliceRenderer implements SliceRenderer {
         image = null;
     }
 
+    @Override
     public boolean isVisible() {
-        return layer.isVisible();
+        return true;
     }
 
     public CoordinateLayer getLayer() {

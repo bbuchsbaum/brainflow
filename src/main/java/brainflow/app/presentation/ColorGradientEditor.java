@@ -51,9 +51,6 @@ public class ColorGradientEditor extends JPanel {
 
     private JRadioButton twoColorButton = new JRadioButton();
 
-   // private PresentationModel choiceModel;
-
-    //private ExecutorService threadService = Executors.newSingleThreadExecutor();
 
 
     public ColorGradientEditor() {
@@ -78,12 +75,6 @@ public class ColorGradientEditor extends JPanel {
 
         colorComboTwo = new ColorComboBox();
         colorComboTwo.setSelectedColor(colorTwo);
-
-    //    choiceModel = new PresentationModel(this);
-    //    ValueModel gradientValue = choiceModel.getModel(ColorGradientEditor.GRADIENT_SETTING_PROPERTY);
-     //   oneColorButton = BasicComponentFactory.createRadioButton(gradientValue, ColorGradientEditor.ONE_COLOR_GRADIENT, "One Color");
-     //   twoColorButton = BasicComponentFactory.createRadioButton(gradientValue, ColorGradientEditor.TWO_COLOR_GRADIENT, "Two Color");
-
 
         initBindings();
         initLayout();

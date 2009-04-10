@@ -153,7 +153,7 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
     }
 
 
-    public List<ImageView> getViews(IImageDisplayModel model) {
+    public List<ImageView> getViews(ImageViewModel model) {
         List<ImageView> views = getViews();
         List<ImageView> ret = new ArrayList<ImageView>();
 
@@ -209,7 +209,6 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
 
 
     public void removeImageView(ImageView view) {
-        view.getModel().removeImageDisplayModelListener(modelListener);
         canvasModel.removeImageView(view);
         JInternalFrame[] frames = desktopPane.getAllFrames();
         for (int i = 0; i < frames.length; i++) {
@@ -225,9 +224,8 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
     }
 
     private void putTitle(JInternalFrame frame, ImageView view) {
-
-        view.identifier.set("View [" + (canvasModel.indexOf(view) + 1) + "]");
-        frame.setTitle(view.identifier.get());
+        view.setIdentifier("View [" + (canvasModel.indexOf(view) + 1) + "]");
+        frame.setTitle(view.getIdentifier());
 
     }
 
@@ -235,8 +233,6 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
     public void addImageView(ImageView view) {
         view.setSize(view.getPreferredSize());
         JInternalFrame jframe = new JInternalFrame("view", true, true, true, true);
-
-        view.getModel().addImageDisplayModelListener(modelListener);
 
 
         jframe.setContentPane(view);
@@ -353,8 +349,8 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
         }
 
         public void intervalRemoved(ListDataEvent e) {
-            IImageDisplayModel model = (IImageDisplayModel) e.getSource();
-            if (model.getNumLayers() == 0) {
+            ImageViewModel model = (ImageViewModel) e.getSource();
+            if (model.size() == 0) {
                 List<ImageView> views = getViews(model);
                 for (ImageView view : views) {
                     removeImageView(view);

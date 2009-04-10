@@ -35,7 +35,7 @@ public interface IBrainCanvas  {
 
     boolean isSelectedView(ImageView view);
 
-    java.util.List<ImageView> getViews(IImageDisplayModel model);
+    java.util.List<ImageView> getViews(ImageViewModel model);
 
     List<ImageView> getViews();
 

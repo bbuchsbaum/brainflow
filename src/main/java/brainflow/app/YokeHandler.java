@@ -3,6 +3,7 @@ package brainflow.app;
 import brainflow.core.ImageDisplayModel;
 import brainflow.core.ImageView;
 import brainflow.core.SimpleImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.image.anatomy.AnatomicalPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import net.java.dev.properties.BaseProperty;
@@ -124,9 +125,9 @@ public class YokeHandler  {
 
 
     public static void main(String[] args) {
-        ImageView target = new SimpleImageView(new ImageDisplayModel("1"), Anatomy3D.getCanonicalAxial());
-        ImageView s1 = new SimpleImageView(new ImageDisplayModel("s1"),Anatomy3D.getCanonicalAxial());
-        ImageView s2 = new SimpleImageView(new ImageDisplayModel("s2"), Anatomy3D.getCanonicalAxial());
+        ImageView target = new SimpleImageView(new ImageViewModel("1"), Anatomy3D.getCanonicalAxial());
+        ImageView s1 = new SimpleImageView(new ImageViewModel("s1"),Anatomy3D.getCanonicalAxial());
+        ImageView s2 = new SimpleImageView(new ImageViewModel("s2"), Anatomy3D.getCanonicalAxial());
 
         YokeHandler handler = new YokeHandler(target);
         handler.addSource(s1);

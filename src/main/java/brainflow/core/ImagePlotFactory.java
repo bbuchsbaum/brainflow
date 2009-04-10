@@ -18,7 +18,7 @@ public class ImagePlotFactory {
 
     private static ExecutorService threadService;
 
-    public static IImagePlot createComponentPlot(IImageDisplayModel model, Anatomy3D displayAnatomy) {
+    public static IImagePlot createComponentPlot(ImageViewModel model, Anatomy3D displayAnatomy) {
 
         if (threadService == null) {
             threadService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());

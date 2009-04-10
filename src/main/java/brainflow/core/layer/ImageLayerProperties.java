@@ -58,12 +58,6 @@ public class ImageLayerProperties implements Serializable {
         }
     };
 
-    public final Property<Boolean> visible = new ObservableProperty<Boolean>(true) {
-        public void set(Boolean aBoolean) {
-           super.set(aBoolean);
-
-        }
-    };
 
     public final Property<Double> opacity = ObservableProperty.create(1.0);
 
@@ -76,7 +70,6 @@ public class ImageLayerProperties implements Serializable {
 
     public ImageLayerProperties(ImageLayerProperties props) {
         BeanContainer.bind(this);
-        visible.set(props.visible.get());
         opacity.set(props.opacity.get());
         smoothingRadius.set(props.smoothingRadius.get());
         thresholdRange.set(props.thresholdRange.get());
@@ -125,10 +118,7 @@ public class ImageLayerProperties implements Serializable {
         return smoothingRadius.get();
     }
 
-    public boolean isVisible() {
-        return visible.get();
-    }
-
+   
     public IClipRange getClipRange() {
         return clipRange.get();
     }

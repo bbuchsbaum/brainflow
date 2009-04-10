@@ -23,7 +23,7 @@ public interface IImageProducer {
 
     public IImagePlot getPlot();
 
-    public IImageDisplayModel getModel();
+    public ImageViewModel getModel();
 
     public Anatomy3D getDisplayAnatomy();
 

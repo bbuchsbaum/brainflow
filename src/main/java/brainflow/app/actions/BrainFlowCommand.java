@@ -52,6 +52,11 @@ public abstract class BrainFlowCommand extends ActionCommand implements IBrainFl
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    public void viewModelChanged(ImageView view) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -88,9 +93,6 @@ public abstract class BrainFlowCommand extends ActionCommand implements IBrainFl
         return clientSupport.getSelectedLayer();
     }
 
-    public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
 
 
 

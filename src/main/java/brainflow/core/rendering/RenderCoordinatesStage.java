@@ -28,9 +28,9 @@ public class RenderCoordinatesStage extends ImageProcessingStage {
     public Object filter(Object input) throws StageException {
         BufferedImage compositeImage = (BufferedImage) input;
 
-        int nlayers = getModel().getNumLayers();
+        int nlayers = getModel().size();
         for (int i=0; i<nlayers; i++) {
-            AbstractLayer layer = getModel().getLayer(i);
+            AbstractLayer layer = getModel().get(i);
             if (layer instanceof CoordinateLayer) {
                 CoordinateLayer clayer = (CoordinateLayer)layer;
                 renderUnto(clayer, compositeImage);

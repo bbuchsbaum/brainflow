@@ -3,6 +3,7 @@ package brainflow.app.dnd;
 import brainflow.app.toplevel.BrainFlow;
 import brainflow.core.ImageView;
 import brainflow.core.IImageDisplayModel;
+import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.image.io.IImageDataSource;
@@ -45,18 +46,17 @@ public class ImageViewTransferHandler extends ImageDropHandler {
 
         if (c instanceof ImageView) {
             ImageView view = (ImageView) c;
-            IImageDisplayModel dset = view.getModel();
+
+            ImageViewModel dset = view.getModel();
 
             ImageLayer3D layeradd = (ImageLayer3D)layer;
-            // todo hack cast
-            if (dset.containsLayer(layeradd)) {
-                //System.out.println("COPYING LAYER");
+      
+            if (dset.contains(layeradd)) {
                 layeradd = new ImageLayer3D(layeradd);
-
             }
 
-            // todo hack cast
-            dset.addLayer(layeradd);
+            view.setModel(dset.add(layeradd));
+
         }
 
     }

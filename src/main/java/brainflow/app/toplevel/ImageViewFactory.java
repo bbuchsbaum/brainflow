@@ -1,6 +1,8 @@
 package brainflow.app.toplevel;
 
 import brainflow.core.*;
+import brainflow.core.layer.ImageLayer3D;
+import brainflow.core.layer.LayerList;
 import brainflow.core.annotations.CrosshairAnnotation;
 import brainflow.core.annotations.SelectedPlotAnnotation;
 import brainflow.core.annotations.SliceAnnotation;
@@ -10,6 +12,8 @@ import brainflow.image.io.IImageDataSource;
 import brainflow.utils.StringGenerator;
 
 import java.util.logging.Logger;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,22 +29,22 @@ public class ImageViewFactory {
     private static final Logger log = Logger.getLogger(ImageViewFactory.class.getCanonicalName());
 
 
-    public static IImageDisplayModel createModel(String name, IImageDataSource dataSource) {
-        IImageDisplayModel model = new ImageDisplayModel(name);
-        model.addLayer(ImageLayerFactory.createImageLayer(dataSource));
-        return model;
+    public static ImageViewModel createModel(String name, IImageDataSource dataSource) {
+        List<ImageLayer3D> layers = new ArrayList<ImageLayer3D>();
+        layers.add(ImageLayerFactory.createImageLayer(dataSource));
+        return new ImageViewModel(name, layers);
     }
 
 
-    public static IImagePlot createAxialPlot(IImageDisplayModel displayModel) {
+    public static IImagePlot createAxialPlot(ImageViewModel displayModel) {
         return ImageViewFactory.createPlot(displayModel, Anatomy3D.getCanonicalAxial());
     }
 
-    public static IImagePlot createCoronalPlot(IImageDisplayModel displayModel) {
-        return ImageViewFactory.createPlot(displayModel, Anatomy3D.getCanonicalCoronal());
+    public static IImagePlot createCoronalPlot(ImageView view) {
+        return ImageViewFactory.createPlot(view.getModel(), Anatomy3D.getCanonicalCoronal());
     }
 
-    public static IImagePlot createSagittalPlot(IImageDisplayModel displayModel) {
+    public static IImagePlot createSagittalPlot(ImageViewModel displayModel) {
         return ImageViewFactory.createPlot(displayModel, Anatomy3D.getCanonicalSagittal());
     }
 
@@ -54,7 +58,7 @@ public class ImageViewFactory {
     }
 
 
-    public static IImagePlot createPlot(IImageDisplayModel displayModel, Anatomy3D displayAnatomy) {
+    public static IImagePlot createPlot(ImageViewModel displayModel, Anatomy3D displayAnatomy) {
         AxisRange xrange = displayModel.getImageAxis(displayAnatomy.XAXIS).getRange();
         AxisRange yrange = displayModel.getImageAxis(displayAnatomy.YAXIS).getRange();
         ViewBounds vb = new ViewBounds(displayAnatomy, xrange, yrange);
@@ -96,7 +100,7 @@ public class ImageViewFactory {
     }
 
 
-    public static ImageView createAxialView(IImageDisplayModel displayModel) {
+    public static ImageView createAxialView(ImageViewModel displayModel) {
         ImageView view = new SimpleImageView(displayModel, Anatomy3D.getCanonicalAxial());
         addDefaultAnnotations(view);
 
@@ -112,7 +116,7 @@ public class ImageViewFactory {
 
 
 
-    public static ImageView createMontageView(IImageDisplayModel displayModel, int nrows, int ncols, float sliceGap) {
+    public static ImageView createMontageView(ImageViewModel displayModel, int nrows, int ncols, float sliceGap) {
         ImageView view = new MontageImageView(displayModel, Anatomy3D.getCanonicalAxial(), nrows, ncols, sliceGap);
         addDefaultAnnotations(view);
         return view;

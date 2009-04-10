@@ -74,13 +74,19 @@ public class ColorBandChartPresenter extends ImageViewPresenter {
     }
 
    
-
+    @Override
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
-
+    
+    @Override
     public void viewSelected(ImageView view) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+
     }
 
 
@@ -97,7 +103,7 @@ public class ColorBandChartPresenter extends ImageViewPresenter {
 
             IndexColorModel icm = new IndexColorModel(8, 256, reds, greens, blues, alpha);
             colorMap = new LinearColorMap2(colorMap.getMinimumValue(), colorMap.getMaximumValue(), icm);
-            ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
+            ImageLayer layer = getSelectedView().getSelectedLayer();
             layer.getImageLayerProperties().colorMap.set(colorMap);
 
         }

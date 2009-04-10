@@ -3,6 +3,7 @@ package brainflow.app.presentation;
 import brainflow.app.services.ImageDisplayModelEvent;
 import brainflow.app.services.ImageViewLayerSelectionEvent;
 import brainflow.app.services.ImageViewSelectionEvent;
+import brainflow.app.services.ImageViewModelChangedEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.AbstractPresenter;
@@ -35,55 +36,43 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
 
 
     private void subscribeListeners() {
-        EventBus.subscribeStrongly(ImageViewSelectionEvent.class, new EventSubscriber() {
+        EventBus.subscribeStrongly(ImageViewSelectionEvent.class, new EventSubscriber<ImageViewSelectionEvent>() {
 
-            public void onEvent(Object evt) {
-               // System.out.println("view changed event");
-              //  System.out.println("class is " + ImageViewPresenter.this.getClass());
-
-                long start = System.currentTimeMillis();
-
-                ImageViewSelectionEvent event = (ImageViewSelectionEvent) evt;
-
-                // remove listeners from old selected view
+            public void onEvent(ImageViewSelectionEvent evt) {
                 if (selectedView != null) {
-                    selectedView.getModel().removeImageDisplayModelListener(ImageViewPresenter.this);
                     viewDeselected(selectedView);
                 }
 
+                selectedView = evt.getSelectedImageView();
+                if (selectedView != null) viewSelected(selectedView);
+                else allViewsDeselected();
 
-                selectedView = event.getSelectedImageView();
-
-
-                if (selectedView != null) {
-                    selectedView.getModel().addImageDisplayModelListener(ImageViewPresenter.this);                 
-                    viewSelected(selectedView);
-
-                } else {
-                    allViewsDeselected();
-                }
-
-                long end = System.currentTimeMillis();
-               // System.out.println("view event took: " + (end - start));
-
-               
 
             }
         });
 
-        EventBus.subscribeStrongly(ImageViewLayerSelectionEvent.class, new EventSubscriber() {
+        EventBus.subscribeStrongly(ImageViewLayerSelectionEvent.class, new EventSubscriber<ImageViewLayerSelectionEvent>() {
 
-            public void onEvent(Object evt) {
-                ImageViewLayerSelectionEvent event = (ImageViewLayerSelectionEvent) evt;
-                if (event.getSource() == getSelectedView()) {
+            public void onEvent(ImageViewLayerSelectionEvent evt) {
+                if (evt.getSource() == getSelectedView()) {
 
-                    ImageLayer3D oldLayer = event.getDeselectedLayer();
+                    ImageLayer3D oldLayer = evt.getDeselectedLayer();
                     if (oldLayer != null) {
                         layerDeselected(oldLayer);
                     }
 
-                    ImageLayer3D layer = event.getSelectedLayer();
+                    ImageLayer3D layer = evt.getSelectedLayer();
                     layerSelected(layer);
+
+                }
+            }
+        });
+
+        EventBus.subscribeStrongly(ImageViewModelChangedEvent.class, new EventSubscriber<ImageViewModelChangedEvent>() {
+            @Override
+            public void onEvent(ImageViewModelChangedEvent event) {
+                if (event.getImageView() == getSelectedView()) {
+                   viewModelChanged(getSelectedView());    
 
                 }
             }
@@ -127,7 +116,10 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
 
     public abstract void viewSelected(ImageView view);
 
-    public  void viewDeselected(ImageView view) {}
+    public abstract void viewModelChanged(ImageView view);
+
+    public void viewDeselected(ImageView view) {
+    }
 
     public abstract void allViewsDeselected();
 
@@ -139,7 +131,7 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
     }
 
     protected void layerSelected(ImageLayer3D layer) {
-        
+
     }
 
     protected void layerAdded(ListDataEvent event) {

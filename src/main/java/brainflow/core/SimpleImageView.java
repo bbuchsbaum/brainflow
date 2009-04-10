@@ -1,6 +1,7 @@
 package brainflow.core;
 
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.core.annotations.IAnnotation;
 import com.pietschy.command.CommandContainer;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.group.GroupBuilder;
@@ -11,6 +12,7 @@ import com.pietschy.command.toggle.ToggleGroup;
 import javax.swing.*;
 import java.awt.*;
 import java.util.logging.Logger;
+import java.util.HashMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -64,7 +66,7 @@ public class SimpleImageView extends ImageView {
 
     private ImagePlotLayout plotLayout;
 
-    public SimpleImageView(IImageDisplayModel imodel, Anatomy3D displayAnatomy) {
+    public SimpleImageView(ImageViewModel imodel, Anatomy3D displayAnatomy) {
         super(imodel);
         this.displayAnatomy = displayAnatomy;
 
@@ -78,7 +80,7 @@ public class SimpleImageView extends ImageView {
 
     protected void layoutPlots() {
         plotLayout = createPlotLayout(displayAnatomy);
-        resetPlotLayout(plotLayout);
+        resetPlotLayout(plotLayout, new HashMap<String, IAnnotation>());
 
     }
 
@@ -111,7 +113,7 @@ public class SimpleImageView extends ImageView {
 
     protected void initCommand(ActionCommand command, String text, String iconpath) {
         command.getDefaultFace(true).setText(text);
-        ImageIcon icon = new ImageIcon(getClass().getResource(iconpath));
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource(iconpath));
         command.getDefaultFace().setIcon(icon);
         command.bind(commandContainer);
 
@@ -123,9 +125,9 @@ public class SimpleImageView extends ImageView {
         ToggleCommand switchAxial = new SwitchAxial();
         ToggleCommand switchCoronal = new SwitchCoronal();
         ToggleCommand switchSagittal = new SwitchSagittal();
-        initCommand(switchAxial, "", "axial_16.png");
-        initCommand(switchCoronal, "", "coronal_16.png");
-        initCommand(switchSagittal, "", "sagit_16.png");
+        initCommand(switchAxial, "", "icons/axial_16.png");
+        initCommand(switchCoronal, "", "icons/coronal_16.png");
+        initCommand(switchSagittal, "", "icons/sagit_16.png");
 
         ToggleGroup switchGroup = new ToggleGroup();
 

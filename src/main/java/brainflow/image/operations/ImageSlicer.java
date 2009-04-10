@@ -27,7 +27,6 @@ public class ImageSlicer {
         if (refSpace.equals(data.getImageSpace())) {
             return new ImageSlicer(data);
         } else {
-            System.out.println("creating mapped data accesor");
             return new ImageSlicer(new MappedDataAcessor3D(refSpace, data));
         }
 

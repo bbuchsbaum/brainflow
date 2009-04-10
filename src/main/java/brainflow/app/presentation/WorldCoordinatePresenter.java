@@ -1,11 +1,9 @@
 package brainflow.app.presentation;
 
-import brainflow.app.presentation.binding.DoubleToStringConverter;
-import brainflow.app.presentation.binding.PercentageRangeConverter;
-import brainflow.app.presentation.controls.TripleSliderForm;
+import brainflow.app.presentation.binding.WorldToAxisConverter;
+import brainflow.app.presentation.controls.CoordinateSpinner;
 import brainflow.core.ImageView;
 
-import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 
@@ -22,7 +20,7 @@ import javax.swing.*;
  */
 public class WorldCoordinatePresenter extends ImageViewPresenter {
 
-    private TripleSliderForm form;
+    private CoordinateSpinner form;
 
 
     public WorldCoordinatePresenter() {
@@ -35,7 +33,7 @@ public class WorldCoordinatePresenter extends ImageViewPresenter {
 
 
     private void buildGUI() {
-        form = new TripleSliderForm();
+        form = new CoordinateSpinner();
 
     }
 
@@ -43,22 +41,24 @@ public class WorldCoordinatePresenter extends ImageViewPresenter {
         ImageView view = getSelectedView();
         IImageSpace ispace = view.getModel().getImageSpace();
 
-        ImageAxis xaxis = ispace.getImageAxis(Axis.X_AXIS);
-        ImageAxis yaxis = ispace.getImageAxis(Axis.Y_AXIS);
-        ImageAxis zaxis = ispace.getImageAxis(Axis.Z_AXIS);
+        form.getXspinner().setModel(new SpinnerNumberModel(0, -1000, 1000, 1.0));
+        form.getYspinner().setModel(new SpinnerNumberModel(0, -1000, 1000, 1.0));
+        form.getZspinner().setModel(new SpinnerNumberModel(0, -1000, 1000, 1.0));
 
-        // bind cursorPos values to JSliders using double --> integer converter wrapper
-        SwingBind.get().bind(new PercentageRangeConverter(view.cursorX, xaxis.getMinimum(), xaxis.getMaximum(), 100), form.getSlider1());
-        SwingBind.get().bind(new PercentageRangeConverter(view.cursorY, yaxis.getMinimum(), yaxis.getMaximum(), 100), form.getSlider2());
-        SwingBind.get().bind(new PercentageRangeConverter(view.cursorZ, zaxis.getMinimum(), zaxis.getMaximum(), 100), form.getSlider3());
+        SwingBind.get().bind(new WorldToAxisConverter(view.worldCursorPos, Axis.X_AXIS), form.getXspinner());
+        SwingBind.get().bind(new WorldToAxisConverter(view.worldCursorPos, Axis.Y_AXIS), form.getYspinner());
+        SwingBind.get().bind(new WorldToAxisConverter(view.worldCursorPos, Axis.Z_AXIS), form.getZspinner());
 
-        SwingBind.get().bind(new DoubleToStringConverter(view.cursorX), form.getValueLabel1());
-        SwingBind.get().bind(new DoubleToStringConverter(view.cursorY), form.getValueLabel2());
-        SwingBind.get().bind(new DoubleToStringConverter(view.cursorZ), form.getValueLabel3());
 
-        form.getSliderLabel1().setText("X: " + "(" + xaxis.getAnatomicalAxis() + ")");
-        form.getSliderLabel2().setText("Y: " + "(" + yaxis.getAnatomicalAxis() + ")");
-        form.getSliderLabel3().setText("Z: " + "(" + zaxis.getAnatomicalAxis() + ")");
+        String header1 = view.worldCursorPos.get().getAnatomy().XAXIS.getMinDirection().toString();
+        String header2 = view.worldCursorPos.get().getAnatomy().YAXIS.getMinDirection().toString();
+        String header3 = view.worldCursorPos.get().getAnatomy().ZAXIS.getMinDirection().toString();
+
+        form.getXspinnerHeader().setText(header1);
+        form.getYspinnerHeader().setText(header2);
+        form.getZspinnerHeader().setText(header3);
+
+       
     }
 
 
@@ -69,6 +69,11 @@ public class WorldCoordinatePresenter extends ImageViewPresenter {
     public void viewSelected(ImageView view) {
         bind();
     }
+    @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
+    }
+
 
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.

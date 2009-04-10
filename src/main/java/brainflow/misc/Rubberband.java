@@ -1,4 +1,4 @@
-package brainflow.graphics;
+package brainflow.misc;
 
 import java.awt.*;
 import java.awt.event.*;

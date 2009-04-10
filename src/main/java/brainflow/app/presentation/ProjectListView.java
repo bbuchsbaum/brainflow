@@ -1,10 +1,12 @@
 package brainflow.app.presentation;
 
 import brainflow.app.BrainFlowProject;
+import brainflow.app.presentation.binding.WrappedImageViewModel;
 import brainflow.core.layer.AbstractLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.image.space.Axis;
 import brainflow.image.space.ICoordinateSpace;
@@ -42,7 +44,7 @@ public class ProjectListView extends ImageViewPresenter {
 
     private FormLayout layout;
 
-    private IImageDisplayModel selectedModel;
+    private ImageViewModel selectedModel;
 
     public ProjectListView(BrainFlowProject _project) {
         project = _project;
@@ -50,10 +52,10 @@ public class ProjectListView extends ImageViewPresenter {
 
     }
 
-     public void bind() {
-        SwingBind.get().bindContent(getSelectedView().getModel().getListModel(), layerList);
-        SwingBind.get().bindSelectionIndex(getSelectedView().getModel().getListSelection(), layerList);
-
+    public void bind() {
+        WrappedImageViewModel model = new WrappedImageViewModel(getSelectedView().getModel());
+        SwingBind.get().bindContent(model.listModel, layerList);
+        SwingBind.get().bindSelectionIndex(getSelectedView().getModel().layerSelection, layerList);
 
 
     }
@@ -102,7 +104,7 @@ public class ProjectListView extends ImageViewPresenter {
                 int i = layerList.getSelectedIndex();
 
                 if (i >= 0) {
-                    AbstractLayer layer = selectedModel.getLayer(i);
+                    AbstractLayer layer = selectedModel.get(i);
                     ICoordinateSpace space = layer.getCoordinateSpace();
                     StringBuffer sb = new StringBuffer();
                     sb.append("Orientation : " + space.getAnatomy().toString());
@@ -136,11 +138,16 @@ public class ProjectListView extends ImageViewPresenter {
     }
 
     public ImageLayer3D getSelectedLayer() {
-        return (ImageLayer3D)layerList.getSelectedValue();
+        return (ImageLayer3D) layerList.getSelectedValue();
     }
 
     public void viewSelected(ImageView view) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+        
     }
 
     public void allViewsDeselected() {

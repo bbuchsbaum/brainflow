@@ -2,9 +2,11 @@ package brainflow.app.presentation;
 
 import brainflow.app.actions.RotateLayersCommand;
 import brainflow.app.presentation.binding.ExtBind;
+import brainflow.app.presentation.binding.WrappedImageViewModel;
 import brainflow.app.toplevel.BrainFlow;
 import brainflow.app.toplevel.DataSourceManager;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.ToggleBar;
@@ -48,7 +50,7 @@ public class CanvasBar extends ImageViewPresenter {
 
     private JLabel imageSpinnerLabel = new JLabel("::");
 
-
+    private WrappedImageViewModel wrappedModel;
 
 
     public CanvasBar() {
@@ -171,16 +173,26 @@ public class CanvasBar extends ImageViewPresenter {
         updateImageSpinner();
 
 
-        ExtBind.get().bindContent(getSelectedView().getModel().getListModel(), toggleBar);
-        ExtBind.get().bindToggleBar(getSelectedView().getModel().getListSelection(), toggleBar);
+        wrappedModel = new WrappedImageViewModel(getSelectedView().getModel());
+
+      
+        ExtBind.get().bindContent(wrappedModel.listModel, toggleBar);
+        ExtBind.get().bindToggleBar(wrappedModel.layerSelection(), toggleBar);
         
         
     }
 
-
+    @Override
     public void viewSelected(ImageView view) {
         bind();
     }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+        bind();
+    }
+
+
 
     public void viewDeselected(ImageView view) {
         ExtBind.get().unbind(toggleBar);

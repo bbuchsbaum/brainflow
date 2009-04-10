@@ -23,7 +23,7 @@ import java.util.Set;
  * Time: 12:14:52 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LinkedViewsPresenter extends BrainCanvasPresenter {
+public class LinkedViewsPresenter extends ImageViewPresenter {
 
     private IBrainCanvas canvas;
 
@@ -133,7 +133,14 @@ public class LinkedViewsPresenter extends BrainCanvasPresenter {
 
     public void viewSelected(ImageView view) {
         updateLinkedViewList();
+        bind();
 
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+        updateLinkedViewList();
+        bind();
     }
 
 

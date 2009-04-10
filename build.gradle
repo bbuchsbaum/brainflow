@@ -59,7 +59,7 @@ libs {
   manifest.mainAttributes(
                     'Main-Class': 'brainflow.app.toplevel.BrainFlow',
                     'Implementation-Version': version,
-                    'SplashScreen-Image': 'icons/brainflow_logo2.jpg',
+                    'SplashScreen-Image': 'icons/brainflow-logo2.jpg',
                     'Class-Path': classpath.toString())
   
 }

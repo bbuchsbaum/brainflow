@@ -5,8 +5,8 @@
  */
 
 package brainflow.modes;
-import brainflow.graphics.*;
 import brainflow.core.BrainCanvas;
+import brainflow.misc.Rubberband;
 
 import java.awt.event.*;
 

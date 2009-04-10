@@ -1,9 +1,6 @@
 package brainflow.app.presentation;
 
-import brainflow.core.ImageView;
-import brainflow.core.ImageDisplayModel;
-import brainflow.core.IImageDisplayModel;
-import brainflow.core.SimpleImageView;
+import brainflow.core.*;
 import brainflow.core.layer.*;
 import brainflow.display.InterpolationType;
 import brainflow.app.presentation.binding.CoordinateToIndexConverter2;
@@ -46,7 +43,7 @@ public class MaskPresenter extends ImageViewPresenter {
     private void buildGUI() {
         mainPanel = new Box(BoxLayout.Y_AXIS);
 
-        maskView = new SimpleImageView(new ImageDisplayModel("empty"), Anatomy3D.getCanonicalAxial());
+        maskView = new SimpleImageView(new ImageViewModel(), Anatomy3D.getCanonicalAxial());
         maskView.setScreenInterpolation(InterpolationType.NEAREST_NEIGHBOR);
 
         mainPanel.add(maskView);
@@ -65,7 +62,7 @@ public class MaskPresenter extends ImageViewPresenter {
         IImageSpace3D space = maskView.getModel().getImageSpace();
         Axis zaxis = space.findAxis(displayAnatomy.ZAXIS);
 
-        CoordinateToIndexConverter2 conv = new CoordinateToIndexConverter2(maskView.worldCursorPos, (IImageSpace3D) maskView.getModel().getImageSpace(), zaxis);
+        CoordinateToIndexConverter2 conv = new CoordinateToIndexConverter2(maskView.worldCursorPos, maskView.getModel().getImageSpace(), zaxis);
 
         int nslices = space.getDimension(displayAnatomy.ZAXIS);
         sliceSlider.setMaximum(nslices);
@@ -82,8 +79,8 @@ public class MaskPresenter extends ImageViewPresenter {
 
     public void viewSelected(final ImageView view) {
 
-        SwingWorker<IImageDisplayModel, Void> worker = new SwingWorker<IImageDisplayModel, Void>() {
-            protected IImageDisplayModel doInBackground() throws Exception {
+        SwingWorker<ImageViewModel, Void> worker = new SwingWorker<ImageViewModel, Void>() {
+            protected ImageViewModel doInBackground() throws Exception {
                 return createMaskModel();
 
             }
@@ -96,24 +93,29 @@ public class MaskPresenter extends ImageViewPresenter {
             }
         };
 
-        worker.execute();        
+        worker.execute();
 
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
     }
 
     @Override
     protected void layerSelected(ImageLayer3D layer) {
 
-        IImageDisplayModel model = createMaskModel();
+        ImageViewModel model = createMaskModel();
         maskView.setModel(model);
         BeanContainer.get().addListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
-       
+
         BeanContainer.get().addListener((layer).maskProperty, thresholdListener);
     }
 
     @Override
     protected void layerDeselected(ImageLayer3D layer) {
         BeanContainer.get().removeListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
-        BeanContainer.get().removeListener(( layer).maskProperty, thresholdListener);
+        BeanContainer.get().removeListener((layer).maskProperty, thresholdListener);
 
     }
 
@@ -130,13 +132,10 @@ public class MaskPresenter extends ImageViewPresenter {
     }
 
 
-    private IImageDisplayModel createMaskModel() {
-        System.out.println("creating mask for model " + getSelectedView().getModel().getName());
-        IImageDisplayModel model = new ImageDisplayModel("mask_model");
+    private ImageViewModel createMaskModel() {
         ImageLayer3D layer = getSelectedLayer();
-        System.out.println("");
         MaskLayer3D maskLayer = new MaskLayer3D(layer.getMaskProperty().buildMask());
-        model.addLayer(maskLayer);
+        ImageViewModel model = new ImageViewModel("mask_model", new LayerList<ImageLayer3D>(maskLayer));
 
         return model;
 
@@ -159,13 +158,11 @@ public class MaskPresenter extends ImageViewPresenter {
     class ThresholdListener implements PropertyListener {
 
         public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-            IImageDisplayModel model = new ImageDisplayModel("mask_model");
+
             ImageLayer3D layer = getSelectedLayer();
-            //layer.getMaskProperty().
             MaskLayer3D maskLayer = new MaskLayer3D(layer.getMaskProperty().buildMask());
 
-            //model.addLayer(layer);
-            model.addLayer(maskLayer);
+            ImageViewModel model = new ImageViewModel("mask_model", new LayerList<ImageLayer3D>(maskLayer));
             maskView.setModel(model);
 
         }

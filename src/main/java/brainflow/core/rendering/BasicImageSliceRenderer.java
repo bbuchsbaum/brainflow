@@ -179,7 +179,6 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         //todo forces gridloc to be legal, but this is a bit of a hack...
 
 
-
         //get the value along whatever the z axis is for the current display anatomy
         return gridloc.getValue(refSpace.getImageAxis(displayAnatomy.ZAXIS, true).getAnatomicalAxis(), 0, refSpace.getDimension(displayAnatomy.ZAXIS));
 
@@ -260,23 +259,22 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
     public void renderUnto(Rectangle2D frame, Graphics2D g2) {
-        if (layer.isVisible()) {
-            IImageSpace space = getImageSpace();
-            double minx = space.getImageAxis(Axis.X_AXIS).getRange().getMinimum();
-            double miny = space.getImageAxis(Axis.Y_AXIS).getRange().getMinimum();
+        IImageSpace space = getImageSpace();
+        double minx = space.getImageAxis(Axis.X_AXIS).getRange().getMinimum();
+        double miny = space.getImageAxis(Axis.Y_AXIS).getRange().getMinimum();
 
-            double transx = (minx - frame.getMinX()); //+ (-frameBounds.getMinX());
-            double transy = (miny - frame.getMinY()); //+ (-frameBounds.getMinY());
+        double transx = (minx - frame.getMinX()); //+ (-frameBounds.getMinX());
+        double transy = (miny - frame.getMinY()); //+ (-frameBounds.getMinY());
 
 
-            Composite oldComposite = g2.getComposite();
-            AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) layer.getImageLayerProperties().opacity.get().doubleValue());
-            g2.setComposite(composite);
-            g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2.drawRenderedImage(render(), AffineTransform.getTranslateInstance(transx, transy));
-            g2.setComposite(oldComposite);
-        }
+        Composite oldComposite = g2.getComposite();
+        AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) layer.getImageLayerProperties().opacity.get().doubleValue());
+        g2.setComposite(composite);
+        g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        g2.drawRenderedImage(render(), AffineTransform.getTranslateInstance(transx, transy));
+        g2.setComposite(oldComposite);
+
     }
 
     public ImageLayer getLayer() {
@@ -284,7 +282,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
     public boolean isVisible() {
-        return layer.isVisible();
+        return true;
     }
 
     public AnatomicalPoint3D getSlice() {
@@ -393,7 +391,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
 
         AnatomicalPoint1D zdisp = getZSlice();
-      
+
         //todo what is the correct way to round zdisp  here?
         // todo check if zdisp is valid?
 

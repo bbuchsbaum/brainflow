@@ -62,6 +62,11 @@ public class ColorRangePresenter extends ImageViewPresenter implements Bindable 
     }
 
     @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
+    }
+
+    @Override
     protected void layerSelected(ImageLayer3D layer) {
         bind();
     }

@@ -3,16 +3,27 @@ package brainflow.core;
 import brainflow.core.annotations.CrosshairAnnotation;
 import brainflow.core.annotations.SelectedPlotAnnotation;
 import brainflow.core.annotations.SliceAnnotation;
+import brainflow.core.annotations.IAnnotation;
 import brainflow.display.ICrosshair;
 import brainflow.image.anatomy.AnatomicalPoint1D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.AnatomicalPoint3D;
 import brainflow.image.axis.AxisRange;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.text.NumberFormat;
+
+import com.jidesoft.swing.JideBoxLayout;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,15 +46,16 @@ public class MontageImageView extends ImageView {
 
     //private MontageControlPanel controlPanel;
 
-    public MontageImageView(IImageDisplayModel imodel, Anatomy3D displayAnatomy) {
+    public MontageImageView(ImageViewModel imodel, Anatomy3D displayAnatomy) {
         super(imodel);
         this.displayAnatomy = displayAnatomy;
-        //initControlPanel();
+
         init();
+        initControlPanel();
 
     }
 
-    public MontageImageView(IImageDisplayModel imodel, Anatomy3D displayAnatomy, int nrows, int ncols, float sliceGap) {
+    public MontageImageView(ImageViewModel imodel, Anatomy3D displayAnatomy, int nrows, int ncols, float sliceGap) {
         super(imodel);
         this.displayAnatomy = displayAnatomy;
         this.nrows= nrows;
@@ -51,7 +63,7 @@ public class MontageImageView extends ImageView {
         this.sliceGap = sliceGap;
 
         init();
-        //initControlPanel();
+        initControlPanel();
     }
 
      private void init() {
@@ -66,7 +78,23 @@ public class MontageImageView extends ImageView {
         return ncols;
     }
 
+    public float getSliceGap() {
+        return sliceGap;
+    }
+
+    public void setSliceGap(float sliceGap) {
+        this.sliceGap = sliceGap;
+        plotLayout.setSliceGap(sliceGap);
+    }
+
     protected MontagePlotLayout createPlotLayout(Anatomy3D displayAnatomy) {
+        /*if (plotLayout != null) {
+            List<IImagePlot> plots = getPlots();
+            if (plots.size() > 0) {
+                Map<String, IAnnotation> annotationMap =  plots.get(0).getAnnotations();
+        }*/
+
+
         plotLayout = new MontagePlotLayout(this, displayAnatomy, nrows, ncols);
         return plotLayout;
     }
@@ -74,14 +102,23 @@ public class MontageImageView extends ImageView {
 
 
     private void initControlPanel() {
-        //controlPanel = new MontageControlPanel();
-        // add(controlPanel, BorderLayout.SOUTH);
+       MontageControlPanel  controlPanel = new MontageControlPanel();
+       add(controlPanel, BorderLayout.SOUTH);
 
     }
 
     protected void layoutPlots() {
+        Map<String, IAnnotation> annotationMap = new HashMap<String, IAnnotation>();
+
+        if (plotLayout != null) {
+            List<IImagePlot> plots = getPlots();
+            if (plots.size() > 0) {
+                annotationMap =  plots.get(0).getAnnotations();
+            }
+        }
+
         plotLayout = createPlotLayout(displayAnatomy);
-        resetPlotLayout(plotLayout);
+        resetPlotLayout(plotLayout, annotationMap);
     }
 
     public MontagePlotLayout getPlotLayout() {
@@ -93,114 +130,34 @@ public class MontageImageView extends ImageView {
     }
 
 
-
-    
-
-
     public Dimension getPreferredSize() {
-        return new Dimension(150 * getNrows(), 150 * getNcols());
+        int width = (int)getModel().getImageAxis(displayAnatomy.XAXIS).getExtent();
+        int height = (int)getModel().getImageAxis(displayAnatomy.YAXIS).getExtent();
+        return new Dimension(width * getNcols(), height * getNrows());
     }
 
-    /*class CrosshairHandler implements PropertyChangeListener {
 
 
-        public void propertyChange(PropertyChangeEvent evt) {
-            ICrosshair cross = (ICrosshair) evt.getSource();
-            AnatomicalPoint1D slice = cross.getLocation().getValue(MontageImageView.this.getSelectedPlot().getDisplayAnatomy().ZAXIS);
-            double val = sliceController.nearestSlice(slice);
-            if (val < .1) {
-                //int index = sliceController.whichPlot(slice, .11);
-                //getPlotSelection().setSelectionIndex(index);
-                for (IImagePlot plot : getPlots()) {
-                    // can we just call repaint rather than looping?
-                    plot.getComponent().repaint();
-                }
-            } else {
-                sliceController.setSlice(slice);
-            }
-
-        }
-    }*/
-
-
-        //public double nearestSlice(AnatomicalPoint1D slice) {
-        //    double minDist = Double.MAX_VALUE;
-            //for (int i = 0; i < getNumPlots(); i++) {
-                //AnatomicalPoint1D pt = getSliceForPlot(i);
-                //minDist = Math.min(Math.abs(pt.evaluate() - slice.evaluate()), minDist);
-           // }
-
-        //    return minDist;
-        //}
-
-        //public int whichPlot(AnatomicalPoint1D slice, double tolerance) {
-        //    int index = -1;
-        //    double minDist = Double.MAX_VALUE;
-            //for (int i = 0; i < getNumPlots(); i++) {
-           //     AnatomicalPoint3D pt = getSliceForPlot(i);
-            //    double dist = Math.abs(pt.getX() - slice.getValue());
-            //    if (dist < minDist) {
-            //        index = i;
-            //        minDist = dist;
-            //    }
-           // }
-
-          //  if (minDist < tolerance) {
-          //      return index;
-           // } else {
-           //     return -1;
-           // }
-
-
-       // }
-
-
-        /*public void setSlice(AnatomicalPoint1D slice) {
-
-            AxisRange range = getViewport().getRange(getDisplayAnatomy().ZAXIS);
-            if (slice.getAnatomy() != range.getAnatomicalAxis()) {
-                throw new IllegalArgumentException("illegal axis for slice argument : " + slice.getAnatomy() +
-                        " -- axis should be : " + range.getAnatomicalAxis());
-            }
-
-            sentinel = slice;
-           // sliceRange = new AxisRange(sentinel.getAnatomy(), sentinel.getValue(), sentinel.getValue() + getNumPlots() * sliceGap);
-            updateSlices();
-        }
-
-        public void nextSlice() {
-            setSlice(new AnatomicalPoint1D(sentinel.getAnatomy(), sentinel.getValue() + sliceGap));
-        }
-
-        public void previousSlice() {
-            setSlice(new AnatomicalPoint1D(sentinel.getAnatomy(), sentinel.getValue() - sliceGap));
-        }
-
-        public void pageBack() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        public void pageForward() {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-    } */
-
-    /*class MontageControlPanel extends JPanel {
+    class MontageControlPanel extends JPanel {
 
         private JSpinner rowSpinner;
 
         private JSpinner columnSpinner;
 
-
+        private JFormattedTextField sliceGapField;
 
         public MontageControlPanel() {
             super();
 
-            SpinnerNumberModel rowModel = new SpinnerNumberModel(MontageImageView.this.getNRows(), 1, 5, 1);
+            SpinnerNumberModel rowModel = new SpinnerNumberModel(MontageImageView.this.getNrows(), 1, 5, 1);
             rowSpinner = new JSpinner(rowModel);
 
-            SpinnerNumberModel columnModel = new SpinnerNumberModel(MontageImageView.this.getNCols(), 1, 5, 1);
+            SpinnerNumberModel columnModel = new SpinnerNumberModel(MontageImageView.this.getNcols(), 1, 5, 1);
             columnSpinner = new JSpinner(columnModel);
+
+            sliceGapField = new JFormattedTextField(NumberFormat.getNumberInstance());
+            sliceGapField.setValue(getSliceGap());
+            sliceGapField.setColumns(10);
 
             JideBoxLayout layout = new JideBoxLayout(this, JideBoxLayout.X_AXIS);
             layout.setGap(8);
@@ -208,19 +165,37 @@ public class MontageImageView extends ImageView {
 
 
 
-            setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
             add(new JLabel("Rows "), JideBoxLayout.FIX);
             add(rowSpinner, JideBoxLayout.FIX);
 
             add(new JLabel("Cols "), JideBoxLayout.FIX);
             add(columnSpinner, JideBoxLayout.FIX);
 
+            add(sliceGapField, JideBoxLayout.FIX);
+
             rowSpinner.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent e) {
-                    layoutGrid();
+                    nrows = ((Number)rowSpinner.getValue()).intValue();
+                    layoutPlots();
+                }
+            });
+
+            columnSpinner.addChangeListener(new ChangeListener() {
+                public void stateChanged(ChangeEvent e) {
+                    ncols = ((Number)columnSpinner.getValue()).intValue();
+                    layoutPlots();
+                }
+            });
+
+            sliceGapField.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Number num = (Number)sliceGapField.getValue();
+                    setSliceGap(num.floatValue());
                 }
             });
 
         }
-    }  */
+    }
 }

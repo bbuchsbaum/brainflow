@@ -4,6 +4,7 @@ import brainflow.colormap.AbstractColorBar;
 import brainflow.core.layer.AbstractLayer;
 import brainflow.core.IImageDisplayModel;
 import brainflow.core.IImagePlot;
+import brainflow.core.ImageViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +37,7 @@ public class ColorBarAnnotation extends AbstractAnnotation {
 
     private AbstractLayer selectedLayer;
 
-    private IImageDisplayModel model;
+    private ImageViewModel model;
 
     private int orientation = SwingUtilities.VERTICAL;
 
@@ -51,17 +52,14 @@ public class ColorBarAnnotation extends AbstractAnnotation {
     private AbstractColorBar colorBar = null;
 
 
-    public ColorBarAnnotation(IImageDisplayModel _model) {
+    public ColorBarAnnotation(ImageViewModel _model) {
         model = _model;
 
-        BeanContainer.get().addListener(model.getListSelection(), new PropertyListener() {
+        BeanContainer.get().addListener(model.layerSelection, new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
                 Integer sel = (Integer)newValue;
                 if (isVisible()) {
-                    AbstractLayer oldLayer = selectedLayer;
-                    selectedLayer = ColorBarAnnotation.this.model.getLayer(sel);
-
-                    //support.firePropertyChange("LAYER_CHANGED", oldLayer, selectedLayer);
+                    selectedLayer = ColorBarAnnotation.this.model.get(sel);
 
                 }
             }
@@ -110,10 +108,10 @@ public class ColorBarAnnotation extends AbstractAnnotation {
     }
 
     public void draw(Graphics2D g2d, Rectangle2D plotArea, IImagePlot plot) {
-        if (!isVisible() || model.getNumLayers() == 0) return;
+        if (!isVisible() || model.size() == 0) return;
 
 
-        AbstractLayer layer = model.getLayer(model.getSelectedIndex());
+        AbstractLayer layer = model.get(model.getSelectedIndex());
 
         if (colorBar == null || layer != selectedLayer) {
             selectedLayer = layer;

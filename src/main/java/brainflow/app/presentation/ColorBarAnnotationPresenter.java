@@ -17,6 +17,7 @@ import javax.swing.*;
 public class ColorBarAnnotationPresenter extends AbstractPresenter {
 
     private ColorBarAnnotation annotation;
+
     private ColorBarAnnotationForm form;
 
     public ColorBarAnnotationPresenter(ColorBarAnnotation _annotation) {

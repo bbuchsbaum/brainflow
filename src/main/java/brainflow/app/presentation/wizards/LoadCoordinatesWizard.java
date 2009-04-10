@@ -56,7 +56,7 @@ public class LoadCoordinatesWizard {
         });
 
         setupPresenter = new CoordinateTableSetupPresenter();
-        projectListView = new ProjectListView(ProjectManager.getInstance().getActiveProject());
+        projectListView = new ProjectListView(ProjectManager.get().getActiveProject());
 
         // setup model
         PageList model = new PageList();

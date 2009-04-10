@@ -90,6 +90,11 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
     }
 
     @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
+    }
+
+    @Override
     protected void layerSelected(ImageLayer3D layer) {
         bind();
     }

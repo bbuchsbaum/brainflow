@@ -33,7 +33,7 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
 
     private IImageProducer producer;
 
-    private IImageDisplayModel model;
+    private ImageViewModel model;
 
 
     private Insets plotInsets = new Insets(18, 18, 18, 18);
@@ -53,7 +53,7 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
     private InterpolationType screenInterpolation = InterpolationType.LINEAR;
 
 
-    private ComponentImagePlot(IImageDisplayModel model, IImageProducer _producer, ViewBounds viewBounds) {
+    private ComponentImagePlot(ImageViewModel model, IImageProducer _producer, ViewBounds viewBounds) {
         this.viewBounds = viewBounds;
         this.model = model;
         producer = _producer;
@@ -62,7 +62,7 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
 
     }
 
-    public ComponentImagePlot(IImageDisplayModel model, ViewBounds viewBounds) {
+    public ComponentImagePlot(ImageViewModel model, ViewBounds viewBounds) {
         this.viewBounds = viewBounds;
         this.model = model;
         //producer = new CompositeImageProducer(this,  displayAnatomy);
@@ -116,7 +116,7 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
         return slice;
     }
 
-    public IImageDisplayModel getModel() {
+    public ImageViewModel getModel() {
         return model;
     }
 
@@ -423,7 +423,7 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
         return new Dimension((int)getXExtent(), (int)getYExtent());
     }
 
-    public static ComponentImagePlot createComponentImagePlot(IImageDisplayModel model, IImageProducer _producer, Anatomy3D displayAnatomy, AxisRange xAxis, AxisRange yAxis) {
+    public static ComponentImagePlot createComponentImagePlot(ImageViewModel model, IImageProducer _producer, Anatomy3D displayAnatomy, AxisRange xAxis, AxisRange yAxis) {
         ComponentImagePlot plot = new ComponentImagePlot(model, _producer, new ViewBounds(displayAnatomy, xAxis, yAxis));
         plot.producer.setPlot(plot);
         return plot;

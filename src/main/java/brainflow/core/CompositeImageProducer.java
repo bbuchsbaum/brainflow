@@ -139,7 +139,7 @@ public class CompositeImageProducer extends AbstractImageProducer {
         return plot.getYAxisRange();
     }
 
-    public IImageDisplayModel getModel() {
+    public ImageViewModel getModel() {
         return plot.getModel();
     }
 

@@ -18,6 +18,8 @@ public interface IBrainFlowClient {
 
     public void viewSelected(ImageView view);
 
+    public void viewModelChanged(ImageView view);
+
     public void allViewsDeselected();
 
     public void layerChangeNotification();
@@ -38,7 +40,6 @@ public interface IBrainFlowClient {
 
     public AbstractLayer getSelectedLayer();
 
-    public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space);
 
 
 }

@@ -3,7 +3,6 @@ package sc.brainflow.image.data
 
 import _root_.brainflow.image.data.IImageData3D
 
-
 /**
  * Created by IntelliJ IDEA.
  * User: Brad

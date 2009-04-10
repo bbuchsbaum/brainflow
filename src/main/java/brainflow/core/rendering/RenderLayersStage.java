@@ -45,10 +45,11 @@ public class RenderLayersStage extends ImageProcessingStage {
 
             Graphics2D g2 = (Graphics2D) sourceImage.getGraphics();
 
-
+            int i=0;
             for (SliceRenderer renderer : renderers) {
-                if (renderer != null)  // todo temporary hack
+                if (renderer != null && getModel().isVisible(i))  // todo temporary hack
                     renderer.renderUnto(frameBounds, g2);
+                i++;
             }
 
             g2.dispose();

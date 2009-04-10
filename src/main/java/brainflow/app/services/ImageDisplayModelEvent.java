@@ -12,6 +12,7 @@ package brainflow.app.services;
 import brainflow.app.BrainFlowProject;
 import brainflow.app.toplevel.BrainFlowProjectEvent;
 import brainflow.core.IImageDisplayModel;
+import brainflow.core.ImageViewModel;
 import org.bushe.swing.event.AbstractEventServiceEvent;
 
 import javax.swing.event.ListDataEvent;
@@ -56,7 +57,7 @@ public class ImageDisplayModelEvent extends AbstractEventServiceEvent {
         return event.getListDataEvent();
     }
 
-    public IImageDisplayModel getModel() {
+    public ImageViewModel getModel() {
         return event.getModel();
     }
 

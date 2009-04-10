@@ -28,14 +28,14 @@ public abstract class AbstractGriddedImageView extends ImageView  {
     private JPanel gridPanel;
 
 
-    public AbstractGriddedImageView(IImageDisplayModel imodel) {
+    public AbstractGriddedImageView(ImageViewModel imodel) {
         super(imodel);
         setLayout(new BorderLayout());
       
     }
 
 
-    protected AbstractGriddedImageView(IImageDisplayModel imodel, int NRows, int NCols) {
+    protected AbstractGriddedImageView(ImageViewModel imodel, int NRows, int NCols) {
         super(imodel);
         this.NRows = NRows;
         this.NCols = NCols;

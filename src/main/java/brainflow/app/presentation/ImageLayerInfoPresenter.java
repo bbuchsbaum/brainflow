@@ -163,6 +163,11 @@ public class ImageLayerInfoPresenter extends ImageViewPresenter {
         panel.revalidate();
     }
 
+    @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
+    }
+
     public void allViewsDeselected() {
 
     }

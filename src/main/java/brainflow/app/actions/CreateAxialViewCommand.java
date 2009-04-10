@@ -1,6 +1,7 @@
 package brainflow.app.actions;
 
 import brainflow.app.toplevel.ImageViewFactory;
+import brainflow.app.toplevel.DisplayManager;
 import brainflow.core.ImageView;
 import brainflow.core.IBrainCanvas;
 
@@ -27,7 +28,7 @@ public class CreateAxialViewCommand extends BrainFlowCommand {
             IBrainCanvas canvas = getSelectedCanvas();
 
             if (canvas != null) {
-                canvas.addImageView(sview);
+                DisplayManager.getInstance().displayView(sview);
                 canvas.getImageCanvasModel().yoke(sview, view);
             }
         }

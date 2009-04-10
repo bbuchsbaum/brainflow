@@ -7,8 +7,10 @@ import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import brainflow.core.*;
 import brainflow.core.layer.MaskLayer3D;
 import brainflow.core.layer.ImageLayer3D;
+import brainflow.core.layer.LayerList;
 import brainflow.app.BrainFlowException;
 import brainflow.app.presentation.binding.ExtBind;
+import brainflow.app.presentation.binding.WrappedImageViewModel;
 import brainflow.gui.MultiSelectToggleBar;
 import brainflow.image.anatomy.Anatomy3D;
 
@@ -44,7 +46,7 @@ public class BinaryExpressionTester {
 
     LabelStatusBarItem statusLabel = new LabelStatusBarItem();
 
-    IImageDisplayModel model;
+    ImageViewModel model;
 
     ImageView dataView;
 
@@ -105,15 +107,16 @@ public class BinaryExpressionTester {
 
     }
 
-    private IImageDisplayModel createMaskModel(IImageDisplayModel model) {
-        IImageDisplayModel imodel = new ImageDisplayModel("maskmodel");
-        for (int i = 0; i < model.getNumLayers(); i++) {
-            ImageLayer3D layer = model.getLayer(i);
+    private ImageViewModel createMaskModel(ImageViewModel model) {
+       LayerList<ImageLayer3D> layers = new LayerList<ImageLayer3D>();
+        for (int i = 0; i < model.size(); i++) {
+            ImageLayer3D layer = model.get(i);
             MaskLayer3D masklayer = new MaskLayer3D(layer.getMaskProperty().buildMask());
-            imodel.addLayer(masklayer);
+            layers.add(masklayer);
+
         }
 
-        return imodel;
+        return new ImageViewModel("maskmodel", layers);
 
     }
 
@@ -124,8 +127,9 @@ public class BinaryExpressionTester {
         viewPanel.add(toggleBar, BorderLayout.NORTH);
         viewPanel.add(view, BorderLayout.CENTER);
 
-        ExtBind.get().bindContent(view.getModel().getListModel(), toggleBar);
-        ExtBind.get().bindToggleIndices(view.getModel().getVisibleSelection(), toggleBar);
+        WrappedImageViewModel wrappedModel = new WrappedImageViewModel(view.getModel());
+        ExtBind.get().bindContent(wrappedModel.listModel, toggleBar);
+        ExtBind.get().bindToggleIndices(wrappedModel.visibleSelection, toggleBar);
 
         return viewPanel;
 
@@ -138,11 +142,11 @@ public class BinaryExpressionTester {
             public Object getValue(String symbol) {
                 int index = mapIndex(symbol);
 
-                if (index < 0 || (index > model.getNumLayers() - 1)) {
+                if (index < 0 || (index > model.size() - 1)) {
                     throw new IllegalArgumentException("illegal layer index " + index);
                 }
 
-                return model.getLayer(index).getData();
+                return model.get(index).getData();
 
             }
 
@@ -199,7 +203,7 @@ public class BinaryExpressionTester {
     }
 
 
-    private IImageDisplayModel loadModel() {
+    private ImageViewModel loadModel() {
         try {
             return BF.createModel(BF.getDataURL("mask1.nii"), BF.getDataURL("mask2.nii"), BF.getDataURL("mask3.nii"), BF.getDataURL("mask4.nii"));
         } catch (BrainFlowException e) {

@@ -2,9 +2,13 @@ package brainflow.core;
 
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.AxisRange;
+import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
+import brainflow.image.space.IImageSpace3D;
+import brainflow.image.space.ImageSpace3D;
 import net.java.dev.properties.Property;
 import net.java.dev.properties.container.ObservableProperty;
 import net.java.dev.properties.container.BeanContainer;
@@ -21,11 +25,13 @@ import java.beans.PropertyChangeEvent;
  */
 public class Viewport3D  {
 
-    
+    public static IImageSpace3D EMPTY_SPACE = new ImageSpace3D(new ImageAxis(0, 100, Anatomy3D.getCanonicalAxial().XAXIS, 100),
+            new ImageAxis(0, 100, Anatomy3D.getCanonicalAxial().YAXIS, 100),
+            new ImageAxis(0, 100, Anatomy3D.getCanonicalAxial().ZAXIS, 100));
 
-    private IImageDisplayModel displayModel;
+    private ImageViewModel viewModel;
     
-    private IImageSpace bounds;
+    private IImageSpace3D bounds;
 
     public final Property<Double> XAxisMin = new ObservableProperty<Double>(0.0){
         public void set(Double aDouble) {
@@ -73,58 +79,37 @@ public class Viewport3D  {
 
 
     public final Property<Double> XAxisMax = ObservableProperty.create(0.0);
+
     public final Property<Double> YAxisMax = ObservableProperty.create(0.0);
+
     public final Property<Double> ZAxisMax = ObservableProperty.create(0.0);
 
 
-
-    public Viewport3D(IImageDisplayModel _displayModel) {
+    public Viewport3D(ImageViewModel _displayModel) {
         BeanContainer.bind(this);
 
-        displayModel = _displayModel;
-        bounds = _displayModel.getImageSpace();
+        viewModel = _displayModel;
 
-        displayModel.addImageDisplayModelListener(new ImageDisplayModelListener() {
+        if (viewModel.size() != 0) {
+            bounds = _displayModel.getImageSpace();
 
-
-            public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space) {
-                if (!bounds.equals(space)) {
-                    model.getImageSpace();
-                    init();
-                }
-
-            }
-
-            public void intervalAdded(ListDataEvent e) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            public void intervalRemoved(ListDataEvent e) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            public void contentsChanged(ListDataEvent e) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            public void propertyChange(PropertyChangeEvent evt) {
-
-            }
-
-        });
-
+        } else {
+            bounds = EMPTY_SPACE;
+        }
 
         init();
+
     }
 
 
-    public IImageSpace getBounds() {
+    public IImageSpace3D getBounds() {
         return bounds;
     }
 
     public boolean inBounds(AnatomicalPoint3D pt) {
         if (pt.getAnatomy() != bounds.getAnatomy()) {
-            throw new IllegalArgumentException("supplied point must have same Anatomy as Viewport for inBounds test.");
+            throw new IllegalArgumentException("supplied point must have same Anatomy as Viewport for inBounds test." +
+                    "arg : " + pt.getAnatomy() + " viewport : " + bounds.getAnatomy());
         }
         
         if (!bounds.getImageAxis(pt.getAnatomy().XAXIS, true).getRange().contains(pt.getX())) return false;

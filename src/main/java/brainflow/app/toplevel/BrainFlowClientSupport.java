@@ -52,10 +52,10 @@ public class BrainFlowClientSupport {
             public void onEvent(Object evt) {
                 EventServiceEvent ese = (EventServiceEvent) evt;
                 if (ese.getSource() == selectedView) {
-                    int idx = selectedView.getModel().getSelectedIndex();
+                    int idx = selectedView.getSelectedLayerIndex();
 
                     if (idx >= 0) {
-                        ImageLayer newLayer = selectedView.getModel().getLayer(idx);
+                        ImageLayer newLayer = selectedView.getSelectedLayer();
                         BrainFlowClientSupport.this.client.layerSelected(newLayer);
                     }
 

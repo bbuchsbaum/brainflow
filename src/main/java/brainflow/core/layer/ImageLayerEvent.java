@@ -1,6 +1,7 @@
 package brainflow.core.layer;
 
 import brainflow.core.IImageDisplayModel;
+import brainflow.core.ImageViewModel;
 
 import java.util.EventObject;
 
@@ -17,9 +18,9 @@ public class ImageLayerEvent extends EventObject {
 
     private ImageLayer3D affectedLayer;
 
-    private IImageDisplayModel model;
+    private ImageViewModel model;
 
-    public ImageLayerEvent(IImageDisplayModel _model, ImageLayer3D layer) {
+    public ImageLayerEvent(ImageViewModel _model, ImageLayer3D layer) {
         super(_model);
         model = _model;
         affectedLayer = layer;
@@ -35,7 +36,7 @@ public class ImageLayerEvent extends EventObject {
         return affectedLayer;
     }
 
-    public IImageDisplayModel getModel() {
+    public ImageViewModel getModel() {
         return model;
     }
 

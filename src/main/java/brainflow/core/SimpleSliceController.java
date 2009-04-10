@@ -105,10 +105,7 @@ class SimpleSliceController implements SliceController {
 
         AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
         pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - iaxis.getExtent() * pageStep);
-
-        //todo check bounds
-
-        imageView.cursorPos.set(slice.replace(pt));
+        imageView.cursorPos.set(slice.replace(pt).snapToBounds());
 
 
     }
@@ -120,10 +117,7 @@ class SimpleSliceController implements SliceController {
 
         AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
         pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + iaxis.getExtent() * pageStep);
-
-        //todo check bounds
-
-        imageView.cursorPos.set(slice.replace(pt));
+        imageView.cursorPos.set(slice.replace(pt).snapToBounds());
 
 
     }

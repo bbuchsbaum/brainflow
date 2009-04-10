@@ -43,20 +43,17 @@ public class RenderingParamsPresenter extends ImageViewPresenter implements Bind
 
     }
 
+    @Override
+    public void viewModelChanged(ImageView view) {
+        bind();
+    }
+
 
     public void viewSelected(ImageView view) {
         bind();
         form.getInterpolationLabel().setEnabled(true);
         form.getInterpolationChoices().setEnabled(true);
-        int idx = view.getSelectedLayerIndex();
-
-        //if (idx >= 0) {
-        //    SelectionInList sel = view.getModel().
-        //            getLayer(idx).getImageLayerProperties().getInterpolationMethod();
-        //
-        //
-        //    Bindings.bind(form.getInterpolationChoices(), sel);
-        //}
+       
     }
 
     public void allViewsDeselected() {
@@ -68,8 +65,7 @@ public class RenderingParamsPresenter extends ImageViewPresenter implements Bind
     @Override
     protected void layerSelected(ImageLayer3D layer) {
         bind();
-        //SelectionInList sel = layer.getImageLayerProperties().getInterpolationMethod();
-        //Bindings.bind(form.getInterpolationChoices(), sel);
+
     }
 
     public JComponent getComponent() {
@@ -85,7 +81,7 @@ public class RenderingParamsPresenter extends ImageViewPresenter implements Bind
     }
 
     public void unbind() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        //todo unbind
     }
 
     

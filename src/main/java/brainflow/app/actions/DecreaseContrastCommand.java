@@ -26,7 +26,7 @@ public class DecreaseContrastCommand extends BrainFlowCommand {
         ImageView view = getSelectedView();
         if (view != null) {
             int idx = view.getSelectedLayerIndex();
-            AbstractLayer layer = view.getModel().getLayer(idx);
+            AbstractLayer layer = view.getModel().get(idx);
             decrementContrast(layer);
 
         }

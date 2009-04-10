@@ -68,7 +68,21 @@ public class MontagePlotLayout extends ImagePlotLayout {
         return nrows;
     }
 
+    public float getSliceGap() {
+        return sliceGap;
+    }
+
+    public void setSliceGap(float sliceGap) {
+        this.sliceGap = sliceGap;
+        sliceController.updateSlices();
+    }
+
+    public int getNumPlots() {
+        return getNrows() * getNcols();
+    }
+
     public Dimension getPreferredSize() {
+        //todo is this used?
         return new Dimension(150 * getNrows(), 150 * getNcols());
     }
 
@@ -99,7 +113,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
     public List<IImagePlot> layoutPlots() {
         plots = createPlots();
         getView().getContentPane().removeAll();
-        getView().getContentPane().setLayout(new GridLayout(nrows, ncols, 3, 3));
+        getView().getContentPane().setLayout(new GridLayout(nrows, ncols, 1, 1));
         for (int i = 0; i < getNrows(); i++) {
             for (int j = 0; j < getNcols(); j++) {
                 IImagePlot iplot = plots.get(i * getNcols() + j);
@@ -184,6 +198,13 @@ public class MontagePlotLayout extends ImagePlotLayout {
             return nearest;
         }
 
+        private boolean outOfRange(AnatomicalPoint1D zselected) {
+            int nplots = getNumPlots();
+            AnatomicalPoint1D zsentinel = sentinel.getValue(zaxis().getAnatomicalAxis());
+            return (zselected.getValue() > (zsentinel.getValue() + sliceGap * nplots)) || (zselected.getValue() < zsentinel.getValue());
+
+        }
+
         protected void initCursorListener() {
             BeanContainer.get().addListener(getView().cursorPos, new PropertyListener() {
                 public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
@@ -191,12 +212,8 @@ public class MontagePlotLayout extends ImagePlotLayout {
                     AnatomicalPoint3D newval = (AnatomicalPoint3D) newValue;
 
                     if (!oldval.equals(newval)) {
-                        AnatomicalPoint1D zsentinel = sentinel.getValue(zaxis().getAnatomicalAxis());
                         AnatomicalPoint1D zselected = newval.getValue(zaxis().getAnatomicalAxis());
-
-
-                        int nplots = getNcols() * getNrows();
-                        if ((zselected.getValue() > (zsentinel.getValue() + sliceGap * nplots)) || (zselected.getValue() < zsentinel.getValue())) {
+                        if (outOfRange(zselected)) {
                             setSlice(newval);
                         } else {
                             IImagePlot nearPlot = nearestPlot(zselected);
@@ -205,15 +222,11 @@ public class MontagePlotLayout extends ImagePlotLayout {
                             int i = getPlots().indexOf(nearPlot);
                             if (i > 0) {
                                 setSlice(sentinel.replace(new AnatomicalPoint1D(nearz.getAnatomy(), nearz.getValue() - sliceGap * i)));
-                                //todo forced repaint is a hack to repaint cross hair when slice doesn't change
-                                //getView().getSelectedPlot().getComponent().repaint();
-                                repaintPlots();
                             } else {
                                 setSlice(sentinel.replace(new AnatomicalPoint1D(nearz.getAnatomy(), nearz.getValue())));
-                                //getView().getSelectedPlot().getComponent().repaint();
-                                repaintPlots();
-                                //selectedPlot.getComponent().repaint();
                             }
+
+                            repaintPlots();
 
 
                         }
@@ -238,7 +251,6 @@ public class MontagePlotLayout extends ImagePlotLayout {
             for (IImagePlot plot : plotList) {
                 AnatomicalPoint3D slice = getSliceForPlot(i);
                 if (Space.containsPoint(getView().getModel().getImageSpace(), slice)) {
-                    System.out.println("setting plot slice to " + slice);
                     plot.setSlice(slice);
                 } else {
                     System.out.println("should be clearing slice " + slice);
@@ -253,7 +265,6 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
 
         public void setSlice(AnatomicalPoint3D slice) {
-            //slice = slice.snapToBounds();
             if (!slice.equals(sentinel)) {
                 sentinel = slice;
                 updateSlices();

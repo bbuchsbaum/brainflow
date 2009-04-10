@@ -616,7 +616,7 @@ public class BrainFlow {
 
         ViewListPresenter viewListPresenter = new ViewListPresenter();
 
-        ProjectTreeView projectTreeView = new ProjectTreeView(ProjectManager.getInstance().getActiveProject());
+        ProjectTreeView projectTreeView = new ProjectTreeView(ProjectManager.get().getActiveProject());
         DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Project",
                 "icons/folder_page.png",
                 DockContext.STATE_FRAMEDOCKED,
@@ -812,9 +812,25 @@ public class BrainFlow {
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
         monitor.loadImage(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                IImageDisplayModel displayModel = ProjectManager.getInstance().createDisplayModel(checkedDataSource, true);
+                ImageViewModel displayModel = ProjectManager.get().createDisplayModel(checkedDataSource, true);
                 ImageView iview = ImageViewFactory.createAxialView(displayModel);
-                DisplayManager.getInstance().getSelectedCanvas().addImageView(iview);
+                 DisplayManager.getInstance().displayView(iview);
+                //DisplayManager.getInstance().getSelectedCanvas().addImageView(iview);
+            }
+        });
+
+
+    }
+
+
+    public void load(final IImageDataSource dataSource) {
+        final IImageDataSource checkedDataSource = specialHandling(dataSource);
+
+
+        ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
+        monitor.loadImage(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                register(checkedDataSource);
             }
         });
 
@@ -829,9 +845,11 @@ public class BrainFlow {
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
         monitor.loadImage(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                IImageDisplayModel displayModel = view.getModel();
+                ImageViewModel displayModel = view.getModel();
                 ImageLayer3D layer = ImageLayerFactory.createImageLayer(dataSource);
-                displayModel.addLayer(layer);
+                ImageViewModel newModel = displayModel.add(layer);
+                view.setModel(newModel);
+                //DisplayManager.getInstance().updateViews(displayModel, newModel);
 
             }
         });
@@ -985,13 +1003,18 @@ public class BrainFlow {
         public void viewSelected(ImageView view) {
             int i = view.getSelectedLayerIndex();
             if (i >= 0) {
-                anatomyLabel.setText("Layer: " + view.getModel().getLayerName(i));
+                anatomyLabel.setText("Layer: " + view.getModel().get(i).getName());
                 anatomyLabel.setEnabled(true);
             } else {
                 anatomyLabel.setText("Layer: None Selected");
                 anatomyLabel.setEnabled(false);
 
             }
+        }
+
+        @Override
+        public void viewModelChanged(ImageView view) {
+            viewSelected(view);
         }
 
         public JComponent getComponent() {

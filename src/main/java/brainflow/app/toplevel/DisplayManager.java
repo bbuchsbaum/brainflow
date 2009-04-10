@@ -9,10 +9,12 @@ package brainflow.app.toplevel;
 import brainflow.app.services.ImageViewMousePointerEvent;
 import brainflow.app.services.ImageViewSelectionEvent;
 import brainflow.app.services.ImageViewCursorEvent;
+import brainflow.app.services.ImageViewModelChangedEvent;
 import brainflow.app.dnd.ImageViewTransferHandler;
 import brainflow.app.presentation.ImageViewPresenter;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
+import brainflow.core.layer.LayerList;
 import brainflow.modes.ImageViewInteractor;
 import brainflow.image.io.IImageDataSource;
 import net.java.dev.properties.container.BeanContainer;
@@ -124,7 +126,7 @@ public class DisplayManager {
         return selectedCanvas;
     }
 
-    public List<ImageView> getImageViews(IImageDisplayModel model) {
+    public List<ImageView> getImageViews(ImageViewModel model) {
         return selectedCanvas.getViews(model);
     }
 
@@ -134,13 +136,19 @@ public class DisplayManager {
         }
     }
 
+    public void updateViews(ImageViewModel oldModel, ImageViewModel newModel) {
+        for (ImageView view : getImageViews(oldModel)) {
+            view.setModel(newModel);
+        }
+    }
+
     public boolean isShowing(IImageDataSource dsource) {
         for (IBrainCanvas canvas : canvasList) {
             List<ImageView> views = canvas.getViews();
             for (ImageView v : views) {
-                IImageDisplayModel model = v.getModel();
-                for (int i=0; i<model.getNumLayers(); i++) {
-                    if (model.getLayer(i).getDataSource().equals(dsource)) {
+                ImageViewModel model = v.getModel();
+                for (int i=0; i<model.size(); i++) {
+                    if (model.get(i).getDataSource().equals(dsource)) {
                         return true;
                     }
                 }
@@ -153,8 +161,16 @@ public class DisplayManager {
 
     }
 
-    public void displayView(ImageView view) {
+    public void displayView(final ImageView view) {
         view.setTransferHandler(new ImageViewTransferHandler());
+
+        BeanContainer.get().addListener(view.viewModel, new PropertyListener() {
+            @Override
+            public void propertyChanged(BaseProperty baseProperty, Object o, Object o1, int i) {
+                EventBus.publish(new ImageViewModelChangedEvent(view, (ImageViewModel)o, (ImageViewModel)o1));    
+            }
+        });
+
         getSelectedCanvas().addImageView(view);
     }
 
@@ -168,7 +184,9 @@ public class DisplayManager {
 
         log.info("replacing layer : " + oldlayer + " with " + newlayer);
 
-        view.getModel().setLayer(i, newlayer);
+        List<ImageLayer3D> list = view.getModel().cloneList();
+        list.set(i, newlayer);
+        view.setModel(new ImageViewModel(view.getName(), list));
     }
 
     public void setSelectedCanvas(IBrainCanvas canvas) {
@@ -265,6 +283,11 @@ public class DisplayManager {
         }
 
         @Override
+        public void viewModelChanged(ImageView view) {
+            //todo need to update cursor???
+        }
+
+        @Override
         public void viewDeselected(ImageView view) {
             BeanContainer.get().removeListener(view.cursorPos, listener);
         }
@@ -283,6 +306,7 @@ public class DisplayManager {
 
         public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
             BrainCanvasModel model = (BrainCanvasModel)prop.getParent();
+
             EventBus.publish(new ImageViewSelectionEvent(model.getSelectedView()));
 
 

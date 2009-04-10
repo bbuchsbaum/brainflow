@@ -3,7 +3,9 @@ package brainflow.app.actions;
 import brainflow.core.ImageView;
 import brainflow.core.IImageDisplayModel;
 import brainflow.app.toplevel.ImageViewFactory;
+import brainflow.app.toplevel.DisplayManager;
 import brainflow.core.IBrainCanvas;
+import brainflow.core.ImageViewModel;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.ImageAxis;
 import com.jgoodies.forms.layout.FormLayout;
@@ -29,17 +31,15 @@ public class CreateMontageViewCommand extends BrainFlowCommand {
         ImageView view = getSelectedView();
 
         if (view != null) {
-            IImageDisplayModel displayModel = view.getModel();
-            //ImageView sview = ImageViewFactory.createOrthogonalView(displayModel);
-
             InputPanel ip = new InputPanel(view);
             IBrainCanvas canvas = getSelectedCanvas();
 
             JOptionPane.showMessageDialog(canvas.getComponent(), ip);
-            ImageView sview = ImageViewFactory.createMontageView(displayModel, ip.getRows(), ip.getColumns(), (float)ip.getSliceGap());
+            ImageView sview = ImageViewFactory.createMontageView(view.getModel(), ip.getRows(), ip.getColumns(), (float)ip.getSliceGap());
 
             if (canvas != null) {
-                canvas.addImageView(sview);
+                DisplayManager.getInstance().displayView(sview);
+                //canvas.addImageView(sview);
             }
         }
 

@@ -357,9 +357,9 @@ public class ImageCanvasSelection implements MouseListener, MouseMotionListener 
             IImagePlot plot = view.whichPlot(p);
             Point2D cross = null;
 
-            if (plot != null) {
-                cross = view.getCrosshairLocation(view.whichPlot(p));
-            }
+            //if (plot != null) {
+           //     cross = view.getCrosshairLocation(view.whichPlot(p));
+           // }
 
             if (state != CURSOR_STATE.OVER_SELECTED_VIEW) {
                 updateCursorState(state, view);

@@ -20,6 +20,7 @@ public class ImageViewCursorEvent extends ImageViewEvent {
 
     public ImageViewCursorEvent(ImageView view) {
         super(view);
+        assert view != null;
         cpos = view.worldCursorPos.get();
     }
 

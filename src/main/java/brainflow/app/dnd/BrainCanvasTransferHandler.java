@@ -4,6 +4,7 @@ import brainflow.app.toplevel.*;
 import brainflow.core.ImageView;
 import brainflow.core.IBrainCanvas;
 import brainflow.core.IImageDisplayModel;
+import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.image.io.IImageDataSource;
@@ -64,22 +65,22 @@ public class BrainCanvasTransferHandler extends ImageDropHandler {
 
             if (view == null) {
                 //todo hack cast
-                IImageDisplayModel model = ProjectManager.getInstance().createDisplayModel((ImageLayer3D)layer, true);
+                ImageViewModel model = ProjectManager.get().createDisplayModel((ImageLayer3D)layer, true);
                 DisplayManager.getInstance().displayView(ImageViewFactory.createAxialView(model));
             } else {
 
                 // todo hack cast
                 ImageLayer3D layeradd = (ImageLayer3D) layer;
-                IImageDisplayModel model = view.getModel();
+                ImageViewModel model = view.getModel();
 
-                if (model.containsLayer(layeradd)) {
-                    //System.out.println("COPYING LAYER");
+                if (model.contains(layeradd)) {
                     layeradd = new ImageLayer3D(layeradd);
-
                 }
 
+                ImageViewModel newModel = model.add(layeradd);
 
-                model.addLayer(layeradd);
+                view.setModel(newModel);
+                //DisplayManager.getInstance().updateViews();
 
 
             }

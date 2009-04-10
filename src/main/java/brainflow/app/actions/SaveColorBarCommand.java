@@ -25,7 +25,7 @@ public class SaveColorBarCommand extends BrainFlowCommand {
 
         if (view != null) {
             int idx = view.getModel().getSelectedIndex();
-            IColorMap cmap = view.getModel().getLayerParameters(idx).getColorMap();
+            IColorMap cmap = view.getModel().get(idx).getImageLayerProperties().getColorMap();
             AbstractColorBar cbar = cmap.createColorBar();
 
             cbar.setOrientation(SwingUtilities.HORIZONTAL);

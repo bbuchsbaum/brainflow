@@ -121,8 +121,8 @@ public class ImageViewportPresenter extends ImageViewPresenter {
         //form.add(ypan, cc.xy(4, 2));
 
         viewPanel = new JPanel();
-        boxView = new SimpleImageView(new ImageDisplayModel("NULL"), Anatomy3D.getCanonicalAxial());
-        boxView.pixelsPerUnit.set(.7);
+        boxView = new SimpleImageView(new ImageViewModel(), Anatomy3D.getCanonicalAxial());
+        //boxView.pixelsPerUnit.set(.7);
         boxView.clearAnnotations();
         boxView.getSelectedPlot().setPlotInsets(new Insets(2, 2, 2, 2));
         boxAnnotation.setVisible(false);
@@ -223,11 +223,11 @@ public class ImageViewportPresenter extends ImageViewPresenter {
 
     private void updateView(ImageView view) {
 
-        BeanContainer.get().addListener(view.plotSelection, new PropertyListener() {
-            public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                plotSelector.repaint();
-            }
-        });
+        //BeanContainer.get().addListener(view.plotSelection, new PropertyListener() {
+        //    public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
+        //        plotSelector.repaint();
+        //    }
+        //});
 
         viewPanel.remove(boxView);
 
@@ -237,7 +237,7 @@ public class ImageViewportPresenter extends ImageViewPresenter {
 
         //if (boxView == null) {
             boxView = new SimpleImageView(view.getModel(), Anatomy3D.getCanonicalAxial());
-            boxView.identifier.set("Viewport Editor");
+       //     boxView.identifier.set("Viewport Editor");
              boxView.clearAnnotations();
             boxView.getSelectedPlot().setPlotInsets(new Insets(2, 2, 2, 2));
             boxAnnotation.setVisible(true);
@@ -281,6 +281,11 @@ public class ImageViewportPresenter extends ImageViewPresenter {
         setEnabled(true);
         form.revalidate();
 
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
     }
 
     private void intializeAdapters() {
@@ -340,8 +345,8 @@ public class ImageViewportPresenter extends ImageViewPresenter {
         ImageView view = getSelectedView();
 
 
-        SwingBind.get().bindContent(view.plotList, plotSelector);
-        SwingBind.get().bindIndex(view.plotSelection, plotSelector);
+        //SwingBind.get().bindContent(view.getPlots(), plotSelector);
+        //SwingBind.get().bindIndex(view.plotSelection, plotSelector);
 
         connectBox(view.getViewport(), view.getSelectedPlot());
 

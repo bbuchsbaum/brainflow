@@ -80,13 +80,13 @@ public class HistogramPresenter extends ImageViewPresenter {
 
 
         if (histo == null ) {
-
             int nbins = Math.min(getSelectedLayer().getImageLayerProperties().colorMap.get().getMapSize(), 30);
             histo = new Histogram(data, nbins);
             histo.ignoreRange(new Range(0, 0));
             cache.put(data, histo);
 
-        } 
+        }
+
         control.setHistogram(histo);
         control.setOverlayRange(getSelectedView().getSelectedLayer().getImageLayerProperties().thresholdRange.get().getInnerRange());
         control.setColorMap(getSelectedLayer().getImageLayerProperties().colorMap.get());
@@ -102,6 +102,11 @@ public class HistogramPresenter extends ImageViewPresenter {
         updateHistogram();
         BeanContainer.get().addListener(view.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
         BeanContainer.get().addListener(view.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
     }
 
     protected void layerDeselected(ImageLayer layer) {

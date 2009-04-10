@@ -45,10 +45,10 @@ public abstract class AbstractLayer {
 
     public abstract SliceRenderer getSliceRenderer(IImageSpace refspace, AnatomicalPoint3D slice, Anatomy3D displayAnatomy);
 
-
-    public boolean isVisible() {
-        return properties.isVisible();
-    }
+    //todo deprecate
+    //public boolean isVisible() {
+    //    return properties.isVisible();
+    //}
 
     public double getOpacity() {
         return properties.opacity.get();

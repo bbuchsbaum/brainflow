@@ -3,6 +3,7 @@ package brainflow.app.presentation;
 import brainflow.core.ImageView;
 import brainflow.core.IImageDisplayModel;
 import brainflow.core.IClipRange;
+import brainflow.core.ImageViewModel;
 import brainflow.core.mask.*;
 import brainflow.core.layer.*;
 import brainflow.utils.IRange;
@@ -221,6 +222,11 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
 
     }
 
+    @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
+    }
+
     class ThresholdListener extends ImageLayerListenerImpl {
         public void thresholdChanged(ImageLayerEvent event) {
             updateThresholdString();
@@ -262,16 +268,16 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
         return container;
     }
 
-    private BinaryExpressionParser createParser(final IImageDisplayModel model) {
+    private BinaryExpressionParser createParser(final ImageViewModel model) {
         BinaryExpressionParser parser = new BinaryExpressionParser(new Context<IImageData>() {
             public IImageData getValue(String symbol) {
                 int index = mapIndex(symbol);
 
-                if (index < 0 || (index > model.getNumLayers() - 1)) {
+                if (index < 0 || (index > model.size() - 1)) {
                     throw new IllegalArgumentException("illegal layer index " + index);
                 }
 
-                return model.getLayer(index).getData();
+                return model.get(index).getData();
 
             }
 
@@ -295,7 +301,7 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
 
 
     public void parseExpression() {
-        final IImageDisplayModel model = getSelectedView().getModel();
+        final ImageViewModel model = getSelectedView().getModel();
         BinaryExpressionParser parser = createParser(model);
 
         lastExpression = expressionArea.getText().trim();

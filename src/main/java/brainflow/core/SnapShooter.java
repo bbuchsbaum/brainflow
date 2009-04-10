@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class SnapShooter {
 
-    private IImageDisplayModel dset;
+    private ImageViewModel dset;
 
     private IImagePlot emulator;
 
@@ -37,7 +37,7 @@ public class SnapShooter {
     private int height;
 
 
-    public SnapShooter(IImageDisplayModel _dset, Anatomy3D _displayAnatomy) {
+    public SnapShooter(ImageViewModel _dset, Anatomy3D _displayAnatomy) {
         dset = _dset;
         setDisplayAnatomy(_displayAnatomy);
 

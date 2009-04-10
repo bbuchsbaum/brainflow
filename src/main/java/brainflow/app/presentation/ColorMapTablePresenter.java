@@ -4,6 +4,7 @@ import brainflow.colormap.*;
 import brainflow.core.IImageDisplayModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.utils.ResourceLoader;
 import com.jidesoft.dialog.ButtonPanel;
 import com.jidesoft.grid.TableUtils;
@@ -55,7 +56,7 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
 
                 colorTable.getComponent().getSelectionModel().clearSelection();
 
-                IImageDisplayModel model = getSelectedView().getModel();
+                ImageViewModel model = getSelectedView().getModel();
                 model.getSelectedLayer().getImageLayerProperties().colorMap.set(cmap);
 
 
@@ -142,6 +143,11 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
         IColorMap cmap = getSelectedView().getModel().getSelectedLayer().getImageLayerProperties().getColorMap();
         setColorMap(cmap);
 
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+        viewSelected(view);
     }
 
     public void setColorMap(IColorMap cmap) {

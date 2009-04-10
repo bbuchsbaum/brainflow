@@ -2,6 +2,7 @@ package brainflow.core.rendering;
 
 import brainflow.core.*;
 import brainflow.core.layer.AbstractLayer;
+import brainflow.core.layer.ImageLayer3D;
 
 import org.apache.commons.pipeline.StageException;
 
@@ -36,9 +37,10 @@ public class GatherRenderersStage extends ImageProcessingStage {
 
         rendererList = new ArrayList<SliceRenderer>();
         
-        IImageDisplayModel model = (IImageDisplayModel)o;
-        for (int i=0; i<model.getNumLayers(); i++) {
-            AbstractLayer layer = model.getLayer(i);
+        ImageViewModel model = (ImageViewModel)o;
+        Iterator<ImageLayer3D> iter = model.iterator();
+        while(iter.hasNext()) {
+            AbstractLayer layer = iter.next();
 
             SliceRenderer renderer = layer.getSliceRenderer(model.getImageSpace(), getSlice(), getDisplayAnatomy());
             

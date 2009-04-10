@@ -17,9 +17,9 @@ public class CoordinateControls {
 
     private CollapsiblePanes cpanes;
 
-    private WorldCoordinatePresenter2 worldCoordinatePresenter;
+    private WorldCoordinatePresenter worldCoordinatePresenter;
 
-    private IndexCoordinatePresenter2 indexCoordinatePresenter;
+    private IndexCoordinatePresenter indexCoordinatePresenter;
 
     //private ImageViewportPresenter imageViewportPresenter;
 
@@ -37,8 +37,8 @@ public class CoordinateControls {
         cpanes = new CollapsiblePanes();
 
         linkedViewsPresenter = new LinkedViewsPresenter();
-        worldCoordinatePresenter = new WorldCoordinatePresenter2();
-        indexCoordinatePresenter = new IndexCoordinatePresenter2();
+        worldCoordinatePresenter = new WorldCoordinatePresenter();
+        indexCoordinatePresenter = new IndexCoordinatePresenter();
         //imageViewportPresenter = new ImageViewportPresenter();
         //imageExtentPresenter = new ImageExtentPresenter(activeView.getViewport());
 

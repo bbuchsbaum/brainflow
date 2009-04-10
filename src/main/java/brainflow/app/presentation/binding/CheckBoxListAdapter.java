@@ -11,6 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.jidesoft.swing.CheckBoxList;
 
@@ -87,11 +88,13 @@ public class CheckBoxListAdapter extends SwingAdapter<List<Integer>, CheckBoxLis
     }
 
     protected void updateUI(List<Integer> newValue) {
+        System.out.println("updateUI " + Arrays.toString(newValue.toArray()));
         getComponent().setCheckBoxListSelectedIndices((int[]) Utils.asArray((IndexedProperty<Integer>) getProperty(), Integer.TYPE));
 
     }
 
     public void valueChanged(ListSelectionEvent e) {
+        System.out.println("list selection event! " + e);
         callWhenUIChanged((List<Integer>) Utils.addToCollection(getComponent().getCheckBoxListSelectedIndices(),
                 new ArrayList<Integer>()));
 

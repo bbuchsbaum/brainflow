@@ -1,13 +1,22 @@
 package brainflow.app.presentation;
 
 import brainflow.core.*;
+import brainflow.core.layer.*;
 import brainflow.app.presentation.binding.ExtBind;
+import brainflow.app.presentation.binding.WrappedImageViewModel;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.CheckBoxList;
 
 import javax.swing.*;
+
+import net.java.dev.properties.IndexedProperty;
+import net.java.dev.properties.container.ObservableIndexed;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,12 +34,12 @@ public class SelectedLayerPresenter extends ImageViewPresenter {
 
 
     private CheckBoxList layerSelector;
-    //private JList layerSelector;
 
     private JPanel form;
 
     private JScrollPane formPane;
 
+    private WrappedImageViewModel wrappedModel;
 
 
     public SelectedLayerPresenter() {
@@ -62,22 +71,23 @@ public class SelectedLayerPresenter extends ImageViewPresenter {
 
     private void bind() {
 
-        ExtBind.get().bindContent(getSelectedView().getModel().getListModel(), layerSelector);
-        
-        ExtBind.get().bindSelectionIndex(getSelectedView().getModel().getListSelection(), layerSelector);
+        wrappedModel = new WrappedImageViewModel(getSelectedView().getModel());
 
-    
-        ExtBind.get().bindCheckedIndices(getSelectedView().getModel().getVisibleSelection(), layerSelector);
+        ExtBind.get().bindContent(wrappedModel.listModel, layerSelector);
+
+        ExtBind.get().bindSelectionIndex(getSelectedView().getModel().layerSelection, layerSelector);
+
+        ExtBind.get().bindCheckedIndices(wrappedModel.visibleSelection, layerSelector);
 
     }
 
     public void viewDeselected(ImageView view) {
         ExtBind.get().unbind(layerSelector);
-        
+
 
     }
 
-   
+
     public void allViewsDeselected() {
         layerSelector.setEnabled(false);
 
@@ -90,6 +100,11 @@ public class SelectedLayerPresenter extends ImageViewPresenter {
 
     }
 
+    @Override
+    public void viewModelChanged(ImageView view) {
+        ExtBind.get().unbind(layerSelector);
+        viewSelected(view);
+    }
 
 
     public JComponent getComponent() {

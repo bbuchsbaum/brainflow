@@ -31,7 +31,7 @@ public class BrainCanvasModel {
 
     public final Property<Integer> listSelection = new ObservableProperty<Integer>(-1) {
         public void set(Integer integer) {
-            if (integer.intValue() >= imageViewList.size()) {
+            if (integer >= imageViewList.size()) {
                 throw new IllegalArgumentException("selection index exceeds size of list");
             }
             super.set(integer);
@@ -68,7 +68,7 @@ public class BrainCanvasModel {
     }
 
     public ImageView getSelectedView() {
-        if (listSelection.get().intValue() < 0) {
+        if (listSelection.get() < 0) {
             return null;
         }
 

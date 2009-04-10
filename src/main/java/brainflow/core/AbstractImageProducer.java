@@ -17,7 +17,7 @@ import java.awt.*;
 public abstract class AbstractImageProducer implements IImageProducer {
 
 
-    private IImageDisplayModel model;
+    private ImageViewModel model;
 
 
     private AnatomicalPoint3D slice = new AnatomicalPoint3D(Anatomy3D.AXIAL_LAI, 0,0,0);
@@ -28,11 +28,11 @@ public abstract class AbstractImageProducer implements IImageProducer {
     private InterpolationType screenInterpolation = InterpolationType.CUBIC;
 
 
-    public void setModel(IImageDisplayModel model) {
+    public void setModel(ImageViewModel model) {
         this.model = model;
     }
 
-    public IImageDisplayModel getModel() {
+    public ImageViewModel getModel() {
         return model;
     }
 

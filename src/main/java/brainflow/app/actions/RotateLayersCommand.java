@@ -2,6 +2,12 @@ package brainflow.app.actions;
 
 import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
+import brainflow.core.layer.ImageLayer3D;
+import brainflow.core.layer.LayerList;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * BrainFlow Project
@@ -18,9 +24,12 @@ public class RotateLayersCommand extends BrainFlowCommand {
     protected void handleExecute() {
         ImageView view = getSelectedView();
 
-        if (view != null && view.getModel().getNumLayers() > 1) {
-            IImageDisplayModel model = view.getModel();
-            model.rotateLayers();
+        if (view != null && view.getModel().size() > 1) {
+            ImageViewModel model = view.getModel();
+
+            List<ImageLayer3D> list = model.cloneList();
+            Collections.rotate(list, 1);
+            view.setModel(new ImageViewModel(model.getName(), list));
             //model.swapLayers(model.getNumLayers() -1, );
         }
     }

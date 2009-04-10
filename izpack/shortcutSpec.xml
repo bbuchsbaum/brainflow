@@ -1,0 +1,21 @@
+<shortcuts>
+    <skipIfNotSupported/>
+    <programGroup defaultName="BrainFlow" location="startMenu"/>
+    <shortcut
+        name="BrainFlow"
+        target="$INSTALL_PATH\bin\brainflow"
+        commandLine=""
+        workingDirectory="$INSTALL_PATH\bin"
+        description="This starts BrainFlow"
+        iconFile="$INSTALL_PATH\bin\brainflow-logo.ico"
+        iconIndex="0"
+        initialState="noShow"
+        programGroup="yes"
+        desktop="yes"
+        applications="yes"
+        startMenu="yes"
+        startup="no">
+        <!--<createForPack name="MyApplication Binaries"/> -->
+        <!--<createForPack name="MyApplication Batchfiles"/> -->
+    </shortcut>
+</shortcuts>

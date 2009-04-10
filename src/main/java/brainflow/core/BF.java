@@ -2,6 +2,7 @@ package brainflow.core;
 
 import brainflow.image.io.BrainIO;
 import brainflow.core.layer.ImageLayer3D;
+import brainflow.core.layer.LayerList;
 import brainflow.app.BrainFlowException;
 
 import java.net.URL;
@@ -28,22 +29,22 @@ public class BF {
     }
 
 
-    public static IImageDisplayModel createModel(URL ... urls) throws BrainFlowException {
+    public static ImageViewModel createModel(URL ... urls) throws BrainFlowException {
 
         //todo add unique ID so that name is not always "untitled"?
-        IImageDisplayModel model = new ImageDisplayModel("untitled");
+        LayerList<ImageLayer3D> layers = new LayerList<ImageLayer3D>();
 
         for (URL url : urls) {
             if (!BrainIO.isSupportedFile(url.toString())) {
                 throw new IllegalArgumentException("url " + url + " is not a recognized image file.");
             }
 
-            ImageLayer3D layer = new ImageLayer3D(BrainIO.loadVolume(url));
-            model.addLayer(layer);
+            layers.add(new ImageLayer3D(BrainIO.loadVolume(url)));
+
 
         }
 
-        return model;
+        return new ImageViewModel("untitled", layers);
 
     }
 
@@ -72,7 +73,7 @@ public class BF {
         
         for (String fn : filenames) {
             if (!BrainIO.isSupportedFile(fn)) {
-                throw new IllegalArgumentException("file " + fn + " is not a recognized image file.");
+                throw new BrainFlowException("file " + fn + " is not a recognized image file.");
             }
 
             ImageLayer3D layer = new ImageLayer3D(BrainIO.loadVolume(fn));

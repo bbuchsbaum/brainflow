@@ -134,9 +134,9 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                     IImageDataSource limg = node.getUserObject();
                     label.setIcon(brickIcon);
 
-                    if (limg.isLoaded()) {
-
-                    }
+                    //if (limg.isLoaded()) {
+                    //
+                    //}
                     if (limg.isLoaded() && !selected) {
                         label.setForeground(Color.GREEN.darker().darker());
                     }
@@ -273,8 +273,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
     public void addFileRoot(FileObject fobj) {
-        System.out.println("adding file root " + fobj);
-        TreeNode root = (TreeNode) explorer.getJTree().getModel().getRoot();
+       TreeNode root = (TreeNode) explorer.getJTree().getModel().getRoot();
         Enumeration e = root.children();
 
         boolean hasnode = false;

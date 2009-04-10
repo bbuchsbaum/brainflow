@@ -1,6 +1,7 @@
 package brainflow.core.mask;
 
 import brainflow.core.IImageDisplayModel;
+import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.MaskProperty3D;
 import brainflow.core.layer.IMaskProperty;
@@ -21,7 +22,7 @@ import org.codehaus.jparsec.error.ParserException;
 public class BinaryExpressionEvaluator {
 
     //todo throw proper exception
-    public static IMaskedData3D eval(String expression, IImageDisplayModel model) {
+    public static IMaskedData3D eval(String expression, ImageViewModel model) {
         BinaryExpressionParser parser = createParser(model);
 
         INode node = parser.createParser().parse(expression);
@@ -39,16 +40,16 @@ public class BinaryExpressionEvaluator {
     }
 
 
-     private static BinaryExpressionParser createParser(final IImageDisplayModel model) {
+     private static BinaryExpressionParser createParser(final ImageViewModel model) {
         BinaryExpressionParser parser = new BinaryExpressionParser(new Context<IImageData>() {
             public IImageData getValue(String symbol) {
                 int index = mapIndex(symbol);
 
-                if (index < 0 || (index > model.getNumLayers() - 1)) {
+                if (index < 0 || (index > model.size() - 1)) {
                     throw new IllegalArgumentException("illegal layer index " + index);
                 }
 
-                return model.getLayer(index).getData();
+                return model.get(index).getData();
 
             }
 

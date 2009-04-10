@@ -2,8 +2,10 @@ package brainflow.app;
 
 import brainflow.app.toplevel.BrainFlowProjectEvent;
 import brainflow.app.toplevel.BrainFlowProjectListener;
-import brainflow.core.IImageDisplayModel;
+
 import brainflow.core.ImageDisplayModelListener;
+import brainflow.core.ImageViewModel;
+import brainflow.core.IImageDisplayModel;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.io.IImageDataSource;
 
@@ -21,7 +23,7 @@ public class BrainFlowProject {
 
     private static final Logger log = Logger.getLogger(BrainFlowProject.class.getName());
 
-    private List<IImageDisplayModel> modelList = new ArrayList<IImageDisplayModel>();
+    private List<ImageViewModel> modelList = new ArrayList<ImageViewModel>();
 
     private Set<IImageDataSource> dataSources = new LinkedHashSet<IImageDataSource>();
 
@@ -39,10 +41,10 @@ public class BrainFlowProject {
         dataSources.remove(dataSource);
     }
 
-    public void addModel(IImageDisplayModel model) {
+    public void addModel(ImageViewModel model) {
         if (!modelList.contains(model)) {
             modelList.add(model);
-            model.addImageDisplayModelListener(listener);
+            //model.addImageDisplayModelListener(listener);
             addSources(model);
             fireModelAdded(new BrainFlowProjectEvent(this, model, null));
 
@@ -51,31 +53,31 @@ public class BrainFlowProject {
         }
     }
 
-    private void addSources(IImageDisplayModel model) {
+    private void addSources(ImageViewModel model) {
         synchronized (model) {
-            int nlayers = model.getNumLayers();
+            int nlayers = model.size();
 
             for (int i = 0; i < nlayers; i++) {
-                dataSources.add(model.getLayer(i).getDataSource());
+                dataSources.add(model.get(i).getDataSource());
             }
         }
     }
 
-    public void removeSources(IImageDisplayModel model) {
+    public void removeSources(ImageViewModel model) {
         synchronized (model) {
-            int nlayers = model.getNumLayers();
+            int nlayers = model.size();
 
             for (int i = 0; i < nlayers; i++) {
-                dataSources.remove(model.getLayer(i).getDataSource());
+                dataSources.remove(model.get(i).getDataSource());
             }
         }
 
     }
 
-    public void removeModel(IImageDisplayModel model) {
+    public void removeModel(ImageViewModel model) {
         if (modelList.contains(model)) {
             modelList.remove(model);
-            if (model.getNumLayers() > 0)
+            if (model.size() > 0)
                 removeSources(model);
 
             fireModelRemoved(new BrainFlowProjectEvent(this, model, null));
@@ -85,16 +87,16 @@ public class BrainFlowProject {
         }
     }
 
-    public IImageDisplayModel getModel(int index) {
+    public ImageViewModel getModel(int index) {
         return modelList.get(index);
     }
 
 
-    public Iterator<IImageDisplayModel> iterator() {
+    public Iterator<ImageViewModel> iterator() {
         return modelList.iterator();
     }
 
-    public List<IImageDisplayModel> getModelList() {
+    public List<ImageViewModel> getModelList() {
         return Collections.unmodifiableList(modelList);
     }
 
@@ -161,7 +163,7 @@ public class BrainFlowProject {
 
     private void fireIntervalAdded(ListDataEvent e) {
         for (BrainFlowProjectListener l : listenerList) {
-            l.intervalAdded(new BrainFlowProjectEvent(this, (IImageDisplayModel) e.getSource(), e));
+            l.intervalAdded(new BrainFlowProjectEvent(this, (ImageViewModel) e.getSource(), e));
 
         }
 
@@ -169,7 +171,7 @@ public class BrainFlowProject {
 
     private void fireContentsChanged(ListDataEvent e) {
         for (BrainFlowProjectListener l : listenerList) {
-            l.contentsChanged(new BrainFlowProjectEvent(this, (IImageDisplayModel) e.getSource(), e));
+            l.contentsChanged(new BrainFlowProjectEvent(this, (ImageViewModel) e.getSource(), e));
 
 
         }
@@ -178,7 +180,7 @@ public class BrainFlowProject {
 
     private void fireIntervalRemoved(ListDataEvent e) {
         for (BrainFlowProjectListener l : listenerList) {
-            l.intervalRemoved(new BrainFlowProjectEvent(this, (IImageDisplayModel) e.getSource(), e));
+            l.intervalRemoved(new BrainFlowProjectEvent(this, (ImageViewModel) e.getSource(), e));
 
         }
 

@@ -39,9 +39,8 @@ public interface IImagePlot {
 
     public Anatomy3D getDisplayAnatomy();
 
-    //public void setDisplayAnatomy(Anatomy3D anatomy);
-
-    public IImageDisplayModel getModel();
+    
+    public ImageViewModel getModel();
 
 
     public void setViewBounds(ViewBounds vbounds);

@@ -1,6 +1,7 @@
 package brainflow.core;
 
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.core.annotations.IAnnotation;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.CommandContainer;
 import com.pietschy.command.group.GroupBuilder;
@@ -10,6 +11,7 @@ import com.pietschy.command.toggle.ToggleGroup;
 
 import javax.swing.*;
 import java.util.logging.Logger;
+import java.util.HashMap;
 import java.awt.*;
 
 /**
@@ -71,13 +73,13 @@ public class OrthoImageView extends ImageView {
     private ToggleCommand switchSagittal = new SwitchSagittal();
 
 
-    public OrthoImageView(IImageDisplayModel imodel, OrthoPlotLayout.ORIENTATION orientation) {
+    public OrthoImageView(ImageViewModel imodel, OrthoPlotLayout.ORIENTATION orientation) {
         super(imodel);    //To change body of overridden methods use File | Settings | File Templates.
         this.orientation = orientation;
         init();
     }
 
-    public OrthoImageView(IImageDisplayModel imodel, Anatomy3D leadAnatomy, OrthoPlotLayout.ORIENTATION orientation) {
+    public OrthoImageView(ImageViewModel imodel, Anatomy3D leadAnatomy, OrthoPlotLayout.ORIENTATION orientation) {
         super(imodel);    //To change body of overridden methods use File | Settings | File Templates.
         this.leadAnatomy = leadAnatomy;
         this.orientation = orientation;
@@ -100,7 +102,7 @@ public class OrthoImageView extends ImageView {
 
     protected void layoutPlots() {
         plotLayout = createPlotLayout(leadAnatomy);
-        resetPlotLayout(plotLayout);
+        resetPlotLayout(plotLayout, new HashMap<String, IAnnotation>());
 
     }
 

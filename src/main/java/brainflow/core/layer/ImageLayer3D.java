@@ -15,6 +15,7 @@ import brainflow.image.interpolation.NearestNeighborInterpolator;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.java.dev.properties.Property;
 import net.java.dev.properties.container.ObservableProperty;
@@ -68,14 +69,12 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
     }
 
 
-
     public IImageData3D getData() {
         return (IImageData3D) super.getData();
     }
 
     public double getValue(AnatomicalPoint3D pt) {
         IImageSpace space = getCoordinateSpace();
-
         AnatomicalPoint3D apt = pt.convertTo((ICoordinateSpace3D) space);
 
         return getData().worldValue((float) apt.getX(), (float) apt.getY(), (float) apt.getZ(), new NearestNeighborInterpolator());
@@ -91,7 +90,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
         maskProperty.set(mask);
     }
 
-    private Map<Anatomy3D, BasicImageSliceRenderer> rendererMap = new HashMap<Anatomy3D, BasicImageSliceRenderer>();
+    private Map<Anatomy3D, BasicImageSliceRenderer> rendererMap = new ConcurrentHashMap<Anatomy3D, BasicImageSliceRenderer>();
 
 
     private SliceRenderer getSliceRenderer(IImageSpace3D refspace, AnatomicalPoint3D slice, Anatomy3D displayAnatomy) {

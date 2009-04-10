@@ -53,8 +53,9 @@ public class ExtBind extends SwingBind {
 
     public void bindSelectionIndex(BaseProperty<Integer> property, CheckBoxList cmp) {
         new ListIndexAdapterX().bind(property, cmp);
-
     }
+
+    
 
     public static void unbindComponent(JComponent c) {
 

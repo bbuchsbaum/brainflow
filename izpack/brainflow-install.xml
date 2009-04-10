@@ -20,22 +20,31 @@
             <author name="Brad Buchsbaum" email="bbuchsbaum at rotman dot baycrest dot on dot ca"/>
 
         </authors>
-
+        <javaversion>1.6</javaversion>
+        
         <url>http://code.google.com/p/brainflow/</url>
 
     </info>
 
+    <resources>
+        <res id="LicencePanel.licence" src="legal/License.txt"/>
+        <res src="shortcutSpec.xml" id="shortcutSpec.xml"/>
+    </resources>
+
+    <native type="izpack" name="ShellLink.dll"/>
+
     <panels>
         <panel classname="HelloPanel"/>
-        <panel classname="InfoPanel"/>
+        <!-- <panel classname="InfoPanel"/> -->
         <panel classname="LicencePanel"/>
         <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
         <panel classname="InstallPanel"/>
+        <panel classname="ShortcutPanel"/>
         <panel classname="FinishPanel"/>
     </panels>
 
-    <guiprefs width="640" height="480" resizable="no"/>
+    <guiprefs width="680" height="500" resizable="no"/>
 
 
     <packs>
@@ -43,11 +52,26 @@
         <pack name="Docs" required="no">
             <description>The documentation</description>
             <file src="doc" targetdir="$INSTALL_PATH"/>
-            <!-- Reccursive adding -->
+            <!-- Recursive adding -->
         </pack>
         <pack name="Sources" required="no">
             <description>The sources</description>
             <file src="src" targetdir="$INSTALL_PATH"/>
+        </pack>
+        <pack name="Lib" required="yes">
+            <description>application binary and startup scripts</description>
+            <fileset dir="../build/runtimeLibs" targetdir="$INSTALL_PATH/lib">
+                     <include name="*.jar"/>
+            </fileset>
+         
+        </pack>
+        
+        <pack name="Bin" required="yes">
+            <description>application binary and startup scripts</description>
+            <file src="brainflow.bat" targetdir="$INSTALL_PATH/bin"/>
+            <file src="../build/brainflow-lean-0.1.jar" targetdir="$INSTALL_PATH/bin"/>
+            <file src="brainflow-logo.ico" targetdir="$INSTALL_PATH/bin"/> 
+
         </pack>
 
     </packs>

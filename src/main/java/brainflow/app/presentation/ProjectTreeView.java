@@ -3,15 +3,10 @@ package brainflow.app.presentation;
 import brainflow.app.BrainFlowProject;
 import brainflow.app.dnd.DnDUtils;
 import brainflow.app.dnd.ImageDropHandler;
-import brainflow.app.toplevel.BrainFlowProjectEvent;
-import brainflow.app.toplevel.BrainFlowProjectListener;
-import brainflow.app.toplevel.BrainFlow;
+import brainflow.app.toplevel.*;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.IBrainCanvas;
-import brainflow.core.ImageView;
-import brainflow.core.IImageDisplayModel;
-import brainflow.core.ImageDisplayModelListener;
+import brainflow.core.*;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.io.IImageDataSource;
 
@@ -61,8 +56,8 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
                 TreePath path = e.getPath();
 
                 Object sel = path.getLastPathComponent();
-                if (sel instanceof ImageDisplayModelNode) {
-                    ImageDisplayModelNode node = (ImageDisplayModelNode) sel;
+                if (sel instanceof ImageViewModelNode) {
+                    ImageViewModelNode node = (ImageViewModelNode) sel;
                     IBrainCanvas canvas = BrainFlow.get().getSelectedCanvas();
                     if (canvas.getSelectedView().getModel() != node.getModel()) {
                         List<ImageView> views = canvas.getViews();
@@ -95,24 +90,57 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
 
             private void importDataSource(IImageDataSource dsource, TransferSupport support) {
-                Component c = support.getComponent();
 
+                if (!dsource.isLoaded()) {
+                    BrainFlow.get().load(dsource);
+                }
+
+                Point p = support.getDropLocation().getDropPoint();
+                TreePath path = tree.getClosestPathForLocation(p.x, p.y);
+
+                ImageViewModel model = findParentModel(path);
+
+
+                if (model != null) {
+                    List<ImageLayer3D> list = model.cloneList();
+                    ImageLayer sel = getSelectedLayerNode(path);
+
+                    if (sel != null) {
+                        //todo hack cast
+                        int i = model.indexOf((ImageLayer3D)sel);
+
+                        if (i >= 0) {
+                            list.add(i, ImageLayerFactory.createImageLayer(dsource));
+                        } else {
+                            //todo is this necessary?
+                            list.add(ImageLayerFactory.createImageLayer(dsource));
+                        }
+                    } else {
+                        list.add(ImageLayerFactory.createImageLayer(dsource));
+                    }
+
+                    DisplayManager.getInstance().updateViews(model, new ImageViewModel(model.getName(), list));
+                }
+
+                
+                project.addDataSource(dsource);
 
             }
 
 
 
-            private void importImageLayer(ImageLayer layer, TransferSupport support) {
+            private void importImageLayer(ImageLayer3D layer, TransferSupport support) {
                 Component c = support.getComponent();
 
                 if (c == tree) {
                     Point p = support.getDropLocation().getDropPoint();
                     TreePath path = tree.getClosestPathForLocation(p.x, p.y);
-                    IImageDisplayModel model = findParentModel(path);
+                    ImageViewModel model = findParentModel(path);
 
-                    if (model == null) return;
-                    if (!model.containsLayer((ImageLayer3D)layer)) {
-                        model.addLayer(new ImageLayer3D((ImageLayer3D) layer));
+                    if (model != null && !model.contains(layer)) {
+                        List<ImageLayer3D> list = model.cloneList();
+                        list.add(new ImageLayer3D(layer));
+                        DisplayManager.getInstance().updateViews(model, new ImageViewModel(model.getName(), list));
                     } else {
                         //todo drop layer in correct location rather than just adding it to end ....
                     }
@@ -124,8 +152,8 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
             public void dispatchOnObject(Object obj, TransferSupport support) {
                 if (obj instanceof IImageDataSource) {
                     importDataSource((IImageDataSource) obj, support);
-                } else if (obj instanceof ImageLayer) {
-                    importImageLayer((ImageLayer) obj, support);
+                } else if (obj instanceof ImageLayer3D) {
+                    importImageLayer((ImageLayer3D) obj, support);
                 }
             }
 
@@ -168,20 +196,20 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
         tree.setTransferHandler(handler);
     }
 
-    private IImageDisplayModel findParentModel(Point p) {
+    private ImageViewModel findParentModel(Point p) {
         TreePath path = tree.getClosestPathForLocation(p.x, p.y);
         return findParentModel(path);
     }
 
-    private IImageDisplayModel findParentModel(TreePath path) {
+    private ImageViewModel findParentModel(TreePath path) {
         Object[] obj = path.getPath();
 
         if (obj.length == 0) return null;
 
         for (int i=obj.length-1; i>=0; i--) {
             Object node = obj[i];
-            if (node instanceof ImageDisplayModelNode) {
-                return ((ImageDisplayModelNode)node).getModel();
+            if (node instanceof ImageViewModelNode) {
+                return ((ImageViewModelNode)node).getModel();
             }
         }
 
@@ -190,10 +218,30 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
     }
 
 
+    private ImageLayer getSelectedLayerNode(TreePath path) {
+        Object[] obj = path.getPath();
+
+        if (obj.length == 0) return null;
+
+        Object node= obj[obj.length-1];
+        if (node instanceof ImageLayerNode) {
+            return ((ImageLayerNode)node).getUserObject();
+        } else {
+            return null;
+        }
+    }
+
+
+
     public void viewSelected(ImageView view) {
         //TreePath path = new TreePath(view.getModel());
         //tree.setS
 
+    }
+
+    @Override
+    public void viewModelChanged(ImageView view) {
+        
     }
 
     public void allViewsDeselected() {
@@ -262,15 +310,15 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
             project.addListDataListener(this);
 
-            Iterator<IImageDisplayModel> iter = project.iterator();
+            Iterator<ImageViewModel> iter = project.iterator();
 
             while (iter.hasNext()) {
-                add(new ImageDisplayModelNode(iter.next()));
+                add(new ImageViewModelNode(iter.next()));
             }
         }
 
         public void modelAdded(BrainFlowProjectEvent event) {
-            add(new ImageDisplayModelNode(event.getModel()));
+            add(new ImageViewModelNode(event.getModel()));
             treeModel.nodesWereInserted(this, new int[]{getChildCount() - 1});
 
         }
@@ -318,32 +366,32 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
         }
     }
 
-    class ImageDisplayModelNode extends DefaultMutableTreeNode {
+    class ImageViewModelNode extends DefaultMutableTreeNode {
 
-        private IImageDisplayModel model;
+        private ImageViewModel model;
 
         private ImageModelListener listener = new ImageModelListener(this);
 
-        public ImageDisplayModelNode(IImageDisplayModel _model) {
+        public ImageViewModelNode(ImageViewModel _model) {
             super(_model);
             model = _model;
 
-            model.addImageDisplayModelListener(listener);
+            //model.addImageDisplayModelListener(listener);
 
-            for (int i = 0; i < model.getNumLayers(); i++) {
-                ImageLayer layer = model.getLayer(i);
+            for (int i = 0; i < model.size(); i++) {
+                ImageLayer layer = model.get(i);
                 add(new ImageLayerNode(layer));
-                treeModel.nodesWereInserted(ImageDisplayModelNode.this, new int[]{ImageDisplayModelNode.this.getChildCount() - 1});
+                treeModel.nodesWereInserted(ImageViewModelNode.this, new int[]{ImageViewModelNode.this.getChildCount() - 1});
 
 
             }
         }
 
-        public IImageDisplayModel getUserObject() {
+        public ImageViewModel getUserObject() {
             return model;
         }
 
-        public IImageDisplayModel getModel() {
+        public ImageViewModel getModel() {
             return model;
         }
 
@@ -357,15 +405,15 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
     class ImageModelListener implements ImageDisplayModelListener {
 
-        private ImageDisplayModelNode node;
+        private ImageViewModelNode node;
 
-        ImageModelListener(ImageDisplayModelNode node) {
+        ImageModelListener(ImageViewModelNode node) {
             this.node = node;
         }
 
         public void intervalAdded(ListDataEvent e) {
             int idx = e.getIndex0();
-            ImageLayer layer = node.getModel().getLayer(idx);
+            ImageLayer layer = node.getModel().get(idx);
             node.add(new ImageLayerNode(layer));
             treeModel.nodesWereInserted(node, new int[]{node.getChildCount() - 1});
         }
