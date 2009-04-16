@@ -2,7 +2,7 @@ package brainflow.app.presentation.controls;
 
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.LinearColorBar;
-import brainflow.colormap.LinearColorMapDeprecated;
+import brainflow.colormap.LinearColorMap2;
 import brainflow.gui.ColorIcon;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
  */
 public class PanelBuilderTest {
 
-    private LinearColorMapDeprecated cmap = new LinearColorMapDeprecated(0, 255, ColorTable.SPECTRUM);
+    private LinearColorMap2 cmap = new LinearColorMap2(0, 255, ColorTable.SPECTRUM);
 
 
     public PanelBuilderTest() {
@@ -35,7 +35,7 @@ public class PanelBuilderTest {
         frame.setTitle("Forms Tutorial :: Custom Rows");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        LinearColorBar cbar = new LinearColorBar(new LinearColorMapDeprecated(0, 255, ColorTable.SPECTRUM), SwingConstants.VERTICAL);
+        LinearColorBar cbar = new LinearColorBar(new LinearColorMap2(0, 255, ColorTable.SPECTRUM), SwingConstants.VERTICAL);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -108,7 +108,7 @@ public class PanelBuilderTest {
         builder.nextLine();
 
         double val = cmap.getInterval(index).getMaximum();
-        double perc = (val - cmap.getMinimumValue()) / cmap.getRange().getInterval();
+        double perc = (val - cmap.getMinimumValue()) / cmap.getClipRange();
         JSlider slider = new JSlider(0, 1000, (int) (perc * 10.0));
         builder.append(slider, 9);
 

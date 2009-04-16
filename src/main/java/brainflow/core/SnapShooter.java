@@ -3,8 +3,8 @@ package brainflow.core;
 import brainflow.image.io.IImageDataSource;
 import brainflow.app.MemoryImageDataSource;
 import brainflow.colormap.ColorTable;
-import brainflow.colormap.LinearColorMapDeprecated;
 import brainflow.colormap.DiscreteColorMap;
+import brainflow.colormap.LinearColorMap2;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.io.BrainIO;
@@ -137,7 +137,7 @@ public class SnapShooter {
             IImageDataSource il6 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/bAge.Norm"));
 
 
-            LinearColorMapDeprecated lmap = new LinearColorMapDeprecated(0, 221, ColorTable.GRAYSCALE);
+            LinearColorMap2 lmap = new LinearColorMap2(0, 221, ColorTable.GRAYSCALE);
             DiscreteColorMap ragged = new DiscreteColorMap(lmap);
 
 

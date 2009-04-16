@@ -1,7 +1,6 @@
 package brainflow.app.presentation;
 
 import brainflow.colormap.*;
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
@@ -39,7 +38,7 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
 
 
     public ColorMapTablePresenter() {
-        colorTable = new ColorMapTable(new LinearColorMapDeprecated(0, 255, ColorTable.SPECTRUM));
+        colorTable = new ColorMapTable(new LinearColorMap2(0, 255, ColorTable.SPECTRUM));
         JScrollPane scrollPane = new JScrollPane(colorTable.getComponent());
 
 

@@ -52,7 +52,7 @@ public class ColorTable {
         return table;
     }
 
-    public static byte[][] extractTable(LinearColorMapDeprecated lcm) {
+    public static byte[][] extractTable(LinearColorMap2 lcm) {
         byte[][] table = new byte[4][lcm.getMapSize()];
 
         for (int i = 0; i < lcm.getMapSize(); i++) {

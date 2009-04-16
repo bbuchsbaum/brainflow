@@ -21,7 +21,7 @@ public class DiscreteColorMap2Test extends JPanel {
     JFormattedTextField value;
 
     public DiscreteColorMap2Test() {
-        LinearColorMapDeprecated cmap = new LinearColorMapDeprecated(0, 255, ColorTable.resampleMap(ColorTable.SPECTRUM, 20));
+        LinearColorMap2 cmap = new LinearColorMap2(0, 255, ColorTable.resampleMap(ColorTable.SPECTRUM, 20));
 
         final DiscreteColorMap tmp = new DiscreteColorMap(cmap);
         add(tmp.createColorBar(), BorderLayout.CENTER);

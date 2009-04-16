@@ -1,14 +1,11 @@
 package brainflow.core;
 
 
-import brainflow.image.space.IImageSpace;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.events.PropertyListener;
 import net.java.dev.properties.BaseProperty;
-
-import javax.swing.event.ListDataEvent;
 
 /**
  * Created by IntelliJ IDEA.

@@ -23,12 +23,15 @@ import java.util.logging.Logger;
 public class ColorIntervalEditor extends JComponent {
 
     private static final int ICON_WIDTH = 25;
+
     private static final int ICON_HEIGHT = 18;
 
     private ImageIcon colorIcon;
 
     private ColorInterval interval;
+
     private JFormattedTextField lowField;
+
     private JFormattedTextField highField;
 
     private boolean isEditable = false;
