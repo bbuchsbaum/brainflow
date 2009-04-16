@@ -364,9 +364,7 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         return support.getSelectedLayer();
     }
 
-    public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
+    
 
     class HistogramWithAxis extends JPanel {
         XAxis axis = new XAxis(0, 255);

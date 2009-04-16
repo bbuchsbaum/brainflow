@@ -1,7 +1,6 @@
 package brainflow.app.presentation;
 
 import brainflow.core.ImageView;
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.IClipRange;
 import brainflow.core.ImageViewModel;
 import brainflow.core.mask.*;

@@ -11,7 +11,6 @@ package brainflow.app.services;
 
 import brainflow.app.BrainFlowProject;
 import brainflow.app.toplevel.BrainFlowProjectEvent;
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageViewModel;
 import org.bushe.swing.event.AbstractEventServiceEvent;
 

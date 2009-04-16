@@ -1,6 +1,5 @@
 package brainflow.app.toplevel;
 
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageViewModel;
 import brainflow.app.BrainFlowProject;
 

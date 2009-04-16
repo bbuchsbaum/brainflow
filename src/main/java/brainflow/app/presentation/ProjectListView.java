@@ -4,7 +4,6 @@ import brainflow.app.BrainFlowProject;
 import brainflow.app.presentation.binding.WrappedImageViewModel;
 import brainflow.core.layer.AbstractLayer;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
 import brainflow.image.axis.CoordinateAxis;
