@@ -2,6 +2,7 @@ package brainflow.app.presentation;
 
 import brainflow.core.ImageView;
 import brainflow.core.ClipRange;
+import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.app.presentation.controls.HistogramControl;
 import brainflow.colormap.LinearColorMap2;
@@ -42,21 +43,20 @@ public class HistogramPresenter extends ImageViewPresenter {
     private final int capacity = 8;
 
 
-
     private LinkedHashMap<IImageData, Histogram> cache = new LinkedHashMap<IImageData, Histogram>() {
         protected boolean removeEldestEntry(Map.Entry<IImageData, Histogram> eldest) {
-             return size() > capacity;
+            return size() > capacity;
         }
     };
 
     public HistogramPresenter() {
         control = new HistogramControl(new LinearColorMap2(0, 100, ColorTable.GRAYSCALE),
                 new Histogram(new BasicImageData3D(Space.createImageSpace(2, 2, 2, 1, 1, 1), DataType.DOUBLE), 10),
-                new Range(0,0));
+                new Range(0, 0));
 
         colorMapListener = new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                IColorMap cmap = (IColorMap)newValue;
+                IColorMap cmap = (IColorMap) newValue;
 
                 control.setColorMap(cmap);
 
@@ -65,7 +65,7 @@ public class HistogramPresenter extends ImageViewPresenter {
 
         thresholdListener = new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                ClipRange cr = (ClipRange)newValue;
+                ClipRange cr = (ClipRange) newValue;
                 control.setOverlayRange(cr.getInnerRange());
 
             }
@@ -79,7 +79,7 @@ public class HistogramPresenter extends ImageViewPresenter {
         Histogram histo = cache.get(data);
 
 
-        if (histo == null ) {
+        if (histo == null) {
             int nbins = Math.min(getSelectedLayer().getImageLayerProperties().colorMap.get().getMapSize(), 30);
             histo = new Histogram(data, nbins);
             histo.ignoreRange(new Range(0, 0));
@@ -104,9 +104,18 @@ public class HistogramPresenter extends ImageViewPresenter {
         BeanContainer.get().addListener(view.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
     }
 
+
     @Override
-    public void viewModelChanged(ImageView view) {
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        if (oldModel.getSelectedLayer() != newModel.getSelectedLayer()) {
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+
+        }
+
         viewSelected(view);
+
+
     }
 
     protected void layerDeselected(ImageLayer layer) {

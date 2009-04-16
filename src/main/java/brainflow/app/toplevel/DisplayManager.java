@@ -66,7 +66,7 @@ public class DisplayManager {
     }
 
 
-    public static DisplayManager getInstance() {
+    public static DisplayManager get() {
         return (DisplayManager) SingletonRegistry.REGISTRY.getInstance("brainflow.app.toplevel.DisplayManager");
     }
 
@@ -122,27 +122,27 @@ public class DisplayManager {
         support.removePropertyChangeListener(listener);
     }
 
-    public IBrainCanvas getSelectedCanvas() {
+    protected IBrainCanvas getSelectedCanvas() {
         return selectedCanvas;
     }
 
-    public List<ImageView> getImageViews(ImageViewModel model) {
+    protected List<ImageView> getImageViews(ImageViewModel model) {
         return selectedCanvas.getViews(model);
     }
 
-    public void removeView(ImageView view) {
+    protected void removeView(ImageView view) {
         for (IBrainCanvas canvas : canvasList) {
             canvas.removeImageView(view);
         }
     }
 
-    public void updateViews(ImageViewModel oldModel, ImageViewModel newModel) {
+    protected void updateViews(ImageViewModel oldModel, ImageViewModel newModel) {
         for (ImageView view : getImageViews(oldModel)) {
             view.setModel(newModel);
         }
     }
 
-    public boolean isShowing(IImageDataSource dsource) {
+    protected boolean isShowing(IImageDataSource dsource) {
         for (IBrainCanvas canvas : canvasList) {
             List<ImageView> views = canvas.getViews();
             for (ImageView v : views) {
@@ -161,7 +161,7 @@ public class DisplayManager {
 
     }
 
-    public void displayView(final ImageView view) {
+    protected void displayView(final ImageView view) {
         view.setTransferHandler(new ImageViewTransferHandler());
 
         BeanContainer.get().addListener(view.viewModel, new PropertyListener() {
@@ -174,7 +174,7 @@ public class DisplayManager {
         getSelectedCanvas().addImageView(view);
     }
 
-    public void replaceLayer(ImageLayer3D oldlayer, ImageLayer3D newlayer, ImageView view) {
+    protected void replaceLayer(ImageLayer3D oldlayer, ImageLayer3D newlayer, ImageView view) {
         int i = view.getModel().indexOf(oldlayer);
 
         if (i < 0) {
@@ -189,7 +189,7 @@ public class DisplayManager {
         view.setModel(new ImageViewModel(view.getName(), list));
     }
 
-    public void setSelectedCanvas(IBrainCanvas canvas) {
+    protected void setSelectedCanvas(IBrainCanvas canvas) {
         if (canvasList.contains(canvas)) {
             IBrainCanvas oldCanvas = this.selectedCanvas;
             selectedCanvas = canvas;
@@ -200,19 +200,17 @@ public class DisplayManager {
     }
 
 
-    public IBrainCanvas[] getImageCanvases() {
-        IBrainCanvas[] canvi = new IBrainCanvas[canvasList.size()];
-        canvasList.toArray(canvi);
-        return canvi;
+    public List<IBrainCanvas> getImageCanvases() {
+        return Collections.unmodifiableList(canvasList);
     }
 
-    public IBrainCanvas newCanvas() {
+    protected IBrainCanvas newCanvas() {
         IBrainCanvas canvas = new BrainCanvas();
         addImageCanvas(canvas);
         return canvas;
     }
 
-    public IBrainCanvas getImageCanvas(int idx) {
+    protected IBrainCanvas getImageCanvas(int idx) {
         if (canvasList.size() > idx && idx >= 0)
             return canvasList.get(idx);
         else {
@@ -220,7 +218,7 @@ public class DisplayManager {
         }
     }
 
-    public void removeImageCanvas(IBrainCanvas canvas) {
+    protected void removeImageCanvas(IBrainCanvas canvas) {
         if (canvasList.contains(canvas)) {
             canvasList.remove(canvas);
 
@@ -282,9 +280,10 @@ public class DisplayManager {
             BeanContainer.get().addListener(view.cursorPos, listener);
         }
 
+
         @Override
-        public void viewModelChanged(ImageView view) {
-            //todo need to update cursor???
+        public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+            
         }
 
         @Override

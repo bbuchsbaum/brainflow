@@ -146,8 +146,8 @@ public class ProjectListView extends ImageViewPresenter {
     }
 
     @Override
-    public void viewModelChanged(ImageView view) {
-        
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void allViewsDeselected() {

@@ -69,11 +69,16 @@ public class MaskPresenter extends ImageViewPresenter {
         SwingBind.get().bind(conv, sliceSlider);
     }
 
+    private void unbind() {
+        SwingBind.get().unbind(sliceSlider);
+
+    }
+
     @Override
     public void viewDeselected(ImageView view) {
         BeanContainer.get().removeListener(view.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
         BeanContainer.get().removeListener((view.getSelectedLayer()).maskProperty, thresholdListener);
-
+        unbind();
 
     }
 
@@ -87,7 +92,7 @@ public class MaskPresenter extends ImageViewPresenter {
 
             @Override
             protected void done() {
-                BeanContainer.get().addListener(getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+                BeanContainer.get().addListener(view.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
                 BeanContainer.get().addListener(view.getSelectedLayer().maskProperty, thresholdListener);
                 bind();
             }
@@ -97,9 +102,16 @@ public class MaskPresenter extends ImageViewPresenter {
 
     }
 
+
     @Override
-    public void viewModelChanged(ImageView view) {
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        if (!(oldModel.getSelectedLayer() == newModel.getSelectedLayer())) {
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().maskProperty, thresholdListener);
+        }
+
         viewSelected(view);
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
@@ -108,14 +120,13 @@ public class MaskPresenter extends ImageViewPresenter {
         ImageViewModel model = createMaskModel();
         maskView.setModel(model);
         BeanContainer.get().addListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
-
         BeanContainer.get().addListener((layer).maskProperty, thresholdListener);
     }
 
     @Override
     protected void layerDeselected(ImageLayer3D layer) {
         BeanContainer.get().removeListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
-        BeanContainer.get().removeListener((layer).maskProperty, thresholdListener);
+        BeanContainer.get().removeListener(layer.maskProperty, thresholdListener);
 
     }
 

@@ -27,6 +27,8 @@ public class ImageDataSource extends AbstractImageDataSource {
 
     private IImageData dataRef = null;
 
+    private long lastRead = -1;
+
 
     public ImageDataSource(ImageIODescriptor _descriptor, ImageInfo _info) {
         super(_descriptor, _info);
@@ -55,6 +57,10 @@ public class ImageDataSource extends AbstractImageDataSource {
         return dataRef;
     }
 
+    @Override
+    public long whenRead() {
+        return lastRead;
+    }
 
     public boolean isLoaded() {
         return dataRef != null;
@@ -72,6 +78,7 @@ public class ImageDataSource extends AbstractImageDataSource {
 
             ImageReader ireader = (ImageReader) getDescriptor().getDataReader().newInstance();
             IImageData data = ireader.readImage(imageInfo, new ProgressAdapter());
+            lastRead = System.currentTimeMillis();
 
             //data.setImageLabel(getStem());
             dataRef = data;
@@ -99,6 +106,7 @@ public class ImageDataSource extends AbstractImageDataSource {
             ImageReader ireader = (ImageReader) getDescriptor().getDataReader().newInstance();
 
             IImageData data = ireader.readImage(imageInfo, plistener);
+            lastRead = System.currentTimeMillis();
             //data.setImageLabel(getStem());
             dataRef = data;
         } catch (IllegalAccessException e) {

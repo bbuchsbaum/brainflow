@@ -3,7 +3,6 @@ package brainflow.app.dnd;
 import brainflow.app.toplevel.*;
 import brainflow.core.ImageView;
 import brainflow.core.IBrainCanvas;
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
@@ -66,7 +65,7 @@ public class BrainCanvasTransferHandler extends ImageDropHandler {
             if (view == null) {
                 //todo hack cast
                 ImageViewModel model = ProjectManager.get().createDisplayModel((ImageLayer3D)layer, true);
-                DisplayManager.getInstance().displayView(ImageViewFactory.createAxialView(model));
+                BrainFlow.get().displayView(ImageViewFactory.createAxialView(model));
             } else {
 
                 // todo hack cast
@@ -80,7 +79,7 @@ public class BrainCanvasTransferHandler extends ImageDropHandler {
                 ImageViewModel newModel = model.add(layeradd);
 
                 view.setModel(newModel);
-                //DisplayManager.getInstance().updateViews();
+                //DisplayManager.get().updateViews();
 
 
             }

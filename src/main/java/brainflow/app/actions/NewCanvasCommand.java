@@ -18,7 +18,7 @@ public class NewCanvasCommand extends BrainFlowCommand {
     }
 
     protected void handleExecute() {
-        IBrainCanvas canvas = DisplayManager.getInstance().newCanvas();
+        IBrainCanvas canvas = BrainFlow.get().newCanvas();
         BrainFlow.get().addCanvas(canvas);
     }
 }

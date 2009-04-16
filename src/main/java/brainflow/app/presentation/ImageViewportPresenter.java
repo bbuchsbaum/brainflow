@@ -283,9 +283,12 @@ public class ImageViewportPresenter extends ImageViewPresenter {
 
     }
 
+
+    
+
     @Override
-    public void viewModelChanged(ImageView view) {
-        viewSelected(view);
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     private void intializeAdapters() {

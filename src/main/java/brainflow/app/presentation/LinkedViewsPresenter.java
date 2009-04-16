@@ -1,8 +1,10 @@
 package brainflow.app.presentation;
 
 import brainflow.app.toplevel.DisplayManager;
+import brainflow.app.toplevel.BrainFlow;
 import brainflow.core.ImageView;
 import brainflow.core.IBrainCanvas;
+import brainflow.core.ImageViewModel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.CheckBoxList;
@@ -36,7 +38,7 @@ public class LinkedViewsPresenter extends ImageViewPresenter {
 
     public LinkedViewsPresenter() {
         // temporary
-        canvas = DisplayManager.getInstance().getSelectedCanvas();
+        canvas = BrainFlow.get().getSelectedCanvas();
         // temporary
         buildGUI();
         bind();
@@ -44,11 +46,16 @@ public class LinkedViewsPresenter extends ImageViewPresenter {
 
     }
 
-    public void bind() {
+    private void bind() {
         SwingBind.get().bindContent(canvas.getImageCanvasModel().imageViewList, viewBox);
         SwingBind.get().bindIndex(canvas.getImageCanvasModel().listSelection, viewBox);
 
         //SwingBind.get().bindContent(canvas.getImageCanvasModel().imageViewList, linkedViewList);
+
+    }
+
+    private void unbind() {
+        SwingBind.get().unbind(viewBox);
 
     }
 
@@ -78,7 +85,7 @@ public class LinkedViewsPresenter extends ImageViewPresenter {
 
         Iterator<ImageView> iter = canvas.getImageCanvasModel().imageViewList.iterator();
 
-        Set<ImageView> viewSet = DisplayManager.getInstance().getYokedViews(getSelectedView());
+        Set<ImageView> viewSet = DisplayManager.get().getYokedViews(getSelectedView());
 
         int count = 0;
         while (iter.hasNext()) {
@@ -106,10 +113,10 @@ public class LinkedViewsPresenter extends ImageViewPresenter {
                 for (int i = f1; i <= f2; i++) {
 
                     if (model.isSelectedIndex(i)) {
-                        DisplayManager.getInstance().yoke(view, (ImageView) model.getModel().getElementAt(i));
+                        DisplayManager.get().yoke(view, (ImageView) model.getModel().getElementAt(i));
 
                     } else {
-                        DisplayManager.getInstance().unyoke(view, (ImageView) model.getModel().getElementAt(i));
+                        DisplayManager.get().unyoke(view, (ImageView) model.getModel().getElementAt(i));
 
                     }
                 }
@@ -131,19 +138,20 @@ public class LinkedViewsPresenter extends ImageViewPresenter {
 
     }
 
+
+
     public void viewSelected(ImageView view) {
         updateLinkedViewList();
         bind();
 
     }
 
+
+
     @Override
-    public void viewModelChanged(ImageView view) {
-        updateLinkedViewList();
-        bind();
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+
     }
-
-
 
     public JComponent getComponent() {
         return form;

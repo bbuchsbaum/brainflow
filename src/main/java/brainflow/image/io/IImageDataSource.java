@@ -28,6 +28,8 @@ public interface IImageDataSource {
     
     public boolean isLoaded();
 
+    public long whenRead();
+
     public ImageIODescriptor getDescriptor();
 
     public String getStem();

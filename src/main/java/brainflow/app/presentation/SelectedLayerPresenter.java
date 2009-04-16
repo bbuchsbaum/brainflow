@@ -100,12 +100,12 @@ public class SelectedLayerPresenter extends ImageViewPresenter {
 
     }
 
+   
     @Override
-    public void viewModelChanged(ImageView view) {
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         ExtBind.get().unbind(layerSelector);
         viewSelected(view);
     }
-
 
     public JComponent getComponent() {
         return form;

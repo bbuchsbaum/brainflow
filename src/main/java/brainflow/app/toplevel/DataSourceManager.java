@@ -110,7 +110,7 @@ public class DataSourceManager {
     }
 
     public ImageProgressDialog createProgressDialog(final IImageDataSource dataSource, final ActionListener listener) {
-        final ImageProgressDialog id = new ImageProgressDialog(dataSource, DisplayManager.getInstance().getSelectedCanvas().getComponent()) {
+        final ImageProgressDialog id = new ImageProgressDialog(dataSource, DisplayManager.get().getSelectedCanvas().getComponent()) {
 
             protected void done() {
                 try {

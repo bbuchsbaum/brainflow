@@ -30,6 +30,8 @@ public class SoftImageDataSource extends AbstractImageDataSource {
 
     private SoftReference<IImageData> dataRef = new SoftReference<IImageData>(null);
 
+    private long lastRead = -1;
+
 
     public SoftImageDataSource(ImageIODescriptor _descriptor, ImageInfo _info) {
         super(_descriptor, _info);
@@ -60,7 +62,10 @@ public class SoftImageDataSource extends AbstractImageDataSource {
         return true;
     }
 
-
+    @Override
+    public long whenRead() {
+        return lastRead;
+    }
 
     //duplicate code (with ImageDataSource)
 
@@ -94,15 +99,17 @@ public class SoftImageDataSource extends AbstractImageDataSource {
             ImageReader ireader = (ImageReader) getDescriptor().getDataReader().newInstance();
 
             IImageData data = ireader.readImage(imageInfo, plistener);
+            lastRead = System.currentTimeMillis();
             //data.setImageLabel(getStem());
-            dataRef = new SoftReference(data);
+            dataRef = new SoftReference<IImageData>(data);
+
         } catch (IllegalAccessException e) {
             log.warning("Error caught in DataBufferSupport.load()");
             throw new BrainFlowException(e);
         } catch (InstantiationException e) {
             log.warning("Error caught in DataBufferSupport.load()");
             throw new BrainFlowException(e);
-        }
+        } //todo close reader?
 
         return dataRef.get();
 
@@ -124,8 +131,10 @@ public class SoftImageDataSource extends AbstractImageDataSource {
                     log.info(message);
                 }
             });
+
+            lastRead = System.currentTimeMillis();
             //data.setImageLabel(getStem());
-            dataRef = new SoftReference(data);
+            dataRef = new SoftReference<IImageData>(data);
 
         } catch (IllegalAccessException e) {
             log.warning("Error caught in DataBufferSupport.load()");
@@ -135,7 +144,7 @@ public class SoftImageDataSource extends AbstractImageDataSource {
             throw new BrainFlowException(e);
         }
 
-        return (IImageData) dataRef.get();
+        return dataRef.get();
     }
 
     public int getUniqueID() {

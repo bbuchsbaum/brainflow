@@ -222,8 +222,10 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
 
     }
 
+    
     @Override
-    public void viewModelChanged(ImageView view) {
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        oldModel.removeImageLayerListener(threshListener);
         viewSelected(view);
     }
 

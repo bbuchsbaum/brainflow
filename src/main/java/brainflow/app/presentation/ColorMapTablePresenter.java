@@ -145,9 +145,13 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
 
     }
 
+
+
     @Override
-    public void viewModelChanged(ImageView view) {
-        viewSelected(view);
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        if (oldModel.getSelectedLayer() != newModel.getSelectedLayer()) {
+            viewSelected(view);
+        }
     }
 
     public void setColorMap(IColorMap cmap) {

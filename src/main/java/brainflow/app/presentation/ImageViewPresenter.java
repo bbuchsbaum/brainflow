@@ -30,53 +30,58 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
 
     private static Logger log = Logger.getLogger(ImageViewPresenter.class.getName());
 
+    private EventSubscriber<ImageViewSelectionEvent> e1 = new EventSubscriber<ImageViewSelectionEvent>() {
+
+        public void onEvent(ImageViewSelectionEvent evt) {
+            if (selectedView != null) {
+                viewDeselected(selectedView);
+            }
+
+            selectedView = evt.getSelectedImageView();
+            if (selectedView != null) viewSelected(selectedView);
+            else allViewsDeselected();
+
+
+        }
+    };
+
+    private EventSubscriber<ImageViewLayerSelectionEvent> e2 = new EventSubscriber<ImageViewLayerSelectionEvent>() {
+
+        public void onEvent(ImageViewLayerSelectionEvent evt) {
+            if (evt.getSource() == getSelectedView()) {
+
+                ImageLayer3D oldLayer = evt.getDeselectedLayer();
+                if (oldLayer != null) {
+                    layerDeselected(oldLayer);
+                }
+
+                ImageLayer3D layer = evt.getSelectedLayer();
+                layerSelected(layer);
+
+            }
+        }
+    };
+
+    private EventSubscriber<ImageViewModelChangedEvent> e3 = new EventSubscriber<ImageViewModelChangedEvent>() {
+        @Override
+        public void onEvent(ImageViewModelChangedEvent event) {
+            if (event.getImageView() == getSelectedView()) {
+                viewModelChanged(getSelectedView(), event.getOldModel(), event.getNewModel());
+
+            }
+        }
+    };
+
+
     public ImageViewPresenter() {
         subscribeListeners();
     }
 
 
     private void subscribeListeners() {
-        EventBus.subscribeStrongly(ImageViewSelectionEvent.class, new EventSubscriber<ImageViewSelectionEvent>() {
-
-            public void onEvent(ImageViewSelectionEvent evt) {
-                if (selectedView != null) {
-                    viewDeselected(selectedView);
-                }
-
-                selectedView = evt.getSelectedImageView();
-                if (selectedView != null) viewSelected(selectedView);
-                else allViewsDeselected();
-
-
-            }
-        });
-
-        EventBus.subscribeStrongly(ImageViewLayerSelectionEvent.class, new EventSubscriber<ImageViewLayerSelectionEvent>() {
-
-            public void onEvent(ImageViewLayerSelectionEvent evt) {
-                if (evt.getSource() == getSelectedView()) {
-
-                    ImageLayer3D oldLayer = evt.getDeselectedLayer();
-                    if (oldLayer != null) {
-                        layerDeselected(oldLayer);
-                    }
-
-                    ImageLayer3D layer = evt.getSelectedLayer();
-                    layerSelected(layer);
-
-                }
-            }
-        });
-
-        EventBus.subscribeStrongly(ImageViewModelChangedEvent.class, new EventSubscriber<ImageViewModelChangedEvent>() {
-            @Override
-            public void onEvent(ImageViewModelChangedEvent event) {
-                if (event.getImageView() == getSelectedView()) {
-                   viewModelChanged(getSelectedView());    
-
-                }
-            }
-        });
+        EventBus.subscribe(ImageViewSelectionEvent.class, e1);
+        EventBus.subscribe(ImageViewLayerSelectionEvent.class, e2);
+        EventBus.subscribe(ImageViewModelChangedEvent.class, e3);
 
 
         EventBus.subscribeStrongly(ImageDisplayModelEvent.class, new EventSubscriber() {
@@ -116,7 +121,7 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
 
     public abstract void viewSelected(ImageView view);
 
-    public abstract void viewModelChanged(ImageView view);
+    public abstract void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel);
 
     public void viewDeselected(ImageView view) {
     }

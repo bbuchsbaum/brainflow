@@ -187,11 +187,18 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
         repaint();
     }
 
+
+
     protected abstract void layoutPlots();
 
-    public void clearListeners() {
-        BeanContainer.get().removeListener(viewModel.get().layerSelection, layerSelectionListener);
+    private void clearListeners(ImageViewModel oldModel) {
+        BeanContainer.get().removeListener(oldModel.layerSelection, layerSelectionListener);
         removeMouseListener(plotSelectionHandler);
+
+    }
+
+    public void clearListeners() {
+        clearListeners(viewModel.get());
 
     }
 
@@ -204,12 +211,34 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
     }
 
-    private void updateView(ImageViewModel model) {
-        clearListeners();
-        initView(model);
+    private void updateView(ImageViewModel oldModel, ImageViewModel newModel) {
+        clearListeners(oldModel);
+        initView(newModel);
 
-        //todo need to deal with annotations properly.
-        resetPlotLayout(getPlotLayout(), new HashMap<String,IAnnotation>());
+        //one reason this is necesary is because IImagePlots do not have a setModel method. This means that new plots have to be created.
+        
+
+        //todo this transfer annotations from first plot only, which is wrong if differet plots can have different annotations
+        IImagePlot oldPlot = plotList.get(0);
+        Map<String, IAnnotation> amap = oldPlot.getAnnotations();
+
+
+
+        ImagePlotLayout layout = getPlotLayout();
+        plotList = layout.layoutPlots();
+        
+
+        for (String key : amap.keySet() ) {
+            setAnnotation(key, amap.get(key));
+        }
+        //todo end
+
+
+        sliceController = layout.createSliceController();
+        revalidate();
+        repaint();
+
+
 
     }
 
@@ -304,8 +333,9 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     }
 
     public void setModel(ImageViewModel model) {
+        ImageViewModel oldModel = viewModel.get();
         viewModel.set(model);
-        updateView(model);
+        updateView(oldModel, model);
 
     }
 

@@ -56,6 +56,7 @@ import java.io.*;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -245,7 +246,7 @@ public class BrainFlow {
 
 
         drawSplashProgress("initializing DisplayManager ...");
-        DisplayManager.getInstance().newCanvas();
+        DisplayManager.get().newCanvas();
 
 
         drawSplashProgress("initializing resources ...");
@@ -491,7 +492,7 @@ public class BrainFlow {
 
     private void initCanvas() {
         BrainCanvasTransferHandler handler = new BrainCanvasTransferHandler();
-        DisplayManager.getInstance().getSelectedCanvas().getComponent().setTransferHandler(handler);
+        DisplayManager.get().getSelectedCanvas().getComponent().setTransferHandler(handler);
 
     }
 
@@ -509,7 +510,7 @@ public class BrainFlow {
         String canvasName = "Canvas-" + (documentPane.getDocumentCount() + 1);
         documentPane.openDocument(new DocumentComponent(new JScrollPane(comp), canvasName));
         documentPane.setActiveDocument(canvasName);
-        DisplayManager.getInstance().setSelectedCanvas(canvas);
+        DisplayManager.get().setSelectedCanvas(canvas);
     }
 
 
@@ -518,7 +519,7 @@ public class BrainFlow {
         brainFrame.getDockingManager().getWorkspace().setLayout(new BorderLayout());
         brainFrame.getDockingManager().getWorkspace().add(documentPane, "Center");
 
-        JComponent canvas = DisplayManager.getInstance().getSelectedCanvas().getComponent();
+        JComponent canvas = DisplayManager.get().getSelectedCanvas().getComponent();
         canvas.setRequestFocusEnabled(true);
         canvas.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
@@ -571,7 +572,7 @@ public class BrainFlow {
 
             loadingDock.getJTree().setDragEnabled(true);
             //loadingDock.setTransferHandler(handler);
-            DisplayManager.getInstance().getSelectedCanvas().getComponent().setTransferHandler(handler);
+            DisplayManager.get().getSelectedCanvas().getComponent().setTransferHandler(handler);
 
             DirectoryManager.getInstance().addFileSystemEventListener(new FileSystemEventListener() {
                 public void eventOccurred(FileSystemEvent event) {
@@ -742,25 +743,41 @@ public class BrainFlow {
     }
 
 
-    private void register(IImageDataSource limg) {
+    private void register(IImageDataSource dataSource) {
         DataSourceManager manager = DataSourceManager.get();
-        boolean alreadyRegistered = manager.isRegistered(limg);
+        boolean alreadyRegistered = manager.isRegistered(dataSource);
 
-        if (alreadyRegistered) {
-            StringBuffer sb = new StringBuffer();
-            sb.append("Image " + limg.getDataFile().getName().getBaseName());
-            sb.append(" has already been loaded, would you like to reload from disk?");
-            Integer ret = JOptionPane.showConfirmDialog(brainFrame, sb.toString(), "Image Already Loaded", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            log.info("return value is: " + ret);
+        try {
+            if (alreadyRegistered) {
+                long lastModified = dataSource.getDataFile().getContent().getLastModifiedTime();
+                long lastRead = dataSource.whenRead();
 
-            if (ret == JOptionPane.YES_OPTION) {
-                limg.releaseData();
+                if (lastModified > lastRead) {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("Image " + dataSource.getDataFile().getName().getBaseName());
+                    sb.append("has already been loaded in BrainFlow, but has changed on disk.  Would you like to reload?");
+
+                    Integer ret = JOptionPane.showConfirmDialog(brainFrame, sb.toString(), "Image has been modified", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                    if (ret == JOptionPane.YES_OPTION) {
+                        dataSource.releaseData();
+                    }
+                } else {
+                    log.info(dataSource.getStem() + " is already registered ...");
+                }
+
+            } else {
+                manager.register(dataSource);
             }
-        } else {
-            manager.register(limg);
+        } catch (FileSystemException e) {
+            JOptionPane.showMessageDialog(brainFrame, "Error accessing file information: " + e.getMessage());
         }
 
     }
+
+    //public IBrainCanvas getSelectedCanvas() {
+    //    return DisplayManager.get().getSelectedCanvas();
+    //}
 
     private IImageDataSource specialHandling(IImageDataSource dataSource) {
 
@@ -814,8 +831,8 @@ public class BrainFlow {
             public void actionPerformed(ActionEvent e) {
                 ImageViewModel displayModel = ProjectManager.get().createDisplayModel(checkedDataSource, true);
                 ImageView iview = ImageViewFactory.createAxialView(displayModel);
-                 DisplayManager.getInstance().displayView(iview);
-                //DisplayManager.getInstance().getSelectedCanvas().addImageView(iview);
+                DisplayManager.get().displayView(iview);
+                //DisplayManager.get().getSelectedCanvas().addImageView(iview);
             }
         });
 
@@ -825,9 +842,8 @@ public class BrainFlow {
 
     public void load(final IImageDataSource dataSource) {
         final IImageDataSource checkedDataSource = specialHandling(dataSource);
-
-
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
+
         monitor.loadImage(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 register(checkedDataSource);
@@ -849,7 +865,6 @@ public class BrainFlow {
                 ImageLayer3D layer = ImageLayerFactory.createImageLayer(dataSource);
                 ImageViewModel newModel = displayModel.add(layer);
                 view.setModel(newModel);
-                //DisplayManager.getInstance().updateViews(displayModel, newModel);
 
             }
         });
@@ -889,23 +904,40 @@ public class BrainFlow {
 
 
     public void replaceLayer(ImageLayer3D oldLayer, ImageLayer3D newLayer, ImageView view) {
-        DisplayManager.getInstance().replaceLayer(oldLayer, newLayer, view);
+        DisplayManager.get().replaceLayer(oldLayer, newLayer, view);
     }
 
 
     public ImageView getSelectedView() {
-        return DisplayManager.getInstance().getSelectedCanvas().getSelectedView();
+        return DisplayManager.get().getSelectedCanvas().getSelectedView();
     }
 
     public IBrainCanvas getSelectedCanvas() {
-        return DisplayManager.getInstance().getSelectedCanvas();
+        return DisplayManager.get().getSelectedCanvas();
 
     }
 
+    public boolean isShowing(IImageDataSource dsource) {
+        return DisplayManager.get().isShowing(dsource);
 
-    public IImageDataSource[] getSelectedLoadableImages() {
+    }
+
+    public void displayView(ImageView view) {
+        DisplayManager.get().displayView(view);
+    }
+
+    public void updateViews(ImageViewModel oldModel, ImageViewModel newModel) {
+        DisplayManager.get().updateViews(oldModel, newModel);
+    }
+
+    public IBrainCanvas newCanvas() {
+        return DisplayManager.get().newCanvas();
+    }
+
+
+    public java.util.List<IImageDataSource> getSelectedLoadableImages() {
         IImageDataSource[] limg = loadingDock.requestLoadableImages();
-        return limg;
+        return Arrays.asList(limg);
 
     }
 
@@ -1012,9 +1044,10 @@ public class BrainFlow {
             }
         }
 
+
         @Override
-        public void viewModelChanged(ImageView view) {
-            viewSelected(view);
+        public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+            //To change body of implemented methods use File | Settings | File Templates.
         }
 
         public JComponent getComponent() {

@@ -119,7 +119,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
                         list.add(ImageLayerFactory.createImageLayer(dsource));
                     }
 
-                    DisplayManager.getInstance().updateViews(model, new ImageViewModel(model.getName(), list));
+                    BrainFlow.get().updateViews(model, new ImageViewModel(model.getName(), list));
                 }
 
                 
@@ -140,7 +140,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
                     if (model != null && !model.contains(layer)) {
                         List<ImageLayer3D> list = model.cloneList();
                         list.add(new ImageLayer3D(layer));
-                        DisplayManager.getInstance().updateViews(model, new ImageViewModel(model.getName(), list));
+                        BrainFlow.get().updateViews(model, new ImageViewModel(model.getName(), list));
                     } else {
                         //todo drop layer in correct location rather than just adding it to end ....
                     }
@@ -240,8 +240,8 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
     }
 
     @Override
-    public void viewModelChanged(ImageView view) {
-        
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void allViewsDeselected() {

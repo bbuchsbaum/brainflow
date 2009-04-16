@@ -13,6 +13,7 @@ import brainflow.app.presentation.binding.Bindable;
 import brainflow.app.presentation.binding.PercentageRangeConverter;
 import brainflow.app.presentation.controls.RenderingParamsForm;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 
@@ -43,11 +44,11 @@ public class RenderingParamsPresenter extends ImageViewPresenter implements Bind
 
     }
 
-    @Override
-    public void viewModelChanged(ImageView view) {
-        bind();
-    }
 
+    @Override
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        viewSelected(view);
+    }
 
     public void viewSelected(ImageView view) {
         bind();

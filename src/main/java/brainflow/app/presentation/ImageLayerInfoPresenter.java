@@ -1,6 +1,7 @@
 package brainflow.app.presentation;
 
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.space.IImageSpace;
@@ -163,8 +164,10 @@ public class ImageLayerInfoPresenter extends ImageViewPresenter {
         panel.revalidate();
     }
 
+
+
     @Override
-    public void viewModelChanged(ImageView view) {
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         viewSelected(view);
     }
 

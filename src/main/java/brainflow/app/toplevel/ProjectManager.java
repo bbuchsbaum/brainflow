@@ -14,7 +14,6 @@ import org.bushe.swing.event.EventSubscriber;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Collections;
 
 /**
  * Created by IntelliJ IDEA.
@@ -112,7 +111,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
             //todo hack cast
             //todo should retrieve layers not indices here ..
             List<Integer> idx = dmodel.indexOf((IImageData3D)dataSource.getData());
-            List<ImageView> views = DisplayManager.getInstance().getImageViews(dmodel);
+            List<ImageView> views = DisplayManager.get().getImageViews(dmodel);
 
             if (idx.size() > 0) {
 
@@ -125,7 +124,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
                 if (removables.size() == dmodel.size()) {
                     //removing all layers from model, which invalidates the model.
                      for (ImageView view : views) {
-                        DisplayManager.getInstance().removeView(view);
+                        DisplayManager.get().removeView(view);
                     }
 
                     purged.add(dmodel);

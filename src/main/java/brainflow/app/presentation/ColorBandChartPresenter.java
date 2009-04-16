@@ -3,6 +3,7 @@ package brainflow.app.presentation;
 import brainflow.colormap.*;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.display.ColorBandChart;
 
 import javax.swing.*;
@@ -84,13 +85,12 @@ public class ColorBandChartPresenter extends ImageViewPresenter {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+   
+
     @Override
-    public void viewModelChanged(ImageView view) {
-
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
-
-
-
 
     class ChangeHandler implements ChangeListener {
 

@@ -38,6 +38,12 @@ public class MemoryImageDataSource implements IImageDataSource {
         return true;
     }
 
+    @Override
+    public long whenRead() {
+        //read time is unknown, so return -1
+        return -1;
+    }
+
     public int getImageIndex() {
         return 0;  
     }
@@ -84,7 +90,7 @@ public class MemoryImageDataSource implements IImageDataSource {
     }
 
     public void releaseData() {
-        // does nothing
+        // no op
     }
 
 

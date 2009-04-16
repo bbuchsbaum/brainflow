@@ -100,10 +100,7 @@ public final class LinearColorMap2 extends AbstractColorMap {
         setMinimumValue(min);
         setMaximumValue(max);
 
-
-
         //init(min, max, lowClip, highClip, mapSize);
-
 
     }
 
@@ -157,7 +154,7 @@ public final class LinearColorMap2 extends AbstractColorMap {
     }
 
 
-    public AbstractColorBar createColorBar() {
+    public LinearColorBar createColorBar() {
         return new LinearColorBar(this, SwingConstants.HORIZONTAL);
     }
 

@@ -188,11 +188,10 @@ public class CanvasBar extends ImageViewPresenter {
     }
 
     @Override
-    public void viewModelChanged(ImageView view) {
-        bind();
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        ExtBind.get().unbind(toggleBar);
+        viewSelected(view);
     }
-
-
 
     public void viewDeselected(ImageView view) {
         ExtBind.get().unbind(toggleBar);

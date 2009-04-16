@@ -126,10 +126,13 @@ public class AnatomicalPoint3D implements AnatomicalPoint {
     }
 
     public static AnatomicalPoint3D convertToWorld(AnatomicalPoint3D pt, IImageSpace3D space) {
+        //todo this conversion seems like a hack ...
+        pt = pt.convertTo(space);
+
         if (space.getAnatomy() != pt.getAnatomy()) {
-            throw new IllegalArgumentException("AnatomicalPoint3D and ImageSpace arguments must have same anatomical orientation");
+            throw new IllegalArgumentException("AnatomicalPoint3D and ImageSpace arguments must have same anatomical orientation: " +
+                    "point: " + pt.getAnatomy() + " space: " +space.getAnatomy());
         }
-        //pt = pt.convertTo(space);
 
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(pt.getX());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(pt.getY());

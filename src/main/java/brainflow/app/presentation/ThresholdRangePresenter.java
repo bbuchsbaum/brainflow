@@ -11,10 +11,7 @@ package brainflow.app.presentation;
 
 import brainflow.app.presentation.binding.ExtBind;
 
-import brainflow.core.ImageView;
-import brainflow.core.AbsClipRange;
-import brainflow.core.IClipRange;
-import brainflow.core.ClipRange;
+import brainflow.core.*;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.BiSlider;
@@ -89,8 +86,10 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
         bind();
     }
 
+
     @Override
-    public void viewModelChanged(ImageView view) {
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        unbind();
         viewSelected(view);
     }
 
@@ -115,6 +114,7 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
     public void bind() {
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
         ExtBind.get().bindBiSlider(layer.getImageLayerProperties().thresholdRange, bislider);
+
         if (layer.getImageLayerProperties().clipRange.get().getMin() >= 0) {
             symmetricalCheckBox.setEnabled(false);
         } else {

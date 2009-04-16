@@ -2,7 +2,6 @@ package brainflow.app.toplevel;
 
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.LayerList;
 import brainflow.core.annotations.CrosshairAnnotation;
 import brainflow.core.annotations.SelectedPlotAnnotation;
 import brainflow.core.annotations.SliceAnnotation;
@@ -87,14 +86,14 @@ public class ImageViewFactory {
 
     public static ImageView createYokedCoronalView(ImageView source) {
         ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalCoronal());
-        DisplayManager.getInstance().yoke(source, view);
+        DisplayManager.get().yoke(source, view);
         return view;
     }
 
 
     public static ImageView createYokedSagittalView(ImageView source) {
         ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalSagittal());
-        DisplayManager.getInstance().yoke(source, view);
+        DisplayManager.get().yoke(source, view);
         return view;
 
     }

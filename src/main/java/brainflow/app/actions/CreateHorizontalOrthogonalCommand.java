@@ -2,6 +2,7 @@ package brainflow.app.actions;
 
 import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.app.toplevel.DisplayManager;
+import brainflow.app.toplevel.BrainFlow;
 import brainflow.core.ImageView;
 import brainflow.core.OrthoPlotLayout;
 import brainflow.core.IBrainCanvas;
@@ -28,7 +29,7 @@ public class CreateHorizontalOrthogonalCommand extends BrainFlowCommand {
             IBrainCanvas canvas = getSelectedCanvas();
 
             if (canvas != null) {
-                DisplayManager.getInstance().displayView(sview);
+                BrainFlow.get().displayView(sview);
                 //canvas.addImageView(sview);
             }
         }

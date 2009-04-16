@@ -3,6 +3,7 @@ package brainflow.app.presentation;
 import brainflow.app.presentation.binding.CoordinateToIndexConverter2;
 import brainflow.app.presentation.controls.CoordinateSpinner;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.IImageSpace3D;
@@ -53,6 +54,13 @@ public class IndexCoordinatePresenter extends ImageViewPresenter {
 
     }
 
+    public void unbind() {
+        SwingBind.get().unbind(form.getXspinner());
+        SwingBind.get().unbind(form.getYspinner());
+        SwingBind.get().unbind(form.getZspinner());
+
+    }
+
 
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.
@@ -63,13 +71,18 @@ public class IndexCoordinatePresenter extends ImageViewPresenter {
         bind();
     }
 
+
     @Override
-    public void viewModelChanged(ImageView view) {
-        bind();
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        if (oldModel.getImageSpace() != newModel.getImageSpace()) {
+            unbind();
+            viewSelected(view);
+        }
     }
 
     @Override
     public void viewDeselected(ImageView view) {
+        unbind();
         
     }
 

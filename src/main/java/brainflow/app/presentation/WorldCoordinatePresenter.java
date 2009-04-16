@@ -3,6 +3,7 @@ package brainflow.app.presentation;
 import brainflow.app.presentation.binding.WorldToAxisConverter;
 import brainflow.app.presentation.controls.CoordinateSpinner;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
@@ -37,9 +38,14 @@ public class WorldCoordinatePresenter extends ImageViewPresenter {
 
     }
 
+    private void unbind() {
+        SwingBind.get().unbind(form.getXspinner());
+        SwingBind.get().unbind(form.getYspinner());
+        SwingBind.get().unbind(form.getZspinner());
+    }
+
     private void bind() {
         ImageView view = getSelectedView();
-        IImageSpace ispace = view.getModel().getImageSpace();
 
         form.getXspinner().setModel(new SpinnerNumberModel(0, -1000, 1000, 1.0));
         form.getYspinner().setModel(new SpinnerNumberModel(0, -1000, 1000, 1.0));
@@ -69,11 +75,16 @@ public class WorldCoordinatePresenter extends ImageViewPresenter {
     public void viewSelected(ImageView view) {
         bind();
     }
+
     @Override
-    public void viewModelChanged(ImageView view) {
-        viewSelected(view);
+    public void viewDeselected(ImageView view) {
+        unbind();
     }
 
+    @Override
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        //do nothing?
+    }
 
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.

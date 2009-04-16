@@ -2,6 +2,7 @@ package brainflow.app.actions;
 
 import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.app.toplevel.DisplayManager;
+import brainflow.app.toplevel.BrainFlow;
 import brainflow.core.ImageView;
 import brainflow.core.IBrainCanvas;
 
@@ -29,7 +30,7 @@ public class CreateSagittalViewCommand extends BrainFlowCommand {
 
             if (canvas != null) {
                 //canvas.addImageView(sview);
-                 DisplayManager.getInstance().displayView(sview);
+                 BrainFlow.get().displayView(sview);
                 canvas.getImageCanvasModel().yoke(sview, view);
             }
         }

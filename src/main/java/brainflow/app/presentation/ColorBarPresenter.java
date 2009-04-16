@@ -19,6 +19,7 @@ import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.colormap.LinearColorMap2;
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import com.jidesoft.swing.JideSplitButton;
@@ -111,8 +112,14 @@ public class ColorBarPresenter extends ImageViewPresenter {
 
     }
 
+
+
     @Override
-    public void viewModelChanged(ImageView view) {
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        if (oldModel.getSelectedLayer() != newModel.getSelectedLayer()) {
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
+        }
+
         viewSelected(view);
     }
 

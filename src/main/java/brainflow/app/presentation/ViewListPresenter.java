@@ -1,6 +1,7 @@
 package brainflow.app.presentation;
 
 import brainflow.core.ImageView;
+import brainflow.core.ImageViewModel;
 import brainflow.app.toplevel.BrainFlow;
 
 import javax.swing.*;
@@ -72,9 +73,11 @@ public class ViewListPresenter extends ImageViewPresenter {
         populateList();
     }
 
+
+
     @Override
-    public void viewModelChanged(ImageView view) {
-        populateList();
+    public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        viewSelected(view);
     }
 
     public void allViewsDeselected() {
