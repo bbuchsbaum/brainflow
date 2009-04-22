@@ -11,7 +11,7 @@ import brainflow.math.Vector3f;
 // Referenced classes of package brainflow.image:
 //            ProbeSet, LinearSet1D, XYZIterator
 
-public class LinearSet3D extends ProbeSet {
+public class LinearSet3D {
 
     class LinearProbeSet3DIterator implements XYZIterator {
 

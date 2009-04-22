@@ -1,6 +1,5 @@
 package brainflow.core.layer;
 
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageViewModel;
 
 import java.util.EventObject;

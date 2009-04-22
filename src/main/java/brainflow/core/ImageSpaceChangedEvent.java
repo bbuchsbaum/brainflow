@@ -1,7 +1,7 @@
 package brainflow.core;
 
 import brainflow.image.space.IImageSpace;
-import brainflow.core.IImageDisplayModel;
+
 
 import javax.swing.event.ChangeEvent;
 

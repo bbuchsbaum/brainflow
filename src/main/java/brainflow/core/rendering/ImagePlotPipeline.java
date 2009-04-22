@@ -2,7 +2,7 @@ package brainflow.core.rendering;
 
 import org.apache.commons.pipeline.Pipeline;
 import org.apache.commons.pipeline.Stage;
-import brainflow.core.IImageDisplayModel;
+
 import brainflow.core.IImagePlot;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer2D;

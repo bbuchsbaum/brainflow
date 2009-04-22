@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
  */
 public class DiscreteColorBar extends AbstractColorBar {
 
-    public static final int DEFAULT_WIDTH = 300;
+    public static final int DEFAULT_WIDTH = 250;
     public static final int DEFAULT_HEIGHT = 300;
 
 
@@ -120,7 +120,7 @@ public class DiscreteColorBar extends AbstractColorBar {
     }
 
     public static void main(String[] args) {
-        DiscreteColorMap cmap = new DiscreteColorMap(new LinearColorMapDeprecated(0, 255, ColorTable.SPECTRUM));
+        DiscreteColorMap cmap = new DiscreteColorMap(new LinearColorMap2(0, 255, ColorTable.SPECTRUM));
 
 
         AbstractColorBar jp = cmap.createColorBar();

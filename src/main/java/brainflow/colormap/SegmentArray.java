@@ -16,8 +16,6 @@ public class SegmentArray {
 
     private List<Interval> intervals;
 
-
-
     public SegmentArray(double[] _boundaries) {
         if (!isMonotonic(_boundaries)) {
             throw new IllegalArgumentException("Boundary array must be sorted");
@@ -203,7 +201,6 @@ public class SegmentArray {
         double prev = boundaries[0];
         for (int i = 1; i < boundaries.length; i++) {
             if (boundaries[i] < prev) {
-
                 return false;
             }
             prev = boundaries[i];

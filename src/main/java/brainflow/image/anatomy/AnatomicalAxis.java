@@ -1,6 +1,5 @@
 package brainflow.image.anatomy;
 
-import brainflow.image.IndexConverter1D;
 import brainflow.image.axis.ImageAxis;
 import brainflow.math.Vector3f;
 
@@ -116,24 +115,9 @@ public class AnatomicalAxis implements Anatomy {
         return min + "-" + max;
     }
 
-    public static class IndexDoNothing implements IndexConverter1D {
-        public final int convert(int in) {
-            return in;
-        }
-    }
 
-    public static class IndexFlipper implements IndexConverter1D {
 
-        int maxIdx;
-
-        public IndexFlipper(int dimLen) {
-            maxIdx = dimLen - 1;
-        }
-
-        public int convert(int in) {
-            return maxIdx - in;
-        }
-    }
+    
 
 
 }

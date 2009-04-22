@@ -21,7 +21,9 @@ public class SimpleColorEditor extends JPanel implements ChangeListener {
 
 
     private JSpinner redSpinner;
+
     private JSpinner greenSpinner;
+
     private JSpinner blueSpinner;
 
     private ColorPanel swatch;

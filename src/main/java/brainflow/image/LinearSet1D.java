@@ -12,7 +12,7 @@ import brainflow.utils.*;
  *
  * @author  Bradley
  */
-public class LinearSet1D extends ProbeSet {
+public class LinearSet1D {
     
     double[] samples;
     double stepSize;

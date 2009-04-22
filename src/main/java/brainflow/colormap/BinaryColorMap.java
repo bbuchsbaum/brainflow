@@ -24,9 +24,6 @@ public final class BinaryColorMap extends AbstractColorMap {
 
     private List<ColorInterval> intervals;
 
-
-    
-
     public BinaryColorMap(Color color) {
         this.foregroundColor = color;
 

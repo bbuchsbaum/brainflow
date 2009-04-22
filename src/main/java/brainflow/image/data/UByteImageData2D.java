@@ -4,6 +4,7 @@ import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.ImageSpace2D;
+import brainflow.image.space.IImageSpace2D;
 import brainflow.utils.DataType;
 import brainflow.utils.NumberUtils;
 
@@ -19,13 +20,6 @@ import brainflow.utils.NumberUtils;
 
 public class UByteImageData2D extends AbstractImageData implements IImageData2D {
 
-    private boolean recomputeMax = true;
-
-    private boolean recomputeMin = true;
-
-    private double minValue;
-
-    private double maxValue;
 
     private byte[] data;
 
@@ -50,55 +44,14 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
 
     }
 
-    public ImageSpace2D getImageSpace() {
-        return (ImageSpace2D)space;
+    public IImageSpace2D getImageSpace() {
+        return (IImageSpace2D)space;
          
     }
 
 
 
-    public double maxValue() {
-        if (!recomputeMax) {
-            return maxValue;
-        }
-
-        int sz = data.length;
-        double _max = -Double.MAX_VALUE;
-
-        for (int i = 0; i < sz; i++) {
-            double val = NumberUtils.ubyte(data[i]);
-            if (val > _max) {
-                _max = val;
-            }
-        }
-
-        maxValue = _max;
-        recomputeMax = false;
-
-        return maxValue;
-    }
-
-    public double minValue() {
-        if (!recomputeMin) {
-            return minValue;
-        }
-
-        int sz = data.length;
-        double _min = Double.MAX_VALUE;
-        for (int i = 0; i < sz; i++) {
-            double val = NumberUtils.ubyte(data[i]);
-            if (val < _min) {
-                _min = val;
-
-            }
-        }
-        minValue = _min;
-        recomputeMin = false;
-
-        return minValue;
-
-    }
-
+   
 
     public ImageIterator iterator() {
         return new Iterator2D();

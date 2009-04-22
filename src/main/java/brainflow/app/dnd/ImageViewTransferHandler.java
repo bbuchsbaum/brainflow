@@ -2,7 +2,6 @@ package brainflow.app.dnd;
 
 import brainflow.app.toplevel.BrainFlow;
 import brainflow.core.ImageView;
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;

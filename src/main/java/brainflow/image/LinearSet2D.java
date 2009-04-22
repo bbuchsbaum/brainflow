@@ -10,7 +10,7 @@ import java.awt.Rectangle;
  * @version 1.0
  */
 
-public class LinearSet2D extends ProbeSet {
+public class LinearSet2D {
 
   double xbegin;
   double xend;

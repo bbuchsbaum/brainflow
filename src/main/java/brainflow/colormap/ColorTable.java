@@ -17,8 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 
 
@@ -35,8 +34,23 @@ import java.util.List;
 public class ColorTable {
 
     public static final IndexColorModel SPECTRUM = getSpectrum(255);
+
     public static final IndexColorModel GRAYSCALE = getGrayScale(0, 255, true);
+    
     public static final IndexColorModel GRAYSCALE_NO_ALPHA = getGrayScale(0, 255, false);
+
+    public static final Map<String, IndexColorModel> COLOR_MAPS = new HashMap<String, IndexColorModel>();
+
+    static {
+        COLOR_MAPS.put("Spectrum", SPECTRUM);
+        COLOR_MAPS.put("Gray Scale", GRAYSCALE);
+        COLOR_MAPS.put("Greens", ColorBrewer.Greens);
+        COLOR_MAPS.put("Reds", ColorBrewer.Reds);
+        
+
+    }
+
+
 
     public ColorTable() {
     }
@@ -92,6 +106,23 @@ public class ColorTable {
 
         ImageIcon icon = new ImageIcon(bimg);
         return icon;
+    }
+
+    public static IndexColorModel invert(IndexColorModel input) {
+        byte[][] rgba = ColorTable.extractTable(input);
+        int ncols = rgba[0].length;
+        int nrows = rgba.length;
+
+        byte[][] out = new byte[rgba.length][rgba[0].length];
+
+
+        for (int i=0; i<nrows; i++) {
+            for (int j=0; j<ncols; j++) {
+                out[i][ncols-j-1] = rgba[i][j];
+            }
+        }
+
+        return new IndexColorModel(8, ncols, out[0], out[1], out[2], out[3]);
     }
 
 
@@ -156,6 +187,26 @@ public class ColorTable {
 
     }
 
+    public static java.util.List<Color> createColorGradient(IndexColorModel model, int bins) {
+        if (bins < 1) throw new IllegalArgumentException("bins must be greater than 0");
+
+        Color[] ret = new Color[bins];
+        ret[0] = new Color(model.getRed(0), model.getGreen(0), model.getBlue(0), model.getAlpha(0));
+
+        double[] lookup = linearRamp(0, model.getMapSize()-1, bins);
+        System.out.println("lookup : " + Arrays.toString(lookup));
+
+        for (int i=0; i<lookup.length; i++) {
+            int index = (int)lookup[i];
+            ret[i] = new Color(model.getRed(index), model.getGreen(index), model.getBlue(index), model.getAlpha(index));
+                
+        }
+
+        return Arrays.asList(ret);
+
+
+    }
+
     public static java.util.List<Color> createColorGradient(Color c1, Color c2, int bins) {
         List<Color> glist = new ArrayList<Color>();
         int r1, r2;
@@ -176,12 +227,10 @@ public class ColorTable {
         for (int i = 0; i < bins; i++) {
             if (i == 0) {
                 glist.add(c1);
-            } else if (i == bins) {
+            } else if (i == (bins-1)) {
                 glist.add(c2);
             } else {
-
                 glist.add(new Color((int) (r1 + rslope * i), (int) (g1 + gslope * i), (int) (b1 + bslope * i)));
-
             }
 
         }

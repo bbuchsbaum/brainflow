@@ -71,7 +71,7 @@ public class DiscreteColorMap extends AbstractColorMap {
         }
 
         intervals = new ArrayList<ColorInterval>(boundaries.size() - 1);
-        segments = new SegmentArray(boundaries.size());
+        segments = new SegmentArray(boundaries.size()-1);
         segments.setLowerBound(0, boundaries.get(0));
 
         for (int i = 0; i < (boundaries.size() - 1); i++) {
@@ -82,6 +82,25 @@ public class DiscreteColorMap extends AbstractColorMap {
 
 
     }
+
+    public DiscreteColorMap(List<Color> clrs, double[] boundaries) {
+        if (clrs.size() < 1) {
+            throw new IllegalArgumentException("Supplied Color List must have length >= 1");
+        }
+
+        intervals = new ArrayList<ColorInterval>(boundaries.length - 1);
+        segments = new SegmentArray(boundaries.length-1);
+        segments.setLowerBound(0, boundaries[0]);
+
+        for (int i = 0; i < (boundaries.length - 1); i++) {
+            segments.setUpperBound(i, boundaries[i + 1]);
+            Color clr = clrs.get(i % clrs.size());
+            intervals.add(new ColorInterval(segments.getInterval(i), clr));
+        }
+
+
+    }
+
 
     public DiscreteColorMap(IColorMap cmap) {
         segments = new SegmentArray(cmap.getMapSize());
@@ -135,13 +154,13 @@ public class DiscreteColorMap extends AbstractColorMap {
 
     public void setColor(int index, Color clr) {
         intervals.get(index).setColor(clr);
-        changeSupport.firePropertyChange(COLORS_CHANGED_PROPERTY, null, this);
+        //changeSupport.firePropertyChange(COLORS_CHANGED_PROPERTY, null, this);
 
     }
 
     public void equalizeIntervals(int startIndex, int endIndex) {
         segments.equalizeIntervals(startIndex, endIndex);
-        changeSupport.firePropertyChange(COLORS_CHANGED_PROPERTY, null, this);
+        //changeSupport.firePropertyChange(COLORS_CHANGED_PROPERTY, null, this);
 
     }
 
@@ -205,7 +224,7 @@ public class DiscreteColorMap extends AbstractColorMap {
         }
 
         ival.setColor(clr);
-        changeSupport.firePropertyChange(COLORS_CHANGED_PROPERTY, null, this);
+        //changeSupport.firePropertyChange(COLORS_CHANGED_PROPERTY, null, this);
     }
 
     private void setLowerBound(int index, double value) {
@@ -338,7 +357,7 @@ public class DiscreteColorMap extends AbstractColorMap {
         setUpperBound(intervals.size() - 2, _highClip);
 
 
-        changeSupport.firePropertyChange(HIGH_CLIP_PROPERTY, oldHighClip, getHighClip());
+        //changeSupport.firePropertyChange(HIGH_CLIP_PROPERTY, oldHighClip, getHighClip());
 
     }
 
@@ -355,7 +374,7 @@ public class DiscreteColorMap extends AbstractColorMap {
 
         setUpperBound(0, _lowClip);
 
-        changeSupport.firePropertyChange(LOW_CLIP_PROPERTY, oldLowClip, getLowClip());
+        //changeSupport.firePropertyChange(LOW_CLIP_PROPERTY, oldLowClip, getLowClip());
     }
 
     public DiscreteColorMap newClipRange(double lowClip, double highClip, double min, double max) {

@@ -200,13 +200,13 @@ public class ConnComp3D {
         IImageData3D dat3d = comp.labels.asImageData();
         System.out.println("dat3d max " + dat3d.maxValue());
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new AnatomicalPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
-        IImageDisplayModel model = new ImageDisplayModel("test");
+        ImageViewModel model = new ImageViewModel("test");
 
         
         ImageLayerProperties props = new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
 
-        model.addLayer(new ImageLayer3D(new MemoryImageDataSource(dat3d), props));
+        model = model.add(new ImageLayer3D(new MemoryImageDataSource(dat3d), props));
 
         ImageView view = ImageViewFactory.createMontageView(model, 4, 4, 6);
         view.setScreenInterpolation(InterpolationType.NEAREST_NEIGHBOR);

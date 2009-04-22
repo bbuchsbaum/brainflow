@@ -74,6 +74,16 @@
           <module name="brainflow" />
         </modules>
       </facet-type>
+      <facet-type id="Scala">
+        <modules>
+          <module name="scalabrain">
+            <files>
+              <file url="file://$PROJECT_DIR$/src/main/scala/sc/brainflow/colormap/ColorSequenceParser.scala" />
+              <file url="file://$PROJECT_DIR$/src/main/scala/sc/brainflow/image/data/BrainVolume.scala" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
     </autodetection-disabled>
   </component>
   <component name="IdProvider" IDEtalkID="C59FF606239857FF94581F85277C3BA5" />
@@ -318,7 +328,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/brainflow.iml" filepath="$PROJECT_DIR$/brainflow.iml" />
-      <module fileurl="file://$PROJECT_DIR$/scalaflow/scalaflow.iml" filepath="$PROJECT_DIR$/scalaflow/scalaflow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/junk/scalabrain.iml" filepath="$PROJECT_DIR$/junk/scalabrain.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6 (3)" project-jdk-type="JavaSDK">
@@ -388,10 +398,23 @@
         <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-library-src.jar!/" />
       </SOURCES>
     </library>
+    <library name="scala-2.7.4RC1">
+      <CLASSES>
+        <root url="jar://C:/javacode/scala-2.7.4RC1/lib/scala-library.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.4RC1/lib/scala-swing.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.4RC1/lib/scala-compiler.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://C:/javacode/scala-2.7.4RC1/src/scala-swing-src.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.4RC1/src/scala-compiler-src.jar!/" />
+        <root url="jar://C:/javacode/scala-2.7.4RC1/src/scala-library-src.jar!/" />
+      </SOURCES>
+    </library>
     <library name="scala-2.7.3">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/scalaflow/lib/scala-compiler.jar!/" />
-        <root url="jar://$PROJECT_DIR$/scalaflow/lib/scala-library.jar!/" />
+        <root url="jar://$PROJECT_DIR$/scalabrain/lib/scala-compiler.jar!/" />
+        <root url="jar://$PROJECT_DIR$/scalabrain/lib/scala-library.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

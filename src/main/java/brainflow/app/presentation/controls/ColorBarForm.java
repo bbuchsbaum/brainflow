@@ -7,15 +7,11 @@
 package brainflow.app.presentation.controls;
 
 import brainflow.colormap.*;
-import brainflow.chart.XAxis;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.JideSplitButton;
 
-import javax.swing.border.EmptyBorder;
 import javax.swing.*;
-
-import java.awt.*;
 
 /**
  * @author buchs
@@ -39,7 +35,7 @@ public class ColorBarForm extends javax.swing.JPanel {
         colorMap = _colorMap;
         colorBar = colorMap.createColorBar();
         colorBar.setBorder(BorderFactory.createEtchedBorder());
-        cbar = new ColorBarWithAxis();
+        cbar = new ColorBarWithAxis(colorBar);
         colorMenu = new JideSplitButton("Select Map");
 
         buildGUI();
@@ -49,7 +45,7 @@ public class ColorBarForm extends javax.swing.JPanel {
         colorMap = new LinearColorMap2(0, 255, ColorTable.SPECTRUM);
         colorBar = colorMap.createColorBar();
         colorBar.setBorder(BorderFactory.createEtchedBorder());
-        cbar = new ColorBarWithAxis();
+        cbar = new ColorBarWithAxis(colorBar);
         colorMenu = new JideSplitButton("Select Map");
 
         buildGUI();
@@ -76,49 +72,6 @@ public class ColorBarForm extends javax.swing.JPanel {
         add(colorMenu, cc.xy(2, 2));
         add(cbar, cc.xywh(2, 4, 2, 2));
 
-    }
-
-
-  
-
-    class ColorBarWithAxis extends JPanel {
-        XAxis axis = new XAxis(0, 255);
-
-
-        JPanel axispanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-               super.paintComponent(g);
-                //axis.setYoffset(0);
-
-                axis.draw((Graphics2D)g, getBounds());
-            }
-
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(256, 20);
-            }
-        };
-
-
-        public ColorBarWithAxis() {
-            setBorder(new EmptyBorder(0,0,0,0));
-            setLayout(new BorderLayout());
-            axis.setXoffset(0);
-            axis.setYoffset(0);
-            add(colorBar, BorderLayout.CENTER);
-            add(axispanel, BorderLayout.SOUTH);
-        }
-
-        public void updateAxis(double min, double max) {
-            axis.setMin(min);
-            axis.setMax(max);
-            repaint();
-
-
-        }
-
-        
     }
 
 

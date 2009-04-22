@@ -41,13 +41,13 @@ public class ColorMapDataset extends AbstractIntervalXYDataset {
      */
     public ColorMapDataset(IColorMap _map) {
         map = _map;
-        map.addPropertyChangeListener(handler);
+        //map.addPropertyChangeListener(handler);
     }
 
     public void setColorMap(IColorMap _map) {
-        map.removePropertyChangeListener(handler);
+        //map.removePropertyChangeListener(handler);
         map = _map;
-        map.addPropertyChangeListener(handler);
+        //map.addPropertyChangeListener(handler);
         notifyListeners(new DatasetChangeEvent(this, this));
 
     }

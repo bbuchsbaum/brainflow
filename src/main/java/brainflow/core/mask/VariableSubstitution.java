@@ -1,6 +1,5 @@
 package brainflow.core.mask;
 
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageViewModel;
 import brainflow.image.data.IImageData;
 import brainflow.image.data.ImageData;

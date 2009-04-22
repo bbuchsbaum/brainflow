@@ -3,7 +3,7 @@ package brainflow.core.rendering;
 import org.apache.commons.pipeline.stage.BaseStage;
 import org.apache.commons.pipeline.StageException;
 import org.apache.commons.pipeline.StageContext;
-import brainflow.core.IImageDisplayModel;
+
 import brainflow.core.ImageViewModel;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.AnatomicalPoint3D;
@@ -15,7 +15,7 @@ import brainflow.image.anatomy.AnatomicalPoint3D;
  * Time: 5:53:56 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class ImageProcessingStage<INPUT,OUTPUT> extends BaseStage {
+public abstract class ImageProcessingStage extends BaseStage {
 
     private ImagePlotPipeline pipeline;
 

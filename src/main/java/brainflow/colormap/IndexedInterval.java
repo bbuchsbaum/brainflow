@@ -9,7 +9,7 @@ package brainflow.colormap;
  */
 public class IndexedInterval implements Interval {
     
-    private double[] boundaryArray;
+    private final double[] boundaryArray;
 
     private int index;
 
@@ -37,7 +37,7 @@ public class IndexedInterval implements Interval {
     }
 
     public boolean containsValue(double v) {
-        if (v >= getMinimum() & v <= getMaximum()) return true;
+        if (v >= getMinimum() && v <= getMaximum()) return true;
 
         return false;
     }

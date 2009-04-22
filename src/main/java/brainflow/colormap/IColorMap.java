@@ -16,15 +16,6 @@ import java.util.ListIterator;
  */
 public interface IColorMap {
 
-    public static final String HIGH_CLIP_PROPERTY = "highClip";
-
-    public static final String LOW_CLIP_PROPERTY = "lowClip";
-
-    public static final String MAP_SIZE_PROPERTY = "mapSize";
-
-    public static final String MAXIMUM_VALUE_PROPERTY = "maximumValue";
-
-    public static final String MINIMUM_VALUE_PROPERTY = "minimumValue";
 
     public static final int MAXIMUM_INTERVALS = 1000;
 
@@ -39,11 +30,7 @@ public interface IColorMap {
     public double getLowClip();
 
     public IColorMap newClipRange(double lowClip, double highClip, double min, double max);
-
-    //public void setHighClip(double clip);
-
-    //public void setLowClip(double clip);
-
+ 
     public double getMaximumValue();
 
     public double getMinimumValue();
@@ -54,8 +41,6 @@ public interface IColorMap {
 
     public AbstractColorBar createColorBar();
 
-    public void addPropertyChangeListener(PropertyChangeListener listener);
 
-    public void removePropertyChangeListener(PropertyChangeListener listener);
 
 }

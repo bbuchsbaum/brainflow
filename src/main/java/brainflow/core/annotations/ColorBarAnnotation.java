@@ -2,7 +2,6 @@ package brainflow.core.annotations;
 
 import brainflow.colormap.AbstractColorBar;
 import brainflow.core.layer.AbstractLayer;
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.IImagePlot;
 import brainflow.core.ImageViewModel;
 

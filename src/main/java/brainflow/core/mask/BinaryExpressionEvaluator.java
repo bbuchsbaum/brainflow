@@ -1,10 +1,7 @@
 package brainflow.core.mask;
 
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.ImageViewModel;
-import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.MaskProperty3D;
-import brainflow.core.layer.IMaskProperty;
+
 import brainflow.image.data.IMaskedData3D;
 import brainflow.image.data.IImageData;
 

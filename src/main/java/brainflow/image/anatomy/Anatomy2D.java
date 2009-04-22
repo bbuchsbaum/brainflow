@@ -2,9 +2,6 @@ package brainflow.image.anatomy;
 
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.Anatomy;
-import brainflow.image.IndexConverter2D;
-import brainflow.image.IndexConverter1D;
-import brainflow.math.Matrix4f;
 import brainflow.math.Matrix3f;
 import brainflow.math.Vector3f;
 
@@ -99,58 +96,7 @@ public class Anatomy2D implements Anatomy {
         throw new IllegalArgumentException("Axes do not correspond to valid anatomical plane ");
     }
 
-    public IndexConverter2D getIndexConverter(Anatomy2D other, int xdim, int ydim) {
-        IndexConverter1D xcon = null;
-        IndexConverter1D ycon = null;
-
-        boolean swap = false;
-
-
-
-        if (other.XAXIS == XAXIS) {
-            xcon = new AnatomicalAxis.IndexDoNothing();
-        }
-        else if (other.XAXIS == XAXIS.getFlippedAxis()) {
-            xcon = new AnatomicalAxis.IndexFlipper(xdim);
-        }
-
-        else if ( other.XAXIS == YAXIS) {
-            ycon = new AnatomicalAxis.IndexDoNothing();
-            swap=true;
-        }
-
-        else if ( other.XAXIS == YAXIS.getFlippedAxis()) {
-            ycon = new AnatomicalAxis.IndexFlipper(ydim);
-            swap=true;
-        }
-
-        else { throw new IllegalArgumentException("Cannot convert between orthogonal planes");  }
-
-        if (other.YAXIS == YAXIS) {
-            ycon = new AnatomicalAxis.IndexDoNothing();
-        }
-
-        else if (other.YAXIS == YAXIS.getFlippedAxis()) {
-            ycon = new AnatomicalAxis.IndexFlipper(ydim);
-        }
-
-        else if (other.YAXIS == XAXIS) {
-            xcon = new AnatomicalAxis.IndexDoNothing();
-            swap=true;
-        }
-
-        else if ( other.YAXIS == XAXIS.getFlippedAxis()) {
-            xcon = new AnatomicalAxis.IndexFlipper(xdim);
-            swap=true;
-        }
-
-        else { throw new IllegalArgumentException("Cannot convert between orthogonal planes"); };
-
-        if (swap) return new Anatomy2D.SwappingIndexConverter2D(xcon, ycon);
-        else return new Anatomy2D.StandardIndexConverter2D(xcon, ycon);
-
-
-    }
+    
 
     public Anatomy2D getAxisSwappedPlane() {
         return matchAnatomy(YAXIS, XAXIS);
@@ -188,52 +134,7 @@ public class Anatomy2D implements Anatomy {
     }
 
 
-    public static class StandardIndexConverter2D implements IndexConverter2D {
-
-        IndexConverter1D one;
-        IndexConverter1D two;
-
-        public StandardIndexConverter2D(IndexConverter1D _one, IndexConverter1D _two) {
-            one = _one;
-            two = _two;
-        }
-
-        public final int[] convertXY(int x, int y) {
-            return new int[] { one.convert(x), two.convert(y) };
-        }
-
-         public final int[] convertXY(int x, int y, int[] out) {
-            out[0] = one.convert(x);
-            out[1] = two.convert(y);
-            return out;
-        }
-
-
-    }
-
-    public static class SwappingIndexConverter2D implements IndexConverter2D {
-
-        IndexConverter1D one;
-        IndexConverter1D two;
-
-        public SwappingIndexConverter2D(IndexConverter1D _one, IndexConverter1D _two) {
-            one = _one;
-            two = _two;
-        }
-
-        public final int[] convertXY(int x, int y) {
-            return new int[] { one.convert(y), two.convert(x) };
-
-        }
-
-        public final int[] convertXY(int x, int y, int[] out) {
-            out[0] = one.convert(y);
-            out[1] = two.convert(x);
-            return out;
-        }
-
-
-    }
+    
 
 
 }

@@ -2,6 +2,7 @@ package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.space.ImageSpace2D;
+import brainflow.image.space.IImageSpace2D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,7 +19,7 @@ public interface DataGrid2D extends DataGrid {
 
     public double value(int x, int y);
 
-    public ImageSpace2D getImageSpace();
+    public IImageSpace2D getImageSpace();
 
     
 }

@@ -19,10 +19,7 @@ import brainflow.image.space.ImageSpace2D;
 public class ImageFiller {
 
     private IImageSpace ispace;
-
-
-
-    
+   
     public BasicImageData2D fillImage(DataGrid3D inputData, Anatomy3D displayAnatomy, int displayIndex) {
 
         ispace = inputData.getImageSpace();

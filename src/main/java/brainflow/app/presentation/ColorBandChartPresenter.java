@@ -113,7 +113,7 @@ public class ColorBandChartPresenter extends ImageViewPresenter {
         JFrame jf = new JFrame();
 
 
-        jf.add(new ColorBandChartPresenter(new LinearColorMapDeprecated(0, 300, ColorTable.SPECTRUM)).getComponent());
+        jf.add(new ColorBandChartPresenter(new LinearColorMap2(0, 300, ColorTable.SPECTRUM)).getComponent());
         jf.pack();
         jf.setVisible(true);
 

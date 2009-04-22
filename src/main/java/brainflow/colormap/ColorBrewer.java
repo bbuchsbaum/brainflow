@@ -2,6 +2,8 @@ package brainflow.colormap;
 
 import java.awt.*;
 import java.awt.image.IndexColorModel;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,6 +33,11 @@ public class ColorBrewer {
     public static final IndexColorModel Reds = ColorTable.resampleMap(createColorModel(RedsHex), 14);
     public static final IndexColorModel Greens = ColorTable.resampleMap(createColorModel(GreensHex), 14);
     public static final IndexColorModel BrownBlueGreen = ColorTable.resampleMap(createColorModel(BrBGHex), 14);
+
+    public static final Map<String, IndexColorModel> maps = new HashMap<String, IndexColorModel>();
+
+    
+
 
 
     public static IndexColorModel createColorModel(int[] hexvals) {

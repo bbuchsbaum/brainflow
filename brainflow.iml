@@ -11,10 +11,10 @@
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/scala" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/lib" />
-      <excludeFolder url="file://$MODULE_DIR$/src/main/scala" />
     </content>
     <orderEntry type="library" name="GROOVY" level="application" />
     <orderEntry type="inheritedJdk" />
@@ -27,7 +27,6 @@
     <orderEntry type="library" name="commons-vfs" level="application" />
     <orderEntry type="library" name="jgoodies-forms" level="application" />
     <orderEntry type="library" name="xstream" level="application" />
-    <orderEntry type="library" name="datatips" level="application" />
     <orderEntry type="library" name="jdom" level="application" />
     <orderEntry type="library" name="commons-logging" level="application" />
     <orderEntry type="library" name="colt" level="application" />
@@ -41,9 +40,9 @@
     <orderEntry type="library" name="jide-2.6.0" level="application" />
     <orderEntry type="library" name="synthetica" level="application" />
     <orderEntry type="library" name="balloontip" level="application" />
-    <orderEntry type="library" name="scala-2.7.3-final" level="project" />
     <orderEntry type="library" name="gradle" level="application" />
     <orderEntry type="library" name="commons-pipeline" level="application" />
+    <orderEntry type="library" name="miglayout" level="application" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ACTIVE_VCS_NAME" value="svn" />

@@ -185,10 +185,10 @@ public abstract class AbstractColorBar extends JPanel {
 
 
     protected void initListener(IColorMap imap) {
-        // todo this is no longer relevant because color maps are immutable ???
-        if (colorMap != null) {
-            colorMap.removePropertyChangeListener(mapListener);
-        }
+        // /
+        //if (colorMap != null) {
+        //    colorMap.removePropertyChangeListener(mapListener);
+        //}
 
         colorMap = imap;
 
@@ -201,7 +201,7 @@ public abstract class AbstractColorBar extends JPanel {
             }
         };
 
-        colorMap.addPropertyChangeListener(mapListener);
+        //colorMap.addPropertyChangeListener(mapListener);
 
 
     }

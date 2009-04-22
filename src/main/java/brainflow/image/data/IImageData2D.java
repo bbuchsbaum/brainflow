@@ -1,6 +1,7 @@
 package brainflow.image.data;
 
 import brainflow.image.space.ImageSpace2D;
+import brainflow.image.space.IImageSpace2D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,7 +15,7 @@ public interface IImageData2D extends IImageData, DataGrid2D {
 
     public int indexOf(int x, int y);
 
-    public ImageSpace2D getImageSpace();
+    public IImageSpace2D getImageSpace();
 
     public ImageBuffer2D createWriter(boolean clear);
 

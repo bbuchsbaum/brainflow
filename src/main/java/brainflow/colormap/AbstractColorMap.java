@@ -20,8 +20,6 @@ import java.util.ListIterator;
 public abstract class AbstractColorMap implements IColorMap {
 
 
-    public static final String COLORS_CHANGED_PROPERTY = "colorsChanged";
-
 
     private double minimumValue;
 
@@ -31,8 +29,6 @@ public abstract class AbstractColorMap implements IColorMap {
 
     protected double highClip;
 
-
-    protected PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     public abstract int getMapSize();
 
@@ -159,11 +155,5 @@ public abstract class AbstractColorMap implements IColorMap {
     }
 
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
-    }
+   
 }
