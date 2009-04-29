@@ -1,7 +1,7 @@
 package brainflow.app.actions;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import com.jidesoft.dialog.JideOptionPane;
 
@@ -44,7 +44,7 @@ public class GoToVoxelCommand extends BrainFlowCommand {
 
         float[] coords = view.getModel().getImageSpace().indexToWorld(vox);
      
-        AnatomicalPoint3D ap = new AnatomicalPoint3D((Anatomy3D)view.getModel().getImageSpace().getAnatomy(), coords[0], coords[1], coords[2]);
+        BrainPoint3D ap = new BrainPoint3D((Anatomy3D)view.getModel().getImageSpace().getAnatomy(), coords[0], coords[1], coords[2]);
         view.cursorX.set(ap.getX());
         view.cursorY.set(ap.getY());
         view.cursorZ.set(ap.getZ());
