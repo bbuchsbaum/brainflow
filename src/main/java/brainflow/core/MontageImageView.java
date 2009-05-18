@@ -1,14 +1,7 @@
 package brainflow.core;
 
-import brainflow.core.annotations.CrosshairAnnotation;
-import brainflow.core.annotations.SelectedPlotAnnotation;
-import brainflow.core.annotations.SliceAnnotation;
 import brainflow.core.annotations.IAnnotation;
-import brainflow.display.ICrosshair;
-import brainflow.image.anatomy.AnatomicalPoint1D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
-import brainflow.image.axis.AxisRange;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -16,8 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;

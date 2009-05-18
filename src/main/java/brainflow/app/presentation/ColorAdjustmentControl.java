@@ -56,7 +56,7 @@ public class ColorAdjustmentControl extends AbstractPresenter {
         //cp.setUI(new VsnetCollapsiblePaneUI());
         cp.setContentPane(presenter.getComponent());
         cp.setTitle(title);
-
+        
         cp.setEmphasized(true);
         cp.setOpaque(false);
 

@@ -5,16 +5,17 @@ import brainflow.app.MemoryImageDataSource;
 import brainflow.core.rendering.BasicImageSliceRenderer;
 import brainflow.core.layer.ImageLayerProperties;
 import brainflow.core.SliceRenderer;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.data.*;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.ICoordinateSpace3D;
 import brainflow.image.interpolation.NearestNeighborInterpolator;
+import brainflow.utils.Range;
 
 import java.util.Map;
-import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.java.dev.properties.Property;
@@ -42,7 +43,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
     }
 
     public ImageLayer3D(IImageData data) {
-        super(new MemoryImageDataSource(data));
+        super(new MemoryImageDataSource(data), new Range(data.minValue(), data.maxValue()));
         init();
     }
 
@@ -73,10 +74,8 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
         return (IImageData3D) super.getData();
     }
 
-    public double getValue(AnatomicalPoint3D pt) {
-        IImageSpace space = getCoordinateSpace();
-        AnatomicalPoint3D apt = pt.convertTo((ICoordinateSpace3D) space);
-
+    public double getValue(GridPoint3D pt) {
+       BrainPoint3D apt = pt.toWorld();
         return getData().worldValue((float) apt.getX(), (float) apt.getY(), (float) apt.getZ(), new NearestNeighborInterpolator());
 
 
@@ -93,7 +92,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
     private Map<Anatomy3D, BasicImageSliceRenderer> rendererMap = new ConcurrentHashMap<Anatomy3D, BasicImageSliceRenderer>();
 
 
-    private SliceRenderer getSliceRenderer(IImageSpace3D refspace, AnatomicalPoint3D slice, Anatomy3D displayAnatomy) {
+    private SliceRenderer getSliceRenderer(IImageSpace3D refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
         BasicImageSliceRenderer renderer = rendererMap.get(displayAnatomy);
         if (renderer != null) {
             renderer = new BasicImageSliceRenderer(renderer, slice, true);
@@ -108,9 +107,11 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
         return renderer;
     }
 
-    public SliceRenderer getSliceRenderer(IImageSpace refspace, AnatomicalPoint3D slice, Anatomy3D displayAnatomy) {
-        return getSliceRenderer((IImageSpace3D) refspace, slice, displayAnatomy);
+    //todo what on earth?
+    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
+        return getSliceRenderer((IImageSpace3D)refspace, slice, displayAnatomy);
     }
+    //todo what on earth?
 
 
 }

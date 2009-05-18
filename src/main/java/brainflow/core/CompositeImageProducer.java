@@ -4,9 +4,7 @@ import brainflow.core.rendering.*;
 import brainflow.core.layer.ImageLayerEvent;
 import brainflow.core.layer.ImageLayerListener;
 import brainflow.display.InterpolationType;
-import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
-import brainflow.image.anatomy.AnatomicalPoint1D;
+import brainflow.image.anatomy.*;
 import brainflow.image.axis.AxisRange;
 import brainflow.utils.OndeckTaskExecutor;
 import brainflow.utils.NumberUtils;
@@ -44,32 +42,24 @@ public class CompositeImageProducer extends AbstractImageProducer {
     private final OndeckTaskExecutor<BufferedImage> renderQueue;
 
 
-    public CompositeImageProducer(IImagePlot plot, Anatomy3D displayAnatomy) {
-        this(plot, displayAnatomy, plot.getModel().getImageSpace().getCentroid());
+    public CompositeImageProducer(IImagePlot plot) {
+        this(plot, GridPoint3D.fromReal(plot.getModel().getImageSpace().getCentroid(), plot.getModel().getImageSpace()));
 
     }
 
-    public CompositeImageProducer(IImagePlot plot,
-                                  Anatomy3D displayAnatomy, AnatomicalPoint3D slice) {
-        this(plot, displayAnatomy, slice, Executors.newSingleThreadExecutor());
-        //initPipeline();
-
+    public CompositeImageProducer(IImagePlot plot, GridPoint3D slice) {
+        this(plot, slice, Executors.newSingleThreadExecutor());
     }
 
-    public CompositeImageProducer(IImagePlot plot,
-                                  Anatomy3D displayAnatomy, AnatomicalPoint3D slice, ExecutorService service) {
+    public CompositeImageProducer(IImagePlot plot, GridPoint3D slice, ExecutorService service) {
+        super();
         this.plot = plot;
-        //setDisplayAnatomy(displayAnatomy);
-
-        //initPipeline();
-
         setSlice(slice);
         layerListener = new PipelineLayerListener();
         getModel().addImageLayerListener(layerListener);
         renderQueue = new OndeckTaskExecutor<BufferedImage>(service);
 
     }
-
 
 
     public void setScreenInterpolation(InterpolationType type) {
@@ -91,14 +81,15 @@ public class CompositeImageProducer extends AbstractImageProducer {
         //getPlot().getComponent().repaint();
     }
 
-    public void setSlice(AnatomicalPoint3D slice) {
-        AnatomicalPoint1D pt = slice.getValue(getDisplayAnatomy().ZAXIS);
-         if (NumberUtils.equals(pt.getValue(), getSlice().getValue(getDisplayAnatomy().ZAXIS).getValue(), .0001)) {
-            return;
+    public void setSlice(GridPoint3D slice) {
+        GridPoint1D pt = slice.getValue(getDisplayAnatomy().ZAXIS, false);
+        //System.out.println("slice is " + slice);
+        if (!NumberUtils.equals(pt.getValue(), getSlice().getValue(getDisplayAnatomy().ZAXIS, false).getValue(), .0001)) {
+            super.setSlice(slice);
+            dirty = true;
         }
 
-        super.setSlice(slice);
-        dirty = true;
+
     }
 
     public void setPlot(IImagePlot plot) {
@@ -174,6 +165,7 @@ public class CompositeImageProducer extends AbstractImageProducer {
     public synchronized BufferedImage render() {
         try {
 
+            
             ImagePlotPipeline pipeline = createPipeline();
 
             pipeline.getSourceFeeder().feed(getModel());
@@ -182,10 +174,10 @@ public class CompositeImageProducer extends AbstractImageProducer {
 
             lastImage = ((TerminalFeeder) pipeline.getTerminalFeeder()).getImage();
             dirty = false;
-        } catch(Throwable t) {
-            t.printStackTrace();
-            System.out.println("slice is " + this.getSlice());
-            System.out.println("space is " + plot.getModel().getImageSpace());
+        } catch (Exception ex) {
+            GridPoint3D gp = plot.getSlice();
+            log.info("error occurred while rendering slice " + gp);
+            throw new RuntimeException("error during image rendering: " + ex.getMessage(), ex);
         }
 
 

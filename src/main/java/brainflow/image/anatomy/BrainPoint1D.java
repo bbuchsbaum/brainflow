@@ -11,53 +11,45 @@ import brainflow.image.axis.ImageAxis;
  * Time: 12:31:47 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AnatomicalPoint1D implements AnatomicalPoint {
+public class BrainPoint1D implements BrainPoint {
 
 
 
     private double value;
 
-    private CoordinateAxis axis;
+    private AnatomicalAxis axis;
 
 
-    public AnatomicalPoint1D(AnatomicalAxis _anatomy, double value) {
+    public BrainPoint1D(AnatomicalAxis _anatomy, double value) {
         this.value = value;
-        axis = new CoordinateAxis(new AxisRange(_anatomy, -1000,1000));
+        axis = _anatomy;
     }
 
-    public AnatomicalPoint1D(CoordinateAxis axis, double value) {
-        this.value = value;
-        this.axis = axis;
-    }
+
 
     public AnatomicalAxis getAnatomy() {
-        return axis.getAnatomicalAxis();
+        return axis;
     }
 
     public double getValue() {
         return value;
     }
 
-    public AnatomicalPoint1D convertTo(CoordinateAxis other) {
-
-        if (other.getAnatomicalAxis().sameDirection(getAnatomy())) {
+    public BrainPoint1D convertTo(CoordinateAxis other) {
+        if (other.getAnatomicalAxis() == getAnatomy()) {
             // todo what if other axis does not contain point?
-            return new AnatomicalPoint1D(other, value);
+            return new BrainPoint1D(other.getAnatomicalAxis(), value);
         }
 
         if (other.getAnatomicalAxis() == getAnatomy().getFlippedAxis()) {
             // flipped
             double fval = (other.getMaximum() - value) + other.getMinimum();
-           
-
-            return new AnatomicalPoint1D(other, fval);
+            return new BrainPoint1D(other.getAnatomicalAxis(), fval);
 
         }
 
-
         throw new IllegalArgumentException("cannot convert points between anatomical axes");
-           
-
+         
     }
 
 
@@ -65,17 +57,17 @@ public class AnatomicalPoint1D implements AnatomicalPoint {
         return 1;
     }
 
-    public AnatomicalPoint1D mirrorPoint(ImageAxis otherAxis) {
+    public BrainPoint1D mirrorPoint(ImageAxis otherAxis) {
         assert otherAxis.getAnatomicalAxis().sameAxis(getAnatomy()) : "other axis cannot be orthogonal to this point";
 
         if (otherAxis.getAnatomicalAxis() == getAnatomy()) {
             //a copy
-            return new AnatomicalPoint1D(getAnatomy(), getValue());
+            return new BrainPoint1D(getAnatomy(), getValue());
         } else {
             double nvalue = otherAxis.getRange().getEnd().getValue() - getValue()
                     + otherAxis.getRange().getBeginning().getValue();
 
-            return new AnatomicalPoint1D(otherAxis.getAnatomicalAxis(), nvalue);
+            return new BrainPoint1D(otherAxis.getAnatomicalAxis(), nvalue);
         }
 
 
@@ -97,7 +89,7 @@ public class AnatomicalPoint1D implements AnatomicalPoint {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AnatomicalPoint1D that = (AnatomicalPoint1D) o;
+        BrainPoint1D that = (BrainPoint1D) o;
 
         if (Double.compare(that.value, value) != 0) return false;
         if (axis != null ? !axis.equals(that.axis) : that.axis != null) return false;
@@ -114,7 +106,11 @@ public class AnatomicalPoint1D implements AnatomicalPoint {
         return result;
     }
 
+    @Override
     public String toString() {
-        return "[" + axis.getMinimum() +", " + axis.getMaximum() + "]" + " : " +  "[" + getAnatomy().toString() + "]" + getValue();
+        return "BrainPoint1D{" +
+                "value=" + value +
+                ", axis=" + axis +
+                '}';
     }
 }

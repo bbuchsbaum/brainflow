@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class ComponentImagePlot extends JComponent implements IImagePlot {
 
-    private AnatomicalPoint3D slice;
+    private GridPoint3D slice;
 
     private ViewBounds viewBounds;
 
@@ -100,19 +100,20 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
 
 
 
-    public void setSlice(AnatomicalPoint3D slice) {
-        if (getSlice() == null || !getSlice().equals(slice)) {
+    public void setSlice(GridPoint3D slice) {
+         if (getSlice() == null || !getSlice().equals(slice)) {
             this.slice = slice;
             producer.setSlice(slice);
+            repaint();
 
         }
 
         
 
-        repaint();
+
     }
 
-    public AnatomicalPoint3D getSlice() {
+    public GridPoint3D getSlice() {
         return slice;
     }
 
@@ -327,7 +328,7 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
         repaint();
     }*/
 
-    public Point translateAnatToScreen(AnatomicalPoint2D pt) {
+    public Point translateAnatToScreen(BrainPoint2D pt) {
         if (pt.getAnatomy().XAXIS != getXAxisRange().getAnatomicalAxis()) {
             throw new ImageAxis.IncompatibleAxisException("supplied point does not match image plot axes: " +
                     "X: " + pt.getAnatomy().XAXIS + " Y: " + pt.getAnatomy().YAXIS +
@@ -338,8 +339,8 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
         Insets insets = getInsets();
         Insets plotMargins = getPlotMargins();
 
-        int x = (int) (pt.getX() * getScaleX() + plotMargins.left + insets.left);
-        int y = (int) (pt.getY() * getScaleY() + plotMargins.top + insets.top);
+        int x = (int) (pt.getX().getValue() * getScaleX() + plotMargins.left + insets.left);
+        int y = (int) (pt.getY().getValue() * getScaleY() + plotMargins.top + insets.top);
         return new Point(x, y);
     }
 
@@ -348,17 +349,14 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
     }
 
 
-    public AnatomicalPoint2D translateScreenToAnat(Point screenPoint) {
+    public BrainPoint2D translateScreenToAnat(Point screenPoint) {
         Insets insets = getInsets();
         Insets plotMargins = getPlotMargins();
-
-
 
         double x = (screenPoint.getX() - insets.left - plotMargins.left) / getScaleX();
         double y = (screenPoint.getY() - insets.top - plotMargins.top) / getScaleY();
 
-     
-        return new AnatomicalPoint2D(Anatomy2D.matchAnatomy(
+        return new BrainPoint2D(Anatomy2D.matchAnatomy(
                 getXAxisRange().getAnatomicalAxis(),
                 getYAxisRange().getAnatomicalAxis()),
                 x + getXAxisRange().getMinimum(),

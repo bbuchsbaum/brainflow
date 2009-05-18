@@ -2,7 +2,7 @@ package brainflow.image.axis;
 
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.AnatomicalDirection;
-import brainflow.image.anatomy.AnatomicalPoint1D;
+import brainflow.image.anatomy.BrainPoint1D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -42,7 +42,7 @@ public class CoordinateAxis {
         return axis;
     }
 
-    public AnatomicalPoint1D getCenter() {
+    public BrainPoint1D getCenter() {
         return range.getCenter();              
     }
 
@@ -70,7 +70,7 @@ public class CoordinateAxis {
         return range.getInterval();
     }
 
-    public AnatomicalPoint1D getEdgePoint(AnatomicalDirection adir) {
+    public BrainPoint1D getEdgePoint(AnatomicalDirection adir) {
         if (adir != axis.getMinDirection() && adir != axis.getMaxDirection()) {
             throw new ImageAxis.IncompatibleAxisException("ImageAxis.getEndPoint: supplied Axis Direction " + adir + " is incorrect");
         }

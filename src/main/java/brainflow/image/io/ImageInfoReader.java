@@ -19,14 +19,12 @@ import java.net.URL;
 
 public interface ImageInfoReader {
 
-    //static <A extends Comparable<A>> A max
 
-    public List<ImageInfo> readInfo(File f) throws BrainFlowException;
+    public ImageInfoReader create(FileObject headerFile, FileObject dataFile);
+    
+    public List<ImageInfo> readInfo() throws BrainFlowException;
 
-    public List<ImageInfo> readInfo(FileObject fobj) throws BrainFlowException;
-
-    public List<ImageInfo> readInfo(URL url) throws BrainFlowException;
-
+    
 
 
 }

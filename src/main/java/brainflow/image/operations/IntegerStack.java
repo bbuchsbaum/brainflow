@@ -19,6 +19,7 @@ public class IntegerStack {
     }
 
     public void push(int i) {
+        System.out.println("pushing " + i);
         stack[pushPos] = i;
         pushPos++;
 

@@ -39,7 +39,7 @@ import java.util.logging.Logger;
  * Time: 11:16:13 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ImageFileExplorer extends AbstractPresenter implements TreeSelectionListener, LoadableImageProvider, MouseListener, MouseMotionListener {
+public class ImageFileExplorer extends AbstractPresenter implements TreeSelectionListener, MouseListener, MouseMotionListener {
 
 
     private static final Logger log = Logger.getLogger(ImageFileExplorer.class.getName());
@@ -516,6 +516,8 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                 IImageDataSource source = desc.createLoadableImage(fobj);
                 List<ImageInfo> infoList = source.getImageInfoList();
 
+                System.out.println("infolist[0] = " + infoList.get(0).getDataFile().getName());
+
                 assert infoList.size() != 0;
 
                 if (infoList.size() > 1) {
@@ -535,6 +537,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             //throw new RuntimeException(e);
             return null;
         } catch (RuntimeException e) {
+            log.severe("failed to load image info for file : " + fobj);
             return null;
         }
 

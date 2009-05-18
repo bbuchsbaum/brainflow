@@ -26,7 +26,7 @@ public abstract class AbstractImageData implements IImageData {
 
     private final String imageLabel;
 
-    private ImageInfo info = new ImageInfo();
+    private ImageInfo info;
 
     private boolean maxComputed = false;
 
@@ -75,6 +75,10 @@ public abstract class AbstractImageData implements IImageData {
     }
 
     public ImageInfo getImageInfo() {
+        if (info == null) {
+            info = new ImageInfo(this);
+        }
+
         return info;
     }
 

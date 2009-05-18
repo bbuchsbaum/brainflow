@@ -27,7 +27,7 @@ public class MappedDataAcessor3D implements DataGrid3D {
         this.data = data;
     }
 
-    public MappedDataAcessor3D(ImageSpace3D refSpace, IImageData3D data, InterpolationFunction3D interp) {
+    public MappedDataAcessor3D(IImageSpace3D refSpace, IImageData3D data, InterpolationFunction3D interp) {
         this.refSpace = refSpace;
         this.data = data;
         this.interp = interp;

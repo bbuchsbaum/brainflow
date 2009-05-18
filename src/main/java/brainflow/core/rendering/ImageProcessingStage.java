@@ -6,7 +6,8 @@ import org.apache.commons.pipeline.StageContext;
 
 import brainflow.core.ImageViewModel;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.GridPoint3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,7 +32,7 @@ public abstract class ImageProcessingStage extends BaseStage {
         return pipeline.getModel();
     }
 
-    public AnatomicalPoint3D getSlice() {
+    public GridPoint3D getSlice() {
         return pipeline.getSlice();
     }
 

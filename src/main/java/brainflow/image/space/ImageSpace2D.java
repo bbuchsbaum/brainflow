@@ -2,11 +2,8 @@ package brainflow.image.space;
 
 import brainflow.image.anatomy.*;
 import brainflow.image.axis.ImageAxis;
-import brainflow.utils.IDimension;
 import brainflow.utils.Dimension2D;
-import brainflow.utils.Dimension3D;
 import brainflow.math.Index2D;
-import brainflow.math.Vector3f;
 import brainflow.math.Vector2f;
 
 /**
@@ -139,10 +136,10 @@ public class ImageSpace2D extends AbstractImageSpace implements IImageSpace2D {
         throw new UnsupportedOperationException();
     }
 
-    public AnatomicalPoint2D getCentroid() {
+    public BrainPoint2D getCentroid() {
         ImageAxis a1 = getImageAxis(Axis.X_AXIS);
         ImageAxis a2 = getImageAxis(Axis.Y_AXIS);
-        return new AnatomicalPoint2D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue());
+        return new BrainPoint2D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue());
     }
 
     public float[] worldToGrid(float[] coord) {

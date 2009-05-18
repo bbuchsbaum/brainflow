@@ -1,7 +1,7 @@
 package brainflow.core.annotations;
 
 import brainflow.core.IImagePlot;
-import brainflow.image.anatomy.AnatomicalPoint2D;
+import brainflow.image.anatomy.BrainPoint2D;
 import net.java.dev.properties.Property;
 import net.java.dev.properties.container.ObservableProperty;
 import net.java.dev.properties.container.BeanContainer;
@@ -60,18 +60,18 @@ public class BoxAnnotation extends AbstractAnnotation {
 
 
     public boolean containsPoint(IImagePlot plot, Point plotPoint) {
-        AnatomicalPoint2D pt = plot.translateScreenToAnat(plotPoint);
+        BrainPoint2D pt = plot.translateScreenToAnat(plotPoint);
 
-        if (pt.getX() < xmin.get()) return false;
-        if (pt.getY() < ymin.get()) return false;
-        if (pt.getX() > (xmin.get() + width.get()) ) return false;
-        if (pt.getY() > (ymin.get() + height.get()) ) return false;
+        if (pt.getX().getValue() < xmin.get()) return false;
+        if (pt.getY().getValue() < ymin.get()) return false;
+        if (pt.getX().getValue() > (xmin.get() + width.get()) ) return false;
+        if (pt.getY().getValue() > (ymin.get() + height.get()) ) return false;
 
         return true;
 
     }
 
-    public AnatomicalPoint2D translateFromJava2D(IImagePlot plot, Point plotPoint) {
+    public BrainPoint2D translateFromJava2D(IImagePlot plot, Point plotPoint) {
         return plot.translateScreenToAnat(plotPoint);
 
     }

@@ -22,9 +22,15 @@ public class AffineMapping2D implements ImageMapping2D {
 
     private final Matrix3f invMat;
 
-    public AffineMapping2D(Matrix3f mat) {
+    private Anatomy2D gridAnatomy;
+
+    private Anatomy2D worldAnatomy;
+
+    public AffineMapping2D(Matrix3f mat, Anatomy2D gridAnatomy, Anatomy2D worldAnatomy) {
         this.mat = mat;
         invMat = mat.invert();
+        this.gridAnatomy = gridAnatomy;
+        this.worldAnatomy = worldAnatomy;
     }
 
     public AffineMapping2D(Vector2f offset, Vector2f spacing, Anatomy2D anatomy) {
@@ -39,6 +45,15 @@ public class AffineMapping2D implements ImageMapping2D {
         invMat = mat.invert();
     }
 
+    @Override
+    public Anatomy2D getAnatomy() {
+        return gridAnatomy;
+    }
+
+    @Override
+    public Anatomy2D getWorldAnatomy() {
+        return worldAnatomy;
+    }
 
     public Matrix3f getMatrix() {
         return new Matrix3f(mat);

@@ -1,6 +1,6 @@
 package brainflow.image.space;
 
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.ImageAxis;
 import brainflow.math.Index3D;
@@ -108,7 +108,7 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
                 (float) yaxis.getRange().getBeginning().getValue(),
                 (float) zaxis.getRange().getBeginning().getValue()),
 
-                new Vector3f((float) xaxis.getSpacing(), (float) yaxis.getSpacing(), (float) zaxis.getSpacing()), anatomy);
+                new Vector3f((float) xaxis.getSpacing(), (float) yaxis.getSpacing(), (float) zaxis.getSpacing()), anatomy, Anatomy3D.REFERENCE_ANATOMY);
 
     }
 
@@ -177,14 +177,25 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
     }
 
-    /*public final Index3D indexToGrid(int idx, Index3D voxel) {
-        voxel.i = idx / planeSize;
-        int remainder = (idx % planeSize);
-        voxel.k = remainder / getDimension(Axis.X_AXIS);
-        voxel.j = remainder % getDimension(Axis.X_AXIS);
+    @Override
+    public float[] worldToGrid(float x, float y, float z) {
+        float[] ret = new float[3];
+        ret[0] = worldToGridX(x, y, z);
+        ret[1] = worldToGridY(x, y, z);
+        ret[2] = worldToGridZ(x, y, z);
 
-        return voxel;
-    }   */
+        return ret;
+
+    }
+
+    /*public final Index3D indexToGrid(int idx, Index3D voxel) {
+     voxel.i = idx / planeSize;
+     int remainder = (idx % planeSize);
+     voxel.k = remainder / getDimension(Axis.X_AXIS);
+     voxel.j = remainder % getDimension(Axis.X_AXIS);
+
+     return voxel;
+ }   */
 
     public final Index3D indexToGrid(int idx) {
         int remainder = (idx % planeSize);
@@ -232,16 +243,16 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
     }
 
 
-    public AnatomicalPoint3D getCentroid() {
+    public BrainPoint3D getCentroid() {
 
         ImageAxis a1 = getImageAxis(Axis.X_AXIS);
         ImageAxis a2 = getImageAxis(Axis.Y_AXIS);
         ImageAxis a3 = getImageAxis(Axis.Z_AXIS);
 
 
-        return new AnatomicalPoint3D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue(), a3.getCenter().getValue());
+        return new BrainPoint3D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue(), a3.getCenter().getValue());
         //Vector3f p = mapping.gridToWorld(x,y,z);
-        //return new AnatomicalPoint3D(Anatomy3D.REFERENCE_ANATOMY, p.x,  p.y, p.z);
+        //return new BrainPoint3D(Anatomy3D.REFERENCE_ANATOMY, p.x,  p.y, p.z);
     }
 
 
@@ -262,7 +273,7 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
                 '}';
     }
 
-    /*public AnatomicalPoint3D convertPoint(AnatomicalPoint3D otherPoint3D) {
+    /*public BrainPoint3D convertPoint(BrainPoint3D otherPoint3D) {
        Anatomy3D avol = otherPoint3D.getAnatomy();
 
        AnatomicalAxis xaxis = avol.findAxis(getAnatomicalAxis(Axis.X_AXIS));
@@ -273,7 +284,7 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
        double zero = yaxis.convertValue(this.getAnatomicalAxis(Axis.Y_AXIS), otherPoint3D.getY());
        double one = zaxis.convertValue(this.getAnatomicalAxis(Axis.Z_AXIS), otherPoint3D.getZ());
 
-       return new AnatomicalPoint3D((Anatomy3D) getAnatomy(), zero, zero, one);
+       return new BrainPoint3D((Anatomy3D) getAnatomy(), zero, zero, one);
 
 
    } */

@@ -12,13 +12,13 @@ import brainflow.image.anatomy.*;
 public class ImageOrigin1D implements IImageOrigin {
 
 
-    private AnatomicalPoint1D origin;
+    private BrainPoint1D origin;
 
     private AnatomicalDirection[] dirs;
 
     public ImageOrigin1D(AnatomicalDirection a1, double x) {
 
-        origin = new AnatomicalPoint1D(AnatomicalAxis.matchAnatomy(a1), x);
+        origin = new BrainPoint1D(AnatomicalAxis.matchAnatomy(a1), x);
 
         dirs = new AnatomicalDirection[3];
         dirs[0] = a1;
@@ -30,7 +30,7 @@ public class ImageOrigin1D implements IImageOrigin {
         return dirs;
     }
 
-    public AnatomicalPoint getOrigin() {
+    public BrainPoint getOrigin() {
         return origin;
     }
 }

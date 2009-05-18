@@ -7,14 +7,14 @@ import brainflow.image.data.*;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.operations.ImageSlicer;
 import brainflow.image.rendering.PixelUtils;
-import brainflow.image.rendering.RenderUtils;
 import brainflow.image.space.*;
+import brainflow.image.interpolation.NearestNeighborInterpolator;
+import brainflow.image.interpolation.TrilinearInterpolator;
 import brainflow.core.SliceRenderer;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayerProperties;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.utils.SoftCache;
-import brainflow.utils.StopWatch;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -36,7 +36,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     private static final Logger log = Logger.getLogger(BasicImageSliceRenderer.class.getName());
 
-    private AnatomicalPoint3D slice;
+    private GridPoint3D slice;
 
     private ImageLayer3D layer;
 
@@ -58,21 +58,26 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     private IImageSpace3D refSpace;
 
-    private SoftCache<AnatomicalPoint1D, IImageData2D> dataCache;
+    private SoftCache<GridPoint1D, IImageData2D> dataCache;
 
-    private SoftCache<AnatomicalPoint1D, RGBAImage> rgbaCache;
+    private SoftCache<GridPoint1D, RGBAImage> rgbaCache;
 
     private IColorMap lastColorMap;
 
 
-    public BasicImageSliceRenderer(BasicImageSliceRenderer renderer, AnatomicalPoint3D slice, boolean keepCache) {
+    public BasicImageSliceRenderer(BasicImageSliceRenderer renderer, GridPoint3D slice, boolean keepCache) {
+        //todo not DRY
         this.slice = slice;
         this.layer = renderer.layer;
         this.refSpace = renderer.refSpace;
         this.displayAnatomy = renderer.displayAnatomy;
         this.lastColorMap = renderer.lastColorMap;
 
-        slicer = ImageSlicer.createSlicer(refSpace, layer.getData());
+        if (layer.getImageLayerProperties().getInterpolation() == InterpolationType.NEAREST_NEIGHBOR) {
+            slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new NearestNeighborInterpolator());
+        } else {
+            slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new TrilinearInterpolator());
+        }
 
         if (keepCache) {
             dataCache = renderer.dataCache;
@@ -85,19 +90,23 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
 
-    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, AnatomicalPoint3D slice) {
+    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice) {
+        //todo not DRY
         this.slice = slice;
         this.layer = layer;
         this.refSpace = refSpace;
 
-
-        slicer = ImageSlicer.createSlicer(refSpace, layer.getData());
+        if (layer.getImageLayerProperties().getInterpolation() == InterpolationType.NEAREST_NEIGHBOR) {
+            slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new NearestNeighborInterpolator());
+        } else {
+            slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new TrilinearInterpolator());
+        }
 
         initCache();
 
     }
 
-    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, AnatomicalPoint3D slice, Anatomy3D displayAnatomy) {
+    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice, Anatomy3D displayAnatomy) {
         this.slice = slice;
         this.layer = layer;
         this.refSpace = refSpace;
@@ -111,15 +120,15 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
     private void initCache() {
-        dataCache = new SoftCache<AnatomicalPoint1D, IImageData2D>();
+        dataCache = new SoftCache<GridPoint1D, IImageData2D>();
 
-        rgbaCache = new SoftCache<AnatomicalPoint1D, RGBAImage>();
+        rgbaCache = new SoftCache<GridPoint1D, RGBAImage>();
 
 
     }
 
 
-    public SoftCache<AnatomicalPoint1D, IImageData2D> getDataCache() {
+    public SoftCache<GridPoint1D, IImageData2D> getDataCache() {
         return dataCache;
     }
 
@@ -127,7 +136,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         return refSpace;
     }
 
-    public ImageSpace2D getImageSpace() {
+    public IImageSpace2D getImageSpace() {
         return getData().getImageSpace();
     }
 
@@ -140,20 +149,15 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         if (data != null) return data;
 
 
-        AnatomicalPoint1D zdisp = getZSlice();
+        GridPoint1D zdisp = getZSlice();
 
         IImageData2D ret = dataCache.get(zdisp);
 
         if (ret == null) {
             int slice = (int) Math.round(zdisp.getValue());
 
-            if (slice >= refSpace.getDimension(displayAnatomy.ZAXIS)) {
-                slice = refSpace.getDimension(displayAnatomy.ZAXIS) - 1;
-            } else if (slice < 0) {
-                slice = 0;
-            }
 
-
+            
             ret = slicer.getSlice(getDisplayAnatomy(), slice);
             dataCache.put(zdisp, ret);
 
@@ -164,23 +168,18 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         return data;
     }
 
-    private AnatomicalPoint1D getZSlice() {
+    private GridPoint1D getZSlice() {
 
-        // convert from world coordinates to the grid coordinates
+        GridPoint1D zdisp = slice.getValue(displayAnatomy.ZAXIS, false);
+        int slice = (int) Math.round(zdisp.getValue());
 
-        double gridx = refSpace.getImageAxis(Axis.X_AXIS).gridPosition(slice.getX());
-        double gridy = refSpace.getImageAxis(Axis.Y_AXIS).gridPosition(slice.getY());
-        double gridz = refSpace.getImageAxis(Axis.Z_AXIS).gridPosition(slice.getZ());
+        if (slice >= refSpace.getDimension(displayAnatomy.ZAXIS)) {
+            slice = refSpace.getDimension(displayAnatomy.ZAXIS) - 1;
+        } else if (slice < 0) {
+            slice = 0;
+        }
 
-
-        //todo this is not actually the correct space for the point
-        AnatomicalPoint3D gridloc = new AnatomicalPoint3D(refSpace, gridx, gridy, gridz);
-
-        //todo forces gridloc to be legal, but this is a bit of a hack...
-
-
-        //get the value along whatever the z axis is for the current display anatomy
-        return gridloc.getValue(refSpace.getImageAxis(displayAnatomy.ZAXIS, true).getAnatomicalAxis(), 0, refSpace.getDimension(displayAnatomy.ZAXIS));
+        return new GridPoint1D(slice, zdisp.getImageAxis());
 
 
     }
@@ -193,7 +192,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         }
 
 
-        AnatomicalPoint1D zdisp = getZSlice();
+        GridPoint1D zdisp = getZSlice();
 
         if (lastColorMap != layer.getImageLayerProperties().colorMap.get()) {
             rgbaCache.clear();
@@ -245,8 +244,8 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     }
 
-
-    public void setSlice(AnatomicalPoint3D slice) {
+    @Override
+    public void setSlice(GridPoint3D slice) {
         if (!getSlice().equals(slice)) {
             this.slice = slice;
             flush();
@@ -285,7 +284,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         return true;
     }
 
-    public AnatomicalPoint3D getSlice() {
+    public GridPoint3D getSlice() {
         return slice;
     }
 
@@ -304,7 +303,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         double radius = dprops.smoothingRadius.get();
         if (radius < .01) return source;
 
-        ImageSpace2D ispace = getData().getImageSpace();
+        IImageSpace2D ispace = getData().getImageSpace();
         double sx = ispace.getImageAxis(Axis.X_AXIS).getRange().getInterval() / ispace.getDimension(Axis.X_AXIS);
         double sy = ispace.getImageAxis(Axis.Y_AXIS).getRange().getInterval() / ispace.getDimension(Axis.Y_AXIS);
 
@@ -319,7 +318,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
         ImageLayerProperties dprops = layer.getImageLayerProperties();
         InterpolationType interp = dprops.getInterpolation();
-        ImageSpace2D ispace = getData().getImageSpace();
+        IImageSpace2D ispace = getData().getImageSpace();
 
         double sx = ispace.getImageAxis(Axis.X_AXIS).getRange().getInterval() / ispace.getDimension(Axis.X_AXIS);
         double sy = ispace.getImageAxis(Axis.Y_AXIS).getRange().getInterval() / ispace.getDimension(Axis.Y_AXIS);
@@ -362,25 +361,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
     private BufferedImage createBufferedImage(RGBAImage rgba) {
-        //todo RGBAImage shuold have method that directly isntantiates INT_ARGB image
-        byte[] br = rgba.getRed().getByteArray();
-        byte[] bg = rgba.getGreen().getByteArray();
-        byte[] bb = rgba.getBlue().getByteArray();
-        byte[] ba = rgba.getAlpha().getByteArray();
-
-        byte[][] ball = new byte[4][];
-        ball[0] = br;
-        ball[1] = bg;
-        ball[2] = bb;
-        ball[3] = ba;
-        BufferedImage bimg = RenderUtils.createInterleavedBufferedImage(ball, rgba.getWidth(), rgba.getHeight(), false);
-
-        // code snippet is required because of bug in Java ImagingLib.
-        // It cannot deal with component sample models... so we convert first.
-        //BufferedImage ret = RenderUtils.createCompatibleImage(bimg.getWidth(), bimg.getHeight());
-        //Graphics2D g2 = ret.createGraphics();
-        //g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-        //g2.drawRenderedImage(bimg, AffineTransform.getTranslateInstance(0, 0));
+        BufferedImage bimg = rgba.getAsBufferedImage();
         return bimg;
     }
 
@@ -390,10 +371,12 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
         ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
 
-        AnatomicalPoint1D zdisp = getZSlice();
+        GridPoint1D zdisp = getZSlice();
 
         //todo what is the correct way to round zdisp  here?
         // todo check if zdisp is valid?
+
+        //System.out.println("zslice : " + zdisp);
 
         IImageData2D maskData = slicer.getSlice(getDisplayAnatomy(), (int) (zdisp.getValue()));
         UByteImageData2D alpha = rgba.getAlpha();

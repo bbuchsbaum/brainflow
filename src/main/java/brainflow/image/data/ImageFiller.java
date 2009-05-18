@@ -19,22 +19,25 @@ import brainflow.image.space.ImageSpace2D;
 public class ImageFiller {
 
     private IImageSpace ispace;
-   
+
     public BasicImageData2D fillImage(DataGrid3D inputData, Anatomy3D displayAnatomy, int displayIndex) {
 
         ispace = inputData.getImageSpace();
-
 
 
         AnatomicalAxis xaxis = ispace.getAnatomicalAxis(Axis.X_AXIS);
         AnatomicalAxis yaxis = ispace.getAnatomicalAxis(Axis.Y_AXIS);
         AnatomicalAxis zaxis = ispace.getAnatomicalAxis(Axis.Z_AXIS);
 
+        if (displayIndex < 0 || displayIndex >= ispace.getImageAxis(displayAnatomy.ZAXIS, true).getNumSamples()) {
+            throw new IllegalArgumentException("slice is is out of image bounds");
+        }
+
 
         AnatomicalAxis axis1 = displayAnatomy.XAXIS;
         AnatomicalAxis axis2 = displayAnatomy.YAXIS;
 
-      
+
         QuickIterator fastIterator;
         QuickIterator slowIterator;
 
@@ -79,15 +82,14 @@ public class ImageFiller {
             fastIterator = makeIterator(zaxis, axis1);
             slowIterator = makeIterator(xaxis, axis2);
             values = fillZXY(inputData, fastIterator, slowIterator, displayIndex);
-        } else{
+        } else {
             throw new IllegalArgumentException("illegal combination of axes: " + axis1 + " and " + axis2);
         }
 
-       
-
+        //todo potential bug?
         AxisRange arange1 = ispace.getImageAxis(axis1, true).getRange();
         AxisRange arange2 = ispace.getImageAxis(axis2, true).getRange();
-
+        //todo potential bug?
 
         ImageAxis a1 = new ImageAxis(arange1.getBeginning().getValue(), arange1.getEnd().getValue(),
                 axis1, ispace.getDimension(axis1));
@@ -97,11 +99,10 @@ public class ImageFiller {
 
 
         return new BasicImageData2D(new ImageSpace2D(a1, a2), values);
-      
+
 
     }
 
-   
 
     private QuickIterator makeIterator(AnatomicalAxis axis1, AnatomicalAxis axis2) {
         if (axis1 == axis2) {
@@ -116,20 +117,31 @@ public class ImageFiller {
 
 
     private float[] fillXYZ(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x, y, z;
+        int x = 0, y = 0, z = 0;
         z = fixed;
 
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        while (slowIterator.hasNext()) {
-            y = slowIterator.next();
-            while (fastIterator.hasNext()) {
-                x = fastIterator.next();
-                op[i] = (float)data.value(x, y, z);
-                i++;
+        try {
+            while (slowIterator.hasNext()) {
+                y = slowIterator.next();
+                while (fastIterator.hasNext()) {
+                    x = fastIterator.next();
+                    op[i] = (float) data.value(x, y, z);
+                    i++;
+                }
+                fastIterator.reset();
             }
-            fastIterator.reset();
+        } catch (RuntimeException e) {
+            System.out.println("fixed is z");
+            System.out.println("i " + i);
+            System.out.println("x = " + x);
+            System.out.println("y = " + y);
+            System.out.println("z = " + z);
+            System.out.println("data dim " + data.getImageSpace());
+            throw e;
+
         }
 
         return op;
@@ -137,21 +149,32 @@ public class ImageFiller {
     }
 
     private float[] fillYXZ(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x, y, z;
+        int x = 0, y = 0, z = 0;
         z = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        while (slowIterator.hasNext()) {
-            x = slowIterator.next();
+        try {
+            while (slowIterator.hasNext()) {
+                x = slowIterator.next();
 
-            while (fastIterator.hasNext()) {
-                y = fastIterator.next();
+                while (fastIterator.hasNext()) {
+                    y = fastIterator.next();
 
-                op[i] = (float)data.value(x, y, z);
-                i++;
+                    op[i] = (float) data.value(x, y, z);
+                    i++;
+                }
+                fastIterator.reset();
             }
-            fastIterator.reset();
+        } catch (RuntimeException e) {
+            System.out.println("fixed is z");
+            System.out.println("i " + i);
+            System.out.println("x = " + x);
+            System.out.println("y = " + y);
+            System.out.println("z = " + z);
+            System.out.println("data dim " + data.getImageSpace());
+            throw e;
+
         }
 
         return op;
@@ -159,19 +182,31 @@ public class ImageFiller {
     }
 
     private float[] fillXZY(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x, y, z;
+        int x = 0, y = 0, z = 0;
         y = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        while (slowIterator.hasNext()) {
-            z = slowIterator.next();
-            while (fastIterator.hasNext()) {
-                x = fastIterator.next();
-                op[i] = (float)data.value(x, y, z);
-                i++;
+        try {
+            while (slowIterator.hasNext()) {
+                z = slowIterator.next();
+                while (fastIterator.hasNext()) {
+                    x = fastIterator.next();
+                    op[i] = (float) data.value(x, y, z);
+                    i++;
+                }
+                fastIterator.reset();
+
             }
-            fastIterator.reset();
+        } catch (RuntimeException e) {
+            System.out.println("fixed is y");
+            System.out.println("i " + i);
+            System.out.println("x = " + x);
+            System.out.println("y = " + y);
+            System.out.println("z = " + z);
+            System.out.println("data dim " + data.getImageSpace());
+            throw e;
+
         }
 
         return op;
@@ -179,19 +214,30 @@ public class ImageFiller {
     }
 
     private float[] fillYZX(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x, y, z;
+        int x = 0, y = 0, z = 0;
         x = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        while (slowIterator.hasNext()) {
-            z = slowIterator.next();
-            while (fastIterator.hasNext()) {
-                y = fastIterator.next();
-                op[i] = (float)data.value(x, y, z);
-                i++;
+        try {
+            while (slowIterator.hasNext()) {
+                z = slowIterator.next();
+                while (fastIterator.hasNext()) {
+                    y = fastIterator.next();
+                    op[i] = (float) data.value(x, y, z);
+                    i++;
+                }
+                fastIterator.reset();
             }
-            fastIterator.reset();
+        } catch (RuntimeException e) {
+            System.out.println("fixed is x");
+            System.out.println("i " + i);
+            System.out.println("x = " + x);
+            System.out.println("y = " + y);
+            System.out.println("z = " + z);
+            System.out.println("data dim " + data.getImageSpace());
+            throw e;
+
         }
 
         return op;
@@ -199,20 +245,31 @@ public class ImageFiller {
     }
 
     private float[] fillZYX(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x, y, z;
+        int x = 0, y = 0, z = 0;
         x = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        while (slowIterator.hasNext()) {
-            y = slowIterator.next();
-            while (fastIterator.hasNext()) {
-                z = fastIterator.next();
+        try {
+            while (slowIterator.hasNext()) {
+                y = slowIterator.next();
+                while (fastIterator.hasNext()) {
+                    z = fastIterator.next();
 
-                op[i] = (float)data.value(x, y, z);
-                i++;
+                    op[i] = (float) data.value(x, y, z);
+                    i++;
+                }
+                fastIterator.reset();
             }
-            fastIterator.reset();
+        } catch (RuntimeException e) {
+            System.out.println("fixed is x");
+            System.out.println("i " + i);
+            System.out.println("x = " + x);
+            System.out.println("y = " + x);
+            System.out.println("z = " + x);
+            System.out.println("data dim " + data.getImageSpace());
+            throw e;
+
         }
 
         return op;
@@ -220,19 +277,30 @@ public class ImageFiller {
     }
 
     private float[] fillZXY(DataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x, y, z;
+        int x = 0, y = 0, z = 0;
         y = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        while (slowIterator.hasNext()) {
-            x = slowIterator.next();
-            while (fastIterator.hasNext()) {
-                z = fastIterator.next();
-                op[i] = (float)data.value(x, y, z);
-                i++;
+        try {
+            while (slowIterator.hasNext()) {
+                x = slowIterator.next();
+                while (fastIterator.hasNext()) {
+                    z = fastIterator.next();
+                    op[i] = (float) data.value(x, y, z);
+                    i++;
+                }
+                fastIterator.reset();
             }
-            fastIterator.reset();
+        } catch (RuntimeException e) {
+            System.out.println("fixed is y");
+            System.out.println("i " + i);
+            System.out.println("x = " + x);
+            System.out.println("y = " + x);
+            System.out.println("z = " + x);
+            System.out.println("data dim " + data.getImageSpace());
+            throw e;
+
         }
 
         return op;
@@ -242,7 +310,7 @@ public class ImageFiller {
 
     private static class Incrementor implements QuickIterator {
 
-        private  int value;
+        private int value;
         private final int startValue;
         private final int endValue;
 
@@ -301,9 +369,6 @@ public class ImageFiller {
             return startValue - endValue;
         }
     }
-
-
-    
 
 
 }

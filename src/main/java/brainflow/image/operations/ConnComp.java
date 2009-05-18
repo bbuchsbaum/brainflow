@@ -3,8 +3,7 @@ package brainflow.image.operations;
 import brainflow.image.data.*;
 import brainflow.image.space.Axis;
 import brainflow.image.io.BrainIO;
-import brainflow.image.anatomy.AnatomicalPoint3D;
-import brainflow.image.anatomy.AnatomicalPoint1D;
+import brainflow.image.anatomy.BrainPoint1D;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.utils.DataType;
 import brainflow.utils.Range;
@@ -15,7 +14,6 @@ import brainflow.core.layer.ImageLayerProperties;
 import brainflow.app.BrainFlowException;
 import brainflow.app.MemoryImageDataSource;
 import brainflow.app.toplevel.ImageViewFactory;
-import brainflow.app.toplevel.ImageLayerFactory;
 import brainflow.colormap.ColorTable;
 import cern.colt.list.IntArrayList;
 
@@ -440,8 +438,8 @@ public class ConnComp {
         watch.stopAndReport("conncomp");
 
 
-        IImageData3D dat3d = ImageData.asImageData3D(comp.labels.asImageData(), new AnatomicalPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
-        //IImageData3D dat3d = ImageData.asImageData3D(mdat, new AnatomicalPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
+        IImageData3D dat3d = ImageData.asImageData3D(comp.labels.asImageData(), new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
+        //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
         ImageViewModel model = new ImageViewModel("test",
                 new ImageLayer3D(new MemoryImageDataSource(dat3d), new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()))));
 

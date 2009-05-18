@@ -1,7 +1,8 @@
 package brainflow.core.layer;
 
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.ICoordinateSpace;
 import brainflow.image.space.IImageSpace;
 import brainflow.core.layer.ImageLayerProperties;
@@ -41,9 +42,9 @@ public abstract class AbstractLayer {
         return name;
     }
 
-    public abstract double getValue(AnatomicalPoint3D pt);
+    public abstract double getValue(GridPoint3D pt);
 
-    public abstract SliceRenderer getSliceRenderer(IImageSpace refspace, AnatomicalPoint3D slice, Anatomy3D displayAnatomy);
+    public abstract SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy);
 
     //todo deprecate
     //public boolean isVisible() {

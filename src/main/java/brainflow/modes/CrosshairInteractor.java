@@ -2,7 +2,8 @@ package brainflow.modes;
 
 import brainflow.core.ImageView;
 import brainflow.core.Viewport3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.GridPoint3D;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,42 +32,25 @@ public class CrosshairInteractor extends ImageViewInteractor {
     public CrosshairInteractor() {
     }
 
+
     public void mousePressed(MouseEvent event) {
-        ImageView iview = getView();
-
-        if (iview == null || !iview.pointInPlot(event.getComponent(), event.getPoint())) {
-            return;
-        }
-
-        AnatomicalPoint3D ap = iview.getAnatomicalLocation(event.getComponent(), event.getPoint());
-        AnatomicalPoint3D tap = ap.convertTo(iview.getCursorPos().getSpace());
-
-        Viewport3D viewport = iview.getViewport();
-
-        if (tap != null && viewport.inBounds(tap)) {
-            iview.cursorPos.set(tap);
-            
-        }
+        moveCrosshair(event.getPoint(), (Component) event.getSource());
 
     }
 
     private void moveCrosshair(Point p, Component source) {
         ImageView iview = getView();
 
-        if (!iview.pointInPlot(source, p)) {
+        if (iview == null || !iview.pointInPlot(source, p)) {
             return;
         }
 
-        AnatomicalPoint3D cursorPos = iview.getCursorPos();
 
+        GridPoint3D gp = iview.getAnatomicalLocation(source, p);
 
+        if (gp != null && iview.getViewport().inBounds(gp.toReal())) {
+            iview.cursorPos.set(gp);
 
-        AnatomicalPoint3D ap = iview.getAnatomicalLocation(source, p);
-        ap = ap.convertTo(cursorPos.getSpace());
-
-        if (ap != null && iview.getViewport().inBounds(ap)) {
-            iview.cursorPos.set(ap);
-           
         }
     }
 

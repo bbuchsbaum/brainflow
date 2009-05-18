@@ -52,14 +52,14 @@ public class CoordinateSpace2D extends AbstractCoordinateSpace {
 
     }
 
-    public AnatomicalPoint getCentroid() {
+    public BrainPoint getCentroid() {
         CoordinateAxis a1 = getImageAxis(Axis.X_AXIS);
         CoordinateAxis a2 = getImageAxis(Axis.Y_AXIS);
 
-        AnatomicalPoint1D x = a1.getRange().getCenter();
-        AnatomicalPoint1D y = a2.getRange().getCenter();
+        BrainPoint1D x = a1.getRange().getCenter();
+        BrainPoint1D y = a2.getRange().getCenter();
 
-        return new AnatomicalPoint2D(getAnatomy(), x.getValue(), y.getValue());
+        return new BrainPoint2D(getAnatomy(), x.getValue(), y.getValue());
     }
 
     protected CoordinateAxis[] getAxes() {

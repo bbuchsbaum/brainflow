@@ -84,76 +84,28 @@ public class SoftImageDataSource extends AbstractImageDataSource {
     }
 
 
-
     public IImageData load(ProgressListener plistener) throws BrainFlowException {
-        try {
+
+        ImageInfo imageInfo = getImageInfoList().get(getImageIndex());
+        ImageReader ireader = imageInfo.createImageReader();
+
+        IImageData data = ireader.readImage(plistener);
+        lastRead = System.currentTimeMillis();
+        dataRef = new SoftReference<IImageData>(data);
 
 
-            ImageInfo imageInfo = getImageInfoList().get(getImageIndex());
-
-            if (imageInfo.getDataFile() == null) {
-                //todo hack alert
-                imageInfo.setDataFile(getDataFile());
-            }
-
-            ImageReader ireader = (ImageReader) getDescriptor().getDataReader().newInstance();
-
-            IImageData data = ireader.readImage(imageInfo, plistener);
-            lastRead = System.currentTimeMillis();
-            //data.setImageLabel(getStem());
-            dataRef = new SoftReference<IImageData>(data);
-
-        } catch (IllegalAccessException e) {
-            log.warning("Error caught in DataBufferSupport.load()");
-            throw new BrainFlowException(e);
-        } catch (InstantiationException e) {
-            log.warning("Error caught in DataBufferSupport.load()");
-            throw new BrainFlowException(e);
-        } //todo close reader?
-
-        return dataRef.get();
+        return data;
 
     }
 
 
     public IImageData load() throws BrainFlowException {
-        try {
-
-            ImageInfo imageInfo = getImageInfo();
-            
-            if (imageInfo.getDataFile() == null) {
-                imageInfo.setDataFile(getDataFile());
-            }
-
-            ImageReader ireader = (ImageReader) getDescriptor().getDataReader().newInstance();
-            IImageData data = ireader.readImage(imageInfo, new ProgressAdapter() {
-                public void setString(String message) {
-                    log.info(message);
-                }
-            });
-
-            lastRead = System.currentTimeMillis();
-            //data.setImageLabel(getStem());
-            dataRef = new SoftReference<IImageData>(data);
-
-        } catch (IllegalAccessException e) {
-            log.warning("Error caught in DataBufferSupport.load()");
-            throw new BrainFlowException(e);
-        } catch (InstantiationException e) {
-            log.warning("Error caught in DataBufferSupport.load()");
-            throw new BrainFlowException(e);
-        }
-
-        return dataRef.get();
+       return load(new ProgressAdapter());
     }
 
     public int getUniqueID() {
         return hashCode();
     }
-
-
-
-    
 
 
 }

@@ -44,7 +44,7 @@ public class DoubleToStringConverter extends ObservableWrapper.ReadWrite<String>
         try {
             val = Double.parseDouble(s);
         } catch (NumberFormatException e) {
-
+            //throw e;
         }
 
         WProperty<Double> wprop = (WProperty<Double>) getProperty();

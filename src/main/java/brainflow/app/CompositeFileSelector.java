@@ -15,7 +15,7 @@ import org.apache.commons.vfs.FileType;
  */
 public class CompositeFileSelector implements FileSelector {
 
-    ImageIODescriptor[] desc;
+    private ImageIODescriptor[] desc;
 
     public CompositeFileSelector(ImageIODescriptor[] _desc) {
         desc = _desc;

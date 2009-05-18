@@ -1,6 +1,6 @@
 package brainflow.app.presentation.binding;
 
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.math.Index3D;
@@ -23,21 +23,23 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
 
     private IImageSpace3D space;
 
-    public CoordinateToIndexConverter2(BaseProperty<AnatomicalPoint3D> property, IImageSpace3D _space, Axis _axis) {
+    public CoordinateToIndexConverter2(BaseProperty<BrainPoint3D> property, IImageSpace3D _space, Axis _axis) {
         super(property);
+        //todo is this necessary?
         BeanContainer.bind(this);
+        //todo is this necessary?
         axis = _axis;
         space = _space;
 
     }
 
-    private AnatomicalPoint3D getValue() {
-        RProperty<AnatomicalPoint3D> prop = (RProperty<AnatomicalPoint3D>) getProperty();
+    private BrainPoint3D getValue() {
+        RProperty<BrainPoint3D> prop = (RProperty<BrainPoint3D>) getProperty();
         return prop.get();
     }
 
     private Index3D getGridValue() {
-        AnatomicalPoint3D ap = getValue();
+        BrainPoint3D ap = getValue();
         float[] gpt = space.worldToGrid((float)ap.getX(), (float)ap.getY(), (float)ap.getZ());
         return new Index3D(Math.round(gpt[0]), Math.round(gpt[1]), Math.round(gpt[2]));
 
@@ -45,7 +47,7 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
 
     @Override
     public Integer get() {
-        AnatomicalPoint3D ap = getValue();
+        BrainPoint3D ap = getValue();
 
         float ret;
         if (axis == Axis.X_AXIS) {
@@ -66,6 +68,10 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
 
         Index3D voxel = getGridValue();
 
+        System.out.println("axis : " + axis);
+        System.out.println("setting voxel index to " + i);
+        System.out.println("grid value : " + voxel);
+
         if (axis == Axis.X_AXIS) {
              voxel = new Index3D(i, voxel.i2(), voxel.i3());
         } else if (axis == Axis.Y_AXIS) {
@@ -78,9 +84,10 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
 
 
         float[] ret = space.gridToWorld(voxel.i1(),  voxel.i2(), voxel.i3());
-        AnatomicalPoint3D nap = new AnatomicalPoint3D(getValue().getAnatomy(), ret[0], ret[1], ret[2]);
 
-        WProperty<AnatomicalPoint3D> wprop = (WProperty<AnatomicalPoint3D>) getProperty();
+        BrainPoint3D nap = new BrainPoint3D(space.getMapping().getWorldAnatomy(), ret[0], ret[1], ret[2]);
+
+        WProperty<BrainPoint3D> wprop = (WProperty<BrainPoint3D>) getProperty();
         wprop.set(nap);
     }
 

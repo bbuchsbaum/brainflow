@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class AFNIImageInfo extends ImageInfo {
 
-    private static Logger log = Logger.getLogger(AFNIImageInfo.class.getName());
+    private static final Logger log = Logger.getLogger(AFNIImageInfo.class.getName());
 
     private Map<AFNIAttributeKey, HeaderAttribute> attributeMap;
 
@@ -25,10 +25,6 @@ public class AFNIImageInfo extends ImageInfo {
     }
 
     
-
-
-
-
 
 
 

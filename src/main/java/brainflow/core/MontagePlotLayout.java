@@ -1,9 +1,6 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
-import brainflow.image.anatomy.AnatomicalPoint1D;
-import brainflow.image.axis.AxisRange;
+import brainflow.image.anatomy.*;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
 import brainflow.image.space.Space;
@@ -127,7 +124,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
     protected IImagePlot configPlot(IImagePlot plot, int index, int row, int column) {
         MontageSliceController controller = this.createSliceController();
         plot.setName(displayAnatomy.XY_PLANE.getOrientation().toString() + row + ", " + column);
-        AnatomicalPoint3D nextSlice = controller.getSliceForPlot(index);
+        GridPoint3D nextSlice = controller.getSliceForPlot(index);
         plot.setSlice(nextSlice);
 
         return plot;
@@ -167,7 +164,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
     class MontageSliceController extends SimpleSliceController {
 
 
-        private AnatomicalPoint3D sentinel;
+        private GridPoint3D sentinel;
 
 
         MontageSliceController(ImageView imageView) {
@@ -175,19 +172,19 @@ public class MontagePlotLayout extends ImagePlotLayout {
             sentinel = getView().getCursorPos();
         }
 
-        private AnatomicalPoint3D getSliceForPlot(int i) {
+        private GridPoint3D getSliceForPlot(int i) {
 
-            AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
-            return sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + (i * sliceGap)));
+            GridPoint1D z = sentinel.getValue(zaxis().getAnatomicalAxis(), false);
+            return sentinel.replace(new BrainPoint1D(z.getAnatomy(), z.toReal().getValue() + (i * sliceGap)));
 
         }
 
-        private IImagePlot nearestPlot(AnatomicalPoint1D zslice) {
+        private IImagePlot nearestPlot(BrainPoint1D zslice) {
             IImagePlot nearest = null;
             double mindist = Double.MAX_VALUE;
 
             for (IImagePlot plot : getPlots()) {
-                AnatomicalPoint1D curz = plot.getSlice().getValue(zaxis().getAnatomicalAxis());
+                BrainPoint1D curz = plot.getSlice().getValue(zaxis().getAnatomicalAxis(), false).toReal();
                 double dist = Math.abs(curz.getValue() - zslice.getValue());
                 if (dist < mindist) {
                     nearest = plot;
@@ -198,9 +195,9 @@ public class MontagePlotLayout extends ImagePlotLayout {
             return nearest;
         }
 
-        private boolean outOfRange(AnatomicalPoint1D zselected) {
+        private boolean outOfRange(BrainPoint1D zselected) {
             int nplots = getNumPlots();
-            AnatomicalPoint1D zsentinel = sentinel.getValue(zaxis().getAnatomicalAxis());
+            BrainPoint1D zsentinel = sentinel.getValue(zaxis().getAnatomicalAxis(), false).toReal();
             return (zselected.getValue() > (zsentinel.getValue() + sliceGap * nplots)) || (zselected.getValue() < zsentinel.getValue());
 
         }
@@ -208,22 +205,22 @@ public class MontagePlotLayout extends ImagePlotLayout {
         protected void initCursorListener() {
             BeanContainer.get().addListener(getView().cursorPos, new PropertyListener() {
                 public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                    AnatomicalPoint3D oldval = (AnatomicalPoint3D) oldValue;
-                    AnatomicalPoint3D newval = (AnatomicalPoint3D) newValue;
+                    GridPoint3D oldval = (GridPoint3D) oldValue;
+                    GridPoint3D newval = (GridPoint3D) newValue;
 
                     if (!oldval.equals(newval)) {
-                        AnatomicalPoint1D zselected = newval.getValue(zaxis().getAnatomicalAxis());
-                        if (outOfRange(zselected)) {
+                        GridPoint1D zselected = newval.getValue(zaxis().getAnatomicalAxis(), false);
+                        if (outOfRange(zselected.toReal())) {
                             setSlice(newval);
                         } else {
-                            IImagePlot nearPlot = nearestPlot(zselected);
-                            AnatomicalPoint1D nearz = nearPlot.getSlice().getValue(zaxis().getAnatomicalAxis());
+                            IImagePlot nearPlot = nearestPlot(zselected.toReal());
+                            BrainPoint1D nearz = nearPlot.getSlice().getValue(zaxis().getAnatomicalAxis(), false).toReal();
 
                             int i = getPlots().indexOf(nearPlot);
                             if (i > 0) {
-                                setSlice(sentinel.replace(new AnatomicalPoint1D(nearz.getAnatomy(), nearz.getValue() - sliceGap * i)));
+                                setSlice(sentinel.replace(new BrainPoint1D(nearz.getAnatomy(), nearz.getValue() - sliceGap * i)));
                             } else {
-                                setSlice(sentinel.replace(new AnatomicalPoint1D(nearz.getAnatomy(), nearz.getValue())));
+                                setSlice(sentinel.replace(new BrainPoint1D(nearz.getAnatomy(), nearz.getValue())));
                             }
 
                             repaintPlots();
@@ -249,7 +246,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
             int i = 0;
             for (IImagePlot plot : plotList) {
-                AnatomicalPoint3D slice = getSliceForPlot(i);
+                GridPoint3D slice = getSliceForPlot(i);
                 if (Space.containsPoint(getView().getModel().getImageSpace(), slice)) {
                     plot.setSlice(slice);
                 } else {
@@ -264,7 +261,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
         }
 
 
-        public void setSlice(AnatomicalPoint3D slice) {
+        public void setSlice(GridPoint3D slice) {
             if (!slice.equals(sentinel)) {
                 sentinel = slice;
                 updateSlices();
@@ -273,27 +270,27 @@ public class MontagePlotLayout extends ImagePlotLayout {
         }
 
         public void nextSlice() {
-            AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
-            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + sliceGap)).snapToBounds());
+            BrainPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis(), false).toReal();
+            setSlice(sentinel.replace(new BrainPoint1D(pt.getAnatomy(), pt.getValue() + sliceGap)));
         }
 
         public void previousSlice() {
-            AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
-            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - sliceGap)).snapToBounds());
+            BrainPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis(), false).toReal();
+            setSlice(sentinel.replace(new BrainPoint1D(pt.getAnatomy(), pt.getValue() - sliceGap)));
 
         }
 
         public void pageBack() {
-            AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
-            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - (sliceGap * getPlots().size()))).snapToBounds());
+            BrainPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis(), false).toReal();
+            setSlice(sentinel.replace(new BrainPoint1D(pt.getAnatomy(), pt.getValue() - (sliceGap * getPlots().size()))));
 
 
         }
 
         public void pageForward() {
 
-            AnatomicalPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis());
-            setSlice(sentinel.replace(new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + (sliceGap * getPlots().size()))).snapToBounds());
+            BrainPoint1D pt = sentinel.getValue(zaxis().getAnatomicalAxis(), false).toReal();
+            setSlice(sentinel.replace(new BrainPoint1D(pt.getAnatomy(), pt.getValue() + (sliceGap * getPlots().size()))));
 
 
         }

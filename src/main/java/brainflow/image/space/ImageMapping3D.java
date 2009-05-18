@@ -1,6 +1,7 @@
 package brainflow.image.space;
 
 import brainflow.math.Vector3f;
+import brainflow.image.anatomy.Anatomy3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,6 +12,12 @@ import brainflow.math.Vector3f;
  */
 public interface ImageMapping3D {
 
+
+
+    public Anatomy3D getAnatomy();
+
+    public Anatomy3D getWorldAnatomy();
+
     public Vector3f getOrigin();
     
     public Vector3f gridToWorld(int i, int j, int k, Vector3f out);
@@ -20,7 +27,6 @@ public interface ImageMapping3D {
     public Vector3f gridToWorld(float i, float j, float k);
 
     public Vector3f gridToWorld(float i, float j, float k, Vector3f out);
-
 
     public Vector3f worldToGrid(Vector3f in, Vector3f out);
 
@@ -38,5 +44,5 @@ public interface ImageMapping3D {
 
     public float gridToWorldZ(float x, float y, float z);
 
-    
+
 }

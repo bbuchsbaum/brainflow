@@ -4,6 +4,7 @@ import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.ImageSpace2D;
+import brainflow.image.space.IImageSpace2D;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.io.ImageInfo;
 import brainflow.utils.DataType;
@@ -85,7 +86,7 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
 
     }
 
-    public ImageSpace2D getImageSpace() {
+    public IImageSpace2D getImageSpace() {
         return source.getImageSpace();
     }
 

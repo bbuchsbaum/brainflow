@@ -1,7 +1,7 @@
 package brainflow.image.space;
 
 import brainflow.image.anatomy.AnatomicalDirection;
-import brainflow.image.anatomy.AnatomicalPoint;
+import brainflow.image.anatomy.BrainPoint;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +15,7 @@ public interface IImageOrigin {
 
     public AnatomicalDirection[] getOriginalDirection();
 
-    public AnatomicalPoint getOrigin();
+    public BrainPoint getOrigin();
 
 
 

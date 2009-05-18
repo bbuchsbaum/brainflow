@@ -7,7 +7,7 @@ import java.util.List;
 
 import brainflow.core.layer.CoordinateLayer;
 import brainflow.core.layer.AbstractLayer;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.AnatomicalAxis;
 
 /**
@@ -42,7 +42,7 @@ public class RenderCoordinatesStage extends ImageProcessingStage {
 
     private void renderUnto(CoordinateLayer layer, BufferedImage image) {
         AnatomicalAxis zaxis = getSlice().getAnatomy().ZAXIS;
-        List<AnatomicalPoint3D> pts = layer.getDataSource().pointsWithinPlane(getSlice().getValue(zaxis));
+        //List<BrainPoint3D> pts = layer.getDataSource().pointsWithinPlane(getSlice().getValue(zaxis).getValue());
         
 
     }

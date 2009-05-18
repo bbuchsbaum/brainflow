@@ -1,9 +1,10 @@
 package brainflow.core.rendering;
 
 import brainflow.colormap.IColorMap;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.AnatomicalAxis;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.image.data.CoordinateSet3D;
@@ -30,7 +31,7 @@ import java.util.List;
 public class BasicCoordinateSliceRenderer implements SliceRenderer {
 
 
-    private AnatomicalPoint3D slice;
+    private GridPoint3D slice;
 
     private CoordinateLayer layer;
 
@@ -40,7 +41,7 @@ public class BasicCoordinateSliceRenderer implements SliceRenderer {
 
     private ICoordinateSpace space;
 
-    public BasicCoordinateSliceRenderer(CoordinateLayer layer, AnatomicalPoint3D slice, Anatomy3D displayAnatomy) {
+    public BasicCoordinateSliceRenderer(CoordinateLayer layer, GridPoint3D slice, Anatomy3D displayAnatomy) {
         this.slice = slice;
         this.layer = layer;
         this.displayAnatomy = displayAnatomy;
@@ -72,21 +73,21 @@ public class BasicCoordinateSliceRenderer implements SliceRenderer {
 
     
 
-    public void setSlice(AnatomicalPoint3D slice) {
+    public void setSlice(GridPoint3D slice) {
         if (!getSlice().equals(slice)) {
             this.slice = slice;
             flush();
         }
     }
 
-    public AnatomicalPoint3D getSlice() {
+    public GridPoint3D getSlice() {
         return slice;
     }
 
     public BufferedImage render() {
         //CoordinateSet3D set = layer.getDataSource();
         //AnatomicalAxis zaxis = getSlice().getAnatomy().ZAXIS;
-        //List<AnatomicalPoint3D> pts = set.pointsWithinPlane(getSlice().evaluate(zaxis));
+        //List<BrainPoint3D> pts = set.pointsWithinPlane(getSlice().evaluate(zaxis));
 
 
 
@@ -96,7 +97,7 @@ public class BasicCoordinateSliceRenderer implements SliceRenderer {
     public void renderUnto(Rectangle2D frame, Graphics2D g2) {
         CoordinateSet3D set = layer.getDataSource();
         AnatomicalAxis zaxis = getSlice().getAnatomy().ZAXIS;
-        List<Integer> indices = set.indicesWithinPlane(getSlice().getValue(zaxis));
+        List<Integer> indices = set.indicesWithinPlane(getSlice().getValue(zaxis, false));
 
         if (indices.size() == 0) {
             return;
@@ -118,7 +119,7 @@ public class BasicCoordinateSliceRenderer implements SliceRenderer {
 
         IColorMap map = getLayer().getImageLayerProperties().colorMap.get();
         for (int i : indices) {
-            AnatomicalPoint3D pt = set.getAnatomicalPoint(i);
+            BrainPoint3D pt = set.getAnatomicalPoint(i);
             double value = set.getValue(i);
 
             double radius = set.getRadius(i);

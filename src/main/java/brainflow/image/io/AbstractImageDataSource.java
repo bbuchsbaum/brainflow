@@ -87,17 +87,14 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     protected void fetchImageInfo() {
 
         try {
-            ImageInfoReader reader = (ImageInfoReader) getDescriptor().getHeaderReader().newInstance();
-            imageInfoList = reader.readInfo(getHeaderFile());
+            ImageInfoReader reader = ((ImageInfoReader) getDescriptor().getHeaderReader().newInstance()).create(header, dataFile);
+            imageInfoList = reader.readInfo();
 
         } catch (BrainFlowException e) {
-            //e.printStackTrace();
             throw new RuntimeException(e);
         } catch (InstantiationException e2) {
-            //e2.printStackTrace();
             throw new RuntimeException(e2);
         } catch (IllegalAccessException e3) {
-            //e3.printStackTrace();
             throw new RuntimeException(e3);
         } catch(Throwable t) {
             Logger.getAnonymousLogger().severe("failed to read image info for : " + getHeaderFile());
@@ -122,8 +119,6 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     public FileObject getHeaderFile() {
         return header;
     }
-
-
 
     public ImageIODescriptor getDescriptor() {
         return descriptor;

@@ -1,8 +1,9 @@
 package brainflow.core.layer;
 
 import brainflow.image.data.*;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
@@ -42,11 +43,12 @@ public class MaskLayer3D extends ImageLayer3D {
     }
 
     @Override
-    public double getValue(AnatomicalPoint3D pt) {
+    public double getValue(GridPoint3D pt) {
         IImageSpace space = getCoordinateSpace();
-        float x = (float) pt.getValue(space.getAnatomicalAxis(Axis.X_AXIS)).getValue();
-        float y = (float) pt.getValue(space.getAnatomicalAxis(Axis.Y_AXIS)).getValue();
-        float z = (float) pt.getValue(space.getAnatomicalAxis(Axis.Z_AXIS)).getValue();
+        assert space.getAnatomy() == pt.getAnatomy();
+        float x = (float) pt.getValue(space.getAnatomicalAxis(Axis.X_AXIS), false).getValue();
+        float y = (float) pt.getValue(space.getAnatomicalAxis(Axis.Y_AXIS), false).getValue();
+        float z = (float) pt.getValue(space.getAnatomicalAxis(Axis.Z_AXIS), false).getValue();
 
         return getData().value(x, y, z, new NearestNeighborInterpolator());
     }
@@ -58,7 +60,7 @@ public class MaskLayer3D extends ImageLayer3D {
     }
 
    
-    protected SliceRenderer createSliceRenderer(IImageSpace3D refspace, AnatomicalPoint3D slice, Anatomy3D displayAnatomy) {
+    protected SliceRenderer createSliceRenderer(IImageSpace3D refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
         return new BasicImageSliceRenderer(refspace, this, slice, displayAnatomy) {
             @Override
             protected RGBAImage thresholdRGBA(RGBAImage rgba) {
@@ -69,7 +71,9 @@ public class MaskLayer3D extends ImageLayer3D {
     }
 
     @Override
-    public SliceRenderer getSliceRenderer(IImageSpace refspace, AnatomicalPoint3D slice, Anatomy3D displayAnatomy) {
+    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
         return createSliceRenderer((IImageSpace3D)refspace, slice, displayAnatomy);   
     }
+
+
 }

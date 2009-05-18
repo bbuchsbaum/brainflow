@@ -9,9 +9,10 @@ import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.io.IImageDataSource;
 import brainflow.gui.ExceptionDialog;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -982,8 +983,8 @@ public class BrainFlow {
             ImageView view = event.getImageView();
             if (!validEvent(event)) return;
 
-            AnatomicalPoint3D gpoint = event.getLocation();
-            ImageLayer3D layer = (ImageLayer3D) view.getSelectedLayer();
+            GridPoint3D gpoint = event.getLocation();
+            ImageLayer3D layer = view.getSelectedLayer();
 
 
             double value = layer.getValue(gpoint);

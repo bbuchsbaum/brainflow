@@ -1,7 +1,8 @@
 package brainflow.app.toplevel;
 
 import brainflow.app.services.ImageViewMousePointerEvent;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.GridPoint3D;
 import com.jidesoft.status.LabelStatusBarItem;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
@@ -52,21 +53,23 @@ public class CursorCoordinates implements EventSubscriber {
     public void onEvent(Object evt) {
 
         ImageViewMousePointerEvent event = (ImageViewMousePointerEvent) evt;
-        AnatomicalPoint3D gpoint = event.getLocation();
+        GridPoint3D gpoint = event.getLocation();
+        BrainPoint3D worldPoint = gpoint.toWorld();
+
         if (gpoint != null) {
             xaxisLabel.setText(format.format(new Object[]{
-                    gpoint.getAnatomy().XAXIS.toString().substring(0, 1),
-                    gpoint.getValue(gpoint.getAnatomy().XAXIS).getValue()}
+                    worldPoint.getAnatomy().XAXIS.toString().substring(0, 1),
+                    worldPoint.getValue(worldPoint.getAnatomy().XAXIS).getValue()}
             ));
 
             yaxisLabel.setText(format.format(new Object[]{
-                    gpoint.getAnatomy().YAXIS.toString().substring(0, 1),
-                    gpoint.getValue(gpoint.getAnatomy().YAXIS).getValue()}
+                    worldPoint.getAnatomy().YAXIS.toString().substring(0, 1),
+                    worldPoint.getValue(worldPoint.getAnatomy().YAXIS).getValue()}
             ));
 
             zaxisLabel.setText(format.format(new Object[]{
-                    gpoint.getAnatomy().ZAXIS.toString().substring(0, 1),
-                    gpoint.getValue(gpoint.getAnatomy().ZAXIS).getValue()}
+                    worldPoint.getAnatomy().ZAXIS.toString().substring(0, 1),
+                    worldPoint.getValue(worldPoint.getAnatomy().ZAXIS).getValue()}
             ));
 
 

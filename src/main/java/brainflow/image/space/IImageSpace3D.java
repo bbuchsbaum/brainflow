@@ -13,32 +13,31 @@ import brainflow.math.Index3D;
 public interface IImageSpace3D extends IImageSpace, ICoordinateSpace3D {
 
 
+    public ImageMapping3D getMapping();
 
-    ImageMapping3D getMapping();
+    public Dimension3D<Integer> getDimension();
 
+    public float[] indexToWorld(int x, int y, int z);
 
-    Dimension3D<Integer> getDimension();
+    public Index3D indexToGrid(int idx);
 
-    float[] indexToWorld(int x, int y, int z);
+    public int indexToGridX(int idx);
 
+    public int indexToGridY(int idx);
 
-    Index3D indexToGrid(int idx);
+    public int indexToGridZ(int idx);
 
-    int indexToGridX(int idx);
+    public float worldToGridX(float x, float y, float z);
 
-    int indexToGridY(int idx);
+    public float worldToGridY(float x, float y, float z);
 
-    int indexToGridZ(int idx);
+    public float worldToGridZ(float x, float y, float z);
 
-    float worldToGridX(float x, float y, float z);
+    public float gridToWorldX(float x, float y, float z);
 
-    float worldToGridY(float x, float y, float z);
+    public float gridToWorldY(float x, float y, float z);
 
-    float worldToGridZ(float x, float y, float z);
+    public float gridToWorldZ(float x, float y, float z);
 
-    float gridToWorldX(float x, float y, float z);
-
-    float gridToWorldY(float x, float y, float z);
-
-    float gridToWorldZ(float x, float y, float z);
+    public float[] worldToGrid(float x, float y, float z);
 }

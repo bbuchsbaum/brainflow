@@ -5,10 +5,7 @@ import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.data.IImageData;
-import brainflow.image.space.Axis;
-import brainflow.image.space.IImageSpace;
-import brainflow.image.space.ImageSpace3D;
-import brainflow.image.space.ImageMapping3D;
+import brainflow.image.space.*;
 import brainflow.utils.*;
 import org.apache.commons.vfs.FileObject;
 
@@ -29,12 +26,11 @@ public class ImageInfo implements java.io.Serializable {
 
     public static Anatomy3D DEFAULT_ANATOMY = Anatomy3D.AXIAL_LPI;
 
-    private IDimension arrayDim = new Dimension3D<Integer>(0, 0, 0);
+    private IDimension<Integer> arrayDim = new Dimension3D<Integer>(0, 0, 0);
 
-    private IDimension spacing = new Dimension3D<Double>(0.0, 0.0, 0.0);
+    private IDimension<Double> spacing = new Dimension3D<Double>(0.0, 0.0, 0.0);
 
-    private Dimension3D voxelOffset = new Dimension3D<Integer>(0, 0, 0);
-
+    private IDimension<Integer> voxelOffset = new Dimension3D<Integer>(0, 0, 0);
 
     private ImageMapping3D mapping;
 
@@ -46,10 +42,7 @@ public class ImageInfo implements java.io.Serializable {
 
     private int byteOffset = 0;
 
-    private int dimensionality = 3;
-
-    // SPM Default anatomy is LPI (Neurological)
-
+    private int dimensionality;
 
     private Anatomy3D anatomy = Anatomy3D.AXIAL_LPI;
 
@@ -61,15 +54,18 @@ public class ImageInfo implements java.io.Serializable {
 
     private float intercept = 0;
 
-
     private String imageLabel = null;
 
     private FileObject dataFile;
 
     private FileObject headerFile;
 
-    public ImageInfo() {
-
+    protected ImageInfo() {
+    }
+    
+    private ImageInfo(FileObject headerFile, FileObject dataFile) {
+        this.headerFile = headerFile;
+        this.dataFile = dataFile;
     }
 
     public ImageInfo(ImageInfo info) {
@@ -85,7 +81,7 @@ public class ImageInfo implements java.io.Serializable {
         numImages = info.numImages;
         origin = new Point3D(info.origin);
         imageIndex = info.imageIndex;
-        voxelOffset = new Dimension3D<Integer>(info.voxelOffset);
+        voxelOffset = info.voxelOffset;
         imageLabel = info.imageLabel;
         spacing = info.spacing;
         arrayDim = info.arrayDim;
@@ -101,15 +97,12 @@ public class ImageInfo implements java.io.Serializable {
         intercept = info.intercept;
         dataType = info.dataType;
         anatomy = info.anatomy;
-
         dimensionality = 3;
         byteOffset = info.byteOffset;
         numImages = info.numImages;
         origin = new Point3D(info.origin);
-
         imageIndex = index;
-        voxelOffset = new Dimension3D<Integer>(info.voxelOffset);
-        imageLabel = info.imageLabel;
+        voxelOffset = info.voxelOffset;
         spacing = info.spacing;
         arrayDim = info.arrayDim;
         imageLabel = _imageLabel;
@@ -137,7 +130,127 @@ public class ImageInfo implements java.io.Serializable {
 
         imageLabel = data.getImageLabel();
 
+        if (imageLabel.equals("") || imageLabel == null) {
+            imageLabel = "unititled_" + System.currentTimeMillis();
+        }
+
+
+
     }
+
+
+
+    public static class Builder extends AbstractBuilder {
+
+        protected ImageInfo info;
+
+        public Builder() {
+            info = new ImageInfo();
+
+        }
+
+        protected Builder(ImageInfo info) {
+            this.info = info;
+        }
+
+        public Builder(FileObject headerFile, FileObject dataFile) {
+            info = new ImageInfo(headerFile, dataFile);
+        }
+
+        public Builder headerFile(FileObject headerFile) {
+            info.headerFile = headerFile;
+            return this;
+        }
+
+        public Builder dataFile(FileObject dataFile) {
+            info.dataFile = dataFile;
+            return this;
+        }
+
+        public Builder arrayDim(IDimension<Integer> dim) {
+            info.arrayDim = dim;
+            return this;
+        }
+
+        public Builder anatomy(Anatomy3D anatomy) {
+            info.anatomy = anatomy;
+            return this;
+        }
+
+        public Builder dataType(DataType dataType) {
+            info.dataType = dataType;
+            return this;
+        }
+
+        public Builder dimensionality(int dimensionality) {
+            info.dimensionality = dimensionality;
+            return this;
+        }
+
+        public Builder endian(ByteOrder order) {
+            info.endian = order;
+            return this;
+        }
+
+        public Builder spacing(IDimension<Double> spacing) {
+            info.spacing = spacing;
+            return this;
+        }
+
+        public Builder imageLabel(String label) {
+            info.imageLabel = label;
+            return this;
+        }
+
+        public Builder byteOffset(int offset) {
+            info.byteOffset = offset;
+            return this;
+        }
+
+        public Builder numImages(int num) {
+            info.numImages = num;
+            return this;
+        }
+
+        public Builder origin(Point3D origin) {
+            info.origin = origin;
+            return this;
+        }
+
+        public Builder imageIndex(int index) {
+            info.imageIndex = index;
+            return this;
+        }
+
+        public Builder intercept(double intercept) {
+            info.intercept = (float)intercept;
+            return this;
+        }
+
+        public Builder scaleFactor(double scaleFactor) {
+            info.scaleFactor = (float)scaleFactor;
+            return this;
+        }
+
+        public Builder voxelOffset(IDimension<Integer> offset) {
+            info.voxelOffset = offset;
+            return this;
+        }
+
+        public Builder mapping(ImageMapping3D mapping) {
+            info.mapping = mapping;
+            return this;
+        }
+
+        public ImageInfo build() {
+            this.checkBuilt();
+            this.isBuilt = true;
+            return this.info;
+        }
+    }
+
+        
+
 
 
     public ImageInfo selectInfo(int index) {
@@ -145,11 +258,11 @@ public class ImageInfo implements java.io.Serializable {
             throw new IllegalArgumentException("illegal selection index for image info with " + getNumImages() + " sub images");
         }
 
-        ImageInfo ret = new ImageInfo(this);
-        ret.dimensionality = getDimensionality()-1;
-        ret.imageIndex = index;
-        ret.imageLabel = getHeaderFile().getName().getBaseName() + ":" + index;
-        return ret;
+        ImageInfo.Builder builder = new ImageInfo.Builder(this);
+        builder.dimensionality(getDimensionality()-1);
+        builder.imageIndex(index);
+        builder.imageLabel(getHeaderFile().getName().getBaseName() + ":" + index);
+        return builder.build();
 
     }
 
@@ -157,18 +270,23 @@ public class ImageInfo implements java.io.Serializable {
         ImageAxis[] iaxes = new ImageAxis[3];
         AnatomicalAxis[] aaxes = anatomy.getAnatomicalAxes();
 
-        IDimension realDim = calculateRealDim();
+        IDimension<Double> realDim = ImageInfo.calculateRealDim(arrayDim, spacing);
         for (int i = 0; i < iaxes.length; i++) {
-            iaxes[i] = new ImageAxis(-realDim.getDim(i).doubleValue() / 2, realDim.getDim(i).doubleValue() / 2,
-                    aaxes[i], (int) arrayDim.getDim(i).doubleValue());
+            iaxes[i] = new ImageAxis(-realDim.getDim(i) / 2, realDim.getDim(i) / 2,
+                    aaxes[i], arrayDim.getDim(i));
         }
 
         return new ImageSpace3D(iaxes[0], iaxes[1], iaxes[2], mapping);
 
     }
 
+    public ImageReader createImageReader() {
+        return new BasicImageReader(this);
+    }
+
     void setDataFile(FileObject fobj) {
         dataFile = fobj;
+
     }
 
     public FileObject getDataFile() {
@@ -205,12 +323,15 @@ public class ImageInfo implements java.io.Serializable {
 
     }
 
-    public IDimension calculateRealDim() {
+    public static IDimension<Double> calculateRealDim(IDimension<Integer> arrayDim, IDimension<Double> spacing) {
+        if (arrayDim.numDim() != spacing.numDim()) {
+            throw new IllegalArgumentException("dimensions do not match: arrayDim = " + arrayDim.numDim() + "  spacing = " + spacing.numDim());
+        }
         Double[] realVals = new Double[arrayDim.numDim()];
         for (int i = 0; i < realVals.length; i++) {
-            realVals[i] = arrayDim.getDim(i).intValue() * spacing.getDim(i).doubleValue();
+            realVals[i] = arrayDim.getDim(i) * spacing.getDim(i);
         }
-        return DimensionFactory.create(realVals);
+        return (IDimension<Double>)DimensionFactory.create(realVals);
     }
 
 
@@ -218,7 +339,7 @@ public class ImageInfo implements java.io.Serializable {
         return anatomy;
     }
 
-    ImageMapping3D getMapping() {
+    public ImageMapping3D getMapping() {
         return mapping;
     }
 
@@ -263,7 +384,7 @@ public class ImageInfo implements java.io.Serializable {
         voxelOffset = _voxelOffset;
     }
 
-    public Dimension3D getVoxelOffset() {
+    public IDimension<Integer> getVoxelOffset() {
         return voxelOffset;
     }
 
@@ -298,7 +419,6 @@ public class ImageInfo implements java.io.Serializable {
 
     void setArrayDim(IDimension arrayDim) {
         this.arrayDim = arrayDim;
-        calculateRealDim();
     }
 
     void setDataType(DataType dataType) {

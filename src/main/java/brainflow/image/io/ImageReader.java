@@ -14,9 +14,9 @@ import brainflow.utils.ProgressListener;
 public interface ImageReader {
 
 
-    public IImageData readImage(ImageInfo info) throws BrainFlowException;
+    public IImageData readImage() throws BrainFlowException;
 
-    public IImageData readImage(ImageInfo info, ProgressListener plistener) throws BrainFlowException;
+    public IImageData readImage(ProgressListener plistener) throws BrainFlowException;
 
-
+    public ImageInfo getImageInfo();
 }

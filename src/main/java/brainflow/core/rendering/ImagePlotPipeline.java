@@ -7,7 +7,8 @@ import brainflow.core.IImagePlot;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer2D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.Axis;
 
@@ -29,7 +30,7 @@ public class ImagePlotPipeline extends Pipeline {
 
     private Rectangle2D frameBounds;
 
-    private AnatomicalPoint3D slice;
+    private GridPoint3D slice;
 
 
     public ImagePlotPipeline(IImagePlot _plot) {
@@ -76,7 +77,7 @@ public class ImagePlotPipeline extends Pipeline {
         return plot.getDisplayAnatomy();
     }
 
-    public AnatomicalPoint3D getSlice() {
+    public GridPoint3D getSlice() {
         return plot.getSlice();
     }
 

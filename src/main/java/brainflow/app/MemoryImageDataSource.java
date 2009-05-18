@@ -5,6 +5,8 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.io.IImageDataSource;
 import brainflow.utils.ProgressListener;
 import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
+import org.apache.commons.vfs.FileSystemException;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
@@ -21,6 +23,8 @@ public class MemoryImageDataSource implements IImageDataSource {
 
 
     private IImageData data;
+
+    private FileObject ramFile;
 
     public MemoryImageDataSource(IImageData _data) {
         data = _data;
@@ -49,7 +53,7 @@ public class MemoryImageDataSource implements IImageDataSource {
     }
 
     public String getStem() {
-        return "IMAGE_DATA" + hashCode();
+        return data.getImageLabel();
     }
 
     public BufferedImage getPreview() {
@@ -61,11 +65,23 @@ public class MemoryImageDataSource implements IImageDataSource {
     }
 
     public FileObject getDataFile() {
-        throw new UnsupportedOperationException("MemoryImage does not have associated data file");
+        try {
+            return VFS.getManager().resolveFile("ram://" + getStem());
+
+        } catch(FileSystemException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public FileObject getHeaderFile() {
-        throw new UnsupportedOperationException("MemoryImage does not have associated header file");
+        try {
+            return VFS.getManager().resolveFile("ram://" + getStem());
+
+        } catch(FileSystemException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public String getFileFormat() {
@@ -91,6 +107,15 @@ public class MemoryImageDataSource implements IImageDataSource {
 
     public void releaseData() {
         // no op
+    }
+
+    public static void main(String[] args) {
+        try {
+            FileObject ramobj = VFS.getManager().resolveFile("ram://garbage" );
+            System.out.println(" ramobj " + ramobj);
+        } catch(FileSystemException e) {
+            e.printStackTrace();
+        }
     }
 
 

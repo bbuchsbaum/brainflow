@@ -1,20 +1,16 @@
 package brainflow.core;
 
 import brainflow.image.anatomy.AnatomicalAxis;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
-import brainflow.image.space.IImageSpace;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.ImageSpace3D;
 import net.java.dev.properties.Property;
 import net.java.dev.properties.container.ObservableProperty;
 import net.java.dev.properties.container.BeanContainer;
-
-import javax.swing.event.ListDataEvent;
-import java.beans.PropertyChangeEvent;
 
 /**
  * Created by IntelliJ IDEA.
@@ -106,7 +102,7 @@ public class Viewport3D  {
         return bounds;
     }
 
-    public boolean inBounds(AnatomicalPoint3D pt) {
+    public boolean inBounds(BrainPoint3D pt) {
         if (pt.getAnatomy() != bounds.getAnatomy()) {
             throw new IllegalArgumentException("supplied point must have same Anatomy as Viewport for inBounds test." +
                     "arg : " + pt.getAnatomy() + " viewport : " + bounds.getAnatomy());

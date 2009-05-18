@@ -1,4 +1,4 @@
-
+[Fix: Histogram fails to switch]
 Fix: drag and drop from file manager to project tree appears not to work
 Performance: performance is sluggish with montageimageview and large grid
 Fix: favorites should open progress monitor on loading; favorites should show check box for loaded items

@@ -47,7 +47,7 @@ public interface IImageSpace extends ICoordinateSpace {
     //public IImageSpace union(IImageSpace other);
 
     // todo should be a static library method
-    //public AnatomicalPoint getCentroid();
+    //public BrainPoint getCentroid();
 
 
 }

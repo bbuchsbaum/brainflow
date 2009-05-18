@@ -1,8 +1,9 @@
 package brainflow.core;
 
 import brainflow.display.InterpolationType;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.axis.AxisRange;
 
 import java.awt.*;
@@ -27,17 +28,16 @@ public interface IImageProducer {
 
     public Anatomy3D getDisplayAnatomy();
 
-    public void setSlice(AnatomicalPoint3D slice);
+    public void setSlice(GridPoint3D slice);
 
-    public AnatomicalPoint3D getSlice();
+    public GridPoint3D getSlice();
 
     public void setScreenSize(Rectangle rect);
 
     public void setScreenInterpolation(InterpolationType type);
 
     public InterpolationType getScreenInterpolation();
-
-    
+ 
     public void reset();
 
     public AxisRange getXAxis();

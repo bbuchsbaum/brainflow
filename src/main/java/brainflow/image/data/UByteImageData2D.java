@@ -24,7 +24,7 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
     private byte[] data;
 
 
-    public UByteImageData2D(ImageSpace2D _space) {
+    public UByteImageData2D(IImageSpace2D _space) {
         super(_space,DataType.BYTE);
        
         data = new byte[space.getNumSamples()];
@@ -32,7 +32,7 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
 
     }
 
-    public UByteImageData2D(ImageSpace2D space, byte[] _data) {
+    public UByteImageData2D(IImageSpace2D space, byte[] _data) {
         super(space, DataType.BYTE);
         if (_data.length != space.getNumSamples()) {
             throw new IllegalArgumentException("supplied data array has incorrect length");
@@ -48,10 +48,6 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
         return (IImageSpace2D)space;
          
     }
-
-
-
-   
 
     public ImageIterator iterator() {
         return new Iterator2D();

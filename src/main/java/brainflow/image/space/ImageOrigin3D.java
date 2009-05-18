@@ -1,7 +1,7 @@
 package brainflow.image.space;
 
 import brainflow.image.anatomy.AnatomicalDirection;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 
 /**
@@ -13,13 +13,13 @@ import brainflow.image.anatomy.Anatomy3D;
  */
 public class ImageOrigin3D implements IImageOrigin {
 
-    private AnatomicalPoint3D origin;
+    private BrainPoint3D origin;
 
     private AnatomicalDirection[] dirs;
 
     public ImageOrigin3D(AnatomicalDirection a1, AnatomicalDirection a2, AnatomicalDirection a3, double x, double y, double z) {
 
-        origin = new AnatomicalPoint3D(Anatomy3D.matchAnatomy(a1,a2,a3), x,y,z);
+        origin = new BrainPoint3D(Anatomy3D.matchAnatomy(a1,a2,a3), x,y,z);
 
         dirs = new AnatomicalDirection[3];
         dirs[0] = a1;
@@ -31,7 +31,7 @@ public class ImageOrigin3D implements IImageOrigin {
         return dirs;
     }
 
-    public AnatomicalPoint3D getOrigin() {
+    public BrainPoint3D getOrigin() {
         return origin;
     }
 }

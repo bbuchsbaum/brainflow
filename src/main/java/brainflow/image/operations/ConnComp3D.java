@@ -3,9 +3,6 @@ package brainflow.image.operations;
 import brainflow.image.data.*;
 import brainflow.image.space.Axis;
 import brainflow.image.io.BrainIO;
-import brainflow.image.anatomy.AnatomicalPoint3D;
-import brainflow.image.anatomy.AnatomicalPoint1D;
-import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.utils.DataType;
 import brainflow.utils.Range;
 import brainflow.utils.StopWatch;
@@ -15,13 +12,13 @@ import brainflow.core.layer.ImageLayerProperties;
 import brainflow.app.BrainFlowException;
 import brainflow.app.MemoryImageDataSource;
 import brainflow.app.toplevel.ImageViewFactory;
-import brainflow.app.toplevel.ImageLayerFactory;
 import brainflow.colormap.ColorTable;
 import brainflow.display.InterpolationType;
 import cern.colt.list.IntArrayList;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.IndexColorModel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -124,7 +121,7 @@ public class ConnComp3D {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
 
-                    if (data.value(x, y, z) > 0) {
+                    if (data.value(x,y,z) > 0) {
                         //labelObject2(j, i, width, height, labels, conntable, 1);
                         labelObjectFast(x, y, z, width, height, length, labels, unionArray, book);
                         // System.out.println("ufa : " + unionArray)
@@ -138,7 +135,7 @@ public class ConnComp3D {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
 
-                    if (data.value(x, y, z) > 0) {
+                    if (data.value(x,y,z) > 0) {
                         //labelObject2(j, i, width, height, labels, conntable, 1);
                         labelObjectFast(x, y, z, width, height, length, labels, unionArray, book);
                         // System.out.println("ufa : " + unionArray)
@@ -181,10 +178,10 @@ public class ConnComp3D {
     
     public static void main(String[] args) throws BrainFlowException {
 
-        IImageData3D dat = (IImageData3D) BrainIO.readNiftiImage(BF.getDataURL("anat_alepi.nii"));
+        IImageData3D dat = (IImageData3D) BrainIO.readNiftiImage(BF.getDataURL("cohtrend_GLT#0_Tstat.nii"));
         MaskedData3D mdat = new MaskedData3D(dat, new MaskPredicate() {
             public final boolean mask(double value) {
-                return value > 2200;
+                return value > 8;
             }
         });
 
@@ -199,11 +196,11 @@ public class ConnComp3D {
 
         IImageData3D dat3d = comp.labels.asImageData();
         System.out.println("dat3d max " + dat3d.maxValue());
-        //IImageData3D dat3d = ImageData.asImageData3D(mdat, new AnatomicalPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
-        ImageViewModel model = new ImageViewModel("test");
+        //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
+        ImageViewModel model = new ImageViewModel("test", new ImageLayer3D(dat3d));
 
-        
-        ImageLayerProperties props = new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()));
+         IndexColorModel icm = ColorTable.createIndexColorModel(ColorTable.createColorGradient(Color.RED, Color.GREEN, (int)dat3d.maxValue()));
+        ImageLayerProperties props = new ImageLayerProperties(icm, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
 
         model = model.add(new ImageLayer3D(new MemoryImageDataSource(dat3d), props));

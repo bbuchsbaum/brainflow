@@ -32,6 +32,7 @@ public class ImageViewModel implements Iterable {
 
     private List<ImageLayer3D> layerList = new ArrayList<ImageLayer3D>();
 
+    //todo potentially problematic
     private WeakEventListenerList eventListeners = new WeakEventListenerList();
 
     public final Property<Integer> layerSelection = ObservableProperty.create(0);
@@ -51,6 +52,7 @@ public class ImageViewModel implements Iterable {
 
     public ImageViewModel(String name, List<ImageLayer3D> _layers, int selectedIndex) {
         BeanContainer.bind(this);
+
         if (_layers.isEmpty()) {
             throw new IllegalArgumentException("cannot instantiate an empty model");
         }

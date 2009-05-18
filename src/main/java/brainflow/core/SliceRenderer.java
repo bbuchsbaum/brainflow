@@ -1,7 +1,8 @@
 package brainflow.core;
 
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.ICoordinateSpace;
 import brainflow.core.layer.AbstractLayer;
 
@@ -22,9 +23,9 @@ public interface SliceRenderer {
 
     public Anatomy3D getDisplayAnatomy();
 
-    public void setSlice(AnatomicalPoint3D slice);
+    public void setSlice(GridPoint3D slice);
 
-    public AnatomicalPoint3D getSlice();
+    public GridPoint3D getSlice();
 
     public BufferedImage render();
 

@@ -31,9 +31,10 @@ import java.util.logging.Logger;
 
 public class BasicImageReader implements ImageReader {
 
-    final static Logger log = Logger.getLogger(BasicImageReader.class.getCanonicalName());
+    private static final Logger log = Logger.getLogger(BasicImageReader.class.getCanonicalName());
 
     private static final int NUM_CHUNKS = 20;
+
 
     private ImageInfo info;
 
@@ -53,16 +54,13 @@ public class BasicImageReader implements ImageReader {
 
     private int skipUnits = 0;
 
-    public BasicImageReader() {
-    }
-
 
     public BasicImageReader(ImageInfo info) {
         setImageInfo(info);
 
     }
 
-    public void setImageInfo(ImageInfo _info) {
+    private void setImageInfo(ImageInfo _info) {
         info = _info;
 
         setByteOrder(info.getEndian());
@@ -75,6 +73,11 @@ public class BasicImageReader implements ImageReader {
 
     }
 
+    @Override
+    public ImageInfo getImageInfo() {
+        return info;
+    }
+
     public int getByteOffset() {
         return skipUnits;
     }
@@ -82,7 +85,6 @@ public class BasicImageReader implements ImageReader {
     public void setByteOffset(int skipUnits) {
         this.skipUnits = skipUnits;
     }
-
 
     public void setByteOrder(ByteOrder _byteOrder) {
         byteOrder = _byteOrder;
@@ -120,10 +122,11 @@ public class BasicImageReader implements ImageReader {
             listener.setString("Opening Image Stream ...");
 
             //log.info("Input file system type: " + inputFile.getFileSystem());
+
             istream = new BufferedInputStream(inputFile.getContent().getInputStream());
             log.info("Getting input Stream ...");
             log.info("Input Stream is " + istream.getClass().getCanonicalName());
-            istream.read(new byte[getByteOffset()]);
+            long nread = istream.read(new byte[getByteOffset()]);
 
             //rac = inputFile.getContent().getRandomAccessContent(RandomAccessMode.READ);
             //rac.seek(getDataOffset());
@@ -139,7 +142,7 @@ public class BasicImageReader implements ImageReader {
             byte[] tmpdata = new byte[chunkSize];
 
             for (int i = 0; i < NUM_CHUNKS; i++) {
-                istream.read(tmpdata);
+                nread = istream.read(tmpdata);
                 //rac.readFully(tmpdata);
                 wholeBuffer.put(tmpdata);
                 listener.setValue(i * chunkSize);
@@ -147,7 +150,7 @@ public class BasicImageReader implements ImageReader {
             }
 
             byte[] lastData = new byte[lastChunk];
-            istream.read(lastData);
+            nread = istream.read(lastData);
             //rac.readFully(lastData);
 
             wholeBuffer.put(lastData);
@@ -162,7 +165,7 @@ public class BasicImageReader implements ImageReader {
 
             double sf = info.getScaleFactor();
             boolean scaleRequired = true;
-            if (NumberUtils.equals(sf, 1, .0000001) || NumberUtils.equals(sf, 0, .0000001)) {
+            if (NumberUtils.equals(sf, 1, .000001) || NumberUtils.equals(sf, 0, .000001)) {
                 scaleRequired = false;
             }
 
@@ -195,8 +198,6 @@ public class BasicImageReader implements ImageReader {
 
             if (fileDimensionality == 2) {
                 IImageData2D dat = new BasicImageData2D((ImageSpace2D) imageSpace, data, info.getDataFile().getName().getBaseName());
-
-                //dat.setImageLabel(info.getDataFile().getName().getBaseName());
                 listener.finished();
                 return dat;
             } else if (fileDimensionality == 3) {
@@ -207,20 +208,22 @@ public class BasicImageReader implements ImageReader {
                 }
                 listener.finished();
                 return dat;
-            } else
+            } else {
                 throw new RuntimeException("BasicImageReader.getOutput(): Dimensionality of: " + fileDimensionality + " not supported!");
+            }
 
         } catch (FileNotFoundException e1) {
             throw new BrainFlowException(e1);
         } catch (IOException e2) {
             throw new BrainFlowException(e2);
         } finally {
-            //if (rac != null)
-            //rac.close();
+
             if (istream != null) {
                 try {
                     istream.close();
-                } catch(IOException e3) {}
+                } catch (IOException e3) {
+                    throw new BrainFlowException(e3);
+                }
             }
         }
 
@@ -306,34 +309,16 @@ public class BasicImageReader implements ImageReader {
     }   */
 
 
-    public IImageData readImage(ImageInfo info) throws BrainFlowException {
-        setImageInfo(info);
+    public IImageData readImage() throws BrainFlowException {
 
+        return getOutput(new ProgressAdapter());
 
-        IImageData data = null;
-
-        try {
-            data = getOutput(new ProgressAdapter());
-        } catch (BrainFlowException e) {            
-            throw e;
-        }
-
-        return data;
 
     }
 
-    public IImageData readImage(ImageInfo info, ProgressListener plistener) throws BrainFlowException {
+    public IImageData readImage(ProgressListener plistener) throws BrainFlowException {
+        return getOutput(plistener);
 
-        setImageInfo(info);
-        IImageData data = null;
 
-        try {
-            data = getOutput(plistener);
-
-        } catch (BrainFlowException e) {
-            throw e;
-        } 
-
-        return data;
     }
 }

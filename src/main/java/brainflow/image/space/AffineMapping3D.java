@@ -17,22 +17,42 @@ public class AffineMapping3D implements ImageMapping3D {
 
     private final Matrix4f invMat;
 
-    public AffineMapping3D(Matrix4f mat) {
+    private Anatomy3D gridAnatomy;
+
+    private Anatomy3D worldAnatomy;
+
+    public AffineMapping3D(Matrix4f mat, Anatomy3D gridAnat, Anatomy3D worldAnat) {
         this.mat = mat;
         invMat = mat.invert();
+
+        gridAnatomy = gridAnat;
+
+        worldAnatomy = worldAnat;
     }
 
-    public AffineMapping3D(Vector3f offset, Vector3f spacing, Anatomy3D anatomy) {
-        offset.x = anatomy.XAXIS.getDirectionVector().getX() * offset.x;
-        offset.y = anatomy.YAXIS.getDirectionVector().getY() * offset.y;
-        offset.z = anatomy.ZAXIS.getDirectionVector().getZ() * offset.z;
+    public AffineMapping3D(Vector3f offset, Vector3f spacing, Anatomy3D gridAnat, Anatomy3D worldAnat) {
+        gridAnatomy = gridAnat;
+        worldAnatomy = worldAnat;
+        offset.x = gridAnatomy.XAXIS.getDirectionVector().getX() * offset.x;
+        offset.y = gridAnatomy.YAXIS.getDirectionVector().getY() * offset.y;
+        offset.z = gridAnatomy.ZAXIS.getDirectionVector().getZ() * offset.z;
 
         Matrix4f tmp = new Matrix4f(spacing.x, 0, 0, offset.x, 0, spacing.y, 0, offset.y, 0, 0, spacing.z, offset.z, 0, 0, 0, 1);
-        Matrix4f ref = anatomy.getReferenceTransform();
+        Matrix4f ref = gridAnatomy.getReferenceTransform();
 
 
         mat = tmp.scale(new Vector3f(ref.m00, ref.m11, ref.m22));
         invMat = mat.invert();
+    }
+
+    @Override
+    public Anatomy3D getAnatomy() {
+        return gridAnatomy;
+    }
+
+    @Override
+    public Anatomy3D getWorldAnatomy() {
+        return worldAnatomy;
     }
 
     public Matrix4f getMatrix() {

@@ -1,8 +1,7 @@
 package brainflow.app.actions;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.BrainPoint3D;
-import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.GridPoint3D;
 import com.jidesoft.dialog.JideOptionPane;
 
 import java.util.StringTokenizer;
@@ -42,11 +41,12 @@ public class GoToVoxelCommand extends BrainFlowCommand {
             }
         }
 
-        float[] coords = view.getModel().getImageSpace().indexToWorld(vox);
-     
-        BrainPoint3D ap = new BrainPoint3D((Anatomy3D)view.getModel().getImageSpace().getAnatomy(), coords[0], coords[1], coords[2]);
-        view.cursorX.set(ap.getX());
-        view.cursorY.set(ap.getY());
-        view.cursorZ.set(ap.getZ());
+        view.cursorPos.set(new GridPoint3D(vox[0], vox[1], vox[2], view.getModel().getImageSpace()));
+        //float[] coords = view.getModel().getImageSpace().indexToWorld(vox);
+        //BrainPoint3D ap = new BrainPoint3D(view.getModel().getImageSpace().getMapping().getWorldAnatomy(), coords[0], coords[1], coords[2]);
+        //view.worldCursorPos.set(ap);
+        //view.cursorX.set(ap.getValue());
+        //view.cursorY.set(ap.getY());
+        //view.cursorZ.set(ap.getZ());
     }
 }

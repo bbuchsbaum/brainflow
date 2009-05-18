@@ -7,13 +7,12 @@ package brainflow.image.anatomy;
  * Time: 5:36:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface AnatomicalPoint {
+public interface BrainPoint {
 
 
     public int getNumDimensions();
 
-    public double getValue(int axisNum);
-
+   
 
 
 

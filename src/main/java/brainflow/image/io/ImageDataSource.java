@@ -67,55 +67,18 @@ public class ImageDataSource extends AbstractImageDataSource {
     }
 
     public IImageData load() throws BrainFlowException {
-        try {
+        return load(new ProgressAdapter());
 
-            ImageInfo imageInfo = getImageInfoList().get(getImageIndex());
-            assert imageInfo.getDataFile() != null;
-            //if (imageInfo.getDataFile() == null) {
-            //todo this is truly horrid
-            //imageInfo.setDataFile(getDataFile());
-            //}
-
-            ImageReader ireader = (ImageReader) getDescriptor().getDataReader().newInstance();
-            IImageData data = ireader.readImage(imageInfo, new ProgressAdapter());
-            lastRead = System.currentTimeMillis();
-
-            //data.setImageLabel(getStem());
-            dataRef = data;
-
-        } catch (IllegalAccessException e) {
-            log.warning("Error caught in DataBufferSupport.load()");
-            throw new BrainFlowException(e);
-        } catch (InstantiationException e) {
-            log.warning("Error caught in DataBufferSupport.load()");
-            throw new BrainFlowException(e);
-        }
-
-        return dataRef;
     }
 
     public IImageData load(ProgressListener plistener) throws BrainFlowException {
-        try {
 
-            ImageInfo imageInfo = getImageInfoList().get(getImageIndex());
+        ImageInfo imageInfo = getImageInfoList().get(getImageIndex());
+        ImageReader ireader = imageInfo.createImageReader();
 
-            if (imageInfo.getDataFile() == null) {
-                imageInfo.setDataFile(getDataFile());
-            }
-
-            ImageReader ireader = (ImageReader) getDescriptor().getDataReader().newInstance();
-
-            IImageData data = ireader.readImage(imageInfo, plistener);
-            lastRead = System.currentTimeMillis();
-            //data.setImageLabel(getStem());
-            dataRef = data;
-        } catch (IllegalAccessException e) {
-            log.warning("Error caught in DataBufferSupport.load()");
-            throw new BrainFlowException(e);
-        } catch (InstantiationException e) {
-            log.warning("Error caught in DataBufferSupport.load()");
-            throw new BrainFlowException(e);
-        }
+        IImageData data = ireader.readImage(plistener);
+        lastRead = System.currentTimeMillis();
+        dataRef = data;
 
         return dataRef;
 

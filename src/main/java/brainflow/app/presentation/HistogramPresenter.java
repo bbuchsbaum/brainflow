@@ -4,6 +4,7 @@ import brainflow.core.ImageView;
 import brainflow.core.ClipRange;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 import brainflow.app.presentation.controls.HistogramControl;
 import brainflow.colormap.LinearColorMap2;
 import brainflow.colormap.ColorTable;
@@ -118,19 +119,22 @@ public class HistogramPresenter extends ImageViewPresenter {
 
     }
 
-    protected void layerDeselected(ImageLayer layer) {
+    @Override
+    protected void layerDeselected(ImageLayer3D layer) {
         BeanContainer.get().removeListener(layer.getImageLayerProperties().colorMap, colorMapListener);
         BeanContainer.get().removeListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
 
     }
 
-    protected void layerSelected(ImageLayer layer) {
+    @Override
+    protected void layerSelected(ImageLayer3D layer) {
         updateHistogram();
         BeanContainer.get().addListener(layer.getImageLayerProperties().colorMap, colorMapListener);
         BeanContainer.get().addListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
 
     }
 
+    @Override
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.
     }

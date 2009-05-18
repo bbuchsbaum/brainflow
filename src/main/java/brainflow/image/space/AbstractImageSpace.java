@@ -131,7 +131,8 @@ public abstract class AbstractImageSpace implements IImageSpace {
     }
 
     public ImageAxis getImageAxis(AnatomicalAxis axis, boolean ignoreDirection) {
-        ImageAxis iaxis = null;
+        ImageAxis iaxis;
+        
         if (ignoreDirection)
             iaxis = whichAxisIgnoreDirection(axis);
         else

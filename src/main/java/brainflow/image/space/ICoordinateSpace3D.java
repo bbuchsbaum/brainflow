@@ -1,7 +1,7 @@
 package brainflow.image.space;
 
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.utils.Dimension3D;
 
 /**
@@ -18,5 +18,5 @@ public interface ICoordinateSpace3D extends ICoordinateSpace {
 
     Dimension3D<Float> getOrigin();
 
-    AnatomicalPoint3D getCentroid();
+    BrainPoint3D getCentroid();
 }

@@ -89,7 +89,7 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         });
 
         setLayout(new BorderLayout());
-
+        add(new JCheckBox("use mask"), BorderLayout.NORTH);
         add(histoBar, BorderLayout.CENTER);
         add(slider, BorderLayout.WEST);
 

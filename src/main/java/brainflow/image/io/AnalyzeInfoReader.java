@@ -32,25 +32,40 @@ import java.net.URL;
 /**
  * @author Bradley
  */
-public class AnalyzeInfoReader implements ImageInfoReader {
+public class AnalyzeInfoReader extends AbstractInfoReader {
 
-    private boolean verbose = false;
 
     private static final int HEADER_SIZE = 348;
 
     private static final int SWAPPED_HEADER_SIZE = 1543569408;
 
 
-    final static Logger log = Logger.getLogger(AnalyzeInfoReader.class.getCanonicalName());
+    private final static Logger log = Logger.getLogger(AnalyzeInfoReader.class.getCanonicalName());
 
-    /**
-     * Creates a new instance of AnalyzeInfoReader
-     */
 
-    public AnalyzeInfoReader() {
 
+
+
+    protected AnalyzeInfoReader() {
+        super();
     }
 
+    public AnalyzeInfoReader(FileObject headerFile, FileObject dataFile) {
+        super(headerFile, dataFile);
+    }
+
+    public AnalyzeInfoReader(File headerFile, File dataFile) {
+        super(headerFile, dataFile);
+    }
+
+    public AnalyzeInfoReader(String name) {
+        super(new File(AnalyzeInfoReader.getHeaderName(name)), new File(AnalyzeInfoReader.getImageName(name)));
+    }
+
+    @Override
+    public ImageInfoReader create(FileObject headerFile, FileObject dataFile) {
+        return new AnalyzeInfoReader(headerFile, dataFile);
+    }
 
     public static boolean isHeaderFile(String name) {
         if (name.endsWith(".hdr")) {
@@ -61,7 +76,7 @@ public class AnalyzeInfoReader implements ImageInfoReader {
     }
 
     public static boolean isImageFile(String name) {
-        if (name.endsWith(".img") ) {
+        if (name.endsWith(".img")) {
             return true;
         }
 
@@ -96,92 +111,33 @@ public class AnalyzeInfoReader implements ImageInfoReader {
 
     }
 
-
-    public List<ImageInfo> readInfo(File f) throws BrainFlowException {
-        List<ImageInfo> ret = null;
-
-        String headerName = AnalyzeInfoReader.getHeaderName(f.getAbsolutePath());
-        f = new File(headerName);
-
+    @Override
+    public List<ImageInfo> readInfo() throws BrainFlowException {
         try {
-            FileImageInputStream istream = new FileImageInputStream(f);
-            ret = readHeader(istream);
-            FileObject dataFile = VFS.getManager().resolveFile(f.getParentFile(), AnalyzeInfoReader.getImageName(f.getName()));
-            FileObject headerFile = VFS.getManager().resolveFile(f.getParentFile(), AnalyzeInfoReader.getHeaderName(f.getName()));
-            for (ImageInfo ii : ret) {
-                ii.setDataFile(dataFile);
-                ii.setHeaderFile(headerFile);
-                ii.setImageLabel(getStem(headerFile.getName().getBaseName()));
-            }
-
-
-        } catch (Exception e) {
-            log.warning("Exception caught in AnalyzeInfoReader.readInfo ");
-            throw new BrainFlowException(e);
-        }
-
-
-        return ret;
-
-    }
-
-     public List<ImageInfo> readInfo(URL url) throws BrainFlowException {
-        try {
-            FileObject fobj = VFS.getManager().resolveFile(url.toString());
-            return readInfo(fobj);
-        } catch(FileSystemException e) {
-            throw new BrainFlowException(e);
-        }
-
-    }
-
-    public List<? extends ImageInfo> readInfo(InputStream istream) throws BrainFlowException {
-        List<ImageInfo> ret = null;
-
-        try {
+            InputStream istream = headerFile.getContent().getInputStream();
             MemoryCacheImageInputStream mis = new MemoryCacheImageInputStream(istream);
-            ret  = readHeader(mis);
-        } catch (Exception e) {
+            return readHeader(mis);
+        } catch (FileSystemException e) {
             throw new BrainFlowException(e);
         }
 
-        return ret;
 
     }
 
-    public List<ImageInfo> readInfo(FileObject fobj) throws BrainFlowException {
-        List<ImageInfo> ret = null;
+    
 
-        try {
-            InputStream istream = fobj.getContent().getInputStream();
-            MemoryCacheImageInputStream mis = new MemoryCacheImageInputStream(istream);
-            ret  = readHeader(mis);
-            FileObject dataFile = VFS.getManager().resolveFile(fobj.getParent(), AnalyzeInfoReader.getImageName(fobj.getName().getBaseName()));
-            FileObject headerFile = VFS.getManager().resolveFile(fobj.getParent(), AnalyzeInfoReader.getHeaderName(fobj.getName().getBaseName()));
-            for (ImageInfo ii : ret) {
-                ii.setDataFile(dataFile);
-                ii.setHeaderFile(headerFile);
-                 ii.setImageLabel(getStem(headerFile.getName().getBaseName()));
-            }
-
-        } catch (Exception e) {
-            throw new BrainFlowException(e);
-        }
-
-        return ret;
-    }
-
-  
 
     private List<ImageInfo> readHeader(ImageInputStream istream) throws BrainFlowException {
-        ImageInfo info = new ImageInfo();
+        ImageInfo.Builder builder = new ImageInfo.Builder();
+        builder.headerFile(headerFile);
+        builder.dataFile(dataFile);
 
         readBeginning(istream);
 
         if (sizeof_hdr == AnalyzeInfoReader.HEADER_SIZE) {
-            info.setEndian(ByteOrder.BIG_ENDIAN);
+            builder.endian(ByteOrder.BIG_ENDIAN);
         } else if (sizeof_hdr == AnalyzeInfoReader.SWAPPED_HEADER_SIZE) {
-            info.setEndian(ByteOrder.LITTLE_ENDIAN);
+            builder.endian(ByteOrder.LITTLE_ENDIAN);
             istream.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         } else throw new BrainFlowException("Illegal Value (" + sizeof_hdr + ") for header size, cannot proceed!");
 
@@ -196,15 +152,18 @@ public class AnalyzeInfoReader implements ImageInfoReader {
             dim[7] = istream.readShort();
 
 
-            info.setArrayDim(new Dimension3D(Math.abs(dim[1]), Math.abs(dim[2]), Math.abs(dim[3])));
+            builder.arrayDim(new Dimension3D<Integer>(Math.abs(dim[1]), Math.abs(dim[2]), Math.abs(dim[3])));
 
-            info.setNumImages(Math.abs(dim[4]));
-
-            if (dim[4] > 1)
-                info.setDimensionality(4);
+            builder.numImages(Math.abs(dim[4]));
 
 
-            info.setVoxelOffset(new Dimension3D(dim[5], dim[6], dim[7]));
+           if (dim[4] > 1) {
+               builder.dimensionality(4);
+           } else {
+               builder.dimensionality(3);
+           }
+
+            builder.voxelOffset(new Dimension3D<Integer>((int) dim[5], (int) dim[6], (int) dim[7]));
 
 
             istream.read(vox_units);
@@ -245,7 +204,7 @@ public class AnalyzeInfoReader implements ImageInfoReader {
             }
 
             //logger.log(Level.INFO, "Data Type: " + dataType);
-            info.setDataType(dataType);
+            builder.dataType(dataType);
 
             bitpix = istream.readShort();                            // bitpix
             dim_un0 = istream.readShort();
@@ -253,10 +212,10 @@ public class AnalyzeInfoReader implements ImageInfoReader {
                 pixdim[i] = istream.readFloat();
             }
 
-            info.setSpacing(new Dimension3D<Double>((double) (Math.abs(pixdim[1])),
+            builder.spacing(new Dimension3D<Double>((double) (Math.abs(pixdim[1])),
                     (double) (Math.abs(pixdim[2])), (double) (Math.abs(pixdim[3]))));
 
-            info.setOrigin(new Point3D(pixdim[4], pixdim[5], pixdim[6]));
+            builder.origin(new Point3D(pixdim[4], pixdim[5], pixdim[6]));
 
             /*info.setRealDim(new Dimension3D<Double>((double)(Math.abs(pixdim[1]) * dim[1]),
                     (double)(Math.abs(pixdim[2]) * dim[2]),
@@ -273,8 +232,8 @@ public class AnalyzeInfoReader implements ImageInfoReader {
             /////////////////////////////////////
 
 
-            info.setScaleFactor(spmScale);
-            info.setIntercept(0);
+            builder.scaleFactor(spmScale);
+            builder.intercept(0);
 
             funused2 = istream.readFloat();
             funused3 = istream.readFloat();
@@ -317,14 +276,14 @@ public class AnalyzeInfoReader implements ImageInfoReader {
         }
 
 
-        return Arrays.asList(info);
+        return Arrays.asList(builder.build());
 
     }
 
 
     private void readBeginning(ImageInputStream istream) throws BrainFlowException {
         try {
-            istream.seek(0);
+            //istream.seek(0);
             sizeof_hdr = istream.readInt();
 
             istream.readFully(data_type);
@@ -340,66 +299,59 @@ public class AnalyzeInfoReader implements ImageInfoReader {
     }
 
     public static void main(String[] args) {
-        AnalyzeInfoReader reader = new AnalyzeInfoReader();
-        try {
-            List<ImageInfo> info = reader.readInfo(new File(args[0]));
-            java.util.Date d = new java.util.Date();
-          
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
 
-    float spmScale = 1f;
+    private float spmScale = 1f;
 
-    int sizeof_hdr;
-    byte[] data_type = new byte[10];
-    byte[] db_name = new byte[18];
-    int extents;
-    short session_error;
-    byte regular;
-    byte hkey_un0;
+    private int sizeof_hdr;
+    private byte[] data_type = new byte[10];
+    private byte[] db_name = new byte[18];
+    private int extents;
+    private short session_error;
+    private byte regular;
+    private byte hkey_un0;
 
 
-    short[] dim = new short[8];
+    private short[] dim = new short[8];
 
-    byte[] vox_units = new byte[4];
-    byte[] cal_units = new byte[8];
-    short dtype;
-    short bitpix;
-    short dim_un0;
-    float[] pixdim = new float[8];
-    float vox_offset;
-    float funused1;
-    float funused2;
-    float funused3;
-    float cal_max;
-    float cal_min;
-    int compressed;
-    int verified;
-    int glmax, glmin;
+    private byte[] vox_units = new byte[4];
+    private byte[] cal_units = new byte[8];
+    private short dtype;
+    private short bitpix;
+    private short dim_un0;
+    private float[] pixdim = new float[8];
+    private float vox_offset;
+    private float funused1;
+    private float funused2;
+    private float funused3;
+    private float cal_max;
+    private float cal_min;
+    private int compressed;
+    private int verified;
+    private int glmax, glmin;
 
     // data_history
 
-    byte[] descrip = new byte[80];
-    byte[] aux_file = new byte[24];
-    byte orient;
-    byte[] originator = new byte[10];
-    byte[] generated = new byte[10];
-    byte[] scannum = new byte[10];
-    byte[] patient_id = new byte[10];
-    byte[] exp_date = new byte[10];
-    byte[] exp_time = new byte[10];
-    byte[] hist_un0 = new byte[3];
-    int views;
-    int vols_added;
-    int start_field;
-    int field_skip;
-    int omax;
-    int omin;
-    int smax;
-    int smin;
+    private byte[] descrip = new byte[80];
+    private byte[] aux_file = new byte[24];
+    private byte orient;
+    private byte[] originator = new byte[10];
+    private byte[] generated = new byte[10];
+    private byte[] scannum = new byte[10];
+    private byte[] patient_id = new byte[10];
+    private byte[] exp_date = new byte[10];
+    private byte[] exp_time = new byte[10];
+    private byte[] hist_un0 = new byte[3];
+    private int views;
+    private int vols_added;
+    private int start_field;
+    private int field_skip;
+    private int omax;
+    private int omin;
+    private int smax;
+    private int smin;
 
 
 }

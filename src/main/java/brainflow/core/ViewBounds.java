@@ -20,6 +20,7 @@ public class ViewBounds {
     private AxisRange yrange;
 
     public ViewBounds(Anatomy3D displayAnatomy, AxisRange xrange, AxisRange yrange) {
+        //todo check that xaxis and yaxis are the same axes encoded in displayAnatomy?
         this.displayAnatomy = displayAnatomy;
         this.xrange = xrange;
         this.yrange = yrange;

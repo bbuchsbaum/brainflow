@@ -2,6 +2,8 @@ package brainflow.image.space;
 
 import brainflow.math.Vector2f;
 import brainflow.math.Vector3f;
+import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.Anatomy2D;
 
 import java.awt.geom.Point2D;
 
@@ -13,6 +15,11 @@ import java.awt.geom.Point2D;
  * To change this template use File | Settings | File Templates.
  */
 public interface ImageMapping2D extends ImageMapping {
+
+    public Anatomy2D getAnatomy();
+
+    public Anatomy2D getWorldAnatomy();
+
 
     public Vector2f getOrigin();
 

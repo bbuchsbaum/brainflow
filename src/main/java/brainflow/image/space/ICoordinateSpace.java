@@ -1,7 +1,7 @@
 package brainflow.image.space;
 
 import brainflow.image.anatomy.AnatomicalAxis;
-import brainflow.image.anatomy.AnatomicalPoint;
+import brainflow.image.anatomy.BrainPoint;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.utils.IDimension;
@@ -28,7 +28,7 @@ public interface ICoordinateSpace {
 
     public CoordinateAxis getImageAxis(AnatomicalAxis axis, boolean ignoreDirection);
 
-    public AnatomicalPoint getCentroid();
+    public BrainPoint getCentroid();
 
 
     public int getNumDimensions();

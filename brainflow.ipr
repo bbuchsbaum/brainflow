@@ -72,16 +72,7 @@
       <facet-type id="Groovy">
         <modules>
           <module name="brainflow" />
-        </modules>
-      </facet-type>
-      <facet-type id="Scala">
-        <modules>
-          <module name="scalabrain">
-            <files>
-              <file url="file://$PROJECT_DIR$/src/main/scala/sc/brainflow/colormap/ColorSequenceParser.scala" />
-              <file url="file://$PROJECT_DIR$/src/main/scala/sc/brainflow/image/data/BrainVolume.scala" />
-            </files>
-          </module>
+          <module name="scalaflow" />
         </modules>
       </facet-type>
     </autodetection-disabled>
@@ -328,7 +319,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/brainflow.iml" filepath="$PROJECT_DIR$/brainflow.iml" />
-      <module fileurl="file://$PROJECT_DIR$/junk/scalabrain.iml" filepath="$PROJECT_DIR$/junk/scalabrain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scalaflow/scalaflow.iml" filepath="$PROJECT_DIR$/scalaflow/scalaflow.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.6 (3)" project-jdk-type="JavaSDK">
@@ -347,6 +338,9 @@
     <option name="GENERATE_NO_WARNINGS" value="false" />
     <option name="GENERATE_IIOP_STUBS" value="false" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+  </component>
+  <component name="ScalacSettings">
+    <option name="SCALAC_BEFORE" value="false" />
   </component>
   <component name="SvnBranchConfigurationManager">
     <option name="myConfigurationMap">
@@ -411,10 +405,10 @@
         <root url="jar://C:/javacode/scala-2.7.4RC1/src/scala-library-src.jar!/" />
       </SOURCES>
     </library>
-    <library name="scala-2.7.3">
+    <library name="scala-2.7.3 (2)">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/scalabrain/lib/scala-compiler.jar!/" />
-        <root url="jar://$PROJECT_DIR$/scalabrain/lib/scala-library.jar!/" />
+        <root url="jar://$PROJECT_DIR$/scalaflow/lib/scala-compiler.jar!/" />
+        <root url="jar://$PROJECT_DIR$/scalaflow/lib/scala-library.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

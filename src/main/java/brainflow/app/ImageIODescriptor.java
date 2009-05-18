@@ -3,6 +3,7 @@ package brainflow.app;
 import brainflow.utils.FileObjectFilter;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.io.ImageDataSource;
+import brainflow.image.io.BrainIO;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
@@ -11,6 +12,8 @@ import org.jdom.Element;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.io.InputStream;
+import java.io.File;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,7 +36,7 @@ public class ImageIODescriptor {
 
     private FOF fof = new FOF();
 
-    Logger log = Logger.getLogger(ImageIODescriptor.class.getName());
+    private static Logger log = Logger.getLogger(ImageIODescriptor.class.getName());
 
 
     private ImageIODescriptor(Element formatElement) throws BrainFlowException {
@@ -58,6 +61,30 @@ public class ImageIODescriptor {
         }
     }
 
+    public static FileObject resolveFile(String path, String name) throws FileSystemException {
+        System.out.println("trying to resolve " + name);
+        return VFS.getManager().resolveFile(path + File.separatorChar + name);
+
+    }
+
+    public static FileObject resolveFile(FileObject parent, String name) throws FileSystemException {
+
+        String path = parent.getName().toString();
+
+        /*if (path.matches("^" + parent.getName().getRoot().getScheme() + ":\\/\\/+.*")) {
+            String[] res = path.split(parent.getName().getRoot().getScheme() + ":\\/\\/+");
+            assert res.length == 2;
+            path = res[1];
+        }*/
+
+        return resolveFile(path, name);
+    }
+
+    public static FileObject resolveFile(File parent, String name) throws FileSystemException {
+        return resolveFile(parent.getAbsolutePath(), name);
+
+    }
+
 
     public IImageDataSource[] findLoadableImages(FileObject[] fobjs) {
 
@@ -67,10 +94,12 @@ public class ImageIODescriptor {
             if (isHeaderMatch(fobjs[i])) {
                 try {
 
-                    FileObject dobj = VFS.getManager().resolveFile(fobjs[i].getParent(), getDataName(fobjs[i]));
+                    FileObject dobj = resolveFile(fobjs[i].getParent(), getDataName(fobjs[i]));
 
                     if (dobj != null && dobj.exists()) {
                         limglist.add(new ImageDataSource(this, fobjs[i], dobj));
+                    } else {
+                        log.warning("file " + fobjs[i] + " could not be resolved");
                     }
 
                 } catch (FileSystemException e) {
@@ -106,62 +135,56 @@ public class ImageIODescriptor {
     }
 
     public IImageDataSource createLoadableImage(FileObject header, FileObject data) {
+        if (data.getName().getBaseName().endsWith(".gz")) {
+            System.out.println("");
+        }
 
-
-        if (!isHeaderMatch(header) ) {
+        if (!isHeaderMatch(header)) {
             throw new IllegalArgumentException("header " + header.getName().getBaseName() + " does not have correct suffix for format : " + this.getFormatName());
         }
-        if (!isDataMatch(data) ) {
+        if (!isDataMatch(data)) {
             throw new IllegalArgumentException("data " + data.getName().getBaseName() + " does not have correct suffix for format : " + this.getFormatName());
         }
 
-        IImageDataSource limg = new ImageDataSource(this, header, data);
-        return limg;
+        return new ImageDataSource(this, header, data);
+
     }
 
     public IImageDataSource createLoadableImage(FileObject header) {
 
-
-        if (!isHeaderMatch(header) ) {
+        if (!isHeaderMatch(header)) {
             throw new IllegalArgumentException("header " + header.getName().getBaseName() + " does not have correct suffix for format : " + this.getFormatName());
         }
 
-        FileObject data = null;
+        FileObject data;
 
         try {
-            String dataURI = getDataURI(header);
-            data = VFS.getManager().resolveFile(dataURI);
-        } catch(FileSystemException e) {
+
+            data = resolveFile(header.getParent(), getDataName(header));
+            header = resolveFile(header.getParent(), header.getName().getBaseName());
+
+        } catch (FileSystemException e) {
             throw new IllegalArgumentException("Cannot locate matching data file for header " + header);
         }
 
 
-        IImageDataSource limg = new ImageDataSource(this, header, data);
-        return limg;
+        return new ImageDataSource(this, header, data);
+
     }
 
 
     public String getDataName(FileObject headerFile) {
         assert isHeaderMatch(headerFile);
         String stem = getStem(headerFile.getName().getBaseName());
-        String dataName = stem + dataExtension;
-        return dataName;
-    }
-
-    protected String getDataURI(FileObject headerFile) {
-        assert isHeaderMatch(headerFile);
-        String stem = getStem(headerFile.getName().getURI());
-        String dataName = stem + dataExtension;
-        return dataName;
-
+        return stem + dataExtension;
 
     }
+
 
     public String getHeaderName(FileObject dataFile) {
         assert isDataMatch(dataFile);
         String stem = getStem(dataFile.getName().getBaseName());
-        String headerName = stem + headerExtension;
-        return headerName;
+        return stem + headerExtension;
 
     }
 

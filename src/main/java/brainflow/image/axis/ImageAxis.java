@@ -2,7 +2,7 @@ package brainflow.image.axis;
 
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.AnatomicalDirection;
-import brainflow.image.anatomy.AnatomicalPoint1D;
+import brainflow.image.anatomy.BrainPoint1D;
 
 import java.util.Arrays;
 
@@ -113,7 +113,7 @@ public class ImageAxis extends CoordinateAxis {
         return getSamples()[idx];
     }
 
-    public final int nearestSample(AnatomicalPoint1D pt) {
+    public final int nearestSample(BrainPoint1D pt) {
         assert pt.getAnatomy().sameAxis(getAnatomicalAxis());
 
 
@@ -127,7 +127,7 @@ public class ImageAxis extends CoordinateAxis {
         return getSamples()[idx];
     }
 
-    public final double valueOf(AnatomicalPoint1D sample) {
+    public final double valueOf(BrainPoint1D sample) {
         assert sample.getAnatomy().sameAxis(getAnatomicalAxis());
 
         if (sample.getAnatomy() == getAnatomicalAxis().getFlippedAxis()) {
@@ -139,9 +139,9 @@ public class ImageAxis extends CoordinateAxis {
     }
 
 
-    public final AnatomicalPoint1D valueOf(int sample) {
+    public final BrainPoint1D valueOf(int sample) {
         double relpos = sample * spacing + spacing / 2f;
-        return new AnatomicalPoint1D(getAnatomicalAxis(), relpos + getRange().getMinimum());
+        return new BrainPoint1D(getAnatomicalAxis(), relpos + getRange().getMinimum());
     }
 
     public int[] getSampleArray() {
@@ -178,7 +178,7 @@ public class ImageAxis extends CoordinateAxis {
 
     public final double gridPosition(double pt) {
         //todo double check to make sure this is right
-        return ((pt - getRange().getMinimum()) / spacing) -1;
+        return ((pt - getRange().getMinimum()) / spacing);
     }
 
     public final double gridToReal(double gridpt) {
@@ -236,35 +236,6 @@ public class ImageAxis extends CoordinateAxis {
 
     }
 
-    /*private class FlippedImageAxis extends ImageAxis {
-
-       public FlippedImageAxis(ImageAxis unflipped) {
-           range = unflipped.getRange().flip();
-           samples = unflipped.getNumSamples();
-           spacing = unflipped.getSpacing();
-           axis = unflipped.getAnatomicalAxis().getFlippedAxis();
-           sampleArray = unflipped.getSampleArray();
-           reverseSamples();
-       }
-
-       private void reverseSamples() {
-           int[] nsamples = new int[sampleArray.length];
-           for (int i = sampleArray.length - 1; i > -1; i--) {
-               nsamples[sampleArray.length - i - 1] = sampleArray[i];
-           }
-
-           sampleArray = nsamples;
-       }
-
-       public int[] getSampleArray() {
-           return sampleArray.clone();
-       }
-
-       protected int[] getSamples() {
-           return sampleArray;
-       }
-
-   } */
 
 
     public static class IncompatibleAxisException extends IllegalArgumentException {

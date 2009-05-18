@@ -1,24 +1,22 @@
 package brainflow.core;
 
 import brainflow.app.services.ImageViewLayerSelectionEvent;
+import brainflow.app.presentation.binding.GridToWorldConverter;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.display.InterpolationType;
 import brainflow.image.anatomy.*;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
-import brainflow.image.space.ICoordinateSpace;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ICoordinateSpace3D;
+import brainflow.image.space.IImageSpace3D;
+import brainflow.utils.NumberUtils;
 
-import com.pietschy.command.toggle.ToggleCommand;
-import com.pietschy.command.toggle.ToggleVetoException;
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.Property;
-import net.java.dev.properties.RProperty;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.container.ObservableProperty;
-import net.java.dev.properties.container.ObservableWrapper;
 import net.java.dev.properties.events.PropertyListener;
 import org.bushe.swing.event.EventBus;
 
@@ -52,9 +50,6 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
     private static final Logger log = Logger.getLogger(ImageView.class.getName());
 
-
-
-
     private List<IImagePlot> plotList = new ArrayList<IImagePlot>();
 
     private int selectedPlotIndex = -1;
@@ -78,67 +73,48 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     };
 
 
-    public final Property<AnatomicalPoint3D> cursorPos = new ObservableProperty<AnatomicalPoint3D>() {
+    public final Property<GridPoint3D> cursorPos = new ObservableProperty<GridPoint3D>() {
 
-        public void set(AnatomicalPoint3D ap) {
+        public void set(GridPoint3D gp) {
 
-            ap = ap.snapToBounds();
-            if (!ap.equals(get())) {
-                super.set(ap);
+            //ap = ap.snapToBounds();
+            if (!gp.equals(get())) {
+                if (!gp.equals(get())) {
+
+                    super.set(gp);
+                }
             }
 
         }
     };
 
-    public final Property<AnatomicalPoint3D> worldCursorPos = new ObservableWrapper.ReadWrite<AnatomicalPoint3D>(cursorPos) {
 
-        public void set(AnatomicalPoint3D ap) {
-            if (ap.getAnatomy() != Anatomy3D.REFERENCE_ANATOMY) {
-                throw new IllegalArgumentException("world point " + ap + " must have Anatomy " + Anatomy3D.REFERENCE_ANATOMY);
+    public final Property<BrainPoint3D> worldCursorPos = new GridToWorldConverter(cursorPos);
+
+    /*public final Property<BrainPoint3D> worldCursorPos = new ObservableWrapper.ReadWrite<GridPoint3D>(cursorPos) {
+
+        @Override
+        public void set(GridPoint3D gridPoint3D) {
+            super.set(gridPoint3D);    //To change body of overridden methods use File | Settings | File Templates.
+        }
+
+        public void set(BrainPoint3D ap) {
+            if (ap.getAnatomy() != cursorPos.get().getWorldAnatomy()) {
+                throw new IllegalArgumentException("world point " + ap + " must have Anatomy " + cursorPos.get().getWorldAnatomy());
             }
 
-            super.set(AnatomicalPoint3D.convertFromWorld(ap, getModel().getImageSpace()));
+            GridPoint3D gp = GridPoint3D.fromWorld(ap.getValue(), ap.getY(), ap.getZ(), getModel().getImageSpace());
+            super.set(gp);
         }
 
-        public AnatomicalPoint3D get() {
-            RProperty<AnatomicalPoint3D> cpos = (RProperty<AnatomicalPoint3D>) getProperties()[0];
-            return AnatomicalPoint3D.convertToWorld(cpos.get(), getModel().getImageSpace());
+        public BrainPoint3D get() {
+            RProperty<BrainPoint3D> cpos = (RProperty<BrainPoint3D>) getProperties()[0];
+            return BrainPoint3D.convertToWorld(cpos.get(), getModel().getImageSpace());
         }
-    };
+    };    */
 
 
-    public final Property<Double> cursorX = new ObservableProperty<Double>() {
-        public void set(Double aDouble) {
-            super.set(aDouble);
-            cursorPos.set(new AnatomicalPoint3D(getModel().getImageSpace(), aDouble, cursorPos.get().getY(), cursorPos.get().getZ()));
-        }
-
-        public Double get() {
-            return cursorPos.get().getX();
-        }
-    };
-
-    public final Property<Double> cursorY = new ObservableProperty<Double>() {
-        public void set(Double aDouble) {
-            super.set(aDouble);
-            cursorPos.set(new AnatomicalPoint3D(getModel().getImageSpace(), cursorPos.get().getX(), aDouble, cursorPos.get().getZ()));
-        }
-
-        public Double get() {
-            return cursorPos.get().getY();
-        }
-    };
-
-    public final Property<Double> cursorZ = new ObservableProperty<Double>() {
-        public void set(Double aDouble) {
-            super.set(aDouble);
-            cursorPos.set(new AnatomicalPoint3D( getModel().getImageSpace(), cursorPos.get().getX(), cursorPos.get().getY(), aDouble));
-        }
-
-        public Double get() {
-            return cursorPos.get().getZ();
-        }
-    };
+    
 
     private InterpolationType screenInterpolation = InterpolationType.NEAREST_NEIGHBOR;
 
@@ -215,7 +191,7 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
         clearListeners(oldModel);
         initView(newModel);
 
-        //one reason this is necesary is because IImagePlots do not have a setModel method. This means that new plots have to be created.
+        //one reason this is neccessary is because IImagePlots do not have a setModel method. This means that new plots have to be created.
         
 
         //todo this transfer annotations from first plot only, which is wrong if differet plots can have different annotations
@@ -245,9 +221,9 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
     protected void initViewport(ImageViewModel model) {
         viewport = new Viewport3D(model);
-        if (cursorPos.get() == null || !viewport.inBounds(cursorPos.get().convertTo(viewport.getBounds()))) {
-            AnatomicalPoint3D centroid = model.getImageSpace().getCentroid();
-            cursorPos.set(new CursorPosition(model.getImageSpace(), centroid.getX(), centroid.getY(), centroid.getZ()));
+        if (cursorPos.get() == null || model.getImageSpace().getAnatomy() != cursorPos.get().getAnatomy() || !viewport.inBounds(cursorPos.get().toReal())) {
+            BrainPoint3D centroid = model.getImageSpace().getCentroid();
+            cursorPos.set(GridPoint3D.fromReal((float)centroid.getX(), (float)centroid.getY(), (float)centroid.getZ(), model.getImageSpace()));
         }
 
     }
@@ -344,7 +320,7 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     }
 
 
-    public AnatomicalPoint3D getCursorPos() {
+    public GridPoint3D getCursorPos() {
         return cursorPos.get();
     }
 
@@ -364,7 +340,7 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     }
 
 
-    public AnatomicalPoint3D getCentroid() {
+    public BrainPoint3D getCentroid() {
         ICoordinateSpace3D compositeSpace = getModel().get(0).getCoordinateSpace();
         return compositeSpace.getCentroid();
     }
@@ -410,32 +386,6 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
     }
 
-    /*public Point getCrosshairLocation(IImagePlot plot) {
-        if (!getPlotLayout().containsPlot(plot)) {
-            throw new IllegalArgumentException("View does not contain plot : " + plot);
-        }
-
-        AnatomicalPoint3D ap = cursorPos.get();
-        //todo fix me, what on earth is going on here?
-
-
-        AnatomicalPoint3D dispAP = null;
-
-        double xpt = dispAP.getValue(Axis.X_AXIS.getId());
-        double ypt = dispAP.getValue(Axis.Y_AXIS.getId());
-
-        double percentX = (xpt - plot.getXAxisRange().getBeginning().getValue()) / plot.getXAxisRange().getInterval();
-        double percentY = (ypt - plot.getYAxisRange().getBeginning().getValue()) / plot.getYAxisRange().getInterval();
-
-        Rectangle2D plotArea = plot.getPlotArea();
-
-        double screenX = (percentX * plotArea.getWidth()) + plotArea.getX();
-        double screenY = (percentY * plotArea.getHeight()) + plotArea.getY();
-
-        Point location = new Point((int) Math.round(screenX), (int) Math.round(screenY));
-        return SwingUtilities.convertPoint(plot.getComponent(), location, this);
-
-    }*/
 
     public boolean pointInPlot(Component source, Point p) {
         Point viewPoint = SwingUtilities.convertPoint(source, p, this);
@@ -444,38 +394,46 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     }
 
     //todo this method is just really, really bad. fix it.
-    public AnatomicalPoint3D getAnatomicalLocation(Component source, Point p) {
+    public GridPoint3D getAnatomicalLocation(Component source, Point p) {
 
         Point viewPoint = SwingUtilities.convertPoint(source, p, this);
+
         IImagePlot plot = whichPlot(viewPoint);
 
         if (plot == null) {
-            throw new IllegalArgumentException("Point p: " + p +  " is not within bounds of component");
+            throw new IllegalArgumentException("Point p: " + p +  " is not within bounds of image plot");
 
         }
 
-        //System.out.println("plot loc " + plot.getSlice());
-
         Point plotPoint = SwingUtilities.convertPoint(this, viewPoint, plot.getComponent());
 
-        AnatomicalPoint2D apoint = plot.translateScreenToAnat(plotPoint);
+        BrainPoint2D apoint = plot.translateScreenToAnat(plotPoint);
 
         Anatomy3D displayAnatomy = plot.getDisplayAnatomy();
 
-        AnatomicalPoint3D ap3d = new AnatomicalPoint3D(
-                Anatomy3D.matchAnatomy(
+        GridPoint3D gslice = plot.getSlice();
+
+        Anatomy3D matchedAnatomy = Anatomy3D.matchAnatomy(
                         plot.getXAxisRange().getAnatomicalAxis(),
                         plot.getYAxisRange().getAnatomicalAxis(),
-                        plot.getDisplayAnatomy().ZAXIS),
-                apoint.getX(), apoint.getY(),
-                plot.getSlice().getValue(displayAnatomy.ZAXIS).getValue());
+                        plot.getDisplayAnatomy().ZAXIS);
 
-                //getCursorPos().getValue(displayAnatomy.ZAXIS).getValue());
+        assert matchedAnatomy == plot.getDisplayAnatomy();
 
-        //System.out.println("ap3d " + ap3d);
+        BrainPoint3D ap3d = new BrainPoint3D(
+                matchedAnatomy,
+                apoint.getX().getValue(), apoint.getY().getValue(),
+                gslice.getValue(displayAnatomy.ZAXIS, true).toReal().getValue());
+
+        IImageSpace3D space = getModel().getImageSpace();
 
 
-        return ap3d;
+        BrainPoint3D converted = ap3d.convertTo(space);
+        assert converted.getAnatomy() == space.getAnatomy();
+
+        return GridPoint3D.fromReal(converted.getX(), converted.getY(), converted.getZ(), space );
+
+        
     }
 
 
@@ -496,8 +454,6 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
                 getContentPane().getHeight(), BufferedImage.TYPE_INT_ARGB);
         getContentPane().paint(img.createGraphics());
         return img;
-
-
     }
 
 

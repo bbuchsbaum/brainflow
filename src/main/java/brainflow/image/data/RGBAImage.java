@@ -2,6 +2,7 @@ package brainflow.image.data;
 
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
+import brainflow.image.rendering.RenderUtils;
 
 import java.awt.image.BufferedImage;
 
@@ -90,7 +91,17 @@ public class RGBAImage {
     }
 
     public BufferedImage getAsBufferedImage() {
-        throw new UnsupportedOperationException();
+        byte[] br = getRed().getByteArray();
+        byte[] bg = getGreen().getByteArray();
+        byte[] bb = getBlue().getByteArray();
+        byte[] ba = getAlpha().getByteArray();
+
+        byte[][] ball = new byte[4][];
+        ball[0] = br;
+        ball[1] = bg;
+        ball[2] = bb;
+        ball[3] = ba;
+        return RenderUtils.createInterleavedBufferedImage(ball, getWidth(), getHeight(), false);
 
     }
 

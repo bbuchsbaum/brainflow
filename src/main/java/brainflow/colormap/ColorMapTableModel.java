@@ -21,6 +21,7 @@ public class ColorMapTableModel extends AbstractTableModel {
 
 
     private DiscreteColorMap colorMap;
+    
     private IColorMap sourceMap;
 
     public ColorMapTableModel(IColorMap _sourceMap) {

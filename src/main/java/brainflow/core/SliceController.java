@@ -1,6 +1,7 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.GridPoint3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,9 +13,9 @@ import brainflow.image.anatomy.AnatomicalPoint3D;
 public interface SliceController {
 
 
-    public AnatomicalPoint3D getSlice();
+    public GridPoint3D getSlice();
 
-    public void setSlice(AnatomicalPoint3D slice);
+    public void setSlice(GridPoint3D slice);
 
     public void nextSlice();
 

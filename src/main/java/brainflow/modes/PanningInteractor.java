@@ -1,7 +1,7 @@
 package brainflow.modes;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.AnatomicalPoint2D;
+import brainflow.image.anatomy.BrainPoint2D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.core.Viewport3D;
 
@@ -39,11 +39,11 @@ public class PanningInteractor extends ImageViewInteractor {
         if (lastPoint != null) {
 
             ImageView view = getView();
-            AnatomicalPoint2D lastpos = view.getSelectedPlot().translateScreenToAnat(SwingUtilities.convertPoint(e.getComponent(), lastPoint, view.getSelectedPlot().getComponent()));
-            AnatomicalPoint2D curpos = view.getSelectedPlot().translateScreenToAnat(SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), view.getSelectedPlot().getComponent()));
+            BrainPoint2D lastpos = view.getSelectedPlot().translateScreenToAnat(SwingUtilities.convertPoint(e.getComponent(), lastPoint, view.getSelectedPlot().getComponent()));
+            BrainPoint2D curpos = view.getSelectedPlot().translateScreenToAnat(SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), view.getSelectedPlot().getComponent()));
 
-            double dx = curpos.getX() - lastpos.getX();
-            double dy = curpos.getY() - lastpos.getY();
+            double dx = curpos.getX().getValue() - lastpos.getX().getValue();
+            double dy = curpos.getY().getValue() - lastpos.getY().getValue();
 
             Anatomy3D anatomy = view.getSelectedPlot().getDisplayAnatomy();
             Viewport3D viewport = view.getViewport();

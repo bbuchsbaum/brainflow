@@ -4,7 +4,7 @@ import brainflow.utils.ToStringGenerator;
 import brainflow.utils.NumberUtils;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.AnatomicalDirection;
-import brainflow.image.anatomy.AnatomicalPoint1D;
+import brainflow.image.anatomy.BrainPoint1D;
 
 
 import java.util.logging.Logger;
@@ -43,8 +43,8 @@ public final class AxisRange implements Cloneable {
         return aaxis;
     }
 
-    public AnatomicalPoint1D getCenter() {
-        AnatomicalPoint1D center = new AnatomicalPoint1D(aaxis, (begin + end) / 2);
+    public BrainPoint1D getCenter() {
+        BrainPoint1D center = new BrainPoint1D(aaxis, (begin + end) / 2);
         return center;
     }
 
@@ -62,12 +62,12 @@ public final class AxisRange implements Cloneable {
 
     }
 
-    public AnatomicalPoint1D getBeginning() {
-        return new AnatomicalPoint1D(aaxis, begin);
+    public BrainPoint1D getBeginning() {
+        return new BrainPoint1D(aaxis, begin);
     }
 
-    public AnatomicalPoint1D getEnd() {
-        return new AnatomicalPoint1D(aaxis, end);
+    public BrainPoint1D getEnd() {
+        return new BrainPoint1D(aaxis, end);
     }
 
     public AxisRange flip() {
@@ -102,7 +102,7 @@ public final class AxisRange implements Cloneable {
     }
 
 
-    public AnatomicalPoint1D getEdgePoint(AnatomicalDirection adir) {
+    public BrainPoint1D getEdgePoint(AnatomicalDirection adir) {
         if (adir == aaxis.getMinDirection()) {
             return getBeginning();
         } else if (adir == aaxis.getMaxDirection()) {

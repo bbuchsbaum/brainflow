@@ -1,10 +1,7 @@
 package brainflow.app.services;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.AnatomicalPoint;
-import brainflow.image.anatomy.AnatomicalPoint3D;
-import brainflow.image.space.IImageSpace3D;
-import brainflow.image.space.Axis;
+import brainflow.image.anatomy.GridPoint3D;
 
 import java.awt.event.MouseEvent;
 
@@ -17,36 +14,24 @@ import java.awt.event.MouseEvent;
  */
 public class ImageViewMousePointerEvent extends ImageViewMouseEvent {
 
-    private AnatomicalPoint3D ap;
+    private GridPoint3D ap;
 
     public ImageViewMousePointerEvent(ImageView view, MouseEvent _event) {
         super(view, _event);
 
     }
 
-    public AnatomicalPoint3D getLocation() {
+    public GridPoint3D getLocation() {
 
         if (ap == null) {
             MouseEvent event = getEvent();
-            AnatomicalPoint3D cursorPos = getImageView().getCursorPos();
+
+            GridPoint3D cursorPos = getImageView().getCursorPos();
             if (!getImageView().pointInPlot(event.getComponent(), event.getPoint())) {
-                return new AnatomicalPoint3D(cursorPos.getSpace().getAnatomy(), 0,0,0);
+                ap = new GridPoint3D(0,0,0, cursorPos.getSpace());
+            } else {
+                ap = getImageView().getAnatomicalLocation(event.getComponent(), event.getPoint());
             }
-
-            AnatomicalPoint3D tmp = getImageView().getAnatomicalLocation(event.getComponent(), event.getPoint());
-           
-            ap = tmp.convertTo(cursorPos.getSpace());
-
-
-            IImageSpace3D space = getImageView().getModel().getImageSpace();
-            float[] gridpos = space.worldToGrid((float)ap.getX(), (float)ap.getY(), (float)ap.getZ());
-            double x1 = space.getImageAxis(Axis.X_AXIS).gridToReal(gridpos[0]);
-            double y1 = space.getImageAxis(Axis.Y_AXIS).gridToReal(gridpos[1]);
-            double z1 = space.getImageAxis(Axis.Z_AXIS).gridToReal(gridpos[2]);
-
-            ap = new AnatomicalPoint3D(space, x1, y1, z1);
-
-
 
         }
 
@@ -56,12 +41,12 @@ public class ImageViewMousePointerEvent extends ImageViewMouseEvent {
 
     public String toString() {
         StringBuilder builder = new StringBuilder("Cursor at : ");
-        AnatomicalPoint tmp = getLocation();
+        GridPoint3D tmp = getLocation();
         if (tmp == null) return "cursorPos : --";
 
-        builder.append("zero: " + (int) getLocation().getX());
-        builder.append("one: " + (int) getLocation().getY());
-        builder.append("two: " + (int) getLocation().getZ());
+        builder.append("zero: " + (int) getLocation().getX().getValue());
+        builder.append("one: " + (int) getLocation().getY().getValue());
+        builder.append("two: " + (int) getLocation().getZ().getValue());
 
         return builder.toString();
     }

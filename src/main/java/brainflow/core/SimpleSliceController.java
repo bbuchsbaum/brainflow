@@ -1,7 +1,9 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.AnatomicalPoint1D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint1D;
+import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.anatomy.GridPoint1D;
 import brainflow.image.space.Axis;
 import brainflow.image.axis.ImageAxis;
 import net.java.dev.properties.container.BeanContainer;
@@ -30,9 +32,9 @@ class SimpleSliceController implements SliceController {
     protected void initCursorListener() {
         BeanContainer.get().addListener(imageView.cursorPos, new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                AnatomicalPoint3D oldval = (AnatomicalPoint3D)oldValue;
-                AnatomicalPoint3D newval = (AnatomicalPoint3D)newValue;
-
+                GridPoint3D oldval = (GridPoint3D)oldValue;
+                GridPoint3D newval = (GridPoint3D)newValue;
+         
                 if (!oldval.equals(newval)) {
                     imageView.getSelectedPlot().setSlice(newval);
                     IImagePlot selectedPlot = imageView.getSelectedPlot();
@@ -44,20 +46,13 @@ class SimpleSliceController implements SliceController {
     }
 
 
-    public AnatomicalPoint3D getSlice() {
+    public GridPoint3D getSlice() {
         return imageView.getCursorPos();
-    }
-
-    public AnatomicalPoint1D getSlice(IImagePlot plot) {
-        return imageView.getCursorPos().getValue(plot.getDisplayAnatomy().ZAXIS);
     }
 
     
 
-    public void setSlice(AnatomicalPoint3D slice) {
-
-        slice = slice.snapToBounds();
-
+    public void setSlice(GridPoint3D slice) {
         if (!slice.equals(imageView.cursorPos.get())) {
             imageView.cursorPos.set(slice);
         }
@@ -70,12 +65,13 @@ class SimpleSliceController implements SliceController {
 
     }
 
-    protected AnatomicalPoint3D incrementSlice(double incr) {
-        AnatomicalPoint3D slice = getSlice();
+    protected GridPoint3D incrementSlice(double incr) {
+        GridPoint3D slice = getSlice();
         ImageAxis iaxis = zaxis();
-        AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
-        pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + incr);
-        return slice.replace(pt);
+        GridPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis(), false);
+        double z = pt.toReal().getValue() + incr;
+        return slice.replace(new BrainPoint1D(iaxis.getAnatomicalAxis(), z));
+
     }
 
     private ImageAxis zaxis() {
@@ -85,39 +81,21 @@ class SimpleSliceController implements SliceController {
     }
 
     public void nextSlice() {
-
-        imageView.cursorPos.set(incrementSlice(zaxis().getSpacing()).snapToBounds());
+        imageView.cursorPos.set(incrementSlice(zaxis().getSpacing()));
 
 
     }
 
     public void previousSlice() {
-
-        imageView.cursorPos.set(incrementSlice(-zaxis().getSpacing()).snapToBounds());
-
-
+        imageView.cursorPos.set(incrementSlice(-zaxis().getSpacing()));
     }
 
     public void pageBack() {
-        AnatomicalPoint3D slice = getSlice();
-
-        ImageAxis iaxis = zaxis();
-
-        AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
-        pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() - iaxis.getExtent() * pageStep);
-        imageView.cursorPos.set(slice.replace(pt).snapToBounds());
-
-
+        imageView.cursorPos.set(incrementSlice(-(zaxis().getExtent() * pageStep)));
     }
 
     public void pageForward() {
-        AnatomicalPoint3D slice = getSlice();
-
-        ImageAxis iaxis = zaxis();
-
-        AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
-        pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + iaxis.getExtent() * pageStep);
-        imageView.cursorPos.set(slice.replace(pt).snapToBounds());
+        imageView.cursorPos.set(incrementSlice(zaxis().getExtent() * pageStep));
 
 
     }

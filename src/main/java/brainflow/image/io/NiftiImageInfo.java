@@ -18,41 +18,40 @@ import static java.lang.Math.*;
  */
 public class NiftiImageInfo extends ImageInfo {
 
-    public int qfac = 1;
+    private int qfac = 1;
+
+
+
+    private Matrix4f qform = new Matrix4f();
+
+    private Matrix4f sform = new Matrix4f();
+
+    private Vector3f quaternion = new Vector3f();
+
+    private Vector3f qoffset = new Vector3f();
 
     //todo provide reasonable defaults?
 
-    public Matrix4f qform = new Matrix4f();
 
-    public Matrix4f sform = new Matrix4f();
-
-    public Vector3f quaternion = new Vector3f();
-
-    public Vector3f qoffset = new Vector3f();
-
-    //public static final int HEADER_OFFSET = 348;
-
-    public NiftiImageInfo() {
+    private NiftiImageInfo() {
     }
 
     public NiftiImageInfo(NiftiImageInfo info) {
         super(info);
-        qfac  = info.qfac;
+        qfac = info.qfac;
         qform = info.qform;
         sform = info.sform;
-        quaternion=info.quaternion;
-        qoffset = info.qoffset;        
+        quaternion = info.quaternion;
+        qoffset = info.qoffset;
     }
 
     public NiftiImageInfo(NiftiImageInfo info, String _imageLabel, int index) {
         super(info, _imageLabel, index);
-        qfac  = info.qfac;
+        qfac = info.qfac;
         qform = info.qform;
         sform = info.sform;
-        quaternion=info.quaternion;
+        quaternion = info.quaternion;
         qoffset = info.qoffset;
-
-
     }
 
     public NiftiImageInfo selectInfo(int index) {
@@ -61,15 +60,83 @@ public class NiftiImageInfo extends ImageInfo {
         }
 
         String name = getHeaderFile().getName().getBaseName();
+
         int idx = name.indexOf(".");
+
         if (idx > 0) {
             name = name.substring(0, name.indexOf("."));
         }
-        
-        NiftiImageInfo ret = new NiftiImageInfo(this, name + ":" + index, index);
 
-        return ret;
+        return new NiftiImageInfo(this, name + ":" + index, index);
 
+    }
+
+    @Override
+    public ImageReader createImageReader() {
+        return new NiftiImageReader(this);
+    }
+
+    public static class Builder extends ImageInfo.Builder {
+
+        public Builder() {
+            super(new NiftiImageInfo());
+        }
+
+        private NiftiImageInfo info() {
+            return (NiftiImageInfo) super.info;
+        }
+
+        public Builder qform(Matrix4f qform) {
+            info().qform = qform;
+            return this;
+        }
+
+        public Builder sform(Matrix4f sform) {
+            info().sform = sform;
+            return this;
+        }
+
+        public Builder qfac(int qfac) {
+            info().qfac = qfac;
+            return this;
+        }
+
+        public Builder quaternion(Vector3f quaternion) {
+            info().quaternion = quaternion;
+            return this;
+        }
+
+        public Builder qoffset(Vector3f qoffset) {
+            info().qoffset = qoffset;
+            return this;
+        }
+
+        @Override
+        public NiftiImageInfo build() {
+            this.checkBuilt();
+            this.isBuilt = true;
+            return info();
+        }
+    }
+
+    public int getQfac() {
+        return qfac;
+    }
+
+    public Matrix4f getQform() {
+        return qform;
+    }
+
+    public Matrix4f getSform() {
+        return sform;
+    }
+
+    public Vector3f getQuaternion() {
+        return quaternion;
+    }
+
+    public Vector3f getQoffset() {
+        return qoffset;
     }
 
     public static Matrix4f quaternionToMatrix(float qb, float qc, float qd,
@@ -128,7 +195,7 @@ public class NiftiImageInfo extends ImageInfo {
     public static Anatomy3D nearestAnatomy(Matrix4f R) {
         Matrix3f P = new Matrix3f();
         Matrix3f Q = new Matrix3f();
-        
+
 
         float xi = R.m00;
         float xj = R.m01;

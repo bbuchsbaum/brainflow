@@ -11,7 +11,6 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.io.SoftImageDataSource;
 import brainflow.image.io.ImageDataSource;
 import brainflow.image.data.IImageData;
-import brainflow.app.ImageProgressDialog;
 import brainflow.app.ImageIODescriptor;
 import brainflow.app.services.DataSourceStatusEvent;
 import org.bushe.swing.event.EventBus;
@@ -109,29 +108,7 @@ public class DataSourceManager {
         return imageMap.get(uid);
     }
 
-    public ImageProgressDialog createProgressDialog(final IImageDataSource dataSource, final ActionListener listener) {
-        final ImageProgressDialog id = new ImageProgressDialog(dataSource, DisplayManager.get().getSelectedCanvas().getComponent()) {
 
-            protected void done() {
-                try {
-                    IImageData data = get();
-                } catch (ExecutionException e1) {
-                    throw new RuntimeException(e1);
-                } catch (InterruptedException e2) {
-                    throw new RuntimeException(e2);
-                }
-
-
-                listener.actionPerformed(new ActionEvent(dataSource, 0, "LOADED"));
-                getDialog().setVisible(false);
-
-            }
-
-
-        };
-
-        return id;
-    }
 
 
 }

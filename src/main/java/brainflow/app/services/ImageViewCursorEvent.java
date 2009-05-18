@@ -1,7 +1,7 @@
 package brainflow.app.services;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.AnatomicalPoint3D;
+import brainflow.image.anatomy.BrainPoint3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +16,7 @@ public class ImageViewCursorEvent extends ImageViewEvent {
      */
 
 
-    private AnatomicalPoint3D cpos;
+    private BrainPoint3D cpos;
 
     public ImageViewCursorEvent(ImageView view) {
         super(view);
@@ -24,7 +24,7 @@ public class ImageViewCursorEvent extends ImageViewEvent {
         cpos = view.worldCursorPos.get();
     }
 
-    public AnatomicalPoint3D getCursor() {
+    public BrainPoint3D getCursor() {
         return cpos;
     }
 

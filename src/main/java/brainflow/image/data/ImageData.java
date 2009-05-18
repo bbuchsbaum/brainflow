@@ -5,7 +5,7 @@ import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint1D;
+import brainflow.image.anatomy.BrainPoint1D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.Iterator3D;
@@ -15,8 +15,6 @@ import brainflow.utils.NumberUtils;
 import brainflow.math.Index3D;
 
 import java.util.Arrays;
-import java.awt.image.DataBuffer;
-import java.lang.reflect.Array;
 
 
 /**
@@ -52,8 +50,8 @@ public class ImageData {
 
     
 
-    public static IImageData3D asImageData3D(IImageData2D data2d, AnatomicalPoint1D zvalue, double thickness) {
-        ImageSpace2D space2d = data2d.getImageSpace();
+    public static IImageData3D asImageData3D(IImageData2D data2d, BrainPoint1D zvalue, double thickness) {
+        IImageSpace2D space2d = data2d.getImageSpace();
 
         ImageAxis zimaxis = new ImageAxis(zvalue.getValue() - (thickness / 2.0), zvalue.getValue() + (thickness / 2.0), zvalue.getAnatomy(), 1);
         IImageSpace3D space = new ImageSpace3D(space2d.getImageAxis(Axis.X_AXIS), space2d.getImageAxis(Axis.Y_AXIS), zimaxis);

@@ -12,6 +12,7 @@ import brainflow.math.Vector3f;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
+import org.apache.commons.vfs.util.RandomAccessMode;
 
 import java.io.*;
 import java.net.URL;
@@ -25,10 +26,32 @@ import java.nio.ByteOrder;
  * Time: 1:21:17 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AFNIInfoReader implements ImageInfoReader {
+public class AFNIInfoReader extends AbstractInfoReader {
 
 
     private Map<AFNIAttributeKey, HeaderAttribute> attributeMap = new HashMap<AFNIAttributeKey, HeaderAttribute>();
+
+    protected AFNIInfoReader() {
+        super();
+    }
+
+    public AFNIInfoReader(FileObject headerFile, FileObject dataFile) {
+        super(headerFile, dataFile);
+    }
+
+    public AFNIInfoReader(File headerFile, File dataFile) {
+        super(headerFile, dataFile);
+    }
+
+    public AFNIInfoReader(String name) {
+        super(new File(AFNIInfoReader.getHeaderName(name)), new File(AFNIInfoReader.getImageName(name)));
+    }
+
+    @Override
+    public AFNIInfoReader create(FileObject headerFile, FileObject dataFile) {
+        return new AFNIInfoReader(headerFile, dataFile);
+    }
+
 
 
     public static boolean isHeaderFile(String name) {
@@ -65,6 +88,9 @@ public class AFNIInfoReader implements ImageInfoReader {
         return name + ".HEAD";
     }
 
+
+
+
     public static String getImageName(String name) {
         if (name.endsWith(".HEAD")) {
             name = name.substring(0, name.length() - 4);
@@ -88,44 +114,11 @@ public class AFNIInfoReader implements ImageInfoReader {
     }
 
 
-    public List<ImageInfo> readInfo(InputStream stream) throws BrainFlowException {
 
-        List<ImageInfo> ret;
-
+    @Override
+    public List<ImageInfo> readInfo() throws BrainFlowException {
         try {
-            ret = readHeader(stream);
-
-        } catch (IOException e) {
-            throw new BrainFlowException(e);
-        }
-
-        return ret;
-
-
-    }
-
-    public List<ImageInfo> readInfo(URL url) throws BrainFlowException {
-        try {
-            FileObject fobj = VFS.getManager().resolveFile(url.toString());
-            return readInfo(fobj);
-        } catch (FileSystemException e) {
-            throw new BrainFlowException(e);
-        }
-    }
-
-    public List<ImageInfo> readInfo(FileObject fobj) throws BrainFlowException {
-        List<ImageInfo> ret;
-
-        try {
-
-            ret = readInfo(fobj.getURL().openStream());
-            FileObject dataFile = VFS.getManager().resolveFile(fobj.getParent(), AFNIInfoReader.getImageName(fobj.getName().getBaseName()));
-            FileObject headerFile = VFS.getManager().resolveFile(fobj.getParent(), AFNIInfoReader.getHeaderName(fobj.getName().getBaseName()));
-            for (ImageInfo ii : ret) {
-                ii.setDataFile(dataFile);
-                ii.setHeaderFile(headerFile);
-
-            }
+            return readHeader(headerFile.getContent().getRandomAccessContent(RandomAccessMode.READ).getInputStream());
 
         } catch (FileSystemException e) {
             throw new BrainFlowException(e);
@@ -133,36 +126,15 @@ public class AFNIInfoReader implements ImageInfoReader {
             throw new BrainFlowException(e);
         }
 
-        return ret;
     }
 
-    public List<ImageInfo> readInfo(File f) throws BrainFlowException {
-        List<ImageInfo> ret;
-        try {
-            InputStream istream = new FileInputStream(f);
-            ret = readHeader(istream);
-            FileObject dataFile = VFS.getManager().resolveFile(f.getParentFile(), AFNIInfoReader.getImageName(f.getName()));
-            FileObject headerFile = VFS.getManager().resolveFile(f.getParentFile(), AFNIInfoReader.getHeaderName(f.getName()));
-            for (ImageInfo ii : ret) {
-                ii.setDataFile(dataFile);
-                ii.setHeaderFile(headerFile);
-            }
-
-        } catch (IOException e) {
-            throw new BrainFlowException(e);
-        }
-
-        return ret;
-
-
-    }
 
 
     private List<ImageInfo> readHeader(InputStream istream) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(istream));
 
 
-        HeaderAttribute ret = null;
+        HeaderAttribute ret;
         skipNewLines(reader);
 
         // parse the header
@@ -186,10 +158,8 @@ public class AFNIInfoReader implements ImageInfoReader {
         }
 
         // fill instances with data. Yes, this is all very ugly.
-        Iterator<AFNIAttributeKey> iter = attributeMap.keySet().iterator();
-        while (iter.hasNext()) {
-            AFNIAttributeKey key = iter.next();
-            processAttribute(key, attributeMap.get(key), infoList);
+        for (AFNIAttributeKey afniAttributeKey : attributeMap.keySet()) {
+            processAttribute(afniAttributeKey, attributeMap.get(afniAttributeKey), infoList);
         }
 
         processByteOffsets(infoList);
@@ -258,7 +228,7 @@ public class AFNIInfoReader implements ImageInfoReader {
         string_attribute,
         float_attribute,
         integer_attribute,
-        double_attribute;
+        double_attribute
 
     }
 
@@ -507,26 +477,6 @@ public class AFNIInfoReader implements ImageInfoReader {
 
 
     public static void main(String[] args) {
-        File f = null;
-        try {
-            URL url = ClassLoader.getSystemResource("resources/data/motion-reg2+orig.HEAD");
-            ImageInfoReader reader = new AFNIInfoReader();
-
-            List<? extends ImageInfo> ilist = reader.readInfo(url);
-
-            ImageInfo info = ilist.get(0);
-            ImageSpace3D space = (ImageSpace3D) info.createImageSpace();
-
-
-            Matrix4f mat = ((Anatomy3D) ilist.get(0).getAnatomy()).getReferenceTransform();
-
-            IDimension spacing = info.getSpacing();
-            mat.scale(new Vector3f(spacing.getDim(0).floatValue(), spacing.getDim(1).floatValue(), spacing.getDim(2).floatValue()));
-            mat.setTranslation(new Vector3f(100, 100, 100));
-
-        } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
 
     }
 }

@@ -4,15 +4,11 @@ import brainflow.app.YokeHandler;
 import brainflow.app.presentation.binding.PropertyConnector;
 import brainflow.core.*;
 import brainflow.core.annotations.BoxAnnotation;
-import brainflow.image.anatomy.AnatomicalPoint2D;
+import brainflow.image.anatomy.BrainPoint2D;
 import brainflow.image.anatomy.Anatomy3D;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.JideBorderLayout;
-import net.java.dev.properties.BaseProperty;
-import net.java.dev.properties.binding.swing.adapters.SwingBind;
-import net.java.dev.properties.container.BeanContainer;
-import net.java.dev.properties.events.PropertyListener;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -394,7 +390,7 @@ public class ImageViewportPresenter extends ImageViewPresenter {
 
     class Panner extends MouseAdapter implements MouseMotionListener {
 
-        private AnatomicalPoint2D lastPoint = null;
+        private BrainPoint2D lastPoint = null;
 
 
         public void mousePressed(MouseEvent e) {
@@ -416,15 +412,15 @@ public class ImageViewportPresenter extends ImageViewPresenter {
             IImagePlot plot = boxView.getSelectedPlot();
 
             if (boxAnnotation.containsPoint(plot, e.getPoint())) {
-                AnatomicalPoint2D next = boxAnnotation.translateFromJava2D(plot, e.getPoint());
+                BrainPoint2D next = boxAnnotation.translateFromJava2D(plot, e.getPoint());
 
 
                 Number xold = boxAnnotation.getXmin();
                 Number yold = boxAnnotation.getYmin();
 
 
-                double newx = xold.doubleValue() + (next.getX() - lastPoint.getX());
-                double newy = yold.doubleValue() + (next.getY() - lastPoint.getY());
+                double newx = xold.doubleValue() + (next.getX().getValue() - lastPoint.getX().getValue());
+                double newy = yold.doubleValue() + (next.getY().getValue() - lastPoint.getY().getValue());
 
                 if (newx < plot.getXAxisRange().getMinimum()) {
                     newx = plot.getXAxisRange().getMinimum();

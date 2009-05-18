@@ -1,14 +1,24 @@
 package brainflow.image.operations;
 
 import brainflow.app.BrainFlowException;
+import brainflow.app.MemoryImageDataSource;
+import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.image.data.*;
 import brainflow.image.io.BrainIO;
 import brainflow.image.space.Axis;
 import brainflow.core.BF;
+import brainflow.core.ImageViewModel;
+import brainflow.core.ImageView;
+import brainflow.core.layer.ImageLayer3D;
+import brainflow.core.layer.ImageLayerProperties;
+import brainflow.colormap.ColorTable;
+import brainflow.utils.Range;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +38,7 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
     private int nx;
 
     private int ny;
-    
+
     private int nz;
 
     public IImageData getOutput() {
@@ -273,34 +283,31 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
     public static void main(String[] args) {
         try {
 
-            IImageData img = BrainIO.readNiftiImage(BF.getDataURL("anat_alepi.nii"));
-            IImageData3D data = (IImageData3D) img;
-            IMaskedData3D mask = new MaskedData3D(data, new MaskPredicate() {
-                public boolean mask(double value) {
-                    return value > 2500;
-
-                    }
-
+            IImageData3D dat = (IImageData3D) BrainIO.readNiftiImage(BF.getDataURL("cohtrend_GLT#0_Tstat.nii"));
+            MaskedData3D mask = new MaskedData3D(dat, new MaskPredicate() {
+                public final boolean mask(double value) {
+                    return value > 8;
+                }
             });
+
 
             System.out.println("cardinality = " + mask.cardinality());
 
-            ConnectedComponentsFilter3 filter = null;
+            ConnectedComponentsFilter filter = null;
             long btime = System.currentTimeMillis();
-            for (int i = 0; i < 200; i++) {
-                System.out.println("" + i);
-                filter = new ConnectedComponentsFilter3();
-                filter.addInput(mask);
-                filter.getOutput();
-            }
 
-            long etime = System.currentTimeMillis();
-            System.out.println("avg time " + (etime - btime) / 200.00);
+            filter = new ConnectedComponentsFilter();
+            filter.addInput(mask);
+            IImageData3D dat3d = (IImageData3D) filter.getOutput();
+            ImageViewModel model = new ImageViewModel("test",
+                    new ImageLayer3D(new MemoryImageDataSource(dat3d), new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()))));
 
-            /*ConnectedComponentsFilter filter = new ConnectedComponentsFilter();
-         filter.addInput(data);
-         IImageData idata = filter.getOutput();
-         BrainIO.writeAnalyzeImage("c:/DTI/slopes/bAge.Norm_index.hdr", (DataBufferSupport) idata); */
+
+            ImageView view = ImageViewFactory.createAxialView(model);
+            JFrame frame = new JFrame();
+            frame.add(view, BorderLayout.CENTER);
+            frame.pack();
+            frame.setVisible(true);
 
         } catch (BrainFlowException e) {
             e.printStackTrace();

@@ -15,6 +15,7 @@ import brainflow.image.data.IImageData;
 import brainflow.image.data.ImageData;
 import brainflow.image.space.IImageSpace;
 import brainflow.utils.Range;
+import brainflow.utils.IRange;
 import brainflow.core.layer.AbstractLayer;
 import brainflow.core.layer.ImageLayerProperties;
 import brainflow.core.ClipRange;
@@ -31,8 +32,6 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
     private IImageDataSource dataSource;
 
-    //private IImageData data;
-
 
     public ImageLayer(ImageLayer layer) {
         super(layer.getLabel() + "*", layer.getImageLayerProperties());
@@ -43,6 +42,16 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
     public ImageLayer(String name, ImageLayer layer) {
         super(name, layer.getImageLayerProperties());
         this.dataSource = layer.getDataSource();
+
+    }
+
+    public ImageLayer(IImageDataSource dataSource, IRange range) {
+        super(dataSource.getImageInfo().getImageLabel(), new ImageLayerProperties(ColorTable.GRAYSCALE, range));
+        this.dataSource = dataSource;
+
+        if (dataSource.isLoaded()) {
+            initClip();
+        }
 
     }
 
@@ -133,7 +142,7 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone();    //To change body of overridden methods use File | Settings | File Templates.
+        return super.clone();
     }
 
     /*public boolean equals(Object o) {

@@ -2008,15 +2008,13 @@ public class Nifti1Dataset {
         phase_dim = 0;
         slice_dim = 0;
         dim = new short[8];        // data array dimensions (8 shorts)
-        for (i = 0; i < 8; i++)
-            dim[i] = 0;
+
         XDIM = 0;
         YDIM = 0;
         ZDIM = 0;
         TDIM = 0;
         intent = new float[3];        // intents p1 p2 p3
-        for (i = 0; i < 3; i++)
-            intent[i] = (float) 0.0;
+
         intent_code = NIFTI_INTENT_NONE;
         datatype = DT_NONE;        // datatype of image blob
         bitpix = 0;            // #bits per voxel
@@ -2024,8 +2022,6 @@ public class Nifti1Dataset {
         pixdim = new float[8];        // grid spacings
         pixdim[0] = 1;
         qfac = 1;
-        for (i = 1; i < 8; i++)
-            pixdim[i] = (float) 0.0;
 
         vox_offset = (float) 0.0;    // offset to data blob in .nii file
         // for .nii files default is 352 but

@@ -68,7 +68,7 @@ public class SnapShooter {
 
         BufferedImage img = gf.createCompatibleImage(width, height);
 
-        //procurer.setSlice(new AnatomicalPoint1D(displayAnatomy.ZAXIS, slice));
+        //procurer.setSlice(new BrainPoint1D(displayAnatomy.ZAXIS, slice));
         //emulator.paint(img.createGraphics(), new Rectangle(0, 0, width, height));
         return img;
     }

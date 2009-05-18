@@ -1,10 +1,7 @@
 package brainflow.core;
 
 import brainflow.image.axis.ImageAxis;
-import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.AnatomicalPoint3D;
-import brainflow.image.anatomy.AnatomicalPoint1D;
-import brainflow.image.anatomy.AnatomicalAxis;
+import brainflow.image.anatomy.*;
 import brainflow.image.space.Axis;
 
 /**
@@ -31,11 +28,11 @@ public abstract class AbstractSliceController implements SliceController {
         return getView().getModel().getImageAxis(axis);
     }
 
-    public AnatomicalPoint3D incrementSlice(double incr, Anatomy3D anatomy) {
-        AnatomicalPoint3D slice = getSlice();
+    public GridPoint3D incrementSlice(double incr, Anatomy3D anatomy) {
+        GridPoint3D slice = getSlice();
         ImageAxis iaxis = sliceAxis(anatomy);
-        AnatomicalPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis());
-        pt = new AnatomicalPoint1D(pt.getAnatomy(), pt.getValue() + incr);
+        GridPoint1D gp = slice.getValue(iaxis.getAnatomicalAxis(), false);
+        BrainPoint1D pt = new BrainPoint1D(gp.getAnatomy(), gp.toReal().getValue() + incr);
         return slice.replace(pt);
     }
 }
