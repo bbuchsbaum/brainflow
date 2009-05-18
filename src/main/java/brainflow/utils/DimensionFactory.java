@@ -1,6 +1,7 @@
 package brainflow.utils;
 
 import java.util.List;
+import java.util.Arrays;
 
 /**
  * BrainFlow Project
@@ -38,8 +39,10 @@ public class DimensionFactory {
         } else throw new IllegalArgumentException("cannt create object with " + dims.length + " dimensions");
     }
 
+    
 
-    public static IDimension create(Double... dims) {
+
+    public static IDimension<Double> create(Double... dims) {
         if (dims.length == 1) {
             return new Dimension1D<Double>(dims);
         }

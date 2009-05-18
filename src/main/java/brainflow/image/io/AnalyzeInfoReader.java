@@ -43,9 +43,6 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
     private final static Logger log = Logger.getLogger(AnalyzeInfoReader.class.getCanonicalName());
 
 
-
-
-
     protected AnalyzeInfoReader() {
         super();
     }
@@ -203,7 +200,6 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
                 throw new BrainFlowException("Illegal Data Type: " + dataType);
             }
 
-            //logger.log(Level.INFO, "Data Type: " + dataType);
             builder.dataType(dataType);
 
             bitpix = istream.readShort();                            // bitpix
@@ -216,10 +212,6 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
                     (double) (Math.abs(pixdim[2])), (double) (Math.abs(pixdim[3]))));
 
             builder.origin(new Point3D(pixdim[4], pixdim[5], pixdim[6]));
-
-            /*info.setRealDim(new Dimension3D<Double>((double)(Math.abs(pixdim[1]) * dim[1]),
-                    (double)(Math.abs(pixdim[2]) * dim[2]),
-                    (double)(Math.abs(pixdim[3]) * dim[3])));  */
 
 
             vox_offset = istream.readFloat();
@@ -270,13 +262,14 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
             smin = istream.readInt();
 
             istream.close();
+            return Arrays.asList(builder.build());
         }
         catch (IOException e) {
             throw new BrainFlowException(e);
         }
 
 
-        return Arrays.asList(builder.build());
+
 
     }
 

@@ -323,15 +323,16 @@ public class ImageInfo implements java.io.Serializable {
 
     }
 
-    public static IDimension<Double> calculateRealDim(IDimension<Integer> arrayDim, IDimension<Double> spacing) {
+    public static IDimension<Double> calculateRealDim(IDimension<Integer> arrayDim, IDimension<? extends Number> spacing) {
         if (arrayDim.numDim() != spacing.numDim()) {
             throw new IllegalArgumentException("dimensions do not match: arrayDim = " + arrayDim.numDim() + "  spacing = " + spacing.numDim());
         }
         Double[] realVals = new Double[arrayDim.numDim()];
         for (int i = 0; i < realVals.length; i++) {
-            realVals[i] = arrayDim.getDim(i) * spacing.getDim(i);
+            realVals[i] = spacing.getDim(i).doubleValue() * arrayDim.getDim(i).doubleValue();
+            
         }
-        return (IDimension<Double>)DimensionFactory.create(realVals);
+        return DimensionFactory.create(realVals);
     }
 
 
@@ -443,7 +444,7 @@ public class ImageInfo implements java.io.Serializable {
         return spacing;
     }
 
-    void setSpacing(Dimension3D spacing) {
+    void setSpacing(Dimension3D<Double> spacing) {
         this.spacing = spacing;
     }
 

@@ -5,6 +5,8 @@ import brainflow.image.io.ImageInfo;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.apache.commons.vfs.FileObject;
+
 /**
  * BrainFlow Project
  * User: Bradley Buchsbaum
@@ -19,8 +21,10 @@ public class AFNIImageInfo extends ImageInfo {
 
    
 
-    public AFNIImageInfo(Map<AFNIAttributeKey, HeaderAttribute> attributeMap) {
+    public AFNIImageInfo(FileObject headerFile, FileObject dataFile, Map<AFNIAttributeKey, HeaderAttribute> attributeMap) {
         super();
+        setHeaderFile(headerFile);
+        setDataFile(dataFile);
         this.attributeMap = attributeMap;
     }
 

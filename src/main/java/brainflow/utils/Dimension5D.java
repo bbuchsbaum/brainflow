@@ -10,7 +10,7 @@ package brainflow.utils;
  * @version 1.0
  */
 
-public class Dimension5D<T extends Number> implements IDimension, java.io.Serializable {
+public class Dimension5D<T extends Number> implements IDimension<T>, java.io.Serializable {
 
 
     public T zero;

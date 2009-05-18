@@ -118,7 +118,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
     @Override
     public List<ImageInfo> readInfo() throws BrainFlowException {
         try {
-            return readHeader(headerFile.getContent().getRandomAccessContent(RandomAccessMode.READ).getInputStream());
+            return readHeader(headerFile.getContent().getInputStream());
 
         } catch (FileSystemException e) {
             throw new BrainFlowException(e);
@@ -153,7 +153,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
 
         //create instances
         for (int i = 0; i < numImages; i++) {
-            AFNIImageInfo info = new AFNIImageInfo(attributeMap);
+            AFNIImageInfo info = new AFNIImageInfo(headerFile, dataFile, attributeMap);
             infoList.add(info);
         }
 
@@ -179,9 +179,8 @@ public class AFNIInfoReader extends AbstractInfoReader {
     }
 
     private void skipNewLines(BufferedReader reader) throws IOException {
-        String str;
-        boolean marked = false;
-        while ((str = reader.readLine()).equals("")) {
+         boolean marked = false;
+        while (reader.readLine().equals("")) {
             // marks stream for rewind
             reader.mark(500);
             marked = true;
@@ -274,12 +273,14 @@ public class AFNIInfoReader extends AbstractInfoReader {
         IDimension idim = DimensionFactory.create(dims);
         for (ImageInfo info : infoList) {
             info.setArrayDim(idim);
+            //todo this is hard coded and dangerous
+            info.setDimensionality(3);
         }
 
     }
 
-    private void processSpacing(List<Float> delta, List<ImageInfo> infoList) {
-        Dimension3D<Float> spacing = new Dimension3D<Float>(Math.abs(delta.get(0)), Math.abs(delta.get(1)), Math.abs(delta.get(2)));
+    private void processSpacing(List<? extends Number> delta, List<ImageInfo> infoList) {
+        Dimension3D<Double> spacing = new Dimension3D<Double>(Math.abs(delta.get(0).doubleValue()), Math.abs(delta.get(1).doubleValue()), Math.abs(delta.get(2).doubleValue()));
         for (ImageInfo info : infoList) {
             info.setSpacing(spacing);
         }
@@ -339,6 +340,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
 
         int dim2 = rank.get(1);
         assert dim2 == infoList.size();
+
         // is it a bucket? is it a brik? 
         for (ImageInfo info : infoList) {
             info.setNumImages(1);
@@ -399,8 +401,9 @@ public class AFNIInfoReader extends AbstractInfoReader {
     }
 
     private void processBrickLabels(List<String> labels, List<ImageInfo> infoList) {
-        assert labels.size() == infoList.size();
-
+        if (labels.size() !=- infoList.size()) {
+            throw new IllegalArgumentException("number of image lables does not equal number of images, labels: " + labels.size() + " != images: " + infoList.size());
+        }
         if (labels.size() > 1) {
             for (int i = 0; i < labels.size(); i++) {
                 infoList.get(i).setImageLabel(labels.get(i));
