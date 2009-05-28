@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package brainflow.app.services;
+package brainflow.core.services;
 
 import brainflow.app.BrainFlowProject;
 import brainflow.app.toplevel.BrainFlowProjectEvent;

@@ -1,7 +1,6 @@
-package brainflow.app.services;
+package brainflow.core.services;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.GridPoint3D;
 import org.bushe.swing.event.AbstractEventServiceEvent;
 

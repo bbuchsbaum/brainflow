@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package brainflow.app.services;
+package brainflow.core.services;
 
 import org.bushe.swing.event.AbstractEventServiceEvent;
 
@@ -19,6 +19,7 @@ import org.bushe.swing.event.AbstractEventServiceEvent;
 public class ProgressEvent extends AbstractEventServiceEvent {
     
     private int progress = 0;
+
     private String message = "";
     
     /** Creates a new instance of LoadableImageProgressEvent */
