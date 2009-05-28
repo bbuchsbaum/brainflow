@@ -15,6 +15,7 @@ import brainflow.app.BrainFlowException;
 import brainflow.app.MemoryImageDataSource;
 import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.colormap.ColorTable;
+import brainflow.display.InterpolationType;
 import cern.colt.list.IntArrayList;
 
 import javax.swing.*;
@@ -138,36 +139,32 @@ public class ConnComp {
     }
 
 
-    private void labelObject2(int i, int j, int width, int height, ImageBuffer2D labels, IntArrayList conntable, int pass) {
+    private int labelObject2(int i, int j, int width, int height, ImageBuffer2D labels, IntArrayList conntable, int pass) {
         int lab = Integer.MAX_VALUE;
-        System.out.println("object pixel j = " + j + " i = " + i);
+        int curlab = (int)labels.value(j, i);
 
         for (int k = 0; k < mask.length; k++) {
             int x1 = mask[k][0] + j;
             int y1 = mask[k][1] + i;
-
-            //System.out.println("subject pixel x = " + x1 + " y = " + y1);
 
             if ((x1 < 0) || (x1 >= width) || (y1 < 0) || (y1 >= height)) {
                 continue;
             }
 
             if (data.value(x1, y1) > 0) {
-                System.out.println("mask pixel x1 = " + x1 + " y1 = " + y1);
-                System.out.println("label of " + labels.value(x1, y1));
                 lab = Math.min(lab, conntable.get((int) labels.value(x1, y1)));
             }
         }
 
 
-        if ((lab == Integer.MAX_VALUE) && (pass == 1)) {
-            System.out.println("new label " + label);
+        if (lab == Integer.MAX_VALUE && pass == 1) {
             labels.setValue(j, i, label);
             conntable.add(label);
             label = label + 1;
+            return 1;
 
-        } else if (lab != Integer.MAX_VALUE) {
-            System.out.println("setting " + j + " " + i + " to " + lab);
+        } else if (lab != curlab && lab != Integer.MAX_VALUE) {
+
             conntable.setQuick((int) labels.value(j, i), lab);
             labels.setValue(j, i, lab);
             for (int k = 0; k < mask.length; k++) {
@@ -179,13 +176,16 @@ public class ConnComp {
                 }
 
                 if (data.value(x1, y1) > 0) {
-                    System.out.println("setting " + x1 + " " + y1 + " to " + lab);
                     conntable.setQuick((int) labels.value(x1, y1), lab);
                     labels.setValue(x1, y1, lab);
                 }
             }
 
+            return 1;
 
+
+        } else {
+            return 0;
         }
 
 
@@ -349,54 +349,42 @@ public class ConnComp {
     }
 
 
+    private int dolabel(int height, int width, IntArrayList conntable, int pass) {
+        int count = 0;
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (data.value(j, i) > 0) {
+                    count += labelObject2(i, j, width, height, labels, conntable, pass);
+                }
+            }
+        }
+
+        return count;
+
+
+    }
+
+
     public void labelImage() {
 
-        System.out.println("table start : " + unionArray);
 
         int width = data.getDimension(Axis.X_AXIS);
         int height = data.getDimension(Axis.Y_AXIS);
-        conntable.add(0);
         label = 1;
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
+        conntable.add(0);
 
-                if (data.value(j, i) > 0) {
-                    //labelObject2(i, j, width, height, labels, conntable, 1);
-                    label1(j, i, width, height, labels, conntable);
-                    // System.out.println("ufa : " + unionArray)
-                }
-
-            }
-        }
-
-        System.out.println("conntable 1 : " + conntable);
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-
-                if (data.value(j, i) > 0) {
-                    //labelObject2(i, j, width, height, labels, conntable, 2);
-                    label2(j, i, width, height, labels, conntable);
-                    // System.out.println("ufa : " + unionArray)
-                }
-
-            }
-        }
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-
-                if (data.value(j, i) > 0) {
-                    //labelObject2(i, j, width, height, labels, conntable, 2);
-                    label2(j, i, width, height, labels, conntable);
-                    // System.out.println("ufa : " + unionArray)
-                }
-
-            }
-        }
+        int count = 0;
+        int pass=1;
+        do {
+            System.out.println("pass = " + pass);
+            count=0;
+            count = dolabel(height, width, conntable, pass);
+            pass = pass+1;
+        } while (count > 0);
 
 
-        System.out.println("conntable 2 : " + conntable);
+       
 
     }
 
@@ -405,7 +393,7 @@ public class ConnComp {
         IImageData2D dat2d = slicer.getSlice(dat.getAnatomy(), i);
         MaskedData2D mdat = new MaskedData2D(dat2d, new MaskPredicate() {
             public final boolean mask(double value) {
-                return value > 3500;
+                return value > 4;
             }
         });
         return mdat;
@@ -415,7 +403,8 @@ public class ConnComp {
 
     public static ConnComp go(IImageData3D dat) {
         ConnComp comp = null;
-        for (int i = 55; i < 56; i++) {
+        for (int i = 0; i < 12; i++) {
+
             IMaskedData2D dat2d = getSlice(dat, i);
             comp = new ConnComp(dat2d);
             comp.labelImage2();
@@ -428,22 +417,23 @@ public class ConnComp {
 
     public static void main(String[] args) throws BrainFlowException {
 
-        IImageData3D dat = (IImageData3D) BrainIO.readNiftiImage(BF.getDataURL("anat_alepi.nii"));
-        ConnComp comp = null;
+        IImageData3D dat = (IImageData3D) BrainIO.readNiftiImage(BF.getDataURL("cohtrend_GLT#0_Tstat.nii"));
+
         StopWatch watch = new StopWatch();
         watch.start("conncomp");
-
-        comp = go(dat);
+        ConnComp comp = go(dat);
 
         watch.stopAndReport("conncomp");
 
 
         IImageData3D dat3d = ImageData.asImageData3D(comp.labels.asImageData(), new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
+        ImageLayerProperties props = new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()));
+        props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
         ImageViewModel model = new ImageViewModel("test",
-                new ImageLayer3D(new MemoryImageDataSource(dat3d), new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()))));
+                new ImageLayer3D(new MemoryImageDataSource(dat3d), props));
 
-      
+
         ImageView view = ImageViewFactory.createAxialView(model);
         JFrame frame = new JFrame();
         frame.add(view, BorderLayout.CENTER);

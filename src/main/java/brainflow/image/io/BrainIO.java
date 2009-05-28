@@ -129,7 +129,8 @@ public class BrainIO {
 
 
     public static IImageData readNiftiImage(URL header) throws BrainFlowException {
-        NiftiInfoReader reader = new NiftiInfoReader(header.toString());
+
+        NiftiInfoReader reader = new NiftiInfoReader(header.getPath());
         List<ImageInfo> info = reader.readInfo();
 
         BasicImageReader ireader = new BasicImageReader(info.get(0));
