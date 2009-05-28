@@ -4,7 +4,7 @@ import brainflow.colormap.*;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
-import brainflow.display.ColorBandChart;
+import brainflow.app.chart.ColorBandChart;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;

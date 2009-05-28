@@ -1,19 +1,13 @@
 package brainflow.image.io;
 
 
-import brainflow.app.BrainFlowException;
-import brainflow.image.data.BasicImageData;
+import brainflow.core.BrainFlowException;
 import brainflow.image.data.IImageData;
 import brainflow.image.data.IImageData3D;
 import brainflow.image.data.AbstractImageData;
 
 import brainflow.utils.DataType;
-import brainflow.utils.IDimension;
 import brainflow.utils.ProgressAdapter;
-import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.FileSystemException;
-import org.apache.commons.vfs.FileSystemManager;
-import org.apache.commons.vfs.VFS;
 
 import javax.imageio.stream.FileImageOutputStream;
 import java.io.File;

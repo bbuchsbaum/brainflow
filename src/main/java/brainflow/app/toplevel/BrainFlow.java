@@ -9,7 +9,6 @@ import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridPoint3D;

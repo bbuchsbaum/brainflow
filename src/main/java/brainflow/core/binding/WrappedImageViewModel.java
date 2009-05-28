@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.ImageLayerListener;
@@ -11,8 +11,6 @@ import net.java.dev.properties.container.ObservableIndexed;
 import net.java.dev.properties.container.BeanContainer;
 
 import java.util.List;
-import java.util.Collections;
-import java.util.Arrays;
 
 /**
  * Created by IntelliJ IDEA.

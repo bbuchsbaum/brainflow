@@ -1,9 +1,9 @@
-package brainflow.app;
+package brainflow.image.io;
 
 import brainflow.utils.FileObjectFilter;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.io.ImageDataSource;
-import brainflow.image.io.BrainIO;
+import brainflow.core.BrainFlowException;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
@@ -12,7 +12,6 @@ import org.jdom.Element;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import java.io.InputStream;
 import java.io.File;
 
 /**

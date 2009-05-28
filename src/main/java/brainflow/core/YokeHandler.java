@@ -1,4 +1,4 @@
-package brainflow.app;
+package brainflow.core;
 
 import brainflow.core.ImageView;
 import brainflow.core.SimpleImageView;

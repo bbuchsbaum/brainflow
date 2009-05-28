@@ -3,7 +3,7 @@ package brainflow.core;
 import brainflow.image.io.BrainIO;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerList;
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 
 import java.net.URL;
 

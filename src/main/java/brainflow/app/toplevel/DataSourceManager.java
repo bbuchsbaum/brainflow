@@ -6,21 +6,14 @@
 
 package brainflow.app.toplevel;
 
-import brainflow.image.io.IImageDataSource;
-import brainflow.image.io.ImageInfo;
-import brainflow.image.io.SoftImageDataSource;
-import brainflow.image.io.ImageDataSource;
-import brainflow.image.data.IImageData;
-import brainflow.app.ImageIODescriptor;
+import brainflow.image.io.*;
+import brainflow.image.io.ImageIODescriptor;
 import brainflow.app.services.DataSourceStatusEvent;
 import org.bushe.swing.event.EventBus;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 /**

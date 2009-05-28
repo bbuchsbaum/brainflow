@@ -9,7 +9,7 @@
 
 package brainflow.app.presentation;
 
-import brainflow.app.presentation.binding.ExtBind;
+import brainflow.core.binding.ExtBind;
 
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer;

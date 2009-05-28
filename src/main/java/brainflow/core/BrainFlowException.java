@@ -4,7 +4,7 @@
  * Created on February 4, 2003, 10:36 AM
  */
 
-package brainflow.app;
+package brainflow.core;
 
 /**
  * @author Bradley

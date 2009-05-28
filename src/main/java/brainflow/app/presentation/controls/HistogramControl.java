@@ -5,19 +5,17 @@ import brainflow.colormap.HistogramColorBar;
 import brainflow.colormap.LinearColorMap2;
 import brainflow.colormap.ColorTable;
 import brainflow.image.Histogram;
-import brainflow.image.space.IImageSpace;
 import brainflow.image.io.IImageDataSource;
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 import brainflow.app.IBrainFlowClient;
 import brainflow.app.toplevel.BrainFlowClientSupport;
 import brainflow.utils.Range;
 import brainflow.utils.IRange;
 import brainflow.core.ImageView;
-import brainflow.core.IImageDisplayModel;
 import brainflow.core.IClipRange;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.AbstractLayer;
-import brainflow.chart.XAxis;
+import brainflow.app.chart.XAxis;
 
 
 import javax.swing.*;

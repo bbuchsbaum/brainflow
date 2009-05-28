@@ -1,7 +1,6 @@
 package brainflow.image.io;
 
-import brainflow.app.BrainFlowException;
-import brainflow.app.ImageIODescriptor;
+import brainflow.core.BrainFlowException;
 
 
 import brainflow.image.anatomy.Anatomy3D;
@@ -9,13 +8,9 @@ import brainflow.image.space.AffineMapping3D;
 import brainflow.utils.DataType;
 import brainflow.utils.Dimension3D;
 import brainflow.utils.Point3D;
-import brainflow.utils.IDimension;
 import brainflow.math.Vector3f;
 import brainflow.math.Matrix4f;
 import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.FileSystemException;
-import org.apache.commons.vfs.VFS;
-import org.apache.commons.vfs.util.RandomAccessMode;
 
 import java.io.*;
 import java.nio.ByteOrder;
@@ -23,8 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-import java.util.zip.GZIPInputStream;
-import java.net.URL;
 
 /**
  * Created by IntelliJ IDEA.

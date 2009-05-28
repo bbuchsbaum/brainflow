@@ -2,7 +2,7 @@ package brainflow.app.toplevel;
 
 
 import brainflow.image.io.IImageDataSource;
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 
 import javax.swing.*;
 import java.util.List;

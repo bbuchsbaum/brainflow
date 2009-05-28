@@ -9,8 +9,8 @@
 
 package brainflow.app.presentation;
 
-import brainflow.app.presentation.binding.Bindable;
-import brainflow.app.presentation.binding.PercentageRangeConverter;
+import brainflow.core.binding.Bindable;
+import brainflow.core.binding.PercentageRangeConverter;
 import brainflow.app.presentation.controls.RenderingParamsForm;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;

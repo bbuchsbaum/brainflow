@@ -1,7 +1,6 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import net.java.dev.properties.container.ObservableWrapper;
-import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.RProperty;
 import net.java.dev.properties.WProperty;
@@ -20,10 +19,7 @@ public class GridToWorldConverter extends ObservableWrapper.ReadWrite<BrainPoint
 
     public GridToWorldConverter(BaseProperty<GridPoint3D> property) {
         super(property);
-        //todo is this necessary?
         //BeanContainer.bind(this);
-        //todo is this necessary?
-
 
     }
 

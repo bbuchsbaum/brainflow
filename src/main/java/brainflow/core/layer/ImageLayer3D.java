@@ -1,7 +1,7 @@
 package brainflow.core.layer;
 
 import brainflow.image.io.IImageDataSource;
-import brainflow.app.MemoryImageDataSource;
+import brainflow.image.io.MemoryImageDataSource;
 import brainflow.core.rendering.BasicImageSliceRenderer;
 import brainflow.core.layer.ImageLayerProperties;
 import brainflow.core.SliceRenderer;
@@ -11,7 +11,6 @@ import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.data.*;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.IImageSpace3D;
-import brainflow.image.space.ICoordinateSpace3D;
 import brainflow.image.interpolation.NearestNeighborInterpolator;
 import brainflow.utils.Range;
 

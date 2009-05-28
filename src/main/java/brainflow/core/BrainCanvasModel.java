@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
-import brainflow.app.YokeHandler;
+import brainflow.core.YokeHandler;
 import brainflow.display.ICrosshair;
 
 /**

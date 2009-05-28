@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.RProperty;
@@ -15,33 +15,40 @@ import java.text.NumberFormat;
  * Time: 8:27:35 AM
  * To change this template use File | Settings | File Templates.
  */
-public class IntegerToStringConverter extends ObservableWrapper.ReadWrite<String> {
+public class DoubleToStringConverter extends ObservableWrapper.ReadWrite<String> {
 
-    private NumberFormat formatter = NumberFormat.getIntegerInstance();
+    private NumberFormat formatter = NumberFormat.getNumberInstance();
 
-    public IntegerToStringConverter(BaseProperty<Integer> property) {
+    public DoubleToStringConverter(BaseProperty<Double> property) {
         super(property);
         BeanContainer.bind(property);
         formatter.setMaximumFractionDigits(1);
     }
 
-    private int getValue() {
-        RProperty<Integer> prop = (RProperty<Integer>) getProperty();
-        return prop.get().intValue();
+    private double getValue() {
+        RProperty<Double> prop = (RProperty<Double>) getProperty();
+        return prop.get().doubleValue();
     }
 
     @Override
     public String get() {
-        int val = getValue();
+        double val = getValue();
         return formatter.format(val);
     }
 
     @Override
     public void set(String s) {
-       
-        int val = Integer.parseInt(s);
-        WProperty<Integer> wprop = (WProperty<Integer>) getProperty();
-        wprop.set(val);
 
+        double val = getValue();
+
+        try {
+            val = Double.parseDouble(s);
+        } catch (NumberFormatException e) {
+            //throw e;
+        }
+
+        WProperty<Double> wprop = (WProperty<Double>) getProperty();
+        wprop.set(val);
+        
     }
 }

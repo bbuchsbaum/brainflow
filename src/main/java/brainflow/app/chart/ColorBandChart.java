@@ -7,13 +7,11 @@
  * and open the template in the editor.
  */
 
-package brainflow.display;
+package brainflow.app.chart;
 
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.colormap.LinearColorMap2;
-import brainflow.chart.DynamicSplineXYDataset;
-import brainflow.chart.DynamicXYDataset;
 import brainflow.math.ArrayUtils;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

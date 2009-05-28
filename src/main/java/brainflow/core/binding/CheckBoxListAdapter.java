@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import net.java.dev.properties.binding.swing.adapters.SwingAdapter;
 import net.java.dev.properties.binding.Adapter;

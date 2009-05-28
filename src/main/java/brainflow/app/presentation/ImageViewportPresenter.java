@@ -1,7 +1,7 @@
 package brainflow.app.presentation;
 
-import brainflow.app.YokeHandler;
-import brainflow.app.presentation.binding.PropertyConnector;
+import brainflow.core.YokeHandler;
+import brainflow.core.binding.PropertyConnector;
 import brainflow.core.*;
 import brainflow.core.annotations.BoxAnnotation;
 import brainflow.image.anatomy.BrainPoint2D;

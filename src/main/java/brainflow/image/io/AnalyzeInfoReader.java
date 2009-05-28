@@ -6,17 +6,15 @@
 
 package brainflow.image.io;
 
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.io.ImageInfoReader;
 import brainflow.utils.DataType;
 import brainflow.utils.Dimension3D;
 import brainflow.utils.Point3D;
 import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.FileSystemException;
 
-import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import java.io.File;
@@ -26,7 +24,6 @@ import java.nio.ByteOrder;
 import java.util.List;
 import java.util.Arrays;
 import java.util.logging.Logger;
-import java.net.URL;
 
 
 /**

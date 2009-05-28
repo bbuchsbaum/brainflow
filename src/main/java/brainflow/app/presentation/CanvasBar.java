@@ -1,8 +1,8 @@
 package brainflow.app.presentation;
 
 import brainflow.app.actions.RotateLayersCommand;
-import brainflow.app.presentation.binding.ExtBind;
-import brainflow.app.presentation.binding.WrappedImageViewModel;
+import brainflow.core.binding.ExtBind;
+import brainflow.core.binding.WrappedImageViewModel;
 import brainflow.app.toplevel.BrainFlow;
 import brainflow.app.toplevel.DataSourceManager;
 import brainflow.core.ImageView;

@@ -1,7 +1,7 @@
 package brainflow.core;
 
 import brainflow.app.services.ImageViewLayerSelectionEvent;
-import brainflow.app.presentation.binding.GridToWorldConverter;
+import brainflow.core.binding.GridToWorldConverter;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.display.InterpolationType;
@@ -11,7 +11,6 @@ import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ICoordinateSpace3D;
 import brainflow.image.space.IImageSpace3D;
-import brainflow.utils.NumberUtils;
 
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.Property;

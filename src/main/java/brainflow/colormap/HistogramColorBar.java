@@ -2,7 +2,7 @@ package brainflow.colormap;
 
 import brainflow.image.Histogram;
 import brainflow.image.io.IImageDataSource;
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 import brainflow.utils.Range;
 import brainflow.utils.IRange;
 

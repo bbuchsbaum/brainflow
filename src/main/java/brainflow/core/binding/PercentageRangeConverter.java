@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.RProperty;

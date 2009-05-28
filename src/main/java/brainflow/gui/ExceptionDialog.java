@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Date;
 
-import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
 
 /**
  * Created by IntelliJ IDEA.
@@ -123,43 +122,7 @@ public class ExceptionDialog {
 
 
     public static void main(String[] args) {
-        com.jidesoft.utils.Lm.verifyLicense("UIN", "BrainFlow", "S5XiLlHH0VReaWDo84sDmzPxpMJvjP3");
-        try {
-            UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
-
-
-            LookAndFeelFactory.installJideExtension();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        LookAndFeelFactory.UIDefaultsCustomizer uiDefaultsCustomizer = new LookAndFeelFactory.UIDefaultsCustomizer() {
-            public void customize(UIDefaults defaults) {
-                ThemePainter painter = (ThemePainter) UIDefaultsLookup.get("Theme.painter");
-                defaults.put("OptionPaneUI", "com.jidesoft.plaf.basic.BasicJideOptionPaneUI");
-
-                defaults.put("OptionPane.showBanner", Boolean.TRUE); // show banner or not. default is true
-                //defaults.put("OptionPane.bannerIcon", JideIconsFactory.getImageIcon(JideIconsFactory.JIDE50));
-                defaults.put("OptionPane.bannerFontSize", 13);
-                defaults.put("OptionPane.bannerFontStyle", Font.BOLD);
-                defaults.put("OptionPane.bannerMaxCharsPerLine", 60);
-                defaults.put("OptionPane.bannerForeground", painter != null ? painter.getOptionPaneBannerForeground() : null);  // you should adjust this if banner background is not the default gradient paint
-                defaults.put("OptionPane.bannerBorder", null); // use default border
-
-                // set both bannerBackgroundDk and // set both bannerBackgroundLt to null if you don't want gradient
-                defaults.put("OptionPane.bannerBackgroundDk", painter != null ? painter.getOptionPaneBannerDk() : null);
-                defaults.put("OptionPane.bannerBackgroundLt", painter != null ? painter.getOptionPaneBannerLt() : null);
-                defaults.put("OptionPane.bannerBackgroundDirection", Boolean.TRUE); // default is true
-
-                // optionally, you can set a Paint object for BannerPanel. If so, the three UIDefaults related to banner background above will be ignored.
-                defaults.put("OptionPane.bannerBackgroundPaint", null);
-
-                defaults.put("OptionPane.buttonAreaBorder", BorderFactory.createEmptyBorder(6, 6, 6, 6));
-                defaults.put("OptionPane.buttonOrientation", SwingConstants.RIGHT);
-            }
-        };
-        uiDefaultsCustomizer.customize(UIManager.getDefaults());
-
-
+        
         Throwable thr = new Exception();
         ExceptionDialog ed = new ExceptionDialog(thr);
         JFrame f = new JFrame();

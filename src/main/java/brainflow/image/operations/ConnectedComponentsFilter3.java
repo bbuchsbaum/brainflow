@@ -5,8 +5,8 @@ import brainflow.image.space.IImageSpace;
 import brainflow.image.space.Axis;
 import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageDataSource;
-import brainflow.app.MemoryImageDataSource;
-import brainflow.app.BrainFlowException;
+import brainflow.image.io.MemoryImageDataSource;
+import brainflow.core.BrainFlowException;
 //import brainflow.display.ThresholdRange;
 
 import java.util.List;

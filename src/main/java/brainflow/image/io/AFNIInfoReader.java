@@ -1,21 +1,14 @@
 package brainflow.image.io;
 
-import brainflow.app.BrainFlowException;
-import brainflow.image.io.ImageInfoReader;
+import brainflow.core.BrainFlowException;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.space.ImageSpace3D;
 import brainflow.utils.*;
-import brainflow.math.Matrix4f;
-import brainflow.math.Vector3f;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
-import org.apache.commons.vfs.VFS;
-import org.apache.commons.vfs.util.RandomAccessMode;
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 import java.nio.ByteOrder;
 

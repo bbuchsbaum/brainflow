@@ -2,7 +2,7 @@ package brainflow.image.io;
 
 import brainflow.image.data.IImageData;
 import brainflow.utils.ProgressListener;
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 
 /**
  * Created by IntelliJ IDEA.

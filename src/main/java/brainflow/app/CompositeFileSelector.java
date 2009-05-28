@@ -1,6 +1,6 @@
 package brainflow.app;
 
-import brainflow.app.ImageIODescriptor;
+import brainflow.image.io.ImageIODescriptor;
 import org.apache.commons.vfs.FileSelectInfo;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.FileSelector;

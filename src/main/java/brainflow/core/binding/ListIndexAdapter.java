@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import net.java.dev.properties.binding.swing.adapters.SwingAdapter;
 import net.java.dev.properties.BaseProperty;
@@ -15,7 +15,7 @@ import com.jidesoft.swing.CheckBoxList;
  * Time: 8:28:32 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ListIndexAdapterX extends SwingAdapter<Integer, CheckBoxList> implements ListSelectionListener {
+public class ListIndexAdapter extends SwingAdapter<Integer, CheckBoxList> implements ListSelectionListener {
 
     @Override
     protected void bindListener(BaseProperty<Integer> property, CheckBoxList cmp) {

@@ -12,7 +12,7 @@ package brainflow.app.presentation;
 
 import brainflow.app.actions.DesignColorMapCommand;
 import brainflow.app.actions.SelectColorMapCommand;
-import brainflow.app.presentation.controls.ColorBarForm;
+import brainflow.colormap.forms.ColorBarForm;
 
 import brainflow.app.toplevel.ResourceManager;
 import brainflow.colormap.ColorTable;
@@ -20,7 +20,6 @@ import brainflow.colormap.IColorMap;
 import brainflow.colormap.LinearColorMap2;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
-import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import com.jidesoft.swing.JideSplitButton;
 import com.jidesoft.swing.JideBoxLayout;

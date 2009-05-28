@@ -8,9 +8,9 @@ import brainflow.core.*;
 import brainflow.core.layer.MaskLayer3D;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerList;
-import brainflow.app.BrainFlowException;
-import brainflow.app.presentation.binding.ExtBind;
-import brainflow.app.presentation.binding.WrappedImageViewModel;
+import brainflow.core.BrainFlowException;
+import brainflow.core.binding.ExtBind;
+import brainflow.core.binding.WrappedImageViewModel;
 import brainflow.gui.MultiSelectToggleBar;
 import brainflow.image.anatomy.Anatomy3D;
 

@@ -6,8 +6,8 @@ import brainflow.image.io.ImageReader;
 import brainflow.utils.ProgressListener;
 import brainflow.utils.ProgressAdapter;
 import brainflow.image.io.AbstractImageDataSource;
-import brainflow.app.ImageIODescriptor;
-import brainflow.app.BrainFlowException;
+import brainflow.image.io.ImageIODescriptor;
+import brainflow.core.BrainFlowException;
 import org.apache.commons.vfs.FileObject;
 
 import java.lang.ref.SoftReference;

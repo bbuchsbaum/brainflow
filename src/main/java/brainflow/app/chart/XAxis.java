@@ -1,4 +1,4 @@
-package brainflow.chart;
+package brainflow.app.chart;
 
 import javax.swing.*;
 import java.awt.*;

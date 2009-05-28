@@ -1,9 +1,11 @@
-package brainflow.app;
+package brainflow.image.io;
 
 import brainflow.image.data.IImageData;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.io.IImageDataSource;
 import brainflow.utils.ProgressListener;
+import brainflow.core.BrainFlowException;
+import brainflow.image.io.ImageIODescriptor;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.FileSystemException;

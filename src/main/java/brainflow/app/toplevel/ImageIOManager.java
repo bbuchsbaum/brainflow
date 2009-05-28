@@ -1,9 +1,9 @@
 package brainflow.app.toplevel;
 
 
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 import brainflow.image.io.IImageDataSource;
-import brainflow.app.ImageIODescriptor;
+import brainflow.image.io.ImageIODescriptor;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;

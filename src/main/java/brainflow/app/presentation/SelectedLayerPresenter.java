@@ -1,22 +1,14 @@
 package brainflow.app.presentation;
 
 import brainflow.core.*;
-import brainflow.core.layer.*;
-import brainflow.app.presentation.binding.ExtBind;
-import brainflow.app.presentation.binding.WrappedImageViewModel;
+import brainflow.core.binding.ExtBind;
+import brainflow.core.binding.WrappedImageViewModel;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.CheckBoxList;
 
 import javax.swing.*;
-
-import net.java.dev.properties.IndexedProperty;
-import net.java.dev.properties.container.ObservableIndexed;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by IntelliJ IDEA.

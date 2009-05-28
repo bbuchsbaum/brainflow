@@ -1,8 +1,8 @@
 package brainflow.app.mapping;
 
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 import brainflow.image.io.IImageDataSource;
-import brainflow.app.ImageIODescriptor;
+import brainflow.image.io.ImageIODescriptor;
 import brainflow.app.toplevel.ImageIOManager;
 import com.thoughtworks.xstream.converters.Converter;
 import com.thoughtworks.xstream.converters.MarshallingContext;

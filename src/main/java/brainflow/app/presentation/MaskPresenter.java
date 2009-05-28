@@ -3,7 +3,7 @@ package brainflow.app.presentation;
 import brainflow.core.*;
 import brainflow.core.layer.*;
 import brainflow.display.InterpolationType;
-import brainflow.app.presentation.binding.CoordinateToIndexConverter2;
+import brainflow.core.binding.CoordinateToIndexConverter2;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.anatomy.Anatomy3D;

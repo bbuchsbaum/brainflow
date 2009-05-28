@@ -1,11 +1,7 @@
 package brainflow.image.io;
 
-import brainflow.app.BrainFlowException;
-
-import java.util.List;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 
 import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.FileSystemException;

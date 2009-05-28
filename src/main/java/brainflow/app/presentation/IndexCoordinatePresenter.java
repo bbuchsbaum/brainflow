@@ -1,12 +1,10 @@
 package brainflow.app.presentation;
 
-import brainflow.app.presentation.binding.CoordinateToIndexConverter2;
+import brainflow.core.binding.CoordinateToIndexConverter2;
 import brainflow.app.presentation.controls.CoordinateSpinner;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
 import brainflow.image.space.Axis;
-import brainflow.image.space.IImageSpace;
-import brainflow.image.space.IImageSpace3D;
 import net.java.dev.properties.binding.swing.adapters.SwingBind;
 
 import javax.swing.*;

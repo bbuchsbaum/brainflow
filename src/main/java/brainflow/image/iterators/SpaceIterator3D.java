@@ -6,7 +6,7 @@ import brainflow.image.space.Axis;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.data.IImageData3D;
 
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 
 import java.util.Arrays;
 

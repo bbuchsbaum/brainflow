@@ -1,6 +1,6 @@
 package brainflow.image.io;
 
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 import brainflow.image.data.*;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ImageSpace2D;

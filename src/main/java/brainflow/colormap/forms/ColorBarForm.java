@@ -4,7 +4,7 @@
  * Created on July 13, 2006, 12:45 PM
  */
 
-package brainflow.app.presentation.controls;
+package brainflow.colormap.forms;
 
 import brainflow.colormap.*;
 import com.jgoodies.forms.layout.CellConstraints;

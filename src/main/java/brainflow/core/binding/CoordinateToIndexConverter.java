@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import brainflow.image.axis.ImageAxis;
 import net.java.dev.properties.BaseProperty;

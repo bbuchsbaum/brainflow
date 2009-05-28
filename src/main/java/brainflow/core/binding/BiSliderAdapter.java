@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import net.java.dev.properties.binding.swing.adapters.SwingAdapter;
 import net.java.dev.properties.BaseProperty;
@@ -30,7 +30,6 @@ public class BiSliderAdapter extends SwingAdapter<IClipRange, BiSlider> implemen
     }
 
     protected void updateUI(IClipRange newValue) {
-        //RProperty<IClipRange> prop = (RProperty<IClipRange>)getProperty();
         if (newValue != null) {
                getComponent().getModel().setRangeProperties(newValue.getLowClip(), newValue.getHighClip(), newValue.getMin(), newValue.getMax(), false);
 

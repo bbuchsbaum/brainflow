@@ -25,8 +25,8 @@ import brainflow.colormap.DiscreteColorMap;
 import brainflow.colormap.IColorMap;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.AbstractColorBar;
+import brainflow.colormap.forms.ColorBarWithAxis;
 import net.miginfocom.swing.MigLayout;
-import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
 
 /**
  * Created by IntelliJ IDEA.

@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.space.Axis;

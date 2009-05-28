@@ -1,6 +1,6 @@
-package brainflow.app.presentation.controls;
+package brainflow.colormap.forms;
 
-import brainflow.chart.XAxis;
+import brainflow.app.chart.XAxis;
 import brainflow.colormap.AbstractColorBar;
 
 import javax.swing.*;

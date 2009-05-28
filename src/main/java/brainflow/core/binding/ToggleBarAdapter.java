@@ -1,4 +1,4 @@
-package brainflow.app.presentation.binding;
+package brainflow.core.binding;
 
 import brainflow.gui.ToggleBar;
 
@@ -15,7 +15,7 @@ import javax.swing.event.ListSelectionEvent;
  * Time: 10:41:05 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ToggleBarAdapterX extends SwingAdapter<Integer, ToggleBar> implements ListSelectionListener {
+public class ToggleBarAdapter extends SwingAdapter<Integer, ToggleBar> implements ListSelectionListener {
 
 
     protected void bindListener(BaseProperty<Integer> integerBaseProperty, ToggleBar component) {

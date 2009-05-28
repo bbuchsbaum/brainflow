@@ -1,11 +1,9 @@
 package brainflow.image.io;
 
-import brainflow.app.BrainFlowException;
+import brainflow.core.BrainFlowException;
 import org.apache.commons.vfs.FileObject;
 
-import java.io.File;
 import java.util.List;
-import java.net.URL;
 
 /**
  * <p>Title: </p>
