@@ -8,7 +8,7 @@ package brainflow.app.toplevel;
 
 import brainflow.image.io.*;
 import brainflow.image.io.ImageIODescriptor;
-import brainflow.app.services.DataSourceStatusEvent;
+import brainflow.core.services.DataSourceStatusEvent;
 import org.bushe.swing.event.EventBus;
 
 import java.util.LinkedHashMap;

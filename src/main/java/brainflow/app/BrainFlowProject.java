@@ -27,7 +27,7 @@ public class BrainFlowProject {
 
     private Set<IImageDataSource> dataSources = new LinkedHashSet<IImageDataSource>();
 
-    private ModelListDataListener listener = new ModelListDataListener();
+    //private ModelListDataListener listener = new ModelListDataListener();
 
     private List<BrainFlowProjectListener> listenerList = new ArrayList<BrainFlowProjectListener>();
 
@@ -44,7 +44,6 @@ public class BrainFlowProject {
     public void addModel(ImageViewModel model) {
         if (!modelList.contains(model)) {
             modelList.add(model);
-            //model.addImageDisplayModelListener(listener);
             addSources(model);
             fireModelAdded(new BrainFlowProjectEvent(this, model, null));
 

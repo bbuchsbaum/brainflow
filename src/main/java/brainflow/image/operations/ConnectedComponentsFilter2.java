@@ -2,8 +2,6 @@ package brainflow.image.operations;
 
 import brainflow.core.BrainFlowException;
 import brainflow.image.io.MemoryImageDataSource;
-import brainflow.app.toplevel.ImageViewFactory;
-import brainflow.app.toplevel.BrainFlow;
 import brainflow.image.data.*;
 import brainflow.image.io.BrainIO;
 import brainflow.image.space.Axis;
@@ -204,10 +202,10 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
 
             model = model.add(layer);
 
-            final ImageView view = ImageViewFactory.createAxialView(model);
-            view.setScreenInterpolation(InterpolationType.NEAREST_NEIGHBOR);
-            view.getSliceController().pageBack();
-            try {
+            //final ImageView view = ImageViewFactory.createAxialView(model);
+            //view.setScreenInterpolation(InterpolationType.NEAREST_NEIGHBOR);
+            //view.getSliceController().pageBack();
+            /*try {
                 SwingUtilities.invokeLater( new Runnable() {
                     @Override
                     public void run() {
@@ -223,7 +221,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
 
             } catch(Throwable e) {
                 e.printStackTrace();
-            }
+            }   */
 
 
         } catch (BrainFlowException e) {

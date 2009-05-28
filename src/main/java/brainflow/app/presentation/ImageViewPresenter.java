@@ -1,9 +1,9 @@
 package brainflow.app.presentation;
 
-import brainflow.app.services.ImageDisplayModelEvent;
-import brainflow.app.services.ImageViewLayerSelectionEvent;
-import brainflow.app.services.ImageViewSelectionEvent;
-import brainflow.app.services.ImageViewModelChangedEvent;
+import brainflow.app.toplevel.ImageDisplayModelEvent;
+import brainflow.core.services.ImageViewLayerSelectionEvent;
+import brainflow.core.services.ImageViewSelectionEvent;
+import brainflow.core.services.ImageViewModelChangedEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.AbstractPresenter;

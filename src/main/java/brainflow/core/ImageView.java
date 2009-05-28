@@ -1,6 +1,6 @@
 package brainflow.core;
 
-import brainflow.app.services.ImageViewLayerSelectionEvent;
+import brainflow.core.services.ImageViewLayerSelectionEvent;
 import brainflow.core.binding.GridToWorldConverter;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.core.layer.ImageLayer3D;

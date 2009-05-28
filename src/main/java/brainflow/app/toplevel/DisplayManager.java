@@ -6,15 +6,14 @@
 
 package brainflow.app.toplevel;
 
-import brainflow.app.services.ImageViewMousePointerEvent;
-import brainflow.app.services.ImageViewSelectionEvent;
-import brainflow.app.services.ImageViewCursorEvent;
-import brainflow.app.services.ImageViewModelChangedEvent;
+import brainflow.core.services.ImageViewMousePointerEvent;
+import brainflow.core.services.ImageViewSelectionEvent;
+import brainflow.core.services.ImageViewCursorEvent;
+import brainflow.core.services.ImageViewModelChangedEvent;
 import brainflow.app.dnd.ImageViewTransferHandler;
 import brainflow.app.presentation.ImageViewPresenter;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.LayerList;
 import brainflow.modes.ImageViewInteractor;
 import brainflow.image.io.IImageDataSource;
 import net.java.dev.properties.container.BeanContainer;

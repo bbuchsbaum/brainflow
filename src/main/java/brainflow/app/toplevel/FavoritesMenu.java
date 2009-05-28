@@ -4,7 +4,7 @@ import com.pietschy.command.group.CommandGroup;
 import com.pietschy.command.group.GroupBuilder;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.face.Face;
-import brainflow.app.services.DataSourceStatusEvent;
+import brainflow.core.services.DataSourceStatusEvent;
 import brainflow.core.BrainFlowException;
 import brainflow.image.io.IImageDataSource;
 

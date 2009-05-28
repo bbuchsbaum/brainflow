@@ -2,7 +2,7 @@ package brainflow.app.presentation;
 
 import brainflow.image.io.IImageDataSource;
 import brainflow.app.actions.RemoveDataSourceCommand;
-import brainflow.app.services.DataSourceStatusEvent;
+import brainflow.core.services.DataSourceStatusEvent;
 import brainflow.gui.AbstractPresenter;
 import com.jidesoft.grid.*;
 import com.jidesoft.swing.NullButton;

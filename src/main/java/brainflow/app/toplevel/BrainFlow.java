@@ -4,7 +4,7 @@ import brainflow.app.*;
 import brainflow.app.dnd.BrainCanvasTransferHandler;
 import brainflow.app.actions.*;
 import brainflow.app.presentation.*;
-import brainflow.app.services.ImageViewMousePointerEvent;
+import brainflow.core.services.ImageViewMousePointerEvent;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.core.*;
