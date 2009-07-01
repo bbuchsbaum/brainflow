@@ -126,30 +126,33 @@ public class LinkedViewsPresenter extends ImageViewPresenter {
         });
     }
 
+    @Override
     protected void layerChangeNotification() {
 
     }
 
-    protected void layerChanged(ListDataEvent event) {
+    @Override
+    protected void layerContentsChanged(ListDataEvent event) {
 
     }
 
+    @Override
     public void allViewsDeselected() {
 
     }
 
 
-
+    @Override
     public void viewSelected(ImageView view) {
         updateLinkedViewList();
         bind();
 
     }
 
-
-
     @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
+        updateLinkedViewList();
+        bind();
 
     }
 

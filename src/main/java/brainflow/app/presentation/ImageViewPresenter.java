@@ -1,9 +1,10 @@
 package brainflow.app.presentation;
 
-import brainflow.app.toplevel.ImageDisplayModelEvent;
+import brainflow.app.toplevel.ImageViewModelEvent;
 import brainflow.core.services.ImageViewLayerSelectionEvent;
 import brainflow.core.services.ImageViewSelectionEvent;
 import brainflow.core.services.ImageViewModelChangedEvent;
+import brainflow.core.services.ImageViewListDataEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.AbstractPresenter;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
  */
 
 
-public abstract class ImageViewPresenter extends AbstractPresenter implements ImageDisplayModelListener {
+public abstract class ImageViewPresenter extends AbstractPresenter  {
 
 
     private ImageView selectedView;
@@ -67,6 +68,28 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
         public void onEvent(ImageViewModelChangedEvent event) {
             if (event.getImageView() == getSelectedView()) {
                 viewModelChanged(getSelectedView(), event.getOldModel(), event.getNewModel());
+            }
+        }
+    };
+
+    private EventSubscriber<ImageViewListDataEvent> e4 = new EventSubscriber<ImageViewListDataEvent>() {
+        @Override
+        public void onEvent(ImageViewListDataEvent event) {
+            if (event.getImageView() == getSelectedView()) {
+                ListDataEvent listEvent = event.getListDataEvent();
+                layerChangeNotification();
+                switch(listEvent.getType()) {
+                    case ListDataEvent.INTERVAL_ADDED:
+                        layerIntervalAdded(listEvent);
+                        break;
+                    case ListDataEvent.INTERVAL_REMOVED:
+                        layerIntervalRemoved(listEvent);
+                        break;
+                    case ListDataEvent.CONTENTS_CHANGED:
+                        layerContentsChanged(listEvent);
+                        break;
+
+                }
 
             }
         }
@@ -82,40 +105,7 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
         EventBus.subscribe(ImageViewSelectionEvent.class, e1);
         EventBus.subscribe(ImageViewLayerSelectionEvent.class, e2);
         EventBus.subscribe(ImageViewModelChangedEvent.class, e3);
-
-
-        EventBus.subscribeStrongly(ImageDisplayModelEvent.class, new EventSubscriber() {
-
-            public void onEvent(Object evt) {
-                ImageDisplayModelEvent event = (ImageDisplayModelEvent) evt;
-
-                ImageView view = getSelectedView();
-
-                if (view == null) return;
-
-                if (view.getModel() == event.getModel()) {
-                    layerChangeNotification();
-                    switch (event.getType()) {
-                        case LAYER_ADDED:
-                            layerAdded(event.getListDataEvent());
-                            break;
-                        case LAYER_CHANGED:
-                            layerChanged(event.getListDataEvent());
-                            break;
-                        case LAYER_INTERVAL_ADDED:
-                            layerIntervalAdded(event.getListDataEvent());
-                            break;
-                        case LAYER_INTERVAL_REMOVED:
-                            layerIntervalRemoved(event.getListDataEvent());
-                            break;
-                        case LAYER_REMOVED:
-                            layerRemoved(event.getListDataEvent());
-                            break;
-                    }
-                }
-            }
-        });
-
+        EventBus.subscribeStrongly(ImageViewListDataEvent.class, e4);
 
     }
 
@@ -123,37 +113,21 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
 
     public abstract void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel);
 
-    public void viewDeselected(ImageView view) {
-    }
+    public void viewDeselected(ImageView view) { }
 
     public abstract void allViewsDeselected();
 
-    protected void layerChangeNotification() {
-    }
+    protected void layerChangeNotification() {}
 
-    protected void layerDeselected(ImageLayer3D layer) {
+    protected void layerDeselected(ImageLayer3D layer) {}
 
-    }
+    protected void layerSelected(ImageLayer3D layer) {}
 
-    protected void layerSelected(ImageLayer3D layer) {
+    protected void layerContentsChanged(ListDataEvent event) {}
 
-    }
+    protected void layerIntervalAdded(ListDataEvent event) {}
 
-    protected void layerAdded(ListDataEvent event) {
-    }
-
-    protected void layerRemoved(ListDataEvent event) {
-    }
-
-    protected void layerChanged(ListDataEvent event) {
-    }
-
-    protected void layerIntervalAdded(ListDataEvent event) {
-    }
-
-    protected void layerIntervalRemoved(ListDataEvent event) {
-
-    }
+    protected void layerIntervalRemoved(ListDataEvent event) {}
 
     public ImageView getSelectedView() {
         return selectedView;
@@ -161,23 +135,9 @@ public abstract class ImageViewPresenter extends AbstractPresenter implements Im
 
     public ImageLayer3D getSelectedLayer() {
         if (selectedView == null) return null;
-        return selectedView.getSelectedLayer();
+        return getSelectedView().getSelectedLayer();
 
     }
 
-    public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space) {
 
-    }
-
-    public void intervalAdded(ListDataEvent e) {
-
-    }
-
-    public void intervalRemoved(ListDataEvent e) {
-
-    }
-
-    public void contentsChanged(ListDataEvent e) {
-
-    }
 }

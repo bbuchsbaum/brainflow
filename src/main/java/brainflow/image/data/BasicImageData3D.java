@@ -30,15 +30,13 @@ public class BasicImageData3D extends AbstractImageData3D  {
 
 
 
-
     private DataBufferSupport dataSupport;
 
 
     public BasicImageData3D(BasicImageData3D src) {
 
         super(src.getImageSpace(), src.getDataType());
-
-        //this does not actually create a deep copy -- should it?
+        //todo this does not actually create a deep copy -- should it?
         dataSupport = new DataBufferSupport(space, src.dataSupport.getStorage());
 
     }
@@ -125,9 +123,7 @@ public class BasicImageData3D extends AbstractImageData3D  {
 
 
     public byte[] toBytes() {
-        
-        byte[] idat = ArrayUtils.scaleToBytes(dataSupport.getStorage(), minValue(), maxValue(), 255);
-        return idat;
+        return ArrayUtils.scaleToBytes(dataSupport.getStorage(), minValue(), maxValue(), 255);       
     }
 
     public ImageBuffer3D createWriter(boolean clear) {

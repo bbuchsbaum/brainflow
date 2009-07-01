@@ -126,7 +126,7 @@ public class ImageViewFactory {
 
     public static ImageView createSagittalView(ImageView source) {
         ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalSagittal());
-         view.cursorPos.set(source.cursorPos.get());
+        view.cursorPos.set(source.cursorPos.get());
         addDefaultAnnotations(view);
         return view;
 

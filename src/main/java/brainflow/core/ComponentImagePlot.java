@@ -23,7 +23,7 @@ import java.util.Map;
  * Time: 3:10:17 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ComponentImagePlot extends JComponent implements IImagePlot {
+public class ComponentImagePlot extends JPanel implements IImagePlot {
 
     private GridPoint3D slice;
 
@@ -54,6 +54,8 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
 
 
     private ComponentImagePlot(ImageViewModel model, IImageProducer _producer, ViewBounds viewBounds) {
+        setBackground(Color.BLACK);
+        setOpaque(true);
         this.viewBounds = viewBounds;
         this.model = model;
         producer = _producer;
@@ -63,6 +65,8 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
     }
 
     public ComponentImagePlot(ImageViewModel model, ViewBounds viewBounds) {
+        setBackground(Color.BLACK);
+        setOpaque(true);
         this.viewBounds = viewBounds;
         this.model = model;
         //producer = new CompositeImageProducer(this,  displayAnatomy);
@@ -159,9 +163,10 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
 
     @Override
     protected void paintComponent(Graphics g) {
-
+        super.paintComponent(g);
+        
         Graphics2D g2 = (Graphics2D) g;
-        Dimension size = getSize();
+        //Dimension size = getSize();
 
         Rectangle plotArea = getPlotArea();
 
@@ -172,20 +177,21 @@ public class ComponentImagePlot extends JComponent implements IImagePlot {
         }
 
 
-        Insets insets = getInsets();
-        Color oldColor = g2.getColor();
-        g2.setColor(Color.BLACK);
+        //Insets insets = getInsets();
+        //Color oldColor = g2.getColor();
+        //g2.setColor(Color.BLACK);
 
-        g2.fillRect(insets.left, insets.top,
-                (int) (size.getWidth() - insets.left - insets.right),
-                (int) (size.getHeight() - insets.top - insets.bottom));
+        //g2.fillRect(insets.left, insets.top,
+        //        (int) (size.getWidth() - insets.left - insets.right),
+        //        (int) (size.getHeight() - insets.top - insets.bottom));
 
 
-        g2.setColor(oldColor);
+        //g2.setColor(oldColor);
 
         if (plotArea.getWidth() < 5 || plotArea.getHeight() < 5) {
             return;
         }
+
 
 
         g2.drawRenderedImage(producer.getImage(), AffineTransform.getTranslateInstance((int) plotArea.getMinX(), (int) plotArea.getMinY()));

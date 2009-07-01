@@ -54,7 +54,7 @@ public class ImageViewTransferHandler extends ImageDropHandler {
                 layeradd = new ImageLayer3D(layeradd);
             }
 
-            view.setModel(dset.add(layeradd));
+            dset.add(layeradd);
 
         }
 

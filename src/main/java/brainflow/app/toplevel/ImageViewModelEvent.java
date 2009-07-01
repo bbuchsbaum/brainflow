@@ -1,5 +1,5 @@
 /*
- * ImageDisplayModelEvent.java
+ * ImageViewListDataEvent.java
  *
  * Created on June 26, 2006, 12:43 PM
  *
@@ -19,7 +19,7 @@ import javax.swing.event.ListDataEvent;
 /**
  * @author buchs
  */
-public class ImageDisplayModelEvent extends AbstractEventServiceEvent {
+public class ImageViewModelEvent extends AbstractEventServiceEvent {
 
     public enum TYPE {
         LAYER_ADDED,
@@ -39,7 +39,7 @@ public class ImageDisplayModelEvent extends AbstractEventServiceEvent {
      * @param _event
      */
 
-    public ImageDisplayModelEvent(BrainFlowProjectEvent _event, TYPE _type) {
+    public ImageViewModelEvent(BrainFlowProjectEvent _event, TYPE _type) {
         super(_event);
         event = _event;
         type = _type;

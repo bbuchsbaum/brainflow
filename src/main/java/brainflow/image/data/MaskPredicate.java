@@ -12,4 +12,7 @@ public interface MaskPredicate {
        
     public boolean mask(double value);
 
+
+    
+
 }

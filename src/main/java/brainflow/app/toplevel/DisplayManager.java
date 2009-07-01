@@ -183,15 +183,15 @@ public class DisplayManager {
 
         log.info("replacing layer : " + oldlayer + " with " + newlayer);
 
-        List<ImageLayer3D> list = view.getModel().cloneList();
-        list.set(i, newlayer);
-        view.setModel(new ImageViewModel(view.getName(), list));
+        view.getModel().set(view.getModel().indexOf(oldlayer), newlayer);
+
     }
 
     protected void setSelectedCanvas(IBrainCanvas canvas) {
         if (canvasList.contains(canvas)) {
             IBrainCanvas oldCanvas = this.selectedCanvas;
             selectedCanvas = canvas;
+            selectedCanvas.getComponent().requestFocus();
             support.firePropertyChange(SELECTED_CANVAS_PROPERTY, oldCanvas, selectedCanvas);
         } else {
             throw new RuntimeException("ImageCanvas " + canvas + " is not currently managed my DisplayManager.");
@@ -205,6 +205,7 @@ public class DisplayManager {
 
     protected IBrainCanvas newCanvas() {
         IBrainCanvas canvas = new BrainCanvas();
+        
         addImageCanvas(canvas);
         return canvas;
     }

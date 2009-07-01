@@ -1,6 +1,7 @@
 package brainflow.core;
 
 import brainflow.core.services.ImageViewLayerSelectionEvent;
+import brainflow.core.services.ImageViewListDataEvent;
 import brainflow.core.binding.GridToWorldConverter;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.core.layer.ImageLayer3D;
@@ -22,6 +23,7 @@ import org.bushe.swing.event.EventBus;
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -42,7 +44,7 @@ import java.util.logging.Logger;
  */
 
 
-public abstract class ImageView extends JPanel implements ListDataListener, ImageDisplayModelListener {
+public abstract class ImageView extends JPanel implements ListDataListener {
 
 
 
@@ -56,6 +58,10 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     private String identifier = "view";
 
     private double pixelsPerUnit = 1.5;
+
+    private EventListenerList listenerList = new EventListenerList();
+
+    //todo need to add listdatalistener
 
     public final Property<ImageViewModel> viewModel = ObservableProperty.create();
    
@@ -90,36 +96,14 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
     public final Property<BrainPoint3D> worldCursorPos = new GridToWorldConverter(cursorPos);
 
-    /*public final Property<BrainPoint3D> worldCursorPos = new ObservableWrapper.ReadWrite<GridPoint3D>(cursorPos) {
-
-        @Override
-        public void set(GridPoint3D gridPoint3D) {
-            super.set(gridPoint3D);    //To change body of overridden methods use File | Settings | File Templates.
-        }
-
-        public void set(BrainPoint3D ap) {
-            if (ap.getAnatomy() != cursorPos.get().getWorldAnatomy()) {
-                throw new IllegalArgumentException("world point " + ap + " must have Anatomy " + cursorPos.get().getWorldAnatomy());
-            }
-
-            GridPoint3D gp = GridPoint3D.fromWorld(ap.getValue(), ap.getY(), ap.getZ(), getModel().getImageSpace());
-            super.set(gp);
-        }
-
-        public BrainPoint3D get() {
-            RProperty<BrainPoint3D> cpos = (RProperty<BrainPoint3D>) getProperties()[0];
-            return BrainPoint3D.convertToWorld(cpos.get(), getModel().getImageSpace());
-        }
-    };    */
-
-
-    
 
     private InterpolationType screenInterpolation = InterpolationType.NEAREST_NEIGHBOR;
 
     private PlotSelectionHandler plotSelectionHandler = new PlotSelectionHandler();
 
     private ImageLayerSelectionListener layerSelectionListener = new ImageLayerSelectionListener();
+
+    private ListDataForwarder listDataForwarder = new ListDataForwarder();
 
     private JPanel contentPane = new JPanel();
 
@@ -129,9 +113,13 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
 
     public ImageView(ImageViewModel imodel) {
+        setBackground(Color.BLACK);
+        setOpaque(true);
+        
         BeanContainer.bind(this);
 
         viewModel.set(imodel);
+
 
         setLayout(new BorderLayout());
 
@@ -167,6 +155,8 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     protected abstract void layoutPlots();
 
     private void clearListeners(ImageViewModel oldModel) {
+        oldModel.removeListDataListener(this);
+        oldModel.removeListDataListener(listDataForwarder);
         BeanContainer.get().removeListener(oldModel.layerSelection, layerSelectionListener);
         removeMouseListener(plotSelectionHandler);
 
@@ -181,7 +171,8 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     protected void registerListeners(ImageViewModel model) {
         BeanContainer.get().addListener(model.layerSelection, layerSelectionListener);
         addMouseListener(plotSelectionHandler);
-
+        model.addListDataListener(this);
+        model.addListDataListener(listDataForwarder);
 
 
     }
@@ -215,6 +206,14 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
 
 
+    }
+
+    public void addListDataListener(ListDataListener listener) {
+        listenerList.add(ListDataListener.class, listener);
+    }
+
+    public void removeListDataListener(ListDataListener listener) {
+        listenerList.remove(ListDataListener.class, listener);
     }
 
 
@@ -329,8 +328,7 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
 
     public ImageAxis getImageAxis(AnatomicalAxis axis) {
         ImageAxis iaxis = getModel().get(0).getCoordinateSpace().getImageAxis(axis, true);
-        ImageAxis retAxis = iaxis.matchAxis(axis);
-        return retAxis;
+        return iaxis.matchAxis(axis);
 
     }
 
@@ -505,6 +503,49 @@ public abstract class ImageView extends JPanel implements ListDataListener, Imag
     public String toString() {
         return identifier;
     }
+
+
+
+
+    class ListDataForwarder implements ListDataListener {
+        @Override
+        public void intervalAdded(ListDataEvent e) {
+
+
+            ListDataListener[] listeners = listenerList.getListeners(ListDataListener.class);
+            for (ListDataListener listener : listeners) {
+                listener.intervalAdded(e);
+            }
+
+            EventBus.publish(new ImageViewListDataEvent(ImageView.this, e));
+        }
+
+        @Override
+        public void contentsChanged(ListDataEvent e) {
+
+
+            ListDataListener[] listeners = listenerList.getListeners(ListDataListener.class);
+            for (ListDataListener listener : listeners) {
+                listener.contentsChanged(e);
+            }
+
+            EventBus.publish(new ImageViewListDataEvent(ImageView.this, e));
+        }
+
+        @Override
+        public void intervalRemoved(ListDataEvent e) {
+
+            
+            ListDataListener[] listeners = listenerList.getListeners(ListDataListener.class);
+            for (ListDataListener listener : listeners) {
+                listener.intervalRemoved(e);
+            }
+
+            EventBus.publish(new ImageViewListDataEvent(ImageView.this, e));
+        }
+    }
+
+
 
     class ImageLayerSelectionListener implements PropertyListener {
 

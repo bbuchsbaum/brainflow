@@ -34,12 +34,10 @@ public class CreateMontageViewCommand extends BrainFlowCommand {
             IBrainCanvas canvas = getSelectedCanvas();
 
             JOptionPane.showMessageDialog(canvas.getComponent(), ip);
-            ImageView sview = ImageViewFactory.createMontageView(view.getModel(), ip.getRows(), ip.getColumns(), (float)ip.getSliceGap());
+            ImageView sview = ImageViewFactory.createMontageView(view.getModel(), ip.getRows(), ip.getColumns(), (float) ip.getSliceGap());
 
-            if (canvas != null) {
-                BrainFlow.get().displayView(sview);
-                //canvas.addImageView(sview);
-            }
+            BrainFlow.get().displayView(sview);
+
         }
 
     }

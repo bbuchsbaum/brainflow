@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -102,7 +103,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
 
                 if (model != null) {
-                    List<ImageLayer3D> list = model.cloneList();
+                    List<ImageLayer3D> list = model.getLayers();
                     ImageLayer sel = getSelectedLayerNode(path);
 
                     if (sel != null) {
@@ -138,9 +139,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
                     ImageViewModel model = findParentModel(path);
 
                     if (model != null && !model.contains(layer)) {
-                        List<ImageLayer3D> list = model.cloneList();
-                        list.add(new ImageLayer3D(layer));
-                        BrainFlow.get().updateViews(model, new ImageViewModel(model.getName(), list));
+                        model.add(layer);
                     } else {
                         //todo drop layer in correct location rather than just adding it to end ....
                     }
@@ -240,10 +239,16 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
     }
 
     @Override
+    protected void layerIntervalAdded(ListDataEvent event) {
+        System.out.println("layer added!");
+    }
+
+    @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
     public void allViewsDeselected() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -375,6 +380,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
         public ImageViewModelNode(ImageViewModel _model) {
             super(_model);
             model = _model;
+            model.addListDataListener(listener);
 
             //model.addImageDisplayModelListener(listener);
 
@@ -403,7 +409,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
     }
 
-    class ImageModelListener implements ImageDisplayModelListener {
+    class ImageModelListener implements ListDataListener {
 
         private ImageViewModelNode node;
 
@@ -430,9 +436,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
         }
 
 
-        public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
+
 
     }
 

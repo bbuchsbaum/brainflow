@@ -73,7 +73,6 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
     public ImageLayer(IImageDataSource dataSource) {
         this(dataSource.getImageInfo().getImageLabel(), dataSource);
-
     }
 
     public ImageLayer(IImageDataSource dataSource, ImageLayerProperties _properties) {

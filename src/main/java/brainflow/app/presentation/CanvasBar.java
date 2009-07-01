@@ -39,7 +39,6 @@ public class CanvasBar extends ImageViewPresenter {
     private ToggleBar toggleBar;
 
 
-
     //private TransferHandler transferHandler = new CanvasBarTransferHandler();
 
     private MouseAdapter dragListener = new DragListener();
@@ -91,15 +90,16 @@ public class CanvasBar extends ImageViewPresenter {
     private void initSpinnerListener() {
         imageSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                String label = (String)imageSpinner.getValue();
+                String label = (String) imageSpinner.getValue();
+                System.out.println("spinner label : " + label);
 
-                
                 final ImageLayer3D layer = getSelectedLayer();
                 IImageDataSource dsource = layer.getDataSource();
 
                 //todo List<ImageInfo> might be Map<String, ImageInfo> (or something?)
                 List<String> labels = extractLabels(dsource.getImageInfoList());
                 int index = labels.indexOf(label);
+                System.out.println("index of label " + index);
 
                 assert index >= 0;
 
@@ -108,7 +108,7 @@ public class CanvasBar extends ImageViewPresenter {
 
                 SwingWorker worker = new SwingWorker() {
                     protected Object doInBackground() throws Exception {
-                        Object ret =  dsource2.getData();
+                        Object ret = dsource2.getData();
                         ImageLayer3D newlayer = new ImageLayer3D(dsource2, layer.getImageLayerProperties());
                         BrainFlow.get().replaceLayer(layer, newlayer, getSelectedView());
                         return ret;
@@ -123,12 +123,11 @@ public class CanvasBar extends ImageViewPresenter {
                 imageSpinner.setEnabled(false);
                 worker.execute();
 
-
-
             }
         });
 
     }
+
     private void unbind() {
         ExtBind.get().unbind(toggleBar);
     }
@@ -145,7 +144,7 @@ public class CanvasBar extends ImageViewPresenter {
 
     }
 
-    private SpinnerModel createSpinnerModel(List<String> labels) {
+    private SpinnerListModel createSpinnerModel(List<String> labels) {
         return new SpinnerListModel(labels);
     }
 
@@ -156,8 +155,11 @@ public class CanvasBar extends ImageViewPresenter {
             imageSpinnerLabel.setEnabled(true);
 
             List<String> labels = extractLabels(layer.getDataSource().getImageInfoList());
-            imageSpinner.setModel(createSpinnerModel(labels));
-            System.out.println(Arrays.toString(labels.toArray()));
+            SpinnerListModel model = createSpinnerModel(labels);
+            model.setValue(layer.getLabel());
+
+            imageSpinner.setModel(model);
+
         } else {
             imageSpinner.setModel(new SpinnerNumberModel());
             imageSpinner.setEnabled(false);
@@ -171,26 +173,30 @@ public class CanvasBar extends ImageViewPresenter {
 
     private void bind() {
         updateImageSpinner();
-
-
-        wrappedModel = new WrappedImageViewModel(getSelectedView().getModel());
-
-      
         ExtBind.get().bindContent(wrappedModel.listModel, toggleBar);
         ExtBind.get().bindToggleBar(wrappedModel.layerSelection(), toggleBar);
-        
-        
+
+
     }
 
     @Override
     public void viewSelected(ImageView view) {
+        wrappedModel = new WrappedImageViewModel(getSelectedView().getModel());
+
         bind();
     }
 
     @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         ExtBind.get().unbind(toggleBar);
+        wrappedModel = new WrappedImageViewModel(getSelectedView().getModel());
         viewSelected(view);
+    }
+
+    @Override
+    protected void layerChangeNotification() {
+        //bind();
+
     }
 
     public void viewDeselected(ImageView view) {
@@ -205,19 +211,6 @@ public class CanvasBar extends ImageViewPresenter {
     public void allViewsDeselected() {
         unbind();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     class DragListener extends MouseAdapter {
 

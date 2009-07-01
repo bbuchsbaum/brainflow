@@ -23,6 +23,8 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
 
     private byte[] data;
 
+    
+
 
     public UByteImageData2D(IImageSpace2D _space) {
         super(_space,DataType.BYTE);

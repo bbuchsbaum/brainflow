@@ -3,6 +3,7 @@ package brainflow.app.presentation;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.data.IImageData;
@@ -175,11 +176,13 @@ public class ImageLayerInfoPresenter extends ImageViewPresenter {
 
     }
 
-    protected void layerSelected(ImageLayer layer) {
+    @Override
+    protected void layerSelected(ImageLayer3D layer) {
         initGUI();
         panel.revalidate();
-
     }
+
+ 
 
     public JComponent getComponent() {
         return panel;

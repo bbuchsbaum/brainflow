@@ -87,6 +87,7 @@ public class SelectedLayerPresenter extends ImageViewPresenter {
 
 
     public void viewSelected(ImageView view) {
+        wrappedModel = new WrappedImageViewModel(getSelectedView().getModel());
         bind();
         layerSelector.setEnabled(true);
 
@@ -96,7 +97,14 @@ public class SelectedLayerPresenter extends ImageViewPresenter {
     @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         ExtBind.get().unbind(layerSelector);
+        wrappedModel = new WrappedImageViewModel(getSelectedView().getModel());
         viewSelected(view);
+    }
+
+    @Override
+    protected void layerChangeNotification() {
+        
+
     }
 
     public JComponent getComponent() {

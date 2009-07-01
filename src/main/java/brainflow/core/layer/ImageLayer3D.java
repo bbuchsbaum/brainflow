@@ -76,8 +76,6 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
     public double getValue(GridPoint3D pt) {
        BrainPoint3D apt = pt.toWorld();
         return getData().worldValue((float) apt.getX(), (float) apt.getY(), (float) apt.getZ(), new NearestNeighborInterpolator());
-
-
     }
 
     public MaskProperty3D getMaskProperty() {

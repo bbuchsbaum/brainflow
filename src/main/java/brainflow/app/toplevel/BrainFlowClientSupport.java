@@ -1,7 +1,7 @@
 package brainflow.app.toplevel;
 
 import brainflow.app.IBrainFlowClient;
-import brainflow.app.toplevel.ImageDisplayModelEvent;
+import brainflow.app.toplevel.ImageViewModelEvent;
 import brainflow.core.services.ImageViewLayerSelectionEvent;
 import brainflow.core.services.ImageViewSelectionEvent;
 import brainflow.core.ImageView;
@@ -64,10 +64,10 @@ public class BrainFlowClientSupport {
         });
 
 
-        EventBus.subscribe(ImageDisplayModelEvent.class, new EventSubscriber() {
+        EventBus.subscribe(ImageViewModelEvent.class, new EventSubscriber() {
 
             public void onEvent(Object evt) {
-                ImageDisplayModelEvent event = (ImageDisplayModelEvent) evt;
+                ImageViewModelEvent event = (ImageViewModelEvent) evt;
 
                 ImageView view = selectedView;
 

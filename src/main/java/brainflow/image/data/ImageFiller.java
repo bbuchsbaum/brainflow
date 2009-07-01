@@ -33,7 +33,6 @@ public class ImageFiller {
             throw new IllegalArgumentException("slice is is out of image bounds");
         }
 
-
         AnatomicalAxis axis1 = displayAnatomy.XAXIS;
         AnatomicalAxis axis2 = displayAnatomy.YAXIS;
 
@@ -123,26 +122,16 @@ public class ImageFiller {
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        try {
-            while (slowIterator.hasNext()) {
-                y = slowIterator.next();
-                while (fastIterator.hasNext()) {
-                    x = fastIterator.next();
-                    op[i] = (float) data.value(x, y, z);
-                    i++;
-                }
-                fastIterator.reset();
+        while (slowIterator.hasNext()) {
+            y = slowIterator.next();
+            while (fastIterator.hasNext()) {
+                x = fastIterator.next();
+                op[i] = (float) data.value(x, y, z);
+                i++;
             }
-        } catch (RuntimeException e) {
-            System.out.println("fixed is z");
-            System.out.println("i " + i);
-            System.out.println("x = " + x);
-            System.out.println("y = " + y);
-            System.out.println("z = " + z);
-            System.out.println("data dim " + data.getImageSpace());
-            throw e;
-
+            fastIterator.reset();
         }
+
 
         return op;
 

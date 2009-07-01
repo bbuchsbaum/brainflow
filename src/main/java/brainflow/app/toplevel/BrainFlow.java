@@ -38,6 +38,7 @@ import com.pietschy.command.group.CommandGroup;
 import com.pietschy.command.group.ExpansionPointBuilder;
 import com.pietschy.command.toggle.ToggleGroup;
 import com.pietschy.command.ActionCommand;
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
@@ -201,6 +202,7 @@ public class BrainFlow {
             openSplash();
             drawSplashProgress("loading look and feel");
 
+
             String osname = System.getProperty("os.name");
             System.out.println("os name is : " + osname);
             if (osname.toUpperCase().contains("WINDOWS")) {
@@ -210,13 +212,16 @@ public class BrainFlow {
                 LookAndFeelFactory.installJideExtension();
 
             } else if (osname.toUpperCase().contains("LINUX")) {
-                //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
                 //LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
-                UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
+                //UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
                 //UIManager.setLookAndFeel(new WindowsLookAndFeel());
                 LookAndFeelFactory.installJideExtension();
 
             } else if (osname.toUpperCase().contains("MAC")) {
+                System.setProperty("apple.laf.useScreenMenuBar", "true");
+                System.setProperty("com.apple.mrj.application.apple.menu.about.name", "BrainFlow");
+
                 //System.setProperty("Quaqua.tabLayoutPolicy","wrap");
                 UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
                 //UIManager.setLookAndFeel(new ch.randelshofer.quaqua.QuaquaLookAndFeel());
@@ -829,7 +834,7 @@ public class BrainFlow {
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
         monitor.loadImage(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ImageViewModel displayModel = ProjectManager.get().createDisplayModel(checkedDataSource, true);
+                ImageViewModel displayModel = ProjectManager.get().createViewModel(checkedDataSource, true);
                 ImageView iview = ImageViewFactory.createAxialView(displayModel);
                 DisplayManager.get().displayView(iview);
                 //DisplayManager.get().getSelectedCanvas().addImageView(iview);
@@ -863,8 +868,8 @@ public class BrainFlow {
             public void actionPerformed(ActionEvent e) {
                 ImageViewModel displayModel = view.getModel();
                 ImageLayer3D layer = ImageLayerFactory.createImageLayer(dataSource);
-                ImageViewModel newModel = displayModel.add(layer);
-                view.setModel(newModel);
+                displayModel.add(layer);
+                
 
             }
         });

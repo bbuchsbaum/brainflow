@@ -10,6 +10,7 @@ import brainflow.image.space.IImageSpace;
 import brainflow.image.io.IImageDataSource;
 
 import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -27,11 +28,12 @@ public class BrainFlowProject {
 
     private Set<IImageDataSource> dataSources = new LinkedHashSet<IImageDataSource>();
 
-    //private ModelListDataListener listener = new ModelListDataListener();
+    private ModelListDataListener listDataListener = new ModelListDataListener();
 
     private List<BrainFlowProjectListener> listenerList = new ArrayList<BrainFlowProjectListener>();
 
     private String name = "untitled";
+
 
     public void addDataSource(IImageDataSource dataSource) {
         dataSources.add(dataSource);
@@ -45,7 +47,9 @@ public class BrainFlowProject {
         if (!modelList.contains(model)) {
             modelList.add(model);
             addSources(model);
+            model.addListDataListener(listDataListener);
             fireModelAdded(new BrainFlowProjectEvent(this, model, null));
+
 
         } else {
             log.warning("BrainFlowProject already contains model supplied as argument, not adding.");
@@ -78,7 +82,8 @@ public class BrainFlowProject {
             modelList.remove(model);
             if (model.size() > 0)
                 removeSources(model);
-
+            
+            model.removeListDataListener(listDataListener);
             fireModelRemoved(new BrainFlowProjectEvent(this, model, null));
             
         } else {
@@ -120,24 +125,7 @@ public class BrainFlowProject {
         listenerList.remove(listener);
     }
 
-    /*public List<ILoadableImage> getImageList() {
-
-        List<ILoadableImage> list = new ArrayList<ILoadableImage>();
-        for (IImageDisplayModel model : modelList) {
-            int n = model.getNumLayers();
-            for (int i = 0; i < n; i++) {
-                ILoadableImage limg = model.getLayer(i).getLoadableImage();
-                if (!list.contains(limg)) {
-                    list.add(limg);
-                }
-            }
-
-        }
-
-        return list;
-
-    }  */
-
+    
 
     public String toString() {
         return name;
@@ -186,7 +174,7 @@ public class BrainFlowProject {
     }
 
 
-    class ModelListDataListener implements ImageDisplayModelListener {
+    class ModelListDataListener implements ListDataListener {
 
 
         public void intervalAdded(ListDataEvent e) {
@@ -203,9 +191,7 @@ public class BrainFlowProject {
 
         }
 
-        public void imageSpaceChanged(IImageDisplayModel model, IImageSpace space) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
+
     }
 
 

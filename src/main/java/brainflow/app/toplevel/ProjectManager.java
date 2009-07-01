@@ -3,7 +3,7 @@ package brainflow.app.toplevel;
 import brainflow.app.BrainFlowProject;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.data.IImageData3D;
-import brainflow.app.toplevel.ImageDisplayModelEvent;
+import brainflow.app.toplevel.ImageViewModelEvent;
 import brainflow.core.services.DataSourceStatusEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
@@ -54,27 +54,27 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
 
     }
 
-    public ImageViewModel createDisplayModel(ImageLayer3D layer, boolean addToActiveProject) {
+    public ImageViewModel createViewModel(ImageLayer3D layer, boolean addToActiveProject) {
         registerDataSource(layer.getDataSource());
 
-        LayerList<ImageLayer3D> layers = new LayerList<ImageLayer3D>();
+        List<ImageLayer3D> layers = new ArrayList<ImageLayer3D>();
         layers.add(layer);
-        ImageViewModel displayModel = new ImageViewModel("model #" + (activeProject.size() + 1), layers);
+        ImageViewModel viewModel = new ImageViewModel("model #" + (activeProject.size() + 1), layers);
 
 
         if (addToActiveProject) {
-            activeProject.addModel(displayModel);
+            activeProject.addModel(viewModel);
         }
 
 
-        return displayModel;
+        return viewModel;
 
     }
 
 
-    public ImageViewModel createDisplayModel(IImageDataSource dataSource, boolean addToActiveProject) {
+    public ImageViewModel createViewModel(IImageDataSource dataSource, boolean addToActiveProject) {
         //todo maybe this isn't the right place for this?
-        
+
         registerDataSource(dataSource);
 
         ImageViewModel displayModel = ImageViewFactory.createModel("model #" + (activeProject.size() + 1), dataSource);
@@ -110,7 +110,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
             ImageViewModel dmodel = iter.next();
             //todo hack cast
             //todo should retrieve layers not indices here ..
-            List<Integer> idx = dmodel.indexOf((IImageData3D)dataSource.getData());
+            List<Integer> idx = dmodel.indexOf((IImageData3D) dataSource.getData());
             List<ImageView> views = DisplayManager.get().getImageViews(dmodel);
 
             if (idx.size() > 0) {
@@ -123,22 +123,17 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
 
                 if (removables.size() == dmodel.size()) {
                     //removing all layers from model, which invalidates the model.
-                     for (ImageView view : views) {
+                    for (ImageView view : views) {
                         DisplayManager.get().removeView(view);
                     }
 
                     purged.add(dmodel);
-                    
+
                 } else {
-
-
-
-                    List<ImageLayer3D> list = dmodel.cloneList();
-                    list.removeAll(removables);
-                    ImageViewModel model = new ImageViewModel(dmodel.getName(), new LayerList<ImageLayer3D>(list));
-                    
                     for (ImageView view : views) {
-                        view.setModel(model);
+                        for (ImageLayer3D layer : removables) {
+                            view.getModel().remove(layer);
+                        }
                     }
 
 
@@ -146,30 +141,30 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
             }
         }
 
-        for (ImageViewModel  model : purged) {
+        for (ImageViewModel model : purged) {
             activeProject.removeModel(model);
         }
     }
 
 
     public void modelAdded(BrainFlowProjectEvent event) {
-        EventBus.publish(new ImageDisplayModelEvent(event, ImageDisplayModelEvent.TYPE.LAYER_ADDED));
+        EventBus.publish(new ImageViewModelEvent(event, ImageViewModelEvent.TYPE.LAYER_ADDED));
 
     }
 
     public void modelRemoved(BrainFlowProjectEvent event) {
-        EventBus.publish(new ImageDisplayModelEvent(event, ImageDisplayModelEvent.TYPE.LAYER_REMOVED));
+        EventBus.publish(new ImageViewModelEvent(event, ImageViewModelEvent.TYPE.LAYER_REMOVED));
     }
 
     public void intervalAdded(BrainFlowProjectEvent e) {
-        EventBus.publish(new ImageDisplayModelEvent(e, ImageDisplayModelEvent.TYPE.LAYER_INTERVAL_ADDED));
+        EventBus.publish(new ImageViewModelEvent(e, ImageViewModelEvent.TYPE.LAYER_INTERVAL_ADDED));
     }
 
     public void intervalRemoved(BrainFlowProjectEvent e) {
-        EventBus.publish(new ImageDisplayModelEvent(e, ImageDisplayModelEvent.TYPE.LAYER_INTERVAL_REMOVED));
+        EventBus.publish(new ImageViewModelEvent(e, ImageViewModelEvent.TYPE.LAYER_INTERVAL_REMOVED));
     }
 
     public void contentsChanged(BrainFlowProjectEvent e) {
-        EventBus.publish(new ImageDisplayModelEvent(e, ImageDisplayModelEvent.TYPE.LAYER_CHANGED));
+        EventBus.publish(new ImageViewModelEvent(e, ImageViewModelEvent.TYPE.LAYER_CHANGED));
     }
 }

@@ -16,6 +16,7 @@ public class ImageViewSelectionEvent extends ImageViewEvent {
 
     /**
      * Creates a new instance of ImageDisplayModelEvent
+     * @param _view
      */
     public ImageViewSelectionEvent(ImageView _view) {
         super(_view);

@@ -1,3 +1,18 @@
+
+Potential Fix: when rotating layers, the "image space" of the model needs to be changed?
+
+
+Fix: add exe command to gradle script: izpack2exe --file=brainflow-install.jar --wth-7z="c:\Program Files\IzPack\utils\wrappers\izpack2exe\7za.exe"
+
+
+[Fix: when model changes project view fails to update.  Problem is
+
+
+Fix: mask view seems to show "0" as transparent.
+
+[Fix: advancing image in 4D views is broken] * when advancing volumes, sometimes get a "flicker".
+
+
 [Fix: Histogram fails to switch]
 Fix: drag and drop from file manager to project tree appears not to work
 Performance: performance is sluggish with montageimageview and large grid

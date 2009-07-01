@@ -28,11 +28,9 @@ public class CreateSagittalViewCommand extends BrainFlowCommand {
 
             IBrainCanvas canvas = getSelectedCanvas();
 
-            if (canvas != null) {
-                //canvas.addImageView(sview);
-                 BrainFlow.get().displayView(sview);
-                canvas.getImageCanvasModel().yoke(sview, view);
-            }
+            BrainFlow.get().displayView(sview);
+            canvas.getImageCanvasModel().yoke(sview, view);
+
         }
 
 

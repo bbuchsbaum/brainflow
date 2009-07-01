@@ -59,7 +59,7 @@
             <file src="src" targetdir="$INSTALL_PATH"/>
         </pack>
         <pack name="Lib" required="yes">
-            <description>application binary and startup scripts</description>
+            <description>runtime libraries</description>
             <fileset dir="../build/runtimeLibs" targetdir="$INSTALL_PATH/lib">
                      <include name="*.jar"/>
             </fileset>
@@ -73,10 +73,7 @@
             <file src="brainflow-logo.ico" targetdir="$INSTALL_PATH/bin"/> 
 
         </pack>
-
     </packs>
-
-
     <locale>
         <langpack iso3="eng"/>
     </locale>

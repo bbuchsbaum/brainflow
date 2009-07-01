@@ -4,6 +4,9 @@
     <facet type="Scala" name="Scala">
       <configuration />
     </facet>
+    <facet type="Groovy" name="Groovy">
+      <configuration compile="false" />
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/classes/production/brainflow" />
@@ -16,9 +19,11 @@
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/rejects" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="groovy-1.6.3" level="application" />
     <orderEntry type="library" name="eventbus" level="application" />
     <orderEntry type="library" name="datatips" level="application" />
     <orderEntry type="library" name="bean-properties" level="application" />
@@ -37,13 +42,14 @@
     <orderEntry type="library" name="jxlayer-3.0" level="application" />
     <orderEntry type="library" name="args4j" level="application" />
     <orderEntry type="library" name="quaqua" level="application" />
-    <orderEntry type="library" name="jide-2.6.0" level="application" />
+    <orderEntry type="library" name="jide-2.6.4" level="application" />
     <orderEntry type="library" name="synthetica" level="application" />
     <orderEntry type="library" name="balloontip" level="application" />
     <orderEntry type="library" name="commons-pipeline" level="application" />
     <orderEntry type="library" name="miglayout" level="application" />
     <orderEntry type="module" module-name="scalaflow" />
     <orderEntry type="library" name="scala-2.7.3 (2)" level="project" />
+    <orderEntry type="library" name="kd-tree" level="application" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ACTIVE_VCS_NAME" value="svn" />

@@ -14,7 +14,7 @@ import java.awt.*;
 * Time: 5:37:20 PM
 * To change this template use File | Settings | File Templates.
 */
-class ColorBarWithAxis extends JPanel {
+public class ColorBarWithAxis extends JPanel {
     XAxis axis = new XAxis(0, 255);
 
 

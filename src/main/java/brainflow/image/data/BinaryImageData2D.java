@@ -14,7 +14,7 @@ import cern.colt.bitvector.BitVector;
  * Time: 2:47:31 PM
  * To change this template use File | Settings | File Templates.
  */
-public class BinaryImageData2D extends BinaryImageData implements IImageData2D {
+public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D {
 
 
     public BinaryImageData2D(ImageSpace2D space, BitVector bits) {
@@ -57,7 +57,7 @@ public class BinaryImageData2D extends BinaryImageData implements IImageData2D {
 
         BitVector ret = getBitVector().copy();
         ret.or(data.getBitVector());
-        return new BinaryImageData2D((ImageSpace2D) getImageSpace(), ret);
+        return new BinaryImageData2D(getImageSpace(), ret);
     }
 
     public BinaryImageData2D AND(BinaryImageData data) {
@@ -83,6 +83,16 @@ public class BinaryImageData2D extends BinaryImageData implements IImageData2D {
         double y = space.getImageAxis(Axis.Y_AXIS).gridPosition(realy);
         return interp.interpolate(x, y, this);
 
+    }
+
+    @Override
+    public boolean isTrue(int x, int y) {
+        return getBitVector().getQuick(indexOf(x, y));
+    }
+
+    @Override
+    public boolean isTrue(int index) {
+        return getBitVector().getQuick(index);
     }
 
     public double value(int x, int y) {

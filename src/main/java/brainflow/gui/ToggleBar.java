@@ -85,7 +85,6 @@ public class ToggleBar extends JPanel implements ListDataListener {
     private void fireListSelectionEvent() {
         ListSelectionListener[] lsl = listeners.getListeners(ListSelectionListener.class);
         for (ListSelectionListener l : lsl) {
-
             l.valueChanged(new ListSelectionEvent(this, indexOf(model.getSelectedItem()), indexOf(model.getSelectedItem()), false));
         }
     }
@@ -129,14 +128,19 @@ public class ToggleBar extends JPanel implements ListDataListener {
 
     }
 
+
+
+    @Override
     public void intervalAdded(ListDataEvent e) {
        layoutButtons();
     }
 
+    @Override
     public void intervalRemoved(ListDataEvent e) {
         layoutButtons();
     }
 
+    @Override
     public void contentsChanged(ListDataEvent e) {
         layoutButtons();
     }
@@ -188,7 +192,8 @@ public class ToggleBar extends JPanel implements ListDataListener {
         public void itemStateChanged(ItemEvent e) {
 
             AbstractButton button = (AbstractButton) e.getSource();
-
+            System.out.println("item state change!");
+            System.out.println("button = " + button);
             if (e.getStateChange() == ItemEvent.SELECTED) {
 
                 int selIdx = buttonList.indexOf(button);

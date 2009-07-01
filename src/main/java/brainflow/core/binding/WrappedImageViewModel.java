@@ -10,6 +10,8 @@ import net.java.dev.properties.Property;
 import net.java.dev.properties.container.ObservableIndexed;
 import net.java.dev.properties.container.BeanContainer;
 
+import javax.swing.event.ListDataListener;
+import javax.swing.event.ListDataEvent;
 import java.util.List;
 
 /**
@@ -31,7 +33,7 @@ public class WrappedImageViewModel {
             
             if (!integers.equals(get())) {
                 super.set(integers);
-                updateVisiblity();
+                updateVisibility();
             }
         }
 
@@ -51,7 +53,8 @@ public class WrappedImageViewModel {
 
         this.model = model;
 
-        listModel.set(model.cloneList());
+        listModel.set(model.getLayers());
+
         visibleSelection.set(model.visibleLayers());
 
         visListener = new ImageLayerListenerImpl() {
@@ -65,13 +68,33 @@ public class WrappedImageViewModel {
         };
 
         model.addImageLayerListener(visListener);
+
+        model.addListDataListener(new ListDataListener() {
+            @Override
+            public void intervalAdded(ListDataEvent e) {
+                listModel.set(WrappedImageViewModel.this.model.getLayers());
+                visibleSelection.set(WrappedImageViewModel.this.model.visibleLayers());
+            }
+
+            @Override
+            public void intervalRemoved(ListDataEvent e) {
+                listModel.set(WrappedImageViewModel.this.model.getLayers());
+                visibleSelection.set(WrappedImageViewModel.this.model.visibleLayers());
+            }
+
+            @Override
+            public void contentsChanged(ListDataEvent e) {
+                listModel.set(WrappedImageViewModel.this.model.getLayers());
+                visibleSelection.set(WrappedImageViewModel.this.model.visibleLayers());
+            }
+        });
     }
 
     public Property<Integer> layerSelection() {
         return model.layerSelection;
     }
 
-    private void updateVisiblity() {
+    private void updateVisibility() {
         for (int i=0; i<model.size(); i++) {
             if (model.isVisible(i) && !visibleSelection.get().contains(i)) {
                 model.setVisible(i, false);

@@ -203,7 +203,7 @@ public class ConnComp3D {
         ImageLayerProperties props = new ImageLayerProperties(icm, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
 
-        model = model.add(new ImageLayer3D(new MemoryImageDataSource(dat3d), props));
+        model.add(new ImageLayer3D(new MemoryImageDataSource(dat3d), props));
 
         ImageView view = ImageViewFactory.createMontageView(model, 4, 4, 6);
         view.setScreenInterpolation(InterpolationType.NEAREST_NEIGHBOR);

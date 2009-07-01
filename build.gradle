@@ -15,8 +15,9 @@ dependencies {
   compile(":bean-properties:jar", ":gui-commands-2.1:jar", ":xstream-1.2.2:jar",
           ":jide-common:jar", ":jide-dock:jar", ":jide-action:jar", ":jide-components:jar", ":jide-dialogs:jar", ":jide-synthetica:jar", ":jide-grids:jar",
           ":forms-1.1.0:jar", ":jfreechart-1.0.9:jar", ":jcommon-1.0.12:jar", ":args4j-2.0.1:jar", ":jxlayer:jar",
-          ":colt:jar", ":commons-vfs-1.0:jar", ":commons-logging-1.1.1:jar", ":Eventbus-1.3beta:jar", ":jparsec-2.0:jar", ":jdom:jar",
-          ":balloontip:jar", ":datatips:jar", ":syntheticaSimple2D:jar", ":synthetica:jar", ":syntheticaWhiteVision:jar", ":syntheticaAddons:jar")
+          ":colt:jar", ":commons-vfs-1.1-snapshot:jar", ":commons-logging-1.1.1:jar", ":Eventbus-1.3beta:jar", ":jparsec-2.0:jar", ":jdom:jar",
+          ":balloontip:jar", ":datatips:jar", ":syntheticaSimple2D:jar", ":synthetica:jar", ":syntheticaWhiteVision:jar", ":syntheticaAddons:jar",
+          ":miglayout-3.7-swing:jar", ":commons-pipeline-snapshot:jar")
 
 
 }
@@ -59,7 +60,7 @@ libs {
   manifest.mainAttributes(
                     'Main-Class': 'brainflow.app.toplevel.BrainFlow',
                     'Implementation-Version': version,
-                    'SplashScreen-Image': 'icons/brainflow-logo2.jpg',
+                    'SplashScreen-Image': 'icons/brainflow-logo-fancy.png',
                     'Class-Path': classpath.toString())
   
 }

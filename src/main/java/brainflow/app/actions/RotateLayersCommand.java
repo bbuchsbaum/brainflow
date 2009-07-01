@@ -25,11 +25,8 @@ public class RotateLayersCommand extends BrainFlowCommand {
         ImageView view = getSelectedView();
 
         if (view != null && view.getModel().size() > 1) {
-            ImageViewModel model = view.getModel();
 
-            List<ImageLayer3D> list = model.cloneList();
-            Collections.rotate(list, 1);
-            view.setModel(new ImageViewModel(model.getName(), list));
+            view.getModel().rotate();
             //model.swapLayers(model.getNumLayers() -1, );
         }
     }

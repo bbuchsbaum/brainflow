@@ -40,15 +40,7 @@ public class ImageData {
 
     }
 
-    public static IImageData3D createConstantData(final double value, final IImageSpace space) {
-        if (space instanceof IImageSpace3D) {
-            return ImageData.createConstantData(value, (IImageSpace3D) space);
-        } else {
-            throw new IllegalArgumentException("IImageSpace argumnet must be of class ImageSpace3D");
-        }
-    }
 
-    
 
     public static IImageData3D asImageData3D(IImageData2D data2d, BrainPoint1D zvalue, double thickness) {
         IImageSpace2D space2d = data2d.getImageSpace();

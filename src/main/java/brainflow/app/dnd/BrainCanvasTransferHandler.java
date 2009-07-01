@@ -64,7 +64,7 @@ public class BrainCanvasTransferHandler extends ImageDropHandler {
 
             if (view == null) {
                 //todo hack cast
-                ImageViewModel model = ProjectManager.get().createDisplayModel((ImageLayer3D)layer, true);
+                ImageViewModel model = ProjectManager.get().createViewModel((ImageLayer3D)layer, true);
                 BrainFlow.get().displayView(ImageViewFactory.createAxialView(model));
             } else {
 
@@ -76,10 +76,9 @@ public class BrainCanvasTransferHandler extends ImageDropHandler {
                     layeradd = new ImageLayer3D(layeradd);
                 }
 
-                ImageViewModel newModel = model.add(layeradd);
+                model.add(layeradd);
 
-                view.setModel(newModel);
-                //DisplayManager.get().updateViews();
+               
 
 
             }

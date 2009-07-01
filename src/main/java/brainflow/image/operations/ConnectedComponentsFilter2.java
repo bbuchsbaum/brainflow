@@ -200,7 +200,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
             System.out.println("max " + dat3d.maxValue());
 
 
-            model = model.add(layer);
+            model.add(layer);
 
             //final ImageView view = ImageViewFactory.createAxialView(model);
             //view.setScreenInterpolation(InterpolationType.NEAREST_NEIGHBOR);
