@@ -12,9 +12,10 @@ import brainflow.image.space.IImageSpace3D;
  */
 public interface DataGrid3D extends DataGrid {
 
+    
     public double value(float x, float y, float z, InterpolationFunction3D interp);
 
-    public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp);
+    public double worldValue(float worldx, float worldy, float worldz, InterpolationFunction3D interp);
 
     public double value(int x, int y, int z);
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module relativePaths="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="Scala" name="Scala">
-      <configuration />
-    </facet>
     <facet type="Groovy" name="Groovy">
       <configuration compile="false" />
+    </facet>
+    <facet type="Scala" name="Scala">
+      <configuration />
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
@@ -47,7 +47,6 @@
     <orderEntry type="library" name="balloontip" level="application" />
     <orderEntry type="library" name="commons-pipeline" level="application" />
     <orderEntry type="library" name="miglayout" level="application" />
-    <orderEntry type="module" module-name="scalaflow" />
     <orderEntry type="library" name="scala-2.7.3 (2)" level="project" />
     <orderEntry type="library" name="kd-tree" level="application" />
   </component>

@@ -28,6 +28,7 @@ public class DataBufferSupport {
         datatype = establishDataType(storage);
         fillBuffer(storage, space.getNumSamples());
 
+
     }
 
     protected DataBufferSupport(IImageSpace space, DataType datatype) {

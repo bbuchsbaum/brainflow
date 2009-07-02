@@ -16,7 +16,6 @@ public interface IImageSpace2D extends IImageSpace, ICoordinateSpace2D {
 
     ImageMapping2D getMapping();
 
-
     Dimension2D<Integer> getDimension();
 
     float[] indexToWorld(int x, int y, int z);

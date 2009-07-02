@@ -42,12 +42,4 @@ public interface IImageSpace extends ICoordinateSpace {
 
     public float[] worldToGrid(float ... coord);
 
-    // todo should be a static library method
-    
-    //public IImageSpace union(IImageSpace other);
-
-    // todo should be a static library method
-    //public BrainPoint getCentroid();
-
-
 }
