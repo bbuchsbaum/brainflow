@@ -47,8 +47,9 @@
     <orderEntry type="library" name="balloontip" level="application" />
     <orderEntry type="library" name="commons-pipeline" level="application" />
     <orderEntry type="library" name="miglayout" level="application" />
-    <orderEntry type="library" name="scala-2.7.3 (2)" level="project" />
     <orderEntry type="library" name="kd-tree" level="application" />
+    <orderEntry type="module" module-name="scalaflow" />
+    <orderEntry type="library" name="scala-2.7.5" level="application" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ACTIVE_VCS_NAME" value="svn" />

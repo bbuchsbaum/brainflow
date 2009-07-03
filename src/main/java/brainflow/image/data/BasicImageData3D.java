@@ -126,13 +126,18 @@ public class BasicImageData3D extends AbstractImageData3D  {
         return ArrayUtils.scaleToBytes(dataSupport.getStorage(), minValue(), maxValue(), 255);       
     }
 
-    public ImageBuffer3D createWriter(boolean clear) {
-        return new ImageBuffer3D() {
-            IImageSpace3D space = BasicImageData3D.this.getImageSpace();
-            //DataBuffer buffer = BasicImageData3D.this.dataSupport.copyBuffer();
-            Object storage = BasicImageData3D.this.dataSupport.getStorage();
+    public ImageBuffer3D createWriter(final boolean clear) {
+        final IImageSpace3D space = BasicImageData3D.this.getImageSpace();
+        final Object storage = BasicImageData3D.this.dataSupport.getStorage();
+        final BasicImageData3D delegate;
 
-            BasicImageData3D delegate = new BasicImageData3D(space, storage);
+        if (clear) {
+            delegate = new BasicImageData3D(space, storage);
+        } else {
+            delegate = new BasicImageData3D(space, BasicImageData3D.this.getDataType());
+        }
+
+        return new ImageBuffer3D() {
 
             public void setValue(int x, int y, int z, double val) {
                 delegate.setValue(x,y,z,val);

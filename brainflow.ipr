@@ -376,44 +376,5 @@
       </value>
     </option>
   </component>
-  <component name="libraryTable">
-    <library name="scala-2.7.3-final">
-      <CLASSES>
-        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-partest.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-library.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-dbc.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-compiler.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.3.latest/lib/scala-swing.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-dbc-src.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-swing-src.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-compiler-src.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.3.latest/src/scala-library-src.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="scala-2.7.4RC1">
-      <CLASSES>
-        <root url="jar://C:/javacode/scala-2.7.4RC1/lib/scala-library.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.4RC1/lib/scala-swing.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.4RC1/lib/scala-compiler.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://C:/javacode/scala-2.7.4RC1/src/scala-swing-src.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.4RC1/src/scala-compiler-src.jar!/" />
-        <root url="jar://C:/javacode/scala-2.7.4RC1/src/scala-library-src.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="scala-2.7.3 (2)">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/scalaflow/lib/scala-compiler.jar!/" />
-        <root url="jar://$PROJECT_DIR$/scalaflow/lib/scala-library.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-  </component>
 </project>
 

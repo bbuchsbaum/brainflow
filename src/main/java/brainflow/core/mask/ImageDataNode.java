@@ -2,6 +2,7 @@ package brainflow.core.mask;
 
 import brainflow.image.data.*;
 import brainflow.image.operations.*;
+import brainflow.image.space.IImageSpace3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -80,7 +81,7 @@ public class ImageDataNode extends AbstractNode implements ValueNode<IImageData>
     }
 
     public LeafNode visitConstant(ConstantNode left, BinaryOperand op) {
-        IImageData3D cdat = ImageData.createConstantData(left.evaluate().doubleValue(), data.getImageSpace());
+        IImageData3D cdat = ImageData.createConstantData(left.evaluate().doubleValue(), (IImageSpace3D)data.getImageSpace());
         BivariateMaskNode3D bdata = new BivariateMaskNode3D(cdat, (IImageData3D) evaluate(), Operations.lookup(op));
         return new MaskDataNode(bdata);
 

@@ -6,6 +6,7 @@ import brainflow.image.iterators.ImageIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.ImageSpace2D;
 import brainflow.image.space.IImageSpace2D;
+import brainflow.image.space.IImageSpace3D;
 import brainflow.utils.DataType;
 import brainflow.utils.IDimension;
 
@@ -107,14 +108,17 @@ public class BasicImageData2D extends AbstractImageData2D  {
     }
 
     public ImageBuffer2D createWriter(boolean clear) {
+        final IImageSpace2D space = BasicImageData2D.this.getImageSpace();
+        final Object storage = BasicImageData2D.this.dataSupport.getStorage();
+        final BasicImageData2D delegate;
+
+        if (clear) {
+            delegate = new BasicImageData2D(space, storage);
+        } else {
+            delegate = new BasicImageData2D(space, BasicImageData2D.this.getDataType());
+        }
+
         return new ImageBuffer2D() {
-
-
-            IImageSpace2D space = BasicImageData2D.this.getImageSpace();
-            DataBuffer buffer = BasicImageData2D.this.dataSupport.copyBuffer();
-            Object storage = BasicImageData2D.this.dataSupport.getStorage();
-
-            BasicImageData2D delegate = new BasicImageData2D(space, storage);
 
             public final int indexOf(int x, int y) {
                 return delegate.indexOf(x,y);
