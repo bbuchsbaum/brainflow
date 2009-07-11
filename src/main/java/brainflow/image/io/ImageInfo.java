@@ -10,6 +10,7 @@ import brainflow.utils.*;
 import org.apache.commons.vfs.FileObject;
 
 import java.nio.ByteOrder;
+import java.util.Arrays;
 
 
 /**
@@ -62,7 +63,7 @@ public class ImageInfo implements java.io.Serializable {
 
     protected ImageInfo() {
     }
-    
+
     private ImageInfo(FileObject headerFile, FileObject dataFile) {
         this.headerFile = headerFile;
         this.dataFile = dataFile;
@@ -135,9 +136,31 @@ public class ImageInfo implements java.io.Serializable {
         }
 
 
+    }
+
+    public static boolean isValidExtension(String fileName, String[] validExtensions) {
+        for (int i = 0; i < validExtensions.length; i++) {
+            if (fileName.endsWith(validExtensions[i])) {
+                return true;
+            }
+
+        }
+
+        return false;
+
 
     }
 
+    public static String stripExtension(String fileName, String[] validExtensions) {
+        for (int i = 0; i < validExtensions.length; i++) {
+            if (fileName.endsWith(validExtensions[i])) {
+                return fileName.substring(fileName.length() - validExtensions.length);
+            }
+
+        }
+
+        throw new IllegalArgumentException("fileName " + fileName + " does not have a valid extension from the set: " + Arrays.toString(validExtensions));
+    }
 
 
     public static class Builder extends AbstractBuilder {
@@ -223,12 +246,12 @@ public class ImageInfo implements java.io.Serializable {
         }
 
         public Builder intercept(double intercept) {
-            info.intercept = (float)intercept;
+            info.intercept = (float) intercept;
             return this;
         }
 
         public Builder scaleFactor(double scaleFactor) {
-            info.scaleFactor = (float)scaleFactor;
+            info.scaleFactor = (float) scaleFactor;
             return this;
         }
 
@@ -249,9 +272,6 @@ public class ImageInfo implements java.io.Serializable {
         }
     }
 
-        
-
-
 
     public ImageInfo selectInfo(int index) {
         if (index < 0 || index >= getNumImages()) {
@@ -259,7 +279,7 @@ public class ImageInfo implements java.io.Serializable {
         }
 
         ImageInfo.Builder builder = new ImageInfo.Builder(this);
-        builder.dimensionality(getDimensionality()-1);
+        builder.dimensionality(getDimensionality() - 1);
         builder.imageIndex(index);
         builder.imageLabel(getHeaderFile().getName().getBaseName() + ":" + index);
         return builder.build();
@@ -306,7 +326,7 @@ public class ImageInfo implements java.io.Serializable {
         return endian;
     }
 
-    public IDimension getArrayDim() {
+    public IDimension<Integer> getArrayDim() {
         return arrayDim;
     }
 
@@ -330,7 +350,7 @@ public class ImageInfo implements java.io.Serializable {
         Double[] realVals = new Double[arrayDim.numDim()];
         for (int i = 0; i < realVals.length; i++) {
             realVals[i] = spacing.getDim(i).doubleValue() * arrayDim.getDim(i).doubleValue();
-            
+
         }
         return DimensionFactory.create(realVals);
     }
@@ -344,9 +364,6 @@ public class ImageInfo implements java.io.Serializable {
         return mapping;
     }
 
-    void setMapping(ImageMapping3D mapping) {
-        this.mapping = mapping;
-    }
 
     public String getImageLabel() {
         if (imageLabel == null) {
@@ -357,7 +374,7 @@ public class ImageInfo implements java.io.Serializable {
                 imageLabel = getHeaderFile().getName().getBaseName();
             }
         }
-                
+
         return imageLabel;
     }
 
@@ -369,9 +386,6 @@ public class ImageInfo implements java.io.Serializable {
         return intercept;
     }
 
-    void setIntercept(float intercept) {
-        this.intercept = intercept;
-    }
 
     void setNumImages(int _numImages) {
         numImages = _numImages;
@@ -381,9 +395,6 @@ public class ImageInfo implements java.io.Serializable {
         return numImages;
     }
 
-    void setVoxelOffset(Dimension3D _voxelOffset) {
-        voxelOffset = _voxelOffset;
-    }
 
     public IDimension<Integer> getVoxelOffset() {
         return voxelOffset;
@@ -409,9 +420,6 @@ public class ImageInfo implements java.io.Serializable {
         return imageIndex;
     }
 
-    void setImageIndex(int imageIndex) {
-        this.imageIndex = imageIndex;
-    }
 
     // public because this can be reset after loading when information is incorrect...
     public void setAnatomy(Anatomy3D _anatomy) {
@@ -440,7 +448,7 @@ public class ImageInfo implements java.io.Serializable {
         this.origin = origin;
     }
 
-    public IDimension getSpacing() {
+    public IDimension<Double> getSpacing() {
         return spacing;
     }
 

@@ -1,5 +1,7 @@
 package brainflow.utils;
 
+import java.lang.reflect.Array;
+
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -65,5 +67,8 @@ public class Dimension4D<T extends Number> implements IDimension<T>, java.io.Ser
         return "[" + zero + ", " + one + ", " + two + ", " + three + "]";
     }
 
-
+    @Override
+    public Number[] toArray() {
+        return new Number[] { zero, one, two, three };
+    }
 }

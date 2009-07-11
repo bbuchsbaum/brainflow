@@ -126,7 +126,6 @@ public class BrainFlow {
             public void run() {
                 try {
                     log.info("Launching BrainFlow ...");
-
                     bflow.launch();
                 } catch (Throwable e) {
                     Logger.getAnonymousLogger().severe("Error Launching BrainFlow, exiting");

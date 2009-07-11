@@ -6,8 +6,15 @@ import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.math.Matrix4f;
 import brainflow.math.Vector3f;
 import brainflow.math.Matrix3f;
+import brainflow.utils.DataType;
 
 import static java.lang.Math.*;
+import java.util.*;
+import java.io.IOException;
+
+import org.apache.commons.vfs.VFS;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.FileSystemException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,8 +27,6 @@ public class NiftiImageInfo extends ImageInfo {
 
     private int qfac = 1;
 
-
-
     private Matrix4f qform = new Matrix4f();
 
     private Matrix4f sform = new Matrix4f();
@@ -30,11 +35,31 @@ public class NiftiImageInfo extends ImageInfo {
 
     private Vector3f qoffset = new Vector3f();
 
+    private List<Extension> extensionList = new ArrayList<Extension>();
+
+    public static final String[] validHeaderExtensions = { ".nii", ".nii.gz", ".hdr", ".hdr.gz"};
+
+    public static final String[] validImageExtensions = { ".nii", ".nii.gz", ".img", ".img.gz"};
+
+    public static final Map<String, String> validExtensionPairs = new HashMap<String, String>();
+
+
+
+    static {
+        validExtensionPairs.put(".hdr", ".img");
+        validExtensionPairs.put(".hdr.gz", ".img.gz");
+        validExtensionPairs.put(".nii", ".nii");
+        validExtensionPairs.put(".nii.gz", ".nii.gz");
+    }
+
+
     //todo provide reasonable defaults?
 
 
     private NiftiImageInfo() {
     }
+
+
 
     public NiftiImageInfo(NiftiImageInfo info) {
         super(info);
@@ -71,15 +96,201 @@ public class NiftiImageInfo extends ImageInfo {
 
     }
 
+    public NiftiImageInfo copy(FileObject newHeaderFile, FileObject newDataFile) {
+        if (!NiftiImageInfo.areCompatible(newHeaderFile, newDataFile)) {
+            throw new IllegalArgumentException("header " + newHeaderFile + " and image" + newDataFile + " are not compatible");
+        }
+
+
+        //try {
+            //if (newHeaderFile.exists()) {
+            //    throw new IllegalArgumentException("header file " + newHeaderFile + " already exists");
+            //}
+            //if (newDataFile.exists()) {
+            //    throw new IllegalArgumentException("image file " + newDataFile + " already exists");
+            //}
+
+                     
+            NiftiImageInfo.Builder builder = new NiftiImageInfo.Builder(this);
+            builder.headerFile(newHeaderFile);
+            builder.dataFile(newDataFile);
+            builder.qfac(qfac);
+            builder.qform(qform);
+            builder.sform(sform);
+            builder.quaternion(quaternion);
+            builder.extensions(extensionList);
+
+            return builder.build();
+
+        //} catch(IOException e) {
+        //    throw new IllegalArgumentException(e);
+        //}
+    }
+
     @Override
     public ImageReader createImageReader() {
         return new NiftiImageReader(this);
+    }
+
+    public boolean hasExtensions() {
+        return extensionList.size() > 0;
+    }
+
+    public List<Extension> getExtensionList() {
+        return extensionList;
+    }
+
+    public static boolean isHeaderFile(String name) {
+        if (ImageInfo.isValidExtension(name, validHeaderExtensions)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean isImageFile(String name) {
+        if (ImageInfo.isValidExtension(name, validImageExtensions)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static String getHeaderName(String name, String defaultExtension) {
+        Set<String> keyset = validExtensionPairs.keySet();
+        for (String headerExt : keyset) {
+            String imageExt = validExtensionPairs.get(headerExt);
+            if (name.endsWith(headerExt)) {
+                return name;
+            } else if (name.endsWith(imageExt)) {
+                return name.substring(0, name.length() - imageExt.length()) + headerExt;
+            }
+        }
+
+        return name + defaultExtension;
+    }
+
+    public static String getImageName(String name, String defaultExtension) {
+        Set<String> keySet = validExtensionPairs.keySet();
+        for (String headerExt : keySet) {
+            String imageExt = validExtensionPairs.get(headerExt);
+            if (name.endsWith(headerExt)) {
+                return name.substring(0, name.length() - headerExt.length()) + imageExt;
+            } else if (name.endsWith(imageExt)) {
+                return name;
+            }
+        }
+
+        return name + defaultExtension;
+
+    }
+
+    public static boolean areCompatible(String headerName, String imageName) {
+
+        if (!(isHeaderFile(headerName) && isImageFile(imageName))) {
+            return false;
+        }
+
+        Set<String> keySet = validExtensionPairs.keySet();
+        for (String headerExt : keySet) {
+            String imageExt = validExtensionPairs.get(headerExt);
+            if (headerName.endsWith(headerExt) && imageName.endsWith(imageExt)) {
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+
+    public static boolean areCompatible(FileObject header, FileObject image) {
+        String headerName = header.getName().getPath();
+        String imageName = image.getName().getPath();
+
+        return NiftiImageInfo.areCompatible(headerName, imageName);
+    }
+
+    public static short getDataTypeCode(DataType datatype) {
+        switch (datatype) {
+            case BOOLEAN:
+                return Nifti1Dataset.NIFTI_TYPE_INT8;
+            case BYTE:
+                return Nifti1Dataset.NIFTI_TYPE_INT8;
+            case COMPLEX:
+                return Nifti1Dataset.NIFTI_TYPE_COMPLEX64;
+            case DOUBLE:
+                return Nifti1Dataset.NIFTI_TYPE_FLOAT64;
+            case FLOAT:
+                return Nifti1Dataset.NIFTI_TYPE_FLOAT32;
+            case INTEGER:
+                return Nifti1Dataset.NIFTI_TYPE_INT32;
+            case LONG:
+                return Nifti1Dataset.NIFTI_TYPE_INT64;
+            case SHORT:
+                return Nifti1Dataset.NIFTI_TYPE_INT16;
+            case UBYTE:
+                return Nifti1Dataset.NIFTI_TYPE_UINT8;
+            default:
+                throw new IllegalArgumentException("cannot encode data type: " + datatype);
+        }
+
+    }
+
+    public static DataType getDataType(short datatype) {
+        DataType dtype;
+
+        switch (datatype) {
+            case Nifti1Dataset.NIFTI_TYPE_UINT8:
+                dtype = DataType.UBYTE;
+                break;
+            case Nifti1Dataset.NIFTI_TYPE_INT8:
+                dtype = DataType.BYTE;
+                break;
+            case Nifti1Dataset.NIFTI_TYPE_INT16:
+                dtype = DataType.SHORT;
+                break;
+            case Nifti1Dataset.NIFTI_TYPE_INT32:
+                dtype = DataType.INTEGER;
+                break;
+            case Nifti1Dataset.NIFTI_TYPE_FLOAT32:
+                dtype = DataType.FLOAT;
+                break;
+            case Nifti1Dataset.NIFTI_TYPE_FLOAT64:
+                dtype = DataType.DOUBLE;
+                break;
+            case Nifti1Dataset.NIFTI_TYPE_INT64:
+                dtype = DataType.LONG;
+                break;
+            case Nifti1Dataset.NIFTI_TYPE_UINT16:
+                throw new IllegalArgumentException("Do not support NIFTI_TYPE_UINT16 dataType");
+            case Nifti1Dataset.NIFTI_TYPE_UINT32:
+                throw new IllegalArgumentException("Do not support NIFTI_TYPE_UINT32 dataType");
+            case Nifti1Dataset.NIFTI_TYPE_UINT64:
+                throw new IllegalArgumentException("Do not support NIFTI_TYPE_UINT64 dataType");
+            case Nifti1Dataset.NIFTI_TYPE_RGB24:
+                throw new IllegalArgumentException("Do not support NIFTI_TYPE_RGB24 dataType");
+            default:
+                throw new IllegalArgumentException("Do not support NIFTI_TYPE " + datatype);
+
+        }
+
+        return dtype;
+
     }
 
     public static class Builder extends ImageInfo.Builder {
 
         public Builder() {
             super(new NiftiImageInfo());
+        }
+
+        public Builder(NiftiImageInfo info) {
+            super(new NiftiImageInfo(info));
+            qform(info.qform);
+            sform(info.sform);
+            quaternion(info.quaternion);
+            qfac(info.qfac);
+            qoffset(info.qoffset);
         }
 
         private NiftiImageInfo info() {
@@ -108,6 +319,11 @@ public class NiftiImageInfo extends ImageInfo {
 
         public Builder qoffset(Vector3f qoffset) {
             info().qoffset = qoffset;
+            return this;
+        }
+
+        public Builder extensions(List<Extension> extlist) {
+            info().extensionList = extlist;
             return this;
         }
 
@@ -435,6 +651,32 @@ public class NiftiImageInfo extends ImageInfo {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NiftiImageInfo that = (NiftiImageInfo) o;
+
+        if (qfac != that.qfac) return false;
+        if (!qform.equals(that.qform)) return false;
+        if (!qoffset.equals(that.qoffset)) return false;
+        if (!quaternion.equals(that.quaternion)) return false;
+        if (!sform.equals(that.sform)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = qfac;
+        result = 31 * result + qform.hashCode();
+        result = 31 * result + sform.hashCode();
+        result = 31 * result + quaternion.hashCode();
+        result = 31 * result + qoffset.hashCode();
+        return result;
+    }
+
     public String toString() {
         return super.toString() + "\n" + "NiftiImageInfo{" +
                 "qfac=" + qfac +
@@ -443,6 +685,26 @@ public class NiftiImageInfo extends ImageInfo {
                 ", quaternion=" + quaternion +
                 ", qoffset=" + qoffset +
                 '}';
+    }
+
+
+    public static class Extension {
+        public static final int ECODE_UNKNOWN = 0;
+        public static final int ECODE_DICOM = 2;
+        public static final int ECODE_AFNI = 4;
+
+        public Extension(int esize, int ecode, byte[] blob) {
+            this.esize = esize;
+            this.ecode = ecode;
+            this.blob = blob;
+        }
+
+        int esize;
+
+        int ecode;
+
+        byte[] blob;
+        
     }
 }
 

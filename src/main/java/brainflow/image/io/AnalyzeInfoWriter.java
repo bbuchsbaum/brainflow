@@ -7,14 +7,14 @@
 package brainflow.image.io;
 
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.ImageInfo;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 
-import javax.imageio.stream.FileImageOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
+import javax.imageio.stream.MemoryCacheImageOutputStream;
+import java.io.*;
+
+
 
 /**
  * @author Bradley
@@ -30,12 +30,16 @@ public class AnalyzeInfoWriter implements brainflow.image.io.ImageInfoWriter {
     /**
      * Creates a new instance of ImageInfoWriter
      */
-    public void writeInfo(File file, ImageInfo info) throws BrainFlowException {
-        FileImageOutputStream ostream = null;
+    public long writeInfo(ImageInfo info) throws BrainFlowException {
+        MemoryCacheImageOutputStream ostream = null;
+        long streamPos = -1;
+
         try {
-            String opname = AnalyzeInfoReader.getHeaderName(file.getAbsolutePath());
-            ostream = new FileImageOutputStream(new File(opname));
-            ostream.setByteOrder(info.getEndian());
+
+            ostream = new MemoryCacheImageOutputStream(
+                    new BufferedOutputStream(info.getHeaderFile().getContent().getOutputStream()));
+            
+           ostream.setByteOrder(info.getEndian());
 
             int sizeof_hdr = 348;
 
@@ -137,6 +141,7 @@ public class AnalyzeInfoWriter implements brainflow.image.io.ImageInfoWriter {
             ostream.writeInt(omin);
             ostream.writeInt(smax);
             ostream.writeInt(smin);
+            return ostream.getStreamPosition();
         }
         catch (FileNotFoundException e) {
             throw new BrainFlowException(e);

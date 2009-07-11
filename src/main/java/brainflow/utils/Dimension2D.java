@@ -57,5 +57,10 @@ public class Dimension2D<T extends Number> implements IDimension<T>, java.io.Ser
         return "[" + zero + ", " + one + "]";
     }
 
+    @Override
+    public Number[] toArray() {
+        return new Number[] { zero, one };
+    }
+
 
 }

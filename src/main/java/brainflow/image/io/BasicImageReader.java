@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.logging.Logger;
+import java.util.Arrays;
 
 /**
  * <p>Title: </p>
@@ -48,8 +49,6 @@ public class BasicImageReader implements ImageReader {
     private FileObject inputFile;
 
     private ByteOrder byteOrder = java.nio.ByteOrder.BIG_ENDIAN;
-
-    public ByteBuffer buffer;
 
 
     private int skipUnits = 0;
@@ -110,6 +109,7 @@ public class BasicImageReader implements ImageReader {
     protected IImageData getOutput(ProgressListener listener) throws BrainFlowException {
 
         InputStream istream = null;
+        IImageData dat = null;
 
         try {
 
@@ -123,10 +123,12 @@ public class BasicImageReader implements ImageReader {
 
             //log.info("Input file system type: " + inputFile.getFileSystem());
 
-            istream = new BufferedInputStream(inputFile.getContent().getInputStream());
+            istream = inputFile.getContent().getInputStream();
+
             log.info("Getting input Stream ...");
             log.info("Input Stream is " + istream.getClass().getCanonicalName());
-            long nread = istream.read(new byte[getByteOffset()]);
+            long nread = istream.skip(getByteOffset());
+            System.out.println("skipped " + nread + " bytes");
 
             //rac = inputFile.getContent().getRandomAccessContent(RandomAccessMode.READ);
             //rac.seek(getDataOffset());
@@ -143,6 +145,8 @@ public class BasicImageReader implements ImageReader {
 
             for (int i = 0; i < NUM_CHUNKS; i++) {
                 nread = istream.read(tmpdata);
+                System.out.println("read chunk " + nread);
+                System.out.println("available?" + istream.available());
                 //rac.readFully(tmpdata);
                 wholeBuffer.put(tmpdata);
                 listener.setValue(i * chunkSize);
@@ -154,9 +158,8 @@ public class BasicImageReader implements ImageReader {
             //rac.readFully(lastData);
 
             wholeBuffer.put(lastData);
-            listener.setValue(numBytes);
-            listener.setString("Finished Reading Data");
 
+            
 
             wholeBuffer.rewind();
             listener.setString("Converting Bytes To Array of Type: " + datatype);
@@ -192,22 +195,28 @@ public class BasicImageReader implements ImageReader {
                 throw new RuntimeException("BasicImageReader.getOutput(): Illegal Data Type: " + datatype.toString());
             }
 
+            listener.setValue(numBytes);
+            listener.setString("Finished Reading Data");
+
             //if (scaleRequired) {
             //    data = ArrayUtils.scale(data, sf);
             //}
 
+
+
             if (fileDimensionality == 2) {
-                IImageData2D dat = new BasicImageData2D((ImageSpace2D) imageSpace, data, info.getDataFile().getName().getBaseName());
-                listener.finished();
-                return dat;
+                dat = new BasicImageData2D((ImageSpace2D) imageSpace, data, info.getDataFile().getName().getBaseName());
+                //if (scaleRequired) {
+                //    dat = ImageData.createScaledData((IImageData2D)dat, sf);
+                //}
+
             } else if (fileDimensionality == 3) {
 
-                IImageData3D dat = new BasicImageData3D((ImageSpace3D) imageSpace, data, info.getDataFile().getName().getBaseName());
+                dat = new BasicImageData3D((ImageSpace3D) imageSpace, data, info.getDataFile().getName().getBaseName());
                 if (scaleRequired) {
-                    dat = ImageData.createScaledData(dat, sf);
+                    dat = ImageData.createScaledData((IImageData3D) dat, sf);
                 }
-                listener.finished();
-                return dat;
+
             } else {
                 throw new RuntimeException("BasicImageReader.getOutput(): Dimensionality of: " + fileDimensionality + " not supported!");
             }
@@ -227,6 +236,9 @@ public class BasicImageReader implements ImageReader {
             }
         }
 
+        listener.finished();
+        return dat;
+
 
     }
 
@@ -237,7 +249,7 @@ public class BasicImageReader implements ImageReader {
         FileChannel inChannel = null;
 
         try {
-            int numBytes = imageSpace.getNumSamples() * datatype.getBytesPerUnit();
+            int numBytes = imageSpace.getNumSamples() * dataType.getBytesPerUnit();
 
 
             byte[] bdata = FileUtil.getContent(inputFile);
@@ -248,7 +260,7 @@ public class BasicImageReader implements ImageReader {
 
             //FileInputStream istream = new FileInputStream(ifile);
             //inChannel = istream.getChannel();
-            //inChannel.position(skipUnits * datatype.getBytesPerUnit());
+            //inChannel.position(skipUnits * dataType.getBytesPerUnit());
 
             buffer = ByteBuffer.allocate(numBytes);
 
@@ -264,23 +276,23 @@ public class BasicImageReader implements ImageReader {
             if (NumberUtils.equals(info.getScaleFactor(), 1, .000001) || NumberUtils.equals(info.getScaleFactor(), 0, .0000001)) {
                 scaleRequired = false;
             }
-            if (datatype == DataType.BYTE) {
+            if (dataType == DataType.BYTE) {
                 dataArray = bdata;
-            } else if (datatype == DataType.SHORT) {
+            } else if (dataType == DataType.SHORT) {
                 dataArray = new short[imageSpace.getNumSamples()];
                 buffer.asShortBuffer().get((short[]) dataArray);
-            } else if (datatype == DataType.FLOAT) {
+            } else if (dataType == DataType.FLOAT) {
                 dataArray = new float[imageSpace.getNumSamples()];
                 buffer.asFloatBuffer().get((float[]) dataArray);
-            } else if (datatype == DataType.DOUBLE) {
+            } else if (dataType == DataType.DOUBLE) {
                 dataArray = new double[imageSpace.getNumSamples()];
                 buffer.asDoubleBuffer().get((double[]) dataArray);
-            } else if (datatype == DataType.INTEGER) {
+            } else if (dataType == DataType.INTEGER) {
                 dataArray = new int[imageSpace.getNumSamples()];
                 buffer.asIntBuffer().get((int[]) dataArray);
 
             } else {
-                throw new RuntimeException("BasicImageReader.getOutput(): Illegal Data Type: " + datatype.toString());
+                throw new RuntimeException("BasicImageReader.getOutput(): Illegal Data Type: " + dataType.toString());
             }
 
 

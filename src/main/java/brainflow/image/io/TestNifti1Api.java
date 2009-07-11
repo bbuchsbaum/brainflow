@@ -139,7 +139,7 @@ public class TestNifti1Api {
         short xx, yy, zz, tt;
         if (args[0].equals("create")) {
             if (args.length != 8) {
-                System.out.println("\nError, create command takes exactly seven parameters: create <new dataset name> <datatype> X Y Z T <A|B|X>");
+                System.out.println("\nError, create command takes exactly seven parameters: create <new dataset name> <dataType> X Y Z T <A|B|X>");
                 return;
             }
             Nifti1Dataset nds = new Nifti1Dataset();
@@ -200,7 +200,7 @@ public class TestNifti1Api {
         System.out.println("\tcopy <dataset> <dataset2>");
         System.out.println("\three\tdisk copy of dataset to dataset2 ");
 
-        System.out.println("\tcreate <new dataset> <datatype> X Y Z T <A|B|X>");
+        System.out.println("\tcreate <new dataset> <dataType> X Y Z T <A|B|X>");
         System.out.println("\three\tcreate a new dataset of dimension XYZT.");
         System.out.println("\three\tVoxel values are determined by last param.");
         System.out.println("\three\tA -- volumes are constant val, equal to their T index.");

@@ -10,14 +10,16 @@ import brainflow.core.BrainFlowException;
 
 import java.io.File;
 
+import org.apache.commons.vfs.FileObject;
+
 /**
  * @author Bradley
  */
-public interface ImageInfoWriter {
+public interface ImageInfoWriter<T extends ImageInfo> {
 
     /**
      * Creates a new instance of ImageInfoWriter
      */
-    public void writeInfo(File file, ImageInfo info) throws BrainFlowException;
+    public long writeInfo(T info) throws BrainFlowException;
 
 }

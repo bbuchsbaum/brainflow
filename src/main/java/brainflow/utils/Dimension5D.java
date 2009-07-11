@@ -70,5 +70,10 @@ public class Dimension5D<T extends Number> implements IDimension<T>, java.io.Ser
         return "[" + zero + ", " + one + ", " + two + ", " + three + ", " + four + "]";
     }
 
+    @Override
+    public Number[] toArray() {
+        return new Number[] { zero, one, two, three, four };
+    }
+
 
 }

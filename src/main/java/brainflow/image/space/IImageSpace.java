@@ -14,6 +14,11 @@ import brainflow.utils.IDimension;
  */
 public interface IImageSpace extends ICoordinateSpace {
 
+
+    //implement "strides concept"
+
+    // handle indexing in image space
+
     public IDimension<Integer> getDimension();
 
     public IDimension<Float> getOrigin();

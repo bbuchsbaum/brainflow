@@ -14,7 +14,7 @@ import java.awt.image.*;
  */
 public class DataBufferSupport {
 
-    public DataBuffer data;
+    private DataBuffer data;
 
     private Object storage;
 
@@ -36,6 +36,8 @@ public class DataBufferSupport {
         this.datatype = datatype;
         data = allocateBuffer(space.getNumSamples());
     }
+
+
 
 
     public Object getStorage() {
@@ -100,19 +102,40 @@ public class DataBufferSupport {
 
     }
 
+    public DataBufferSupport copy() {
+        return new DataBufferSupport(this.getSpace(), copyArray());
+    }
 
-
-    protected DataBuffer copyBuffer() {
+    protected Object copyArray() {
         if (datatype == DataType.BYTE) {
-            return new DataBufferByte((byte[]) storage, ((byte[])storage).length);
+            return ((byte[]) storage).clone();
         } else if (datatype == DataType.SHORT) {
-            return new DataBufferShort((short[]) storage, ((short[])storage).length);
+            return ((short[]) storage).clone();
         } else if (datatype == DataType.INTEGER) {
-            return new DataBufferInt((int[]) storage, ((int[])storage).length);
+            return ((int[]) storage).clone();
         } else if (datatype == DataType.FLOAT) {
-            return new DataBufferFloat((float[]) storage, ((float[])storage).length);
+            return ((float[]) storage).clone();
         } else if (datatype == DataType.DOUBLE) {
-            return new DataBufferDouble((double[]) storage, ((double[])storage).length);
+            return ((double[]) storage).clone();
+        } else {
+            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + datatype.toString());
+        }
+
+    }
+
+
+
+    private DataBuffer copyBuffer() {
+        if (datatype == DataType.BYTE) {
+            return new DataBufferByte(((byte[]) storage).clone(), ((byte[])storage).length);
+        } else if (datatype == DataType.SHORT) {
+            return new DataBufferShort(((short[]) storage).clone(), ((short[])storage).length);
+        } else if (datatype == DataType.INTEGER) {
+            return new DataBufferInt(((int[]) storage).clone(), ((int[])storage).length);
+        } else if (datatype == DataType.FLOAT) {
+            return new DataBufferFloat(((float[]) storage).clone(), ((float[])storage).length);
+        } else if (datatype == DataType.DOUBLE) {
+            return new DataBufferDouble(((double[]) storage).clone(), ((double[])storage).length);
         } else {
             throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + datatype.toString());
         }

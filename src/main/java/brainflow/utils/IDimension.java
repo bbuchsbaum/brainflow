@@ -14,4 +14,6 @@ public interface IDimension<T extends Number> {
     public T getDim(int dimnum);
 
     public int product();
+
+    public Number[] toArray();
 }

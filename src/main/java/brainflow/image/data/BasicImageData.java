@@ -77,18 +77,18 @@ public abstract class BasicImageData extends AbstractImageData {
     }
 
     protected void fillBuffer(Object storage, int size) {
-        if (datatype == DataType.BYTE) {
+        if (dataType == DataType.BYTE) {
             data = new DataBufferByte((byte[]) storage, size);
-        } else if (datatype == DataType.SHORT) {
+        } else if (dataType == DataType.SHORT) {
             data = new DataBufferShort((short[]) storage, size);
-        } else if (datatype == DataType.INTEGER) {
+        } else if (dataType == DataType.INTEGER) {
             data = new DataBufferInt((int[]) storage, size);
-        } else if (datatype == DataType.FLOAT) {
+        } else if (dataType == DataType.FLOAT) {
             data = new DataBufferFloat((float[]) storage, size);
-        } else if (datatype == DataType.DOUBLE) {
+        } else if (dataType == DataType.DOUBLE) {
             data = new DataBufferDouble((double[]) storage, size);
         } else {
-            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + datatype.toString());
+            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + dataType.toString());
         }
 
 
@@ -100,45 +100,45 @@ public abstract class BasicImageData extends AbstractImageData {
     }
 
     protected DataBuffer copyBuffer() {
-        if (datatype == DataType.BYTE) {
+        if (dataType == DataType.BYTE) {
             return new DataBufferByte((byte[]) storage, ((byte[])storage).length);
-        } else if (datatype == DataType.SHORT) {
+        } else if (dataType == DataType.SHORT) {
             return new DataBufferShort((short[]) storage, ((short[])storage).length);
-        } else if (datatype == DataType.INTEGER) {
+        } else if (dataType == DataType.INTEGER) {
             return new DataBufferInt((int[]) storage, ((int[])storage).length);
-        } else if (datatype == DataType.FLOAT) {
+        } else if (dataType == DataType.FLOAT) {
             return new DataBufferFloat((float[]) storage, ((float[])storage).length);
-        } else if (datatype == DataType.DOUBLE) {
+        } else if (dataType == DataType.DOUBLE) {
             return new DataBufferDouble((double[]) storage, ((double[])storage).length);
         } else {
-            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + datatype.toString());
+            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + dataType.toString());
         }
         
     }
     protected DataBuffer allocateBuffer(int size) {
 
-        if (datatype == DataType.BYTE) {
+        if (dataType == DataType.BYTE) {
             if (storage == null)
                 storage = new byte[size];
             data = new DataBufferByte((byte[]) storage, size);
-        } else if (datatype == DataType.SHORT) {
+        } else if (dataType == DataType.SHORT) {
             if (storage == null)
                 storage = new short[size];
             data = new DataBufferShort((short[]) storage, size);
-        } else if (datatype == DataType.INTEGER) {
+        } else if (dataType == DataType.INTEGER) {
             if (storage == null)
                 storage = new int[size];
             data = new DataBufferInt((int[]) storage, size);
-        } else if (datatype == DataType.FLOAT) {
+        } else if (dataType == DataType.FLOAT) {
             if (storage == null)
                 storage = new float[size];
             data = new DataBufferFloat((float[]) storage, size);
-        } else if (datatype == DataType.DOUBLE) {
+        } else if (dataType == DataType.DOUBLE) {
             if (storage == null)
                 storage = new double[size];
             data = new DataBufferDouble((double[]) storage, size);
         } else {
-            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + datatype.toString());
+            throw new IllegalArgumentException("DataBufferSupport: cannot allocate data of type " + dataType.toString());
         }
 
 

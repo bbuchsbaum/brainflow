@@ -71,6 +71,7 @@ public class BasicImageData3D extends AbstractImageData3D  {
         return (Anatomy3D)space.getAnatomy();
     }
 
+    @Deprecated
     public ImageInfo getImageInfo() {
         // todo is this  what we really want to do?
         return new ImageInfo(this);
@@ -104,22 +105,24 @@ public class BasicImageData3D extends AbstractImageData3D  {
     }
 
     public final double value(int index) {
-        return dataSupport.data.getElemDouble(index);
+        return dataSupport.getData().getElemDouble(index);
     }
 
 
     public final double value(int x, int y, int z) {
-        return dataSupport.data.getElemDouble(indexOf(x, y, z));
+        return dataSupport.getData().getElemDouble(indexOf(x, y, z));
     }
 
 
     private void setValue(int idx, double val) {
-        dataSupport.data.setElemDouble(idx, val);
+        dataSupport.getData().setElemDouble(idx, val);
     }
 
     private void setValue(int x, int y, int z, double val) {
-        dataSupport.data.setElemDouble(indexOf(x, y, z), val);
+        dataSupport.getData().setElemDouble(indexOf(x, y, z), val);
     }
+
+    
 
 
     public byte[] toBytes() {
@@ -128,11 +131,10 @@ public class BasicImageData3D extends AbstractImageData3D  {
 
     public ImageBuffer3D createWriter(final boolean clear) {
         final IImageSpace3D space = BasicImageData3D.this.getImageSpace();
-        final Object storage = BasicImageData3D.this.dataSupport.getStorage();
         final BasicImageData3D delegate;
 
         if (clear) {
-            delegate = new BasicImageData3D(space, storage);
+            delegate = new BasicImageData3D(space, dataSupport.copyArray());
         } else {
             delegate = new BasicImageData3D(space, BasicImageData3D.this.getDataType());
         }

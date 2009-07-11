@@ -154,7 +154,7 @@ public class Nifti1Dataset {
     public static final short NIFTI_LAST_STATCODE = 22;
 
 
-    // datatype codes for field datatype
+    // dataType codes for field dataType
     public static final short DT_NONE = 0;
     public static final short DT_BINARY = 1;
     public static final short NIFTI_TYPE_UINT8 = 2;
@@ -229,7 +229,7 @@ public class Nifti1Dataset {
     short dim[];        // data array dimensions (8 shorts)
     public float intent[];    // intents p1 p2 p3
     public short intent_code;    // nifti intent code for dataset
-    short datatype;    // datatype of image blob
+    short datatype;    // dataType of image blob
     short bitpix;        // #bits per voxel
     public short slice_start;    // first slice index
     public float pixdim[];    // grid spacings
@@ -460,7 +460,7 @@ public class Nifti1Dataset {
  * @throws IOException
  * @throws FileNotFoundException
  */
-    public void readHeader(InputStream inputStream) throws IOException, FileNotFoundException {
+    public void readHeader(InputStream inputStream) throws IOException {
 
         ImageInputStream dis;
 
@@ -473,6 +473,8 @@ public class Nifti1Dataset {
         else
             dis = new MemoryCacheImageInputStream(inputStream);
         try {
+            
+            System.out.println("stream length? " + dis.length());
 
             ///// first, read dim[0] to get endian-ness
             dis.skipBytes(40);
@@ -1267,7 +1269,7 @@ public class Nifti1Dataset {
 
         System.out.println("Magic filetype string:\three\three\three\three" + magic);
 
-        ///// Dataset datatype, size, units
+        ///// Dataset dataType, size, units
         System.out.println("Datatype:\three\three\three\three\three" + datatype + " (" + decodeDatatype(datatype) + ")");
         System.out.println("Bits per voxel:\three\three\three\three\three" + bitpix);
         System.out.println("Scaling slope and intercept:\three\three\three" + scl_slope + " " + scl_inter);
@@ -1891,7 +1893,7 @@ public class Nifti1Dataset {
         // check for negative voxel sizes
         // check for 348
         // check for magic code n+1 or ni1
-        // check bitpix divisible by 8 and in sync with datatype
+        // check bitpix divisible by 8 and in sync with dataType
 
         return 0;
     }
@@ -2016,7 +2018,7 @@ public class Nifti1Dataset {
         intent = new float[3];        // intents p1 p2 p3
 
         intent_code = NIFTI_INTENT_NONE;
-        datatype = DT_NONE;        // datatype of image blob
+        datatype = DT_NONE;        // dataType of image blob
         bitpix = 0;            // #bits per voxel
         slice_start = 0;        // first slice index
         pixdim = new float[8];        // grid spacings
@@ -2093,7 +2095,7 @@ public class Nifti1Dataset {
     //	bits 4,5 slice_dim
     //
     ////////////////////////////////////////////////////////////////////
-    private short[] unpackDimInfo(int b) {
+    public static short[] unpackDimInfo(int b) {
         short s[];
 
         s = new short[3];
@@ -2103,7 +2105,7 @@ public class Nifti1Dataset {
         return s;
     }
 
-    private byte packDimInfo(short freq, short phase, short slice) {
+    public static byte packDimInfo(short freq, short phase, short slice) {
 
         int i = 0;
 
@@ -2122,7 +2124,7 @@ public class Nifti1Dataset {
     //	bits for three code, the code is a multiple of 8.
     //
     ////////////////////////////////////////////////////////////////////
-    private short[] unpackUnits(int b) {
+    public static short[] unpackUnits(int b) {
         short s[];
 
         s = new short[2];
@@ -2131,7 +2133,7 @@ public class Nifti1Dataset {
         return s;
     }
 
-    private byte packUnits(short space, short time) {
+    public static byte packUnits(short space, short time) {
 
 
         return ((byte) (((int) (space) & 007) | ((int) (time) & 070)));
@@ -2257,7 +2259,7 @@ public class Nifti1Dataset {
             case NIFTI_TYPE_COMPLEX256:
             case DT_ALL:
             default:
-                throw new IOException("Sorry, cannot yet read nifti-1 datatype " + decodeDatatype(datatype));
+                throw new IOException("Sorry, cannot yet read nifti-1 dataType " + decodeDatatype(datatype));
         }
 
         ecs.close();
@@ -2370,7 +2372,7 @@ public class Nifti1Dataset {
             case NIFTI_TYPE_COMPLEX256:
             case DT_ALL:
             default:
-                throw new IOException("Sorry, cannot yet write nifti-1 datatype " + decodeDatatype(datatype));
+                throw new IOException("Sorry, cannot yet write nifti-1 dataType " + decodeDatatype(datatype));
 
         }
 
@@ -2666,7 +2668,7 @@ public class Nifti1Dataset {
                 case NIFTI_TYPE_COMPLEX256:
                 case DT_ALL:
                 default:
-                    throw new IOException("Sorry, cannot yet read nifti-1 datatype " + decodeDatatype(datatype));
+                    throw new IOException("Sorry, cannot yet read nifti-1 dataType " + decodeDatatype(datatype));
             }
 
 

@@ -5,18 +5,25 @@ import brainflow.core.BrainFlowException;
 import brainflow.image.data.IImageData;
 import brainflow.image.data.IImageData3D;
 import brainflow.image.data.AbstractImageData;
+import brainflow.image.iterators.ImageIterator;
 
 import brainflow.utils.DataType;
 import brainflow.utils.ProgressAdapter;
 
 import javax.imageio.stream.FileImageOutputStream;
+import javax.imageio.stream.ImageOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.logging.Logger;
 import java.util.List;
+
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.VFS;
+import org.apache.commons.vfs.FileSystemException;
 
 /**
  * <p>Title: </p>
@@ -34,6 +41,26 @@ public class BrainIO {
 
 
     public BrainIO() {
+    }
+
+    public static void main(String[] args) {
+        try {
+            String name = "c:/javacode/googlecode/brainflow/src/main/groovy/testdata/207_anat_alepi.nii";
+            FileObject fobj = VFS.getManager().resolveFile(name);
+            InputStream is = fobj.getContent().getInputStream();
+            is.read();
+            System.out.println("fobj is open?" + fobj.isContentOpen());
+            is.close();
+            System.out.println("fobj is open?" + fobj.isContentOpen());
+            System.out.println("can open?" + fobj.getContent().getInputStream());
+            fobj.close();
+            System.out.println("fobj is open?" + fobj.isContentOpen());
+
+        } catch(FileSystemException e) {
+            e.printStackTrace();
+        } catch(IOException e2) {
+            e2.printStackTrace();
+        }
     }
 
 
@@ -60,7 +87,7 @@ public class BrainIO {
     }
 
     public static boolean isSupportedFile(String fileName) {
-        if (NiftiInfoReader.isHeaderFile(fileName) || NiftiInfoReader.isImageFile(fileName)) {
+        if (NiftiImageInfo.isHeaderFile(fileName) || NiftiImageInfo.isImageFile(fileName)) {
             return true;
         }
 
@@ -83,7 +110,7 @@ public class BrainIO {
 
         String fileName = url.toString();
 
-        if (NiftiInfoReader.isHeaderFile(fileName) || NiftiInfoReader.isImageFile(fileName)) {
+        if (NiftiImageInfo.isHeaderFile(fileName) || NiftiImageInfo.isImageFile(fileName)) {
             return new NiftiInfoReader(fileName);
         }
 
@@ -103,7 +130,7 @@ public class BrainIO {
 
 
     public static ImageInfoReader createInfoReader(String fileName) {
-        if (NiftiInfoReader.isHeaderFile(fileName) || NiftiInfoReader.isImageFile(fileName)) {
+        if (NiftiImageInfo.isHeaderFile(fileName) || NiftiImageInfo.isImageFile(fileName)) {
             return new NiftiInfoReader(fileName);
         }
 
@@ -121,6 +148,13 @@ public class BrainIO {
 
     }
 
+    public static IImageData readNiftiImage(FileObject fobj) throws BrainFlowException{
+        NiftiInfoReader reader = new NiftiInfoReader(fobj, fobj);
+        List<ImageInfo> info = reader.readInfo();
+
+        BasicImageReader ireader = new BasicImageReader(info.get(0));
+        return ireader.readImage(new ProgressAdapter());
+    }
 
     public static IImageData readNiftiImage(URL header) throws BrainFlowException {
 
@@ -163,7 +197,96 @@ public class BrainIO {
         BasicImageReader ireader = new BasicImageReader(info.get(0));
         return ireader.readImage(new ProgressAdapter());
 
+        
+
     }
+
+    public static void writeToStream(DataType dtype, IImageData data, ImageOutputStream ostream) throws IOException {
+        switch (dtype) {
+
+            case BOOLEAN:
+                writeAsBytes(data, ostream);
+                break;
+            case BYTE:
+                writeAsBytes(data, ostream);
+                break;
+            case COMPLEX:
+                throw new UnsupportedOperationException("output of complex data type not supported");
+            case DOUBLE:
+                writeAsDoubles(data,ostream);
+                break;
+            case FLOAT:
+                writeAsFloats(data,ostream);
+                break;
+            case INTEGER:
+                writeAsInts(data,ostream);
+                break;
+            case LONG:
+                writeAsLongs(data,ostream);
+                break;
+            case SHORT:
+                writeAsShorts(data,ostream);
+                break;
+            case UBYTE:
+                writeAsBytes(data,ostream);
+                break;
+            default:
+                throw new UnsupportedOperationException("output of " + dtype + " data type not supported");
+
+        }
+
+    }
+
+    public static void writeAsBytes(IImageData data, ImageOutputStream ostream) throws IOException {
+        ImageIterator iter = data.iterator();
+        while (iter.hasNext()) {
+            ostream.writeByte((byte)iter.next());
+        }
+
+    }
+
+    public static void writeAsShorts(IImageData data, ImageOutputStream ostream) throws IOException {
+        ImageIterator iter = data.iterator();
+        while (iter.hasNext()) {
+            ostream.writeShort((short)iter.next());
+        }
+
+    }
+
+    public static void writeAsInts(IImageData data, ImageOutputStream ostream) throws IOException {
+        ImageIterator iter = data.iterator();
+        while (iter.hasNext()) {
+            ostream.writeInt((int)iter.next());
+        }
+
+    }
+    public static void writeAsLongs(IImageData data, ImageOutputStream ostream) throws IOException {
+        ImageIterator iter = data.iterator();
+        while (iter.hasNext()) {
+            ostream.writeLong((long)iter.next());
+        }
+
+    }
+
+    public static void writeAsFloats(IImageData data, ImageOutputStream ostream) throws IOException {
+        ImageIterator iter = data.iterator();
+        while (iter.hasNext()) {
+            ostream.writeFloat((float)iter.next());
+        }
+
+
+
+    }
+
+    public static void writeAsDoubles(IImageData data, ImageOutputStream ostream) throws IOException {
+        ImageIterator iter = data.iterator();
+        while (iter.hasNext()) {
+            ostream.writeDouble((double)iter.next());
+        }
+
+    }
+
+
 
 
     public static void writeAnalyzeImage(String fname, AbstractImageData data) throws BrainFlowException {
@@ -174,7 +297,7 @@ public class BrainIO {
             AnalyzeInfoWriter writer = new AnalyzeInfoWriter();
             ImageInfo info = new ImageInfo(data);
             String hdrName = AnalyzeInfoReader.getHeaderName(fname);
-            writer.writeInfo(new File(hdrName), info);
+            writer.writeInfo(info);
 
 
             String imgName = AnalyzeInfoReader.getImageName(fname);

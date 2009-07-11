@@ -27,35 +27,22 @@ import java.util.Arrays;
 public class ImageData {
 
 
-    public static BasicImageData2D createData(int[][] data) {
-        BasicImageData2D dat = new BasicImageData2D(new ImageSpace2D(
-                new ImageAxis(0, 1, AnatomicalAxis.LEFT_RIGHT, data[0].length),
-                new ImageAxis(0, 1, AnatomicalAxis.POSTERIOR_ANTERIOR, data.length)),
-                DataType.INTEGER);
-
-        
-
-        return dat;
-
-
-    }
-
 
 
     public static IImageData3D asImageData3D(IImageData2D data2d, BrainPoint1D zvalue, double thickness) {
         IImageSpace2D space2d = data2d.getImageSpace();
 
-        ImageAxis zimaxis = new ImageAxis(zvalue.getValue() - (thickness / 2.0), zvalue.getValue() + (thickness / 2.0), zvalue.getAnatomy(), 1);
-        IImageSpace3D space = new ImageSpace3D(space2d.getImageAxis(Axis.X_AXIS), space2d.getImageAxis(Axis.Y_AXIS), zimaxis);
+        ImageAxis zaxis = new ImageAxis(zvalue.getValue() - (thickness / 2.0), zvalue.getValue() + (thickness / 2.0), zvalue.getAnatomy(), 1);
+        IImageSpace3D space = new ImageSpace3D(space2d.getImageAxis(Axis.X_AXIS), space2d.getImageAxis(Axis.Y_AXIS), zaxis);
         IImageData3D data3d = new BasicImageData3D(space, data2d.getDataType());
 
         ImageBuffer3D buffer = data3d.createWriter(false);
 
-        ImageIterator itersource = data2d.iterator();
+        ImageIterator imageIterator = data2d.iterator();
 
-        while(itersource.hasNext()) {
-            int i = itersource.index();
-            double val = itersource.next();
+        while(imageIterator.hasNext()) {
+            int i = imageIterator.index();
+            double val = imageIterator.next();
             buffer.setValue(i, val);
         }
 
@@ -75,7 +62,7 @@ public class ImageData {
         throw new IllegalArgumentException("could not create mask, wrong data class " + dat.getClass());
     }
 
-    public boolean elementsEqual(IImageData d1, IImageData d2, float tolerance) {
+    public static boolean elementsEquals(IImageData d1, IImageData d2, float tolerance) {
         if (d1.numElements() != d2.numElements()) return false;
 
         ImageIterator iter1 = d1.iterator();
@@ -91,6 +78,8 @@ public class ImageData {
         return true;
 
     }
+
+    
 
     public static double[] toArray(IImageData data) {
         ImageIterator iter = data.iterator();

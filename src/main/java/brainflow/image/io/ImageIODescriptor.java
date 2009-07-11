@@ -134,10 +134,7 @@ public class ImageIODescriptor {
     }
 
     public IImageDataSource createLoadableImage(FileObject header, FileObject data) {
-        if (data.getName().getBaseName().endsWith(".gz")) {
-            System.out.println("");
-        }
-
+        
         if (!isHeaderMatch(header)) {
             throw new IllegalArgumentException("header " + header.getName().getBaseName() + " does not have correct suffix for format : " + this.getFormatName());
         }

@@ -86,4 +86,9 @@ public class Dimension3D<T extends Number> implements IDimension<T>, java.io.Ser
         result = 31 * result + (two != null ? two.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public Number[] toArray() {
+        return new Number[] { zero, one, two };
+    }
 }

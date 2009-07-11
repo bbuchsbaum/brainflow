@@ -53,5 +53,10 @@ public class Dimension1D<T extends Number> implements IDimension<T>, java.io.Ser
         return "[" + zero + "]";
     }
 
+    @Override
+    public Number[] toArray() {
+        return new Number[] { zero };
+    }
+
 
 }

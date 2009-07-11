@@ -17,6 +17,7 @@ import java.nio.ByteOrder;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Logger;
 
 /**
@@ -33,54 +34,6 @@ public class NiftiInfoReader extends AbstractInfoReader {
     private static final Logger log = Logger.getLogger(NiftiInfoReader.class.getName());
 
 
-    public static boolean isHeaderFile(String name) {
-        if (name.endsWith(".nii") || name.endsWith(".nii.gz") || name.endsWith(".hdr")) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public static boolean isImageFile(String name) {
-        if (name.endsWith(".nii") || name.endsWith(".nii.gz") || name.endsWith(".img")) {
-            return true;
-        }
-
-        return false;
-    }
-
-
-    public static String getHeaderName(String name) {
-        if (name.endsWith(".img")) {
-            name = name.substring(0, name.length() - 3);
-            return name + "hdr";
-        }
-        if (name.endsWith(".nii")) {
-            return name;
-        }
-        if (name.endsWith(".nii.gz")) {
-            return name;
-        }
-
-        return name + ".nii";
-    }
-
-    public static String getImageName(String name) {
-        if (name.endsWith(".hdr")) {
-            name = name.substring(0, name.length() - 3);
-            return name + "img";
-        }
-        if (name.endsWith(".nii")) {
-            return name;
-        }
-
-        if (name.endsWith(".nii.gz")) {
-            return name;
-        }
-
-        return name + ".nii";
-    }
-
     protected NiftiInfoReader() {
         super();
     }
@@ -94,7 +47,7 @@ public class NiftiInfoReader extends AbstractInfoReader {
     }
 
     public NiftiInfoReader(String name) {
-        super(new File(NiftiInfoReader.getHeaderName(name)), new File(NiftiInfoReader.getImageName(name)));
+        super(new File(NiftiImageInfo.getHeaderName(name, ".nii")), new File(NiftiImageInfo.getImageName(name, ".nii")));
     }
 
     @Override
@@ -110,7 +63,7 @@ public class NiftiInfoReader extends AbstractInfoReader {
     public List<ImageInfo> readInfo() throws BrainFlowException {
 
         try {
-            String headerName = NiftiInfoReader.getHeaderName(getHeaderFile().getName().getBaseName());
+            String headerName = NiftiImageInfo.getHeaderName(getHeaderFile().getName().getBaseName(), ".nii");
             return readHeader(headerName, getHeaderFile(), getDataFile());
         } catch (IOException e) {
             throw new BrainFlowException(e);
@@ -129,45 +82,8 @@ public class NiftiInfoReader extends AbstractInfoReader {
 
 
     private void fillDataType(short datatype, NiftiImageInfo.Builder builder) throws BrainFlowException {
-
-        DataType dtype;
-        switch (datatype) {
-            case Nifti1Dataset.NIFTI_TYPE_UINT8:
-                dtype = DataType.UBYTE;
-                break;
-            case Nifti1Dataset.NIFTI_TYPE_INT8:
-                dtype = DataType.BYTE;
-                break;
-            case Nifti1Dataset.NIFTI_TYPE_INT16:
-                dtype = DataType.SHORT;
-                break;
-            case Nifti1Dataset.NIFTI_TYPE_INT32:
-                dtype = DataType.INTEGER;
-                break;
-            case Nifti1Dataset.NIFTI_TYPE_FLOAT32:
-                dtype = DataType.FLOAT;
-                break;
-            case Nifti1Dataset.NIFTI_TYPE_FLOAT64:
-                dtype = DataType.DOUBLE;
-                break;
-            case Nifti1Dataset.NIFTI_TYPE_INT64:
-                dtype = DataType.LONG;
-                break;
-            case Nifti1Dataset.NIFTI_TYPE_UINT16:
-                throw new BrainFlowException("Do not support NIFTI_TYPE_UINT16 datatype");
-            case Nifti1Dataset.NIFTI_TYPE_UINT32:
-                throw new BrainFlowException("Do not support NIFTI_TYPE_UINT32 datatype");
-            case Nifti1Dataset.NIFTI_TYPE_UINT64:
-                throw new BrainFlowException("Do not support NIFTI_TYPE_UINT64 datatype");
-            case Nifti1Dataset.NIFTI_TYPE_RGB24:
-                throw new BrainFlowException("Do not support NIFTI_TYPE_RGB24 datatype");
-            default:
-                throw new BrainFlowException("Do not support NIFTI_TYPE " + datatype);
-
-        }
-
+        DataType dtype = NiftiImageInfo.getDataType(datatype);
         builder.dataType(dtype);
-
 
     }
 
@@ -243,6 +159,23 @@ public class NiftiInfoReader extends AbstractInfoReader {
         AffineMapping3D mapping = new AffineMapping3D(qform, anat, Anatomy3D.REFERENCE_ANATOMY);
         builder.mapping(mapping);
 
+        Vector extVec = nifti.extensions_list;
+        Vector extBlobs = nifti.extension_blobs;
+
+        if (extBlobs.size() != extVec.size()) {
+            throw new RuntimeException("error reading extension data in NIFTI header: length extension code vector does not equal length of extension byte list");
+        }
+
+        if (extVec.size() > 0) {
+            List<NiftiImageInfo.Extension> extlist = new ArrayList<NiftiImageInfo.Extension>();
+            for (int i=0; i<extVec.size(); i++) {
+                int[] ecodes = (int[])extVec.get(i);
+                byte[] blob = (byte[])extBlobs.get(i);
+                extlist.add(new NiftiImageInfo.Extension(ecodes[0], ecodes[1], blob));
+            }
+            builder.extensions(extlist);
+        }
+
 
         return builder.build();
 
@@ -253,6 +186,10 @@ public class NiftiInfoReader extends AbstractInfoReader {
         ImageInfo info;
 
         try {
+            //if (!headerFile.exists()) {
+                //throw new IllegalArgumentException("header " + headerFile + " does not exist.");
+            //}
+
             Nifti1Dataset nifti = new Nifti1Dataset(name);
             nifti.readHeader(headerFile.getContent().getInputStream());
 

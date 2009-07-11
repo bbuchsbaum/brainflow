@@ -69,7 +69,7 @@ public class BasicImageData2D extends AbstractImageData2D  {
     }
 
     public double value(int index) {
-        return dataSupport.data.getElemDouble(index);
+        return dataSupport.getData().getElemDouble(index);
     }
 
 
@@ -90,16 +90,16 @@ public class BasicImageData2D extends AbstractImageData2D  {
     }
 
     public final double value(int x, int y) {
-        return dataSupport.data.getElemDouble(indexOf(x, y));
+        return dataSupport.getData().getElemDouble(indexOf(x, y));
     }
 
 
     private void setValue(int x, int y, double val) {
-        dataSupport.data.setElemDouble(indexOf(x, y), val);
+        dataSupport.getData().setElemDouble(indexOf(x, y), val);
     }
 
      private void setValue(int idx, double val) {
-        dataSupport.data.setElemDouble(idx, val);
+        dataSupport.getData().setElemDouble(idx, val);
     }
 
 
@@ -112,7 +112,7 @@ public class BasicImageData2D extends AbstractImageData2D  {
         final Object storage = BasicImageData2D.this.dataSupport.getStorage();
         final BasicImageData2D delegate;
 
-        if (clear) {
+        if (!clear) {
             delegate = new BasicImageData2D(space, storage);
         } else {
             delegate = new BasicImageData2D(space, BasicImageData2D.this.getDataType());
@@ -187,17 +187,17 @@ public class BasicImageData2D extends AbstractImageData2D  {
         }
 
         public final double next() {
-            double dat = dataSupport.data.getElemDouble(index);
+            double dat = dataSupport.getData().getElemDouble(index);
             index++;
             return dat;
         }
 
         public void set(double val) {
-            dataSupport.data.setElemDouble(index, val);
+            dataSupport.getData().setElemDouble(index, val);
         }
 
         public double previous() {
-            return dataSupport.data.getElemDouble(--index);
+            return dataSupport.getData().getElemDouble(--index);
         }
 
         public final boolean hasNext() {
@@ -207,12 +207,12 @@ public class BasicImageData2D extends AbstractImageData2D  {
 
         public double element(int number) {
             index = number;
-            return dataSupport.data.getElemDouble(number);
+            return dataSupport.getData().getElemDouble(number);
         }
 
         public double jump(int number) {
             index += number;
-            return dataSupport.data.getElemDouble(number);
+            return dataSupport.getData().getElemDouble(number);
         }
 
         public boolean canJump(int number) {
@@ -223,7 +223,7 @@ public class BasicImageData2D extends AbstractImageData2D  {
 
         public double nextRow() {
             index += space.getDimension(Axis.X_AXIS);
-            return dataSupport.data.getElemDouble(index);
+            return dataSupport.getData().getElemDouble(index);
         }
 
         public double nextPlane() {
@@ -252,7 +252,7 @@ public class BasicImageData2D extends AbstractImageData2D  {
 
         public double previousRow() {
             index -= space.getDimension(Axis.X_AXIS);
-            return dataSupport.data.getElemDouble(index);
+            return dataSupport.getData().getElemDouble(index);
         }
 
         public double previousPlane() {
