@@ -4,6 +4,7 @@ import brainflow.core.BrainFlowException;
 
 import java.io.*;
 import java.util.Collection;
+import java.nio.ByteOrder;
 
 import static brainflow.image.io.Nifti1Dataset.*;
 import brainflow.utils.IDimension;
@@ -11,6 +12,7 @@ import brainflow.math.Vector3f;
 import brainflow.math.Matrix4f;
 
 import javax.imageio.stream.MemoryCacheImageOutputStream;
+import javax.imageio.ImageIO;
 
 import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.FileSystemException;
@@ -92,8 +94,9 @@ public class NiftiInfoWriter implements ImageInfoWriter<NiftiImageInfo> {
 
 
             //does not handle extensions
-            ostream.setByteOrder(info.getEndian());
-
+            //ostream.setByteOrder(info.getEndian());
+            //ostream.setByteOrder(ByteOrder.);
+            
             //ecs.writeIntCorrect(sizeof_hdr);
             ostream.writeInt(348);
             //data_type_string ... punting for now
