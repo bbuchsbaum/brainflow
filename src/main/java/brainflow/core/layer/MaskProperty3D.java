@@ -62,7 +62,12 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
     }
 
     public boolean isOpaque() {
-        return false;
+        IClipRange range = layer.getLayerProps().thresholdRange.get();
+        if (range.getInnerRange().getInterval() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void reduce() {
@@ -78,7 +83,7 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
         } else {
 
 
-            final IClipRange range = layer.getImageLayerProperties().thresholdRange.get();
+            final IClipRange range = layer.getLayerProps().thresholdRange.get();
 
             MaskPredicate pred = new MaskPredicate() {
                 public boolean mask(double value) {

@@ -104,7 +104,7 @@ public class ColorBandChartPresenter extends ImageViewPresenter {
             IndexColorModel icm = new IndexColorModel(8, 256, reds, greens, blues, alpha);
             colorMap = new LinearColorMap2(colorMap.getMinimumValue(), colorMap.getMaximumValue(), icm);
             ImageLayer layer = getSelectedView().getSelectedLayer();
-            layer.getImageLayerProperties().colorMap.set(colorMap);
+            layer.getLayerProps().colorMap.set(colorMap);
 
         }
     }

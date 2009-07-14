@@ -1,7 +1,7 @@
 package brainflow.app.actions;
 
 import brainflow.core.layer.AbstractLayer;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.ImageView;
 import brainflow.core.ClipRange;
 import brainflow.core.IClipRange;
@@ -35,7 +35,7 @@ public class DecreaseContrastCommand extends BrainFlowCommand {
 
 
     private void decrementContrast(AbstractLayer layer) {
-        ImageLayerProperties props = layer.getImageLayerProperties();
+        LayerProps props = layer.getLayerProps();
         IClipRange clipRange = props.getClipRange();
         double highClip = clipRange.getHighClip();
         double lowClip = clipRange.getLowClip();
@@ -43,15 +43,15 @@ public class DecreaseContrastCommand extends BrainFlowCommand {
         double distance = highClip - lowClip;
         double increment = (percMultiplier * distance) / 2;
 
-        double newHighClip = Math.min(highClip + increment, layer.getImageLayerProperties().getColorMap().getMaximumValue());
-        double newLowClip = Math.max(lowClip - increment, layer.getImageLayerProperties().getColorMap().getMinimumValue());
+        double newHighClip = Math.min(highClip + increment, layer.getLayerProps().getColorMap().getMaximumValue());
+        double newLowClip = Math.max(lowClip - increment, layer.getLayerProps().getColorMap().getMinimumValue());
 
         if (newLowClip >= newHighClip) {
             newLowClip = newHighClip - .0001;
         }
 
-        newHighClip = Math.min(newHighClip, layer.getImageLayerProperties().getColorMap().getMaximumValue());
-        newLowClip = Math.max(newLowClip, layer.getImageLayerProperties().getColorMap().getMinimumValue());
+        newHighClip = Math.min(newHighClip, layer.getLayerProps().getColorMap().getMaximumValue());
+        newLowClip = Math.max(newLowClip, layer.getLayerProps().getColorMap().getMinimumValue());
 
 
         double max = clipRange.getMax();

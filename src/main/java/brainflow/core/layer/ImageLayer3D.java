@@ -3,7 +3,7 @@ package brainflow.core.layer;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.io.MemoryImageDataSource;
 import brainflow.core.rendering.BasicImageSliceRenderer;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.SliceRenderer;
 import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
@@ -37,7 +37,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
 
 
     public ImageLayer3D(ImageLayer3D layer) {
-        super(layer.getDataSource(), new ImageLayerProperties(layer.getImageLayerProperties()));
+        super(layer.getDataSource(), new LayerProps(layer.getLayerProps()));
         init();
     }
 
@@ -46,7 +46,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
         init();
     }
 
-    public ImageLayer3D(IImageData data, ImageLayerProperties _params) {
+    public ImageLayer3D(IImageData data, LayerProps _params) {
         super(new MemoryImageDataSource(data), _params);
         init();
     }
@@ -57,7 +57,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
         init();
     }
 
-    public ImageLayer3D(IImageDataSource dataSource, ImageLayerProperties _params) {
+    public ImageLayer3D(IImageDataSource dataSource, LayerProps _params) {
         super(dataSource, _params);
         init();
     }

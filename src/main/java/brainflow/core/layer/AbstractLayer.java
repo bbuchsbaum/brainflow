@@ -1,11 +1,10 @@
 package brainflow.core.layer;
 
-import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.ICoordinateSpace;
 import brainflow.image.space.IImageSpace;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.SliceRenderer;
 import brainflow.core.IClipRange;
 
@@ -17,24 +16,20 @@ import brainflow.core.IClipRange;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AbstractLayer {
-    
-    //private PropertyChangeSupport support = new PropertyChangeSupport(this);
+   
 
-    // instantiate to a NullMaskList or something to that effect.
-    //private IMaskProperty maskProperty;
-
-    private ImageLayerProperties properties;
+    private LayerProps props;
 
     private String name;
 
-    protected AbstractLayer(String name, ImageLayerProperties properties) {
-        this.properties = properties;
+    protected AbstractLayer(String name, LayerProps props) {
+        this.props = props;
         this.name = name;
 
     }
 
-    public ImageLayerProperties getImageLayerProperties() {
-        return properties;
+    public LayerProps getLayerProps() {
+        return props;
     }
 
 
@@ -46,21 +41,17 @@ public abstract class AbstractLayer {
 
     public abstract SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy);
 
-    //todo deprecate
-    //public boolean isVisible() {
-    //    return properties.isVisible();
-    //}
 
     public double getOpacity() {
-        return properties.opacity.get();
+        return props.opacity.get();
     }
 
     public IClipRange getThreshold() {
-        return properties.getThresholdRange();
+        return props.getThresholdRange();
     }
 
     public IClipRange getClipRange() {
-        return properties.getClipRange();
+        return props.getClipRange();
     }
 
     public abstract IMaskProperty getMaskProperty();
@@ -73,7 +64,7 @@ public abstract class AbstractLayer {
 
     public abstract double getMaxValue();
 
-    public abstract String getLabel();
+    
 
 
 }

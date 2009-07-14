@@ -32,19 +32,19 @@ public class DesignColorMapCommand extends BrainFlowCommand {
 
             //int layer = view.getModel().getSelectedLayerIndex();
             ImageLayer layer = view.getModel().getSelectedLayer();
-            IColorMap oldMap = layer.getImageLayerProperties().getColorMap();
+            IColorMap oldMap = layer.getLayerProps().getColorMap();
 
             //if (oldMap instanceof LinearColorMapDeprecated) {
             // todo fix me
             //IColorMap copyMap = oldMap.copy();
 
             ColorBandChartPresenter presenter = new ColorBandChartPresenter(layer.
-                    getImageLayerProperties().getColorMap());
+                    getLayerProps().getColorMap());
             int ret = JOptionPane.showOptionDialog(JOptionPane.getFrameForComponent(presenter.getComponent()), presenter.getComponent(), "Design Color Map", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
                     null, null, null);
 
             if (ret != JOptionPane.OK_OPTION) {
-                layer.getImageLayerProperties().colorMap.set(oldMap);
+                layer.getLayerProps().colorMap.set(oldMap);
 
             }
 

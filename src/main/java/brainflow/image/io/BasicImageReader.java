@@ -145,9 +145,7 @@ public class BasicImageReader implements ImageReader {
 
             for (int i = 0; i < NUM_CHUNKS; i++) {
                 nread = istream.read(tmpdata);
-                System.out.println("read chunk " + nread);
-                System.out.println("available?" + istream.available());
-                //rac.readFully(tmpdata);
+               //rac.readFully(tmpdata);
                 wholeBuffer.put(tmpdata);
                 listener.setValue(i * chunkSize);
 

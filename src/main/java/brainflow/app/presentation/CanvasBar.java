@@ -91,7 +91,6 @@ public class CanvasBar extends ImageViewPresenter {
         imageSpinner.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 String label = (String) imageSpinner.getValue();
-                System.out.println("spinner label : " + label);
 
                 final ImageLayer3D layer = getSelectedLayer();
                 IImageDataSource dsource = layer.getDataSource();
@@ -99,8 +98,7 @@ public class CanvasBar extends ImageViewPresenter {
                 //todo List<ImageInfo> might be Map<String, ImageInfo> (or something?)
                 List<String> labels = extractLabels(dsource.getImageInfoList());
                 int index = labels.indexOf(label);
-                System.out.println("index of label " + index);
-
+         
                 assert index >= 0;
 
                 final IImageDataSource dsource2 = DataSourceManager.get().createDataSource(dsource.getDescriptor(), dsource.getImageInfoList(), index, true);
@@ -109,7 +107,7 @@ public class CanvasBar extends ImageViewPresenter {
                 SwingWorker worker = new SwingWorker() {
                     protected Object doInBackground() throws Exception {
                         Object ret = dsource2.getData();
-                        ImageLayer3D newlayer = new ImageLayer3D(dsource2, layer.getImageLayerProperties());
+                        ImageLayer3D newlayer = new ImageLayer3D(dsource2, layer.getLayerProps());
                         BrainFlow.get().replaceLayer(layer, newlayer, getSelectedView());
                         return ret;
                     }
@@ -156,7 +154,7 @@ public class CanvasBar extends ImageViewPresenter {
 
             List<String> labels = extractLabels(layer.getDataSource().getImageInfoList());
             SpinnerListModel model = createSpinnerModel(labels);
-            model.setValue(layer.getLabel());
+            model.setValue(layer.getName());
 
             imageSpinner.setModel(model);
 

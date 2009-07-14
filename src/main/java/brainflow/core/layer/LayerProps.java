@@ -30,7 +30,7 @@ import java.io.Serializable;
  */
 
 
-public class ImageLayerProperties implements Serializable {
+public class LayerProps implements Serializable {
 
 
 
@@ -68,7 +68,7 @@ public class ImageLayerProperties implements Serializable {
     public final ObservableProperty<IClipRange> clipRange = ObservableProperty.create();
 
 
-    public ImageLayerProperties(ImageLayerProperties props) {
+    public LayerProps(LayerProps props) {
         BeanContainer.bind(this);
         opacity.set(props.opacity.get());
         smoothingRadius.set(props.smoothingRadius.get());
@@ -83,14 +83,14 @@ public class ImageLayerProperties implements Serializable {
     }
 
 
-    public ImageLayerProperties(IRange _dataRange) {
+    public LayerProps(IRange _dataRange) {
         BeanContainer.bind(this);
         IColorMap imap = new LinearColorMap2(_dataRange.getMin(), _dataRange.getMax(), ColorTable.GRAYSCALE);
         init(imap, _dataRange);
     }
 
 
-    public ImageLayerProperties(IndexColorModel _icm, IRange _dataRange) {
+    public LayerProps(IndexColorModel _icm, IRange _dataRange) {
         BeanContainer.bind(this);
         IColorMap imap = new LinearColorMap2(_dataRange.getMin(), _dataRange.getMax(), _icm);
         init(imap, _dataRange);

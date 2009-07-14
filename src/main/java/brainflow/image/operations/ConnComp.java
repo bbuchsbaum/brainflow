@@ -10,7 +10,7 @@ import brainflow.utils.Range;
 import brainflow.utils.StopWatch;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.BrainFlowException;
 import brainflow.image.io.MemoryImageDataSource;
 import brainflow.app.toplevel.ImageViewFactory;
@@ -427,7 +427,7 @@ public class ConnComp {
 
 
         IImageData3D dat3d = ImageData.asImageData3D(comp.labels.asImageData(), new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
-        ImageLayerProperties props = new ImageLayerProperties(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()));
+        LayerProps props = new LayerProps(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
         ImageViewModel model = new ImageViewModel("test",

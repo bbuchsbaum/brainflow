@@ -394,8 +394,8 @@ public class AFNIInfoReader extends AbstractInfoReader {
     }
 
     private void processBrickLabels(List<String> labels, List<ImageInfo> infoList) {
-        if (labels.size() !=- infoList.size()) {
-            throw new IllegalArgumentException("number of image lables does not equal number of images, labels: " + labels.size() + " != images: " + infoList.size());
+        if (labels.size() != infoList.size()) {
+            throw new IllegalArgumentException("number of image labels does not equal number of images -- labels: " + labels.size() + " != images: " + infoList.size());
         }
         if (labels.size() > 1) {
             for (int i = 0; i < labels.size(); i++) {

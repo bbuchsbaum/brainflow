@@ -38,7 +38,6 @@ import com.pietschy.command.group.CommandGroup;
 import com.pietschy.command.group.ExpansionPointBuilder;
 import com.pietschy.command.toggle.ToggleGroup;
 import com.pietschy.command.ActionCommand;
-import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
@@ -993,14 +992,15 @@ public class BrainFlow {
             double value = layer.getValue(gpoint);
 
 
-            IColorMap cmap = layer.getImageLayerProperties().getColorMap();
+            IColorMap cmap = layer.getLayerProps().getColorMap();
+
             Color c = null;
             try {
                 c = cmap.getColor(value);
             } catch (Exception e) {
-
                 e.printStackTrace();
             }
+
             ImageIcon icon = colorMap.get(c);
             if (icon == null) {
                 icon = ColorTable.createImageIcon(c, 40, 15);

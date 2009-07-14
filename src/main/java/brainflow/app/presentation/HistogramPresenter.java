@@ -3,7 +3,6 @@ package brainflow.app.presentation;
 import brainflow.core.ImageView;
 import brainflow.core.ClipRange;
 import brainflow.core.ImageViewModel;
-import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.app.presentation.controls.HistogramControl;
 import brainflow.colormap.LinearColorMap2;
@@ -81,7 +80,7 @@ public class HistogramPresenter extends ImageViewPresenter {
 
 
         if (histo == null) {
-            int nbins = Math.min(getSelectedLayer().getImageLayerProperties().colorMap.get().getMapSize(), 30);
+            int nbins = Math.min(getSelectedLayer().getLayerProps().colorMap.get().getMapSize(), 30);
             histo = new Histogram(data, nbins);
             histo.ignoreRange(new Range(0, 0));
             cache.put(data, histo);
@@ -89,28 +88,28 @@ public class HistogramPresenter extends ImageViewPresenter {
         }
 
         control.setHistogram(histo);
-        control.setOverlayRange(getSelectedView().getSelectedLayer().getImageLayerProperties().thresholdRange.get().getInnerRange());
-        control.setColorMap(getSelectedLayer().getImageLayerProperties().colorMap.get());
+        control.setOverlayRange(getSelectedView().getSelectedLayer().getLayerProps().thresholdRange.get().getInnerRange());
+        control.setColorMap(getSelectedLayer().getLayerProps().colorMap.get());
 
     }
 
     public void viewDeselected(ImageView view) {
-        BeanContainer.get().removeListener(view.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
-        BeanContainer.get().removeListener(view.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+        BeanContainer.get().removeListener(view.getSelectedLayer().getLayerProps().colorMap, colorMapListener);
+        BeanContainer.get().removeListener(view.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
     }
 
     public void viewSelected(ImageView view) {
         updateHistogram();
-        BeanContainer.get().addListener(view.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
-        BeanContainer.get().addListener(view.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+        BeanContainer.get().addListener(view.getSelectedLayer().getLayerProps().colorMap, colorMapListener);
+        BeanContainer.get().addListener(view.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
     }
 
 
     @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         if (oldModel.getSelectedLayer() != newModel.getSelectedLayer()) {
-            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
-            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getLayerProps().colorMap, colorMapListener);
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
 
         }
 
@@ -121,16 +120,16 @@ public class HistogramPresenter extends ImageViewPresenter {
 
     @Override
     protected void layerDeselected(ImageLayer3D layer) {
-        BeanContainer.get().removeListener(layer.getImageLayerProperties().colorMap, colorMapListener);
-        BeanContainer.get().removeListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
+        BeanContainer.get().removeListener(layer.getLayerProps().colorMap, colorMapListener);
+        BeanContainer.get().removeListener(layer.getLayerProps().thresholdRange, thresholdListener);
 
     }
 
     @Override
     protected void layerSelected(ImageLayer3D layer) {
         updateHistogram();
-        BeanContainer.get().addListener(layer.getImageLayerProperties().colorMap, colorMapListener);
-        BeanContainer.get().addListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
+        BeanContainer.get().addListener(layer.getLayerProps().colorMap, colorMapListener);
+        BeanContainer.get().addListener(layer.getLayerProps().thresholdRange, thresholdListener);
 
     }
 

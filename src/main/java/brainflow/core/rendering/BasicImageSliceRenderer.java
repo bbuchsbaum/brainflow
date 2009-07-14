@@ -12,7 +12,7 @@ import brainflow.image.interpolation.NearestNeighborInterpolator;
 import brainflow.image.interpolation.TrilinearInterpolator;
 import brainflow.core.SliceRenderer;
 import brainflow.core.layer.ImageLayer;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.utils.SoftCache;
 
@@ -73,7 +73,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         this.displayAnatomy = renderer.displayAnatomy;
         this.lastColorMap = renderer.lastColorMap;
 
-        if (layer.getImageLayerProperties().getInterpolation() == InterpolationType.NEAREST_NEIGHBOR) {
+        if (layer.getLayerProps().getInterpolation() == InterpolationType.NEAREST_NEIGHBOR) {
             slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new NearestNeighborInterpolator());
         } else {
             slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new TrilinearInterpolator());
@@ -96,7 +96,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         this.layer = layer;
         this.refSpace = refSpace;
 
-        if (layer.getImageLayerProperties().getInterpolation() == InterpolationType.NEAREST_NEIGHBOR) {
+        if (layer.getLayerProps().getInterpolation() == InterpolationType.NEAREST_NEIGHBOR) {
             slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new NearestNeighborInterpolator());
         } else {
             slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new TrilinearInterpolator());
@@ -194,7 +194,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
         GridPoint1D zdisp = getZSlice();
 
-        if (lastColorMap != layer.getImageLayerProperties().colorMap.get()) {
+        if (lastColorMap != layer.getLayerProps().colorMap.get()) {
             rgbaCache.clear();
         } else {
             //System.out.println("getting cached cmap");
@@ -202,7 +202,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         }
 
         if (rgbaImage == null) {
-            IColorMap cmap = layer.getImageLayerProperties().colorMap.get();
+            IColorMap cmap = layer.getLayerProps().colorMap.get();
 
             lastColorMap = cmap;
             rgbaImage = cmap.getRGBAImage(getData());
@@ -267,7 +267,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
 
         Composite oldComposite = g2.getComposite();
-        AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) layer.getImageLayerProperties().opacity.get().doubleValue());
+        AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) layer.getLayerProps().opacity.get().doubleValue());
         g2.setComposite(composite);
         g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
@@ -298,7 +298,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
     private BufferedImage smooth(BufferedImage source) {
-        ImageLayerProperties dprops = layer.getImageLayerProperties();
+        LayerProps dprops = layer.getLayerProps();
 
         double radius = dprops.smoothingRadius.get();
         if (radius < .01) return source;
@@ -316,7 +316,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     private BufferedImage resample(BufferedImage source) {
 
-        ImageLayerProperties dprops = layer.getImageLayerProperties();
+        LayerProps dprops = layer.getLayerProps();
         InterpolationType interp = dprops.getInterpolation();
         IImageSpace2D ispace = getData().getImageSpace();
 
@@ -369,6 +369,12 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     protected RGBAImage thresholdRGBA(RGBAImage rgba) {
         //StopWatch watch = new StopWatch();
 
+        if (layer.getMaskProperty().isOpaque()) {
+            return rgba;
+        }
+
+        
+        //todo check if opaque
         ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
 
         GridPoint1D zdisp = getZSlice();
@@ -401,7 +407,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
 /*private RGBAImage thresholdRGBA(RGBAImage rgba) {
 
-ThresholdRange trange = layer.getImageLayerProperties().getThresholdRange().getProperty();
+ThresholdRange trange = layer.getLayerProps().getThresholdRange().getProperty();
 
 if (Double.compare(trange.getMin(), trange.getMax()) != 0) {
    UByteImageData2D alpha = rgba.getAlpha();

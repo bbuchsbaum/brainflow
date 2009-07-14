@@ -5,9 +5,8 @@ import org.apache.commons.pipeline.Stage;
 
 import brainflow.core.IImagePlot;
 import brainflow.core.ImageViewModel;
-import brainflow.core.layer.ImageLayer2D;
+import brainflow.core.layer.LayerSlice;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.Axis;
@@ -82,7 +81,7 @@ public class ImagePlotPipeline extends Pipeline {
     }
 
    
-    public static Rectangle2D getBounds(List<ImageLayer2D> layers) {
+    public static Rectangle2D getBounds(List<LayerSlice> layers) {
         if (layers == null || layers.size() == 0) {
             return new Rectangle2D.Double(0, 0, 0, 0);
         }
@@ -92,7 +91,7 @@ public class ImagePlotPipeline extends Pipeline {
         double minY = Double.MAX_VALUE;
         double maxY = Double.MIN_VALUE;
 
-        for (ImageLayer2D layer : layers) {
+        for (LayerSlice layer : layers) {
             IImageSpace space = layer.getImageData().getImageSpace();
             minX = Math.min(minX, space.getImageAxis(Axis.X_AXIS).getRange().getMinimum());
             minY = Math.min(minY, space.getImageAxis(Axis.Y_AXIS).getRange().getMinimum());

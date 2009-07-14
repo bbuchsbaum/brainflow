@@ -160,19 +160,19 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
                 if (resizeMin) {
                     double xmin = colorBar.locationToValueX(p.x);
                     AbstractLayer layer = getSelectedLayer();
-                    IClipRange clip = layer.getImageLayerProperties().thresholdRange.get();
+                    IClipRange clip = layer.getLayerProps().thresholdRange.get();
 
                     if (xmin > clip.getHighClip()) return;
                     //AbstractLayer layer = getSelectedLayer();
-                    layer.getImageLayerProperties().thresholdRange.set(
+                    layer.getLayerProps().thresholdRange.set(
                             clip.newClipRange(clip.getMin(), clip.getMax(), xmin, clip.getHighClip()));
                 } else if (resizeMax) {
                     double xmax = colorBar.locationToValueX(p.x);
                     AbstractLayer layer = getSelectedLayer();
-                    IClipRange clip = layer.getImageLayerProperties().thresholdRange.get();
+                    IClipRange clip = layer.getLayerProps().thresholdRange.get();
                     if (xmax < clip.getLowClip()) return;
                     //AbstractLayer layer = getSelectedLayer();
-                    layer.getImageLayerProperties().thresholdRange.set(
+                    layer.getLayerProps().thresholdRange.set(
                             clip.newClipRange(clip.getMin(), clip.getMax(), clip.getLowClip(), xmax));
 
                 }

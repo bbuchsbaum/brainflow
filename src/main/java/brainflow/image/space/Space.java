@@ -9,6 +9,7 @@ import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.CoordinateAxis;
+import brainflow.math.Vector3f;
 
 /**
  * Created by IntelliJ IDEA.
@@ -44,12 +45,46 @@ public class Space {
         if (pt.getAnatomy() != space.getAnatomy()) throw new IllegalArgumentException("arguments have non-matching anatomy");
         return (pt.getX().getValue() >= 0 && pt.getX().getValue() <= space.getImageAxis(Axis.X_AXIS).getNumSamples() &&
             pt.getY().getValue() >= 0 && pt.getY().getValue() <= space.getImageAxis(Axis.Y_AXIS).getNumSamples() &&
-            pt.getZ().getValue() >= 0 && pt.getZ().getValue() <= space.getImageAxis(Axis.Z_AXIS).getNumSamples()); 
+            pt.getZ().getValue() >= 0 && pt.getZ().getValue() <= space.getImageAxis(Axis.Z_AXIS).getNumSamples());
+    }
 
+    private static int[] getPermutationVector(ImageAxis one, ImageAxis two) {
+        assert one.getAnatomicalAxis().sameAxis(two.getAnatomicalAxis());
 
+        Vector3f dvec;
+        int offset = 0;
+
+        if (one.getAnatomicalAxis().getFlippedAxis() == two.getAnatomicalAxis()) {
+            dvec = one.getAnatomicalAxis().getDirectionVector().mult(-1);
+            offset = two.getNumSamples();
+        } else {
+            dvec = one.getAnatomicalAxis().getDirectionVector();
+        }
+
+        return new int[] { (int)dvec.getX(), (int)dvec.getY(), (int)dvec.getZ(), offset};
 
 
     }
+
+    /*public static PermutationMatrix3D createPermutationMatrix(IImageSpace3D from, IImageSpace3D to) {
+
+        ImageAxis xout = from.getImageAxis(to.getAnatomicalAxis(Axis.X_AXIS), true);
+        ImageAxis yout = from.getImageAxis(to.getAnatomicalAxis(Axis.Y_AXIS), true);
+        ImageAxis zout = from.getImageAxis(to.getAnatomicalAxis(Axis.Z_AXIS), true);
+
+        Vector3f xvec;
+        Vector3f yvec;
+        Vector3f zvec;
+
+        int xoff, yoff, zoff;
+
+
+        if (xout.getAnatomicalAxis().getFlippedAxis() == to.getAnatomicalAxis(Axis.X_AXIS)) {
+            xvec = xout.getAnatomicalAxis().getDirectionVector().mult(-1);
+        } else {
+            xvec = xout.getAnatomicalAxis().getDirectionVector();
+        }
+    } */
 
 
     

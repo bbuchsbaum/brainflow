@@ -10,14 +10,12 @@ import brainflow.image.space.ImageSpace3D;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.core.BF;
 import brainflow.core.ImageViewModel;
-import brainflow.core.ImageView;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.colormap.ColorTable;
 import brainflow.utils.Range;
 import brainflow.display.InterpolationType;
 
-import javax.swing.*;
 import java.util.List;
 import java.awt.image.IndexColorModel;
 import java.awt.*;
@@ -188,7 +186,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
             System.out.println("image label " + dat3d.getImageLabel());
 
             IndexColorModel icm = ColorTable.createIndexColorModel(ColorTable.createColorGradient(Color.RED, Color.GREEN, (int) dat3d.maxValue()));
-            ImageLayerProperties props = new ImageLayerProperties(icm, new Range(0, dat3d.maxValue()));
+            LayerProps props = new LayerProps(icm, new Range(0, dat3d.maxValue()));
             props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
             //todo but this doesn't really enforce nearest neighbor due to the MappedDataAccessor method
             IImageData3D background = BrainIO.loadVolume(BF.getDataURL("anat_alepi.nii"));

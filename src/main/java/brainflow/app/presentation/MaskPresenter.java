@@ -10,6 +10,7 @@ import brainflow.image.anatomy.Anatomy3D;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.ExecutionException;
 
 import net.java.dev.properties.events.PropertyListener;
 import net.java.dev.properties.BaseProperty;
@@ -25,8 +26,9 @@ import net.java.dev.properties.container.BeanContainer;
  */
 public class MaskPresenter extends ImageViewPresenter {
 
-    private Box mainPanel;
 
+
+    private Box mainPanel;
 
     private ImageView maskView;
 
@@ -62,6 +64,7 @@ public class MaskPresenter extends ImageViewPresenter {
         IImageSpace3D space = maskView.getModel().getImageSpace();
         Axis zaxis = space.findAxis(displayAnatomy.ZAXIS);
 
+
         CoordinateToIndexConverter2 conv = new CoordinateToIndexConverter2(maskView.worldCursorPos, maskView.getModel().getImageSpace(), zaxis);
 
         int nslices = space.getDimension(displayAnatomy.ZAXIS);
@@ -76,13 +79,16 @@ public class MaskPresenter extends ImageViewPresenter {
 
     @Override
     public void viewDeselected(ImageView view) {
-        BeanContainer.get().removeListener(view.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+        BeanContainer.get().removeListener(view.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
         BeanContainer.get().removeListener((view.getSelectedLayer()).maskProperty, thresholdListener);
         unbind();
 
     }
 
+
+    @Override
     public void viewSelected(final ImageView view) {
+
 
         SwingWorker<ImageViewModel, Void> worker = new SwingWorker<ImageViewModel, Void>() {
             protected ImageViewModel doInBackground() throws Exception {
@@ -90,11 +96,23 @@ public class MaskPresenter extends ImageViewPresenter {
 
             }
 
+
+
             @Override
             protected void done() {
-                BeanContainer.get().addListener(view.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
-                BeanContainer.get().addListener(view.getSelectedLayer().maskProperty, thresholdListener);
-                bind();
+
+                try {
+                    BeanContainer.get().addListener(view.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
+                    BeanContainer.get().addListener(view.getSelectedLayer().maskProperty, thresholdListener);
+
+                    ImageViewModel model = get();
+                    maskView.setModel(model);
+                    bind();
+                } catch(ExecutionException e) {
+
+                } catch (InterruptedException e2) {
+
+                }
             }
         };
 
@@ -106,7 +124,7 @@ public class MaskPresenter extends ImageViewPresenter {
     @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         if (!(oldModel.getSelectedLayer() == newModel.getSelectedLayer())) {
-            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getImageLayerProperties().thresholdRange, thresholdListener);
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
             BeanContainer.get().removeListener(oldModel.getSelectedLayer().maskProperty, thresholdListener);
         }
 
@@ -119,13 +137,13 @@ public class MaskPresenter extends ImageViewPresenter {
 
         ImageViewModel model = createMaskModel();
         maskView.setModel(model);
-        BeanContainer.get().addListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
+        BeanContainer.get().addListener(layer.getLayerProps().thresholdRange, thresholdListener);
         BeanContainer.get().addListener((layer).maskProperty, thresholdListener);
     }
 
     @Override
     protected void layerDeselected(ImageLayer3D layer) {
-        BeanContainer.get().removeListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
+        BeanContainer.get().removeListener(layer.getLayerProps().thresholdRange, thresholdListener);
         BeanContainer.get().removeListener(layer.maskProperty, thresholdListener);
 
     }
@@ -146,9 +164,8 @@ public class MaskPresenter extends ImageViewPresenter {
     private ImageViewModel createMaskModel() {
         ImageLayer3D layer = getSelectedLayer();
         MaskLayer3D maskLayer = new MaskLayer3D(layer.getMaskProperty().buildMask());
-        ImageViewModel model = new ImageViewModel("mask_model", new LayerList<ImageLayer3D>(maskLayer));
+        return new ImageViewModel("mask_model", new LayerList<ImageLayer3D>(maskLayer));
 
-        return model;
 
     }
 

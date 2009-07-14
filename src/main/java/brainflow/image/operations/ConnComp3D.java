@@ -8,7 +8,7 @@ import brainflow.utils.Range;
 import brainflow.utils.StopWatch;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.BrainFlowException;
 import brainflow.image.io.MemoryImageDataSource;
 import brainflow.app.toplevel.ImageViewFactory;
@@ -200,7 +200,7 @@ public class ConnComp3D {
         ImageViewModel model = new ImageViewModel("test", new ImageLayer3D(dat3d));
 
          IndexColorModel icm = ColorTable.createIndexColorModel(ColorTable.createColorGradient(Color.RED, Color.GREEN, (int)dat3d.maxValue()));
-        ImageLayerProperties props = new ImageLayerProperties(icm, new Range(0, dat3d.maxValue()));
+        LayerProps props = new LayerProps(icm, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
 
         model.add(new ImageLayer3D(new MemoryImageDataSource(dat3d), props));

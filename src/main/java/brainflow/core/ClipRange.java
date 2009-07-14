@@ -23,37 +23,8 @@ public class ClipRange implements IClipRange {
 
     private final double highClip;
 
+    private final double clipInterval;
 
-
-    /*public final Property<Double> lowClip = new ObservableProperty<Double>(0.0) {
-        public void set(Double aDouble) {
-
-            if (aDouble > highClip.get()) {
-
-                highClip.set(aDouble);
-            }
-
-            super.set(aDouble);
-
-
-        }
-
-        
-
-
-    };
-
-    public final Property<Double> highClip = new ObservableProperty<Double>(0.0) {
-        public void set(Double aDouble) {
-        
-            if (aDouble < lowClip.get().doubleValue()) {
-
-                lowClip.set(get());
-            }
-
-            super.set(aDouble);
-        }
-    };*/
 
 
 
@@ -72,6 +43,7 @@ public class ClipRange implements IClipRange {
 
         this.highClip = Math.min(highClip, maxValue);
         this.lowClip = Math.max(lowClip, min);
+        this.clipInterval = highClip - lowClip;
     }
 
 
@@ -122,7 +94,7 @@ public class ClipRange implements IClipRange {
 
 
     public boolean contains(double val) {
-        if (val > highClip || val < lowClip) {
+        if (clipInterval == 0 || val > highClip || val < lowClip) {
             return false;
         } else {
             return true;

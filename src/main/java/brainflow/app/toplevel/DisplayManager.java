@@ -183,7 +183,7 @@ public class DisplayManager {
 
         log.info("replacing layer : " + oldlayer + " with " + newlayer);
 
-        view.getModel().set(view.getModel().indexOf(oldlayer), newlayer);
+        view.getModel().set(i, newlayer);
 
     }
 

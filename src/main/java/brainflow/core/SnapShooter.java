@@ -170,9 +170,9 @@ public class SnapShooter {
 
        
        ImageLayer layer1 = new ImageLayer(il1.getData());
-       layer1.getImageLayerProperties().getColorMap().setProperty(lmap);
+       layer1.getLayerProps().getColorMap().setProperty(lmap);
        ImageLayer layer2 = new ImageLayer(il2.getData());
-       layer2.getImageLayerProperties().getColorMap().setProperty(ragged);
+       layer2.getLayerProps().getColorMap().setProperty(ragged);
 
        dset.addLayer(layer1);
        dset.addLayer(layer2);

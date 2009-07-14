@@ -12,13 +12,11 @@ package brainflow.core.layer;
 import brainflow.image.io.IImageDataSource;
 import brainflow.colormap.ColorTable;
 import brainflow.image.data.IImageData;
-import brainflow.image.data.ImageData;
 import brainflow.image.space.IImageSpace;
 import brainflow.utils.Range;
 import brainflow.utils.IRange;
 import brainflow.core.layer.AbstractLayer;
-import brainflow.core.layer.ImageLayerProperties;
-import brainflow.core.ClipRange;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.IClipRange;
 
 
@@ -34,19 +32,19 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
 
     public ImageLayer(ImageLayer layer) {
-        super(layer.getLabel() + "*", layer.getImageLayerProperties());
+        super(layer.getName() + "*", layer.getLayerProps());
         this.dataSource = layer.getDataSource();
 
     }
 
     public ImageLayer(String name, ImageLayer layer) {
-        super(name, layer.getImageLayerProperties());
+        super(name, layer.getLayerProps());
         this.dataSource = layer.getDataSource();
 
     }
 
     public ImageLayer(IImageDataSource dataSource, IRange range) {
-        super(dataSource.getImageInfo().getImageLabel(), new ImageLayerProperties(ColorTable.GRAYSCALE, range));
+        super(dataSource.getImageInfo().getImageLabel(), new LayerProps(ColorTable.GRAYSCALE, range));
         this.dataSource = dataSource;
 
         if (dataSource.isLoaded()) {
@@ -56,15 +54,15 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
     }
 
     public ImageLayer(String name, IImageDataSource dataSource) {
-        super(name, new ImageLayerProperties(ColorTable.GRAYSCALE, new Range(0, 255)));
+        super(name, new LayerProps(ColorTable.GRAYSCALE, new Range(0, 255)));
         this.dataSource = dataSource;
 
         if (dataSource.isLoaded()) {
             initClip();
             //IClipRange clip = new ClipRange(getData().minValue(), getData().maxValue(), getData().minValue(), getData().maxValue());
-            //getImageLayerProperties().getClipRange().setLowClip(getData().minValue());
-            //getImageLayerProperties().getClipRange().setHighClip(getData().maxValue());
-            //getImageLayerProperties().clipRange.set(clip);
+            //getLayerProps().getClipRange().setLowClip(getData().minValue());
+            //getLayerProps().getClipRange().setHighClip(getData().maxValue());
+            //getLayerProps().clipRange.set(clip);
 
         }
 
@@ -75,22 +73,22 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
         this(dataSource.getImageInfo().getImageLabel(), dataSource);
     }
 
-    public ImageLayer(IImageDataSource dataSource, ImageLayerProperties _properties) {
-        super(dataSource.getImageInfo().getImageLabel(), _properties);
+    public ImageLayer(IImageDataSource dataSource, LayerProps _props) {
+        super(dataSource.getImageInfo().getImageLabel(), _props);
         this.dataSource = dataSource;
 
         //todo need to clone properties
         if (dataSource.isLoaded()) {
-            IClipRange clip = getImageLayerProperties().getClipRange();
+            IClipRange clip = getLayerProps().getClipRange();
 
 
             IClipRange newclip = clip.newClipRange(getData().minValue(), getData().maxValue(), clip.getLowClip(), clip.getHighClip());
-            _properties.clipRange.set(newclip);
-            _properties.colorMap.set(_properties.colorMap.get().newClipRange(
+            _props.clipRange.set(newclip);
+            _props.colorMap.set(_props.colorMap.get().newClipRange(
                     newclip.getLowClip(), newclip.getHighClip(), newclip.getMin(), newclip.getMax()));
 
-            IClipRange thresh = _properties.getThresholdRange();
-            _properties.thresholdRange.set(thresh.newClipRange(newclip.getMin(), newclip.getMax(), thresh.getLowClip(), thresh.getHighClip()));
+            IClipRange thresh = _props.getThresholdRange();
+            _props.thresholdRange.set(thresh.newClipRange(newclip.getMin(), newclip.getMax(), thresh.getLowClip(), thresh.getHighClip()));
 
         }
 
@@ -98,8 +96,8 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
     }
 
     private void initClip() {
-        ImageLayerProperties props = getImageLayerProperties();
-        IClipRange clip = getImageLayerProperties().getClipRange();
+        LayerProps props = getLayerProps();
+        IClipRange clip = getLayerProps().getClipRange();
 
         IClipRange newclip = clip.newClipRange(clip.getMin(), clip.getMax(), clip.getLowClip(), clip.getHighClip());
         props.clipRange.set(newclip);
@@ -118,9 +116,7 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
         return dataSource;
     }
 
-    public String getLabel() {
-        return getName();
-    }
+
 
     public T getCoordinateSpace() {
         return (T) dataSource.getData().getImageSpace();

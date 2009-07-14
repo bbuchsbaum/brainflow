@@ -69,11 +69,11 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     ImageLayer layer = getSelectedLayer();
                     IClipRange oldclip = layer.getThreshold();
-                    layer.getImageLayerProperties().thresholdRange.set(new AbsClipRange(oldclip.getMin(), oldclip.getMax(), oldclip.getHighClip()));
+                    layer.getLayerProps().thresholdRange.set(new AbsClipRange(oldclip.getMin(), oldclip.getMax(), oldclip.getHighClip()));
                 } else {
                     ImageLayer layer = getSelectedLayer();
                     IClipRange oldclip = layer.getThreshold();
-                    layer.getImageLayerProperties().thresholdRange.set(new ClipRange(oldclip.getMin(), oldclip.getMax(), oldclip.getLowClip(), oldclip.getHighClip()));
+                    layer.getLayerProps().thresholdRange.set(new ClipRange(oldclip.getMin(), oldclip.getMax(), oldclip.getLowClip(), oldclip.getHighClip()));
 
                 }
             }
@@ -113,16 +113,16 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
 
     public void bind() {
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
-        ExtBind.get().bindBiSlider(layer.getImageLayerProperties().thresholdRange, bislider);
+        ExtBind.get().bindBiSlider(layer.getLayerProps().thresholdRange, bislider);
 
-        if (layer.getImageLayerProperties().clipRange.get().getMin() >= 0) {
+        if (layer.getLayerProps().clipRange.get().getMin() >= 0) {
             symmetricalCheckBox.setEnabled(false);
         } else {
             symmetricalCheckBox.setEnabled(true); 
         }
 
         //todo egregious hack
-        if (layer.getImageLayerProperties().thresholdRange.get() instanceof AbsClipRange) {
+        if (layer.getLayerProps().thresholdRange.get() instanceof AbsClipRange) {
             symmetricalCheckBox.setSelected(true);
         } else {
             symmetricalCheckBox.setSelected(false);

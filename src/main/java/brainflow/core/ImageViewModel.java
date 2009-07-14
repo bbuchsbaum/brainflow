@@ -2,7 +2,6 @@ package brainflow.core;
 
 import brainflow.core.layer.*;
 import brainflow.colormap.IColorMap;
-import brainflow.utils.WeakEventListenerList;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.axis.ImageAxis;
@@ -124,9 +123,16 @@ public class ImageViewModel implements Iterable {
     }
 
     public void set(int i, ImageLayer3D layer) {
-        ImageLayer3D selLayer = getSelectedLayer();
-        layers.set(i, layer);
-        layerSelection.set(layers.indexOf(selLayer));
+        if (i < 0 || i >= layers.size()) {
+            throw new IllegalArgumentException("illegal index " + i + " for layer list of size: " + layers.size());
+        }
+
+        //ImageLayer3D selLayer = getSelectedLayer();
+
+        layers = layers.set(i, layer);
+
+
+        //layerSelection.set(layers.indexOf(selLayer));
         fireListDataEvent(new ListDataEvent(this, ListDataEvent.CONTENTS_CHANGED, i, i));
 
 
@@ -424,11 +430,11 @@ public class ImageViewModel implements Iterable {
 
 
 
-        BeanContainer.get().addListener(layer.getImageLayerProperties().colorMap, colorMapListener);
-        BeanContainer.get().addListener(layer.getImageLayerProperties().interpolationType, interpolationListener);
-        BeanContainer.get().addListener(layer.getImageLayerProperties().opacity, opacityListener);
-        BeanContainer.get().addListener(layer.getImageLayerProperties().smoothingRadius, smoothingListener);
-        BeanContainer.get().addListener(layer.getImageLayerProperties().thresholdRange, thresholdListener);
+        BeanContainer.get().addListener(layer.getLayerProps().colorMap, colorMapListener);
+        BeanContainer.get().addListener(layer.getLayerProps().interpolationType, interpolationListener);
+        BeanContainer.get().addListener(layer.getLayerProps().opacity, opacityListener);
+        BeanContainer.get().addListener(layer.getLayerProps().smoothingRadius, smoothingListener);
+        BeanContainer.get().addListener(layer.getLayerProps().thresholdRange, thresholdListener);
         BeanContainer.get().addListener(layer.maskProperty, maskListener);
 
         List<PropListener<ImageLayerListener>> listeners = Arrays.asList(colorMapListener, interpolationListener, opacityListener,
@@ -438,7 +444,7 @@ public class ImageViewModel implements Iterable {
 
 
 
-        BeanContainer.get().addListener(layer.getImageLayerProperties().clipRange, new PropertyListener() {
+        BeanContainer.get().addListener(layer.getLayerProps().clipRange, new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
                 ClipRange clip = (ClipRange) newValue;
                 Number lowClip = clip.getLowClip();
@@ -446,14 +452,14 @@ public class ImageViewModel implements Iterable {
 
                 ImageLayerListener[] listeners = eventListeners.getListeners(ImageLayerListener.class);
 
-                IColorMap oldMap = layer.getImageLayerProperties().getColorMap();
+                IColorMap oldMap = layer.getLayerProps().getColorMap();
 
                 if (oldMap.getLowClip() == lowClip.doubleValue() && oldMap.getHighClip() == highClip.doubleValue()) {
                     return;
                 }
 
                 IColorMap newMap = oldMap.newClipRange(lowClip.doubleValue(), highClip.doubleValue(), clip.getMin(), clip.getMax());
-                layer.getImageLayerProperties().colorMap.set(newMap);
+                layer.getLayerProps().colorMap.set(newMap);
 
                 for (ImageLayerListener listener : listeners) {
                     listener.clipRangeChanged(new ImageLayerEvent(ImageViewModel.this, layer));

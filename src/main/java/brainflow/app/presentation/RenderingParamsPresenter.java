@@ -75,10 +75,10 @@ public class RenderingParamsPresenter extends ImageViewPresenter implements Bind
 
     public void bind() {
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
-        SwingBind.get().bind(new PercentageRangeConverter(layer.getImageLayerProperties().opacity, 0, 1, 100), form.getOpacitySlider());
-        SwingBind.get().bind(new PercentageRangeConverter(layer.getImageLayerProperties().smoothingRadius, 0, 15, 100), form.getSmoothingSlider());
-        SwingBind.get().bindContent(layer.getImageLayerProperties().interpolationSet, form.getInterpolationChoices());
-        SwingBind.get().bindIndex(layer.getImageLayerProperties().interpolationSelection, form.getInterpolationChoices());
+        SwingBind.get().bind(new PercentageRangeConverter(layer.getLayerProps().opacity, 0, 1, 100), form.getOpacitySlider());
+        SwingBind.get().bind(new PercentageRangeConverter(layer.getLayerProps().smoothingRadius, 0, 15, 100), form.getSmoothingSlider());
+        SwingBind.get().bindContent(layer.getLayerProps().interpolationSet, form.getInterpolationChoices());
+        SwingBind.get().bindIndex(layer.getLayerProps().interpolationSelection, form.getInterpolationChoices());
     }
 
     public void unbind() {

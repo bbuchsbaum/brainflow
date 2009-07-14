@@ -5,10 +5,9 @@ import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.data.IImageData;
 import brainflow.image.space.Axis;
-import brainflow.image.space.IImageSpace;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.core.layer.ImageLayerListener;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.layer.ImageLayer3D;
 
 import java.util.List;
@@ -67,7 +66,7 @@ public interface IImageDisplayModel extends Iterable<ImageLayer3D> {
 
     public void removeLayer(ImageLayer3D layer);
 
-    public ImageLayerProperties getLayerParameters(int layer);
+    public LayerProps getLayerParameters(int layer);
 
     public ImageLayer3D getLayer(int layer);
 

@@ -82,7 +82,7 @@ public class ColorRangePresenter extends ImageViewPresenter implements Bindable 
     public void bind() {
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
 
-        ExtBind.get().bindBiSlider(layer.getImageLayerProperties().clipRange, bislider);
+        ExtBind.get().bindBiSlider(layer.getLayerProps().clipRange, bislider);
 
        
 

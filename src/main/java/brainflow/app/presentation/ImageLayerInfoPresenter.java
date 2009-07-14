@@ -130,6 +130,8 @@ public class ImageLayerInfoPresenter extends ImageViewPresenter {
         property = createProperty("Data Type", data.getDataType(), "Image Data", String.class, "Data Storage Type");
         list.add(property);
 
+        
+
         return list;
 
     }

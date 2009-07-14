@@ -51,7 +51,7 @@ public class ImageSlicer {
         return image;
     }
 
-    public BasicImageData2D getSlice(Anatomy3D displayAnatomy, int fixedSlice) {
+    public IImageData2D getSlice(Anatomy3D displayAnatomy, int fixedSlice) {
      
         ImageFiller filler = new ImageFiller();
         return filler.fillImage(image, displayAnatomy, fixedSlice);

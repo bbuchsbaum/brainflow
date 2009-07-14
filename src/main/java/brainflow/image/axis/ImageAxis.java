@@ -84,7 +84,6 @@ public class ImageAxis extends CoordinateAxis {
         }
 
         throw new ImageAxis.IncompatibleAxisException("cannot match axes: " + aaxis + " and " + getAnatomicalAxis());
-
     }
 
     public ImageAxis matchAxis(ImageAxis src) {

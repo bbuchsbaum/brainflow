@@ -1,6 +1,5 @@
 package brainflow.core.layer;
 
-import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.ICoordinateSpace;
@@ -8,7 +7,7 @@ import brainflow.image.space.IImageSpace;
 import brainflow.image.data.CoordinateSet3D;
 import brainflow.core.rendering.BasicCoordinateSliceRenderer;
 import brainflow.core.layer.AbstractLayer;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.core.SliceRenderer;
 
 /**
@@ -22,8 +21,8 @@ public class CoordinateLayer extends AbstractLayer {
 
     private CoordinateSet3D coordinates;
 
-    public CoordinateLayer(ImageLayerProperties properties, CoordinateSet3D coords) {
-        super("coords", properties);
+    public CoordinateLayer(LayerProps props, CoordinateSet3D coords) {
+        super("coords", props);
         coordinates = coords;
     }
 

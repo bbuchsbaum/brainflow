@@ -35,7 +35,7 @@ public class RenderLayersStage extends ImageProcessingStage {
 
         if (renderers.size() == 0 || allTransparent(renderers)) {
              composite = null;
-        } else if (renderers.size() == 1 && renderers.get(0).getLayer().getImageLayerProperties().opacity.get() >= 1) {
+        } else if (renderers.size() == 1 && renderers.get(0).getLayer().getLayerProps().opacity.get() >= 1) {
             SliceRenderer renderer = renderers.get(0);
             composite = renderer.render();
         } else {

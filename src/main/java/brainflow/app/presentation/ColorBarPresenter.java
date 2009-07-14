@@ -97,7 +97,7 @@ public class ColorBarPresenter extends ImageViewPresenter {
     }
 
     public void viewDeselected(ImageView view) {
-        BeanContainer.get().removeListener(view.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
+        BeanContainer.get().removeListener(view.getSelectedLayer().getLayerProps().colorMap, colorMapListener);
     }
 
     public void allViewsDeselected() {
@@ -105,9 +105,9 @@ public class ColorBarPresenter extends ImageViewPresenter {
     }
 
     public void viewSelected(final ImageView view) {
-        form.setColorMap(view.getSelectedLayer().getImageLayerProperties().colorMap.get());
+        form.setColorMap(view.getSelectedLayer().getLayerProps().colorMap.get());
 
-        BeanContainer.get().addListener(view.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
+        BeanContainer.get().addListener(view.getSelectedLayer().getLayerProps().colorMap, colorMapListener);
 
     }
 
@@ -116,7 +116,7 @@ public class ColorBarPresenter extends ImageViewPresenter {
     @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         if (oldModel.getSelectedLayer() != newModel.getSelectedLayer()) {
-            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
+            BeanContainer.get().removeListener(oldModel.getSelectedLayer().getLayerProps().colorMap, colorMapListener);
         }
 
         viewSelected(view);
@@ -124,13 +124,13 @@ public class ColorBarPresenter extends ImageViewPresenter {
 
     @Override
     protected void layerSelected(ImageLayer3D layer) {
-        form.setColorMap(layer.getImageLayerProperties().colorMap.get());
-        BeanContainer.get().addListener(layer.getImageLayerProperties().colorMap, colorMapListener);
+        form.setColorMap(layer.getLayerProps().colorMap.get());
+        BeanContainer.get().addListener(layer.getLayerProps().colorMap, colorMapListener);
     }
 
     @Override
     protected void layerDeselected(ImageLayer3D layer) {
-       BeanContainer.get().removeListener(getSelectedView().getSelectedLayer().getImageLayerProperties().colorMap, colorMapListener);
+       BeanContainer.get().removeListener(getSelectedView().getSelectedLayer().getLayerProps().colorMap, colorMapListener);
     }
 
     public JComponent getComponent() {
@@ -206,7 +206,7 @@ public class ColorBarPresenter extends ImageViewPresenter {
             int layer = view.getModel().getSelectedIndex();
 
             IColorMap oldMap = view.getModel().get(layer).
-                    getImageLayerProperties().getColorMap();
+                    getLayerProps().getColorMap();
 
             ColorGradientEditor chooser = new ColorGradientEditor(oldMap.getMinimumValue(), oldMap.getMaximumValue());
 
@@ -235,7 +235,7 @@ public class ColorBarPresenter extends ImageViewPresenter {
                 IColorMap newMap = chooser.getColorMap();
 
                 view.getModel().get(layer).
-                        getImageLayerProperties().colorMap.set(newMap);
+                        getLayerProps().colorMap.set(newMap);
             }
 
 

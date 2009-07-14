@@ -33,10 +33,10 @@ public class SelectColorMapCommand extends BrainFlowCommand  {
 
             ImageLayer layer = view.getSelectedLayer();
 
-            IColorMap map = layer.getImageLayerProperties().getColorMap();
+            IColorMap map = layer.getLayerProps().getColorMap();
 
             LinearColorMap2 lmap = new LinearColorMap2(map.getMinimumValue(), map.getMaximumValue(), map.getLowClip(), map.getHighClip(), icm);
-            layer.getImageLayerProperties().colorMap.set(lmap);
+            layer.getLayerProps().colorMap.set(lmap);
 
 
         }

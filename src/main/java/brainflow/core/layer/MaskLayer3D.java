@@ -1,7 +1,6 @@
 package brainflow.core.layer;
 
 import brainflow.image.data.*;
-import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.IImageSpace;
@@ -31,14 +30,14 @@ public class MaskLayer3D extends ImageLayer3D {
 
     }
 
-    public MaskLayer3D(IMaskedData3D data, ImageLayerProperties _params) {
+    public MaskLayer3D(IMaskedData3D data, LayerProps _params) {
         super(data, _params);
         init();
     }
 
     private void init() {
-        getImageLayerProperties().colorMap.set(new BinaryColorMap(Color.WHITE));
-        getImageLayerProperties().interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
+        getLayerProps().colorMap.set(new BinaryColorMap(Color.WHITE));
+        getLayerProps().interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
 
     }
 

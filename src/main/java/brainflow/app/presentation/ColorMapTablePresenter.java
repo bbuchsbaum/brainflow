@@ -56,7 +56,7 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
                 colorTable.getComponent().getSelectionModel().clearSelection();
 
                 ImageViewModel model = getSelectedView().getModel();
-                model.getSelectedLayer().getImageLayerProperties().colorMap.set(cmap);
+                model.getSelectedLayer().getLayerProps().colorMap.set(cmap);
 
 
             }
@@ -93,7 +93,7 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
                 if (view != null) {
                     // !!! ?? color map already may be set and therefore property change event never fired?
                     ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
-                    layer.getImageLayerProperties().colorMap.set(colorTable.getEditedColorMap());
+                    layer.getLayerProps().colorMap.set(colorTable.getEditedColorMap());
                 }
             }
         });
@@ -116,7 +116,7 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
 
     private IColorMap getColorMap() {
         if (getSelectedView() != null) {
-            return getSelectedView().getSelectedLayer().getImageLayerProperties().getColorMap();
+            return getSelectedView().getSelectedLayer().getLayerProps().getColorMap();
         }
         return null;
     }
@@ -139,7 +139,7 @@ public class ColorMapTablePresenter extends ImageViewPresenter {
     }
 
     public void viewSelected(ImageView view) {
-        IColorMap cmap = getSelectedView().getModel().getSelectedLayer().getImageLayerProperties().getColorMap();
+        IColorMap cmap = getSelectedView().getModel().getSelectedLayer().getLayerProps().getColorMap();
         setColorMap(cmap);
 
     }

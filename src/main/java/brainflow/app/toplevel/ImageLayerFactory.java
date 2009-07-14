@@ -2,7 +2,7 @@ package brainflow.app.toplevel;
 
 import brainflow.image.io.IImageDataSource;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.ImageLayerProperties;
+import brainflow.core.layer.LayerProps;
 import brainflow.utils.Range;
 import brainflow.colormap.LinearColorMap2;
 
@@ -22,7 +22,7 @@ public class ImageLayerFactory {
         //double highclip = sortedVals[(int) (.98 * sortedVals.length)];
         //double lowclip = sortedVals[(int) (.02 * sortedVals.length)];
 
-        ImageLayerProperties params = new ImageLayerProperties(
+        LayerProps params = new LayerProps(
                 new Range(dataSource.getData().minValue(),
                         dataSource.getData().maxValue()));
 

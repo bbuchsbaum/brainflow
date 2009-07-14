@@ -8,9 +8,10 @@ Fix: add exe command to gradle script: izpack2exe --file=brainflow-install.jar -
 [Fix: when model changes project view fails to update.  Problem is
 
 
-Fix: mask view seems to show "0" as transparent.
-
-[Fix: advancing image in 4D views is broken] * when advancing volumes, sometimes get a "flicker".
+[Fix: mask view seems to show "0" as transparent.] need to create subclass of cliprange called ZeroRange.
+[Fix: mask view slider is messed up]
+[Fix: mask not updated wehn view changes]
+[Fix: advancing image in 4D views is broken * when advancing volumes, sometimes get a "flicker".]
 
 
 [Fix: Histogram fails to switch]

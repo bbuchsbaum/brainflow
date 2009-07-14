@@ -6,6 +6,7 @@ import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.BrainPoint1D;
+import brainflow.image.anatomy.Anatomy2D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.Iterator3D;
@@ -152,6 +153,45 @@ public class ImageData {
 
 
     }
+
+    /*public static IImageData2D sliceView(final IImageData3D data3d, Anatomy2D sliceAnatomy, int sliceIndex) {
+        int[][] permutationMatrix;
+        //x, y =  
+        //ImageAxis xaxis = data3d.getImageSpace().getImageAxis(sliceAnatomy.XAXIS, true).matchAxis(v)
+        //final IImageSpace space2d = new ImageSpace2D(data3d.getImageSpace().getImageAxis(sliceAnatomy.XAXIS))
+        return new AbstractImageData2D() {
+            @Override
+            public double value(int index) {
+                return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public ImageIterator iterator() {
+                return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public ImageBuffer2D createWriter(boolean clear) {
+                return null;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public double value(double x, double y, InterpolationFunction2D interp) {
+                return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public double worldValue(double realx, double realy, InterpolationFunction2D interp) {
+                return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public double value(int x, int y) {
+                return 0;  //To change body of implemented methods use File | Settings | File Templates.
+            }
+        }
+
+    }  */
 
     public static IImageData3D negate(final IImageData3D data) {
         return createScaledData(data, -1);

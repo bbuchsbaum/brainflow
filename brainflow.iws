@@ -34,21 +34,77 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ffb10a9b-f03e-4e45-a7dc-8d81baa13325" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
-      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\BrainFlowClientAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/.svn/text-base/BrainFlowToggleCommand.java.svn-base" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/annotations/ColorBarAnnotation.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/annotations/ColorBarAnnotation.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\inspection\JidePropertyWrapper.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt" afterPath="$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ThresholdRangePresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ThresholdRangePresenter.java" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\LoadableImageReceiver.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/.svn/text-base/LoadableImageReceiver.java.svn-base" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiInfoWriter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiInfoWriter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/space/PermutationMatrix3D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\core\layer\Layer.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageLayerInfoPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageLayerInfoPresenter.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\LoadableImageTransferable.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/dnd/.svn/text-base/AbstractLayerTransferable.java.svn-base" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\TestPropertyPane.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/.svn/text-base/TestPropertyPane.java.svn-base" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/CoordinateLayer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/CoordinateLayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorBandChartPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorBandChartPresenter.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\actions\ActionContext.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/.svn/text-base/ActionContext.java.svn-base" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskLayer3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskLayer3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorMapTablePresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorMapTablePresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter2.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskProperty3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskProperty3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ImageLayerFactory.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ImageLayerFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/Anatomy3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/Anatomy3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicCoordinateSliceRenderer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicCoordinateSliceRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/SnapShooter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/SnapShooter.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\inspection\JideUtils.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/SelectColorMapCommand.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/SelectColorMapCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewModel.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewModel.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\core\layer\ImageLayerProperties.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/LayerProps.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ClipRange.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ClipRange.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/IImageDisplayModel.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/IImageDisplayModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageDisplayModel.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageDisplayModel.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\inspection\ImageInfoInspector.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/ILayer.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\ImageProgressDialog.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/.svn/text-base/ImageProgressDialog.java.svn-base" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorBarPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorBarPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/RenderLayersStage.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/RenderLayersStage.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\core\layer\ImageLayer2D.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/LayerSlice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/AbstractLayer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/AbstractLayer.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\BrainFlowClientAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/.svn/text-base/BrainFlowToggleCommand.java.svn-base" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnectedComponentsFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicImageSliceRenderer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicImageSliceRenderer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/space/PermutationMatrix2D.java" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\LoadableImageProvider.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/.svn/text-base/LoadableImageProvider.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\controls\PanelBuilderTest.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/.svn/text-base/PanelBuilderTest.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\BrainCanvasPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/.svn/text-base/BrainCanvasPresenter.java.svn-base" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter2.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorRangePresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorRangePresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/HistogramControl.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/HistogramControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/IncreaseContrastCommand.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/IncreaseContrastCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/RenderingParamsPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/RenderingParamsPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ImageSlicer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ImageSlicer.java" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\ColorMapChooser.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/.svn/text-base/ColorMapChooser.java.svn-base" />
-      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\ImageProgressDialog.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/.svn/text-base/ImageProgressDialog.java.svn-base" />
-      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\LoadableImageTransferable.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/dnd/.svn/text-base/AbstractLayerTransferable.java.svn-base" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/SaveColorBarCommand.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/SaveColorBarCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/HistogramPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/HistogramPresenter.java" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\core\services\ImageDisplayModelEvent.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/services/.svn/text-base/ImageDisplayModelEvent.java.svn-base" />
-      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\TestPropertyPane.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/.svn/text-base/TestPropertyPane.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\binding\VisibilityWrapper.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/binding/.svn/text-base/VisibilityWrapper.java.svn-base" />
-      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\actions\ActionContext.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/.svn/text-base/ActionContext.java.svn-base" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BasicImageReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BasicImageReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/axis/ImageAxis.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/axis/ImageAxis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/DisplayManager.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/DisplayManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ConnComp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/ImageLayer3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/ImageLayer3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/MaskPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/MaskPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DecreaseContrastCommand.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DecreaseContrastCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/space/Space.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/space/Space.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CanvasBar.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CanvasBar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/ImagePlotPipeline.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/ImagePlotPipeline.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/ImageLayer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/layer/ImageLayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AFNIInfoReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AFNIInfoReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DesignColorMapCommand.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DesignColorMapCommand.java" />
     </list>
     <list id="cacf6993-ee23-4ab5-8165-8d28a374ed5d" name="Failed commit: Default (3)" comment="Added number labels to BiSlider" />
     <list id="1990d317-084b-47b9-ace4-d9439de255c4" name="Failed commit: Default (5)" comment="Added number labels to BiSlider" />
@@ -246,7 +302,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CanvasBar.java" line="197" class="brainflow.app.presentation.CanvasBar" package="brainflow.app.presentation">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CanvasBar.java" line="195" class="brainflow.app.presentation.CanvasBar" package="brainflow.app.presentation">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -260,6 +316,19 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/io/NIftiIOSpec.groovy" line="146" class="Class at NIftiIOSpec.groovy:146" package="">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/DisplayManager.java" line="185" class="brainflow.app.toplevel.DisplayManager" package="brainflow.app.toplevel">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -396,89 +465,94 @@
   <component name="FileColors" enabled="false" enabledForTabs="false" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NIftiIOSpec.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/io/NIftiIOSpec.groovy">
+      <file leaf-file-name="PermutationMatrix2D.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/PermutationMatrix2D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="132" column="25" selection-start="3689" selection-end="3689" vertical-scroll-proportion="0.0">
+            <state line="17" column="73" selection-start="416" selection-end="416" vertical-scroll-proportion="0.4134478">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NiftiInfoWriter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiInfoWriter.java">
+      <file leaf-file-name="PermutationMatrix3D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/PermutationMatrix3D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="12" selection-start="2973" selection-end="2973" vertical-scroll-proportion="0.0">
+            <state line="9" column="13" selection-start="203" selection-end="203" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1247574742452" expanded="true" signature="476:777" placeholder="{...}" />
+                <marker date="1247574742452" expanded="true" signature="827:1028" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Space.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/Space.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="86" column="8" selection-start="3420" selection-end="3420" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResourceManager.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ResourceManager.java">
+      <file leaf-file-name="AbstractCoordinateSpace.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/AbstractCoordinateSpace.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="27" selection-start="2850" selection-end="2850" vertical-scroll-proportion="0.0">
+            <state line="12" column="22" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImageViewCommands.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/commands/ImageViewCommands.properties">
+      <file leaf-file-name="Anatomy3D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/Anatomy3D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="286" selection-end="286" vertical-scroll-proportion="0.0">
+            <state line="191" column="4" selection-start="9024" selection-end="9024" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="colormap.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/colormaps/colormap.properties">
+      <file leaf-file-name="AffineMapping3D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/AffineMapping3D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="13" column="13" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BrainFlowCommands.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/commands/BrainFlowCommands.properties">
+      <file leaf-file-name="ImageMapping3D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/ImageMapping3D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="22" selection-start="164" selection-end="164" vertical-scroll-proportion="0.0">
+            <state line="12" column="17" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cross.png" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/icons/cross.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WorldCoordinatePresenter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter.java">
+      <file leaf-file-name="AffineMapping2D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/AffineMapping2D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="13" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0">
+            <state line="18" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WorldCoordinatePresenter2.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter2.java">
+      <file leaf-file-name="Anatomy2D.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/Anatomy2D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="238" selection-end="238" vertical-scroll-proportion="0.0">
+            <state line="62" column="34" selection-start="4637" selection-end="4637" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BrainFlow.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java">
+      <file leaf-file-name="AnatomicalAxis.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/AnatomicalAxis.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="297" column="50" selection-start="8962" selection-end="8962" vertical-scroll-proportion="0.0">
+            <state line="71" column="20" selection-start="2905" selection-end="2905" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -507,22 +581,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageIODescriptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/io/NiftiStringExtensionSpec.groovy" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageInfoWriter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/AnalyzeInfoWriter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/Nifti1Dataset.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/core/layer/MaskProperty3D.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicImageSliceRenderer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/MaskPresenter.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/commands/BrainFlowCommands.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/core/ClipRange.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageLayerInfoPresenter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/Tasks.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/AFNIInfoReader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ImageSlicer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/axis/ImageAxis.java" />
         <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/BrainIO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiInfoReader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiImageInfo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/BasicImageReader.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiImageWriter.java" />
-        <option value="$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/io/NIftiIOSpec.groovy" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiInfoWriter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter2.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/space/PermutationMatrix2D.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/space/PermutationMatrix3D.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/Anatomy3D.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/space/Space.java" />
       </list>
     </option>
   </component>
@@ -688,36 +762,6 @@
           <option name="myItemId" value="resources" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="data" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="resources" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="config" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
       </PATH>
       <PATH>
         <PATH_ELEMENT>
@@ -763,32 +807,6 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="resources" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="colormaps" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="brainflow" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="main" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
           <option name="myItemId" value="java" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
@@ -816,6 +834,164 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="utils" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="image" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="image" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="space" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="image" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="anatomy" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="main" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="java" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="brainflow" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="app" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -953,6 +1129,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="193" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="34" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth2" value="224" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatOrder1" value="1" />
@@ -1004,31 +1181,21 @@
       <recent name="brainflow.app" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.NIftiIOSpec.reading a nifti image and writing it yields the same image">
-    <configuration default="false" name="NIftiIOSpec" type="JUnit" factoryName="JUnit" temporary="true" enabled="false" merge="false" sample_coverage="true" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.io.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-      <module name="brainflow" />
+  <component name="RunManager" selected="Application.PermutationMatrix2D">
+    <configuration default="false" name="PermutationMatrix2D" type="Application" factoryName="Application" temporary="true" enabled="false" merge="false" sample_coverage="true" runner="emma">
+      <option name="MAIN_CLASS_NAME" value="brainflow.image.space.PermutationMatrix2D" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="spock.brainflow.image.io" />
-      <option name="MAIN_CLASS_NAME" value="spock.brainflow.image.io.NIftiIOSpec" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-Xmx800m" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
+      <module name="brainflow" />
       <envs />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="52583" />
+        <option name="DEBUG_PORT" value="62153" />
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
@@ -1037,7 +1204,7 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="AntTarget" enabled="false" />
-        <option name="Make" enabled="true" />
+        <option name="Make" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -1286,7 +1453,7 @@
     </configuration>
     <configuration default="false" name="BrainFlow" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
       <option name="MAIN_CLASS_NAME" value="brainflow.app.toplevel.BrainFlow" />
-      <option name="VM_PARAMETERS" value="-Xmx800m -Xverify:none -ea  -splash:$PROJECT_DIR$/src/main/resources/icons/brainflow-logo-fancy.png" />
+      <option name="VM_PARAMETERS" value="-XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -Xmx800m -Xverify:none -ea  -splash:$PROJECT_DIR$/src/main/resources/icons/brainflow-logo-fancy.png" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -1937,8 +2104,8 @@
       <item index="19" class="java.lang.String" itemvalue="Application.ConnectedComponentsFilter2" />
       <item index="20" class="java.lang.String" itemvalue="Application.NiftiInfoWriter" />
       <item index="21" class="java.lang.String" itemvalue="Application.BrainFlow2" />
-      <item index="22" class="java.lang.String" itemvalue="JUnit.JunkTest" />
-      <item index="23" class="java.lang.String" itemvalue="JUnit.NIftiIOSpec" />
+      <item index="22" class="java.lang.String" itemvalue="Application.PermutationMatrix2D" />
+      <item index="23" class="java.lang.String" itemvalue="JUnit.JunkTest" />
       <item index="24" class="java.lang.String" itemvalue="JUnit.NIftiStringExtensionSpec" />
       <item index="25" class="java.lang.String" itemvalue="JUnit.NIftiIOSpec.reading a nifti image and writing it yields the same image" />
       <item index="26" class="java.lang.String" itemvalue="JUnit.NIftiIOSpec.writing a copied header and rereading it yields something similar" />
@@ -2367,24 +2534,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="108" width="1680" height="912" extended-state="0" />
+    <frame x="0" y="7" width="1680" height="896" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32600734" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32585752" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26649076" sideWeight="0.5" order="1" side_tool="false" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26415095" sideWeight="0.5" order="1" side_tool="false" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09197531" sideWeight="0.66164386" order="1" side_tool="false" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.36015832" sideWeight="0.0" order="4" side_tool="false" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.361186" sideWeight="0.0" order="4" side_tool="false" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32722834" sideWeight="0.5" order="8" side_tool="false" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32189974" sideWeight="0.5" order="8" side_tool="false" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3207547" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844934" sideWeight="0.0" order="7" side_tool="false" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.3283859" sideWeight="0.5" order="1" side_tool="true" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32921556" sideWeight="0.6646849" order="3" side_tool="false" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993865" sideWeight="0.5" order="0" side_tool="false" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41103604" sideWeight="0.5" order="8" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3283859" sideWeight="0.52638525" order="0" side_tool="false" x="121" y="37" width="406" height="883" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2943723" sideWeight="0.5161725" order="0" side_tool="false" x="121" y="37" width="406" height="883" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32844934" sideWeight="0.5" order="8" side_tool="false" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46437994" sideWeight="0.5" order="2" side_tool="false" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47439352" sideWeight="0.5" order="2" side_tool="false" />
       <window_info id="Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32896462" sideWeight="0.5" order="8" side_tool="false" />
@@ -2544,114 +2711,119 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/iterators/Iterator3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/axis/ImageAxis.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="0" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.0">
+        <state line="63" column="21" selection-start="1558" selection-end="1558" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="0" selection-start="1983" selection-end="1983" vertical-scroll-proportion="0.0">
+        <state line="193" column="9" selection-start="5745" selection-end="5745" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/javacode/javalibs/spock/spock-core-0.1.jar!/org/spockframework/runtime/ValueRecorder.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/math/Vector2f.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="28" selection-start="588" selection-end="588" vertical-scroll-proportion="0.0">
+        <state line="49" column="13" selection-start="1973" selection-end="1973" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/IMaskedData3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/math/Matrix3f.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="17" selection-start="216" selection-end="216" vertical-scroll-proportion="0.0">
+        <state line="48" column="13" selection-start="2110" selection-end="2110" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/brainflow.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/GridPoint3D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="28" column="53" selection-start="775" selection-end="775" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/CompositeFileSelector.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/IImageSpace2D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="425" selection-end="425" vertical-scroll-proportion="0.0">
+        <state line="14" column="17" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/io/NIftiIOSpec.groovy">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/Anatomy2D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="132" column="25" selection-start="3689" selection-end="3689" vertical-scroll-proportion="0.0">
+        <state line="62" column="34" selection-start="4637" selection-end="4637" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiInfoWriter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/AnatomicalAxis.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="12" selection-start="2973" selection-end="2973" vertical-scroll-proportion="0.0">
+        <state line="71" column="20" selection-start="2905" selection-end="2905" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ResourceManager.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/AffineMapping2D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="27" selection-start="2850" selection-end="2850" vertical-scroll-proportion="0.0">
+        <state line="18" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/AffineMapping3D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="297" column="50" selection-start="8962" selection-end="8962" vertical-scroll-proportion="0.0">
+        <state line="13" column="13" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/colormaps/colormap.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/ImageMapping3D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="12" column="17" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/commands/ImageViewCommands.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/AbstractCoordinateSpace.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="286" selection-end="286" vertical-scroll-proportion="0.0">
+        <state line="12" column="22" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/Anatomy3D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="13" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0">
+        <state line="191" column="4" selection-start="9024" selection-end="9024" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/WorldCoordinatePresenter2.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/PermutationMatrix3D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="0" selection-start="238" selection-end="238" vertical-scroll-proportion="0.0">
+        <state line="9" column="13" selection-start="203" selection-end="203" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1247574742452" expanded="true" signature="476:777" placeholder="{...}" />
+            <marker date="1247574742452" expanded="true" signature="827:1028" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/Space.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="8" selection-start="3420" selection-end="3420" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/commands/BrainFlowCommands.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/space/PermutationMatrix2D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="22" selection-start="164" selection-end="164" vertical-scroll-proportion="0.0">
+        <state line="17" column="73" selection-start="416" selection-end="416" vertical-scroll-proportion="0.4134478">
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/icons/cross.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
   </component>
