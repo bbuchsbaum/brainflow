@@ -8,6 +8,7 @@ import brainflow.core.services.DataSourceStatusEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerList;
+import brainflow.core.layer.ImageLayer;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 
@@ -103,7 +104,10 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
     }
 
     protected void clearDataSource(IImageDataSource dataSource) {
+        System.out.println("clearing data source " + dataSource);
+        //todo just really and truly horrible
         Iterator<ImageViewModel> iter = activeProject.iterator();
+        System.out.println("number of models " + activeProject.size());
         List<ImageViewModel> purged = new ArrayList<ImageViewModel>();
 
         while (iter.hasNext()) {
@@ -113,6 +117,8 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
             List<Integer> idx = dmodel.indexOf((IImageData3D) dataSource.getData());
             List<ImageView> views = DisplayManager.get().getImageViews(dmodel);
 
+            System.out.println("number of views " + views.size());
+
             if (idx.size() > 0) {
 
                 List<ImageLayer3D> removables = new ArrayList<ImageLayer3D>();
@@ -121,15 +127,24 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
                     removables.add(dmodel.get(i));
                 }
 
+                System.out.println("number of removables " + removables.size());
+
                 if (removables.size() == dmodel.size()) {
+                    System.out.println("number of removables == size of model");
                     //removing all layers from model, which invalidates the model.
                     for (ImageView view : views) {
                         DisplayManager.get().removeView(view);
+                        //still need to remove layers to notify event listeners, etc.
+                        for (ImageLayer3D layer : removables) {
+                            view.getModel().remove(layer);
+                        }
+                        //////
                     }
 
                     purged.add(dmodel);
 
                 } else {
+                    System.out.println("removing layers from all views");
                     for (ImageView view : views) {
                         for (ImageLayer3D layer : removables) {
                             view.getModel().remove(layer);
@@ -141,7 +156,9 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
             }
         }
 
+
         for (ImageViewModel model : purged) {
+            System.out.println("removing model from project");
             activeProject.removeModel(model);
         }
     }

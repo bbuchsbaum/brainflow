@@ -14,6 +14,7 @@ import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.io.IImageDataSource;
 import brainflow.gui.ExceptionDialog;
+import brainflow.utils.StopWatch;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.docking.DefaultDockingManager;
@@ -74,7 +75,8 @@ import java.net.URI;
  * To change this template use File | Settings | File Templates.
  */
 
-public class BrainFlow {
+public class
+        BrainFlow {
 
     static {
         com.jidesoft.utils.Lm.verifyLicense("UIN", "BrainFlow", "S5XiLlHH0VReaWDo84sDmzPxpMJvjP3");
@@ -100,8 +102,6 @@ public class BrainFlow {
     private ImageFileExplorer loadingDock = null;
 
     private StatusBar statusBar;
-
-    private SelectedViewStatus viewStatus;
 
     private CommandContainer commandContainer;
 
@@ -141,8 +141,7 @@ public class BrainFlow {
     private void openSplash() {
         splash = SplashScreen.getSplashScreen();
         if (splash == null) {
-            System.out.println(
-                    "Error: no splash image specified on the command line");
+            log.warning("Error: no splash image specified on the command line");
             return;
         }
 
@@ -219,11 +218,15 @@ public class BrainFlow {
             } else if (osname.toUpperCase().contains("MAC")) {
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
                 System.setProperty("com.apple.mrj.application.apple.menu.about.name", "BrainFlow");
-
+                System.setProperty("com.apple.macos.useScreenMenuBar", "true");
+                System.setProperty("apple.laf.useScreenMenuBar", "true");
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                //UIManager.setLookAndFeel("apple.laf.AquaLookAndFeel");
+                LookAndFeelFactory.installJideExtension(1);
                 //System.setProperty("Quaqua.tabLayoutPolicy","wrap");
-                UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
+                //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 //UIManager.setLookAndFeel(new ch.randelshofer.quaqua.QuaquaLookAndFeel());
-                LookAndFeelFactory.installJideExtension();
+                //LookAndFeelFactory.installJideExtension();
             }
 
         } catch (UnsupportedLookAndFeelException e) {
@@ -241,51 +244,72 @@ public class BrainFlow {
         }
 
 
+
+        StopWatch clock = new StopWatch();
+        clock.start("launch");
+        clock.start("construct brainframe");
         drawSplashProgress("creating frame ...");
         brainFrame = new BrainFrame();
         statusBar = new StatusBar();
 
         brainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        clock.stopAndReport("construct brainframe");
 
 
         drawSplashProgress("initializing DisplayManager ...");
         DisplayManager.get().newCanvas();
 
 
-        drawSplashProgress("initializing resources ...");
-        initializeResources();
-
-
+        clock.start("load commands");
         drawSplashProgress("loading commands ...");
         loadCommands();
-
-
-        drawSplashProgress("initializing IO ...");
-
-        initImageIO();
-
-
-        drawSplashProgress("initializing status bar ...");
-        initializeStatusBar();
-
-
-        drawSplashProgress("initializing work space ...");
-        initializeWorkspace();
-
+        clock.stopAndReport("load commands");
 
         drawSplashProgress("binding container ...");
         bindContainer();
 
+        drawSplashProgress("initializing IO ...");
+        clock.start("init io");
+        initImageIO();
+        clock.stopAndReport("init io");
 
+
+
+        clock.start("workspace");
+        drawSplashProgress("initializing work space ...");
+        initializeWorkspace();
+        clock.stopAndReport("workspace");
+
+
+        clock.start("toolbar");
         drawSplashProgress("initializing tool bar ...");
         initializeToolBar();
+        clock.stopAndReport("toolbar");
 
-
+        clock.start("menu");
         drawSplashProgress("initializing menu ...");
         initializeMenu();
-
+        clock.stopAndReport("menu");
 
         initExceptionHandler();
+        clock.stopAndReport("launch");
+
+        clock.start("initialize resources");
+        drawSplashProgress("initializing resources ...");
+        initializeResources();
+        clock.stopAndReport("initialize resources");
+
+        drawSplashProgress("initializing status bar ...");
+        clock.start("status bar");
+        initializeStatusBar();
+        clock.stopAndReport("status bar");
+
+
+
+
+
+
+
 
 
     }
@@ -372,7 +396,7 @@ public class BrainFlow {
     }
 
     private void initializeStatusBar() {
-        viewStatus = new SelectedViewStatus();
+        SelectedViewStatus viewStatus = new SelectedViewStatus();
         log.info("initialzing status bar");
         statusBar.setAutoAddSeparator(false);
 
@@ -518,33 +542,51 @@ public class BrainFlow {
 
 
     private void initializeWorkspace() throws Exception {
+        StopWatch watch = new StopWatch();
+
+        watch.start("laying out workspace");
         log.info("initializing workspace");
         brainFrame.getDockingManager().getWorkspace().setLayout(new BorderLayout());
         brainFrame.getDockingManager().getWorkspace().add(documentPane, "Center");
-
         JComponent canvas = DisplayManager.get().getSelectedCanvas().getComponent();
         canvas.setRequestFocusEnabled(true);
         canvas.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        watch.stopAndReport("laying out workspace");
 
-
+        watch.start("opening document");
         documentPane.setTabPlacement(DocumentPane.BOTTOM);
         documentPane.openDocument(new DocumentComponent(new JScrollPane(canvas), "Canvas-1"));
         documentPane.setActiveDocument("Canvas-1");
+        watch.stopAndReport("opening document");
+
 
         log.info("initializing loading dock");
+        watch.start("init loading dock");
         initLoadingDock();
+        watch.stopAndReport("init loading dock");
         log.info("initializing project view");
+        watch.start("init project view");
         initProjectView();
+        watch.stopAndReport("init project view");
         log.info("initializing image table view");
+        watch.start("init ploadable image table view");
         initLoadableImageTableView();
+        watch.stopAndReport("init ploadable image table view");
         log.info("initializing control panel");
+        watch.start("init control panel");
         initControlPanel();
+        watch.stopAndReport("init control panel");
         log.info("initializing event monitor");
+        watch.start("event bus monitor");
         initEventBusMonitor();
         log.info("initializing log monitor");
+        watch.stopAndReport("event bus monitor");
+
+        watch.start("log monitor");
         initLogMonitor();
+        watch.stopAndReport("log monitor");
 
-
+        watch.start("layout docks");
         brainFrame.getDockingManager().beginLoadLayoutData();
         brainFrame.getDockingManager().setInitSplitPriority(DefaultDockingManager.SPLIT_EAST_WEST_SOUTH_NORTH);
         brainFrame.getDockingManager().loadLayoutData();
@@ -553,15 +595,17 @@ public class BrainFlow {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         brainFrame.setSize((int) screenSize.getWidth(), (int) screenSize.getHeight() - 50);
         brainFrame.setVisible(true);
+        watch.stopAndReport("layout docks");
 
-
+        watch.start("canvas bar");
         CanvasBar cbar = new CanvasBar();
+
 
         /// TODO add automatic updating of canvas to Canvas Bar via EventBus
         //cbar.setImageCanvas(canvas);
         ////////////////////////////////////////////////////////////////////
         canvas.add(cbar.getComponent(), BorderLayout.NORTH);
-
+        watch.stopAndReport("canvas bar");
 
     }
 

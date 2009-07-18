@@ -134,9 +134,9 @@ public class BasicImageData3D extends AbstractImageData3D  {
         final BasicImageData3D delegate;
 
         if (clear) {
-            delegate = new BasicImageData3D(space, dataSupport.copyArray());
+            delegate = new BasicImageData3D(space, BasicImageData3D.this.getDataType());           
         } else {
-            delegate = new BasicImageData3D(space, BasicImageData3D.this.getDataType());
+            delegate = new BasicImageData3D(space, dataSupport.copyArray());
         }
 
         return new ImageBuffer3D() {

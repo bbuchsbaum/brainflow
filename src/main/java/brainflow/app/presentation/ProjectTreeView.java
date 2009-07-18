@@ -18,6 +18,7 @@ import javax.swing.event.ListDataListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeNode;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -244,6 +245,12 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
     }
 
     @Override
+    protected void layerIntervalRemoved(ListDataEvent event) {
+        System.out.println("layer removed!");
+
+    }
+
+    @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -346,6 +353,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
         }
 
         public void intervalRemoved(BrainFlowProjectEvent event) {
+
         }
 
 
@@ -388,8 +396,6 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
                 ImageLayer layer = model.get(i);
                 add(new ImageLayerNode(layer));
                 treeModel.nodesWereInserted(ImageViewModelNode.this, new int[]{ImageViewModelNode.this.getChildCount() - 1});
-
-
             }
         }
 
@@ -400,6 +406,18 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
         public ImageViewModel getModel() {
             return model;
         }
+
+        @Override
+        public void remove(int childIndex) {
+            super.remove(childIndex);
+            System.out.println("removing child Index");
+        }
+
+        @Override
+        public TreeNode getChildAt(int index) {
+            return super.getChildAt(index);    //To change body of overridden methods use File | Settings | File Templates.
+        }
+
 
 
         public boolean isLeaf() {
@@ -415,6 +433,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
         ImageModelListener(ImageViewModelNode node) {
             this.node = node;
+
         }
 
         public void intervalAdded(ListDataEvent e) {
@@ -426,7 +445,13 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
         public void intervalRemoved(ListDataEvent e) {
             int idx = e.getIndex0();
+            System.out.println("node size " + node.getChildCount());
+            System.out.println("removing node " + idx);
+            //new Throwable().printStackTrace();
             node.remove(idx);
+            //treeModel.nodeStructureChanged(node);
+            treeModel.nodeChanged(node);
+            //node.remove(idx);
 
         }
 

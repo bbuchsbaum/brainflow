@@ -192,8 +192,6 @@ public class ToggleBar extends JPanel implements ListDataListener {
         public void itemStateChanged(ItemEvent e) {
 
             AbstractButton button = (AbstractButton) e.getSource();
-            System.out.println("item state change!");
-            System.out.println("button = " + button);
             if (e.getStateChange() == ItemEvent.SELECTED) {
 
                 int selIdx = buttonList.indexOf(button);

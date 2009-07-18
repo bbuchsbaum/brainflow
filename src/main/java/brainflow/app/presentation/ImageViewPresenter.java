@@ -39,7 +39,7 @@ public abstract class ImageViewPresenter extends AbstractPresenter  {
             }
 
             selectedView = evt.getSelectedImageView();
-            if (selectedView != null) viewSelected(selectedView);
+            if (selectedView != null && selectedView.getSelectedLayerIndex() >= 0) viewSelected(selectedView);
             else allViewsDeselected();
 
 

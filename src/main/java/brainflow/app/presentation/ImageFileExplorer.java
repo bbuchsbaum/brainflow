@@ -90,9 +90,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             public void valueChanged(TreeSelectionEvent e) {
 
                 TreePath path = e.getNewLeadSelectionPath();
-                if (path != null) {
-                    System.out.println("last path component: " + path.getLastPathComponent());
-                }
+                
             }
         });
 

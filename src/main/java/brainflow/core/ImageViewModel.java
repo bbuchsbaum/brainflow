@@ -70,7 +70,7 @@ public class ImageViewModel implements Iterable {
 
         for (ImageLayer3D layer : _layers) {
             visibleList.add(true);
-            listenToLayer(layer);
+            listenerRefs.put(layer, listenToLayer(layer));
         }
 
 
@@ -106,7 +106,7 @@ public class ImageViewModel implements Iterable {
         visibleList.add(true);
 
         fireListDataEvent(new ListDataEvent(this, ListDataEvent.INTERVAL_ADDED, layers.size() - 1, layers.size() - 1));
-        listenToLayer(layer);
+        listenerRefs.put(layer, listenToLayer(layer));
 
     }
 
@@ -117,8 +117,8 @@ public class ImageViewModel implements Iterable {
 
         int i = indexOf(layer);
         remove(i);
-        visibleList.remove(i);
-        fireListDataEvent(new ListDataEvent(this, ListDataEvent.INTERVAL_REMOVED, i, i));
+        //visibleList.remove(i);
+        //fireListDataEvent(new ListDataEvent(this, ListDataEvent.INTERVAL_REMOVED, i, i));
 
     }
 
@@ -187,7 +187,7 @@ public class ImageViewModel implements Iterable {
         visibleList.add(i, true);
         int selIndex = l.indexOf(selLayer);
         layers = new ImageLayerList(l);
-        listenToLayer(layer);
+        listenerRefs.put(layer, listenToLayer(layer));
 
         if (i == selIndex) {
             layerSelection.set(indexOf(selLayer));
