@@ -5,6 +5,7 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.utils.DataType;
 import brainflow.utils.IDimension;
 
@@ -54,9 +55,9 @@ public abstract class AbstractImageData implements IImageData {
         this.imageLabel = imageLabel;
     }
 
-    public IDimension<Integer> getDimension() {
-        return space.getDimension();
-    }
+    //public IDimension<Integer> getDimensions() {
+    //    return space.getDimension();
+    //}
 
     public DataType getDataType() {
         return dataType;
@@ -99,7 +100,7 @@ public abstract class AbstractImageData implements IImageData {
 
 
     protected double computeMin() {
-        ImageIterator iter = this.iterator();
+        ValueIterator iter = this.iterator();
 
         double _min = Double.MAX_VALUE;
         while (iter.hasNext()) {
@@ -117,7 +118,7 @@ public abstract class AbstractImageData implements IImageData {
 
 
     protected double computeMax() {
-        ImageIterator iter = this.iterator();
+        ValueIterator iter = this.iterator();
 
         double _max = -Double.MAX_VALUE;
         while (iter.hasNext()) {

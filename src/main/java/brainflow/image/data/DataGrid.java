@@ -1,6 +1,8 @@
 package brainflow.image.data;
 
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
+import brainflow.utils.IDimension;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,12 +14,12 @@ import brainflow.image.iterators.ImageIterator;
 public interface DataGrid {
 
 
-    public double value(int index);
+    public double value(int i);
 
     public int numElements();
 
-    public ImageIterator iterator();
+    public ValueIterator iterator();
 
-    
+    public IDimension<Integer> getDimensions();
 
 }

@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 public class FileExplorer extends AbstractPresenter {
 
 
-    protected static FileSystemView fsv = FileSystemView.getFileSystemView();
+    //protected static FileSystemView fsv = FileSystemView.getFileSystemView();
 
     private static Logger log = Logger.getLogger(FileExplorer.class.getName());
 
@@ -43,6 +43,33 @@ public class FileExplorer extends AbstractPresenter {
     private ImageIcon leafIcon = new ImageIcon(ResourceLoader.getResource("icons/intf_obj.gif"));
 
     protected FileSelector selector;
+
+    public FileExplorer(FileObject _rootObject) {
+        rootList.add(_rootObject);
+
+        selector = new FileSelector() {
+            @Override
+            public boolean includeFile(FileSelectInfo fileSelectInfo) throws Exception {
+                if (fileSelectInfo.getDepth() == 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            @Override
+            public boolean traverseDescendents(FileSelectInfo fileSelectInfo) throws Exception {
+                if (fileSelectInfo.getDepth() == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+
+        init();
+    }
+
 
     public FileExplorer(FileObject _rootObject, FileSelector _selector) {
         rootList.add(_rootObject);
@@ -65,36 +92,6 @@ public class FileExplorer extends AbstractPresenter {
         fileTree.addTreeExpansionListener(tel);
     }
 
-    public static void main(String[] args) {
-        try {
-            //UIManager.setLookAndFeel(new org.jvnet.substance.skin.SubstanceCremeCoffeeLookAndFeel());
-            FileExplorer explorer = new FileExplorer(VFS.getManager().resolveFile("C:/javacode"), new FileSelector() {
-                public boolean includeFile(FileSelectInfo fileSelectInfo) throws Exception {
-                    return true;
-                }
-
-                public boolean traverseDescendents(FileSelectInfo fileSelectInfo) throws Exception {
-                    if (fileSelectInfo.getDepth() == 0) {
-                        return true;
-                    } else
-                        return false;
-                    
-                }
-            });
-
-
-            JFrame frame = new JFrame();
-            frame.add(explorer.getComponent(), BorderLayout.CENTER);
-            frame.pack();
-            frame.setVisible(true);
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     private void init() {
 
@@ -105,9 +102,7 @@ public class FileExplorer extends AbstractPresenter {
         fileTree = new JTree(treeModel);
         fileTree.setCellRenderer(new FileTreeCellRenderer());
 
-
         for (FileObject root : rootList) {
-
             addFileRoot(root);
         }
 
@@ -118,7 +113,7 @@ public class FileExplorer extends AbstractPresenter {
 
     }
 
-    
+
     public void addFileRoot(FileObject fobj) {
         DefaultMutableTreeNode node = createTreeNode(fobj);
 
@@ -132,7 +127,7 @@ public class FileExplorer extends AbstractPresenter {
     }
 
     protected DefaultMutableTreeNode createTreeNode(FileObject fobj) {
-        return new FileObjectNode(fobj);
+        return new FileObjectNode(fobj, selector);
     }
 
 
@@ -140,10 +135,43 @@ public class FileExplorer extends AbstractPresenter {
         return fileTree;
     }
 
+    public List<FileObjectNode> getSelectedNodes() {
+
+        int[] selRows = fileTree.getSelectionModel().getSelectionRows();
+        if (selRows ==null) {
+            return Collections.emptyList();
+        }
+        
+        System.out.println("selrows : " + Arrays.toString(selRows));
+        //fileTree.getPathForRow()
+
+        //TreePath path = fileTree.getSelectionModel().getSelectionPath();
+
+        //if (path == null) {
+        //    return null;
+        //}
+
+        List<FileObjectNode> nodes = new ArrayList<FileObjectNode>();
+
+        //Object[] obj = path.getPath();
+        //for (Object nodeobj : obj) {
+        //    if (nodeobj instanceof FileObjectNode) {
+        //        nodes.add((FileObjectNode) nodeobj);
+        //    }
+        //}
+
+        for (int i : selRows) {
+            TreePath path = fileTree.getPathForRow(i);
+            Object[] opath = path.getPath();
+            if (opath != null && opath.length > 0)
+                nodes.add((FileObjectNode) opath[opath.length-1]);
+        }
+        
+        return nodes;
+    }
 
 
-
-    class FileObjectNode extends DefaultMutableTreeNode {
+    public static class FileObjectNode extends DefaultMutableTreeNode {
 
         private boolean areChildrenDefined = false;
 
@@ -152,17 +180,20 @@ public class FileExplorer extends AbstractPresenter {
 
         private FileObject fileObject;
 
-        public FileObjectNode(FileObject _fobj) {
-            fileObject = _fobj;
-            try {
+        private FileSelector selector;
 
+        public FileObjectNode(FileObject _fobj, FileSelector _selector) {
+            fileObject = _fobj;
+            selector = _selector;
+
+            try {
                 if (fileObject.getType() == FileType.FOLDER) {
                     leaf = false;
                 } else {
                     leaf = true;
                 }
             } catch (FileSystemException e) {
-                e.printStackTrace();
+                throw new RuntimeException("error accessing file type of file object: " + fileObject, e);
             }
 
         }
@@ -191,7 +222,7 @@ public class FileExplorer extends AbstractPresenter {
                 FileObject[] children = fileObject.findFiles(selector);
 
                 for (int i = 0; i < children.length; i++) {
-                    add(new FileObjectNode(children[i]));
+                    add(new FileObjectNode(children[i], selector));
                 }
             } catch (FileSystemException e) {
                 e.printStackTrace();
@@ -320,4 +351,35 @@ public class FileExplorer extends AbstractPresenter {
 
         }
     }
+
+    public static void main(String[] args) {
+        try {
+            //UIManager.setLookAndFeel(new org.jvnet.substance.skin.SubstanceCremeCoffeeLookAndFeel());
+            FileExplorer explorer = new FileExplorer(VFS.getManager().resolveFile("C:/javacode"), new FileSelector() {
+                public boolean includeFile(FileSelectInfo fileSelectInfo) throws Exception {
+                    return true;
+                }
+
+                public boolean traverseDescendents(FileSelectInfo fileSelectInfo) throws Exception {
+                    if (fileSelectInfo.getDepth() == 0) {
+                        return true;
+                    } else
+                        return false;
+
+                }
+            });
+
+
+            JFrame frame = new JFrame();
+            frame.add(explorer.getComponent(), BorderLayout.CENTER);
+            frame.pack();
+            frame.setVisible(true);
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

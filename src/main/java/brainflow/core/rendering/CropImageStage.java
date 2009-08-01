@@ -54,12 +54,27 @@ public class CropImageStage extends ImageProcessingStage {
             return image;
         }
 
-        int xmin = (int) Math.floor(region.getX() - bounds.getX());
-        int ymin = (int) Math.floor(region.getY() - bounds.getY());
+        System.out.println("image bounds " + bounds);
+        System.out.println("region bounds " + region);
+        System.out.println("buffered image bounds before " + image.getRaster().getBounds());
+        int xmin = (int) Math.max(Math.round(region.getX() - bounds.getX()), 0);
+        int ymin = (int) Math.max(Math.round(region.getY() - bounds.getY()), 0);
         int width = (int) Math.min(bounds.getWidth() - xmin, region.getWidth());
         int height = (int) Math.min(bounds.getHeight() - ymin, region.getHeight());
 
-        return image.getSubimage(xmin, ymin, width, height);
+        width = Math.min(width, image.getWidth());
+        height = Math.min(height, image.getHeight());
+
+        BufferedImage ret = null;
+
+        try {
+            ret = image.getSubimage(xmin, ymin, width, height);
+            System.out.println("image bounds after crop " + ret.getRaster().getBounds());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return ret;
 
     }
 }

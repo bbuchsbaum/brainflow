@@ -20,6 +20,7 @@ public class SnapshotCommand extends BrainFlowCommand {
 
     public SnapshotCommand() {
         super(SnapshotCommand.COMMAND_ID);
+        setEnabled(false);
     }
 
     protected void handleExecute() {
@@ -52,5 +53,15 @@ public class SnapshotCommand extends BrainFlowCommand {
 
 
         }
+    }
+
+    @Override
+    public void viewSelected(ImageView view) {
+        this.setEnabled(true);
+    }
+
+    @Override
+    public void allViewsDeselected() {
+        this.setEnabled(false);
     }
 }

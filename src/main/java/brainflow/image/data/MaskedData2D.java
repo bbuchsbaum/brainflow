@@ -2,12 +2,15 @@ package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.space.Axis;
-import brainflow.image.space.ImageSpace2D;
 import brainflow.image.space.IImageSpace2D;
+import brainflow.image.space.IImageSpace;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.io.ImageInfo;
 import brainflow.utils.DataType;
+import brainflow.utils.IDimension;
+import brainflow.utils.Dimension2D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,21 +32,27 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
         this.predicate = predicate;
     }
 
-    
 
+    @Override
+    public Dimension2D<Integer> getDimensions() {
+        return source.getDimensions();
+    }
 
     public int indexOf(int x, int y) {
         return source.indexOf(x, y);
     }
 
-    
-    public double value(double x, double y, InterpolationFunction2D interp) {
+    @Override
+    public double value(float x, float y, InterpolationFunction2D interp) {
         return predicate.mask(source.value(x, y, interp))? 1 : 0;
     }
-
-    public double worldValue(double realx, double realy, InterpolationFunction2D interp) {
+    
+    @Override
+    public double worldValue(float realx, float realy, InterpolationFunction2D interp) {
         return predicate.mask(source.worldValue(realx, realy, interp)) ? 1 : 0;
     }
+
+   
 
     public boolean isTrue(int index) {
         return predicate.mask(source.value(index));
@@ -125,10 +134,9 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
     }
 
 
-
     class MaskedIterator implements ImageIterator {
 
-        ImageIterator iter;
+        ValueIterator iter;
 
         public MaskedIterator() {
             iter = source.iterator();
@@ -142,57 +150,18 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
             iter.advance();
         }
 
-        public double previous() {
-            return predicate.mask(iter.previous()) ? 1 : 0;
-        }
 
         public boolean hasNext() {
             return iter.hasNext();
         }
 
-        public double jump(int number) {
-            return iter.jump(number);
-        }
-
-       
-        public double nextRow() {
-            return iter.nextRow();
-        }
-
-        public double nextPlane() {
-            return iter.nextPlane();
-        }
-
-        public boolean hasNextRow() {
-            return iter.hasNextRow();
-        }
-
-        public boolean hasNextPlane() {
-            return iter.hasNextPlane();
-        }
-
-        public boolean hasPreviousRow() {
-            return iter.hasPreviousRow();
-        }
-
-        public boolean hasPreviousPlane() {
-            return iter.hasPreviousPlane();
-        }
-
-        public double previousRow() {
-            return iter.previousRow();
-        }
-
-        public double previousPlane() {
-            return iter.previousPlane();
-        }
-
-        public void set(double val) {
-            iter.set(val);
-        }
-
         public int index() {
             return iter.index();
+        }
+
+        @Override
+        public IImageSpace getImageSpace() {
+            return getImageSpace();
         }
     }
 }

@@ -6,10 +6,10 @@
 
 package brainflow.app.toplevel;
 
-import brainflow.core.services.ImageViewMousePointerEvent;
-import brainflow.core.services.ImageViewSelectionEvent;
-import brainflow.core.services.ImageViewCursorEvent;
-import brainflow.core.services.ImageViewModelChangedEvent;
+import brainflow.app.services.ImageViewMousePointerEvent;
+import brainflow.app.services.ImageViewSelectionEvent;
+import brainflow.app.services.ImageViewCursorEvent;
+import brainflow.app.services.ImageViewModelChangedEvent;
 import brainflow.app.dnd.ImageViewTransferHandler;
 import brainflow.app.presentation.ImageViewPresenter;
 import brainflow.core.*;
@@ -25,7 +25,6 @@ import org.bushe.swing.event.EventBus;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
 import java.util.List;
@@ -78,29 +77,13 @@ public class DisplayManager {
         //canvas.getImageCanvasModel().listSelection.
 
         BeanContainer.get().addListener(canvas.getImageCanvasModel().listSelection, canvasListener);
-
         canvas.addInteractor(cursorListener);
 
 
     }
 
 
-    /*public String register(ImageView view) {
-        if (registeredViews.containsKey(view)) {
-            log.warning("view " + view + " is already registered, no action taken");
-            return view.getId();
 
-        }
-
-        registeredViews.put(view, view.getModel());
-
-        if (registeredViews.size() >= ids.length) {
-            return String.valueOf(registeredViews.size());
-        }
-
-
-        return ids[registeredViews.size() - 1];
-    }*/
 
 
     public void addImageCanvas(IBrainCanvas _canvas) {
@@ -113,13 +96,13 @@ public class DisplayManager {
 
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
+    //public void addPropertyChangeListener(PropertyChangeListener listener) {
+    //    support.addPropertyChangeListener(listener);
+    //}
 
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
+    //public void removePropertyChangeListener(PropertyChangeListener listener) {
+    //    support.removePropertyChangeListener(listener);
+   // }
 
     protected IBrainCanvas getSelectedCanvas() {
         return selectedCanvas;
@@ -160,13 +143,20 @@ public class DisplayManager {
 
     }
 
-    protected void displayView(final ImageView view) {
+    protected void display(final ImageView view) {
         view.setTransferHandler(new ImageViewTransferHandler());
 
         BeanContainer.get().addListener(view.viewModel, new PropertyListener() {
             @Override
             public void propertyChanged(BaseProperty baseProperty, Object o, Object o1, int i) {
                 EventBus.publish(new ImageViewModelChangedEvent(view, (ImageViewModel)o, (ImageViewModel)o1));    
+            }
+        });
+
+        view.addViewBoundsChangedListener(new ViewBoundsChangedListener() {
+            @Override
+            public void viewBoundsChanged(IImagePlot source, ViewBounds oldViewBounds, ViewBounds newViewBounds) {
+                
             }
         });
 
@@ -181,8 +171,6 @@ public class DisplayManager {
         }
 
 
-        log.info("replacing layer : " + oldlayer + " with " + newlayer);
-
         view.getModel().set(i, newlayer);
 
     }
@@ -194,7 +182,7 @@ public class DisplayManager {
             selectedCanvas.getComponent().requestFocus();
             support.firePropertyChange(SELECTED_CANVAS_PROPERTY, oldCanvas, selectedCanvas);
         } else {
-            throw new RuntimeException("ImageCanvas " + canvas + " is not currently managed my DisplayManager.");
+            throw new IllegalArgumentException("ImageCanvas " + canvas + " is not currently managed my DisplayManager.");
         }
     }
 
@@ -243,9 +231,7 @@ public class DisplayManager {
         if (getSelectedCanvas() != null)
             return selectedCanvas.getSelectedView();
 
-        //todo is this correct to return null?
-        //todo perhaps throw exception?
-        return null;
+        throw new RuntimeException("No selected canvas, therefore no selected view.");
 
     }
 

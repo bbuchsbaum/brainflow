@@ -1,4 +1,4 @@
-package brainflow.core.services;
+package brainflow.app.services;
 
 import brainflow.image.io.IImageDataSource;
 import org.bushe.swing.event.AbstractEventServiceEvent;

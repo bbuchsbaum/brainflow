@@ -20,7 +20,7 @@ public class ImageFiller {
 
     private IImageSpace ispace;
 
-    public BasicImageData2D fillImage(DataGrid3D inputData, Anatomy3D displayAnatomy, int displayIndex) {
+    public BasicImageData2D fillImage(IImageData3D inputData, Anatomy3D displayAnatomy, int displayIndex) {
 
         ispace = inputData.getImageSpace();
 
@@ -143,27 +143,17 @@ public class ImageFiller {
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        try {
-            while (slowIterator.hasNext()) {
-                x = slowIterator.next();
 
-                while (fastIterator.hasNext()) {
-                    y = fastIterator.next();
+        while (slowIterator.hasNext()) {
+            x = slowIterator.next();
 
-                    op[i] = (float) data.value(x, y, z);
-                    i++;
-                }
-                fastIterator.reset();
+            while (fastIterator.hasNext()) {
+                y = fastIterator.next();
+
+                op[i] = (float) data.value(x, y, z);
+                i++;
             }
-        } catch (RuntimeException e) {
-            System.out.println("fixed is z");
-            System.out.println("i " + i);
-            System.out.println("x = " + x);
-            System.out.println("y = " + y);
-            System.out.println("z = " + z);
-            System.out.println("data dim " + data.getImageSpace());
-            throw e;
-
+            fastIterator.reset();
         }
 
         return op;
@@ -176,27 +166,18 @@ public class ImageFiller {
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        try {
-            while (slowIterator.hasNext()) {
-                z = slowIterator.next();
-                while (fastIterator.hasNext()) {
-                    x = fastIterator.next();
-                    op[i] = (float) data.value(x, y, z);
-                    i++;
-                }
-                fastIterator.reset();
 
+        while (slowIterator.hasNext()) {
+            z = slowIterator.next();
+            while (fastIterator.hasNext()) {
+                x = fastIterator.next();
+                op[i] = (float) data.value(x, y, z);
+                i++;
             }
-        } catch (RuntimeException e) {
-            System.out.println("fixed is y");
-            System.out.println("i " + i);
-            System.out.println("x = " + x);
-            System.out.println("y = " + y);
-            System.out.println("z = " + z);
-            System.out.println("data dim " + data.getImageSpace());
-            throw e;
+            fastIterator.reset();
 
         }
+
 
         return op;
 
@@ -208,26 +189,17 @@ public class ImageFiller {
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        try {
-            while (slowIterator.hasNext()) {
-                z = slowIterator.next();
-                while (fastIterator.hasNext()) {
-                    y = fastIterator.next();
-                    op[i] = (float) data.value(x, y, z);
-                    i++;
-                }
-                fastIterator.reset();
-            }
-        } catch (RuntimeException e) {
-            System.out.println("fixed is x");
-            System.out.println("i " + i);
-            System.out.println("x = " + x);
-            System.out.println("y = " + y);
-            System.out.println("z = " + z);
-            System.out.println("data dim " + data.getImageSpace());
-            throw e;
 
+        while (slowIterator.hasNext()) {
+            z = slowIterator.next();
+            while (fastIterator.hasNext()) {
+                y = fastIterator.next();
+                op[i] = (float) data.value(x, y, z);
+                i++;
+            }
+            fastIterator.reset();
         }
+
 
         return op;
 
@@ -239,27 +211,18 @@ public class ImageFiller {
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        try {
-            while (slowIterator.hasNext()) {
-                y = slowIterator.next();
-                while (fastIterator.hasNext()) {
-                    z = fastIterator.next();
 
-                    op[i] = (float) data.value(x, y, z);
-                    i++;
-                }
-                fastIterator.reset();
+        while (slowIterator.hasNext()) {
+            y = slowIterator.next();
+            while (fastIterator.hasNext()) {
+                z = fastIterator.next();
+
+                op[i] = (float) data.value(x, y, z);
+                i++;
             }
-        } catch (RuntimeException e) {
-            System.out.println("fixed is x");
-            System.out.println("i " + i);
-            System.out.println("x = " + x);
-            System.out.println("y = " + x);
-            System.out.println("z = " + x);
-            System.out.println("data dim " + data.getImageSpace());
-            throw e;
-
+            fastIterator.reset();
         }
+
 
         return op;
 
@@ -271,26 +234,17 @@ public class ImageFiller {
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
 
-        try {
-            while (slowIterator.hasNext()) {
-                x = slowIterator.next();
-                while (fastIterator.hasNext()) {
-                    z = fastIterator.next();
-                    op[i] = (float) data.value(x, y, z);
-                    i++;
-                }
-                fastIterator.reset();
-            }
-        } catch (RuntimeException e) {
-            System.out.println("fixed is y");
-            System.out.println("i " + i);
-            System.out.println("x = " + x);
-            System.out.println("y = " + x);
-            System.out.println("z = " + x);
-            System.out.println("data dim " + data.getImageSpace());
-            throw e;
 
+        while (slowIterator.hasNext()) {
+            x = slowIterator.next();
+            while (fastIterator.hasNext()) {
+                z = fastIterator.next();
+                op[i] = (float) data.value(x, y, z);
+                i++;
+            }
+            fastIterator.reset();
         }
+
 
         return op;
 

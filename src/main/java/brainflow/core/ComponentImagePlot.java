@@ -7,6 +7,7 @@ import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.ImageAxis;
 
 import javax.swing.*;
+import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
@@ -35,7 +36,6 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
 
     private ImageViewModel model;
 
-
     private Insets plotInsets = new Insets(18, 18, 18, 18);
 
     private Insets plotSlack = new Insets(0, 0, 0, 0);
@@ -52,10 +52,13 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
 
     private InterpolationType screenInterpolation = InterpolationType.LINEAR;
 
+    private EventListenerList listeners = new EventListenerList();
+
 
     private ComponentImagePlot(ImageViewModel model, IImageProducer _producer, ViewBounds viewBounds) {
         setBackground(Color.BLACK);
         setOpaque(true);
+
         this.viewBounds = viewBounds;
         this.model = model;
         producer = _producer;
@@ -67,9 +70,11 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     public ComponentImagePlot(ImageViewModel model, ViewBounds viewBounds) {
         setBackground(Color.BLACK);
         setOpaque(true);
+
         this.viewBounds = viewBounds;
         this.model = model;
-        //producer = new CompositeImageProducer(this,  displayAnatomy);
+        slice = GridPoint3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
+        producer = new CompositeImageProducer(this,  slice);
         initAnnotationListener();
 
     }
@@ -81,6 +86,16 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
                 repaint();
             }
         };
+    }
+
+    @Override
+    public void addViewBoundsChangedListener(ViewBoundsChangedListener listener) {
+        listeners.add(ViewBoundsChangedListener.class, listener);
+    }
+
+    @Override
+    public void removeViewBoundsChangedListener(ViewBoundsChangedListener listener) {
+        listeners.remove(ViewBoundsChangedListener.class, listener);
     }
 
     public InterpolationType getScreenInterpolation() {
@@ -103,17 +118,13 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     }
 
 
-
     public void setSlice(GridPoint3D slice) {
-         if (getSlice() == null || !getSlice().equals(slice)) {
+        if (getSlice() == null || !getSlice().equals(slice)) {
             this.slice = slice;
             producer.setSlice(slice);
             repaint();
 
         }
-
-        
-
 
     }
 
@@ -130,9 +141,19 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     }
 
     public void setViewBounds(ViewBounds vbounds) {
-       viewBounds = vbounds;
-       producer.reset();
-       repaint();
+        ViewBounds oldBounds = getViewBounds();
+        viewBounds = vbounds;
+        producer.reset();
+        repaint();
+
+        fireViewBoundsListenerEvent(oldBounds, viewBounds);
+    }
+
+    private void fireViewBoundsListenerEvent(ViewBounds oldBounds, ViewBounds newBounds) {
+        ViewBoundsChangedListener[] list = listeners.getListeners(ViewBoundsChangedListener.class);
+        for (ViewBoundsChangedListener vbc : list) {
+            vbc.viewBoundsChanged(this, oldBounds, newBounds);
+        }
     }
 
     public ViewBounds getViewBounds() {
@@ -164,7 +185,7 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
+
         Graphics2D g2 = (Graphics2D) g;
         //Dimension size = getSize();
 
@@ -193,9 +214,8 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
         }
 
 
-
         g2.drawRenderedImage(producer.getImage(), AffineTransform.getTranslateInstance((int) plotArea.getMinX(), (int) plotArea.getMinY()));
-     
+
         for (String annot : annotationMap.keySet()) {
             IAnnotation ia = annotationMap.get(annot);
             if (ia.isVisible()) {
@@ -258,7 +278,7 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
                 insets.left + plotInsets.left + plotSlack.left, insets.top + plotInsets.top + plotSlack.top, drawWidth, drawHeight
         );
 
-        
+
         return plotArea;
     }
 
@@ -320,7 +340,6 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     } */
 
 
-
     /*public void setXAxisRange(AxisRange xrange) {
         xAxis = xrange;
 
@@ -372,19 +391,13 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     }
 
 
-
-
-
-
-
     public AxisRange getXAxisRange() {
-        return viewBounds.getXrange();
+        return viewBounds.getXRange();
     }
 
     public AxisRange getYAxisRange() {
-        return viewBounds.getYrange();
+        return viewBounds.getYRange();
     }
-
 
     public void setAnnotation(String name, IAnnotation annotation) {
         annotationMap.put(name, annotation);
@@ -411,7 +424,6 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
         return Collections.unmodifiableMap(annotationMap);
     }
 
-
     public void setName(String _name) {
         name = _name;
     }
@@ -424,11 +436,11 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension((int)getXExtent(), (int)getYExtent());
+        return new Dimension((int) getXExtent(), (int) getYExtent());
     }
 
     public static ComponentImagePlot createComponentImagePlot(ImageViewModel model, IImageProducer _producer, Anatomy3D displayAnatomy, AxisRange xAxis, AxisRange yAxis) {
-        ComponentImagePlot plot = new ComponentImagePlot(model, _producer, new ViewBounds(displayAnatomy, xAxis, yAxis));
+        ComponentImagePlot plot = new ComponentImagePlot(model, _producer, new ViewBounds(model.getImageSpace(), displayAnatomy, xAxis, yAxis));
         plot.producer.setPlot(plot);
         return plot;
     }

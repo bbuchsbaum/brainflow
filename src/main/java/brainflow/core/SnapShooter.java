@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class SnapShooter {
 
-    private ImageViewModel dset;
+    private ImageViewModel viewModel;
 
     private IImagePlot emulator;
 
@@ -38,7 +38,7 @@ public class SnapShooter {
 
 
     public SnapShooter(ImageViewModel _dset, Anatomy3D _displayAnatomy) {
-        dset = _dset;
+        viewModel = _dset;
         setDisplayAnatomy(_displayAnatomy);
 
     }
@@ -46,12 +46,12 @@ public class SnapShooter {
     public void setDisplayAnatomy(Anatomy3D _displayAnatomy) {
         displayAnatomy = _displayAnatomy;
 
-        emulator = new ComponentImagePlot(dset, new ViewBounds(displayAnatomy, dset.getImageAxis(displayAnatomy.XAXIS).getRange(),
-                dset.getImageAxis(displayAnatomy.YAXIS).getRange()));
+        emulator = new ComponentImagePlot(viewModel, new ViewBounds(viewModel.getImageSpace(), displayAnatomy, viewModel.getImageAxis(displayAnatomy.XAXIS).getRange(),
+                viewModel.getImageAxis(displayAnatomy.YAXIS).getRange()));
 
 
-        width = (int) dset.getImageAxis(displayAnatomy.XAXIS).getRange().getInterval() * 2;
-        height = (int) dset.getImageAxis(displayAnatomy.YAXIS).getRange().getInterval() * 2;
+        width = (int) viewModel.getImageAxis(displayAnatomy.XAXIS).getRange().getInterval() * 2;
+        height = (int) viewModel.getImageAxis(displayAnatomy.YAXIS).getRange().getInterval() * 2;
 
     }
 
@@ -90,7 +90,7 @@ public class SnapShooter {
     }
 
     public RenderedImage[] shootContinuously(double startSlice, double endSlice, double increment) {
-        AxisRange range = dset.getImageAxis(displayAnatomy.ZAXIS).getRange();
+        AxisRange range = viewModel.getImageAxis(displayAnatomy.ZAXIS).getRange();
         if (!range.contains(startSlice) || (!range.contains(endSlice))) {
             throw new IllegalArgumentException("Illegal slice range " + startSlice + " to " + endSlice);
         }

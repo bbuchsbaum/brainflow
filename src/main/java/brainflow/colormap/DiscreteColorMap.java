@@ -2,6 +2,7 @@ package brainflow.colormap;
 
 import brainflow.image.data.IImageData;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.utils.NumberUtils;
 
 import javax.swing.*;
@@ -412,7 +413,7 @@ public class DiscreteColorMap extends AbstractColorMap {
         ColorInterval firstInterval = getInterval(0);
         ColorInterval lastInterval = getInterval(getMapSize() - 1);
 
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         while (iter.hasNext()) {
             int i = iter.index();
             double val = iter.next();

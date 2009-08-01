@@ -339,7 +339,7 @@ public class ImageInfo implements java.io.Serializable {
     }
 
     public int getDataOffset(int index) {
-        return (getArrayDim().product() * getDataType().getBytesPerUnit() * index) + getDataOffset();
+        return (getArrayDim().product().intValue() * getDataType().getBytesPerUnit() * index) + getDataOffset();
 
     }
 

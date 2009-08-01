@@ -1,12 +1,16 @@
 package brainflow.image.data;
 
 import brainflow.utils.DataType;
+import brainflow.utils.IDimension;
+import brainflow.utils.Dimension3D;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
+import brainflow.image.space.IImageSpace;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.math.Index3D;
 
 /**
@@ -36,7 +40,10 @@ public class MaskedData3D implements IMaskedData3D {
         return source;
     }
 
-   
+    @Override
+    public Dimension3D<Integer> getDimensions() {
+        return source.getDimensions();
+    }
 
     public Index3D indexToGrid(int idx) {
         return source.indexToGrid(idx);
@@ -135,7 +142,7 @@ public class MaskedData3D implements IMaskedData3D {
 
     class MaskedIterator implements ImageIterator {
 
-        ImageIterator iter;
+        ValueIterator iter;
 
         public MaskedIterator() {
             iter = source.iterator();
@@ -149,57 +156,17 @@ public class MaskedData3D implements IMaskedData3D {
             iter.advance();
         }
 
-        public double previous() {
-            return predicate.mask(iter.previous()) ? 1 : 0;
-        }
-
         public final boolean hasNext() {
             return iter.hasNext();
         }
 
-        public double jump(int number) {
-            return iter.jump(number);
-        }
-
-    
-        public double nextRow() {
-            return iter.nextRow();
-        }
-
-        public double nextPlane() {
-            return iter.nextPlane();
-        }
-
-        public boolean hasNextRow() {
-            return iter.hasNextRow();
-        }
-
-        public boolean hasNextPlane() {
-            return iter.hasNextPlane();
-        }
-
-        public boolean hasPreviousRow() {
-            return iter.hasPreviousRow();
-        }
-
-        public boolean hasPreviousPlane() {
-            return iter.hasPreviousPlane();
-        }
-
-        public double previousRow() {
-            return iter.previousRow();
-        }
-
-        public double previousPlane() {
-            return iter.previousPlane();
-        }
-
-        public void set(double val) {
-            iter.set(val);
-        }
-
         public final int index() {
             return iter.index();
+        }
+
+        @Override
+        public IImageSpace getImageSpace() {
+            return source.getImageSpace();
         }
     }
 }

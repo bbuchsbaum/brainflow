@@ -23,14 +23,13 @@ public class ImagePlotFactory {
 
         if (threadService == null) {
             threadService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
         }
 
         
         AxisRange xrange = model.getImageAxis(displayAnatomy.XAXIS).getRange();
         AxisRange yrange = model.getImageAxis(displayAnatomy.YAXIS).getRange();
 
-        IImagePlot plot = new ComponentImagePlot(model, new ViewBounds(displayAnatomy, xrange, yrange));
+        IImagePlot plot = new ComponentImagePlot(model, new ViewBounds(model.getImageSpace(), displayAnatomy, xrange, yrange));
         plot.setName(displayAnatomy.XY_PLANE.getOrientation().toString());
 
         GridPoint3D slice = GridPoint3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());

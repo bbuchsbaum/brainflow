@@ -42,8 +42,7 @@ public class NIftiIOSpec {
   def setupSpeck() {
     def infoReader = new NiftiInfoReader("src/main/groovy/testdata/207_anat_alepi.nii")
     def infolist = infoReader.readInfo()
-    
-
+   
   }
 
   def "reading a single nifti header"() {
@@ -133,8 +132,6 @@ public class NIftiIOSpec {
   def "reading a nifti image and writing it yields the same image"() {
     when:
     def NiftiImageInfo info = readHeader("src/main/groovy/testdata/207_anat_alepi.nii") as NiftiImageInfo
-    println "orig size " + info.getHeaderFile().getContent().size
-    println "orig offset" + info.getDataOffset()
     def nifile = VFS.getManager().resolveFile("tmp://copy_207_anat_alepi.nii")
     def cinfo = info.copy(nifile, nifile)
     def idata = BrainIO.readNiftiImage("src/main/groovy/testdata/207_anat_alepi.nii")

@@ -68,19 +68,22 @@ public class SimpleImageView extends ImageView {
 
     public SimpleImageView(ImageViewModel imodel, Anatomy3D displayAnatomy) {
         super(imodel);
+        commandContainer.bind(this);
+
         this.displayAnatomy = displayAnatomy;
 
         layoutPlots();
+
         initDisplayAnatomy(displayAnatomy);
               
-        commandContainer.bind(this);
+
 
         initToolBar();
     }
 
     protected void layoutPlots() {
         plotLayout = createPlotLayout(displayAnatomy);
-        resetPlotLayout(plotLayout, new HashMap<String, IAnnotation>());
+        initPlotLayout(plotLayout, new HashMap<String, IAnnotation>());
 
     }
 

@@ -77,7 +77,7 @@ public class SimplePlotLayout extends ImagePlotLayout {
         this.displayAnatomy = displayAnatomy;
         AxisRange xrange = getView().getModel().getImageAxis(displayAnatomy.XAXIS).getRange();
         AxisRange yrange = getView().getModel().getImageAxis(displayAnatomy.YAXIS).getRange();
-        ViewBounds vb = new ViewBounds(displayAnatomy, xrange, yrange);
+        ViewBounds vb = new ViewBounds(getView().getModel().getImageSpace(), displayAnatomy, xrange, yrange);
 
         plots.get(0).setViewBounds(vb);
        

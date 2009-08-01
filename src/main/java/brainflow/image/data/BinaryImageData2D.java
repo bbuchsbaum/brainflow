@@ -4,6 +4,7 @@ import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.ImageSpace2D;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.utils.Dimension2D;
 
 import cern.colt.bitvector.BitVector;
 
@@ -70,15 +71,22 @@ public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D 
 
     }
 
+    @Override
+    public Dimension2D<Integer> getDimensions() {
+        return getImageSpace().getDimension();
+    }
+
     public int indexOf(int x, int y) {
         return space.getDimension(Axis.X_AXIS) * y + x;
     }
 
-    public double value(double x, double y, InterpolationFunction2D interp) {
+    @Override
+    public double value(float x, float y, InterpolationFunction2D interp) {
         return interp.interpolate(x, y, this);
     }
 
-    public double worldValue(double realx, double realy, InterpolationFunction2D interp) {
+    @Override
+    public double worldValue(float realx, float realy, InterpolationFunction2D interp) {
         double x = space.getImageAxis(Axis.X_AXIS).gridPosition(realx);
         double y = space.getImageAxis(Axis.Y_AXIS).gridPosition(realy);
         return interp.interpolate(x, y, this);

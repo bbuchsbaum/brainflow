@@ -3,16 +3,14 @@ package brainflow.image.data;
 import brainflow.image.space.*;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.interpolation.InterpolationFunction2D;
-import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.BrainPoint1D;
-import brainflow.image.anatomy.Anatomy2D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.Iterator3D;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.axis.ImageAxis;
-import brainflow.utils.DataType;
-import brainflow.utils.NumberUtils;
+import brainflow.utils.*;
 import brainflow.math.Index3D;
 
 import java.util.Arrays;
@@ -39,7 +37,7 @@ public class ImageData {
 
         ImageBuffer3D buffer = data3d.createWriter(false);
 
-        ImageIterator imageIterator = data2d.iterator();
+        ValueIterator imageIterator = data2d.iterator();
 
         while(imageIterator.hasNext()) {
             int i = imageIterator.index();
@@ -66,8 +64,8 @@ public class ImageData {
     public static boolean elementsEquals(IImageData d1, IImageData d2, float tolerance) {
         if (d1.numElements() != d2.numElements()) return false;
 
-        ImageIterator iter1 = d1.iterator();
-        ImageIterator iter2 = d2.iterator();
+        ValueIterator iter1 = d1.iterator();
+        ValueIterator iter2 = d2.iterator();
 
         while (iter1.hasNext() && iter2.hasNext()) {
             if (!NumberUtils.equals(iter1.next(), iter2.next(), tolerance)) {
@@ -83,7 +81,7 @@ public class ImageData {
     
 
     public static double[] toArray(IImageData data) {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         double[] ret = new double[data.numElements()];
 
         while (iter.hasNext()) {
@@ -102,7 +100,7 @@ public class ImageData {
 
 
     public static double meanDeviation(IImageData data, double referenceVal) {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
 
         double sum = 0;
         int count = 0;
@@ -123,7 +121,7 @@ public class ImageData {
 
 
     public static double nonzeroMean(IImageData data) {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
 
         double sum = 0;
         int count = 0;
@@ -141,7 +139,7 @@ public class ImageData {
     }
 
     public static double mean(IImageData data) {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
 
         double sum = 0;
 
@@ -225,6 +223,11 @@ public class ImageData {
                 return data.getDimension(axisNum);
             }
 
+            @Override
+            public Dimension3D<Integer> getDimensions() {
+                return data.getDimensions();
+            }
+
             public ImageInfo getImageInfo() {
                 return data.getImageInfo();
             }
@@ -237,7 +240,8 @@ public class ImageData {
                 return data.createWriter(clear);
             }
 
-            public ImageIterator iterator() {
+            @Override
+            public ValueIterator iterator() {
                 return new Iterator3D(this);
             }
 
@@ -363,6 +367,11 @@ public class ImageData {
             return vals[index];
         }
 
+        @Override
+        public Dimension2D<Integer> getDimensions() {
+            return getImageSpace().getDimension();
+        }
+
         public ImageIterator iterator() {
             throw new UnsupportedOperationException();
         }
@@ -400,15 +409,15 @@ public class ImageData {
                     return vals.length;
                 }
 
-                public ImageIterator iterator() {
+                public ValueIterator iterator() {
                     throw new UnsupportedOperationException();
                 }
 
-                public double value(double x, double y, InterpolationFunction2D interp) {
+                public double value(float x, float y, InterpolationFunction2D interp) {
                     throw new UnsupportedOperationException();
                 }
 
-                public double worldValue(double realx, double realy, InterpolationFunction2D interp) {
+                public double worldValue(float realx, float realy, InterpolationFunction2D interp) {
                    throw new UnsupportedOperationException();
                 }
 
@@ -419,14 +428,20 @@ public class ImageData {
                 public ImageSpace2D getImageSpace() {
                     return IntData2D.this.getImageSpace();
                 }
+
+                @Override
+                public Dimension2D<Integer> getDimensions() {
+                    return IntData2D.this.getDimensions();
+
+                }
             };
         }
 
-        public double value(double x, double y, InterpolationFunction2D interp) {
+        public double value(float x, float y, InterpolationFunction2D interp) {
             throw new UnsupportedOperationException();
         }
 
-        public double worldValue(double realx, double realy, InterpolationFunction2D interp) {
+        public double worldValue(float realx, float realy, InterpolationFunction2D interp) {
             throw new UnsupportedOperationException();
         }
 
@@ -482,6 +497,11 @@ public class ImageData {
             return vals[indexOf(x, y, z)];
         }
 
+        @Override
+        public Dimension3D<Integer> getDimensions() {
+            return getImageSpace().getDimension();
+        }
+
         public IntImageBuffer3D createWriter(boolean clear) {
             final IntData3D delegate = this;
             return new IntImageBuffer3D() {
@@ -528,13 +548,17 @@ public class ImageData {
                     return delegate.value(x, y, z);
                 }
 
-                public ImageIterator iterator() {
+                public ValueIterator iterator() {
                     return delegate.iterator();
                 }
 
                 public IImageSpace3D getImageSpace() {
                     return space;
+                }
 
+                @Override
+                public Dimension3D<Integer> getDimensions() {
+                    return delegate.getDimensions();
                 }
             };
         }

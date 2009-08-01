@@ -5,8 +5,10 @@ import brainflow.image.iterators.ImageIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.ImageSpace2D;
 import brainflow.image.space.IImageSpace2D;
+import brainflow.image.space.IImageSpace;
 import brainflow.utils.DataType;
 import brainflow.utils.NumberUtils;
+import brainflow.utils.Dimension2D;
 
 
 /**
@@ -24,7 +26,6 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
     private byte[] data;
 
     
-
 
     public UByteImageData2D(IImageSpace2D _space) {
         super(_space,DataType.BYTE);
@@ -46,6 +47,11 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
 
     }
 
+    @Override
+    public Dimension2D<Integer> getDimensions() {
+        return getImageSpace().getDimension();
+    }
+
     public IImageSpace2D getImageSpace() {
         return (IImageSpace2D)space;
          
@@ -60,11 +66,13 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
         return space.getDimension(Axis.X_AXIS) * y + x;
     }
 
-    public double value(double x, double y, InterpolationFunction2D interp) {
+    @Override
+    public double value(float x, float y, InterpolationFunction2D interp) {
         return interp.interpolate(x, y, this);
     }
 
-    public double worldValue(double realx, double realy, InterpolationFunction2D interp) {
+    @Override
+    public double worldValue(float realx, float realy, InterpolationFunction2D interp) {
         double x = space.getImageAxis(Axis.X_AXIS).gridPosition(realx);
         double y = space.getImageAxis(Axis.Y_AXIS).gridPosition(realy);
         return interp.interpolate(x, y, this);
@@ -100,11 +108,6 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
     }
 
 
-
-    private void setValue(int x, int y, double val) {
-        data[indexOf(x, y)] = (byte) val;
-    }
-
     public ImageBuffer2D createWriter(boolean clear) {
         throw new UnsupportedOperationException();
     }
@@ -115,7 +118,6 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
 
         private int len = space.getNumSamples();
         private int end = len;
-        private int begin = 0;
 
         public Iterator2D() {
             index = 0;
@@ -149,61 +151,14 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
             return NumberUtils.ubyte(data[number]);
         }
 
-        public double jump(int number) {
-            index += number;
-            return NumberUtils.ubyte(data[number]);
-        }
-
-        public boolean canJump(int number) {
-            if ((index + number) < end && (index - number >= begin))
-                return true;
-            return false;
-        }
-
-        public double nextRow() {
-            index += space.getDimension(Axis.X_AXIS);
-            return NumberUtils.ubyte(data[index]);
-
-        }
-
-        public double nextPlane() {
-            throw new java.lang.UnsupportedOperationException("ImageIterator2D.nextPlane(): only zero plane in 2D iterator!");
-        }
-
-        public boolean hasNextRow() {
-            if ((index + space.getDimension(Axis.X_AXIS)) < len)
-                return true;
-            return false;
-        }
-
-        public boolean hasNextPlane() {
-            return false;
-        }
-
-        public boolean hasPreviousRow() {
-            if ((index - space.getDimension(Axis.X_AXIS)) >= begin)
-                return true;
-            return false;
-        }
-
-        public boolean hasPreviousPlane() {
-            return false;
-        }
-
-        public double previousRow() {
-            index -= space.getDimension(Axis.X_AXIS);
-            return NumberUtils.ubyte(data[index]);
-        }
-
-        public double previousPlane() {
-            throw new java.lang.UnsupportedOperationException("ImageIterator2D.previousPlane(): only zero plane in 2D iterator!");
-        }
-
         public int index() {
             return index;
         }
 
-
+        @Override
+        public IImageSpace getImageSpace() {
+            return getImageSpace();
+        }
     }
 
 

@@ -10,6 +10,7 @@ import brainflow.image.data.BasicImageData;
 import brainflow.image.data.IImageData;
 import brainflow.image.data.AbstractImageData;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class MeanImageFilter extends AbstractImageFilter {
         if (first == null) return null;
 
         AbstractImageData opdata = BasicImageData.create(first.getImageSpace(), outputDataType);
-        ImageIterator opiter = opdata.iterator();
+        ValueIterator opiter = opdata.iterator();
 
         ImageIterator[] iters = getSourceIterators();
 
@@ -43,7 +44,7 @@ public class MeanImageFilter extends AbstractImageFilter {
                 sum += iters[i].next();
             }
             double mean = sum / iters.length;
-            opiter.set(mean);
+            //opiter.set(mean);
             opiter.advance();
         }
 

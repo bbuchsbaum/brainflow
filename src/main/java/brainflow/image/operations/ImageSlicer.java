@@ -20,7 +20,7 @@ import brainflow.image.interpolation.InterpolationFunction3D;
 public class ImageSlicer {
 
 
-    private DataGrid3D image;
+    private IImageData3D image;
 
 
     public static ImageSlicer createSlicer(IImageSpace3D refSpace, IImageData3D data) {
@@ -42,12 +42,12 @@ public class ImageSlicer {
     }
 
 
-    public ImageSlicer(DataGrid3D _image) {
+    public ImageSlicer(IImageData3D _image) {
         image = _image;
 
     }
 
-    public DataGrid3D getImage() {
+    public IImageData3D getImage() {
         return image;
     }
 

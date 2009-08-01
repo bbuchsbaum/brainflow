@@ -2,6 +2,8 @@ package brainflow.image.data;
 
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.interpolation.InterpolationFunction2D;
+import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.math.Index3D;
 
 /**
@@ -15,6 +17,13 @@ import brainflow.math.Index3D;
 
 public interface IImageData3D extends IImageData, DataGrid3D {
 
+    public double value(float x, float y, float z, InterpolationFunction3D interp);
+
+    //public double valueAtReal(float rx, float ry, float rz, InterpolationFunction3D interp);
+
+    //public double valueAtWorld(float wx, float wy, float wz, InterpolationFunction3D interp);
+
+    public double worldValue(float wx, float wy, float wz, InterpolationFunction3D interp);
 
     public int indexOf(int x, int y, int z);
 

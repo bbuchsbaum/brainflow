@@ -44,8 +44,8 @@ public final class AxisRange implements Cloneable {
     }
 
     public BrainPoint1D getCenter() {
-        BrainPoint1D center = new BrainPoint1D(aaxis, (begin + end) / 2);
-        return center;
+        return new BrainPoint1D(aaxis, (begin + end) / 2);
+        
     }
 
     public double getInterval() {
@@ -82,6 +82,32 @@ public final class AxisRange implements Cloneable {
         double nbegin = Math.min(getBeginning().getValue(), other.getBeginning().getValue());
         double nend = Math.max(getEnd().getValue(), other.getEnd().getValue());
         return new AxisRange(aaxis, nbegin, nend);
+    }
+
+
+    public AxisRange grow(double proportion) {
+
+        double growBy = proportion*getInterval();
+       
+        double nbegin = getBeginning().getValue() - (growBy/2);
+        double nend = getEnd().getValue() + (growBy/2);
+        return new AxisRange(aaxis, nbegin, nend);
+
+    }
+
+
+
+    public AxisRange shrink(double proportion) {
+        if (proportion <= 0 || proportion >= 1) {
+            throw new IllegalArgumentException("shrink factor must be greater than 0 and less than 1");
+        }
+
+        double shrinkBy = proportion*getInterval();
+        double nbegin = getBeginning().getValue() + (shrinkBy/2);
+        double nend = getEnd().getValue() - (shrinkBy/2);
+        return new AxisRange(aaxis, nbegin, nend);
+        
+
     }
 
     public double getBeginDisplacement(AxisRange other) {

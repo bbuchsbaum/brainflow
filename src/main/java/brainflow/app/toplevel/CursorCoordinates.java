@@ -1,6 +1,6 @@
 package brainflow.app.toplevel;
 
-import brainflow.core.services.ImageViewMousePointerEvent;
+import brainflow.app.services.ImageViewMousePointerEvent;
 import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.GridPoint3D;
 import com.jidesoft.status.LabelStatusBarItem;

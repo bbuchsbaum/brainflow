@@ -7,7 +7,6 @@
 package brainflow.image.interpolation;
 
 import brainflow.image.data.DataGrid3D;
-import brainflow.image.space.Axis;
 
 /**
  * @author bradley
@@ -28,9 +27,9 @@ public class NearestNeighborInterpolator implements InterpolationFunction3D {
         double total;
 
         //todo slow ....
-        int d1 = data.getImageSpace().getDimension(Axis.X_AXIS);
-        int d2 = data.getImageSpace().getDimension(Axis.Y_AXIS);
-        int d3 = data.getImageSpace().getDimension(Axis.Z_AXIS);
+        int d1 = data.getDimensions().getDim(0);
+        int d2 = data.getDimensions().getDim(1);
+        int d3 = data.getDimensions().getDim(2);
 
 
         if (x_up >= d1)

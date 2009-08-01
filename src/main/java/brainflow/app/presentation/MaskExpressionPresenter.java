@@ -142,24 +142,33 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
                 final ImageLayer3D layer = getSelectedLayer();
 
                 if (layer != null) {
-                    System.out.println("freeze action");
-                    freezeButton.setEnabled(false);
-                    Runnable runner = new Runnable() {
-                        public void run() {
-                            System.out.println("freeze started");
+                    SwingWorker<Void, Object> worker = new SwingWorker<Void, Object>() {
+
+
+                        @Override
+                        protected Void doInBackground() throws Exception {
                             layer.getMaskProperty().reduce();
-                            System.out.println("freeze finished");
+                            return null;
+                        }
+
+                        @Override
+                        protected void done() {
+                            computeButton.setEnabled(true);
 
                         }
                     };
 
-                    Thread t = new Thread(runner);
-                    t.start();
+                    computeButton.setEnabled(false);
+                    freezeButton.setEnabled(false);
+                    worker.execute();
                 }
 
-                
             }
         });
+
+
+
+                
 
 
         expressionArea.getDocument().addDocumentListener(new DocumentListener() {
@@ -167,6 +176,9 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
                 String ret = expressionArea.getText().trim();
                 if (!ret.equals(lastExpression)) {
                     computeButton.setEnabled(true);
+                    freezeButton.setEnabled(true);
+                } else {
+                    computeButton.setEnabled(false);
                 }
 
             }
@@ -175,6 +187,9 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
                 String ret = expressionArea.getText().trim();
                 if (!ret.equals(lastExpression)) {
                     computeButton.setEnabled(true);
+                    freezeButton.setEnabled(true);
+                } else {
+                    computeButton.setEnabled(false);
                 }
             }
 
@@ -182,6 +197,9 @@ public class MaskExpressionPresenter extends ImageViewPresenter {
                 String ret = expressionArea.getText().trim();
                 if (!ret.equals(lastExpression)) {
                     computeButton.setEnabled(true);
+                    freezeButton.setEnabled(true);
+                } else {
+                    computeButton.setEnabled(false);
                 }
             }
         });

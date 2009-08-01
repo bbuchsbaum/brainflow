@@ -108,6 +108,10 @@ public class ImageViewModel implements Iterable {
         fireListDataEvent(new ListDataEvent(this, ListDataEvent.INTERVAL_ADDED, layers.size() - 1, layers.size() - 1));
         listenerRefs.put(layer, listenToLayer(layer));
 
+        //automatically makes new layer the selected layer -- but this is a side effect.
+        //layerSelection.set(layers.size()-1);
+
+
     }
 
     public void remove(ImageLayer3D layer) {

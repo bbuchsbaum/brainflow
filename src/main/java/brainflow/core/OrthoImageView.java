@@ -102,7 +102,7 @@ public class OrthoImageView extends ImageView {
 
     protected void layoutPlots() {
         plotLayout = createPlotLayout(leadAnatomy);
-        resetPlotLayout(plotLayout, new HashMap<String, IAnnotation>());
+        initPlotLayout(plotLayout, new HashMap<String, IAnnotation>());
 
     }
 

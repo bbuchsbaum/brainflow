@@ -3,14 +3,10 @@ package brainflow.image.data;
 import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
-import brainflow.image.space.Axis;
-import brainflow.image.space.ImageSpace2D;
-import brainflow.image.space.IImageSpace2D;
-import brainflow.image.space.IImageSpace3D;
+import brainflow.image.space.*;
 import brainflow.utils.DataType;
 import brainflow.utils.IDimension;
-
-import java.awt.image.DataBuffer;
+import brainflow.utils.Dimension2D;
 
 
 /**
@@ -59,8 +55,8 @@ public class BasicImageData2D extends AbstractImageData2D  {
         return new ImageInfo(this);
     }
 
-    public IDimension<Integer> getDimension() {
-        return space.getDimension();
+    public Dimension2D<Integer> getDimensions() {
+        return getImageSpace().getDimension();
     }
 
     public ImageSpace2D getImageSpace() {
@@ -79,11 +75,11 @@ public class BasicImageData2D extends AbstractImageData2D  {
         return space.getDimension(Axis.X_AXIS) * y + x;
     }
 
-    public final double value(double x, double y, InterpolationFunction2D interp) {
+    public final double value(float x, float y, InterpolationFunction2D interp) {
         return interp.interpolate(x, y, this);
     }
 
-    public final double worldValue(double realx, double realy, InterpolationFunction2D interp) {
+    public final double worldValue(float realx, float realy, InterpolationFunction2D interp) {
         double x = space.getImageAxis(Axis.X_AXIS).gridPosition(realx);
         double y = space.getImageAxis(Axis.Y_AXIS).gridPosition(realy);
         return interp.interpolate(x, y, this);
@@ -150,14 +146,16 @@ public class BasicImageData2D extends AbstractImageData2D  {
 
             }
 
-            public double value(double x, double y, InterpolationFunction2D interp) {
+            @Override
+            public double value(float x, float y, InterpolationFunction2D interp) {
                 return delegate.value(x,y,interp);
 
             }
 
-            public double worldValue(double realx, double realy, InterpolationFunction2D interp) {
-                return delegate.worldValue(realx, realy, interp);
-            }
+            //@Override
+            //public double worldValue(float realx, float realy, InterpolationFunction2D interp) {
+           //     return delegate.worldValue(realx, realy, interp);
+            //}
 
             public double value(int x, int y) {
                 return delegate.value(x,y);
@@ -165,6 +163,11 @@ public class BasicImageData2D extends AbstractImageData2D  {
 
             public ImageIterator iterator() {
                 return delegate.iterator();
+            }
+
+            @Override
+            public Dimension2D<Integer> getDimensions() {
+                return delegate.getDimensions();
             }
         };
 
@@ -176,7 +179,6 @@ public class BasicImageData2D extends AbstractImageData2D  {
 
         private int len = space.getNumSamples();
         private int end = len;
-        private int begin = 0;
 
         public Iterator2D() {
             index = 0;
@@ -196,9 +198,7 @@ public class BasicImageData2D extends AbstractImageData2D  {
             dataSupport.getData().setElemDouble(index, val);
         }
 
-        public double previous() {
-            return dataSupport.getData().getElemDouble(--index);
-        }
+
 
         public final boolean hasNext() {
             if (index < end) return true;
@@ -210,60 +210,15 @@ public class BasicImageData2D extends AbstractImageData2D  {
             return dataSupport.getData().getElemDouble(number);
         }
 
-        public double jump(int number) {
-            index += number;
-            return dataSupport.getData().getElemDouble(number);
-        }
-
-        public boolean canJump(int number) {
-            if ((index + number) < end && (index - number >= begin))
-                return true;
-            return false;
-        }
-
-        public double nextRow() {
-            index += space.getDimension(Axis.X_AXIS);
-            return dataSupport.getData().getElemDouble(index);
-        }
-
-        public double nextPlane() {
-            throw new java.lang.UnsupportedOperationException("ImageIterator2D.nextPlane(): only zero plane in 2D iterator!");
-        }
-
-        public boolean hasNextRow() {
-            if ((index + space.getDimension(Axis.X_AXIS)) < len)
-                return true;
-            return false;
-        }
-
-        public boolean hasNextPlane() {
-            return false;
-        }
-
-        public boolean hasPreviousRow() {
-            if ((index - space.getDimension(Axis.X_AXIS)) >= begin)
-                return true;
-            return false;
-        }
-
-        public boolean hasPreviousPlane() {
-            return false;
-        }
-
-        public double previousRow() {
-            index -= space.getDimension(Axis.X_AXIS);
-            return dataSupport.getData().getElemDouble(index);
-        }
-
-        public double previousPlane() {
-            throw new java.lang.UnsupportedOperationException("ImageIterator2D.previousPlane(): only zero plane in 2D iterator!");
-        }
 
         public int index() {
             return index;
         }
 
-
+        @Override
+        public IImageSpace getImageSpace() {
+            return BasicImageData2D.this.getImageSpace();
+        }
     }
 
 

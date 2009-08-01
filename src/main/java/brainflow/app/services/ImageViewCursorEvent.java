@@ -1,4 +1,4 @@
-package brainflow.core.services;
+package brainflow.app.services;
 
 import brainflow.core.ImageView;
 import brainflow.image.anatomy.BrainPoint3D;
@@ -11,6 +11,7 @@ import brainflow.image.anatomy.BrainPoint3D;
  * To change this template use File | Settings | File Templates.
  */
 public class ImageViewCursorEvent extends ImageViewEvent {
+
     /**
      * Creates a new instance of ImageViewEvent
      */

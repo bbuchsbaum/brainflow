@@ -2,18 +2,15 @@ package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.io.ImageInfo;
-import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.Iterator3D;
-import brainflow.image.space.Axis;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.ArrayUtils;
 import brainflow.math.Index3D;
 import brainflow.utils.DataType;
-
-
-import java.awt.image.DataBuffer;
-import java.nio.ByteBuffer;
+import brainflow.utils.IDimension;
+import brainflow.utils.Dimension3D;
 
 
 /**
@@ -161,22 +158,32 @@ public class BasicImageData3D extends AbstractImageData3D  {
                 return delegate.numElements();
             }
 
+            @Override
             public double value(float x, float y, float z, InterpolationFunction3D interp) {
                 return delegate.value(x,y,z,interp);
             }
 
-            public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
-                return delegate.worldValue(realx,realy,realz,interp);
-            }
+            //@Override
+            //public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
+            //    return delegate.worldValue(realx,realy,realz,interp);
+            //}
 
+            @Override
             public double value(int x, int y, int z) {
                 return delegate.value(x,y,z);
             }
 
-            public ImageIterator iterator() {
+            @Override
+            public ValueIterator iterator() {
                 return delegate.iterator();
             }
 
+            @Override
+            public Dimension3D<Integer> getDimensions() {
+                return delegate.getDimensions();
+            }
+
+            //@Override
             public IImageSpace3D getImageSpace() {
                 return space;
 
@@ -184,7 +191,7 @@ public class BasicImageData3D extends AbstractImageData3D  {
         };
     }
 
-    public ImageIterator iterator() {
+    public ValueIterator iterator() {
         return new Iterator3D(this);
     }
 

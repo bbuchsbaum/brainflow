@@ -6,6 +6,7 @@ import brainflow.image.LinearSet3D;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.CoordinateAxis;
@@ -48,15 +49,15 @@ public class Space {
             pt.getZ().getValue() >= 0 && pt.getZ().getValue() <= space.getImageAxis(Axis.Z_AXIS).getNumSamples());
     }
 
-    private static int[] getPermutationVector(ImageAxis one, ImageAxis two) {
-        assert one.getAnatomicalAxis().sameAxis(two.getAnatomicalAxis());
+    private static int[] getPermutationVector(ImageAxis one, AnatomicalAxis two) {
+        assert one.getAnatomicalAxis().sameAxis(two);
 
         Vector3f dvec;
         int offset = 0;
 
-        if (one.getAnatomicalAxis().getFlippedAxis() == two.getAnatomicalAxis()) {
+        if (one.getAnatomicalAxis().getFlippedAxis() == two) {
             dvec = one.getAnatomicalAxis().getDirectionVector().mult(-1);
-            offset = two.getNumSamples();
+            offset = one.getNumSamples() -1;
         } else {
             dvec = one.getAnatomicalAxis().getDirectionVector();
         }
@@ -66,25 +67,22 @@ public class Space {
 
     }
 
-    /*public static PermutationMatrix3D createPermutationMatrix(IImageSpace3D from, IImageSpace3D to) {
+    public static PermutationMatrix3D createPermutationMatrix(IImageSpace3D from, Anatomy3D to) {
 
-        ImageAxis xout = from.getImageAxis(to.getAnatomicalAxis(Axis.X_AXIS), true);
-        ImageAxis yout = from.getImageAxis(to.getAnatomicalAxis(Axis.Y_AXIS), true);
-        ImageAxis zout = from.getImageAxis(to.getAnatomicalAxis(Axis.Z_AXIS), true);
+        ImageAxis xout = from.getImageAxis(to.XAXIS, true);
+        ImageAxis yout = from.getImageAxis(to.YAXIS, true);
+        ImageAxis zout = from.getImageAxis(to.ZAXIS, true);
 
-        Vector3f xvec;
-        Vector3f yvec;
-        Vector3f zvec;
+        int[] xperm = Space.getPermutationVector(xout, to.XAXIS);
+        int[] yperm = Space.getPermutationVector(yout, to.YAXIS);
+        int[] zperm = Space.getPermutationVector(zout, to.ZAXIS);
 
-        int xoff, yoff, zoff;
+        return new PermutationMatrix3D(xperm[0], xperm[1], xperm[2], xperm[3],
+                                       yperm[0], yperm[1], yperm[2], yperm[3],
+                                       zperm[0], zperm[1], zperm[2], zperm[3]); 
 
 
-        if (xout.getAnatomicalAxis().getFlippedAxis() == to.getAnatomicalAxis(Axis.X_AXIS)) {
-            xvec = xout.getAnatomicalAxis().getDirectionVector().mult(-1);
-        } else {
-            xvec = xout.getAnatomicalAxis().getDirectionVector();
-        }
-    } */
+    }
 
 
     

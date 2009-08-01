@@ -1,15 +1,14 @@
 package brainflow.image.data;
 
-import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.IImageSpace;
-import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.Iterator3D;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.utils.DataType;
+import brainflow.utils.Dimension3D;
 import brainflow.math.Index3D;
 
 /**
@@ -53,6 +52,11 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
         return space3d;
     }
 
+    @Override
+    public Dimension3D<Integer> getDimensions() {
+        return getImageSpace().getDimension();
+    }
+
     protected final int planeSize() {
         return planeSize;
     }
@@ -71,7 +75,7 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
         return getImageSpace().getAnatomy();
     }
 
-    public ImageIterator iterator() {
+    public ValueIterator iterator() {
         return new Iterator3D(this);
     }
 
@@ -91,8 +95,8 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
     /*public Index3D indexToGrid(int idx, Index3D voxel) {
       voxel.setZ(idx / planeSize);
       int remainder = (idx % planeSize);
-      voxel.setY(remainder / space.getDimension(Axis.X_AXIS));
-      voxel.setValue(remainder % space.getDimension(Axis.X_AXIS));
+      voxel.setY(remainder / space.getDimensions(Axis.X_AXIS));
+      voxel.setValue(remainder % space.getDimensions(Axis.X_AXIS));
 
       return voxel;
   }  */

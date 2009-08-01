@@ -1,14 +1,12 @@
 package brainflow.app.presentation;
 
-import brainflow.app.toplevel.ImageViewModelEvent;
-import brainflow.core.services.ImageViewLayerSelectionEvent;
-import brainflow.core.services.ImageViewSelectionEvent;
-import brainflow.core.services.ImageViewModelChangedEvent;
-import brainflow.core.services.ImageViewListDataEvent;
+import brainflow.app.services.ImageViewLayerSelectionEvent;
+import brainflow.app.services.ImageViewSelectionEvent;
+import brainflow.app.services.ImageViewModelChangedEvent;
+import brainflow.app.services.ImageViewListDataEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.AbstractPresenter;
-import brainflow.image.space.IImageSpace;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 
@@ -32,7 +30,7 @@ public abstract class ImageViewPresenter extends AbstractPresenter  {
     private static Logger log = Logger.getLogger(ImageViewPresenter.class.getName());
 
     private EventSubscriber<ImageViewSelectionEvent> e1 = new EventSubscriber<ImageViewSelectionEvent>() {
-
+        @Override
         public void onEvent(ImageViewSelectionEvent evt) {
             if (selectedView != null) {
                 viewDeselected(selectedView);
@@ -47,14 +45,18 @@ public abstract class ImageViewPresenter extends AbstractPresenter  {
     };
 
     private EventSubscriber<ImageViewLayerSelectionEvent> e2 = new EventSubscriber<ImageViewLayerSelectionEvent>() {
-
+        @Override
         public void onEvent(ImageViewLayerSelectionEvent evt) {
+
             if (evt.getSource() == getSelectedView()) {
 
                 ImageLayer3D oldLayer = evt.getDeselectedLayer();
+
                 if (oldLayer != null) {
                     layerDeselected(oldLayer);
                 }
+
+
 
                 ImageLayer3D layer = evt.getSelectedLayer();
                 layerSelected(layer);
@@ -77,6 +79,7 @@ public abstract class ImageViewPresenter extends AbstractPresenter  {
         public void onEvent(ImageViewListDataEvent event) {
             if (event.getImageView() == getSelectedView()) {
                 ListDataEvent listEvent = event.getListDataEvent();
+                System.out.println("layerChangeNotification");
                 layerChangeNotification();
                 switch(listEvent.getType()) {
                     case ListDataEvent.INTERVAL_ADDED:
@@ -102,9 +105,9 @@ public abstract class ImageViewPresenter extends AbstractPresenter  {
 
 
     private void subscribeListeners() {
-        EventBus.subscribe(ImageViewSelectionEvent.class, e1);
-        EventBus.subscribe(ImageViewLayerSelectionEvent.class, e2);
-        EventBus.subscribe(ImageViewModelChangedEvent.class, e3);
+        EventBus.subscribeStrongly(ImageViewSelectionEvent.class, e1);
+        EventBus.subscribeStrongly(ImageViewLayerSelectionEvent.class, e2);
+        EventBus.subscribeStrongly(ImageViewModelChangedEvent.class, e3);
         EventBus.subscribeStrongly(ImageViewListDataEvent.class, e4);
 
     }

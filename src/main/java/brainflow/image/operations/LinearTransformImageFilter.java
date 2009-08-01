@@ -34,8 +34,8 @@ public class LinearTransformImageFilter extends AbstractTransformImageFilter {
     }
 
 
-    public void setTransform(AbstractTransform _transform) {
-        transform = (LinearTransform) _transform;
+    public void setTransform(LinearTransform _transform) {
+        transform =  _transform;
     }
 
 

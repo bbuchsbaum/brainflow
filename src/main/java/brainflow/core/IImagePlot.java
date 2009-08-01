@@ -40,13 +40,15 @@ public interface IImagePlot {
 
     public Anatomy3D getDisplayAnatomy();
 
-    
     public ImageViewModel getModel();
-
 
     public void setViewBounds(ViewBounds vbounds);
 
     public ViewBounds getViewBounds();
+
+    public void addViewBoundsChangedListener(ViewBoundsChangedListener listener);
+
+    public void removeViewBoundsChangedListener(ViewBoundsChangedListener listener);
 
     public double getScaleX();
 

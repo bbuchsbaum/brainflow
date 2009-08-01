@@ -6,6 +6,7 @@ import brainflow.image.data.IImageData;
 import brainflow.image.data.IImageData3D;
 import brainflow.image.data.AbstractImageData;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 
 import brainflow.utils.DataType;
 import brainflow.utils.ProgressAdapter;
@@ -238,7 +239,7 @@ public class BrainIO {
     }
 
     public static void writeAsBytes(IImageData data, ImageOutputStream ostream) throws IOException {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         while (iter.hasNext()) {
             ostream.writeByte((byte)iter.next());
         }
@@ -246,7 +247,7 @@ public class BrainIO {
     }
 
     public static void writeAsShorts(IImageData data, ImageOutputStream ostream) throws IOException {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         while (iter.hasNext()) {
             ostream.writeShort((short)iter.next());
         }
@@ -254,14 +255,14 @@ public class BrainIO {
     }
 
     public static void writeAsInts(IImageData data, ImageOutputStream ostream) throws IOException {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         while (iter.hasNext()) {
             ostream.writeInt((int)iter.next());
         }
 
     }
     public static void writeAsLongs(IImageData data, ImageOutputStream ostream) throws IOException {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         while (iter.hasNext()) {
             ostream.writeLong((long)iter.next());
         }
@@ -269,7 +270,7 @@ public class BrainIO {
     }
 
     public static void writeAsFloats(IImageData data, ImageOutputStream ostream) throws IOException {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         while (iter.hasNext()) {
             ostream.writeFloat((float)iter.next());
         }
@@ -279,7 +280,7 @@ public class BrainIO {
     }
 
     public static void writeAsDoubles(IImageData data, ImageOutputStream ostream) throws IOException {
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         while (iter.hasNext()) {
             ostream.writeDouble((double)iter.next());
         }

@@ -6,7 +6,6 @@
 
 package brainflow.image.interpolation;
 
-import brainflow.image.space.Axis;
 import brainflow.image.data.DataGrid3D;
 
 /**
@@ -26,13 +25,13 @@ public class TrilinearInterpolator implements InterpolationFunction3D {
             return 0;
 
 
-        if (dx > (data.getImageSpace().getDimension(Axis.X_AXIS) - 1) ) {
+        if (dx > (data.getDimensions().getDim(0) - 1) ) {
             return 0;
         }
-        if (dy > (data.getImageSpace().getDimension(Axis.Y_AXIS) - 1) ) {
+        if (dy > (data.getDimensions().getDim(1) - 1) ) {
             return 0;
         }
-        if (dz > (data.getImageSpace().getDimension(Axis.Z_AXIS) - 1) ) {
+        if (dz > (data.getDimensions().getDim(2) - 1) ) {
             return 0;
         }
 

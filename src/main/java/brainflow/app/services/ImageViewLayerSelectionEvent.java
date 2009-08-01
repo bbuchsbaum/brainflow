@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package brainflow.core.services;
+package brainflow.app.services;
 
 import brainflow.core.ImageView;
 import brainflow.core.layer.ImageLayer3D;

@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
  *
  * @author  Bradley
  */
-public class LinearTransform extends AbstractTransform {
+public class LinearTransform {
     
     DoubleMatrix2D matrix4X4 = new DenseDoubleMatrix2D(4,4);
     

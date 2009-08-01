@@ -167,7 +167,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
         for (int i = 0; i < infoList.size(); i++) {
             AFNIImageInfo info = (AFNIImageInfo)infoList.get(i);
             info.setByteOffset(offset);
-            offset = offset + (info.getDataType().getBytesPerUnit() * info.getArrayDim().product());
+            offset = offset + (info.getDataType().getBytesPerUnit() * info.getArrayDim().product().intValue());
         }
     }
 
@@ -211,8 +211,18 @@ public class AFNIInfoReader extends AbstractInfoReader {
         HeaderAttribute.HEADER_ATTRIBUTE_TYPE type = HeaderAttribute.parseType(typeStr.replaceFirst("-", "_"));
 
         //todo should check to see whether attribute exists ..s
-        return HeaderAttribute.createAttribute(type, AFNIAttributeKey.valueOf(HeaderAttribute.parseName(nameStr)),
-                HeaderAttribute.parseCount(countStr), sb.toString());
+
+        HeaderAttribute attribute;
+
+        if (AFNIAttributeKey.hasKey(HeaderAttribute.parseName(nameStr))) {
+            attribute = HeaderAttribute.createAttribute(type, AFNIAttributeKey.valueOf(HeaderAttribute.parseName(nameStr)),
+            HeaderAttribute.parseCount(countStr), sb.toString());
+        } else {
+            attribute = HeaderAttribute.createAttribute(type, AFNIAttributeKey.AD_HOC, HeaderAttribute.parseCount(countStr), sb.toString());
+        }
+
+
+        return attribute;
 
     }
 

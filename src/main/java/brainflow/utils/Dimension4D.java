@@ -55,7 +55,7 @@ public class Dimension4D<T extends Number> implements IDimension<T>, java.io.Ser
         throw new IllegalArgumentException("illegal dimension number " + dimnum + " for class " + getClass());
     }
 
-    public int product() {
+    public Number product() {
         return zero.intValue() * one.intValue() * two.intValue() * three.intValue();
     }
 

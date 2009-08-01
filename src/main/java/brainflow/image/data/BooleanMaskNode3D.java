@@ -4,11 +4,16 @@ import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
+import brainflow.image.space.IImageSpace;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.operations.BooleanOperation;
 import brainflow.image.operations.Operations;
 import brainflow.utils.DataType;
+import brainflow.utils.IDimension;
+import brainflow.utils.Dimension2D;
+import brainflow.utils.Dimension3D;
 import brainflow.math.Index3D;
 
 /**
@@ -28,12 +33,14 @@ public class BooleanMaskNode3D implements IMaskedData3D {
 
 
     public BooleanMaskNode3D(IMaskedData3D left, IMaskedData3D right) {
+        //todo assert left and rigfht have same space
         this.left = left;
         this.right = right;
 
     }
 
     public BooleanMaskNode3D(IMaskedData3D left, IMaskedData3D right, BooleanOperation operation) {
+        //todo assert left and rigfht have same space
         this.left = left;
         this.right = right;
         this.operation = operation;
@@ -44,6 +51,11 @@ public class BooleanMaskNode3D implements IMaskedData3D {
 
     public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
         return operation.isTrue((int) left.worldValue(realx, realy, realz, interp), (int) right.worldValue(realx, realy, realz, interp)) ? 1 : 0;
+    }
+
+    @Override
+    public Dimension3D<Integer> getDimensions() {
+        return left.getDimensions();
     }
 
     public boolean isTrue(int index) {
@@ -152,7 +164,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
 
     class MaskedDataNodeIterator implements ImageIterator {
 
-        ImageIterator iter;
+        ValueIterator iter;
 
         public MaskedDataNodeIterator() {
             iter = left.iterator();
@@ -169,59 +181,20 @@ public class BooleanMaskNode3D implements IMaskedData3D {
             iter.advance();
         }
 
-        public double previous() {
-            iter.jump(-1);
-            return operation.isTrue(left.isTrue(iter.index()), right.isTrue(iter.index())) ? 1 : 0;
 
-        }
 
         public final boolean hasNext() {
             return iter.hasNext();
         }
 
-        public double jump(int number) {
-            return iter.jump(number);
-        }
-
-        
-        public double nextRow() {
-            return iter.nextRow();
-        }
-
-        public double nextPlane() {
-            return iter.nextPlane();
-        }
-
-        public boolean hasNextRow() {
-            return iter.hasNextRow();
-        }
-
-        public boolean hasNextPlane() {
-            return iter.hasNextPlane();
-        }
-
-        public boolean hasPreviousRow() {
-            return iter.hasPreviousRow();
-        }
-
-        public boolean hasPreviousPlane() {
-            return iter.hasPreviousPlane();
-        }
-
-        public double previousRow() {
-            return iter.previousRow();
-        }
-
-        public double previousPlane() {
-            return iter.previousPlane();
-        }
-
-        public void set(double val) {
-            throw new UnsupportedOperationException();
-        }
 
         public final int index() {
             return iter.index();
+        }
+
+        @Override
+        public IImageSpace getImageSpace() {
+            return left.getImageSpace();
         }
     }
 }

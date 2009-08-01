@@ -1,16 +1,37 @@
-
-Potential Fix: when rotating layers, the "image space" of the model needs to be changed?
-
-
 Fix: add exe command to gradle script: izpack2exe --file=brainflow-install.jar --wth-7z="c:\Program Files\IzPack\utils\wrappers\izpack2exe\7za.exe"
 
 
-[Fix: when model changes project view fails to update.  Problem is
+Fix: should be able to drag model from project view on to canvas
+Fix: should not allow non-integral axis/view bounds
+Fix: zooming is herk-jerky, location of crosshair can change as image is zoomed.
+Fix: unzooming so that field of view is larger than image bounds causes exception
+Fix: toolbar buttons should respect the current context (e.g. snapshot)
+Fix: likewise, all controls should be disabled, grayed out when no image is loaded or selected
+Fix: left/right keys always have focus and can mess things up
 
+
+Fix: when layer is added to high res background, looks like nearest neighbor interpolation is used. But when slice is changed it changes to trilinear?
+
+[Fix: failure to read motion-reg2+orig.BRIK
+Potential Fix: when rotating layers, the "image space" of the model needs to be changed?
+[Fix: removing an image fails to update model in Project Tree View]
+
+Fix: removing an image does not change color of entry in ImageFileExplorer
+Fix: project view drag and drop within same model should reorder rather than copy
+Fix: slider for mask view simply doesn't work for coronal and sagittal views
+Related Fix: freeze button is unnecessary
+Fix: freeze button fails to become pressable even when expression has changed
+
+
+
+
+[Fix: when new layer is added make it the selected layer automatically]
+[Fix: when model changes project view fails to update.  Problem is
+[Fix: Color range fails to update immediately on view change -- needed to add an explicit repaint though]
 
 [Fix: mask view seems to show "0" as transparent.] need to create subclass of cliprange called ZeroRange.
 [Fix: mask view slider is messed up]
-[Fix: mask not updated wehn view changes]
+[Fix: mask not updated when view changes]
 [Fix: advancing image in 4D views is broken * when advancing volumes, sometimes get a "flicker".]
 
 
@@ -18,7 +39,7 @@ Fix: add exe command to gradle script: izpack2exe --file=brainflow-install.jar -
 Fix: drag and drop from file manager to project tree appears not to work
 Performance: performance is sluggish with montageimageview and large grid
 Fix: favorites should open progress monitor on loading; favorites should show check box for loaded items
-Fix: unload currently visible image? should popup message box: image is visible, do you want to do this?
+[Fix: unload currently visible image? should popup message box: image is visible, do you want to do this?]
 Fix: adjusting threshold after "freezing" mask causes exception
 Fix: Favorites menu has some quirks
 
@@ -31,7 +52,7 @@ Fix: Favorites menu has some quirks
 [Fix: loadable image pane. "info button" does nothing.]
 [Fix: colorbar fails to track layer switch when viewing montageImageview with two layers...]
 
-Fix: project view drag and drop within same model should reorder rather than copy
+
 [Fix: snapshot buttons don't work]
 
 [Add: button to refresh directory] instead added file monitor that automatically updates folders.
@@ -62,3 +83,10 @@ Fix: Annotations edited according to plot or "apply all"
 [Fix: Progress Dialog is messed up.]
 [Fix: transparent "box" over histogram "shakes" as values change]
 [Fix: adding same layer to model twice causees havoc. Should clone layer first]
+
+/ * Mac OS advice from http://www.pushing-pixels.org/?p=366
+   1. Check that you’re running under Apple VM. Use System.getProperty("os.name") and check that the value starts with “Mac”.
+   2. Set Aqua (or the future default Apple VM platform look-and-feel) with UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()).
+   3. Query and store the following UIManager entries: “MenuBarUI”, “MenuUI”, “MenuItemUI”, “CheckBoxMenuItemUI”, “RadioButtonMenuItemUI”, “PopupMenuUI”.
+   4. Set your look-and-feel of preference with UIManager.setLookAndFeel call.
+   5. Before creating your first window, restore the UIManager entries for the keys specified in the third step.  */

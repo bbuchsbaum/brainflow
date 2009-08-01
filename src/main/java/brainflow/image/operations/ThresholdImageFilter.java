@@ -4,6 +4,7 @@ import brainflow.image.data.BasicImageData;
 import brainflow.image.data.IImageData;
 import brainflow.image.data.AbstractImageData;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 
 import java.util.List;
 
@@ -41,14 +42,14 @@ public class ThresholdImageFilter extends AbstractImageFilter {
 
 
         AbstractImageData opdata = BasicImageData.create(first.getImageSpace(), outputDataType);
-        ImageIterator opiter = opdata.iterator();
+        ValueIterator opiter = opdata.iterator();
 
         ImageIterator[] iters = getSourceIterators();
 
         while (opiter.hasNext()) {
             double val = iters[0].next();
             if (val > threshold) {
-                opiter.set(val);
+                //opiter.set(val);
             }
 
             opiter.advance();

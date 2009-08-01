@@ -27,7 +27,7 @@ public abstract class AbstractTransformImageFilter extends AbstractImageFilter {
     public AbstractTransformImageFilter() {
     }
     
-    public abstract void setTransform(AbstractTransform transform);
+    public abstract void setTransform(LinearTransform transform);
         
     public void setOutputSpace(ImageSpace3D space3d) {
         outputSpace = space3d;

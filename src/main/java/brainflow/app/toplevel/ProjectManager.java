@@ -4,11 +4,9 @@ import brainflow.app.BrainFlowProject;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.data.IImageData3D;
 import brainflow.app.toplevel.ImageViewModelEvent;
-import brainflow.core.services.DataSourceStatusEvent;
+import brainflow.app.services.DataSourceStatusEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.core.layer.LayerList;
-import brainflow.core.layer.ImageLayer;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
 

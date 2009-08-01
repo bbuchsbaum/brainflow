@@ -147,7 +147,7 @@ public class OrthoPlotLayout extends ImagePlotLayout {
             Anatomy3D danat = anatomy[i];
             AxisRange xrange = getView().getModel().getImageAxis(danat.XAXIS).getRange();
             AxisRange yrange = getView().getModel().getImageAxis(danat.YAXIS).getRange();
-            ViewBounds vb = new ViewBounds(danat, xrange, yrange);
+            ViewBounds vb = new ViewBounds(getView().getModel().getImageSpace(), danat, xrange, yrange);
 
             plots.get(i).setViewBounds(vb);
         }

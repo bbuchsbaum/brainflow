@@ -26,7 +26,6 @@ public abstract class AbstractImageProducer implements IImageProducer {
 
     private Rectangle screenSize;
 
-
     private InterpolationType screenInterpolation = InterpolationType.CUBIC;
 
 
@@ -57,20 +56,13 @@ public abstract class AbstractImageProducer implements IImageProducer {
 
     public abstract AxisRange getXAxis();
 
-    //public void setXAxis(AxisRange xaxis) {
-    //    this.xaxis = xaxis;
-    //}
 
     public abstract AxisRange getYAxis();
 
-    //public void setYAxis(AxisRange yaxis) {
-    //    this.yaxis = yaxis;
-    //}
 
     public GridPoint3D getSlice() {
         return slice;
     }
-
 
     public Rectangle getScreenSize() {
         return screenSize;

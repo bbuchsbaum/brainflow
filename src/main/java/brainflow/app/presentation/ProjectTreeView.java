@@ -92,6 +92,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
 
             private void importDataSource(IImageDataSource dsource, TransferSupport support) {
+                //todo this logic does not belong in TreeView class
 
                 if (!dsource.isLoaded()) {
                     BrainFlow.get().load(dsource);
@@ -104,24 +105,18 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
 
                 if (model != null) {
-                    List<ImageLayer3D> list = model.getLayers();
                     ImageLayer sel = getSelectedLayerNode(path);
 
                     if (sel != null) {
                         //todo hack cast
                         int i = model.indexOf((ImageLayer3D)sel);
-
-                        if (i >= 0) {
-                            list.add(i, ImageLayerFactory.createImageLayer(dsource));
-                        } else {
-                            //todo is this necessary?
-                            list.add(ImageLayerFactory.createImageLayer(dsource));
-                        }
+                        assert i >= 0;
+                        model.insert(i+1, ImageLayerFactory.createImageLayer(dsource));
                     } else {
-                        list.add(ImageLayerFactory.createImageLayer(dsource));
+                        model.add(ImageLayerFactory.createImageLayer(dsource));
                     }
 
-                    BrainFlow.get().updateViews(model, new ImageViewModel(model.getName(), list));
+
                 }
 
                 
@@ -141,6 +136,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
                     if (model != null && !model.contains(layer)) {
                         model.add(layer);
+                        model.layerSelection.set(model.indexOf(layer));
                     } else {
                         //todo drop layer in correct location rather than just adding it to end ....
                     }
@@ -179,7 +175,12 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
                                 ImageLayer ilayer = (ImageLayer) layer;
                                 ret = DnDUtils.createTransferable(ilayer);
                             }
+                        } else {
+                            if (node instanceof ImageViewModelNode) {
+                                ImageViewModelNode modelNode = (ImageViewModelNode)node;
+                                ret = DnDUtils.createTransferable(modelNode.getModel());
 
+                            }
                         }
 
                     }
@@ -241,23 +242,23 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
 
     @Override
     protected void layerIntervalAdded(ListDataEvent event) {
-        System.out.println("layer added!");
+
     }
 
     @Override
     protected void layerIntervalRemoved(ListDataEvent event) {
-        System.out.println("layer removed!");
+
 
     }
 
     @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     @Override
     public void allViewsDeselected() {
-        //To change body of implemented methods use File | Settings | File Templates.
+
     }
 
     public JComponent getComponent() {
@@ -437,6 +438,7 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
         }
 
         public void intervalAdded(ListDataEvent e) {
+            //todo need to check for multiple additions
             int idx = e.getIndex0();
             ImageLayer layer = node.getModel().get(idx);
             node.add(new ImageLayerNode(layer));
@@ -444,19 +446,18 @@ public class ProjectTreeView extends ImageViewPresenter implements MouseListener
         }
 
         public void intervalRemoved(ListDataEvent e) {
+            //todo need to check for multiple additions
             int idx = e.getIndex0();
-            System.out.println("node size " + node.getChildCount());
-            System.out.println("removing node " + idx);
-            //new Throwable().printStackTrace();
+            Object layerNode = node.getChildAt(idx);
             node.remove(idx);
-            //treeModel.nodeStructureChanged(node);
+            treeModel.nodesWereRemoved(node, new int[] { idx }, new Object[] { layerNode});
             treeModel.nodeChanged(node);
-            //node.remove(idx);
-
+            
         }
 
 
         public void contentsChanged(ListDataEvent e) {
+            // todo implement ...
 
         }
 

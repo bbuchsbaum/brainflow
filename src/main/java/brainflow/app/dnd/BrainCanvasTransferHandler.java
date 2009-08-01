@@ -77,7 +77,7 @@ public class BrainCanvasTransferHandler extends ImageDropHandler {
                 }
 
                 model.add(layeradd);
-
+                model.layerSelection.set(model.indexOf(layeradd));
                
 
 

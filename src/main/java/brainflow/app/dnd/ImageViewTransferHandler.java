@@ -46,16 +46,16 @@ public class ImageViewTransferHandler extends ImageDropHandler {
         if (c instanceof ImageView) {
             ImageView view = (ImageView) c;
 
-            ImageViewModel dset = view.getModel();
+            ImageViewModel model = view.getModel();
 
             ImageLayer3D layeradd = (ImageLayer3D)layer;
       
-            if (dset.contains(layeradd)) {
+            if (model.contains(layeradd)) {
                 layeradd = new ImageLayer3D(layeradd);
             }
 
-            dset.add(layeradd);
-
+            model.add(layeradd);
+            model.layerSelection.set(model.indexOf(layeradd));
         }
 
     }

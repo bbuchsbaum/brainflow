@@ -30,6 +30,7 @@ public class ColorRangePresenter extends ImageViewPresenter implements Bindable 
      * Creates a new instance of ColorRangePanel
      */
     public ColorRangePresenter() {
+        super();
 
         form = new JPanel();
         initGUI();
@@ -58,6 +59,7 @@ public class ColorRangePresenter extends ImageViewPresenter implements Bindable 
         unbind();
     }
 
+    @Override
     public void viewSelected(ImageView view) {
         bind();
     }
@@ -72,7 +74,9 @@ public class ColorRangePresenter extends ImageViewPresenter implements Bindable 
 
     @Override
     protected void layerSelected(ImageLayer3D layer) {
-        bind();
+
+        System.out.println("new layer, rebind color range");
+       bind();
     }
 
     public void unbind() {
@@ -80,10 +84,11 @@ public class ColorRangePresenter extends ImageViewPresenter implements Bindable 
     }
 
     public void bind() {
+        System.out.println("binding color range");
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
-
+        System.out.println("layer is " + layer);
         ExtBind.get().bindBiSlider(layer.getLayerProps().clipRange, bislider);
-
+        bislider.repaint();
        
 
     }

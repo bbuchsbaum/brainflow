@@ -42,6 +42,7 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
      * Creates a new instance of ColorRangePanel
      */
     public ThresholdRangePresenter() {
+        super();
         form = new JPanel();
         initGUI();
 
@@ -81,7 +82,7 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
 
     }
 
-
+    @Override
     public void viewSelected(ImageView view) {
         bind();
     }
@@ -94,7 +95,9 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
     }
 
     @Override
-    protected void layerSelected(ImageLayer3D layer) {
+    protected void layerSelected(ImageLayer3D layer) {       
+        System.out.println("new layer, rebind thresh range");
+//        new Throwable().printStackTrace();
         bind();
     }
 
@@ -112,6 +115,9 @@ public class ThresholdRangePresenter extends ImageViewPresenter {
     }
 
     public void bind() {
+
+
+        System.out.println("binding threshold range");
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
         ExtBind.get().bindBiSlider(layer.getLayerProps().thresholdRange, bislider);
 

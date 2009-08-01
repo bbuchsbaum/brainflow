@@ -1,5 +1,8 @@
 package brainflow.image.data;
 
+import brainflow.image.space.IImageSpace3D;
+import brainflow.image.space.IImageSpace;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Brad
@@ -12,5 +15,7 @@ public interface ImageBuffer extends DataGrid {
     public void setValue(int index, double value);
     
     public IImageData asImageData();
+
+    public IImageSpace getImageSpace();
 
 }

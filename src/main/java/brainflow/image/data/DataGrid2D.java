@@ -3,6 +3,8 @@ package brainflow.image.data;
 import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.space.ImageSpace2D;
 import brainflow.image.space.IImageSpace2D;
+import brainflow.utils.Dimension2D;
+import brainflow.utils.IDimension;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,13 +15,12 @@ import brainflow.image.space.IImageSpace2D;
  */
 public interface DataGrid2D extends DataGrid {
 
-    public double value(double x, double y, InterpolationFunction2D interp);
+    public double value(float x, float y, InterpolationFunction2D interp);
 
-    public double worldValue(double realx, double realy, InterpolationFunction2D interp);
+    //public double worldValue(double realx, double realy, InterpolationFunction2D interp);
 
-    public double value(int x, int y);
+    public double value(int i, int j);
 
-    public IImageSpace2D getImageSpace();
-
-    
+    @Override
+    Dimension2D<Integer> getDimensions();
 }

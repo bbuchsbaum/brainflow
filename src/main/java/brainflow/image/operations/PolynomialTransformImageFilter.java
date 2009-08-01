@@ -25,8 +25,8 @@ public class PolynomialTransformImageFilter extends AbstractTransformImageFilter
     }
 
 
-    public void setTransform(AbstractTransform _transform) {
-        transform = (PolynomialTransform) _transform;
+    public void setTransform(LinearTransform _transform) {
+        //transform = (PolynomialTransform) _transform;
     }
 
 

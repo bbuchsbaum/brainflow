@@ -57,12 +57,12 @@ public class ImageViewFactory {
     }
 
 
-    public static IImagePlot createPlot(ImageViewModel displayModel, Anatomy3D displayAnatomy) {
-        AxisRange xrange = displayModel.getImageAxis(displayAnatomy.XAXIS).getRange();
-        AxisRange yrange = displayModel.getImageAxis(displayAnatomy.YAXIS).getRange();
-        ViewBounds vb = new ViewBounds(displayAnatomy, xrange, yrange);
+    public static IImagePlot createPlot(ImageViewModel viewModel, Anatomy3D displayAnatomy) {
+        AxisRange xrange = viewModel.getImageAxis(displayAnatomy.XAXIS).getRange();
+        AxisRange yrange = viewModel.getImageAxis(displayAnatomy.YAXIS).getRange();
+        ViewBounds vb = new ViewBounds(viewModel.getImageSpace(), displayAnatomy, xrange, yrange);
 
-        return new ComponentImagePlot(displayModel, vb);
+        return new ComponentImagePlot(viewModel, vb);
 
     }
 
@@ -77,7 +77,7 @@ public class ImageViewFactory {
 
     public static ImageView createYokedAxialView(ImageView source) {
         ImageView view = new SimpleImageView(source.getModel(), Anatomy3D.getCanonicalAxial());
-        //view.resetPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalAxial()));
+        //view.initPlotLayout(new SimplePlotLayout(view, Anatomy3D.getCanonicalAxial()));
 
         addDefaultAnnotations(view);
 

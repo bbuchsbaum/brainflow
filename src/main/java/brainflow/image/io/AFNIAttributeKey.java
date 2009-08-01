@@ -1,5 +1,7 @@
 package brainflow.image.io;
 
+import java.util.*;
+
 
 /**
  * BrainFlow Project
@@ -9,32 +11,7 @@ package brainflow.image.io;
  */
 public enum AFNIAttributeKey implements HeaderKey {
 
-    //todo come up with mechanism for adhoc attributes
-    //FDRCURVE_000043,
-    //FDRCURVE_000042,
-    //FDRCURVE_000040,
-    //FDRCURVE_000039,
-    //FDRCURVE_000037,
-    //FDRCURVE_000036,
-    //FDRCURVE_000034,
-    //FDRCURVE_000032,
-    //FDRCURVE_000030,
-    //FDRCURVE_000028,
-    //FDRCURVE_000026,
-    //FDRCURVE_000024,
-    //FDRCURVE_000023,
-    //FDRCURVE_000021,
-    //FDRCURVE_000020,
-    //FDRCURVE_000018,
-    //FDRCURVE_000016,
-    //FDRCURVE_000014,
-    //FDRCURVE_000013,
-    //FDRCURVE_000011,
-    //FDRCURVE_000009,
-    //FDRCURVE_000007,
-    //FDRCURVE_000005,
-    //FDRCURVE_000003,
-    //FDRCURVE_000001,
+    AD_HOC,
     MARKS_FLAGS,
     MARKS_HELP,
     MARKS_LAB,
@@ -68,6 +45,22 @@ public enum AFNIAttributeKey implements HeaderKey {
     WARPDRIVE_MATVEC_FOR_000000,
     WARPDRIVE_MATVEC_INV_000000;
 
+    static Set<String> nameSet;
+
+    public static boolean hasKey(String name) {
+        if (nameSet == null) {
+            AFNIAttributeKey[] keys = AFNIAttributeKey.values();
+            List<String> names = new ArrayList<String>();
+            for (AFNIAttributeKey key : keys) {
+                names.add(key.name());
+            }
+            nameSet = new HashSet<String>(names);
+        }
+
+        return nameSet.contains(name);
+    }
+
+
 
     public static void main(String[] args) {
         AFNIAttributeKey[] keys = values();
@@ -75,8 +68,6 @@ public enum AFNIAttributeKey implements HeaderKey {
         for (int i = 0; i < keys.length; i++) {
             System.out.println("" + keys[i].name());
         }
-
-        
     }
 
 

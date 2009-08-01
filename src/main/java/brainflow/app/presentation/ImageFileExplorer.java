@@ -489,13 +489,9 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                 parent.add(node);
             }
 
-
-
             DefaultTreeModel dtm = getDefaultTreeModel();
 
-
             if (dtm != null) {
-
                 dtm.nodeStructureChanged(parent);
             }
 
@@ -516,9 +512,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                 IImageDataSource source = desc.createLoadableImage(fobj);
                 List<ImageInfo> infoList = source.getImageInfoList();
 
-                System.out.println("infolist[0] = " + infoList.get(0).getDataFile().getName());
-
-                assert infoList.size() != 0;
+                 assert infoList.size() != 0;
 
                 if (infoList.size() > 1) {
                     ret = new ImageContainerNode(source);
@@ -530,15 +524,13 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
         } catch (FileSystemException e) {
             log.severe("failed to load image info for file : " + fobj);
-            return null;
-            //throw new RuntimeException(e);
+            throw new RuntimeException(e);
         } catch (BrainFlowException e) {
             log.severe("failed to load image info for file : " + fobj);
-            //throw new RuntimeException(e);
-            return null;
+            throw new RuntimeException(e);
         } catch (RuntimeException e) {
             log.severe("failed to load image info for file : " + fobj);
-            return null;
+            throw new RuntimeException(e);
         }
 
         return ret;

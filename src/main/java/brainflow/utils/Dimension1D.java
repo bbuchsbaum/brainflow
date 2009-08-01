@@ -35,8 +35,8 @@ public class Dimension1D<T extends Number> implements IDimension<T>, java.io.Ser
 
     }
 
-    public int product() {
-        return zero.intValue();
+    public T product() {
+        return zero;
     }
 
     public T getDim(int dimnum) {

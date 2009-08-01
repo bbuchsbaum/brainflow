@@ -14,9 +14,9 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/groovy" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/lib" />
@@ -43,7 +43,7 @@
     <orderEntry type="library" name="jxlayer-3.0" level="application" />
     <orderEntry type="library" name="args4j" level="application" />
     <orderEntry type="library" name="quaqua" level="application" />
-    <orderEntry type="library" name="jide-2.6.4" level="application" />
+    <orderEntry type="library" name="jide-2.7.0" level="application" />
     <orderEntry type="library" name="synthetica" level="application" />
     <orderEntry type="library" name="balloontip" level="application" />
     <orderEntry type="library" name="commons-pipeline" level="application" />

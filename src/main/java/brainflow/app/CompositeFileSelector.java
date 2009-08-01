@@ -30,9 +30,8 @@ public class CompositeFileSelector implements FileSelector {
             return false;
         if (fileInfo.getFile().getType() == FileType.FOLDER) {
             return true;
-        }
-        else {
-            for (int i=0; i<desc.length; i++) {
+        } else {
+            for (int i = 0; i < desc.length; i++) {
                 if (desc[i].isHeaderMatch(fileInfo.getFile())) {
                     return true;
                 }
@@ -49,7 +48,8 @@ public class CompositeFileSelector implements FileSelector {
     public boolean traverseDescendents(final FileSelectInfo fileInfo) {
         if (fileInfo.getDepth() == 0) {
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 }

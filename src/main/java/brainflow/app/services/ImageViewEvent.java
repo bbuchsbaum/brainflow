@@ -7,7 +7,7 @@
  * and open the template in the editor.
  */
 
-package brainflow.core.services;
+package brainflow.app.services;
 
 import brainflow.core.ImageView;
 import org.bushe.swing.event.AbstractEventServiceEvent;

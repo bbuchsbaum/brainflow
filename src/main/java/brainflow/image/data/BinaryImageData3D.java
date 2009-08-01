@@ -5,8 +5,10 @@ import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.Index3D;
+import brainflow.utils.Dimension3D;
 import cern.colt.bitvector.BitVector;
 
 /**
@@ -45,7 +47,7 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
 
         
         BitVector bits = getBitVector();
-        ImageIterator iter = src.iterator();
+        ValueIterator iter = src.iterator();
 
         while (iter.hasNext()) {
             int i = iter.index();
@@ -93,6 +95,11 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
         ret.and(data.getBitVector());
         return new BinaryImageData3D(getImageSpace(), ret);
 
+    }
+
+    @Override
+    public Dimension3D<Integer> getDimensions() {
+        return getImageSpace().getDimension();
     }
 
     public Index3D indexToGrid(int idx) {

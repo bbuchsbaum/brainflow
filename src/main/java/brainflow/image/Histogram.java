@@ -4,6 +4,7 @@ import cern.colt.list.DoubleArrayList;
 import cern.jet.stat.Descriptive;
 import brainflow.image.data.IImageData;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.io.IImageDataSource;
 import brainflow.math.ArrayUtils;
 import brainflow.utils.IRange;
@@ -59,7 +60,7 @@ public class Histogram {
 
         binSize = (maxValue - minValue) / numBins;
 
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         
         while (iter.hasNext()) {
             double val = iter.next();

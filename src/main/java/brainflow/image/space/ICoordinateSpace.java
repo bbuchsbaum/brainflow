@@ -30,10 +30,7 @@ public interface ICoordinateSpace {
 
     public BrainPoint getCentroid();
 
-
     public int getNumDimensions();
-
-    public ICoordinateSpace union(ICoordinateSpace other);
 
     public Anatomy getAnatomy();
 

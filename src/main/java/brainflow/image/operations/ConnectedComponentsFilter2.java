@@ -7,7 +7,7 @@ import brainflow.image.io.BrainIO;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ImageSpace3D;
-import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.core.BF;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer3D;
@@ -107,7 +107,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
     private IImageData3D relabel(IImageData3D data) {
         ImageBuffer3D writer = data.createWriter(true);
         OpenIntIntHashMap map = new OpenIntIntHashMap();
-        ImageIterator iter = data.iterator();
+        ValueIterator iter = data.iterator();
         int lab= 1;
         while (iter.hasNext()) {
             int idx = iter.index();
@@ -209,7 +209,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
                     public void run() {
                         try {
                             BrainFlow.get().launch();
-                            BrainFlow.get().displayView(view);
+                            BrainFlow.get().display(view);
                         } catch(Throwable t) {
                             t.printStackTrace();
                         }

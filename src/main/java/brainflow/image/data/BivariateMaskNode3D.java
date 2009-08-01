@@ -2,12 +2,16 @@ package brainflow.image.data;
 
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
+import brainflow.image.space.IImageSpace;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.operations.BinaryOperation;
 import brainflow.utils.DataType;
+import brainflow.utils.IDimension;
+import brainflow.utils.Dimension3D;
 import brainflow.math.Index3D;
 
 /**
@@ -76,9 +80,7 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         return left.indexToGrid(idx);
     }
 
-    public void setValue(int x, int y, int z, double val) {
-        throw new UnsupportedOperationException();
-    }
+
 
     public Anatomy3D getAnatomy() {
         return left.getAnatomy();
@@ -86,6 +88,11 @@ public class BivariateMaskNode3D implements IMaskedData3D {
 
     public DataType getDataType() {
         return DataType.INTEGER;
+    }
+
+    @Override
+    public Dimension3D<Integer> getDimensions() {
+        return left.getDimensions();
     }
 
     public int getDimension(Axis axisNum) {
@@ -122,9 +129,7 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         return left.numElements();
     }
 
-    private void setValue(int idx, double val) {
-        throw new UnsupportedOperationException();
-    }
+
 
     public ImageBuffer3D createWriter(boolean clear) {
         throw new UnsupportedOperationException();
@@ -136,7 +141,7 @@ public class BivariateMaskNode3D implements IMaskedData3D {
 
     class BivariateMaskedDataNodeIterator implements ImageIterator {
 
-        ImageIterator iter;
+        ValueIterator iter;
 
         public BivariateMaskedDataNodeIterator() {
             iter = left.iterator();
@@ -149,59 +154,18 @@ public class BivariateMaskNode3D implements IMaskedData3D {
 
         }
 
+        @Override
+        public IImageSpace getImageSpace() {
+            return left.getImageSpace();
+        }
+
+        @Override
         public void advance() {
             iter.advance();
         }
 
-        public double previous() {
-            iter.jump(-1);
-            return value(iter.index());
-
-        }
-
         public boolean hasNext() {
             return iter.hasNext();
-        }
-
-        public double jump(int number) {
-            return iter.jump(number);
-        }
-
-       
-        public double nextRow() {
-            return iter.nextRow();
-        }
-
-        public double nextPlane() {
-            return iter.nextPlane();
-        }
-
-        public boolean hasNextRow() {
-            return iter.hasNextRow();
-        }
-
-        public boolean hasNextPlane() {
-            return iter.hasNextPlane();
-        }
-
-        public boolean hasPreviousRow() {
-            return iter.hasPreviousRow();
-        }
-
-        public boolean hasPreviousPlane() {
-            return iter.hasPreviousPlane();
-        }
-
-        public double previousRow() {
-            return iter.previousRow();
-        }
-
-        public double previousPlane() {
-            return iter.previousPlane();
-        }
-
-        public void set(double val) {
-            throw new UnsupportedOperationException();
         }
 
         public int index() {

@@ -2,8 +2,8 @@ package brainflow.app.toplevel;
 
 import brainflow.app.IBrainFlowClient;
 import brainflow.app.toplevel.ImageViewModelEvent;
-import brainflow.core.services.ImageViewLayerSelectionEvent;
-import brainflow.core.services.ImageViewSelectionEvent;
+import brainflow.app.services.ImageViewLayerSelectionEvent;
+import brainflow.app.services.ImageViewSelectionEvent;
 import brainflow.core.ImageView;
 import brainflow.core.layer.ImageLayer;
 import org.bushe.swing.event.EventBus;

@@ -12,7 +12,7 @@ import brainflow.utils.Point3D;
 /**
  * @author Bradley
  */
-public class PolynomialTransform extends AbstractTransform {
+public class PolynomialTransform {
 
     public static final int MAX_ORDER = 12;
 

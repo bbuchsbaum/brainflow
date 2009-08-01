@@ -109,7 +109,7 @@ public class MontageImageView extends ImageView {
         }
 
         plotLayout = createPlotLayout(displayAnatomy);
-        resetPlotLayout(plotLayout, annotationMap);
+        initPlotLayout(plotLayout, annotationMap);
     }
 
     public MontagePlotLayout getPlotLayout() {

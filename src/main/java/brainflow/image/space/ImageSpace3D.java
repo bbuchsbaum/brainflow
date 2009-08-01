@@ -191,8 +191,8 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
     /*public final Index3D indexToGrid(int idx, Index3D voxel) {
      voxel.i = idx / planeSize;
      int remainder = (idx % planeSize);
-     voxel.k = remainder / getDimension(Axis.X_AXIS);
-     voxel.j = remainder % getDimension(Axis.X_AXIS);
+     voxel.k = remainder / getDimensions(Axis.X_AXIS);
+     voxel.j = remainder % getDimensions(Axis.X_AXIS);
 
      return voxel;
  }   */

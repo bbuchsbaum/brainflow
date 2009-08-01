@@ -5,6 +5,7 @@ import brainflow.display.InterpolationType;
 import brainflow.image.anatomy.*;
 import brainflow.image.data.*;
 import brainflow.image.iterators.ImageIterator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.operations.ImageSlicer;
 import brainflow.image.rendering.PixelUtils;
 import brainflow.image.space.*;
@@ -388,8 +389,8 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         UByteImageData2D alpha = rgba.getAlpha();
         UByteImageData2D out = new UByteImageData2D(alpha.getImageSpace());
 
-        ImageIterator sourceIter = alpha.iterator();
-        ImageIterator maskIter = maskData.iterator();
+        ValueIterator sourceIter = alpha.iterator();
+        ValueIterator maskIter = maskData.iterator();
 
         while (sourceIter.hasNext()) {
             int index = sourceIter.index();

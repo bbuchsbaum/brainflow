@@ -9,7 +9,6 @@ package brainflow.image.interpolation;
 import cern.colt.list.DoubleArrayList;
 import brainflow.image.data.IImageData3D;
 import brainflow.image.data.DataGrid3D;
-import brainflow.image.operations.FormatImageFilter;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.utils.DataType;
@@ -44,10 +43,10 @@ public class BSplineInterpolator implements InterpolationFunction3D {
 
     public void initialize() {
 
-        FormatImageFilter filter = new FormatImageFilter();
-        filter.setInput(0, srcImage);
-        filter.setOutputDataType(DataType.DOUBLE);
-        coefficientImage = (IImageData3D) filter.getOutput();
+        //FormatImageFilter filter = new FormatImageFilter();
+        //filter.setInput(0, srcImage);
+        //filter.setOutputDataType(DataType.DOUBLE);
+        //coefficientImage = (IImageData3D) filter.getOutput();
         IImageSpace space = coefficientImage.getImageSpace();
         width = space.getDimension(Axis.X_AXIS);
         height = space.getDimension(Axis.Y_AXIS);

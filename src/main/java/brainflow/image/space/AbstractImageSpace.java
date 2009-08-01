@@ -3,7 +3,6 @@ package brainflow.image.space;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.AnatomicalDirection;
 import brainflow.image.anatomy.Anatomy;
-import brainflow.image.anatomy.Anatomy2D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.ImageAxis;
 
@@ -93,7 +92,7 @@ public abstract class AbstractImageSpace implements IImageSpace {
     public int getDimension(AnatomicalAxis axis) {
         ImageAxis iaxis = whichAxisIgnoreDirection(axis);
         if (iaxis == null) {
-            throw new IllegalArgumentException("AbstractImageSpace.getDimension(...): request for dimension" +
+            throw new IllegalArgumentException("AbstractImageSpace.getDimensions(...): request for dimension" +
                     " of AnatomicalAxis that is not represented in this space.");
         }
 

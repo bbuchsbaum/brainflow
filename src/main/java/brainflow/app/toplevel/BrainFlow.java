@@ -4,7 +4,7 @@ import brainflow.app.*;
 import brainflow.app.dnd.BrainCanvasTransferHandler;
 import brainflow.app.actions.*;
 import brainflow.app.presentation.*;
-import brainflow.core.services.ImageViewMousePointerEvent;
+import brainflow.app.services.ImageViewMousePointerEvent;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.core.*;
@@ -75,8 +75,7 @@ import java.net.URI;
  * To change this template use File | Settings | File Templates.
  */
 
-public class
-        BrainFlow {
+public class BrainFlow {
 
     static {
         com.jidesoft.utils.Lm.verifyLicense("UIN", "BrainFlow", "S5XiLlHH0VReaWDo84sDmzPxpMJvjP3");
@@ -205,8 +204,8 @@ public class
             if (osname.toUpperCase().contains("WINDOWS")) {
                 UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
                 //UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
-                //UIManager.setLookAndFeel(new WindowsLookAndFeel());
-                LookAndFeelFactory.installJideExtension();
+                //com.jidesoft.plaf.LookAndFeelFactory.installDefaultLookAndFeel();
+                //LookAndFeelFactory.installJideExtension(LookAndFeelFactory.OFFICE2007_STYLE);
 
             } else if (osname.toUpperCase().contains("LINUX")) {
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
@@ -397,7 +396,7 @@ public class
 
     private void initializeStatusBar() {
         SelectedViewStatus viewStatus = new SelectedViewStatus();
-        log.info("initialzing status bar");
+        log.info("initializing status bar");
         statusBar.setAutoAddSeparator(false);
 
         statusBar.add(viewStatus.getComponent(), JideBoxLayout.FIX);
@@ -444,8 +443,9 @@ public class
         }
     }
 
-    private void initializeToolBar() {
 
+    private void initializeToolBar() {
+        
 
         CommandGroup mainToolbarGroup = new CommandGroup("main-toolbar");
         mainToolbarGroup.bind(getApplicationFrame());
@@ -494,7 +494,24 @@ public class
         bindCommand(new ToggleCrossCommand(), true);
 
         JToolBar mainToolbar = mainToolbarGroup.createToolBar();
+        //final CommandBar mainToolbar = new CommandBar();
+        /*mainToolbarGroup.visitMembers(new GroupVisitor() {
+            @Override
+            public void visit(ActionCommand actionCommand) {
+                mainToolbar.add(new JideButton(actionCommand.getActionAdapter()));
+            }
 
+            @Override
+            public void visit(CommandGroup commandGroup) {
+                mainToolbar.add(commandGroup.createButton());
+            }
+        }); */
+
+        ImageViewZoomer zoomer = new ImageViewZoomer();
+        zoomer.getComponent().setMaximumSize(new Dimension(200,50));
+
+        mainToolbar.addSeparator();
+        mainToolbar.add(zoomer.getComponent());
 
         brainFrame.getContentPane().add(mainToolbar, BorderLayout.NORTH);
 
@@ -878,7 +895,7 @@ public class
             public void actionPerformed(ActionEvent e) {
                 ImageViewModel displayModel = ProjectManager.get().createViewModel(checkedDataSource, true);
                 ImageView iview = ImageViewFactory.createAxialView(displayModel);
-                DisplayManager.get().displayView(iview);
+                DisplayManager.get().display(iview);
                 //DisplayManager.get().getSelectedCanvas().addImageView(iview);
             }
         });
@@ -908,10 +925,10 @@ public class
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
         monitor.loadImage(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ImageViewModel displayModel = view.getModel();
+                ImageViewModel model = view.getModel();
                 ImageLayer3D layer = ImageLayerFactory.createImageLayer(dataSource);
-                displayModel.add(layer);
-                
+                model.add(layer);
+                model.layerSelection.set(model.indexOf(layer));
 
             }
         });
@@ -970,12 +987,12 @@ public class
     }
 
     public void displayView(ImageView view) {
-        DisplayManager.get().displayView(view);
+        DisplayManager.get().display(view);
     }
 
-    public void updateViews(ImageViewModel oldModel, ImageViewModel newModel) {
-        DisplayManager.get().updateViews(oldModel, newModel);
-    }
+    //public void updateViews(ImageViewModel oldModel, ImageViewModel newModel) {
+    //    DisplayManager.get().updateViews(oldModel, newModel);
+    //}
 
     public IBrainCanvas newCanvas() {
         return DisplayManager.get().newCanvas();
