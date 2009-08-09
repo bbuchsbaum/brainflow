@@ -142,11 +142,13 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
 
     public void setViewBounds(ViewBounds vbounds) {
         ViewBounds oldBounds = getViewBounds();
-        viewBounds = vbounds;
-        producer.reset();
-        repaint();
 
-        fireViewBoundsListenerEvent(oldBounds, viewBounds);
+        if (!oldBounds.equals(vbounds)) {
+            viewBounds = vbounds;
+            producer.reset();
+            repaint();
+            fireViewBoundsListenerEvent(oldBounds, viewBounds);
+        }
     }
 
     private void fireViewBoundsListenerEvent(ViewBounds oldBounds, ViewBounds newBounds) {

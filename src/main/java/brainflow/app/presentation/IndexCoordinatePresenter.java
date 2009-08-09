@@ -17,7 +17,7 @@ import javax.swing.*;
  * Time: 9:21:21 PM
  * To change this template use File | Settings | File Templates.
  */
-public class IndexCoordinatePresenter extends ImageViewPresenter {
+public class IndexCoordinatePresenter extends BrainFlowPresenter {
 
     private CoordinateSpinner form;
 

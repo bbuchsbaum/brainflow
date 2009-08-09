@@ -42,7 +42,7 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
         setLayout(new BorderLayout());
 
         add(desktopPane, "Center");
-        desktopPane.setOpaque(false);
+        desktopPane.setOpaque(true);
         addInteractor(new CrosshairInteractor());
         addInteractor(new MouseWheelInteractor());
         addInteractor(new PanningInteractor());

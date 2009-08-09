@@ -2,6 +2,9 @@ package brainflow.app.actions;
 
 import com.jidesoft.docking.DockableFrame;
 import com.jidesoft.docking.DockingManager;
+import com.jidesoft.docking.event.DockableFrameListener;
+import com.jidesoft.docking.event.DockableFrameAdapter;
+import com.jidesoft.docking.event.DockableFrameEvent;
 import com.pietschy.command.toggle.ToggleVetoException;
 
 /**
@@ -23,6 +26,18 @@ public class ActivateDockableFrameCommand extends BrainFlowToggleCommand {
         } else {
             setSelected(false);
         }
+
+        dframe.addDockableFrameListener(new DockableFrameAdapter() {
+            @Override
+            public void dockableFrameHidden(DockableFrameEvent dockableFrameEvent) {
+                setSelected(false);
+            }
+
+            @Override
+            public void dockableFrameShown(DockableFrameEvent dockableFrameEvent) {
+                setSelected(true);
+            }
+        } );
 
 
     }

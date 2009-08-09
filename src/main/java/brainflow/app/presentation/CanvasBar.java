@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * Date: Aug 12, 2007
  * Time: 7:36:06 AM
  */
-public class CanvasBar extends ImageViewPresenter {
+public class CanvasBar extends BrainFlowPresenter {
 
 
     private JToolBar canvasBar;

@@ -25,7 +25,7 @@ import java.util.Set;
  * Time: 12:14:52 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LinkedViewsPresenter extends ImageViewPresenter {
+public class LinkedViewsPresenter extends BrainFlowPresenter {
 
     private IBrainCanvas canvas;
 

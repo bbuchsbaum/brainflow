@@ -17,7 +17,7 @@ import java.awt.*;
 /**
  * @author buchs
  */
-public class ColorRangePresenter extends ImageViewPresenter implements Bindable {
+public class ColorRangePresenter extends BrainFlowPresenter implements Bindable {
 
 
 

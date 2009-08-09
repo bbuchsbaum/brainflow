@@ -24,7 +24,7 @@ import net.java.dev.properties.container.BeanContainer;
  * Time: 2:28:00 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MaskPresenter extends ImageViewPresenter {
+public class MaskPresenter extends BrainFlowPresenter {
 
 
 

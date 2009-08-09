@@ -29,7 +29,7 @@ import net.java.dev.properties.binding.swing.adapters.SwingBind;
  * Time: 9:47:45 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ProjectListView extends ImageViewPresenter {
+public class ProjectListView extends BrainFlowPresenter {
 
     private BrainFlowProject project;
 

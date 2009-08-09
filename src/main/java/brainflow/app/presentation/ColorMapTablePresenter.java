@@ -27,7 +27,7 @@ import java.io.IOException;
  */
 
 
-public class ColorMapTablePresenter extends ImageViewPresenter {
+public class ColorMapTablePresenter extends BrainFlowPresenter {
 
 
     private ColorMapTable colorTable;

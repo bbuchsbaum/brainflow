@@ -3,12 +3,11 @@ package brainflow.app.presentation;
 import brainflow.core.*;
 import brainflow.image.axis.AxisRange;
 import brainflow.utils.NumberUtils;
+import brainflow.app.services.ViewBoundsChangedEvent;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-import java.util.Dictionary;
-import java.util.Hashtable;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,7 +16,7 @@ import java.util.Hashtable;
  * Time: 2:51:10 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ImageViewZoomer extends ImageViewPresenter {
+public class ImageViewZoomer extends BrainFlowPresenter {
 
 
     private static double scaleFactor = 50.0 / Math.log(100);
@@ -29,9 +28,11 @@ public class ImageViewZoomer extends ImageViewPresenter {
 
     private int startZoom = (int) (Math.log(100) * scaleFactor);
 
-    private int maxZoom = (int) (Math.log(1000) * scaleFactor);
+    private int maxZoom = (int) (Math.log(10000) * scaleFactor);
 
     private JSlider zoomSlider = new JSlider(JSlider.HORIZONTAL, minZoom, maxZoom, startZoom);
+
+    private ViewBounds lastViewBounds;
 
     public ImageViewZoomer() {
         super();
@@ -44,10 +45,13 @@ public class ImageViewZoomer extends ImageViewPresenter {
         return Math.pow(Math.E, (double) sliderValue / scaleFactor) / 100;
     }
 
+    private int convertToSlider(double prop) {
+        return (int)(Math.log(prop*100) * scaleFactor);
+    }
+
     private ViewBounds getViewBounds() {
         IImagePlot selPlot = getSelectedView().getSelectedPlot();
         return selPlot.getViewBounds();
-
     }
 
     private void shrinkView(ImageView view, double prop) {
@@ -61,6 +65,7 @@ public class ImageViewZoomer extends ImageViewPresenter {
                 yrefRange.shrink(1 - 1.0 / prop));
 
         ViewBounds adjusted = vb.snapToGrid();
+        lastViewBounds = adjusted;
         getSelectedView().getSelectedPlot().setViewBounds(adjusted);
 
 
@@ -76,6 +81,7 @@ public class ImageViewZoomer extends ImageViewPresenter {
                 yrefRange.grow(1.0 - prop));
 
         ViewBounds adjusted = vb.snapToGrid();
+        lastViewBounds = adjusted;
         getSelectedView().getSelectedPlot().setViewBounds(adjusted);
 
     }
@@ -91,21 +97,31 @@ public class ImageViewZoomer extends ImageViewPresenter {
                 xrefRange,
                 yrefRange);
 
-        view.getSelectedPlot().setViewBounds(vb.snapToGrid());
+        lastViewBounds = vb.snapToGrid();
+        view.getSelectedPlot().setViewBounds(lastViewBounds);
 
 
     }
 
     private void initSlider() {
+        zoomSlider.setEnabled(false);
         zoomSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
 
                 ImageView view = getSelectedView();
+                System.out.println("slider value " + zoomSlider.getValue());
                 double prop = convertToProportion(zoomSlider.getValue());
+                double curProp = 1/view.getSelectedPlot().getViewBounds().getXProportion();
+
+                System.out.println("prop = " + prop);
+                System.out.println("cur prop = " + curProp);
+                if (NumberUtils.equals(prop, curProp, .0001)) {
+                    System.out.println("prop");
+                    System.out.println("cur prop equals prop, no need to do anything");
+                }
 
                 if (view != null) {
-
 
                     if (NumberUtils.equals(prop, 1, .02)) {
                         resetView();
@@ -125,11 +141,21 @@ public class ImageViewZoomer extends ImageViewPresenter {
 
     }
 
-    
+
+    @Override
+    protected void viewBoundsChanged(ViewBoundsChangedEvent event) {
+
+        if (lastViewBounds != null && !lastViewBounds.equals(event.getViewBounds())) {
+            int slider = convertToSlider(1/event.getViewBounds().getXProportion());
+            zoomSlider.setValue(slider);
+        }
+    }
 
     @Override
     public void viewSelected(ImageView view) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        int slider = convertToSlider(1/view.getSelectedPlot().getViewBounds().getXProportion());
+        zoomSlider.setValue(slider);
+        zoomSlider.setEnabled(true);
     }
 
     @Override
@@ -139,7 +165,7 @@ public class ImageViewZoomer extends ImageViewPresenter {
 
     @Override
     public void allViewsDeselected() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        zoomSlider.setEnabled(false);
     }
 
     @Override

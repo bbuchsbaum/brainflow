@@ -28,7 +28,7 @@ import java.awt.event.ItemEvent;
 /**
  * @author buchs
  */
-public class ThresholdRangePresenter extends ImageViewPresenter {
+public class ThresholdRangePresenter extends BrainFlowPresenter {
 
 
     private JPanel form;

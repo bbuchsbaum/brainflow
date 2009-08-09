@@ -27,7 +27,7 @@ import java.awt.event.MouseMotionListener;
  * Time: 10:54:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ImageViewportPresenter extends ImageViewPresenter {
+public class ImageViewportPresenter extends BrainFlowPresenter {
 
     private JComboBox plotSelector = new JComboBox();
 

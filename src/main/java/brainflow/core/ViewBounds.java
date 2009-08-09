@@ -57,6 +57,14 @@ public class ViewBounds {
         return yrange.getInterval();
     }
 
+    public double getXProportion() {
+        return xrange.getInterval()/referenceSpace.getExtent(referenceSpace.getImageAxis(xrange.getAnatomicalAxis(), true).getAnatomicalAxis());
+    }
+
+    public double getYProportion() {
+        return yrange.getInterval()/referenceSpace.getExtent(referenceSpace.getImageAxis(yrange.getAnatomicalAxis(), true).getAnatomicalAxis());
+    }
+
     public ViewBounds snapToGrid() {
 
         double xcenter = xrange.getCenter().getValue();
@@ -94,5 +102,29 @@ public class ViewBounds {
         if (start > end) throw new IllegalArgumentException("start value cannot exceed end value");
         return new ViewBounds(referenceSpace, displayAnatomy, xrange, new AxisRange(yrange.getAnatomicalAxis(), start, end));
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ViewBounds that = (ViewBounds) o;
+
+        if (!displayAnatomy.equals(that.displayAnatomy)) return false;
+        if (!referenceSpace.equals(that.referenceSpace)) return false;
+        if (!xrange.equals(that.xrange)) return false;
+        if (!yrange.equals(that.yrange)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = referenceSpace.hashCode();
+        result = 31 * result + displayAnatomy.hashCode();
+        result = 31 * result + xrange.hashCode();
+        result = 31 * result + yrange.hashCode();
+        return result;
     }
 }

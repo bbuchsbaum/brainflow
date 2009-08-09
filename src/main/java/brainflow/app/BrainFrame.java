@@ -7,6 +7,10 @@
 package brainflow.app;
 
 import com.jidesoft.docking.DefaultDockableHolder;
+import com.jidesoft.docking.DockingManager;
+import com.jidesoft.action.DefaultDockableBarHolder;
+import com.jidesoft.action.DockableBarDockableHolderPanel;
+import com.jidesoft.action.DefaultDockableBarDockableHolder;
 
 import java.awt.*;
 import java.util.logging.Logger;
@@ -17,16 +21,19 @@ import java.util.logging.Logger;
  */
 
 
-public class BrainFrame extends DefaultDockableHolder {
+public class BrainFrame extends DefaultDockableBarDockableHolder {
 
 
     private static Logger log = Logger.getLogger(BrainFrame.class.getName());
 
 
+
     public BrainFrame() {
+        super("BrainFlow");
 
     }
 
+    
    
     public static void main(String[] args) {
         log.info("verifying license");
@@ -37,7 +44,7 @@ public class BrainFrame extends DefaultDockableHolder {
 
 
         BrainFrame bf = new BrainFrame();
-    
+        
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         bf.setLocationRelativeTo(null);
        // bf.setSize((int) screenSize.getWidth()-10, (int) screenSize.getHeight() - 10);

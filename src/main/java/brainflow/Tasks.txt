@@ -1,30 +1,36 @@
-Fix: add exe command to gradle script: izpack2exe --file=brainflow-install.jar --wth-7z="c:\Program Files\IzPack\utils\wrappers\izpack2exe\7za.exe"
 
 
+Fix: zooming doesn't always maintain aspect ratio //GH
 Fix: should be able to drag model from project view on to canvas
-Fix: should not allow non-integral axis/view bounds
-Fix: zooming is herk-jerky, location of crosshair can change as image is zoomed.
-Fix: unzooming so that field of view is larger than image bounds causes exception
+Fix: "use mask" checkbox doesn't do anything //GH
+
 Fix: toolbar buttons should respect the current context (e.g. snapshot)
 Fix: likewise, all controls should be disabled, grayed out when no image is loaded or selected
-Fix: left/right keys always have focus and can mess things up
+Fix: left/right keys always have focus and can mess things up //GH
+Fix: z ordering doesn't respect display anatomy (instead seems to reflect the data anatomy) //GH
+
+Fix: when layer is added to high res background, looks like nearest neighbor interpolation is used.
+     But when slice is changed it changes to trilinear?  //GH
 
 
-Fix: when layer is added to high res background, looks like nearest neighbor interpolation is used. But when slice is changed it changes to trilinear?
-
-[Fix: failure to read motion-reg2+orig.BRIK
 Potential Fix: when rotating layers, the "image space" of the model needs to be changed?
-[Fix: removing an image fails to update model in Project Tree View]
 
-Fix: removing an image does not change color of entry in ImageFileExplorer
+Fix: removing an image does not change color of entry in ImageFileExplorer.  // GH
+Fix: removing an image fails to remove the model for the ProjectTreeView // GH
+
+
 Fix: project view drag and drop within same model should reorder rather than copy
 Fix: slider for mask view simply doesn't work for coronal and sagittal views
-Related Fix: freeze button is unnecessary
+Related Fix: freeze button is simply unnecessary
 Fix: freeze button fails to become pressable even when expression has changed
 
 
-
-
+[Fix: window menu check boxes are not in sync]
+[Fix: should not allow non-integral axis/view bounds]
+[Fix: label annotation does not respect display anatomy for selected plot. ]
+[Fix: zooming is herk-jerky, location of crosshair can change as image is zoomed. * should make sure aspect ratio is respected]
+[Fix: unzooming so that field of view is larger than image bounds causes exception * simply disallowed unzooming for now]
+[Fix: switching canvas should cause selection state of image view to update.]
 [Fix: when new layer is added make it the selected layer automatically]
 [Fix: when model changes project view fails to update.  Problem is
 [Fix: Color range fails to update immediately on view change -- needed to add an explicit repaint though]
@@ -90,3 +96,4 @@ Fix: Annotations edited according to plot or "apply all"
    3. Query and store the following UIManager entries: “MenuBarUI”, “MenuUI”, “MenuItemUI”, “CheckBoxMenuItemUI”, “RadioButtonMenuItemUI”, “PopupMenuUI”.
    4. Set your look-and-feel of preference with UIManager.setLookAndFeel call.
    5. Before creating your first window, restore the UIManager entries for the keys specified in the third step.  */
+   6. launch with  -Dapple.awt.graphics.UseQuartz=true

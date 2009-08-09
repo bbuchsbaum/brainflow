@@ -3,6 +3,7 @@ package brainflow.app.toplevel;
 import com.jidesoft.docking.DockableFrame;
 import com.jidesoft.docking.event.DockableFrameListener;
 import com.jidesoft.docking.event.DockableFrameEvent;
+import com.jidesoft.swing.JideMenu;
 import brainflow.app.actions.ActivateDockableFrameCommand;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.face.Face;
@@ -24,7 +25,7 @@ class DockWindowManager implements DockableFrameListener {
 
     private HashMap<String, DockableFrame> windowMap = new HashMap<String, DockableFrame>();
 
-    private JMenu dockMenu = new JMenu("Window");
+    private JMenu dockMenu = new JideMenu("Window");
 
 
     public DockWindowManager() {

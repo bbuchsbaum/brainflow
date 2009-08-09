@@ -7,7 +7,7 @@
         commandLine=""
         workingDirectory="$INSTALL_PATH\bin"
         description="This starts BrainFlow"
-        iconFile="$INSTALL_PATH\bin\brainflow-logo.ico"
+        iconFile="$INSTALL_PATH\bin\brainflow-icon.ico"
         iconIndex="0"
         initialState="noShow"
         programGroup="yes"

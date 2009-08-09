@@ -7,7 +7,6 @@ import brainflow.app.toplevel.*;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.*;
-import brainflow.image.space.IImageSpace;
 import brainflow.image.io.IImageDataSource;
 
 import javax.swing.*;
@@ -36,7 +35,7 @@ import java.awt.*;
  * Time: 4:54:31 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ProjectTreeView extends ImageViewPresenter implements MouseListener, MouseMotionListener {
+public class ProjectTreeView extends BrainFlowPresenter implements MouseListener, MouseMotionListener {
 
     private BrainFlowProject project;
 

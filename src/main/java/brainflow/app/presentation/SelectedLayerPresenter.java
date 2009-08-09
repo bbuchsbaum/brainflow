@@ -17,7 +17,7 @@ import javax.swing.*;
  * Time: 10:27:03 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SelectedLayerPresenter extends ImageViewPresenter {
+public class SelectedLayerPresenter extends BrainFlowPresenter {
 
 
     private FormLayout layout;

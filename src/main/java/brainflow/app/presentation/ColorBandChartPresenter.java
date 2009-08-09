@@ -19,7 +19,7 @@ import java.awt.image.IndexColorModel;
  * Time: 12:54:53 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ColorBandChartPresenter extends ImageViewPresenter {
+public class ColorBandChartPresenter extends BrainFlowPresenter {
 
     private IColorMap colorMap;
 

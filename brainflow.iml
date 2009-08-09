@@ -60,6 +60,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="gradle" level="application" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ACTIVE_VCS_NAME" value="svn" />

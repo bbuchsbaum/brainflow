@@ -29,7 +29,7 @@ import java.text.NumberFormat;
  * Time: 3:27:50 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MaskExpressionPresenter extends ImageViewPresenter {
+public class MaskExpressionPresenter extends BrainFlowPresenter {
 
     private StatusBar status = new StatusBar();
 

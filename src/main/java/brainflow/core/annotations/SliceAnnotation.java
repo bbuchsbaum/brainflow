@@ -39,9 +39,9 @@ public class SliceAnnotation extends AbstractAnnotation {
 
         GridPoint3D pt = plot.getSlice();
         
-        String label = "" + (int)Math.round(pt.toWorld().getZ());
+        String label = "" + (int)Math.round(pt.getValue(plot.getDisplayAnatomy().ZAXIS, false).getValue());
         Rectangle2D strBounds = fmetric.getStringBounds(label, g2d);
-        g2d.drawString(label, (int)(plotArea.getX() + (plotArea.getWidth()/2) - strBounds.getWidth()/2), (int)(strBounds.getHeight() + 4));
+        g2d.drawString(label, (int)(plotArea.getX() + (plotArea.getWidth()/2) - strBounds.getWidth()/2), (int)(strBounds.getHeight() + 2));
 
 
 

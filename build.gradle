@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.util.FileSet
+
 //name = "brainflow"
 version = "0.1"
 
@@ -6,96 +8,131 @@ usePlugin("java")
 sourceCompatibility = 1.5
 targetCompatibility = 1.5
 
+defaultTasks 'dists'
 
+//repositories {
+//    flatDir name: 'localRepository', dirs: '$projectDir/lib'
+//}
+
+
+configurations {
+    compile
+}
 
 dependencies {
-  libDir = new File(rootDir, "lib")
-  addFlatDirResolver("lib", new File(rootDir, "lib")).addArtifactPattern(new File(libDir.absolutePath, '[artifact].[ext]').absolutePath)
-
-  compile(":bean-properties:jar", ":gui-commands-2.1:jar", ":xstream-1.2.2:jar",
-          ":jide-common:jar", ":jide-dock:jar", ":jide-action:jar", ":jide-components:jar", ":jide-dialogs:jar", ":jide-synthetica:jar", ":jide-grids:jar",
-          ":forms-1.1.0:jar", ":jfreechart-1.0.9:jar", ":jcommon-1.0.12:jar", ":args4j-2.0.1:jar", ":jxlayer:jar",
-          ":colt:jar", ":commons-vfs-1.1-snapshot:jar", ":commons-logging-1.1.1:jar", ":Eventbus-1.3beta:jar", ":jparsec-2.0:jar", ":jdom:jar",
-          ":balloontip:jar", ":datatips:jar", ":syntheticaSimple2D:jar", ":synthetica:jar", ":syntheticaWhiteVision:jar", ":syntheticaAddons:jar",
-          ":miglayout-3.7-swing:jar", ":commons-pipeline-snapshot:jar")
-
-
+    compile new FileSet(dir: new File(rootDir, 'lib'), includes: ['*.jar', '*.jnilib'])
 }
 
 
-File runtimeLibsDir = new File(buildDir, 'runtimeLibs')
+//dependencies {
+//  libDir = new File(rootDir, "lib")
+//  addFlatDirResolver("lib", libDir).addArtifactPattern(new File(libDir.absolutePath, '[artifact].[ext]').absolutePath)
 
-createTask('collectRuntimeLibs', dependsOn: 'libs') {
+//  compile(":bean-properties:jar", ":gui-commands-2.1:jar", ":xstream-1.2.2:jar",
+//          ":jide-common:jar", ":jide-dock:jar", ":jide-action:jar", ":jide-components:jar", ":jide-dialogs:jar", ":jide-synthetica:jar", ":jide-grids:jar",
+//          ":forms-1.1.0:jar", ":jfreechart-1.0.9:jar", ":jcommon-1.0.12:jar", ":args4j-2.0.1:jar", ":jxlayer:jar",
+//          ":colt:jar", ":commons-vfs-1.1-snapshot:jar", ":commons-logging-1.1.1:jar", ":Eventbus-1.3beta:jar", ":jparsec-2.0:jar", ":jdom:jar",
+//          ":balloontip:jar", ":datatips:jar", ":syntheticaSimple2D:jar", ":synthetica:jar", ":syntheticaWhiteVision:jar", ":syntheticaAddons:jar",
+//          ":miglayout-3.7-swing:jar", ":commons-pipeline-snapshot:jar")
+
+
+//}
+
+
+
+def runtimeLibsDir = new File(buildDir, 'runtimeLibs')
+
+task collectRuntimeLibs(dependsOn: 'libs') {
 
   runtimeLibsDir.mkdirs()
-  dependencies.resolve('runtime').each {File file ->
+  configurations.compile.files.each {File file ->
     ant.copy(file: file, todir: runtimeLibsDir)
   }
 }
 
-
-
-libs {
-  archive_jar.configure {
-    zipFileSet(dir: "build/classes") {
-      exclude("data/**")
-    }
-  }
- 
-  jar(appendix: "lean") {
-    zipFileSet(dir: "build/classes") {
-      exclude("data/**")
-    }
-  }
-
-  classpath = new java.lang.StringBuffer()
-
-  dependencies.resolve('compile').each{ dep->
-    classpath.append(' ')
-    classpath.append('../lib/'+dep.getName())
-  }
+task izpack(dependsOn: 'collectRuntimeLibs') << {
   
-  classpath.delete(0,1)
+  ant {
+    taskdef(name: 'IzPack',
+            classname: 'com.izforge.izpack.ant.IzPackTask',
+            classpath: new File('c:/Program Files/izpack/lib/standalone-compiler.jar'))
+
+  }
+
+  ant.IzPack(input:rootDir.getAbsolutePath() + "/izpack/brainflow-install.xml",
+             output:rootDir.getAbsolutePath() + "/izpack/brainflow-install.jar",
+             basedir:rootDir.getAbsolutePath() + "/izpack")
+
+  ant.copy(file: "izpack/brainflow-install.jar", todir: rootDir)
+
+  def command = "izpack2exe --file=brainflow-install.jar  --with-7z=\"c:\\Program Files\\IzPack\\utils\\wrappers\\izpack2exe\\7za\""
+  def proc = command.execute()
+  //proc.waitFor()
+
+  //println "return code: ${ proc.exitValue()}"
+  //println "stderr: ${proc.err.text}"
+  //println "stdout: ${proc.in.text}"
+    
+}
+
+def classpath = new java.lang.StringBuffer()
+
+task constructManifest(dependsOn: 'compile') << {
+
+
+  configurations.compile.files.each { dep ->
+      classpath.append(' ')
+      classpath.append('../lib/'+dep.getName())
+  }
 
   manifest.mainAttributes(
                     'Main-Class': 'brainflow.app.toplevel.BrainFlow',
                     'Implementation-Version': version,
-                    'SplashScreen-Image': 'icons/brainflow-logo-fancy.png',
+                    'SplashScreen-Image': 'logo/brainflow_logo.png',
                     'Class-Path': classpath.toString())
-  
+
+  classpath.delete(0,1)
+
+  println(classpath)
+
 }
 
-dists {
-  String zipRoot = "$archivesBaseName-$version"
 
-  jar(appendix: "app") {
+
+task leanjar(type: Jar) {
+    appendix = "lean"
     zipFileSet(dir: "build/classes") {
-      include("brainflow/app/**")
+      exclude("data/**")
     }
-  }
+}
 
-  jar(appendix: "core") {
-    zipFileSet(dir: "build/classes") {
+task corejar(type: Jar, dependsOn:'constructManifest') {
+  appendix = "core"
+  zipFileSet(dir: "build/classes") {
       include("brainflow/**")
       exclude("brainflow/app/**")
-    }
   }
+}
 
-
-  zip() {
-    zipFileSet(dir: runtimeLibsDir, prefix: "$zipRoot/lib")
-    zipFileSet(dir: buildDir, prefix: "$zipRoot/bin") {
-      include("brainflow-lean*.jar")
-    }
-
-   
+task appjar(type: Jar, dependsOn:'constructManifest') {
+  appendix = "app"
+  zipFileSet(dir: "build/classes") {
+      include("brainflow/app/**")
   }
-
-
-  archive_zip.dependsOn('collectRuntimeLibs')
-
 
 }
+
+task makedist(type: Zip) {
+    appendix = 'dist'
+    zipFileSet(dir: runtimeLibsDir, prefix: "lib")
+    zipFileSet(dir: buildDir, prefix: "bin") {
+       include("brainflow-lean*.jar")
+    }
+}
+
+
+
+
 
 
 

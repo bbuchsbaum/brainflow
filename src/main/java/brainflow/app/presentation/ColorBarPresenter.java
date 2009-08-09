@@ -39,7 +39,7 @@ import net.java.dev.properties.BaseProperty;
 /**
  * @author buchs
  */
-public class ColorBarPresenter extends ImageViewPresenter {
+public class ColorBarPresenter extends BrainFlowPresenter {
 
     private static final Logger log = Logger.getLogger(ColorBarPresenter.class.getName());
 

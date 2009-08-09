@@ -31,7 +31,7 @@ import java.util.Map;
  * Time: 4:46:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HistogramPresenter extends ImageViewPresenter {
+public class HistogramPresenter extends BrainFlowPresenter {
 
     private HistogramControl control;
 

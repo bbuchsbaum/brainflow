@@ -69,8 +69,8 @@
         <pack name="Bin" required="yes">
             <description>application binary and startup scripts</description>
             <file src="brainflow.bat" targetdir="$INSTALL_PATH/bin"/>
-            <file src="../build/brainflow-lean-0.1.jar" targetdir="$INSTALL_PATH/bin"/>
-            <file src="brainflow-logo.ico" targetdir="$INSTALL_PATH/bin"/> 
+            <file src="../build/libs/brainflow-lean-0.1.jar" targetdir="$INSTALL_PATH/bin"/>
+            <file src="brainflow-icon.ico" targetdir="$INSTALL_PATH/bin"/> 
 
         </pack>
     </packs>

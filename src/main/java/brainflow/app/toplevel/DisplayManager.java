@@ -6,26 +6,25 @@
 
 package brainflow.app.toplevel;
 
-import brainflow.app.services.ImageViewMousePointerEvent;
-import brainflow.app.services.ImageViewSelectionEvent;
-import brainflow.app.services.ImageViewCursorEvent;
-import brainflow.app.services.ImageViewModelChangedEvent;
+import brainflow.app.services.*;
 import brainflow.app.dnd.ImageViewTransferHandler;
-import brainflow.app.presentation.ImageViewPresenter;
+import brainflow.app.presentation.BrainFlowPresenter;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.modes.ImageViewInteractor;
 import brainflow.image.io.IImageDataSource;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.events.PropertyListener;
+import net.java.dev.properties.events.IndexedPropertyListener;
 import net.java.dev.properties.BaseProperty;
+import net.java.dev.properties.IndexedProperty;
 
 import org.bushe.swing.event.EventBus;
 
 import javax.swing.*;
+import javax.swing.event.ListDataEvent;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeSupport;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -37,7 +36,6 @@ import java.util.logging.Logger;
 
 public class DisplayManager {
 
-    public static final String SELECTED_CANVAS_PROPERTY = "selectedCanvas";
 
     private static final Logger log = Logger.getLogger(DisplayManager.class.getName());
 
@@ -45,18 +43,14 @@ public class DisplayManager {
 
     private IBrainCanvas selectedCanvas = null;
    
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private ImageViewSelectionListener imageViewSelectionListener;
+    private ImageViewListListener imageViewListListener;
 
-    private CanvasSelectionListener canvasListener;
 
     private ImageViewMouseMotionListener cursorListener;
 
     private CrossHairListener crossHairListener;
 
-
-    //private WeakHashMap<ImageView, IImageDisplayModel> registeredViews = new WeakHashMap<ImageView, IImageDisplayModel>();
-
-    
 
     protected DisplayManager() {
 
@@ -69,14 +63,17 @@ public class DisplayManager {
     }
 
     private void listenToCanvas(IBrainCanvas canvas) {
-        if (canvasListener == null) canvasListener = new CanvasSelectionListener();
+        if (imageViewSelectionListener == null) imageViewSelectionListener = new ImageViewSelectionListener();
+        if (imageViewListListener == null) imageViewListListener = new ImageViewListListener();
         if (cursorListener == null) cursorListener = new ImageViewMouseMotionListener();
         if (crossHairListener == null) crossHairListener = new CrossHairListener();
 
-        //canvas.getImageCanvasModel().addPropertyChangeListener(canvasListener);
+        //canvas.getImageCanvasModel().addPropertyChangeListener(imageViewSelectionListener);
         //canvas.getImageCanvasModel().listSelection.
 
-        BeanContainer.get().addListener(canvas.getImageCanvasModel().listSelection, canvasListener);
+        BeanContainer.get().addListener(canvas.getImageCanvasModel().listSelection, imageViewSelectionListener);
+        BeanContainer.get().addListener(canvas.getImageCanvasModel().imageViewList, imageViewListListener);
+
         canvas.addInteractor(cursorListener);
 
 
@@ -156,7 +153,7 @@ public class DisplayManager {
         view.addViewBoundsChangedListener(new ViewBoundsChangedListener() {
             @Override
             public void viewBoundsChanged(IImagePlot source, ViewBounds oldViewBounds, ViewBounds newViewBounds) {
-                
+                EventBus.publish(new ViewBoundsChangedEvent(view, source, oldViewBounds, newViewBounds));
             }
         });
 
@@ -177,17 +174,19 @@ public class DisplayManager {
 
     protected void setSelectedCanvas(IBrainCanvas canvas) {
         if (canvasList.contains(canvas)) {
-            IBrainCanvas oldCanvas = this.selectedCanvas;
-            selectedCanvas = canvas;
+           selectedCanvas = canvas;
             selectedCanvas.getComponent().requestFocus();
-            support.firePropertyChange(SELECTED_CANVAS_PROPERTY, oldCanvas, selectedCanvas);
+            EventBus.publish(new BrainCanvasSelectionEvent(canvas));
+            
+            EventBus.publish(new ImageViewSelectionEvent(canvas.getSelectedView()));
+
         } else {
             throw new IllegalArgumentException("ImageCanvas " + canvas + " is not currently managed my DisplayManager.");
         }
     }
 
 
-    public List<IBrainCanvas> getImageCanvases() {
+    public List<IBrainCanvas> getCanvasList() {
         return Collections.unmodifiableList(canvasList);
     }
 
@@ -210,7 +209,7 @@ public class DisplayManager {
         if (canvasList.contains(canvas)) {
             canvasList.remove(canvas);
 
-            BeanContainer.get().removeListener(canvas.getImageCanvasModel().listSelection, canvasListener);
+            BeanContainer.get().removeListener(canvas.getImageCanvasModel().listSelection, imageViewSelectionListener);
             
         }
 
@@ -251,19 +250,19 @@ public class DisplayManager {
 
     }
 
-    class CrossHairListener extends ImageViewPresenter {
+    class CrossHairListener extends BrainFlowPresenter {
 
-        class Listener implements PropertyListener {
+        class CursorEventPublisher implements PropertyListener {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
                 EventBus.publish(new ImageViewCursorEvent(getSelectedImageView()));
             }
         }
 
-        Listener listener = new Listener();
+        CursorEventPublisher cursorEventPublisher = new CursorEventPublisher();
 
         public void viewSelected(ImageView view) {
             EventBus.publish(new ImageViewCursorEvent(getSelectedView()));
-            BeanContainer.get().addListener(view.cursorPos, listener);
+            BeanContainer.get().addListener(view.cursorPos, cursorEventPublisher);
         }
 
 
@@ -274,9 +273,10 @@ public class DisplayManager {
 
         @Override
         public void viewDeselected(ImageView view) {
-            BeanContainer.get().removeListener(view.cursorPos, listener);
+            BeanContainer.get().removeListener(view.cursorPos, cursorEventPublisher);
         }
 
+        @Override
         public void allViewsDeselected() {
             //To change body of implemented methods use File | Settings | File Templates.
         }
@@ -287,17 +287,33 @@ public class DisplayManager {
     }
 
 
-    class CanvasSelectionListener implements PropertyListener {
+    class ImageViewSelectionListener implements PropertyListener {
 
         public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
             BrainCanvasModel model = (BrainCanvasModel)prop.getParent();
-
             EventBus.publish(new ImageViewSelectionEvent(model.getSelectedView()));
-
-
         }
 
 
+    }
+
+    class ImageViewListListener implements IndexedPropertyListener {
+        @Override
+        public void propertyInserted(IndexedProperty indexedProperty, Object o, int i) {
+            ImageView view = (ImageView)o;
+            EventBus.publish(new BrainCanvasListDataEvent(getSelectedCanvas(), new ListDataEvent(view, ListDataEvent.INTERVAL_ADDED, i, i)));
+        }
+
+        @Override
+        public void propertyRemoved(IndexedProperty indexedProperty, Object o, int i) {
+            ImageView view = (ImageView)o;
+            EventBus.publish(new BrainCanvasListDataEvent(getSelectedCanvas(), new ListDataEvent(view, ListDataEvent.INTERVAL_REMOVED, i, i)));
+        }
+
+        @Override
+        public void propertyChanged(BaseProperty baseProperty, Object o, Object o1, int i) {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
     }
 
 

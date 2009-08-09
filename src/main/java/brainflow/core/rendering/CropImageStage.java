@@ -54,9 +54,6 @@ public class CropImageStage extends ImageProcessingStage {
             return image;
         }
 
-        System.out.println("image bounds " + bounds);
-        System.out.println("region bounds " + region);
-        System.out.println("buffered image bounds before " + image.getRaster().getBounds());
         int xmin = (int) Math.max(Math.round(region.getX() - bounds.getX()), 0);
         int ymin = (int) Math.max(Math.round(region.getY() - bounds.getY()), 0);
         int width = (int) Math.min(bounds.getWidth() - xmin, region.getWidth());
@@ -69,7 +66,7 @@ public class CropImageStage extends ImageProcessingStage {
 
         try {
             ret = image.getSubimage(xmin, ymin, width, height);
-            System.out.println("image bounds after crop " + ret.getRaster().getBounds());
+            
         } catch(Exception e) {
             e.printStackTrace();
         }

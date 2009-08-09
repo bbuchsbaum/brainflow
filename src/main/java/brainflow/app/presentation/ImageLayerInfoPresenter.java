@@ -27,7 +27,7 @@ import org.apache.commons.vfs.FileObject;
  * Time: 8:36:00 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ImageLayerInfoPresenter extends ImageViewPresenter {
+public class ImageLayerInfoPresenter extends BrainFlowPresenter {
 
     private PropertyPane propPane = new PropertyPane();
 

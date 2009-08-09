@@ -16,7 +16,7 @@ import java.util.List;
  * Time: 12:40:24 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ViewListPresenter extends ImageViewPresenter {
+public class ViewListPresenter extends BrainFlowPresenter {
 
 
     private JList viewList;
@@ -80,6 +80,7 @@ public class ViewListPresenter extends ImageViewPresenter {
         viewSelected(view);
     }
 
+    @Override
     public void allViewsDeselected() {
         viewList.setModel(new DefaultListModel());
     }

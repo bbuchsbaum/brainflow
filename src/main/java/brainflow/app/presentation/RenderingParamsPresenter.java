@@ -25,7 +25,7 @@ import net.java.dev.properties.binding.swing.adapters.SwingBind;
 /**
  * @author buchs
  */
-public class RenderingParamsPresenter extends ImageViewPresenter implements Bindable {
+public class RenderingParamsPresenter extends BrainFlowPresenter implements Bindable {
 
 
     private RenderingParamsForm form;

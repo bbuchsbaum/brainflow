@@ -143,9 +143,9 @@ public class OrthoImageView extends ImageView {
         ToggleCommand switchCoronal = new SwitchCoronal();
         ToggleCommand switchSagittal = new SwitchSagittal();
 
-        initCommand(switchAxial, "", "axial_16.png");
-        initCommand(switchCoronal, "", "coronal_16.png");
-        initCommand(switchSagittal, "", "sagit_16.png");
+        initCommand(switchAxial, "", "icons/axial_16.png");
+        initCommand(switchCoronal, "", "icons/coronal_16.png");
+        initCommand(switchSagittal, "", "icons/sagit_16.png");
 
         ToggleGroup switchGroup = new ToggleGroup();
 
