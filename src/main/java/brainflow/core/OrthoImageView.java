@@ -131,7 +131,7 @@ public class OrthoImageView extends ImageView {
 
     protected void initCommand(ActionCommand command, String text, String iconpath) {
         command.getDefaultFace(true).setText(text);
-        ImageIcon icon = new ImageIcon(getClass().getResource(iconpath));
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource(iconpath));
         command.getDefaultFace().setIcon(icon);
         command.bind(commandContainer);
 

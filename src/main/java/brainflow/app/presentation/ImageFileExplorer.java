@@ -86,13 +86,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
         explorer.addTreeSelectionListener(this);
 
-        explorer.addTreeSelectionListener(new TreeSelectionListener() {
-            public void valueChanged(TreeSelectionEvent e) {
-
-                TreePath path = e.getNewLeadSelectionPath();
-                
-            }
-        });
 
         overlayPanel = new DefaultOverlayable(explorer.getJTree());
         overlayPanel.addOverlayComponent(progressPanel);
@@ -134,10 +127,9 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                     IImageDataSource limg = node.getUserObject();
                     label.setIcon(brickIcon);
 
-                    //if (limg.isLoaded()) {
-                    //
-                    //}
-                    if (limg.isLoaded() && !selected) {
+
+                    if (limg.isLoaded()) { //&& !selected) {
+                        System.out.println("image " + limg  + " is loaded");
                         label.setForeground(Color.GREEN.darker().darker());
                     }
 
@@ -307,6 +299,8 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             }
 
             public void fileChanged(FileChangeEvent fileChangeEvent) throws Exception {
+                folder.resync();
+                updateNodeContent(folder);
 
             }
         });

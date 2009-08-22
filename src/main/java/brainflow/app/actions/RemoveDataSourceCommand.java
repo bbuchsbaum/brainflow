@@ -22,16 +22,16 @@ public class RemoveDataSourceCommand extends BrainFlowCommand {
     }
 
     protected void handleExecute() {
-       IImageDataSource limg = (IImageDataSource) getParameter(SELECTED_DATASOURCE);
-        if (limg != null) {
-            if (BrainFlow.get().isShowing(limg)) {
-                String message = "The selected image " + limg.getStem() + " is currently being viewed. Are you sure you would like to remove it?";
+       IImageDataSource dataSource = (IImageDataSource) getParameter(SELECTED_DATASOURCE);
+        if (dataSource != null) {
+            if (BrainFlow.get().isShowing(dataSource)) {
+                String message = "The selected image " + dataSource.getStem() + " is currently being viewed. Are you sure you would like to remove it?";
                 int ret = JideOptionPane.showConfirmDialog(super.getSelectedCanvas().getComponent(), message);
                 if (ret == JideOptionPane.OK_OPTION) {
-                    DataSourceManager.get().requestRemoval(limg);    
+                    DataSourceManager.get().requestRemoval(dataSource);
                 }
             } else {
-                DataSourceManager.get().requestRemoval(limg);
+                DataSourceManager.get().requestRemoval(dataSource);
             }
         }
 

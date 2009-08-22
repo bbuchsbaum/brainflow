@@ -474,6 +474,7 @@ public class BrainFlow {
 
         LabelStatusBarItem crossLabel = new LabelStatusBarItem();
         crossLabel.setText("Cross: ");
+        crossLabel.setBorder(new EmptyBorder(0,0,0,0));
         statusBar.add(crossLabel, JideBoxLayout.FIX);
 
         CursorCoordinates cursorCoordinates = new CursorCoordinates();
@@ -486,6 +487,7 @@ public class BrainFlow {
 
         LabelStatusBarItem cursorLabel = new LabelStatusBarItem();
         cursorLabel.setText("Cursor: ");
+        cursorLabel.setBorder(new EmptyBorder(0,0,0,0));
         statusBar.add(cursorLabel, JideBoxLayout.FIX);
 
         statusBar.add(cursorCoordinates.getXaxisLabel(), JideBoxLayout.FIX);
@@ -598,9 +600,15 @@ public class BrainFlow {
                 if (event.getID() == KeyEvent.KEY_PRESSED) {
                     KeyEvent ke = (KeyEvent) event;
                     if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
-                        previousSliceCommand.execute();
+                        ImageView view = BrainFlow.get().getSelectedView();
+                        if (view.hasFocus()) {
+                            previousSliceCommand.execute();
+                        }
                     } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        nextSliceCommand.execute();
+                        ImageView view = BrainFlow.get().getSelectedView();
+                        if (view.hasFocus()) {
+                            nextSliceCommand.execute();
+                        }
                     }
 
                 }
@@ -1186,6 +1194,7 @@ public class BrainFlow {
 
         public SelectedViewStatus() {
             anatomyLabel = new LabelStatusBarItem();
+            anatomyLabel.setBorder(new EmptyBorder(0,0,0,0));
             anatomyLabel.setText("Layer: None");
             anatomyLabel.setMinimumSize(new Dimension(200, 0));
         }

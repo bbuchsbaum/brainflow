@@ -45,19 +45,10 @@ import net.java.balloontip.styles.ModernBalloonStyle;
 public class LoadableImageTableView extends AbstractPresenter implements EventSubscriber {
 
 
-    public static final int SMALL_ICON_WIDTH = 24;
-
-    public static final int SMALL_ICON_HEIGHT = 24;
-
-    public static final int LARGE_ICON_WIDTH = 60;
-
-    public static final int LARGE_ICON_HEIGHT = 60;
 
     private HierarchicalTable table;
 
     private ImageTableModel imageTableModel;
-
-    //private Map<IImageDataSource, ImageIcon> imap = new HashMap<IImageDataSource, ImageIcon>();
 
     private List<IImageDataSource> imageList = new ArrayList<IImageDataSource>();
 
@@ -189,12 +180,9 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
             final NullJideButton supportButton = new NullJideButton("");
             supportButton.setHorizontalAlignment(SwingConstants.LEADING);
             supportButton.setButtonStyle(NullJideButton.HYPERLINK_STYLE);
-            //supportButton.addActionListener(new ClickAction(program, "Support", supportButton));
             panel.add(supportButton);
             panel.add(new NullPanel());
 
-            //propertiesButton.setVerticalAlignment(SwingConstants.BOTTOM);
-            //propertiesButton.addActionListener(new ClickAction(program, "Help", propertiesButton));
             panel.add(createInfoButton());
             return panel;
         }

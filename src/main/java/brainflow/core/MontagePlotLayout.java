@@ -46,7 +46,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
         this.displayAnatomy = displayAnatomy;
         this.nrows = nrows;
         this.ncols = ncols;
-        sliceGap = (float) view.getModel().getImageSpace().getImageAxis(displayAnatomy.ZAXIS, true).getSpacing();
+        this.sliceGap = (float) view.getModel().getImageSpace().getImageAxis(displayAnatomy.ZAXIS, true).getSpacing();
     }
 
     public MontageSliceController createSliceController() {

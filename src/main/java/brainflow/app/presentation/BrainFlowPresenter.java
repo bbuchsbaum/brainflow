@@ -105,9 +105,23 @@ public abstract class BrainFlowPresenter extends AbstractPresenter  {
     private EventSubscriber<BrainCanvasSelectionEvent> e6 = new EventSubscriber<BrainCanvasSelectionEvent>() {
         @Override
         public void onEvent(BrainCanvasSelectionEvent event) {
-            //To change body of implemented methods use File | Settings | File Templates.
+            canvasSelected(event.getSelectedCanvas());
         }
     };
+
+    private EventSubscriber<ImagePlotSelectionEvent> e7 = new EventSubscriber<ImagePlotSelectionEvent>() {
+        @Override
+        public void onEvent(ImagePlotSelectionEvent event) {
+            if (event.getOldSelectedPlot() != null) {
+                plotDeselected(event.getOldSelectedPlot());
+
+            }
+            plotSelected(event.getSelectedPlot());
+        }
+    };
+
+
+
 
 
     public BrainFlowPresenter() {
@@ -122,6 +136,7 @@ public abstract class BrainFlowPresenter extends AbstractPresenter  {
         EventBus.subscribeStrongly(ImageViewListDataEvent.class, e4);
         EventBus.subscribeStrongly(ViewBoundsChangedEvent.class, e5);
         EventBus.subscribeStrongly(BrainCanvasSelectionEvent.class, e6);
+        EventBus.subscribeStrongly(ImagePlotSelectionEvent.class, e7);
 
     }
 
@@ -148,6 +163,10 @@ public abstract class BrainFlowPresenter extends AbstractPresenter  {
     protected void viewBoundsChanged(ViewBoundsChangedEvent event) {}
 
     protected void canvasSelected(IBrainCanvas canvas) {}
+
+    protected void plotDeselected(IImagePlot plot) {}
+
+    protected void plotSelected(IImagePlot plot) {}
 
     public ImageView getSelectedView() {
         return selectedView;

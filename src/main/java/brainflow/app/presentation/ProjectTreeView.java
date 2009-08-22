@@ -60,6 +60,9 @@ public class ProjectTreeView extends BrainFlowPresenter implements MouseListener
                 if (sel instanceof ImageViewModelNode) {
                     ImageViewModelNode node = (ImageViewModelNode) sel;
                     IBrainCanvas canvas = BrainFlow.get().getSelectedCanvas();
+
+                    if (canvas.getNumViews() == 0) return;
+                    
                     if (canvas.getSelectedView().getModel() != node.getModel()) {
                         List<ImageView> views = canvas.getViews();
                         for (ImageView v : views) {
@@ -336,13 +339,21 @@ public class ProjectTreeView extends BrainFlowPresenter implements MouseListener
         }
 
         public void modelRemoved(BrainFlowProjectEvent event) {
+
             Enumeration en = children();
+            int i = 0;
             while (en.hasMoreElements()) {
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) en.nextElement();
                 if (node.getUserObject() == event.getModel()) {
                     remove(node);
+                    System.out.println("removing node " + node);
+                    treeModel.nodesWereRemoved(this, new int[] {i}, new Object[] { node } );
                 }
+
+                i++;
             }
+
+            
 
         }
 

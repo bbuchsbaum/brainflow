@@ -20,7 +20,7 @@ Fix: removing an image fails to remove the model for the ProjectTreeView // GH
 
 
 Fix: project view drag and drop within same model should reorder rather than copy
-Fix: slider for mask view simply doesn't work for coronal and sagittal views
+Fix: slider for mask view simply doesn't work for coronal and sagittal views // GH
 Related Fix: freeze button is simply unnecessary
 Fix: freeze button fails to become pressable even when expression has changed
 

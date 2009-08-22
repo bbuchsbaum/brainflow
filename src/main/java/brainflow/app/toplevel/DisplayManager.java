@@ -143,12 +143,17 @@ public class DisplayManager {
     protected void display(final ImageView view) {
         view.setTransferHandler(new ImageViewTransferHandler());
 
+        // adding the listener here is a bit dicey as it behavior depends on using the "display" method.
+        // it seems rather that this behavior should be in a factory method.
+
         BeanContainer.get().addListener(view.viewModel, new PropertyListener() {
             @Override
             public void propertyChanged(BaseProperty baseProperty, Object o, Object o1, int i) {
                 EventBus.publish(new ImageViewModelChangedEvent(view, (ImageViewModel)o, (ImageViewModel)o1));    
             }
         });
+
+
 
         view.addViewBoundsChangedListener(new ViewBoundsChangedListener() {
             @Override

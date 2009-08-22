@@ -2,7 +2,7 @@
 <module relativePaths="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Groovy" name="Groovy">
-      <configuration />
+      <configuration compile="true" />
     </facet>
     <facet type="Scala" name="Scala">
       <configuration />

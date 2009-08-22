@@ -1,6 +1,7 @@
 package brainflow.app.presentation;
 
 import brainflow.gui.AbstractPresenter;
+import brainflow.app.services.DataSourceStatusEvent;
 import com.jidesoft.list.ListModelWrapper;
 import com.jidesoft.swing.SearchableUtils;
 import com.jidesoft.tree.FilterableTreeModel;
@@ -13,6 +14,8 @@ import javax.swing.tree.*;
 import java.awt.*;
 
 import org.apache.commons.vfs.VFS;
+import org.bushe.swing.event.EventBus;
+import org.bushe.swing.event.EventSubscriber;
 
 /**
  * Created by IntelliJ IDEA.
@@ -117,6 +120,13 @@ public class SearchableImageFileExplorer extends AbstractPresenter {
 
         mainPanel.add(treePanel);
         mainPanel.add(quickSearchPanel, BorderLayout.BEFORE_FIRST_LINE);
+
+        EventBus.subscribeStrongly(DataSourceStatusEvent.class, new EventSubscriber<DataSourceStatusEvent>() {
+            @Override
+            public void onEvent(DataSourceStatusEvent event) {
+                explorer.getJTree().repaint();
+            }
+        });
 
 
     }

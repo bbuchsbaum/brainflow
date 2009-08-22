@@ -68,6 +68,7 @@ public class SimpleImageView extends ImageView {
 
     public SimpleImageView(ImageViewModel imodel, Anatomy3D displayAnatomy) {
         super(imodel);
+
         commandContainer.bind(this);
 
         this.displayAnatomy = displayAnatomy;
@@ -76,8 +77,6 @@ public class SimpleImageView extends ImageView {
 
         initDisplayAnatomy(displayAnatomy);
               
-
-
         initToolBar();
     }
 

@@ -156,9 +156,6 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
         if (ret == null) {
             int slice = (int) Math.round(zdisp.getValue());
-
-
-            
             ret = slicer.getSlice(getDisplayAnatomy(), slice);
             dataCache.put(zdisp, ret);
 

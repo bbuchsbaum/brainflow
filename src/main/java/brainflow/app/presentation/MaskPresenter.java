@@ -7,6 +7,7 @@ import brainflow.core.binding.CoordinateToIndexConverter2;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.app.services.ViewBoundsChangedEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +37,7 @@ public class MaskPresenter extends BrainFlowPresenter {
 
 
     public MaskPresenter() {
-
+        super();
         buildGUI();
 
     }
@@ -54,6 +55,13 @@ public class MaskPresenter extends BrainFlowPresenter {
         mainPanel.add(sliceSlider);
 
         mainPanel.setPreferredSize(new Dimension(256, 256));
+
+        maskView.addViewBoundsChangedListener(new ViewBoundsChangedListener() {
+            @Override
+            public void viewBoundsChanged(IImagePlot source, ViewBounds oldViewBounds, ViewBounds newViewBounds) {
+                bind();
+            }
+        });
 
 
     }
@@ -74,7 +82,6 @@ public class MaskPresenter extends BrainFlowPresenter {
 
     private void unbind() {
         SwingBind.get().unbind(sliceSlider);
-
     }
 
     @Override
@@ -85,6 +92,12 @@ public class MaskPresenter extends BrainFlowPresenter {
 
     }
 
+
+
+   // @Override
+   // protected void viewBoundsChanged(ViewBoundsChangedEvent event) {
+   //     bind();
+   // }
 
     @Override
     public void viewSelected(final ImageView view) {

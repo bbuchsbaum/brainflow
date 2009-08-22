@@ -2,6 +2,7 @@ package brainflow.core;
 
 import brainflow.app.services.ImageViewLayerSelectionEvent;
 import brainflow.app.services.ImageViewListDataEvent;
+import brainflow.app.services.ImagePlotSelectionEvent;
 import brainflow.core.binding.GridToWorldConverter;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.core.layer.ImageLayer3D;
@@ -111,8 +112,6 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         setBackground(Color.BLACK);
         setOpaque(true);
 
-
-
         viewModel.set(imodel);
         setLayout(new BorderLayout());
 
@@ -130,6 +129,36 @@ public abstract class ImageView extends JPanel implements ListDataListener {
             ImageView.this.fireViewBoundsListenerEvent(source, oldViewBounds, newViewBounds);
         }
     };
+
+
+
+
+    protected abstract void layoutPlots();
+
+    private void clearListeners(ImageViewModel oldModel) {
+        // what a horrendous mess
+        oldModel.removeListDataListener(this);
+        oldModel.removeListDataListener(listDataForwarder);
+        BeanContainer.get().removeListener(oldModel.layerSelection, layerSelectionListener);
+        removeMouseListener(plotSelectionHandler);
+
+    }
+
+    public void clearListeners() {
+        clearListeners(viewModel.get());
+
+    }
+
+
+    protected void registerListeners(ImageViewModel model) {
+        // what a horrendous mess
+        BeanContainer.get().addListener(model.layerSelection, layerSelectionListener);
+        addMouseListener(plotSelectionHandler);
+        model.addListDataListener(this);
+        model.addListDataListener(listDataForwarder);
+
+
+    }
 
     protected void initPlotLayout(ImagePlotLayout plotLayout, Map<String, IAnnotation> annotationMap) {
         plotList = plotLayout.layoutPlots();
@@ -153,32 +182,6 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         repaint();
     }
 
-
-    protected abstract void layoutPlots();
-
-    private void clearListeners(ImageViewModel oldModel) {
-        oldModel.removeListDataListener(this);
-        oldModel.removeListDataListener(listDataForwarder);
-        BeanContainer.get().removeListener(oldModel.layerSelection, layerSelectionListener);
-        removeMouseListener(plotSelectionHandler);
-
-    }
-
-    public void clearListeners() {
-        clearListeners(viewModel.get());
-
-    }
-
-
-    protected void registerListeners(ImageViewModel model) {
-        BeanContainer.get().addListener(model.layerSelection, layerSelectionListener);
-        addMouseListener(plotSelectionHandler);
-        model.addListDataListener(this);
-        model.addListDataListener(listDataForwarder);
-
-
-    }
-
     private void updateView(ImageViewModel oldModel, ImageViewModel newModel) {
         clearListeners(oldModel);
         initView(newModel);
@@ -188,20 +191,20 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         IImagePlot oldPlot = plotList.get(0);
         Map<String, IAnnotation> amap = oldPlot.getAnnotations();
 
+        initPlotLayout(getPlotLayout(), amap);
+        //ImagePlotLayout layout = getPlotLayout();
+        //plotList = layout.layoutPlots();
+        //
 
-        ImagePlotLayout layout = getPlotLayout();
-        plotList = layout.layoutPlots();
-
-
-        for (String key : amap.keySet()) {
-            setAnnotation(key, amap.get(key));
-        }
+        //for (String key : amap.keySet()) {
+        //    setAnnotation(key, amap.get(key));
+        //}
         //todo end
 
 
-        sliceController = layout.createSliceController();
-        revalidate();
-        repaint();
+        //sliceController = layout.createSliceController();
+        //revalidate();
+        //repaint();
 
 
     }
@@ -585,6 +588,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     class PlotSelectionHandler extends MouseAdapter {
         public void mousePressed(MouseEvent e) {
             IImagePlot plot = whichPlot(e.getPoint());
+
             if (plot != null && plot != getSelectedPlot()) {
                 IImagePlot oldPlot = getSelectedPlot();
 
@@ -594,6 +598,8 @@ public abstract class ImageView extends JPanel implements ListDataListener {
 
                 if (oldPlot != null)
                     oldPlot.getComponent().repaint();
+
+                EventBus.publish(new ImagePlotSelectionEvent(ImageView.this, oldPlot, plot));
             }
         }
 

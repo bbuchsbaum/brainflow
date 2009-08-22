@@ -43,7 +43,6 @@ public abstract class AbstractImageProducer implements IImageProducer {
 
     public void setSlice(GridPoint3D slice) {
         this.slice = slice;
-
     }
 
     public InterpolationType getScreenInterpolation() {

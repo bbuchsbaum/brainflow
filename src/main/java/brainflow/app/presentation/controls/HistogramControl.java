@@ -5,6 +5,7 @@ import brainflow.colormap.HistogramColorBar;
 import brainflow.colormap.LinearColorMap2;
 import brainflow.colormap.ColorTable;
 import brainflow.image.Histogram;
+import brainflow.image.MaskedHistogram;
 import brainflow.image.io.IImageDataSource;
 import brainflow.core.BrainFlowException;
 import brainflow.app.IBrainFlowClient;
@@ -28,6 +29,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 import java.text.NumberFormat;
 
 import org.jdesktop.jxlayer.JXLayer;
@@ -61,6 +64,8 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
 
     private JSlider slider;
 
+    private JCheckBox useMaskCheckBox;
+
     private BrainFlowClientSupport support;
 
     public HistogramControl(IColorMap map, Histogram histogram, Range overlayRange) {
@@ -73,7 +78,7 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         initLayer();
         histoBar = new HistogramWithAxis();
 
-        
+
         slider = new JSlider(JSlider.VERTICAL, 1, 200, 100);
 
         slider.addChangeListener(new ChangeListener() {
@@ -87,13 +92,28 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         });
 
         setLayout(new BorderLayout());
-        add(new JCheckBox("use mask"), BorderLayout.NORTH);
+
+        useMaskCheckBox = new JCheckBox("use mask");
+        add(useMaskCheckBox, BorderLayout.NORTH);
+
         add(histoBar, BorderLayout.CENTER);
         add(slider, BorderLayout.WEST);
 
         support = new BrainFlowClientSupport(this);
 
 
+    }
+
+    private void initCheckBox() {
+        useMaskCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (useMaskCheckBox.isSelected()) {
+                    //MaskedHistogram mhist = new MaskedHistogram(support.getSelectedView().getModel().getSelectedLayer().getData(),
+                    //      support.getSelectedView().getModel().getSelectedLayer().getMaskProperty().buildMask(), histogram.getNumBins());  
+                }
+            }
+        });
 
     }
 
@@ -144,13 +164,12 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
             protected void processMouseMotionEvent(MouseEvent e, JXLayer<HistogramColorBar> l) {
                 if (e.getID() == MouseEvent.MOUSE_MOVED) {
                     mouseMoved(e);
-                } else if(e.getID() == MouseEvent.MOUSE_DRAGGED) {
+                } else if (e.getID() == MouseEvent.MOUSE_DRAGGED) {
                     mouseDragged(e);
-                } else if(e.getID() == MouseEvent.MOUSE_EXITED) {
-                    resizeMin=false;
-                    resizeMax=false;
+                } else if (e.getID() == MouseEvent.MOUSE_EXITED) {
+                    resizeMin = false;
+                    resizeMax = false;
                 }
-
 
 
             }
@@ -181,7 +200,6 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
             }
 
 
-
             private void mouseMoved(MouseEvent e) {
                 Point p = e.getPoint();
                 double xvalue = colorBar.locationToValueX(p.x);
@@ -195,11 +213,11 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
                 if (Math.abs(xend - p.x) < 3) {
                     HistogramControl.this.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
                     resizeMax = true;
-                    resizeMin= false;
+                    resizeMin = false;
                 } else if (Math.abs(xstart - p.x) < 3) {
                     HistogramControl.this.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
                     resizeMin = true;
-                    resizeMax=false;
+                    resizeMax = false;
 
                 } else {
                     HistogramControl.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -289,8 +307,6 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         if (!this.overlayRange.equals(overlayRange)) {
             this.overlayRange = overlayRange;
             repaint();
-        } else {
-            System.out.println("overlayrange not new ...");
         }
     }
 
@@ -299,7 +315,7 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
     }
 
     public void setColorMap(IColorMap colorMap) {
-        this.colorMap = colorMap;     
+        this.colorMap = colorMap;
         colorBar.setColorMap(colorMap);
         histoBar.updateAxis(colorMap.getMinimumValue(), colorMap.getMaximumValue());
     }
@@ -362,7 +378,6 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         return support.getSelectedLayer();
     }
 
-    
 
     class HistogramWithAxis extends JPanel {
         XAxis axis = new XAxis(0, 255);
@@ -371,12 +386,12 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         JPanel axispanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
-               super.paintComponent(g);
+                super.paintComponent(g);
                 //axis.setYoffset(0);
 
                 Rectangle bounds = getBounds();
                 bounds = new Rectangle(bounds.x, bounds.y, bounds.width - colorBar.RIGHT_CUSHION, bounds.height);
-                axis.draw((Graphics2D)g, bounds);
+                axis.draw((Graphics2D) g, bounds);
             }
 
             @Override
@@ -387,7 +402,7 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
 
 
         public HistogramWithAxis() {
-            setBorder(new EmptyBorder(0,0,0,0));
+            setBorder(new EmptyBorder(0, 0, 0, 0));
             setLayout(new BorderLayout());
             axis.setXoffset(0);
             axis.setYoffset(0);

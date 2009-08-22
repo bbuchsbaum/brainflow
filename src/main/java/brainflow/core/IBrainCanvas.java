@@ -15,37 +15,39 @@ import java.util.List;
  */
 public interface IBrainCanvas  {
 
-    JComponent getComponent();
+    public JComponent getComponent();
 
-    BrainCanvasModel getImageCanvasModel();
+    public BrainCanvasModel getImageCanvasModel();
 
-    void addInteractor(ImageViewInteractor interactor);
+    public void addInteractor(ImageViewInteractor interactor);
 
-    void removeInteractor(ImageViewInteractor interactor);
+    public void removeInteractor(ImageViewInteractor interactor);
 
-    ImageView whichSelectedView(Point p);
+    public ImageView whichSelectedView(Point p);
 
-    ImageView whichView(Component source, Point p);
+    public ImageView whichView(Component source, Point p);
 
-    Component whichComponent(Point p);
+    public Component whichComponent(Point p);
 
-    IImagePlot whichPlot(Point p);
+    public IImagePlot whichPlot(Point p);
 
-    java.util.List<IImagePlot> getPlotList();
+    public java.util.List<IImagePlot> getPlotList();
 
-    boolean isSelectedView(ImageView view);
+    public boolean isSelectedView(ImageView view);
 
-    java.util.List<ImageView> getViews(ImageViewModel model);
+    public java.util.List<ImageView> getViews(ImageViewModel model);
 
-    List<ImageView> getViews();
+    public List<ImageView> getViews();
 
-    void setSelectedView(ImageView view);
+    public void setSelectedView(ImageView view);
 
-    ImageView getSelectedView();
+    public ImageView getSelectedView();
 
-    void removeImageView(ImageView view);
+    public void removeImageView(ImageView view);
 
-    void addImageView(ImageView view);
+    public void addImageView(ImageView view);
 
-    void moveToFront(ImageView view);
+    public void moveToFront(ImageView view);
+
+    public int getNumViews();
 }

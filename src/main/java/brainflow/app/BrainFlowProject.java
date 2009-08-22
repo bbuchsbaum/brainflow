@@ -57,23 +57,23 @@ public class BrainFlowProject {
     }
 
     private void addSources(ImageViewModel model) {
-        synchronized (model) {
+        //synchronized (model) {
             int nlayers = model.size();
 
             for (int i = 0; i < nlayers; i++) {
                 dataSources.add(model.get(i).getDataSource());
             }
-        }
+        //}
     }
 
     public void removeSources(ImageViewModel model) {
-        synchronized (model) {
+        //synchronized (model) {
             int nlayers = model.size();
 
             for (int i = 0; i < nlayers; i++) {
                 dataSources.remove(model.get(i).getDataSource());
             }
-        }
+        //}
 
     }
 

@@ -3,7 +3,6 @@ package brainflow.image;
 import cern.colt.list.DoubleArrayList;
 import cern.jet.stat.Descriptive;
 import brainflow.image.data.IImageData;
-import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.io.IImageDataSource;
 import brainflow.math.ArrayUtils;
@@ -26,19 +25,19 @@ public class Histogram {
 
     private IImageData data;
 
-    private double binSize;
+    protected double binSize;
 
-    private DoubleArrayList binList;
+    protected DoubleArrayList binList;
 
-    private DoubleArrayList binIntervals;
+    protected DoubleArrayList binIntervals;
 
-    private double minValue;
+    protected double minValue;
 
-    private double maxValue;
+    protected double maxValue;
 
     private IRange ignore;
 
-    private boolean computed;
+    protected boolean computed;
 
     public Histogram(IImageData _data, int _numBins) {
         data = _data;
@@ -61,7 +60,7 @@ public class Histogram {
         binSize = (maxValue - minValue) / numBins;
 
         ValueIterator iter = data.iterator();
-        
+
         while (iter.hasNext()) {
             double val = iter.next();
 
@@ -119,7 +118,7 @@ public class Histogram {
         return binIntervals;
     }
 
-    private double[] computeBinIntervals(double binSize) {
+    protected double[] computeBinIntervals(double binSize) {
         if (binIntervals == null) {
             double[] intervals = new double[numBins + 1];
             intervals[0] = minValue;
@@ -165,6 +164,10 @@ public class Histogram {
         if (!computed)
             computeBins();
         return Descriptive.median(binIntervals);
+    }
+
+    public IImageData getData() {
+        return data;
     }
 
     public double getMinValue() {

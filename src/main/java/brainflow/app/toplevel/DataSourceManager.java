@@ -45,6 +45,7 @@ public class DataSourceManager {
         if (imageMap.containsKey(limg.getUniqueID())) {
             imageMap.remove(limg.getUniqueID());
             EventBus.publish(new DataSourceStatusEvent(limg, DataSourceStatusEvent.EventID.IMAGE_REMOVED));
+            limg.releaseData();
         }
 
         return true;

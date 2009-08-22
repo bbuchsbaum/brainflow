@@ -34,6 +34,8 @@ public class CrosshairCoordinates extends LabelStatusBarItem implements EventSub
         yaxisLabel.setText("0.0");
         zaxisLabel.setText("0.0");
         xaxisLabel.setBorder(new EmptyBorder(0,0,0,0));
+        yaxisLabel.setBorder(new EmptyBorder(0,0,0,0));
+        zaxisLabel.setBorder(new EmptyBorder(0,0,0,0));
         xaxisLabel.setMinimumSize(new Dimension(60, 0));
         yaxisLabel.setMinimumSize(new Dimension(60, 0));
         zaxisLabel.setMinimumSize(new Dimension(60, 0));

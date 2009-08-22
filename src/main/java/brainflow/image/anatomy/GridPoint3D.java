@@ -143,6 +143,7 @@ public class GridPoint3D {
                 "gridX=" + gridX.getValue() +
                 ", gridY=" + gridY.getValue() +
                 ", gridZ=" + gridZ.getValue() +
+                ", anatomy=" + space.getAnatomy() + 
                 //", space=" + space +
                 //", unit=" + unit +
                 '}';

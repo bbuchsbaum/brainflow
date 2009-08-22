@@ -40,7 +40,7 @@ public class MontageImageView extends ImageView {
     public MontageImageView(ImageViewModel imodel, Anatomy3D displayAnatomy) {
         super(imodel);
         this.displayAnatomy = displayAnatomy;
-
+        this.sliceGap = (float)imodel.getImageSpace().getImageAxis(displayAnatomy.ZAXIS, true).getSpacing();
         init();
         initControlPanel();
 
@@ -86,7 +86,7 @@ public class MontageImageView extends ImageView {
         }*/
 
 
-        plotLayout = new MontagePlotLayout(this, displayAnatomy, nrows, ncols);
+        plotLayout = new MontagePlotLayout(this, displayAnatomy, nrows, ncols, sliceGap);
         return plotLayout;
     }
 

@@ -70,11 +70,12 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     public ComponentImagePlot(ImageViewModel model, ViewBounds viewBounds) {
         setBackground(Color.BLACK);
         setOpaque(true);
-
         this.viewBounds = viewBounds;
         this.model = model;
+
         slice = GridPoint3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
         producer = new CompositeImageProducer(this,  slice);
+
         initAnnotationListener();
 
     }

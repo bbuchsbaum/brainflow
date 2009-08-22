@@ -183,6 +183,11 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
         return canvasModel.getSelectedView();
     }
 
+    @Override
+    public int getNumViews() {
+        return canvasModel.getNumViews();
+    }
+
     private void renameViews() {
         JInternalFrame[] frames = desktopPane.getAllFrames();
         for (JInternalFrame frame : frames) {

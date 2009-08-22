@@ -105,6 +105,7 @@ public class ImageViewZoomer extends BrainFlowPresenter {
 
     private void initSlider() {
         zoomSlider.setEnabled(false);
+        zoomSlider.setPaintLabels(false);
         zoomSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -141,6 +142,13 @@ public class ImageViewZoomer extends BrainFlowPresenter {
 
     }
 
+    @Override
+    protected void plotSelected(IImagePlot plot) {
+        //todo conversion from slider to X Proportion and back is not consistent  ...
+        int slider = convertToSlider(1/plot.getViewBounds().getXProportion());
+        zoomSlider.setValue(slider);
+        zoomSlider.setEnabled(true);
+    }
 
     @Override
     protected void viewBoundsChanged(ViewBoundsChangedEvent event) {
@@ -153,6 +161,7 @@ public class ImageViewZoomer extends BrainFlowPresenter {
 
     @Override
     public void viewSelected(ImageView view) {
+        //todo conversion from slider to X Proportion and back is not consistent  ...
         int slider = convertToSlider(1/view.getSelectedPlot().getViewBounds().getXProportion());
         zoomSlider.setValue(slider);
         zoomSlider.setEnabled(true);
@@ -162,6 +171,8 @@ public class ImageViewZoomer extends BrainFlowPresenter {
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    
 
     @Override
     public void allViewsDeselected() {
