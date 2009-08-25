@@ -111,16 +111,22 @@ public class BasicImageData3D extends AbstractImageData3D  {
     }
 
 
-    private void setValue(int idx, double val) {
+    void setValue(int idx, double val) {
         dataSupport.getData().setElemDouble(idx, val);
     }
 
-    private void setValue(int x, int y, int z, double val) {
+    void setValue(int x, int y, int z, double val) {
         dataSupport.getData().setElemDouble(indexOf(x, y, z), val);
     }
 
-    
+    @Override
+    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+        if (x1 < x0) throw new IllegalArgumentException("x1 cannot be < x0 ");
+        if (y1 < y0) throw new IllegalArgumentException("y1 cannot be < y0 ");
+        if (z1 < z0) throw new IllegalArgumentException("z1 cannot be < z0 ");
 
+        return new DataSubGrid3D(this, x0, x1-x0+1, y0, y1-y0+1, z0, z1-z0+1);
+    }
 
     public byte[] toBytes() {
         return ArrayUtils.scaleToBytes(dataSupport.getStorage(), minValue(), maxValue(), 255);       
@@ -163,11 +169,6 @@ public class BasicImageData3D extends AbstractImageData3D  {
                 return delegate.value(x,y,z,interp);
             }
 
-            //@Override
-            //public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
-            //    return delegate.worldValue(realx,realy,realz,interp);
-            //}
-
             @Override
             public double value(int x, int y, int z) {
                 return delegate.value(x,y,z);
@@ -179,11 +180,16 @@ public class BasicImageData3D extends AbstractImageData3D  {
             }
 
             @Override
+            public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
             public Dimension3D<Integer> getDimensions() {
                 return delegate.getDimensions();
             }
 
-            //@Override
+            @Override
             public IImageSpace3D getImageSpace() {
                 return space;
 

@@ -11,14 +11,12 @@ import brainflow.utils.ProgressListener;
 import brainflow.utils.ProgressAdapter;
 import org.apache.commons.vfs.FileObject;
 
-import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.logging.Logger;
-import java.util.Arrays;
 
 /**
  * <p>Title: </p>
@@ -212,7 +210,7 @@ public class BasicImageReader implements ImageReader {
 
                 dat = new BasicImageData3D((ImageSpace3D) imageSpace, data, info.getDataFile().getName().getBaseName());
                 if (scaleRequired) {
-                    dat = ImageData.createScaledData((IImageData3D) dat, sf);
+                    dat = Data.createScaledData((IImageData3D) dat, sf);
                 }
 
             } else {

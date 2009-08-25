@@ -1,20 +1,26 @@
 package brainflow.core.rendering;
 
 import brainflow.colormap.IColorMap;
+import brainflow.core.SliceRenderer;
+import brainflow.core.layer.ImageLayer;
+import brainflow.core.layer.ImageLayer3D;
+import brainflow.core.layer.LayerProps;
 import brainflow.display.InterpolationType;
-import brainflow.image.anatomy.*;
-import brainflow.image.data.*;
-import brainflow.image.iterators.ImageIterator;
+import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.GridPoint1D;
+import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.data.IImageData2D;
+import brainflow.image.data.RGBAImage;
+import brainflow.image.data.UByteImageData2D;
+import brainflow.image.interpolation.NearestNeighborInterpolator;
+import brainflow.image.interpolation.TrilinearInterpolator;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.operations.ImageSlicer;
 import brainflow.image.rendering.PixelUtils;
-import brainflow.image.space.*;
-import brainflow.image.interpolation.NearestNeighborInterpolator;
-import brainflow.image.interpolation.TrilinearInterpolator;
-import brainflow.core.SliceRenderer;
-import brainflow.core.layer.ImageLayer;
-import brainflow.core.layer.LayerProps;
-import brainflow.core.layer.ImageLayer3D;
+import brainflow.image.space.Axis;
+import brainflow.image.space.IImageSpace;
+import brainflow.image.space.IImageSpace2D;
+import brainflow.image.space.IImageSpace3D;
 import brainflow.utils.SoftCache;
 
 import java.awt.*;
@@ -26,6 +32,7 @@ import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.util.logging.Logger;
 
+
 /**
  * Created by IntelliJ IDEA.
  * User: Brad Buchsbaum
@@ -33,9 +40,9 @@ import java.util.logging.Logger;
  * Time: 7:34:48 PM
  * To change this template use File | Settings | File Templates.
  */
-public class BasicImageSliceRenderer implements SliceRenderer {
+public class DefaultImageSliceRenderer implements SliceRenderer {
 
-    private static final Logger log = Logger.getLogger(BasicImageSliceRenderer.class.getName());
+    private static final Logger log = Logger.getLogger(DefaultImageSliceRenderer.class.getName());
 
     private GridPoint3D slice;
 
@@ -59,14 +66,10 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     private IImageSpace3D refSpace;
 
-    private SoftCache<GridPoint1D, IImageData2D> dataCache;
-
-    private SoftCache<GridPoint1D, RGBAImage> rgbaCache;
-
     private IColorMap lastColorMap;
 
 
-    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice) {
+    public DefaultImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice) {
         //todo not DRY
         this.slice = slice;
         this.layer = layer;
@@ -78,12 +81,10 @@ public class BasicImageSliceRenderer implements SliceRenderer {
             slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new TrilinearInterpolator());
         }
 
-        initCache();
-
     }
 
 
-    public BasicImageSliceRenderer(BasicImageSliceRenderer renderer, GridPoint3D slice, boolean keepCache) {
+    public DefaultImageSliceRenderer(DefaultImageSliceRenderer renderer, GridPoint3D slice) {
         //todo not DRY
         this.slice = slice;
         this.layer = renderer.layer;
@@ -97,43 +98,20 @@ public class BasicImageSliceRenderer implements SliceRenderer {
             slicer = ImageSlicer.createSlicer(refSpace, layer.getData(), new TrilinearInterpolator());
         }
 
-        if (keepCache) {
-            dataCache = renderer.dataCache;
-            rgbaCache = renderer.rgbaCache;
-        } else {
-            initCache();
-        }
-
 
     }
 
 
-
-
-    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice, Anatomy3D displayAnatomy) {
+    public DefaultImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice, Anatomy3D displayAnatomy) {
         this.slice = slice;
         this.layer = layer;
         this.refSpace = refSpace;
         this.displayAnatomy = displayAnatomy;
-
         slicer = ImageSlicer.createSlicer(refSpace, layer.getData());
 
-        initCache();
-
 
     }
 
-    private void initCache() {
-        dataCache = new SoftCache<GridPoint1D, IImageData2D>();
-        rgbaCache = new SoftCache<GridPoint1D, RGBAImage>();
-
-
-    }
-
-
-    public SoftCache<GridPoint1D, IImageData2D> getDataCache() {
-        return dataCache;
-    }
 
     public IImageSpace3D getReferenceSpace() {
         return refSpace;
@@ -154,18 +132,10 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
         GridPoint1D zdisp = getZSlice();
 
-        IImageData2D ret = dataCache.get(zdisp);
+        int slice = (int) Math.round(zdisp.getValue());
+        return slicer.getSlice(getDisplayAnatomy(), slice);
 
-        if (ret == null) {
-            int slice = (int) Math.round(zdisp.getValue());
-            ret = slicer.getSlice(getDisplayAnatomy(), slice);
-            dataCache.put(zdisp, ret);
 
-        }
-
-        data = ret;
-
-        return data;
     }
 
     private GridPoint1D getZSlice() {
@@ -192,25 +162,12 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         }
 
 
-        GridPoint1D zdisp = getZSlice();
+        IColorMap colorMap = layer.getLayerProps().colorMap.get();
 
-        if (lastColorMap != layer.getLayerProps().colorMap.get()) {
-            rgbaCache.clear();
-        } else {
-            //System.out.println("getting cached cmap");
-            rgbaImage = rgbaCache.get(zdisp);
-        }
+        lastColorMap = colorMap;
+        return colorMap.getRGBAImage(getData());
 
-        if (rgbaImage == null) {
-            IColorMap cmap = layer.getLayerProps().colorMap.get();
 
-            lastColorMap = cmap;
-            rgbaImage = cmap.getRGBAImage(getData());
-            rgbaCache.put(zdisp, rgbaImage);
-
-        }
-
-        return rgbaImage;
     }
 
     private RGBAImage getThresholdedRGBAImage() {
@@ -373,7 +330,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
             return rgba;
         }
 
-        
+
         //todo check if opaque
         ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
 
@@ -404,6 +361,3 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     }
 }
-
-
-

@@ -23,8 +23,7 @@ import java.util.List;
  */
 public class ImagePlotPipeline extends Pipeline {
 
-    public static final String IMAGE_LAYER_DATA_KEY = "IMAGE_LAYER_DATA";
-    
+
     private IImagePlot plot;
 
     private Rectangle2D frameBounds;
@@ -36,7 +35,6 @@ public class ImagePlotPipeline extends Pipeline {
         super();
 
         plot = _plot;
-
         slice = plot.getSlice();
     }
 
@@ -56,9 +54,6 @@ public class ImagePlotPipeline extends Pipeline {
         return plot;
     }
 
-    public void setPlot(IImagePlot plot) {
-        this.plot = plot;
-    }
 
     public ImageViewModel getModel() {
         return plot.getModel();

@@ -306,8 +306,8 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
 
     /*public void setDisplayAnatomy(Anatomy3D anatomy) {
         displayAnatomy = anatomy;
-        xAxis = model.getImageAxis(displayAnatomy.XAXIS).getRange();
-        yAxis = model.getImageAxis(displayAnatomy.YAXIS).getRange();
+        xAxis = model.getImageAxis(displayAnatomy.XAXIS).getBounds();
+        yAxis = model.getImageAxis(displayAnatomy.YAXIS).getBounds();
         repaint();
     }*/
 

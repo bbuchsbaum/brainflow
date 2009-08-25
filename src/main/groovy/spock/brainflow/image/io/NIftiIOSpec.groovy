@@ -18,10 +18,10 @@ import brainflow.core.BrainFlowException
 import brainflow.image.io.NiftiImageInfo
 import org.apache.commons.vfs.VFS
 import brainflow.image.io.NiftiInfoWriter
-import org.apache.commons.vfs.FileObject
+
 import brainflow.image.io.BrainIO
 import brainflow.image.io.NiftiImageWriter
-import brainflow.image.data.ImageData
+import brainflow.image.data.Data
 
 @Speck
 @RunWith (Sputnik)
@@ -40,7 +40,7 @@ public class NIftiIOSpec {
 
 
   def setupSpeck() {
-    def infoReader = new NiftiInfoReader("src/main/groovy/testdata/207_anat_alepi.nii")
+    infoReader = new NiftiInfoReader("src/main/groovy/testdata/207_anat_alepi.nii")
     def infolist = infoReader.readInfo()
    
   }
@@ -146,7 +146,7 @@ public class NIftiIOSpec {
     println reread.getDataType()
     println reread.maxValue()
     then:
-    ImageData.elementsEquals(idata, reread, 0.001 as Float)
+    Data.elementsEquals(idata, reread, 0.001 as Float)
 
 
 

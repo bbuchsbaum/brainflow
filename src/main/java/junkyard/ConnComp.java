@@ -1,4 +1,4 @@
-package brainflow.image.operations;
+package junkyard;
 
 import brainflow.image.data.*;
 import brainflow.image.space.Axis;
@@ -13,6 +13,8 @@ import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerProps;
 import brainflow.core.BrainFlowException;
 import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.operations.UnionFindArray;
+import brainflow.image.operations.ImageSlicer;
 import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.colormap.ColorTable;
 import brainflow.display.InterpolationType;
@@ -426,7 +428,7 @@ public class ConnComp {
         watch.stopAndReport("conncomp");
 
 
-        IImageData3D dat3d = ImageData.asImageData3D(comp.labels.asImageData(), new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
+        IImageData3D dat3d = Data.asImageData3D(comp.labels.asImageData(), new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
         LayerProps props = new LayerProps(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);

@@ -23,7 +23,7 @@ import brainflow.math.Index3D;
  */
 
 
-public class DataSubGrid3D implements IImageData3D {
+public class DataSubGrid3D implements DataGrid3D {
 
     private IImageData3D wrapped;
 
@@ -78,7 +78,7 @@ public class DataSubGrid3D implements IImageData3D {
 
         ImageAxis newxaxis = new ImageAxis(x1, x2, xaxis.getAnatomicalAxis(), xlen);
         ImageAxis newyaxis = new ImageAxis(y1, y2, yaxis.getAnatomicalAxis(), ylen);
-        ImageAxis newzaxis = new ImageAxis(z1, z2, yaxis.getAnatomicalAxis(), zlen);
+        ImageAxis newzaxis = new ImageAxis(z1, z2, zaxis.getAnatomicalAxis(), zlen);
 
         space = new ImageSpace3D(newxaxis, newyaxis, newzaxis);
 
@@ -89,31 +89,23 @@ public class DataSubGrid3D implements IImageData3D {
         return interp.interpolate(x, y, z, this);
     }
 
-    //@Override
-    //public double valueAtReal(float rx, float ry, float rz, InterpolationFunction3D interp) {
-    //    return wrapped.valueAtReal(rx,ry,rz, interp);
-    //}
-
     @Override
-    public double worldValue(float wx, float wy, float wz, InterpolationFunction3D interp) {
-        double x = wrapped.getImageSpace().worldToGridX(wx, wy, wz);
-        double y = wrapped.getImageSpace().worldToGridY(wx, wy, wz);
-        double z = wrapped.getImageSpace().worldToGridZ(wx, wy, wz);
-
-
-        return interp.interpolate(x, y, z, this);
+    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+        throw new UnsupportedOperationException();
     }
 
+    @Override
+    public Dimension3D<Integer> getDimensions() {
+        return new Dimension3D<Integer>(xlen, ylen, zlen);
+    }
+
+   
 
     @Override
     public double value(int x, int y, int z) {
         return wrapped.value(x + xoffset, y + yoffset, z + zoffset);
     }
 
-    @Override
-    public IImageSpace3D getImageSpace() {
-        return space;
-    }
 
     @Override
     public double value(int index) {
@@ -130,58 +122,7 @@ public class DataSubGrid3D implements IImageData3D {
         return new Iterator3D(this);
     }
 
-    @Override
-    public int indexOf(int x, int y, int z) {
-        return wrapped.indexOf(x,y,z);
-    }
 
-    @Override
-    public Index3D indexToGrid(int idx) {
-        throw new UnsupportedOperationException();
-    }
 
-    @Override
-    public ImageBuffer3D createWriter(boolean clear) {
-        throw new UnsupportedOperationException();
-    }
 
-    @Override
-    public Anatomy3D getAnatomy() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public DataType getDataType() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public int getDimension(Axis axisNum) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public double maxValue() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public double minValue() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public ImageInfo getImageInfo() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String getImageLabel() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Dimension3D<Integer> getDimensions() {
-        throw new UnsupportedOperationException();
-    }
 }

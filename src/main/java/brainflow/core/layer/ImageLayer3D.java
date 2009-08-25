@@ -2,8 +2,8 @@ package brainflow.core.layer;
 
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.io.MemoryImageDataSource;
-import brainflow.core.rendering.BasicImageSliceRenderer;
-import brainflow.core.layer.LayerProps;
+
+import brainflow.core.rendering.DefaultImageSliceRenderer;
 import brainflow.core.SliceRenderer;
 import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
@@ -13,10 +13,6 @@ import brainflow.image.space.IImageSpace;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.interpolation.NearestNeighborInterpolator;
 import brainflow.utils.Range;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import net.java.dev.properties.Property;
 import net.java.dev.properties.container.ObservableProperty;
 import net.java.dev.properties.container.BeanContainer;
@@ -86,22 +82,11 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
         maskProperty.set(mask);
     }
 
-    private Map<Anatomy3D, BasicImageSliceRenderer> rendererMap = new ConcurrentHashMap<Anatomy3D, BasicImageSliceRenderer>();
+    //private Map<Anatomy3D, ImageSliceRenderer> rendererMap = new ConcurrentHashMap<Anatomy3D, ImageSliceRenderer>();
 
 
     private SliceRenderer getSliceRenderer(IImageSpace3D refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
-        BasicImageSliceRenderer renderer = rendererMap.get(displayAnatomy);
-        if (renderer != null) {
-            renderer = new BasicImageSliceRenderer(renderer, slice, true);
-            rendererMap.put(displayAnatomy, renderer);
-
-        } else {
-            renderer = new BasicImageSliceRenderer(refspace, this, slice, displayAnatomy);
-            rendererMap.put(displayAnatomy, renderer);
-
-        }
-
-        return renderer;
+        return new DefaultImageSliceRenderer(refspace, this, slice, displayAnatomy);
     }
 
     //todo what on earth?

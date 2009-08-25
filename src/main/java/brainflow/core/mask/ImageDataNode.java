@@ -48,7 +48,7 @@ public class ImageDataNode extends AbstractNode implements ValueNode<IImageData>
             case ADD:
                 return this;
             case NEGATE:
-                return new ImageDataNode("-" + getSymbol(), ImageData.createScaledData((IImageData3D) data, -1));
+                return new ImageDataNode("-" + getSymbol(), Data.createScaledData((IImageData3D) data, -1));
             default:
                 throw new SemanticError("unsupported operation " + op + " for operand : " + getSymbol());
         }
@@ -81,7 +81,7 @@ public class ImageDataNode extends AbstractNode implements ValueNode<IImageData>
     }
 
     public LeafNode visitConstant(ConstantNode left, BinaryOperand op) {
-        IImageData3D cdat = ImageData.createConstantData(left.evaluate().doubleValue(), (IImageSpace3D)data.getImageSpace());
+        IImageData3D cdat = Data.createConstantData(left.evaluate().doubleValue(), (IImageSpace3D)data.getImageSpace());
         BivariateMaskNode3D bdata = new BivariateMaskNode3D(cdat, (IImageData3D) evaluate(), Operations.lookup(op));
         return new MaskDataNode(bdata);
 

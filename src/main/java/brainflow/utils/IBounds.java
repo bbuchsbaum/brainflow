@@ -13,5 +13,7 @@ public interface IBounds<T extends Number> extends IDimension {
 
     public T getMax(int dim);
 
-    public IRange getRange(int dim);
+    public Bounds1D<T> getBounds(int dim);
+
+
 }

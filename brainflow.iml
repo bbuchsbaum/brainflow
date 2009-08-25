@@ -54,7 +54,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javalibs/spock/spock-core-0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../javalibs/spock/spock-core-0.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

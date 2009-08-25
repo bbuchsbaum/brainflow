@@ -96,6 +96,11 @@ public class MaskedData3D implements IMaskedData3D {
         return source.getDimension(axisNum);
     }
 
+    @Override
+    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+        throw new UnsupportedOperationException();
+    }
+
     public double maxValue() {
         //todo needs to be computed
         return 1;

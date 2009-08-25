@@ -128,6 +128,11 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
         return interp.interpolate(x, y, z, this);
     }
 
+    @Override
+    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+        throw new UnsupportedOperationException();
+    }
+
     public double value(int index) {
         return getBitVector().getQuick(index) ? 1.0 : 0.0;
 

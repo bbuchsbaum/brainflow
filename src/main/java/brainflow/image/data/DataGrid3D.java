@@ -18,13 +18,9 @@ public interface DataGrid3D extends DataGrid {
     
     public double value(float x, float y, float z, InterpolationFunction3D interp);
 
-    //public double worldValue(float worldx, float worldy, float worldz, InterpolationFunction3D interp);
-
     public double value(int i, int j, int k);
 
-    
-
-    //public IImageSpace3D getImageSpace();
+    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1);
 
 
     @Override

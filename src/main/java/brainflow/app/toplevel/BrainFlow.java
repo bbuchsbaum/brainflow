@@ -469,6 +469,7 @@ public class BrainFlow {
         log.info("initializing status bar");
         statusBar.setAutoAddSeparator(false);
 
+
         statusBar.add(viewStatus.getComponent(), JideBoxLayout.FIX);
         statusBar.add(new com.jidesoft.status.StatusBarSeparator(), JideBoxLayout.FIX);
 
@@ -512,6 +513,7 @@ public class BrainFlow {
 
         statusBar.add(new com.jidesoft.status.MemoryStatusBarItem(), JideBoxLayout.FIX);
         brainFrame.getDockableBarManager().getMainContainer().add(statusBar, "South");
+        statusBar.resetToPreferredSizes();
          
     }
 

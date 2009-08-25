@@ -10,11 +10,8 @@ import brainflow.utils.DataType;
 
 import static java.lang.Math.*;
 import java.util.*;
-import java.io.IOException;
 
-import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.FileSystemException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -516,7 +513,7 @@ public class NiftiImageInfo extends ImageInfo {
            identity, in the sense of M having the smallest total rotation angle. */
 
         /* Despite the formidable looking 6 nested loops, there are
-           only 3*3*3*2*2*2 = 216 passes, which will run very quickly. */
+           only 3*3*3*2*2*2 = 216 passes, which will label very quickly. */
 
         float vbest = -666f;
         float ibest = 1;

@@ -304,12 +304,12 @@ public class ImageViewportPresenter extends BrainFlowPresenter {
 
         //xfovAdapter = new BoundedRangeAdapter(new PercentageConverter(xextent,
         //        new ValueHolder(10),
-        //        new ValueHolder(viewport.getBounds().getImageAxis(plot.getXAxisRange().getAnatomicalAxis(), true).getRange().getInterval()), 100), 0, 0, 100);
+        //        new ValueHolder(viewport.getBounds().getImageAxis(plot.getXAxisRange().getAnatomicalAxis(), true).getBounds().getInterval()), 100), 0, 0, 100);
         //xfovSlider.setModel(xfovAdapter);
 
         //yfovAdapter = new BoundedRangeAdapter(new PercentageConverter(yextent,
         //        new ValueHolder(10),
-        //        new ValueHolder(viewport.getBounds().getImageAxis(plot.getYAxisRange().getAnatomicalAxis(), true).getRange().getInterval()), 100), 0, 0, 100);
+        //        new ValueHolder(viewport.getBounds().getImageAxis(plot.getYAxisRange().getAnatomicalAxis(), true).getBounds().getInterval()), 100), 0, 0, 100);
         //yfovSlider.setModel(yfovAdapter);
 
         // this line links zero and zero extent so that changing zero changes the other

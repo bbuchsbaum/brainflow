@@ -29,13 +29,11 @@ public class PermutationMatrix3DSpec {
 
   def "permutation from AIL to LPI works"() {
     when:
+    
     def ispace = Space.createImageSpace(64, 100, 76, 1, 1, 1);
-    println ispace.anatomy
     def out_anat = Anatomy3D.SAGITTAL_AIL
-    println out_anat
     def pmat = Space.createPermutationMatrix(ispace, out_anat)
-    println pmat
-    println pmat.permute(0, 0, 0)
+
 
     then:
     pmat != null

@@ -1,4 +1,4 @@
-package brainflow.image.operations;
+package junkyard;
 
 import brainflow.core.BrainFlowException;
 import brainflow.image.io.MemoryImageDataSource;
@@ -8,6 +8,10 @@ import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ImageSpace3D;
 import brainflow.image.iterators.ValueIterator;
+import brainflow.image.operations.AbstractImageFilter;
+import brainflow.image.operations.IntegerStack;
+import brainflow.image.operations.ISearchKernel3D;
+import brainflow.image.operations.LargeSearchKernel3D;
 import brainflow.core.BF;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer3D;
@@ -206,7 +210,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
             /*try {
                 SwingUtilities.invokeLater( new Runnable() {
                     @Override
-                    public void run() {
+                    public void label() {
                         try {
                             BrainFlow.get().launch();
                             BrainFlow.get().display(view);

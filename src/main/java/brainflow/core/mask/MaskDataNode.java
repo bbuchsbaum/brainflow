@@ -82,7 +82,7 @@ public class MaskDataNode extends AbstractNode implements ValueNode<IMaskedData3
 
         BooleanOperation boolop = (BooleanOperation) bop;
 
-        IImageData3D cdat = ImageData.createConstantData(left.evaluate().doubleValue(), mask.getImageSpace());
+        IImageData3D cdat = Data.createConstantData(left.evaluate().doubleValue(), mask.getImageSpace());
 
         IMaskedData3D mdat = new MaskedData3D(cdat, new MaskPredicate() {
             public boolean mask(double value) {

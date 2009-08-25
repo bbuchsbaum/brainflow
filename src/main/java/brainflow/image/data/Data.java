@@ -23,9 +23,10 @@ import java.util.Arrays;
  * Time: 9:10:45 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ImageData {
+public class Data {
 
 
+    private Data() {}
 
 
     public static IImageData3D asImageData3D(IImageData2D data2d, BrainPoint1D zvalue, double thickness) {
@@ -47,6 +48,66 @@ public class ImageData {
 
 
         return buffer.asImageData();
+
+    }
+
+    public static ImageBuffer3D createWriter(IImageData3D input, DataType out) {
+        final BasicImageData3D delegate = new BasicImageData3D(input.getImageSpace(),out); 
+        final IImageSpace3D space = input.getImageSpace();
+        
+        return new ImageBuffer3D() {
+
+            public final void setValue(int x, int y, int z, double val) {
+                delegate.setValue(x,y,z,val);
+            }
+
+            public final IImageData3D asImageData() {
+                return delegate;
+            }
+
+            public final void setValue(int index, double value) {
+                delegate.setValue(index,value);
+            }
+
+            public final double value(int index) {
+                return delegate.value(index);
+            }
+
+            public final int numElements() {
+                return delegate.numElements();
+            }
+
+            @Override
+            public final double value(float x, float y, float z, InterpolationFunction3D interp) {
+                return delegate.value(x,y,z,interp);
+            }
+
+            @Override
+            public final double value(int x, int y, int z) {
+                return delegate.value(x,y,z);
+            }
+
+            @Override
+            public ValueIterator iterator() {
+                return delegate.iterator();
+            }
+
+            @Override
+            public final DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public final Dimension3D<Integer> getDimensions() {
+                return delegate.getDimensions();
+            }
+
+            @Override
+            public final IImageSpace3D getImageSpace() {
+                return space;
+
+            }
+        };
 
     }
 
@@ -241,6 +302,12 @@ public class ImageData {
             }
 
             @Override
+            public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+                throw new UnsupportedOperationException();
+                //return data.subGrid(x0, x1, y0, y1, z0, z1);
+            }
+
+            @Override
             public ValueIterator iterator() {
                 return new Iterator3D(this);
             }
@@ -332,7 +399,10 @@ public class ImageData {
                 return "constant: " + value;
             }
 
-
+            @Override
+            public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+                throw new UnsupportedOperationException();
+            }
         };
 
     }
@@ -502,6 +572,11 @@ public class ImageData {
             return getImageSpace().getDimension();
         }
 
+        @Override
+        public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+            throw new UnsupportedOperationException();
+        }
+
         public IntImageBuffer3D createWriter(boolean clear) {
             final IntData3D delegate = this;
             return new IntImageBuffer3D() {
@@ -559,6 +634,11 @@ public class ImageData {
                 @Override
                 public Dimension3D<Integer> getDimensions() {
                     return delegate.getDimensions();
+                }
+
+                @Override
+                public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+                    throw new UnsupportedOperationException();
                 }
             };
         }

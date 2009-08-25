@@ -10,7 +10,7 @@ import brainflow.image.interpolation.NearestNeighborInterpolator;
 import brainflow.colormap.BinaryColorMap;
 import brainflow.display.InterpolationType;
 import brainflow.core.SliceRenderer;
-import brainflow.core.rendering.BasicImageSliceRenderer;
+import brainflow.core.rendering.DefaultImageSliceRenderer;
 
 import java.awt.*;
 
@@ -60,7 +60,7 @@ public class MaskLayer3D extends ImageLayer3D {
 
    
     protected SliceRenderer createSliceRenderer(IImageSpace3D refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
-        return new BasicImageSliceRenderer(refspace, this, slice, displayAnatomy) {
+        return new DefaultImageSliceRenderer(refspace, this, slice, displayAnatomy) {
             @Override
             protected RGBAImage thresholdRGBA(RGBAImage rgba) {
                 return rgba;

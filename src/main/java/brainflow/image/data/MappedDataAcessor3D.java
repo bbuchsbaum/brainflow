@@ -73,7 +73,10 @@ public class MappedDataAcessor3D extends AbstractImageData3D {
     }
 
 
-   
+    @Override
+    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public ImageBuffer3D createWriter(boolean clear) {

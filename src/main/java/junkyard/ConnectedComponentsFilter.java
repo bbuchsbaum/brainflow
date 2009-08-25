@@ -1,4 +1,4 @@
-package brainflow.image.operations;
+package junkyard;
 
 import brainflow.core.BrainFlowException;
 import brainflow.image.io.MemoryImageDataSource;
@@ -6,6 +6,7 @@ import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.image.data.*;
 import brainflow.image.io.BrainIO;
 import brainflow.image.space.Axis;
+import brainflow.image.operations.AbstractImageFilter;
 import brainflow.core.BF;
 import brainflow.core.ImageViewModel;
 import brainflow.core.ImageView;
@@ -140,7 +141,7 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
         } else {
             int root = Math.max(root1, root2);
             // Make root to be the root of the combined tree.  This maintains an
-            // invariant that a run's father is higher numbered than it.
+            // invariant that a label's father is higher numbered than it.
             int area1 = -runs.get(root1).root;   // surface area
             int area2 = -runs.get(root2).root;
             int area;
@@ -150,7 +151,7 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
                 area = area1 + area2 - 2 * lap;
             }
 
-            // Update root even if the root of this run is already the new root,
+            // Update root even if the root of this label is already the new root,
             // since this compresses the tree.  If the root is already the new
             // root, then this will leave the root's root positive, which is an
             // infinite loop.  However, that is fixed by replacing the root with
@@ -189,7 +190,7 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
         for (; ;) {
             processAdjacency(row1currun, row2currun, diag);
 
-            // In the row whose current run has the lower zhi, go to the next run.
+            // In the row whose current label has the lower zhi, go to the next label.
             if (runs.get(row1currun).zhigh < runs.get(row2currun).zhigh) {
                 if (++row1currun > row1hirun)
                     break;
@@ -348,7 +349,7 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
 
     class ClusterComponent {
         int nruns;          // # runs in each component.
-        int runs;           // Pointer to first run of this component.
+        int runs;           // Pointer to first label of this component.
         int vol;            // Volume
         int area;           // Surface area.
 
@@ -427,8 +428,8 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
 /*final class RunList {
   private ArrayList<Run> runs = new ArrayList<Run>();
 
-  public void addRun(Run run) {
-      runs.add(run);
+  public void addRun(Run label) {
+      runs.add(label);
   }
 
   public int size() {

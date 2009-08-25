@@ -3,6 +3,7 @@ package brainflow.utils;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Collections;
+import java.util.concurrent.ConcurrentHashMap;
 import java.lang.ref.SoftReference;
 
 /**

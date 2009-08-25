@@ -2,7 +2,7 @@ package brainflow.core.mask;
 
 import brainflow.core.ImageViewModel;
 import brainflow.image.data.IImageData;
-import brainflow.image.data.ImageData;
+import brainflow.image.data.Data;
 
 
 
@@ -38,7 +38,7 @@ public class VariableSubstitution extends AnalysisAdapter {
 
     public void caseConstantNode(ConstantNode node) {
         double val =  node.evaluate();
-        node.replaceBy(new ImageDataNode("" + val, ImageData.createConstantData(val, model.getSelectedLayer().getData().getImageSpace())));
+        node.replaceBy(new ImageDataNode("" + val, Data.createConstantData(val, model.getSelectedLayer().getData().getImageSpace())));
     }
 
     public void caseVariableNode(VariableNode node) {

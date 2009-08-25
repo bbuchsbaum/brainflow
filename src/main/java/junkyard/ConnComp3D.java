@@ -1,4 +1,4 @@
-package brainflow.image.operations;
+package junkyard;
 
 import brainflow.image.data.*;
 import brainflow.image.space.Axis;
@@ -11,6 +11,8 @@ import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerProps;
 import brainflow.core.BrainFlowException;
 import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.operations.UnionFindArray;
+import brainflow.image.operations.ImageSlicer;
 import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.colormap.ColorTable;
 import brainflow.display.InterpolationType;
