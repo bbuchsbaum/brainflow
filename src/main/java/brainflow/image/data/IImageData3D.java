@@ -2,9 +2,9 @@ package brainflow.image.data;
 
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.math.Index3D;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +15,7 @@ import brainflow.math.Index3D;
  */
 
 
-public interface IImageData3D extends IImageData, DataGrid3D {
+public interface IImageData3D extends IImageData, IDataGrid3D {
 
     public double value(float x, float y, float z, InterpolationFunction3D interp);
 

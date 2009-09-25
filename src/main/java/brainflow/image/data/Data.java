@@ -15,6 +15,8 @@ import brainflow.math.Index3D;
 
 import java.util.Arrays;
 
+import org.boxwood.array.IDataGrid3D;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -73,8 +75,13 @@ public class Data {
                 return delegate.value(index);
             }
 
-            public final int numElements() {
-                return delegate.numElements();
+            public final int length() {
+                return delegate.length();
+            }
+
+            @Override
+            public int indexOf(int i, int j, int k) {
+                return delegate.indexOf(i,j,k);
             }
 
             @Override
@@ -93,13 +100,13 @@ public class Data {
             }
 
             @Override
-            public final DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+            public final IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
                 throw new UnsupportedOperationException();
             }
 
             @Override
-            public final Dimension3D<Integer> getDimensions() {
-                return delegate.getDimensions();
+            public final Dimension3D<Integer> dim() {
+                return delegate.dim();
             }
 
             @Override
@@ -123,7 +130,7 @@ public class Data {
     }
 
     public static boolean elementsEquals(IImageData d1, IImageData d2, float tolerance) {
-        if (d1.numElements() != d2.numElements()) return false;
+        if (d1.length() != d2.length()) return false;
 
         ValueIterator iter1 = d1.iterator();
         ValueIterator iter2 = d2.iterator();
@@ -143,7 +150,7 @@ public class Data {
 
     public static double[] toArray(IImageData data) {
         ValueIterator iter = data.iterator();
-        double[] ret = new double[data.numElements()];
+        double[] ret = new double[data.length()];
 
         while (iter.hasNext()) {
             ret[iter.index()] = iter.next();
@@ -285,8 +292,8 @@ public class Data {
             }
 
             @Override
-            public Dimension3D<Integer> getDimensions() {
-                return data.getDimensions();
+            public Dimension3D<Integer> dim() {
+                return data.dim();
             }
 
             public ImageInfo getImageInfo() {
@@ -302,7 +309,7 @@ public class Data {
             }
 
             @Override
-            public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+            public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
                 throw new UnsupportedOperationException();
                 //return data.subGrid(x0, x1, y0, y1, z0, z1);
             }
@@ -325,8 +332,8 @@ public class Data {
                 return data.value(index) * scaleFactor;
             }
 
-            public int numElements() {
-                return data.numElements();
+            public int length() {
+                return data.length();
             }
 
             public final double value(float x, float y, float z, InterpolationFunction3D interp) {
@@ -400,7 +407,7 @@ public class Data {
             }
 
             @Override
-            public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+            public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
                 throw new UnsupportedOperationException();
             }
         };
@@ -438,7 +445,7 @@ public class Data {
         }
 
         @Override
-        public Dimension2D<Integer> getDimensions() {
+        public Dimension2D<Integer> dim() {
             return getImageSpace().getDimension();
         }
 
@@ -446,14 +453,10 @@ public class Data {
             throw new UnsupportedOperationException();
         }
 
-
-
-
+        
 
         public IntImageBuffer2D createWriter(boolean clear) {
             return new IntImageBuffer2D() {
-
-
 
                 public void setIntValue(int x, int y, int val) {
                    vals[indexOf(x,y)] = val;
@@ -475,7 +478,7 @@ public class Data {
                     return vals[index];
                 }
 
-                public int numElements() {
+                public int length() {
                     return vals.length;
                 }
 
@@ -500,8 +503,13 @@ public class Data {
                 }
 
                 @Override
-                public Dimension2D<Integer> getDimensions() {
-                    return IntData2D.this.getDimensions();
+                public int indexOf(int i, int j) {
+                    return IntData2D.this.indexOf(i,j);
+                }
+
+                @Override
+                public Dimension2D<Integer> dim() {
+                    return IntData2D.this.dim();
 
                 }
             };
@@ -568,12 +576,12 @@ public class Data {
         }
 
         @Override
-        public Dimension3D<Integer> getDimensions() {
+        public Dimension3D<Integer> dim() {
             return getImageSpace().getDimension();
         }
 
         @Override
-        public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+        public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
             throw new UnsupportedOperationException();
         }
 
@@ -607,8 +615,8 @@ public class Data {
                     return delegate.value(index);
                 }
 
-                public int numElements() {
-                    return delegate.numElements();
+                public int length() {
+                    return delegate.length();
                 }
 
                 public double value(float x, float y, float z, InterpolationFunction3D interp) {
@@ -632,12 +640,17 @@ public class Data {
                 }
 
                 @Override
-                public Dimension3D<Integer> getDimensions() {
-                    return delegate.getDimensions();
+                public int indexOf(int i, int j, int k) {
+                    return delegate.indexOf(i,j,k);
                 }
 
                 @Override
-                public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+                public Dimension3D<Integer> dim() {
+                    return delegate.dim();
+                }
+
+                @Override
+                public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
                     throw new UnsupportedOperationException();
                 }
             };

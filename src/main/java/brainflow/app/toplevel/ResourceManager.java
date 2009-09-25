@@ -27,6 +27,7 @@ public class ResourceManager {
     private static String defaultColorMap = "grayscale";
 
     protected ResourceManager() {
+        cachedMaps.put("grayscale", ColorTable.GRAYSCALE);
         // Exists only to thwart instantiation.
     }
 

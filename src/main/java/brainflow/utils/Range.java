@@ -15,6 +15,7 @@ import java.text.NumberFormat;
 public class Range implements IRange {
 
     private double min;
+    
     private double max;
 
 

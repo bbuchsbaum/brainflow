@@ -6,7 +6,7 @@
 
 package brainflow.image.interpolation;
 
-import brainflow.image.data.DataGrid3D;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * @author bradley
@@ -19,19 +19,19 @@ public class TrilinearInterpolator implements InterpolationFunction3D {
     public TrilinearInterpolator() {
     }
 
-    public double interpolate(double dx, double dy, double dz, DataGrid3D data) {
+    public double interpolate(double dx, double dy, double dz, IDataGrid3D data) {
         double a, b, c, d, e, f;
         if (dx < 0 || dy < 0 || dz < 0)
             return 0;
 
 
-        if (dx > (data.getDimensions().getDim(0) - 1) ) {
+        if (dx > (data.dim().getDim(0) - 1) ) {
             return 0;
         }
-        if (dy > (data.getDimensions().getDim(1) - 1) ) {
+        if (dy > (data.dim().getDim(1) - 1) ) {
             return 0;
         }
-        if (dz > (data.getDimensions().getDim(2) - 1) ) {
+        if (dz > (data.dim().getDim(2) - 1) ) {
             return 0;
         }
 

@@ -10,9 +10,9 @@ import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.operations.BinaryOperation;
 import brainflow.utils.DataType;
-import brainflow.utils.IDimension;
 import brainflow.utils.Dimension3D;
 import brainflow.math.Index3D;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -91,8 +91,8 @@ public class BivariateMaskNode3D implements IMaskedData3D {
     }
 
     @Override
-    public Dimension3D<Integer> getDimensions() {
-        return left.getDimensions();
+    public Dimension3D<Integer> dim() {
+        return left.dim();
     }
 
     public int getDimension(Axis axisNum) {
@@ -125,12 +125,12 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public int numElements() {
-        return left.numElements();
+    public int length() {
+        return left.length();
     }
 
     @Override
-    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+    public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 

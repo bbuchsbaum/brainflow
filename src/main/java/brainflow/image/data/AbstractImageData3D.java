@@ -53,7 +53,7 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
     }
 
     @Override
-    public Dimension3D<Integer> getDimensions() {
+    public Dimension3D<Integer> dim() {
         return getImageSpace().getDimension();
     }
 
@@ -95,8 +95,8 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
     /*public Index3D indexToGrid(int idx, Index3D voxel) {
       voxel.setZ(idx / planeSize);
       int remainder = (idx % planeSize);
-      voxel.setY(remainder / space.getDimensions(Axis.X_AXIS));
-      voxel.setValue(remainder % space.getDimensions(Axis.X_AXIS));
+      voxel.setY(remainder / space.dim(Axis.X_AXIS));
+      voxel.setValue(remainder % space.dim(Axis.X_AXIS));
 
       return voxel;
   }  */

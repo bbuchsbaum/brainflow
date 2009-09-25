@@ -92,7 +92,7 @@ public abstract class AbstractImageSpace implements IImageSpace {
     public int getDimension(AnatomicalAxis axis) {
         ImageAxis iaxis = whichAxisIgnoreDirection(axis);
         if (iaxis == null) {
-            throw new IllegalArgumentException("AbstractImageSpace.getDimensions(...): request for dimension" +
+            throw new IllegalArgumentException("AbstractImageSpace.dim(...): request for dimension" +
                     " of AnatomicalAxis that is not represented in this space.");
         }
 

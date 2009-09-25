@@ -52,7 +52,7 @@ public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D 
     }
 
     public BinaryImageData2D OR(BinaryImageData data) {
-        if (data.numElements() != this.numElements()) {
+        if (data.length() != this.length()) {
             throw new IllegalArgumentException("cannot combine images of unequal size");
         }
 
@@ -62,7 +62,7 @@ public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D 
     }
 
     public BinaryImageData2D AND(BinaryImageData data) {
-        if (data.numElements() != this.numElements()) {
+        if (data.length() != this.length()) {
             throw new IllegalArgumentException("cannot combine images of unequal size");
         }
         BitVector ret = getBitVector().copy();
@@ -72,7 +72,7 @@ public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D 
     }
 
     @Override
-    public Dimension2D<Integer> getDimensions() {
+    public Dimension2D<Integer> dim() {
         return getImageSpace().getDimension();
     }
 

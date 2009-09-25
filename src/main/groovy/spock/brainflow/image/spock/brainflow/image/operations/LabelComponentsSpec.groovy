@@ -9,6 +9,7 @@ import brainflow.image.data.MaskedData3D
 import brainflow.image.data.MaskPredicate
 import spock.lang.Sputnik
 import brainflow.image.io.BrainIO
+import brainflow.core.BF
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,13 +28,17 @@ class LabelComponentsSpec {
   def "clustering a big anatomical file is possible"() {
 
     when:
-    IImageData3D  image = BrainIO.readNiftiImage("src/main/groovy/testdata/207_anat_alepi.nii")
+    IImageData3D  image = BrainIO.readNiftiImage("src/main/groovy/testdata/cohtrend_GLT#0_Tstat.nii")
     def max = image.maxValue()
-    IMaskedData3D mask = new MaskedData3D(image, { it > max/2 } as MaskPredicate)
-    ComponentLabeler labeler = new ComponentLabeler(mask, image.createWriter(true))
+    println max
+    IMaskedData3D mask = new MaskedData3D(image, { it > max/4 } as MaskPredicate)
+    println mask.cardinality()
+    ComponentLabeler labeler = new ComponentLabeler(mask, 12)
+    labeler.label()
 
     then:
-    true
+    BF.quickView(labeler.getLabelledComponents());
+    println labeler.getClusterSizes()
 
   }
 

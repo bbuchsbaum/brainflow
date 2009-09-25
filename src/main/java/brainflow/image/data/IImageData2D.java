@@ -1,8 +1,8 @@
 package brainflow.image.data;
 
-import brainflow.image.space.ImageSpace2D;
 import brainflow.image.space.IImageSpace2D;
 import brainflow.image.interpolation.InterpolationFunction2D;
+import org.boxwood.array.IDataGrid2D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +11,7 @@ import brainflow.image.interpolation.InterpolationFunction2D;
  * Time: 1:10:25 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IImageData2D extends IImageData, DataGrid2D {
+public interface IImageData2D extends IImageData, IDataGrid2D {
 
     //public double value(float x, float y, InterpolationFunction2D interp);
 

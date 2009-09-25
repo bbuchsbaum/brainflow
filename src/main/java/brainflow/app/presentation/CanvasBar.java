@@ -13,9 +13,14 @@ import brainflow.gui.ToggleBar;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.io.IImageDataSource;
 import com.pietschy.command.ActionCommand;
+import com.pietschy.command.factory.ButtonFactory;
 import com.jidesoft.swing.JideBoxLayout;
+import com.jidesoft.swing.JideButton;
+import com.jidesoft.swing.JideToggleButton;
+import com.jidesoft.action.CommandBar;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.*;
@@ -34,7 +39,7 @@ import java.util.ArrayList;
 public class CanvasBar extends BrainFlowPresenter {
 
 
-    private JToolBar canvasBar;
+    private CommandBar canvasBar;
 
     private ToggleBar toggleBar;
 
@@ -61,7 +66,7 @@ public class CanvasBar extends BrainFlowPresenter {
     }
 
     private void buildGUI() {
-        canvasBar = new JToolBar();
+        canvasBar = new CommandBar();
         imageSpinner.setEnabled(false);
         imageSpinnerLabel.setEnabled(false);
 
@@ -70,18 +75,42 @@ public class CanvasBar extends BrainFlowPresenter {
 
         imageSpinner.setPreferredSize(d);
 
-        JideBoxLayout layout = new JideBoxLayout(canvasBar, BoxLayout.X_AXIS);
-        canvasBar.setLayout(layout);
+        //JideBoxLayout layout = new JideBoxLayout(canvasBar, BoxLayout.X_AXIS);
+        //canvasBar.setLayout(layout);
 
-        AbstractButton rotateButton = rotateCommand.createButton();
+        AbstractButton rotateButton = rotateCommand.createButton(new ButtonFactory() {
+            @Override
+            public JButton createButton() {
+                return new JideButton();
+            }
 
-        canvasBar.add(imageSpinnerLabel, JideBoxLayout.FIX);
-        canvasBar.add(imageSpinner, JideBoxLayout.FIX);
-        canvasBar.add(new JToolBar.Separator(), JideBoxLayout.FIX);
-        canvasBar.add(rotateButton, JideBoxLayout.FIX);
+            @Override
+            public AbstractButton createToggleButton() {
+                return new JideToggleButton();
+            }
+
+            @Override
+            public JCheckBox createCheckBox() {
+                return new JCheckBox();
+            }
+
+            @Override
+            public JRadioButton createRadioButton() {
+                return new JRadioButton();
+            }
+        });
+
+
+        ((JideButton)rotateButton).setButtonStyle(JideButton.TOOLBAR_STYLE);
+
+        canvasBar.add(imageSpinnerLabel);
+        canvasBar.add(imageSpinner);
+        canvasBar.addSeparator();
+        canvasBar.add(rotateButton);
 
         toggleBar = new ToggleBar(Arrays.asList("Tabula Rasa"));
-        canvasBar.add(toggleBar, JideBoxLayout.FIX);
+        toggleBar.setBorder(new EmptyBorder(0,0,0,0));
+        canvasBar.add(toggleBar);
 
         initSpinnerListener();
     }

@@ -73,7 +73,7 @@ public class ConnectedComponentsFilter3 extends AbstractImageFilter {
 
         IntArrayList connTable = new IntArrayList(ttn);
 
-        IntArrayList labels = new IntArrayList(new int[data.numElements()]);
+        IntArrayList labels = new IntArrayList(new int[data.length()]);
 
         int lab;
 

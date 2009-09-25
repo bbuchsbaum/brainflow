@@ -5,7 +5,6 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.space.*;
 import brainflow.utils.DataType;
-import brainflow.utils.IDimension;
 import brainflow.utils.Dimension2D;
 
 
@@ -55,7 +54,7 @@ public class BasicImageData2D extends AbstractImageData2D  {
         return new ImageInfo(this);
     }
 
-    public Dimension2D<Integer> getDimensions() {
+    public Dimension2D<Integer> dim() {
         return getImageSpace().getDimension();
     }
 
@@ -137,8 +136,8 @@ public class BasicImageData2D extends AbstractImageData2D  {
                 return delegate.value(index);
             }
 
-            public int numElements() {
-                return delegate.numElements();
+            public int length() {
+                return delegate.length();
             }
 
             public ImageSpace2D getImageSpace() {
@@ -166,8 +165,8 @@ public class BasicImageData2D extends AbstractImageData2D  {
             }
 
             @Override
-            public Dimension2D<Integer> getDimensions() {
-                return delegate.getDimensions();
+            public Dimension2D<Integer> dim() {
+                return delegate.dim();
             }
         };
 

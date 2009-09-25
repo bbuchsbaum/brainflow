@@ -1,11 +1,18 @@
 package brainflow.core;
 
 import brainflow.image.io.BrainIO;
+import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.data.IImageData3D;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerList;
 import brainflow.core.BrainFlowException;
+import brainflow.app.toplevel.ImageViewFactory;
+import brainflow.app.toplevel.ImageLayerFactory;
+import brainflow.utils.Pair;
 
+import javax.swing.*;
 import java.net.URL;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -83,6 +90,16 @@ public class BF {
 
         return model;
         
+    }
+
+    public static Pair<ImageView, JFrame> quickView(IImageData3D data) {
+        ImageLayer3D layer = ImageLayerFactory.createImageLayer(new MemoryImageDataSource(data));
+        ImageView view = ImageViewFactory.createAxialView(new ImageViewModel("view", layer));
+        JFrame frame = new JFrame();
+        frame.add(view, BorderLayout.CENTER);
+        frame.pack();
+        frame.setVisible(true);
+        return new Pair<ImageView, JFrame>(view, frame);
     }
 
 }

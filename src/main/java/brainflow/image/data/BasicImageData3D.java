@@ -9,8 +9,8 @@ import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.ArrayUtils;
 import brainflow.math.Index3D;
 import brainflow.utils.DataType;
-import brainflow.utils.IDimension;
 import brainflow.utils.Dimension3D;
+import org.boxwood.array.IDataGrid3D;
 
 
 /**
@@ -120,7 +120,7 @@ public class BasicImageData3D extends AbstractImageData3D  {
     }
 
     @Override
-    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+    public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         if (x1 < x0) throw new IllegalArgumentException("x1 cannot be < x0 ");
         if (y1 < y0) throw new IllegalArgumentException("y1 cannot be < y0 ");
         if (z1 < z0) throw new IllegalArgumentException("z1 cannot be < z0 ");
@@ -160,8 +160,13 @@ public class BasicImageData3D extends AbstractImageData3D  {
                 return delegate.value(index);
             }
 
-            public int numElements() {
-                return delegate.numElements();
+            public int length() {
+                return delegate.length();
+            }
+
+            @Override
+            public int indexOf(int i, int j, int k) {
+                return delegate.indexOf(i,j,k);
             }
 
             @Override
@@ -180,13 +185,13 @@ public class BasicImageData3D extends AbstractImageData3D  {
             }
 
             @Override
-            public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+            public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
                 throw new UnsupportedOperationException();
             }
 
             @Override
-            public Dimension3D<Integer> getDimensions() {
-                return delegate.getDimensions();
+            public Dimension3D<Integer> dim() {
+                return delegate.dim();
             }
 
             @Override

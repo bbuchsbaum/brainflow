@@ -79,7 +79,7 @@ public abstract class BinaryImageData extends AbstractImageData {
         return bits.cardinality();
     }
 
-    public int numElements() {
+    public int length() {
         return bits.size();
     }
 

@@ -6,7 +6,7 @@
 
 package brainflow.image.interpolation;
 
-import brainflow.image.data.DataGrid3D;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * @author bradley
@@ -19,7 +19,7 @@ public class NearestNeighborInterpolator implements InterpolationFunction3D {
     public NearestNeighborInterpolator() {
     }
 
-    public double interpolate(double dx, double dy, double dz, DataGrid3D data) {
+    public double interpolate(double dx, double dy, double dz, IDataGrid3D data) {
         int x_up = (int) Math.floor(dx + .5);
         int y_up = (int) Math.floor(dy + .5);
         int z_up = (int) Math.floor(dz + .5);
@@ -27,13 +27,13 @@ public class NearestNeighborInterpolator implements InterpolationFunction3D {
         double total;
 
         //todo slow ....
-        int d1 = data.getDimensions().getDim(0);
-        int d2 = data.getDimensions().getDim(1);
-        int d3 = data.getDimensions().getDim(2);
+        int d1 = data.dim().getDim(0);
+        int d2 = data.dim().getDim(1);
+        int d3 = data.dim().getDim(2);
 
 
         if (x_up >= d1)
-            //x_up = data.getDisplaySpace().getDimensions()[0]-1;
+            //x_up = data.getDisplaySpace().dim()[0]-1;
             return 0;
         else if (x_up < 0)
             //x_up = 0;
@@ -41,7 +41,7 @@ public class NearestNeighborInterpolator implements InterpolationFunction3D {
         if (y_up >= d2) {
             return 0;
         }
-        //y_up = data.getDisplaySpace().getDimensions()[1]-1;
+        //y_up = data.getDisplaySpace().dim()[1]-1;
         //y_up=0;
         else if (y_up < 0) {
             return 0;
@@ -49,7 +49,7 @@ public class NearestNeighborInterpolator implements InterpolationFunction3D {
         }
 
         if (z_up >= d3)
-            //z_up = data.getDisplaySpace().getDimensions()[2]-1;
+            //z_up = data.getDisplaySpace().dim()[2]-1;
             return 0;
         else if (z_up < 0)
             //z_up = 0;

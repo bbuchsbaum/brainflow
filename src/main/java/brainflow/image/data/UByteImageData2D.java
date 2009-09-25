@@ -48,7 +48,7 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
     }
 
     @Override
-    public Dimension2D<Integer> getDimensions() {
+    public Dimension2D<Integer> dim() {
         return getImageSpace().getDimension();
     }
 

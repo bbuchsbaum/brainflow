@@ -29,11 +29,9 @@ public class ParallelComponentLabeler {
 
 		if(numOfThreads == 2){
 			l1 = new ComponentLabeler(imageMask, this.labelledVolumeImageWriter,
-					labelledVolume,
 					0, 0, 0, x, y, z/2,
 					subVolumeSize, 1);
 			ComponentLabeler l2 = new ComponentLabeler(imageMask, this.labelledVolumeImageWriter,
-					labelledVolume,
 					0, 0, z/2, x, y, z,
 					subVolumeSize, 2);
 			
@@ -52,19 +50,15 @@ public class ParallelComponentLabeler {
 		
 		if(numOfThreads == 4){
 			l1 = new ComponentLabeler(imageMask, this.labelledVolumeImageWriter,
-					labelledVolume,
 					0, 0, 0, x, y/2, z/2,
 					subVolumeSize, 1);
 			ComponentLabeler l2 = new ComponentLabeler(imageMask, this.labelledVolumeImageWriter,
-					labelledVolume,
 					0, 0, z/2, x, y/2, z,
 					subVolumeSize, 2);
 			ComponentLabeler l3 = new ComponentLabeler(imageMask, this.labelledVolumeImageWriter,
-					labelledVolume,
 					0, y/2, 0, x, y, z/2,
 					subVolumeSize, 3);
 			ComponentLabeler l4 = new ComponentLabeler(imageMask, this.labelledVolumeImageWriter,
-					labelledVolume,
 					0, y/2, z/2, x, y, z,
 					subVolumeSize, 4);
 

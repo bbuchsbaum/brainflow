@@ -1,7 +1,6 @@
 package brainflow.colormap;
 
 import brainflow.image.data.IImageData;
-import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.utils.NumberUtils;
 
@@ -404,7 +403,7 @@ public class DiscreteColorMap extends AbstractColorMap {
 
     public byte[] getInterleavedRGBAComponents(IImageData data) {
 
-        int len = data.numElements();
+        int len = data.length();
         byte[] rgba = new byte[len * 4];
 
         double minValue = getMinimumValue();

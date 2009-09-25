@@ -1,9 +1,6 @@
 package brainflow.image.iterators;
 
-import brainflow.image.data.DataGrid3D;
-import brainflow.image.space.IImageSpace3D;
-import brainflow.image.space.Axis;
-import brainflow.image.space.IImageSpace;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +13,7 @@ public class Iterator3D implements ValueIterator {
 
     private int index;
 
-    private DataGrid3D data;
+    private IDataGrid3D data;
 
     //private IImageSpace3D space;
 
@@ -24,12 +21,12 @@ public class Iterator3D implements ValueIterator {
     private int end;
 
 
-    public Iterator3D(DataGrid3D _data) {
+    public Iterator3D(IDataGrid3D _data) {
         data = _data;
         //space = data.getImageSpace();
         index = 0;
         
-        len = data.numElements();
+        len = data.length();
         end = len;
     }
 

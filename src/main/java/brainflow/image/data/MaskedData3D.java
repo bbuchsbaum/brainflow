@@ -1,7 +1,6 @@
 package brainflow.image.data;
 
 import brainflow.utils.DataType;
-import brainflow.utils.IDimension;
 import brainflow.utils.Dimension3D;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.space.Axis;
@@ -12,6 +11,7 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.math.Index3D;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,8 +41,8 @@ public class MaskedData3D implements IMaskedData3D {
     }
 
     @Override
-    public Dimension3D<Integer> getDimensions() {
-        return source.getDimensions();
+    public Dimension3D<Integer> dim() {
+        return source.dim();
     }
 
     public Index3D indexToGrid(int idx) {
@@ -97,7 +97,7 @@ public class MaskedData3D implements IMaskedData3D {
     }
 
     @Override
-    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+    public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 
@@ -111,8 +111,8 @@ public class MaskedData3D implements IMaskedData3D {
         return 0;
     }
 
-    public int numElements() {
-        return source.numElements();
+    public int length() {
+        return source.length();
     }
 
     public ImageInfo getImageInfo() {

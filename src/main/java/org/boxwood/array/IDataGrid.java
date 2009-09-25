@@ -1,8 +1,6 @@
-package brainflow.image.data;
+package org.boxwood.array;
 
-import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.ValueIterator;
-import brainflow.utils.IDimension;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,15 +9,11 @@ import brainflow.utils.IDimension;
  * Time: 10:04:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface DataGrid {
-
-
-    public double value(int i);
-
-    public int numElements();
+public interface IDataGrid extends IArray {
+  
 
     public ValueIterator iterator();
 
-    public IDimension<Integer> getDimensions();
+
 
 }

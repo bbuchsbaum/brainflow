@@ -11,10 +11,9 @@ import brainflow.image.iterators.ValueIterator;
 import brainflow.image.operations.BooleanOperation;
 import brainflow.image.operations.Operations;
 import brainflow.utils.DataType;
-import brainflow.utils.IDimension;
-import brainflow.utils.Dimension2D;
 import brainflow.utils.Dimension3D;
 import brainflow.math.Index3D;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -54,8 +53,8 @@ public class BooleanMaskNode3D implements IMaskedData3D {
     }
 
     @Override
-    public Dimension3D<Integer> getDimensions() {
-        return left.getDimensions();
+    public Dimension3D<Integer> dim() {
+        return left.dim();
     }
 
     public boolean isTrue(int index) {
@@ -136,8 +135,8 @@ public class BooleanMaskNode3D implements IMaskedData3D {
 
     }
 
-    public int numElements() {
-        return left.numElements();
+    public int length() {
+        return left.length();
     }
 
     public ImageIterator iterator() {
@@ -145,7 +144,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
     }
 
     @Override
-    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+    public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 

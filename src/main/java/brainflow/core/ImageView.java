@@ -80,7 +80,6 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         public void set(GridPoint3D gp) {
             //ap = ap.snapToBounds();
             if (!gp.equals(get())) {
-
                 super.set(gp);
             }
         }

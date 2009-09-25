@@ -1,7 +1,7 @@
 package brainflow.image.data;
 
-import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.IImageSpace;
+import org.boxwood.array.IDataGrid;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,7 +10,7 @@ import brainflow.image.space.IImageSpace;
  * Time: 12:35:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface ImageBuffer extends DataGrid {
+public interface ImageBuffer extends IDataGrid {
 
     public void setValue(int index, double value);
     

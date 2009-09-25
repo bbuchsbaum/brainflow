@@ -1,7 +1,6 @@
 package brainflow.image.operations;
 
 
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
@@ -19,10 +18,10 @@ public class ComponentLabeler {
 	/**Mask for the provided brain data. Used to indicate which voxels
 	 * belong to the background and which ones belong to the foreground */
 	private IMaskedData3D imageMask;
-	/**Datagrid storing the labelled values */
-	private IImageData3D labelledVolume;
+
+
 	/**Writer used for setting values in the volume */
-	private ImageBuffer3D labelledVolumeImageWriter;
+	private ImageBuffer3D labelledVolume;
 
 	/**The size of the sub-volume used in the iterations */
 	private int subVolumeSizeRadius;
@@ -54,10 +53,17 @@ public class ComponentLabeler {
 
 	public boolean labelled = false;
 
-	/**--------Class constructor------------------ */
-	@SuppressWarnings("static-access")
-	public ComponentLabeler(IMaskedData3D imageMask,
-		ImageBuffer3D labelledVolumeImageWriter, IImageData3D labelledVolume,
+    public ComponentLabeler(IMaskedData3D imageMask, int subVolumeSizeRadius) {
+        this(imageMask, Data.createWriter(imageMask, DataType.INTEGER), 0, 0, 0,
+                imageMask.getDimension(Axis.X_AXIS),
+                imageMask.getDimension(Axis.Y_AXIS),
+                imageMask.getDimension(Axis.Z_AXIS), subVolumeSizeRadius, 1);
+
+              
+    }
+
+    public ComponentLabeler(IMaskedData3D imageMask,
+		ImageBuffer3D labelledVolumeImageWriter,
 			int bX, int bY, int bZ, int tX, int tY, int tZ,
 			int subSize, int startingLabel) {
 
@@ -67,14 +73,13 @@ public class ComponentLabeler {
 		this.currentLabel = startingLabel;
 		this.startingLabel = startingLabel;
 
-        //todo static variable?
-		this.diffLabels = 1;
+
 
 		//Set the size of the sub-volume
 		this.subVolumeSizeRadius = (subSize-1)/2;
 
 		//Initialize the unlabelled volume
-		this.labelledVolumeImageWriter = labelledVolumeImageWriter;
+		this.labelledVolume = labelledVolumeImageWriter;
 		this.labelledVolume = labelledVolume;
 
 		newlyLocatedVoxelsBuffer = new LinkedList<Index3D>();
@@ -85,9 +90,9 @@ public class ComponentLabeler {
 		this.tX = tX; this.tY = tY; this.tZ = tZ;
 
 		/**Set the dimensions for the image */
-		this.x = labelledVolume.getDimension(Axis.X_AXIS);
-		this.y = labelledVolume.getDimension(Axis.Y_AXIS);
-		this.z = labelledVolume.getDimension(Axis.Z_AXIS);
+		this.x = labelledVolume.dim().getDim(0);
+		this.y = labelledVolume.dim().getDim(1);
+		this.z = labelledVolume.dim().getDim(2);
 	}
 
     /**Given an index, label the cluster containing that index with the
@@ -168,7 +173,7 @@ public class ComponentLabeler {
 		cellCluster = new IntArrayList();
 
 		/**The label of the cluster */
-		clusterLabel = (int)labelledVolumeImageWriter.value(index);
+		clusterLabel = (int) labelledVolume.value(index);
 
 		/**Clear the linked list for the use of this algorithm */
 		newlyLocatedVoxelsBuffer.clear();
@@ -185,7 +190,7 @@ public class ComponentLabeler {
 
 	/**Method for returning the labelled volume */
 	public IImageData3D getLabelledComponents() {
-		return labelledVolume;
+		return labelledVolume.asImageData();
 	}
 
 	/**Returns the volume containing the size of each
@@ -211,13 +216,13 @@ public class ComponentLabeler {
 
 	/**Method used for labelling a voxel */
 	private void label(Index3D index) {
-		labelledVolumeImageWriter.
+		labelledVolume.
 			setValue(index.i1(), index.i2(), index.i3(), currentLabel);
 	}
 
 	/**Method used for getting the label for a voxel */
 	private int getLabel(Index3D index) {
-		return (int)labelledVolumeImageWriter.
+		return (int) labelledVolume.
 			value(index.i1(), index.i2(), index.i3());
 	}
 
@@ -342,7 +347,7 @@ public class ComponentLabeler {
 			/**Spread recursively from the voxel if it exists within the
 			 * boundary of the center voxel */
 			if(checkSubBoundary(current, center)) {
-				labelledVolumeImageWriter.
+				labelledVolume.
 					setValue(current.i1(), current.i2(), current.i3(), clusterLabel);
 
 				/**Check for all 26-neighbour voxels reachable from the

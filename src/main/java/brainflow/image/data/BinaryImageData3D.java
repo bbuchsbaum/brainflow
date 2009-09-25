@@ -4,12 +4,12 @@ import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
-import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.Index3D;
 import brainflow.utils.Dimension3D;
 import cern.colt.bitvector.BitVector;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,8 +30,6 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
 
         init();
     }
-
-
 
     private BinaryImageData3D(IImageSpace3D space, BitVector bits) {
         super(space, bits);
@@ -98,7 +96,7 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
     }
 
     @Override
-    public Dimension3D<Integer> getDimensions() {
+    public Dimension3D<Integer> dim() {
         return getImageSpace().getDimension();
     }
 
@@ -129,7 +127,7 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
     }
 
     @Override
-    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+    public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 

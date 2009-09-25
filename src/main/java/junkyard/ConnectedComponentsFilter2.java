@@ -56,7 +56,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
 
 
     private int[] firstPass(int xdim, int ydim, int zdim, IImageData3D data) {
-        int[] labels = new int[data.numElements()];
+        int[] labels = new int[data.length()];
 
 
         int labelCounter = 1;

@@ -3,12 +3,9 @@ package brainflow.colormap;
 import brainflow.image.data.IImageData2D;
 import brainflow.image.data.RGBAImage;
 import brainflow.image.data.UByteImageData2D;
-import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.ValueIterator;
 
 import java.awt.*;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ListIterator;
 
 /**
@@ -104,7 +101,7 @@ public abstract class AbstractColorMap implements IColorMap {
     public RGBAImage getRGBAImage(IImageData2D data) {
 
 
-        int len = data.numElements();
+        int len = data.length();
 
         byte[][] rgba = new byte[4][len];
         int lastidx = getMapSize() - 1;

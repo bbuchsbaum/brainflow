@@ -1,8 +1,6 @@
 package brainflow.image.operations;
 
-import brainflow.image.data.DataGrid3D;
-import brainflow.image.data.IImageData3D;
-import brainflow.image.space.Axis;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -116,10 +114,10 @@ public class KernelArray3D {
 
         return out;
     }
-    private boolean inBounds(int x, int y, int z, DataGrid3D input) {
-        if ( (x >=0) && (x < input.getDimensions().getDim(0)) &&
-             (y >=0) && (y < input.getDimensions().getDim(1)) &&
-             (z >=0) && (z < input.getDimensions().getDim(2)) ) {
+    private boolean inBounds(int x, int y, int z, IDataGrid3D input) {
+        if ( (x >=0) && (x < input.dim().getDim(0)) &&
+             (y >=0) && (y < input.dim().getDim(1)) &&
+             (z >=0) && (z < input.dim().getDim(2)) ) {
             return true;
         }
 
@@ -128,7 +126,7 @@ public class KernelArray3D {
     }
 
 
-    public double apply(DataGrid3D gridArray, int x0, int y0, int z0) {
+    public double apply(IDataGrid3D gridArray, int x0, int y0, int z0) {
         double result = 0;
         int count = 0;
         for (int z=-endz; z<=endz; z++) {

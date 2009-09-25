@@ -9,7 +9,6 @@ import brainflow.image.space.IImageSpace;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.io.ImageInfo;
 import brainflow.utils.DataType;
-import brainflow.utils.IDimension;
 import brainflow.utils.Dimension2D;
 
 /**
@@ -34,8 +33,8 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
 
 
     @Override
-    public Dimension2D<Integer> getDimensions() {
-        return source.getDimensions();
+    public Dimension2D<Integer> dim() {
+        return source.dim();
     }
 
     public int indexOf(int x, int y) {
@@ -119,8 +118,8 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
         return source.minValue();
     }
 
-    public int numElements() {
-        return source.numElements();
+    public int length() {
+        return source.length();
     }
 
     public ImageInfo getImageInfo() {

@@ -7,12 +7,8 @@ import brainflow.image.space.Axis;
 import brainflow.image.iterators.Iterator3D;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.axis.ImageAxis;
-import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.io.ImageInfo;
-import brainflow.utils.DataType;
-import brainflow.utils.IDimension;
 import brainflow.utils.Dimension3D;
-import brainflow.math.Index3D;
+import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,7 +19,7 @@ import brainflow.math.Index3D;
  */
 
 
-public class DataSubGrid3D implements DataGrid3D {
+public class DataSubGrid3D implements IDataGrid3D {
 
     private IImageData3D wrapped;
 
@@ -52,8 +48,8 @@ public class DataSubGrid3D implements DataGrid3D {
         this.zoffset = zoffset;
         this.zlen = zlen;
 
-        int planeSize = wrapped.getDimensions().getDim(0) * wrapped.getDimensions().getDim(1);
-        int dim0 = wrapped.getDimensions().getDim(0);
+        int planeSize = wrapped.dim().getDim(0) * wrapped.dim().getDim(1);
+        int dim0 = wrapped.dim().getDim(0);
 
         indexOffset = zoffset * planeSize + dim0 * yoffset + xoffset;
 
@@ -90,16 +86,19 @@ public class DataSubGrid3D implements DataGrid3D {
     }
 
     @Override
-    public DataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+    public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Dimension3D<Integer> getDimensions() {
+    public Dimension3D<Integer> dim() {
         return new Dimension3D<Integer>(xlen, ylen, zlen);
     }
 
-   
+    @Override
+    public int indexOf(int i, int j, int k) {
+        return wrapped.indexOf(i-xoffset, j-yoffset, k-zoffset);
+    }
 
     @Override
     public double value(int x, int y, int z) {
@@ -113,7 +112,7 @@ public class DataSubGrid3D implements DataGrid3D {
     }
 
     @Override
-    public int numElements() {
+    public int length() {
         return space.getNumSamples();
     }
 
@@ -121,8 +120,6 @@ public class DataSubGrid3D implements DataGrid3D {
     public ValueIterator iterator() {
         return new Iterator3D(this);
     }
-
-
 
 
 }

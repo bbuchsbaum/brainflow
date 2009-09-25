@@ -1,5 +1,8 @@
 package brainflow.gui;
 
+import com.jidesoft.swing.JideToggleButton;
+import com.jidesoft.swing.JideButton;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
@@ -17,7 +20,7 @@ import java.awt.event.ItemEvent;
  * Time: 7:32:26 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ToggleBar extends JPanel implements ListDataListener {
+public class ToggleBar extends JComponent implements ListDataListener {
 
 
 
@@ -26,7 +29,7 @@ public class ToggleBar extends JPanel implements ListDataListener {
     private EventListenerList listeners = new EventListenerList();
 
 
-    private List<JToggleButton> buttonList;
+    private List<JideToggleButton> buttonList;
 
     private ButtonSelectionListener buttonListener;
 
@@ -101,7 +104,7 @@ public class ToggleBar extends JPanel implements ListDataListener {
             removeAll();
         }
 
-        buttonList = new ArrayList<JToggleButton>();
+        buttonList = new ArrayList<JideToggleButton>();
         buttonListener = new ButtonSelectionListener();
         int selindex = getSelectedIndex();
 
@@ -109,7 +112,8 @@ public class ToggleBar extends JPanel implements ListDataListener {
 
             Object obj = model.getElementAt(i);
 
-            JToggleButton button = new JToggleButton(obj.toString());
+            JideToggleButton button = new JideToggleButton(obj.toString());
+            button.setButtonStyle(JideButton.TOOLBAR_STYLE);
        
             buttonList.add(button);
             buttonGroup.add(button);

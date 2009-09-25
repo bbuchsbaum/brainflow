@@ -30,10 +30,10 @@ public class DataSubGrid3DSpec {
 
     then:
     subgrid.value(0) == image.value(25, 50, 22)
-    subgrid.dimensions.getDim(0) == (55-25+1)
-    subgrid.dimensions.getDim(1) == (75-50+1)
-    subgrid.dimensions.getDim(2) == (28-22 +1)
-    subgrid.numElements() == (55-25+1) * (75-50+1) *  (28-22 +1)
+    subgrid.dim.getDim(0) == (55-25+1)
+    subgrid.dim.getDim(1) == (75-50+1)
+    subgrid.dim.getDim(2) == (28-22 +1)
+    subgrid.length() == (55-25+1) * (75-50+1) *  (28-22 +1)
    
   }
 
@@ -49,7 +49,7 @@ public class DataSubGrid3DSpec {
       val = iter.next()
     }
     println val
-    println subgrid.dimensions.getDim(0)
+    println subgrid.dim.getDim(0)
     val == image.value(40,40,40)
 
   }

@@ -5,6 +5,7 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.utils.DataType;
+import org.boxwood.array.IDataGrid;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,7 +14,7 @@ import brainflow.utils.DataType;
  * Time: 1:00:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IImageData extends DataGrid {
+public interface IImageData extends IDataGrid {
 
 
     public DataType getDataType();
