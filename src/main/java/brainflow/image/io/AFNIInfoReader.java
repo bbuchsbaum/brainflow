@@ -45,8 +45,6 @@ public class AFNIInfoReader extends AbstractInfoReader {
         return new AFNIInfoReader(headerFile, dataFile);
     }
 
-
-
     public static boolean isHeaderFile(String name) {
         if (name.endsWith(".HEAD") || name.endsWith(".HEAD.gz")) {
             return true;
@@ -323,8 +321,8 @@ public class AFNIInfoReader extends AbstractInfoReader {
                     info.setDataType(DataType.FLOAT);
                     break;
                 case 5:
-                    info.setDataType(DataType.COMPLEX);
-                    break;
+                    throw new IllegalArgumentException("Unsupported data type " + code);
+                   
                 default:
                     throw new IllegalArgumentException("Illegal AFNI data code " + code);
 

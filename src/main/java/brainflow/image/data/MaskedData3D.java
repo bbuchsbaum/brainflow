@@ -11,7 +11,7 @@ import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ImageIterator;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.math.Index3D;
-import org.boxwood.array.IDataGrid3D;
+import brainflow.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -96,7 +96,7 @@ public class MaskedData3D implements IMaskedData3D {
         return source.getDimension(axisNum);
     }
 
-    @Override
+  
     public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
@@ -124,11 +124,11 @@ public class MaskedData3D implements IMaskedData3D {
         return source.getImageLabel();
     }
 
-    public ImageIterator iterator() {
+    public ImageIterator valueIterator() {
         return new MaskedIterator();
     }
 
-    public ImageBuffer3D createWriter(boolean clear) {
+    public ImageBuffer3D createBuffer(boolean clear) {
         throw new UnsupportedOperationException("Cannot create writer for class " + getClass());
     }
 
@@ -150,7 +150,7 @@ public class MaskedData3D implements IMaskedData3D {
         ValueIterator iter;
 
         public MaskedIterator() {
-            iter = source.iterator();
+            iter = source.valueIterator();
         }
 
         public final double next() {

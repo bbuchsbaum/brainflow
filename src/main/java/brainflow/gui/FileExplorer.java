@@ -142,7 +142,6 @@ public class FileExplorer extends AbstractPresenter {
             return Collections.emptyList();
         }
         
-        System.out.println("selrows : " + Arrays.toString(selRows));
         //fileTree.getPathForRow()
 
         //TreePath path = fileTree.getSelectionModel().getSelectionPath();
@@ -211,6 +210,14 @@ public class FileExplorer extends AbstractPresenter {
             if (!areChildrenDefined)
                 defineChildNodes();
             return (super.getChildCount());
+        }
+
+        @Override
+        public Enumeration children() {
+            if (!areChildrenDefined) {
+                defineChildNodes();
+            }
+            return super.children();
         }
 
         private void defineChildNodes() {

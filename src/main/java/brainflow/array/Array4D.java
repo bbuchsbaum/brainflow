@@ -1,6 +1,7 @@
-package org.boxwood.array;
+package brainflow.array;
 
-import brainflow.utils.Dimension3D;
+import brainflow.image.interpolation.InterpolationFunction4D;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.utils.Dimension4D;
 
 /**
@@ -10,7 +11,7 @@ import brainflow.utils.Dimension4D;
  * Time: 11:38:32 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class Array4D implements IArray4D {
+public abstract class Array4D implements IArray4D, IArrayBuffer4D {
 
     private int dim0, dim1, dim2, dim3, len;
 
@@ -29,8 +30,9 @@ public abstract class Array4D implements IArray4D {
 
         dim_01 = dim0*dim1;
         dim_012 = dim0*dim1*dim2;
-
-        len = dim0*dim1;
+        
+        len = dim0*dim1*dim2*dim3;
+        
         dim = new Dimension4D<Integer>(dim0, dim1, dim2, dim3);
     }
 
@@ -140,9 +142,19 @@ public abstract class Array4D implements IArray4D {
             data[i] = val;
         }
 
-        @Override
+
         public Class getType() {
             return java.lang.Double.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, double z, double t, InterpolationFunction4D interp) {
+            return interp.interpolate(x,y,z,t,this);
         }
     }
 
@@ -225,9 +237,19 @@ public abstract class Array4D implements IArray4D {
             data[i] = val;
         }
 
-        @Override
+
         public Class getType() {
             return java.lang.Float.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, double z, double t, InterpolationFunction4D interp) {
+            return interp.interpolate(x,y,z,t,this);
         }
     }
 
@@ -310,9 +332,19 @@ public abstract class Array4D implements IArray4D {
             data[i] = val;
         }
 
-        @Override
+
         public Class getType() {
             return Integer.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, double z, double t, InterpolationFunction4D interp) {
+            return interp.interpolate(x,y,z,t,this);
         }
     }
 
@@ -395,9 +427,19 @@ public abstract class Array4D implements IArray4D {
             data[i] = val;
         }
 
-        @Override
+
         public Class getType() {
             return java.lang.Short.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, double z, double t, InterpolationFunction4D interp) {
+            return interp.interpolate(x,y,z,t,this);
         }
     }
     public static class Byte extends Array4D {
@@ -479,9 +521,19 @@ public abstract class Array4D implements IArray4D {
             data[i] = val;
         }
 
-        @Override
+
         public Class getType() {
             return java.lang.Byte.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, double z, double t, InterpolationFunction4D interp) {
+            return interp.interpolate(x,y,z,t,this);
         }
     }
 

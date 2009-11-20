@@ -27,7 +27,7 @@ public class ResourceManager {
     private static String defaultColorMap = "grayscale";
 
     protected ResourceManager() {
-        cachedMaps.put("grayscale", ColorTable.GRAYSCALE);
+        //cachedMaps.put("grayscale", ColorTable.GRAYSCALE);
         // Exists only to thwart instantiation.
     }
 
@@ -68,7 +68,8 @@ public class ResourceManager {
     //}
 
     private void loadColorMaps() throws IOException {
-
+        cachedMaps.put("GrayScale", ColorTable.GRAYSCALE);
+        cachedMaps.put("Spectrum", ColorTable.SPECTRUM);
         cachedMaps.put("YellowRed", ColorBrewer.YellowRed);
         cachedMaps.put("YellowGreenBlue", ColorBrewer.YellowGreenBlue);
         cachedMaps.put("RedYellowBlue", ColorBrewer.RedYellowBlue);
@@ -76,7 +77,7 @@ public class ResourceManager {
         cachedMaps.put("PurpleBlue", ColorBrewer.PurpleBlue);
         cachedMaps.put("Reds", ColorBrewer.Reds);
         cachedMaps.put("Greens", ColorBrewer.Greens);
-        cachedMaps.put("BrownBlueGreen", ColorBrewer.BrownBlueGreen);
+        cachedMaps.put("OrangePurple", ColorBrewer.OrangePurple);
 
         InputStream istream = getClass().getClassLoader().getResourceAsStream("colormaps/colormap.properties");
 
@@ -92,9 +93,7 @@ public class ResourceManager {
             try {
 
                 URL url = getClass().getClassLoader().getResource(location);
-
                 IndexColorModel icm = ColorTable.createFromXMLInputStream(url.openStream());
-
                 cachedMaps.put(name, icm);
             } catch (Exception bfe) {
                 log.severe("Failed to load colormap: " + name + ", at: " + location);

@@ -98,7 +98,7 @@ public class ImageInfo implements java.io.Serializable {
         intercept = info.intercept;
         dataType = info.dataType;
         anatomy = info.anatomy;
-        dimensionality = 3;
+        dimensionality = info.dimensionality;
         byteOffset = info.byteOffset;
         numImages = info.numImages;
         origin = new Point3D(info.origin);
@@ -301,7 +301,7 @@ public class ImageInfo implements java.io.Serializable {
     }
 
     public ImageReader createImageReader() {
-        return new BasicImageReader(this);
+        return new BasicImageReader3D(this);
     }
 
     void setDataFile(FileObject fobj) {

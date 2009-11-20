@@ -53,7 +53,7 @@ public class ConnComp3D {
 
     public ConnComp3D(IMaskedData3D data) {
         this.data = data;
-        labels = new BasicImageData3D(data.getImageSpace(), DataType.INTEGER).createWriter(false);
+        labels = new BasicImageData3D.Int(data.getImageSpace()).createBuffer(false);
         unionArray = new UnionFindArray(50000);
     }
 
@@ -196,7 +196,7 @@ public class ConnComp3D {
         watch.stopAndReport("conncomp");
 
 
-        IImageData3D dat3d = comp.labels.asImageData();
+        IImageData3D dat3d = comp.labels;
         System.out.println("dat3d max " + dat3d.maxValue());
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
         ImageViewModel model = new ImageViewModel("test", new ImageLayer3D(dat3d));

@@ -1,4 +1,4 @@
-package org.boxwood.array;
+package brainflow.array;
 
 import brainflow.image.interpolation.InterpolationFunction3D;
 
@@ -15,7 +15,7 @@ public interface IDataGrid3D extends IDataGrid, IArray3D {
     public double value(float x, float y, float z, InterpolationFunction3D interp);
 
 
-    public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1);
+
 
  
 }

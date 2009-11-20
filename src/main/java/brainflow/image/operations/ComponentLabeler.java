@@ -190,14 +190,14 @@ public class ComponentLabeler {
 
 	/**Method for returning the labelled volume */
 	public IImageData3D getLabelledComponents() {
-		return labelledVolume.asImageData();
+		return labelledVolume;
 	}
 
 	/**Returns the volume containing the size of each
 	 * cluster */
 	public IImageData3D getSizeVolume(ImageBuffer3D cluster_size_writer) {
-		IImageData3D clusterSize = cluster_size_writer.asImageData();
-		ValueIterator iter = clusterSize.iterator();
+		IImageData3D clusterSize = cluster_size_writer;
+		ValueIterator iter = clusterSize.valueIterator();
 
 		int label;
 		Map<Integer,Integer> sizes = getClusterSizes();
@@ -244,7 +244,7 @@ public class ComponentLabeler {
 	/**Method that returns an array containing the size of each
 	 * labelled cluster */
 	public Map<Integer, Integer> getClusterSizes() {
-		ValueIterator imageIterator = labelledVolume.iterator();
+		ValueIterator imageIterator = labelledVolume.valueIterator();
 
 		Map<Integer, Integer> sizes = new HashMap<Integer, Integer>();
 

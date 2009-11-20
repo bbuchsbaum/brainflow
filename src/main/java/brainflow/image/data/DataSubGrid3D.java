@@ -4,11 +4,10 @@ import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
-import brainflow.image.iterators.Iterator3D;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.axis.ImageAxis;
 import brainflow.utils.Dimension3D;
-import org.boxwood.array.IDataGrid3D;
+import brainflow.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,7 +18,7 @@ import org.boxwood.array.IDataGrid3D;
  */
 
 
-public class DataSubGrid3D implements IDataGrid3D {
+public class DataSubGrid3D  {
 
     private IImageData3D wrapped;
 
@@ -80,45 +79,47 @@ public class DataSubGrid3D implements IDataGrid3D {
 
     }
 
-    @Override
+
     public double value(float x, float y, float z, InterpolationFunction3D interp) {
-        return interp.interpolate(x, y, z, this);
+        //return interp.interpolate(x, y, z, this);
+        throw new UnsupportedOperationException();
     }
 
-    @Override
+
     public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
+
     public Dimension3D<Integer> dim() {
         return new Dimension3D<Integer>(xlen, ylen, zlen);
     }
 
-    @Override
+
     public int indexOf(int i, int j, int k) {
         return wrapped.indexOf(i-xoffset, j-yoffset, k-zoffset);
     }
 
-    @Override
+
     public double value(int x, int y, int z) {
         return wrapped.value(x + xoffset, y + yoffset, z + zoffset);
     }
 
 
-    @Override
+
     public double value(int index) {
         return wrapped.value(index + indexOffset);
     }
 
-    @Override
+
     public int length() {
         return space.getNumSamples();
     }
 
-    @Override
+
     public ValueIterator iterator() {
-        return new Iterator3D(this);
+        //return new Iterator3D(this);
+        throw new UnsupportedOperationException();
     }
 
 

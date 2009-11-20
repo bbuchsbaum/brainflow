@@ -109,9 +109,9 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
     }
 
     private IImageData3D relabel(IImageData3D data) {
-        ImageBuffer3D writer = data.createWriter(true);
+        ImageBuffer3D writer = data.createBuffer(true);
         OpenIntIntHashMap map = new OpenIntIntHashMap();
-        ValueIterator iter = data.iterator();
+        ValueIterator iter = data.valueIterator();
         int lab= 1;
         while (iter.hasNext()) {
             int idx = iter.index();
@@ -128,7 +128,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
             }
         }
 
-        return writer.asImageData();
+        return writer;
     }
 
 
@@ -168,7 +168,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
 
         } while (nswaps > 0);
 
-        IImageData3D labelData = new BasicImageData3D(space, labels);
+        IImageData3D labelData = new BasicImageData3D.Int(space, labels);
 
         return relabel(labelData);
     }

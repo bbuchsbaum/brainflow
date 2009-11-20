@@ -38,7 +38,7 @@ public abstract class AbstractImageFilter implements ImageFilter {
     protected ImageIterator[] getSourceIterators() {
         ImageIterator[] iters = new ImageIterator[sources.size()];
         for (int i = 0; i < iters.length; i++) {
-            iters[i] = ((BasicImageData) sources.get(i)).iterator();
+            iters[i] = ((BasicImageData) sources.get(i)).valueIterator();
         }
         return iters;
     }

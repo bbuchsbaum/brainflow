@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module relativePaths="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="Groovy" name="Groovy">
-      <configuration compile="true" />
-    </facet>
     <facet type="Scala" name="Scala">
-      <configuration />
+      <configuration>
+        <option name="takeFromSettings" value="true" />
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
@@ -24,13 +23,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="groovy-1.6.3" level="application" />
+    <orderEntry type="library" name="groovy-1.6.5" level="application" />
     <orderEntry type="library" name="eventbus" level="application" />
     <orderEntry type="library" name="datatips" level="application" />
     <orderEntry type="library" name="bean-properties" level="application" />
     <orderEntry type="library" name="eventbus" level="application" />
     <orderEntry type="library" name="gui-commands" level="application" />
-    <orderEntry type="library" name="commons-vfs" level="application" />
+    <orderEntry type="library" exported="" name="commons-vfs" level="application" />
     <orderEntry type="library" name="jgoodies-forms" level="application" />
     <orderEntry type="library" name="xstream" level="application" />
     <orderEntry type="library" name="jdom" level="application" />
@@ -42,7 +41,6 @@
     <orderEntry type="library" name="jvyaml" level="application" />
     <orderEntry type="library" name="jxlayer-3.0" level="application" />
     <orderEntry type="library" name="args4j" level="application" />
-    <orderEntry type="library" name="quaqua" level="application" />
     <orderEntry type="library" name="jide-2.7.0" level="application" />
     <orderEntry type="library" name="synthetica" level="application" />
     <orderEntry type="library" name="balloontip" level="application" />
@@ -61,10 +59,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="gradle" level="application" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ACTIVE_VCS_NAME" value="svn" />
-    <option name="USE_PROJECT_VCS" value="false" />
+    <orderEntry type="library" name="scala-2.8.0" level="application" />
   </component>
 </module>
 

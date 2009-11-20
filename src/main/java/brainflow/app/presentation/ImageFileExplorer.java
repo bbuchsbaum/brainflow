@@ -64,7 +64,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     private InfiniteProgressPanel progressPanel = new InfiniteProgressPanel() {
         public Dimension getPreferredSize() {
-            return new Dimension(20, 20);
+            return new Dimension(200, 200);
         }
     };
 
@@ -87,17 +87,16 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         explorer.addTreeSelectionListener(this);
 
 
-        overlayPanel = new DefaultOverlayable(explorer.getJTree());
-        overlayPanel.addOverlayComponent(progressPanel);
-        overlayPanel.setOverlayVisible(false);
-        progressPanel.stop();
-
         initTreeExpansionListener();
         initCellRenderer();
         initDnD();
 
-        scrollPane = new JScrollPane(overlayPanel);
-
+        scrollPane = new JScrollPane(explorer.getComponent());
+        overlayPanel = new DefaultOverlayable(scrollPane);
+        overlayPanel.addOverlayComponent(progressPanel);
+        overlayPanel.setOverlayVisible(false);
+        overlayPanel.setOverlayLocation(explorer.getComponent(), SwingConstants.CENTER);
+        progressPanel.stop();
 
     }
 
@@ -129,8 +128,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
 
                     if (limg.isLoaded()) { //&& !selected) {
-                        System.out.println("image " + limg  + " is loaded");
-                        label.setForeground(Color.GREEN.darker().darker());
+                         label.setForeground(Color.GREEN.darker().darker());
                     }
 
                 }
@@ -189,7 +187,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         progressPanel.stop();
         overlayPanel.setOverlayVisible(false);
 
-
     }
 
     private void initDnD() {
@@ -232,23 +229,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new WindowsLookAndFeel());
-            ImageFileExplorer explorer = new ImageFileExplorer(VFS.getManager().resolveFile("C:/javacode"));
 
-
-            JFrame frame = new JFrame();
-            frame.add(explorer.getComponent(), BorderLayout.CENTER);
-            frame.pack();
-            frame.setVisible(true);
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public TreeModel getTreeModel() {
         return explorer.getJTree().getModel();
@@ -256,7 +237,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
     public JComponent getComponent() {
-        return scrollPane;
+        return overlayPanel;
     }
 
     public JTree getJTree() {
@@ -364,6 +345,26 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             TreeUtils.loadExpansionStateByTreePath(getJTree(), state);
 
         }
+
+    }
+
+    public List<LazyNode> getSelectedNodes() {
+        int[] selRows = explorer.getJTree().getSelectionModel().getSelectionRows();
+        if (selRows ==null) {
+            return Collections.emptyList();
+        }
+
+
+        List<LazyNode> nodes = new ArrayList<LazyNode>();
+
+        for (int i : selRows) {
+            TreePath path = explorer.getJTree().getPathForRow(i);
+            Object[] opath = path.getPath();
+            if (opath != null && opath.length > 0)
+                nodes.add((LazyNode) opath[opath.length-1]);
+        }
+
+        return nodes;
 
     }
 
@@ -751,6 +752,24 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                 return getFileObject().getName().getBaseName();
         }
 
+
+    }
+
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new WindowsLookAndFeel());
+            ImageFileExplorer explorer = new ImageFileExplorer(VFS.getManager().resolveFile("C:/javacode"));
+
+
+            JFrame frame = new JFrame();
+            frame.add(explorer.getComponent(), BorderLayout.CENTER);
+            frame.pack();
+            frame.setVisible(true);
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

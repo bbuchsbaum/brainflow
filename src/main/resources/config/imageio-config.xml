@@ -2,19 +2,19 @@
     <!--[ ... ]-->
     <ImageFormat name="Analyze7.5">
         <Header extension=".hdr" reader="brainflow.image.io.AnalyzeInfoReader"/>
-        <Data extension=".img" reader="brainflow.image.io.BasicImageReader"/>
+        <Data extension=".img" reader="brainflow.image.io.BasicImageReader3D"/>
     </ImageFormat>
     <ImageFormat name="Nifti1">
         <Header extension=".nii" reader="brainflow.image.io.NiftiInfoReader"/>
-        <Data extension=".nii" reader="brainflow.image.io.BasicImageReader"/>
+        <Data extension=".nii" reader="brainflow.image.io.BasicImageReader3D"/>
     </ImageFormat>
     <ImageFormat name="Nifti1-gz">
         <Header extension=".nii.gz" reader="brainflow.image.io.NiftiInfoReader"/>
-        <Data extension=".nii.gz" reader="brainflow.image.io.BasicImageReader"/>
+        <Data extension=".nii.gz" reader="brainflow.image.io.BasicImageReader3D"/>
     </ImageFormat>
     <ImageFormat name="AFNI">
         <Header extension=".HEAD" reader="brainflow.image.io.AFNIInfoReader"/>
-        <Data extension=".BRIK" reader="brainflow.image.io.BasicImageReader"/>
+        <Data extension=".BRIK" reader="brainflow.image.io.BasicImageReader3D"/>
     </ImageFormat>
 
 

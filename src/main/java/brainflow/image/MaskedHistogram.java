@@ -33,7 +33,7 @@ public class MaskedHistogram extends Histogram {
 
         binSize = (maxValue - minValue) / getNumBins();
 
-        ValueIterator iter = getData().iterator();
+        ValueIterator iter = getData().valueIterator();
 
         while (iter.hasNext()) {
             if (!mask.isTrue(iter.index())) {

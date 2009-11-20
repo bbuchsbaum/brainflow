@@ -59,7 +59,7 @@ public class Histogram {
 
         binSize = (maxValue - minValue) / numBins;
 
-        ValueIterator iter = data.iterator();
+        ValueIterator iter = data.valueIterator();
 
         while (iter.hasNext()) {
             double val = iter.next();

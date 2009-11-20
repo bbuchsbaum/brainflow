@@ -1,6 +1,7 @@
-package org.boxwood.array;
+package brainflow.array;
 
-import brainflow.image.interpolation.InterpolationFunction3D;
+
+import brainflow.image.interpolation.InterpolationFunction4D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,9 +12,7 @@ import brainflow.image.interpolation.InterpolationFunction3D;
  */
 public interface IDataGrid4D extends IDataGrid, IArray4D {
 
-    public double value(float x, float y, float z, float t, InterpolationFunction3D interp);
+    public double value(double x, double y, double z, double t, InterpolationFunction4D interp);
 
     
-
-
 }

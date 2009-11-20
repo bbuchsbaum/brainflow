@@ -11,5 +11,5 @@ public interface IntImageData2D extends IImageData2D  {
 
     public int getIntValue(int x, int y);
 
-    ImageBuffer2D createWriter(boolean clear);
+    ImageBuffer2D createBuffer(boolean clear);
 }

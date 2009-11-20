@@ -31,7 +31,7 @@ public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D 
         super(src.getImageSpace());
 
         BitVector bits = getBitVector();
-        ImageIterator iter = src.iterator();
+        ImageIterator iter = src.valueIterator();
         while (iter.hasNext()) {
             int i = iter.index();
             double val = iter.next();
@@ -80,8 +80,9 @@ public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D 
         return space.getDimension(Axis.X_AXIS) * y + x;
     }
 
+
     @Override
-    public double value(float x, float y, InterpolationFunction2D interp) {
+    public double value(double x, double y, InterpolationFunction2D interp) {
         return interp.interpolate(x, y, this);
     }
 
@@ -119,7 +120,7 @@ public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D 
         getBitVector().putQuick(indexOf(x, y), val > 0);
     }
 
-    public ImageBuffer2D createWriter(boolean clear) {
+    public ImageBuffer2D createBuffer(boolean clear) {
         throw new UnsupportedOperationException();
     }
 }

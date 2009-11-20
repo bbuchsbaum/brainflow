@@ -1,9 +1,11 @@
 package brainflow.app.actions;
 
 import brainflow.app.presentation.ColorBandChartPresenter;
+import brainflow.app.presentation.controls.CustomColorMapDesigner;
 import brainflow.colormap.IColorMap;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.ImageView;
+import brainflow.utils.Range;
 
 
 import javax.swing.*;
@@ -38,14 +40,16 @@ public class DesignColorMapCommand extends BrainFlowCommand {
             // todo fix me
             //IColorMap copyMap = oldMap.copy();
 
-            ColorBandChartPresenter presenter = new ColorBandChartPresenter(layer.
-                    getLayerProps().getColorMap());
-            int ret = JOptionPane.showOptionDialog(JOptionPane.getFrameForComponent(presenter.getComponent()), presenter.getComponent(), "Design Color Map", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+            //ColorBandChartPresenter presenter = new ColorBandChartPresenter(layer.
+            //        getLayerProps().getColorMap());
+
+            CustomColorMapDesigner designer = new CustomColorMapDesigner(new Range(layer.getMinValue(), layer.getMaxValue()));
+
+            int ret = JOptionPane.showOptionDialog(JOptionPane.getFrameForComponent(designer), designer, "Design Color Map", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
                     null, null, null);
 
-            if (ret != JOptionPane.OK_OPTION) {
-                layer.getLayerProps().colorMap.set(oldMap);
-
+            if (ret == JOptionPane.OK_OPTION) {
+                layer.getLayerProps().colorMap.set(designer.getColorMap());
             }
 
             // }

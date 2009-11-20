@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project relativePaths="false" version="4">
+<project version="4">
   <component name="AnalysisUIOptions">
     <option name="ANALYZE_TEST_SOURCES" value="false" />
     <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
@@ -37,74 +37,120 @@
     <list default="true" id="23f8a567-682a-41ec-8fbc-f90972e5b533" name="Favorits Menu should open progress monitor on image load" comment="various and sundry">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer3D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer2D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/Array3D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/AbstractColorMap.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/AbstractColorMap.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IndexSlice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/junkyard/ConnectedComponentsFilter2.java" afterPath="$PROJECT_DIR$/src/main/java/junkyard/ConnectedComponentsFilter2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IArray2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IArrayBuffer2D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/InterpolationFunction2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/InterpolationFunction2D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/gui/ToggleBar.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/gui/ToggleBar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\controls\SequenceParser.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iml" afterPath="$PROJECT_DIR$/brainflow.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid4D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/utils/Range.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/utils/Range.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/spock/brainflow/image/operations/LabelComponentsSpec.groovy" afterPath="$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/spock/brainflow/image/operations/LabelComponentsSpec.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/DiscreteColorMap.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/DiscreteColorMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/space/AbstractImageSpace.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/space/AbstractImageSpace.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/utils/DataType.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/utils/DataType.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\Array2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/Array2D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ComponentLabeler.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ComponentLabeler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BooleanMaskNode3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BooleanMaskNode3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData3D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiImageReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiImageReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/Histogram.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/Histogram.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData4D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData4D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData3D.java" />
-      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\data\DataGrid.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\colormap\DiscreteColorMap2Test.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BivariateMaskNode3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BivariateMaskNode3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ResourceManager.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ResourceManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewModel.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/TrilinearInterpolator.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/TrilinearInterpolator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataSubGrid3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataSubGrid3D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/groovy/testdata/cohtrend_GLT#0_Tstat.nii" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData2D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray4D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/junkyard/ConnectedComponentsFilter3.java" afterPath="$PROJECT_DIR$/src/main/java/junkyard/ConnectedComponentsFilter3.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/AbstractColorBar.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/AbstractColorBar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/DefaultImageSliceRenderer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/DefaultImageSliceRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/MeanImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/MeanImageFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/LoadImageGroupCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiImageInfo.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/NiftiImageInfo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ListImageData3D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData2D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java" />
-      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\core\axial_16.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/KernelArray3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/KernelArray3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/Data.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/Data.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/Array2D.java" />
-      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\core\sagit_16.png" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/LabelTester.java" />
-      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\core\coronal_16.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/space/ImageSpace3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/space/ImageSpace3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/NearestNeighborInterpolator.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/NearestNeighborInterpolator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/MaskedHistogram.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/MaskedHistogram.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/gui/IActionProvider.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IArray.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IArrayBuffer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageFileExplorer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ImageFileExplorer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/CustomColorMapDesigner.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/CustomColorMapDesigner.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/scalaflow/src/sc/brainflow/image/io/ImageFileObjectMatcher.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/RobustSmoothFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/RobustSmoothFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/InterpolationFunction4D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IArray3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageInfo.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageInfo.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\colormap\ContinuousColorMap.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageFiller.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageFiller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/LinearTransformImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/LinearTransformImageFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/utils/FileObjectMatcher.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/ColorEntryTextPane.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/HistogramPresenter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/HistogramPresenter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/DataSubGrid3DSpec.groovy" afterPath="$PROJECT_DIR$/src/main/groovy/spock/brainflow/image/DataSubGrid3DSpec.groovy" />
-      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\data\DataGrid3D.java" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray2D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData2D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/SearchableImageFileExplorer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/SearchableImageFileExplorer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/AbstractImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/AbstractImageFilter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ParallelComponentLabeler.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ParallelComponentLabeler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.ipr" afterPath="$PROJECT_DIR$/brainflow.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/Iterator3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/Iterator3D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray3D.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/Array4D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/BSplineInterpolator.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/BSplineInterpolator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/junkyard/ConnComp.java" afterPath="$PROJECT_DIR$/src/main/java/junkyard/ConnComp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/junkyard/ConnComp3D.java" afterPath="$PROJECT_DIR$/src/main/java/junkyard/ConnComp3D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/UByteImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/UByteImageData2D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CanvasBar.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/CanvasBar.java" />
-      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\data\DataGrid2D.java" afterPath="" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid2D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/SpatialDataGrid.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/SpatialDataGrid.java" />
-      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\data\DataGrid4D.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/BF.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/BF.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\colormap\MapToIndex.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AFNIInfoReader.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AFNIInfoReader.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IDataGrid4D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IDataGrid4D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DesignColorMapCommand.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DesignColorMapCommand.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData2D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BrainIO.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BrainIO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/junkyard/ConnectedComponentsFilter2.java" afterPath="$PROJECT_DIR$/src/main/java/junkyard/ConnectedComponentsFilter2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IntImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IntImageData3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IArray2D.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\Array3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/Array3D.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\Array4D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/Array4D.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IArray3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IArrayBuffer3D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/ConstantValueIterator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/gui/FileObjectRegexTest.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/gui/FileObjectRegexTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorTable.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorTable.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\io\BasicImageReader.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/DiscreteColorMap.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/DiscreteColorMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/ImagePlotLayout.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/ImagePlotLayout.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/ArrayValueIterator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BooleanMaskNode3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BooleanMaskNode3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/RegionGrowingImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/RegionGrowingImageFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ResourceManager.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ResourceManager.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IndexSlice.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IndexSlice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataSubGrid3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataSubGrid3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MaskedData2D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/AbstractImageData3D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer4D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ThresholdImageFilter.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/ThresholdImageFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/BasicImageReader3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/KernelArray3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/KernelArray3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IImageData3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/Data.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/Data.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/DiscreteColorBar.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/DiscreteColorBar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/gui/FileExplorer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/gui/FileExplorer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicImageSliceRenderer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/rendering/BasicImageSliceRenderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/NearestNeighborInterpolator.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/NearestNeighborInterpolator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/AbstractImageReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageFiller.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageFiller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageIODescriptor.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageIODescriptor.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IDataGrid2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IDataGrid2D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\scalaflow\src\sc\brainflow\image\data\AccessJava.scala" afterPath="" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\image\data\SpatialDataGrid.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/ISpatialDataGrid.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config/imageio-config.xml" afterPath="$PROJECT_DIR$/src/main/resources/config/imageio-config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData2D.java" />
+      <change type="DELETED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\WorldCoordinatePresenter2.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IntImageData2D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/data/IntImageData2D.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IArray4D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/Iterator3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/iterators/Iterator3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/MakeData.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/MakeData.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IDataGrid3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IDataGrid3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/BSplineInterpolator.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/BSplineInterpolator.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IArray4D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IArrayBuffer4D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/axis/AxisRange.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/axis/AxisRange.java" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\org\boxwood\array\IDataGrid.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IDataGrid.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/array/IArray.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/IntervalLookupTable.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/IntervalLookupTable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/InterpolationFunction3D.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/interpolation/InterpolationFunction3D.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorBrewer.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorBrewer.java" />
     </list>
     <list id="64c6bf13-b5f4-40b7-bf97-5239b2b30b52" name="Failed commit: Default (5)" comment="Added number labels to BiSlider" />
     <list id="c8652d77-ea6c-4f54-a7b3-b6318514a155" name="Failed commit: Default (4)" comment="Added number labels to BiSlider" />
@@ -137,19 +183,6 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/gui/FileObjectRegexTest.java" line="125" class="brainflow.gui.FileObjectRegexTest" package="brainflow.gui">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/image/operations/RobustSmoothFilter.java" line="40" class="brainflow.image.operations.RobustSmoothFilter" package="brainflow.image.operations">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
@@ -190,6 +223,71 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ProjectTreeView.java" line="342" class="brainflow.app.presentation.ProjectTreeView.ProjectNode" package="brainflow.app.presentation">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/gui/FileObjectRegexTest.java" line="186" class="brainflow.gui.FileObjectRegexTest" package="brainflow.gui">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" line="600" class="brainflow.app.toplevel.BrainFlow$5" package="brainflow.app.toplevel">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" line="624" class="brainflow.app.toplevel.BrainFlow$6" package="brainflow.app.toplevel">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/BrainFlow.java" line="623" class="brainflow.app.toplevel.BrainFlow$6" package="brainflow.app.toplevel">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/ColorBarPresenter.java" line="140" class="brainflow.app.presentation.ColorBarPresenter" package="brainflow.app.presentation">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -250,8 +348,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -326,93 +424,91 @@
   <component name="FileColors" enabled="false" enabledForTabs="false" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MappedDataAcessor3D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java">
+      <file leaf-file-name="SnapShooter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/SnapShooter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="22" selection-start="1832" selection-end="1832" vertical-scroll-proportion="0.0">
+            <state line="25" column="13" selection-start="701" selection-end="701" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IDataGrid2D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid2D.java">
+      <file leaf-file-name="SliceRenderer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/SliceRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="17" selection-start="277" selection-end="277" vertical-scroll-proportion="0.0">
+            <state line="19" column="17" selection-start="523" selection-end="523" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IDataGrid3D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid3D.java">
+      <file leaf-file-name="ImageViewModel.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="17" selection-start="277" selection-end="277" vertical-scroll-proportion="0.0">
+            <state line="380" column="62" selection-start="11129" selection-end="11129" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IDataGrid4D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid4D.java">
+      <file leaf-file-name="ImageViewClientSupport.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewClientSupport.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="17" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0">
+            <state line="16" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IndexSlice.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IndexSlice.java">
+      <file leaf-file-name="ImageViewClient.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="4" selection-start="535" selection-end="535" vertical-scroll-proportion="0.0">
+            <state line="13" column="17" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Array2D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/Array2D.java">
+      <file leaf-file-name="ImageView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="55" selection-start="645" selection-end="645" vertical-scroll-proportion="0.0">
+            <state line="45" column="22" selection-start="1497" selection-end="1497" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Array3D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/Array3D.java">
+      <file leaf-file-name="ImageSpaceChangedEvent.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageSpaceChangedEvent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="28" selection-start="676" selection-end="676" vertical-scroll-proportion="0.0">
+            <state line="14" column="13" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Array4D.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/Array4D.java">
+      <file leaf-file-name="ImagePlotLayout.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImagePlotLayout.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="323" column="39" selection-start="7630" selection-end="7630" vertical-scroll-proportion="0.35315534">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IArray4D.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray4D.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="17" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0">
+            <state line="71" column="38" selection-start="1645" selection-end="1645" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IArray.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray.java">
+      <file leaf-file-name="CustomColorMapDesigner.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/CustomColorMapDesigner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="17" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
+            <state line="307" column="75" selection-start="9312" selection-end="9624" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ColorEntryTextPane.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/ColorEntryTextPane.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="57" column="47" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.5843521">
               <folding />
             </state>
           </provider>
@@ -433,11 +529,6 @@
       </array>
     </option>
   </component>
-  <component name="GroovyCompilerConfiguration">
-    <option name="excludeFromStubGeneration">
-      <ExcludedEntriesConfiguration />
-    </option>
-  </component>
   <component name="HierarchyBrowserManager">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="SORT_ALPHABETICALLY" value="true" />
@@ -446,22 +537,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/IArray4D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData3D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/Data.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/DataSubGrid3D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/BinaryImageData3D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/Array2D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/IndexSlice.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray2D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray3D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray4D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/boxwood/array/Array2D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/boxwood/array/IndexSlice.java" />
-        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/boxwood/array/Array3D.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/boxwood/array/Array4D.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/Junk.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/ImageIODescriptor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/colormap/DiscreteColorBar.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/colormap/AbstractColorBar.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/image/io/AFNIInfoReader.java" />
+        <option value="$PROJECT_DIR$/scalaflow/src/sc/brainflow/image/io/FileMatcher.scala" />
+        <option value="$PROJECT_DIR$/scalaflow/src/sc/brainflow/image/io/ImageFileObjectMatcher.scala" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorBrewer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorTable.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/toplevel/ResourceManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/actions/DesignColorMapCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/CustomColorMapDesigner.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/colormap/AbstractColorMap.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/core/ImagePlotLayout.java" />
+        <option value="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/ColorEntryTextPane.java" />
       </list>
     </option>
   </component>
@@ -499,6 +590,9 @@
     <option name="IS_GET_METHOD_ICONS_ENABLED" value="true" />
     <option name="IS_SET_METHOD_ICONS_ENABLED" value="true" />
     <option name="IS_UNIT_TEST_ENABLED" value="false" />
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.7" />
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -694,7 +788,7 @@
     <option name="lastEditedConfigurable" value="jgoodies-looks" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="PackagesPane" proportions="" version="1" splitterProportion="0.5">
       <flattenPackages ProjectPane="false" />
       <showMembers />
       <showModules />
@@ -706,130 +800,150 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Favorites" />
       <pane id="ProjectPane">
+        <subPane />
+      </pane>
+      <pane id="Favorites" />
+      <pane id="PackagesPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="brainflow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="brainflow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="brainflow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="boxwood" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="layer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="brainflow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="boxwood" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="array" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="brainflow" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="presentation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="brainflow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="brainflow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="brainflow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="presentation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controls" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -847,20 +961,20 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth4" value="854" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeWidth3" value="180" />
     <property name="cvs_file_history_flatWidth2" value="298" />
-    <property name="cvs_file_history_flatWidth3" value="298" />
     <property name="cvs_file_history_treeOrder0" value="0" />
+    <property name="cvs_file_history_flatWidth3" value="298" />
     <property name="cvs_file_history_flatWidth0" value="298" />
-    <property name="cvs_file_history_flatWidth1" value="298" />
     <property name="GoToClass.includeLibraries" value="false" />
+    <property name="cvs_file_history_flatWidth1" value="298" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
-    <property name="options.lastSelected" value="preferences.lookFeel" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth1" value="234" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Facets" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth0" value="193" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth3" value="34" />
     <property name="OverrideImplement.combined" value="true" />
@@ -882,18 +996,18 @@
     <property name="cvs_file_history_treeWidth3" value="298" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_flatWidth4" value="897" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="cvs_file_history_flatOrder2" value="2" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="cvs_file_history_flatOrder3" value="3" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="cvs_file_history_flatOrder0" value="0" />
-    <property name="cvs_file_history_flatOrder1" value="1" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
+    <property name="cvs_file_history_flatOrder1" value="1" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -908,88 +1022,40 @@
       <recent name="brainflow.image.iterators.Iterator3D" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="brainflow" />
       <recent name="org.boxwood.array" />
       <recent name="org.boxwood" />
       <recent name="junkyard" />
       <recent name="brainflow.app" />
-      <recent name="spock.brainflow.image" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LabelComponentsSpec.clustering a big anatomical file is possible">
-    <configuration default="false" name="DataSubGrid3DSpec.creating a DataSubGrid3D is possible" type="JUnit" factoryName="JUnit" temporary="true" enabled="false" merge="false" sample_coverage="true" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
+  <component name="RunManager" selected="Application.ColorEntryTextPane">
+    <configuration default="false" name="Scala Console" type="ScalaScriptConsoleRunConfiguration" factoryName="Scala Console" temporary="true">
       <module name="brainflow" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="spock.brainflow.image" />
-      <option name="MAIN_CLASS_NAME" value="spock.brainflow.image.DataSubGrid3DSpec" />
-      <option name="METHOD_NAME" value="creating a DataSubGrid3D is possible" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-Xmx800m" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
+      <setting name="vmparams" value="" />
+      <setting name="consoleArgs" value="" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" enabled="true" />
-      </method>
+      <method />
     </configuration>
-    <configuration default="false" name="DataSubGrid3DSpec" type="JUnit" factoryName="JUnit" temporary="true" enabled="false" merge="false" sample_coverage="true" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-      <module name="brainflow" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="spock.brainflow.image" />
-      <option name="MAIN_CLASS_NAME" value="spock.brainflow.image.DataSubGrid3DSpec" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-Xmx800m" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method>
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="false" name="DataSubGrid3DSpec.subgrid iteration works as expected" type="JUnit" factoryName="JUnit" temporary="true" enabled="false" merge="false" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-      <module name="brainflow" />
+    <configuration default="false" name="Test" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false">
+        <pattern>
+          <option name="PATTERN" value="sc.brainflow.image.io.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <option name="MAIN_CLASS_NAME" value="sc.brainflow.image.io.Test" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="spock.brainflow.image" />
-      <option name="MAIN_CLASS_NAME" value="spock.brainflow.image.DataSubGrid3DSpec" />
-      <option name="METHOD_NAME" value="subgrid iteration works as expected" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
+      <module name="scalaflow" />
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -997,26 +1063,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="false" name="LabelComponentsSpec" type="JUnit" factoryName="JUnit" temporary="true" enabled="false" merge="false" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.spock.brainflow.image.operations.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-      <module name="brainflow" />
+    <configuration default="false" name="ColorGradientEditor" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false">
+        <pattern>
+          <option name="PATTERN" value="brainflow.app.presentation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <option name="MAIN_CLASS_NAME" value="brainflow.app.presentation.ColorGradientEditor" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="spock.brainflow.image.spock.brainflow.image.operations" />
-      <option name="MAIN_CLASS_NAME" value="spock.brainflow.image.spock.brainflow.image.operations.LabelComponentsSpec" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
+      <module name="brainflow" />
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -1024,31 +1088,73 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="false" name="LabelComponentsSpec.clustering a big anatomical file is possible" type="JUnit" factoryName="JUnit" temporary="true" enabled="false" merge="false" sample_coverage="true" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.spock.brainflow.image.operations.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-      <module name="brainflow" />
+    <configuration default="false" name="CustomColorMapDesigner" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false">
+        <pattern>
+          <option name="PATTERN" value="brainflow.app.presentation.controls.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <option name="MAIN_CLASS_NAME" value="brainflow.app.presentation.controls.CustomColorMapDesigner" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="PACKAGE_NAME" value="spock.brainflow.image.spock.brainflow.image.operations" />
-      <option name="MAIN_CLASS_NAME" value="spock.brainflow.image.spock.brainflow.image.operations.LabelComponentsSpec" />
-      <option name="METHOD_NAME" value="clustering a big anatomical file is possible" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-Xmx800m" />
-      <option name="PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
+      <module name="brainflow" />
       <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="58769" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" name="ColorEntryTextPane" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false">
+        <pattern>
+          <option name="PATTERN" value="brainflow.app.presentation.controls.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="snapshooter" />
+      <option name="MAIN_CLASS_NAME" value="brainflow.app.presentation.controls.ColorEntryTextPane" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="brainflow" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="61463" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" class_file="" class="" config_file="" directory="" file="" is_config_by_xml="false" method_class="" method_file="" method="" scope="Class">
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -1063,7 +1169,9 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false" runner="emma">
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1115,7 +1223,9 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -1137,7 +1247,9 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1186,9 +1298,7 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
-        <option name="AntTarget" enabled="false" />
         <option name="Make" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
     <configuration default="false" name="Unnamed1" type="ScalaScriptRunConfiguration" factoryName="Scala Script">
@@ -1202,9 +1312,7 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
-        <option name="AntTarget" enabled="false" />
         <option name="Make" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
     <configuration default="false" name="JunkTest" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
@@ -1216,12 +1324,12 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method>
-        <option name="AntTarget" enabled="false" />
         <option name="Make" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="false" name="FileObjectRegexTest" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="FileObjectRegexTest" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.gui.FileObjectRegexTest" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1243,7 +1351,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="BrainFlow" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="BrainFlow" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.app.toplevel.BrainFlow" />
       <option name="VM_PARAMETERS" value=" -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -Xmx800m -Xverify:none -ea  -splash:$PROJECT_DIR$/src/main/resources/icons/brainflow_logo.png" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1269,7 +1379,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="TestXStream" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="TestXStream" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.app.mapping.TestXStream" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1294,7 +1406,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="CrosshairForm" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+    <configuration default="false" name="CrosshairForm" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.app.presentation.controls.CrosshairForm" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -1313,7 +1427,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="DiscreteColorMap2Test" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="DiscreteColorMap2Test" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.colormap.DiscreteColorMap2Test" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1338,7 +1454,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="AFNIInfoReader" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+    <configuration default="false" name="AFNIInfoReader" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.image.io.AFNIInfoReader" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1363,7 +1481,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="MaskListEditor" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="MaskListEditor" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="com.brainflow.application.presentation.MaskListEditor" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1385,7 +1505,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="NavigatorBar" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+    <configuration default="false" name="NavigatorBar" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="com.brainflow.application.toplevel.NavigatorBar" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1404,7 +1526,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="MaskConfigurationControl" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="MaskConfigurationControl" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="com.brainflow.application.presentation.controls.MaskConfigurationControl" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1423,7 +1547,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="BasicImageData3D" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+    <configuration default="false" name="BasicImageData3D" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.image.data.BasicImageData3D" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1442,7 +1568,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="GroovyShell" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="GroovyShell" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="org.codehaus.groovy.tools.GroovyStarter" />
       <option name="VM_PARAMETERS" value="-Dgroovy.home=&quot;c:\program files\groovy\groovy-1.5.6&quot; -Dtools.jar=&quot;c:\program files\java\jdk1.6.0_10\lib\tools.jar" />
       <option name="PROGRAM_PARAMETERS" value="--main org.codehaus.groovy.tools.shell.Main --conf &quot;c:\program files\groovy\groovy-1.5.6\conf\groovy-starter.conf&quot;  " />
@@ -1461,7 +1589,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="BiSlider" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="BiSlider" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.gui.BiSlider" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1486,7 +1616,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="BinaryExpressionTester" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="BinaryExpressionTester" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.core.mask.BinaryExpressionTester" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1508,7 +1640,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="PrettySlider" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="PrettySlider" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.gui.PrettySlider" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1530,7 +1664,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="FunctionParser" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="FunctionParser" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.core.mask.FunctionParser" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1552,7 +1688,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="ExceptionDialog" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="ExceptionDialog" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.gui.ExceptionDialog" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1574,7 +1712,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="XAxis" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="XAxis" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.app.chart.XAxis" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1590,7 +1730,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="Hello" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="Hello" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="Hello" />
       <option name="VM_PARAMETERS" value="-Xmx800m" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1612,7 +1754,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="ConnComp" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="ConnComp" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="junkyard.ConnComp" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1637,7 +1781,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="ConnComp3D" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="ConnComp3D" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="junkyard.ConnComp3D" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1656,7 +1802,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="ConnectedComponentsFilter2" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="ConnectedComponentsFilter2" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="junkyard.ConnectedComponentsFilter2" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1681,7 +1829,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="NiftiInfoWriter" type="Application" factoryName="Application" enabled="false" merge="false" runner="emma">
+    <configuration default="false" name="NiftiInfoWriter" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.image.io.NiftiInfoWriter" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -1697,7 +1847,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="BrainFlow2" type="Application" factoryName="Application" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="BrainFlow2" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <option name="MAIN_CLASS_NAME" value="brainflow.app.toplevel.BrainFlow" />
       <option name="VM_PARAMETERS" value="-splash:resources/icons/brainflow-logo-fancy.png" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -1713,11 +1865,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="PermutationMatrix3DSpec.permutation from AIL to LPI works" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
+    <configuration default="false" name="PermutationMatrix3DSpec.permutation from AIL to LPI works" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <module name="brainflow" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1744,11 +1894,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="PermutationMatrix3DSpec.setupSpeck" type="JUnit" factoryName="JUnit" enabled="false" merge="false" sample_coverage="true" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
+    <configuration default="false" name="PermutationMatrix3DSpec.setupSpeck" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <module name="brainflow" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -1773,11 +1921,9 @@
       <ConfigurationWrapper RunnerId="Debug" />
       <method />
     </configuration>
-    <configuration default="false" name="PermutationMatrix3DSpec.permutation from RAS to LPI works" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
+    <configuration default="false" name="PermutationMatrix3DSpec.permutation from RAS to LPI works" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <module name="brainflow" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1804,11 +1950,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="PermutationMatrix3DSpec.permuting a bad index throws an exception" type="JUnit" factoryName="JUnit" enabled="false" merge="false" runner="emma">
-      <pattern>
-        <option name="PATTERN" value="spock.brainflow.image.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
+    <configuration default="false" name="PermutationMatrix3DSpec.permuting a bad index throws an exception" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <module name="brainflow" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -1835,7 +1979,9 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="JunkTest" type="JUnit" factoryName="JUnit" enabled="false" merge="false" sample_coverage="true" runner="emma">
+    <configuration default="false" name="JunkTest" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" />
+      <extension name="snapshooter" />
       <module name="brainflow" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -1856,40 +2002,39 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="33">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.DataSubGrid3DSpec.creating a DataSubGrid3D is possible" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.DataSubGrid3DSpec" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.DataSubGrid3DSpec.subgrid iteration works as expected" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.LabelComponentsSpec" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.LabelComponentsSpec.clustering a big anatomical file is possible" />
-      <item index="5" class="java.lang.String" itemvalue="Application.FileObjectRegexTest" />
-      <item index="6" class="java.lang.String" itemvalue="Application.BrainFlow" />
-      <item index="7" class="java.lang.String" itemvalue="Application.TestXStream" />
-      <item index="8" class="java.lang.String" itemvalue="Application.CrosshairForm" />
-      <item index="9" class="java.lang.String" itemvalue="Application.DiscreteColorMap2Test" />
-      <item index="10" class="java.lang.String" itemvalue="Application.AFNIInfoReader" />
-      <item index="11" class="java.lang.String" itemvalue="Application.MaskListEditor" />
-      <item index="12" class="java.lang.String" itemvalue="Application.NavigatorBar" />
-      <item index="13" class="java.lang.String" itemvalue="Application.MaskConfigurationControl" />
-      <item index="14" class="java.lang.String" itemvalue="Application.BasicImageData3D" />
-      <item index="15" class="java.lang.String" itemvalue="Application.GroovyShell" />
-      <item index="16" class="java.lang.String" itemvalue="Application.BiSlider" />
-      <item index="17" class="java.lang.String" itemvalue="Application.BinaryExpressionTester" />
-      <item index="18" class="java.lang.String" itemvalue="Application.PrettySlider" />
-      <item index="19" class="java.lang.String" itemvalue="Application.FunctionParser" />
-      <item index="20" class="java.lang.String" itemvalue="Application.ExceptionDialog" />
-      <item index="21" class="java.lang.String" itemvalue="Application.XAxis" />
-      <item index="22" class="java.lang.String" itemvalue="Application.Hello" />
-      <item index="23" class="java.lang.String" itemvalue="Application.ConnComp" />
-      <item index="24" class="java.lang.String" itemvalue="Application.ConnComp3D" />
-      <item index="25" class="java.lang.String" itemvalue="Application.ConnectedComponentsFilter2" />
-      <item index="26" class="java.lang.String" itemvalue="Application.NiftiInfoWriter" />
-      <item index="27" class="java.lang.String" itemvalue="Application.BrainFlow2" />
-      <item index="28" class="java.lang.String" itemvalue="JUnit.PermutationMatrix3DSpec.permutation from AIL to LPI works" />
-      <item index="29" class="java.lang.String" itemvalue="JUnit.PermutationMatrix3DSpec.setupSpeck" />
-      <item index="30" class="java.lang.String" itemvalue="JUnit.PermutationMatrix3DSpec.permutation from RAS to LPI works" />
-      <item index="31" class="java.lang.String" itemvalue="JUnit.PermutationMatrix3DSpec.permuting a bad index throws an exception" />
-      <item index="32" class="java.lang.String" itemvalue="JUnit.JunkTest" />
+    <list size="32">
+      <item index="0" class="java.lang.String" itemvalue="Application.Test" />
+      <item index="1" class="java.lang.String" itemvalue="Application.ColorGradientEditor" />
+      <item index="2" class="java.lang.String" itemvalue="Application.CustomColorMapDesigner" />
+      <item index="3" class="java.lang.String" itemvalue="Application.ColorEntryTextPane" />
+      <item index="4" class="java.lang.String" itemvalue="Application.FileObjectRegexTest" />
+      <item index="5" class="java.lang.String" itemvalue="Application.BrainFlow" />
+      <item index="6" class="java.lang.String" itemvalue="Application.TestXStream" />
+      <item index="7" class="java.lang.String" itemvalue="Application.CrosshairForm" />
+      <item index="8" class="java.lang.String" itemvalue="Application.DiscreteColorMap2Test" />
+      <item index="9" class="java.lang.String" itemvalue="Application.AFNIInfoReader" />
+      <item index="10" class="java.lang.String" itemvalue="Application.MaskListEditor" />
+      <item index="11" class="java.lang.String" itemvalue="Application.NavigatorBar" />
+      <item index="12" class="java.lang.String" itemvalue="Application.MaskConfigurationControl" />
+      <item index="13" class="java.lang.String" itemvalue="Application.BasicImageData3D" />
+      <item index="14" class="java.lang.String" itemvalue="Application.GroovyShell" />
+      <item index="15" class="java.lang.String" itemvalue="Application.BiSlider" />
+      <item index="16" class="java.lang.String" itemvalue="Application.BinaryExpressionTester" />
+      <item index="17" class="java.lang.String" itemvalue="Application.PrettySlider" />
+      <item index="18" class="java.lang.String" itemvalue="Application.FunctionParser" />
+      <item index="19" class="java.lang.String" itemvalue="Application.ExceptionDialog" />
+      <item index="20" class="java.lang.String" itemvalue="Application.XAxis" />
+      <item index="21" class="java.lang.String" itemvalue="Application.Hello" />
+      <item index="22" class="java.lang.String" itemvalue="Application.ConnComp" />
+      <item index="23" class="java.lang.String" itemvalue="Application.ConnComp3D" />
+      <item index="24" class="java.lang.String" itemvalue="Application.ConnectedComponentsFilter2" />
+      <item index="25" class="java.lang.String" itemvalue="Application.NiftiInfoWriter" />
+      <item index="26" class="java.lang.String" itemvalue="Application.BrainFlow2" />
+      <item index="27" class="java.lang.String" itemvalue="JUnit.PermutationMatrix3DSpec.permutation from AIL to LPI works" />
+      <item index="28" class="java.lang.String" itemvalue="JUnit.PermutationMatrix3DSpec.setupSpeck" />
+      <item index="29" class="java.lang.String" itemvalue="JUnit.PermutationMatrix3DSpec.permutation from RAS to LPI works" />
+      <item index="30" class="java.lang.String" itemvalue="JUnit.PermutationMatrix3DSpec.permuting a bad index throws an exception" />
+      <item index="31" class="java.lang.String" itemvalue="JUnit.JunkTest" />
     </list>
   </component>
   <component name="ScopeChooserConfigurable.UI">
@@ -1989,969 +2134,46 @@
     </option>
   </component>
   <component name="TaskManager">
-    <option name="tasks">
-      <list>
-        <task id="Default" summary="Default task">
-          <option name="active" value="true" />
-          <option name="created" value="1251144133876" />
-          <option name="updated" value="1252089061442" />
-        </task>
-        <task id="LOCAL-00001" summary="Failed commit: Default (3)">
-          <option name="created" value="1246536010705" />
-          <option name="updated" value="1246536010705" />
-        </task>
-        <task id="LOCAL-00002" summary="Failed commit: Default (5)">
-          <option name="created" value="1246536010705" />
-          <option name="updated" value="1246536010705" />
-        </task>
-        <task id="LOCAL-00003" summary="Failed commit: Default (4)">
-          <option name="created" value="1246536010705" />
-          <option name="updated" value="1246536010705" />
-        </task>
-        <task id="LOCAL-00004" summary="Failed commit: Default (7)">
-          <option name="created" value="1246536010705" />
-          <option name="updated" value="1246536010705" />
-        </task>
-        <task id="LOCAL-00005" summary="Failed commit: Default">
-          <option name="created" value="1246536010705" />
-          <option name="updated" value="1246536010705" />
-        </task>
-        <task id="LOCAL-00006" summary="Failed commit: Default (2)">
-          <option name="created" value="1246536010705" />
-          <option name="updated" value="1246536010705" />
-        </task>
-        <task id="LOCAL-00007" summary="Failed commit: Default (3)">
-          <option name="created" value="1246538016974" />
-          <option name="updated" value="1246538016974" />
-        </task>
-        <task id="LOCAL-00008" summary="Failed commit: Default (5)">
-          <option name="created" value="1246538016974" />
-          <option name="updated" value="1246538016974" />
-        </task>
-        <task id="LOCAL-00009" summary="Failed commit: Default (4)">
-          <option name="created" value="1246538016974" />
-          <option name="updated" value="1246538016974" />
-        </task>
-        <task id="LOCAL-00010" summary="Failed commit: Default">
-          <option name="created" value="1246538016974" />
-          <option name="updated" value="1246538016974" />
-        </task>
-        <task id="LOCAL-00011" summary="Failed commit: Default (7)">
-          <option name="created" value="1246538016974" />
-          <option name="updated" value="1246538016974" />
-        </task>
-        <task id="LOCAL-00012" summary="Failed commit: Default (2)">
-          <option name="created" value="1246538016974" />
-          <option name="updated" value="1246538016974" />
-        </task>
-        <task id="LOCAL-00013" summary="Failed commit: Default (3)">
-          <option name="created" value="1246540211385" />
-          <option name="updated" value="1246540211385" />
-        </task>
-        <task id="LOCAL-00014" summary="Failed commit: Default (5)">
-          <option name="created" value="1246540211385" />
-          <option name="updated" value="1246540211385" />
-        </task>
-        <task id="LOCAL-00015" summary="Failed commit: Default (4)">
-          <option name="created" value="1246540211385" />
-          <option name="updated" value="1246540211385" />
-        </task>
-        <task id="LOCAL-00016" summary="Failed commit: Default">
-          <option name="created" value="1246540211385" />
-          <option name="updated" value="1246540211385" />
-        </task>
-        <task id="LOCAL-00017" summary="Failed commit: Default (7)">
-          <option name="created" value="1246540211385" />
-          <option name="updated" value="1246540211385" />
-        </task>
-        <task id="LOCAL-00018" summary="Failed commit: Default (2)">
-          <option name="created" value="1246540211385" />
-          <option name="updated" value="1246540211385" />
-        </task>
-        <task id="LOCAL-00019" summary="Failed commit: Default (3)">
-          <option name="created" value="1246542144789" />
-          <option name="updated" value="1246542144789" />
-        </task>
-        <task id="LOCAL-00020" summary="Failed commit: Default (5)">
-          <option name="created" value="1246542144789" />
-          <option name="updated" value="1246542144789" />
-        </task>
-        <task id="LOCAL-00021" summary="Failed commit: Default (4)">
-          <option name="created" value="1246542144789" />
-          <option name="updated" value="1246542144789" />
-        </task>
-        <task id="LOCAL-00022" summary="Failed commit: Default">
-          <option name="created" value="1246542144789" />
-          <option name="updated" value="1246542144789" />
-        </task>
-        <task id="LOCAL-00023" summary="Failed commit: Default (7)">
-          <option name="created" value="1246542144789" />
-          <option name="updated" value="1246542144789" />
-        </task>
-        <task id="LOCAL-00024" summary="Failed commit: Default (2)">
-          <option name="created" value="1246542144789" />
-          <option name="updated" value="1246542144789" />
-        </task>
-        <task id="LOCAL-00025" summary="Failed commit: Default (3)">
-          <option name="created" value="1246581321757" />
-          <option name="updated" value="1246581321757" />
-        </task>
-        <task id="LOCAL-00026" summary="Failed commit: Default (5)">
-          <option name="created" value="1246581321757" />
-          <option name="updated" value="1246581321757" />
-        </task>
-        <task id="LOCAL-00027" summary="Failed commit: Default (4)">
-          <option name="created" value="1246581321757" />
-          <option name="updated" value="1246581321757" />
-        </task>
-        <task id="LOCAL-00028" summary="Failed commit: Default">
-          <option name="created" value="1246581321757" />
-          <option name="updated" value="1246581321757" />
-        </task>
-        <task id="LOCAL-00029" summary="Failed commit: Default (7)">
-          <option name="created" value="1246581321757" />
-          <option name="updated" value="1246581321757" />
-        </task>
-        <task id="LOCAL-00030" summary="Failed commit: Default (2)">
-          <option name="created" value="1246581321757" />
-          <option name="updated" value="1246581321757" />
-        </task>
-        <task id="LOCAL-00031" summary="Failed commit: Default (3)">
-          <option name="created" value="1246585367198" />
-          <option name="updated" value="1246585367198" />
-        </task>
-        <task id="LOCAL-00032" summary="Failed commit: Default (5)">
-          <option name="created" value="1246585367198" />
-          <option name="updated" value="1246585367198" />
-        </task>
-        <task id="LOCAL-00033" summary="Failed commit: Default (4)">
-          <option name="created" value="1246585367198" />
-          <option name="updated" value="1246585367198" />
-        </task>
-        <task id="LOCAL-00034" summary="Failed commit: Default">
-          <option name="created" value="1246585367198" />
-          <option name="updated" value="1246585367198" />
-        </task>
-        <task id="LOCAL-00035" summary="Failed commit: Default (7)">
-          <option name="created" value="1246585367198" />
-          <option name="updated" value="1246585367198" />
-        </task>
-        <task id="LOCAL-00036" summary="Failed commit: Default (2)">
-          <option name="created" value="1246585367198" />
-          <option name="updated" value="1246585367198" />
-        </task>
-        <task id="LOCAL-00037" summary="Failed commit: Default (3)">
-          <option name="created" value="1246587085354" />
-          <option name="updated" value="1246587085354" />
-        </task>
-        <task id="LOCAL-00038" summary="Failed commit: Default (5)">
-          <option name="created" value="1246587085354" />
-          <option name="updated" value="1246587085354" />
-        </task>
-        <task id="LOCAL-00039" summary="Failed commit: Default (4)">
-          <option name="created" value="1246587085354" />
-          <option name="updated" value="1246587085354" />
-        </task>
-        <task id="LOCAL-00040" summary="Failed commit: Default">
-          <option name="created" value="1246587085354" />
-          <option name="updated" value="1246587085354" />
-        </task>
-        <task id="LOCAL-00041" summary="Failed commit: Default (7)">
-          <option name="created" value="1246587085354" />
-          <option name="updated" value="1246587085354" />
-        </task>
-        <task id="LOCAL-00042" summary="Failed commit: Default (2)">
-          <option name="created" value="1246587085354" />
-          <option name="updated" value="1246587085354" />
-        </task>
-        <task id="LOCAL-00043" summary="Failed commit: Default (3)">
-          <option name="created" value="1246729962051" />
-          <option name="updated" value="1246729962051" />
-        </task>
-        <task id="LOCAL-00044" summary="Failed commit: Default (5)">
-          <option name="created" value="1246729962052" />
-          <option name="updated" value="1246729962052" />
-        </task>
-        <task id="LOCAL-00045" summary="Failed commit: Default (4)">
-          <option name="created" value="1246729962052" />
-          <option name="updated" value="1246729962052" />
-        </task>
-        <task id="LOCAL-00046" summary="Failed commit: Default">
-          <option name="created" value="1246729962052" />
-          <option name="updated" value="1246729962052" />
-        </task>
-        <task id="LOCAL-00047" summary="Failed commit: Default (7)">
-          <option name="created" value="1246729962052" />
-          <option name="updated" value="1246729962052" />
-        </task>
-        <task id="LOCAL-00048" summary="Failed commit: Default (2)">
-          <option name="created" value="1246729962052" />
-          <option name="updated" value="1246729962052" />
-        </task>
-        <task id="LOCAL-00049" summary="Failed commit: Default (3)">
-          <option name="created" value="1246839883916" />
-          <option name="updated" value="1246839883916" />
-        </task>
-        <task id="LOCAL-00050" summary="Failed commit: Default (5)">
-          <option name="created" value="1246839883916" />
-          <option name="updated" value="1246839883916" />
-        </task>
-        <task id="LOCAL-00051" summary="Failed commit: Default (4)">
-          <option name="created" value="1246839883916" />
-          <option name="updated" value="1246839883916" />
-        </task>
-        <task id="LOCAL-00052" summary="Failed commit: Default">
-          <option name="created" value="1246839883916" />
-          <option name="updated" value="1246839883916" />
-        </task>
-        <task id="LOCAL-00053" summary="Failed commit: Default (7)">
-          <option name="created" value="1246839883916" />
-          <option name="updated" value="1246839883916" />
-        </task>
-        <task id="LOCAL-00054" summary="Failed commit: Default (2)">
-          <option name="created" value="1246839883916" />
-          <option name="updated" value="1246839883916" />
-        </task>
-        <task id="LOCAL-00055" summary="Failed commit: Default (3)">
-          <option name="created" value="1246933601662" />
-          <option name="updated" value="1246933601662" />
-        </task>
-        <task id="LOCAL-00056" summary="Failed commit: Default (5)">
-          <option name="created" value="1246933601662" />
-          <option name="updated" value="1246933601662" />
-        </task>
-        <task id="LOCAL-00057" summary="Failed commit: Default (4)">
-          <option name="created" value="1246933601662" />
-          <option name="updated" value="1246933601662" />
-        </task>
-        <task id="LOCAL-00058" summary="Failed commit: Default">
-          <option name="created" value="1246933601662" />
-          <option name="updated" value="1246933601662" />
-        </task>
-        <task id="LOCAL-00059" summary="Failed commit: Default (7)">
-          <option name="created" value="1246933601662" />
-          <option name="updated" value="1246933601662" />
-        </task>
-        <task id="LOCAL-00060" summary="Failed commit: Default (2)">
-          <option name="created" value="1246933601663" />
-          <option name="updated" value="1246933601663" />
-        </task>
-        <task id="LOCAL-00061" summary="Failed commit: Default (3)">
-          <option name="created" value="1247189038661" />
-          <option name="updated" value="1247189038661" />
-        </task>
-        <task id="LOCAL-00062" summary="Failed commit: Default (5)">
-          <option name="created" value="1247189038661" />
-          <option name="updated" value="1247189038661" />
-        </task>
-        <task id="LOCAL-00063" summary="Failed commit: Default (4)">
-          <option name="created" value="1247189038661" />
-          <option name="updated" value="1247189038661" />
-        </task>
-        <task id="LOCAL-00064" summary="Failed commit: Default">
-          <option name="created" value="1247189038662" />
-          <option name="updated" value="1247189038662" />
-        </task>
-        <task id="LOCAL-00065" summary="Failed commit: Default (7)">
-          <option name="created" value="1247189038662" />
-          <option name="updated" value="1247189038662" />
-        </task>
-        <task id="LOCAL-00066" summary="Failed commit: Default (2)">
-          <option name="created" value="1247189038662" />
-          <option name="updated" value="1247189038662" />
-        </task>
-        <task id="LOCAL-00067" summary="Failed commit: Default (3)">
-          <option name="created" value="1247226128396" />
-          <option name="updated" value="1247226128396" />
-        </task>
-        <task id="LOCAL-00068" summary="Failed commit: Default (5)">
-          <option name="created" value="1247226128396" />
-          <option name="updated" value="1247226128396" />
-        </task>
-        <task id="LOCAL-00069" summary="Failed commit: Default (4)">
-          <option name="created" value="1247226128396" />
-          <option name="updated" value="1247226128396" />
-        </task>
-        <task id="LOCAL-00070" summary="Failed commit: Default">
-          <option name="created" value="1247226128396" />
-          <option name="updated" value="1247226128396" />
-        </task>
-        <task id="LOCAL-00071" summary="Failed commit: Default (7)">
-          <option name="created" value="1247226128396" />
-          <option name="updated" value="1247226128396" />
-        </task>
-        <task id="LOCAL-00072" summary="Failed commit: Default (2)">
-          <option name="created" value="1247226128396" />
-          <option name="updated" value="1247226128396" />
-        </task>
-        <task id="LOCAL-00073" summary="Failed commit: Default (3)">
-          <option name="created" value="1247661732775" />
-          <option name="updated" value="1247661732775" />
-        </task>
-        <task id="LOCAL-00074" summary="Failed commit: Default (5)">
-          <option name="created" value="1247661732775" />
-          <option name="updated" value="1247661732775" />
-        </task>
-        <task id="LOCAL-00075" summary="Failed commit: Default (4)">
-          <option name="created" value="1247661732775" />
-          <option name="updated" value="1247661732775" />
-        </task>
-        <task id="LOCAL-00076" summary="Failed commit: Default">
-          <option name="created" value="1247661732775" />
-          <option name="updated" value="1247661732775" />
-        </task>
-        <task id="LOCAL-00077" summary="Failed commit: Default (7)">
-          <option name="created" value="1247661732775" />
-          <option name="updated" value="1247661732775" />
-        </task>
-        <task id="LOCAL-00078" summary="Failed commit: Default (2)">
-          <option name="created" value="1247661732775" />
-          <option name="updated" value="1247661732775" />
-        </task>
-        <task id="LOCAL-00079" summary="Favorits Menu should open progress monitor on image load">
-          <option name="changeLists">
-            <list>
-              <ChangeListInfo id="b614d4db-688e-4640-80c7-8a7dbe26bc49" name="Favorits Menu should open progress monitor on image load" comment="" />
-              <ChangeListInfo id="b614d4db-688e-4640-80c7-8a7dbe26bc49" name="Favorits Menu should open progress monitor on image load" comment="" />
-            </list>
-          </option>
-          <option name="created" value="1247794770240" />
-          <option name="updated" value="1247794804488" />
-        </task>
-        <task id="LOCAL-00080" summary="Failed commit: Default (3)">
-          <option name="created" value="1247828810038" />
-          <option name="updated" value="1247828810038" />
-        </task>
-        <task id="LOCAL-00081" summary="Failed commit: Default (5)">
-          <option name="created" value="1247828810038" />
-          <option name="updated" value="1247828810038" />
-        </task>
-        <task id="LOCAL-00082" summary="Failed commit: Default (4)">
-          <option name="created" value="1247828810039" />
-          <option name="updated" value="1247828810039" />
-        </task>
-        <task id="LOCAL-00083" summary="Failed commit: Default">
-          <option name="created" value="1247828810039" />
-          <option name="updated" value="1247828810039" />
-        </task>
-        <task id="LOCAL-00084" summary="Failed commit: Default (7)">
-          <option name="created" value="1247828810039" />
-          <option name="updated" value="1247828810039" />
-        </task>
-        <task id="LOCAL-00085" summary="Failed commit: Default (2)">
-          <option name="created" value="1247828810039" />
-          <option name="updated" value="1247828810039" />
-        </task>
-        <task id="LOCAL-00086" summary="Failed commit: Default (3)">
-          <option name="created" value="1248142938516" />
-          <option name="updated" value="1248142938516" />
-        </task>
-        <task id="LOCAL-00087" summary="Failed commit: Default (5)">
-          <option name="created" value="1248142938516" />
-          <option name="updated" value="1248142938516" />
-        </task>
-        <task id="LOCAL-00088" summary="Failed commit: Default (4)">
-          <option name="created" value="1248142938516" />
-          <option name="updated" value="1248142938516" />
-        </task>
-        <task id="LOCAL-00089" summary="Failed commit: Default">
-          <option name="created" value="1248142938516" />
-          <option name="updated" value="1248142938516" />
-        </task>
-        <task id="LOCAL-00090" summary="Failed commit: Default (7)">
-          <option name="created" value="1248142938517" />
-          <option name="updated" value="1248142938517" />
-        </task>
-        <task id="LOCAL-00091" summary="Failed commit: Default (2)">
-          <option name="created" value="1248142938517" />
-          <option name="updated" value="1248142938517" />
-        </task>
-        <task id="LOCAL-00092" summary="Failed commit: Default (3)">
-          <option name="created" value="1248310638383" />
-          <option name="updated" value="1248310638383" />
-        </task>
-        <task id="LOCAL-00093" summary="Failed commit: Default (5)">
-          <option name="created" value="1248310638383" />
-          <option name="updated" value="1248310638383" />
-        </task>
-        <task id="LOCAL-00094" summary="Failed commit: Default (4)">
-          <option name="created" value="1248310638383" />
-          <option name="updated" value="1248310638383" />
-        </task>
-        <task id="LOCAL-00095" summary="Failed commit: Default">
-          <option name="created" value="1248310638383" />
-          <option name="updated" value="1248310638383" />
-        </task>
-        <task id="LOCAL-00096" summary="Failed commit: Default (7)">
-          <option name="created" value="1248310638383" />
-          <option name="updated" value="1248310638383" />
-        </task>
-        <task id="LOCAL-00097" summary="Failed commit: Default (2)">
-          <option name="created" value="1248310638383" />
-          <option name="updated" value="1248310638383" />
-        </task>
-        <task id="LOCAL-00098" summary="Failed commit: Default (3)">
-          <option name="created" value="1248310912077" />
-          <option name="updated" value="1248310912077" />
-        </task>
-        <task id="LOCAL-00099" summary="Failed commit: Default (5)">
-          <option name="created" value="1248310912077" />
-          <option name="updated" value="1248310912077" />
-        </task>
-        <task id="LOCAL-00100" summary="Failed commit: Default (4)">
-          <option name="created" value="1248310912078" />
-          <option name="updated" value="1248310912078" />
-        </task>
-        <task id="LOCAL-00101" summary="Failed commit: Default">
-          <option name="created" value="1248310912078" />
-          <option name="updated" value="1248310912078" />
-        </task>
-        <task id="LOCAL-00102" summary="Failed commit: Default (7)">
-          <option name="created" value="1248310912078" />
-          <option name="updated" value="1248310912078" />
-        </task>
-        <task id="LOCAL-00103" summary="Failed commit: Default (2)">
-          <option name="created" value="1248310912078" />
-          <option name="updated" value="1248310912078" />
-        </task>
-        <task id="LOCAL-00104" summary="Failed commit: Default (3)">
-          <option name="created" value="1248548177843" />
-          <option name="updated" value="1248548177843" />
-        </task>
-        <task id="LOCAL-00105" summary="Failed commit: Default (5)">
-          <option name="created" value="1248548177843" />
-          <option name="updated" value="1248548177843" />
-        </task>
-        <task id="LOCAL-00106" summary="Failed commit: Default (4)">
-          <option name="created" value="1248548177843" />
-          <option name="updated" value="1248548177843" />
-        </task>
-        <task id="LOCAL-00107" summary="Failed commit: Default">
-          <option name="created" value="1248548177843" />
-          <option name="updated" value="1248548177843" />
-        </task>
-        <task id="LOCAL-00108" summary="Failed commit: Default (7)">
-          <option name="created" value="1248548177843" />
-          <option name="updated" value="1248548177843" />
-        </task>
-        <task id="LOCAL-00109" summary="Failed commit: Default (2)">
-          <option name="created" value="1248548177843" />
-          <option name="updated" value="1248548177843" />
-        </task>
-        <task id="LOCAL-00110" summary="Failed commit: Default (3)">
-          <option name="created" value="1248627715624" />
-          <option name="updated" value="1248627715624" />
-        </task>
-        <task id="LOCAL-00111" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1248627715624" />
-          <option name="updated" value="1248627715624" />
-        </task>
-        <task id="LOCAL-00112" summary="Failed commit: Default (5)">
-          <option name="created" value="1248627715624" />
-          <option name="updated" value="1248627715624" />
-        </task>
-        <task id="LOCAL-00113" summary="Failed commit: Default (4)">
-          <option name="created" value="1248627715624" />
-          <option name="updated" value="1248627715624" />
-        </task>
-        <task id="LOCAL-00114" summary="Failed commit: Default">
-          <option name="created" value="1248627715624" />
-          <option name="updated" value="1248627715624" />
-        </task>
-        <task id="LOCAL-00115" summary="Failed commit: Default (7)">
-          <option name="created" value="1248627715624" />
-          <option name="updated" value="1248627715624" />
-        </task>
-        <task id="LOCAL-00116" summary="Failed commit: Default (2)">
-          <option name="created" value="1248627715624" />
-          <option name="updated" value="1248627715624" />
-        </task>
-        <task id="LOCAL-00117" summary="Failed commit: Default (3)">
-          <option name="created" value="1248645041135" />
-          <option name="updated" value="1248645041135" />
-        </task>
-        <task id="LOCAL-00118" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1248645041135" />
-          <option name="updated" value="1248645041135" />
-        </task>
-        <task id="LOCAL-00119" summary="Failed commit: Default (5)">
-          <option name="created" value="1248645041135" />
-          <option name="updated" value="1248645041135" />
-        </task>
-        <task id="LOCAL-00120" summary="Failed commit: Default (4)">
-          <option name="created" value="1248645041135" />
-          <option name="updated" value="1248645041135" />
-        </task>
-        <task id="LOCAL-00121" summary="Failed commit: Default">
-          <option name="created" value="1248645041135" />
-          <option name="updated" value="1248645041135" />
-        </task>
-        <task id="LOCAL-00122" summary="Failed commit: Default (7)">
-          <option name="created" value="1248645041135" />
-          <option name="updated" value="1248645041135" />
-        </task>
-        <task id="LOCAL-00123" summary="Failed commit: Default (2)">
-          <option name="created" value="1248645041135" />
-          <option name="updated" value="1248645041135" />
-        </task>
-        <task id="LOCAL-00124" summary="Failed commit: Default (3)">
-          <option name="created" value="1249002493782" />
-          <option name="updated" value="1249002493782" />
-        </task>
-        <task id="LOCAL-00125" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1249002493782" />
-          <option name="updated" value="1249002493782" />
-        </task>
-        <task id="LOCAL-00126" summary="Failed commit: Default (5)">
-          <option name="created" value="1249002493782" />
-          <option name="updated" value="1249002493782" />
-        </task>
-        <task id="LOCAL-00127" summary="Failed commit: Default (4)">
-          <option name="created" value="1249002493782" />
-          <option name="updated" value="1249002493782" />
-        </task>
-        <task id="LOCAL-00128" summary="Failed commit: Default">
-          <option name="created" value="1249002493782" />
-          <option name="updated" value="1249002493782" />
-        </task>
-        <task id="LOCAL-00129" summary="Failed commit: Default (7)">
-          <option name="created" value="1249002493782" />
-          <option name="updated" value="1249002493782" />
-        </task>
-        <task id="LOCAL-00130" summary="Failed commit: Default (2)">
-          <option name="created" value="1249002493782" />
-          <option name="updated" value="1249002493782" />
-        </task>
-        <task id="LOCAL-00131" summary="Failed commit: Default (3)">
-          <option name="created" value="1249348651952" />
-          <option name="updated" value="1249348651952" />
-        </task>
-        <task id="LOCAL-00132" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1249348651953" />
-          <option name="updated" value="1249348651953" />
-        </task>
-        <task id="LOCAL-00133" summary="Failed commit: Default (5)">
-          <option name="created" value="1249348651953" />
-          <option name="updated" value="1249348651953" />
-        </task>
-        <task id="LOCAL-00134" summary="Failed commit: Default (4)">
-          <option name="created" value="1249348651953" />
-          <option name="updated" value="1249348651953" />
-        </task>
-        <task id="LOCAL-00135" summary="Failed commit: Default">
-          <option name="created" value="1249348651953" />
-          <option name="updated" value="1249348651953" />
-        </task>
-        <task id="LOCAL-00136" summary="Failed commit: Default (7)">
-          <option name="created" value="1249348651953" />
-          <option name="updated" value="1249348651953" />
-        </task>
-        <task id="LOCAL-00137" summary="Failed commit: Default (2)">
-          <option name="created" value="1249348651953" />
-          <option name="updated" value="1249348651953" />
-        </task>
-        <task id="LOCAL-00138" summary="Failed commit: Default (3)">
-          <option name="created" value="1249844014772" />
-          <option name="updated" value="1249844014772" />
-        </task>
-        <task id="LOCAL-00139" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1249844014773" />
-          <option name="updated" value="1249844014773" />
-        </task>
-        <task id="LOCAL-00140" summary="Failed commit: Default (5)">
-          <option name="created" value="1249844014773" />
-          <option name="updated" value="1249844014773" />
-        </task>
-        <task id="LOCAL-00141" summary="Failed commit: Default (4)">
-          <option name="created" value="1249844014773" />
-          <option name="updated" value="1249844014773" />
-        </task>
-        <task id="LOCAL-00142" summary="Failed commit: Default">
-          <option name="created" value="1249844014773" />
-          <option name="updated" value="1249844014773" />
-        </task>
-        <task id="LOCAL-00143" summary="Failed commit: Default (7)">
-          <option name="created" value="1249844014773" />
-          <option name="updated" value="1249844014773" />
-        </task>
-        <task id="LOCAL-00144" summary="Failed commit: Default (2)">
-          <option name="created" value="1249844014773" />
-          <option name="updated" value="1249844014773" />
-        </task>
-        <task id="LOCAL-00145" summary="Failed commit: Default (3)">
-          <option name="created" value="1249905658086" />
-          <option name="updated" value="1249905658086" />
-        </task>
-        <task id="LOCAL-00146" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1249905658086" />
-          <option name="updated" value="1249905658086" />
-        </task>
-        <task id="LOCAL-00147" summary="Failed commit: Default (5)">
-          <option name="created" value="1249905658086" />
-          <option name="updated" value="1249905658086" />
-        </task>
-        <task id="LOCAL-00148" summary="Failed commit: Default (4)">
-          <option name="created" value="1249905658086" />
-          <option name="updated" value="1249905658086" />
-        </task>
-        <task id="LOCAL-00149" summary="Failed commit: Default">
-          <option name="created" value="1249905658086" />
-          <option name="updated" value="1249905658086" />
-        </task>
-        <task id="LOCAL-00150" summary="Failed commit: Default (7)">
-          <option name="created" value="1249905658086" />
-          <option name="updated" value="1249905658086" />
-        </task>
-        <task id="LOCAL-00151" summary="Failed commit: Default (2)">
-          <option name="created" value="1249905658086" />
-          <option name="updated" value="1249905658086" />
-        </task>
-        <task id="LOCAL-00152" summary="Failed commit: Default (3)">
-          <option name="created" value="1250077365824" />
-          <option name="updated" value="1250077365824" />
-        </task>
-        <task id="LOCAL-00153" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1250077365824" />
-          <option name="updated" value="1250077365824" />
-        </task>
-        <task id="LOCAL-00154" summary="Failed commit: Default (5)">
-          <option name="created" value="1250077365824" />
-          <option name="updated" value="1250077365824" />
-        </task>
-        <task id="LOCAL-00155" summary="Failed commit: Default (4)">
-          <option name="created" value="1250077365824" />
-          <option name="updated" value="1250077365824" />
-        </task>
-        <task id="LOCAL-00156" summary="Failed commit: Default">
-          <option name="created" value="1250077365824" />
-          <option name="updated" value="1250077365824" />
-        </task>
-        <task id="LOCAL-00157" summary="Failed commit: Default (7)">
-          <option name="created" value="1250077365825" />
-          <option name="updated" value="1250077365825" />
-        </task>
-        <task id="LOCAL-00158" summary="Failed commit: Default (2)">
-          <option name="created" value="1250077365825" />
-          <option name="updated" value="1250077365825" />
-        </task>
-        <task id="LOCAL-00159" summary="Failed commit: Default (3)">
-          <option name="created" value="1250116850173" />
-          <option name="updated" value="1250116850173" />
-        </task>
-        <task id="LOCAL-00160" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1250116850174" />
-          <option name="updated" value="1250116850174" />
-        </task>
-        <task id="LOCAL-00161" summary="Failed commit: Default (5)">
-          <option name="created" value="1250116850174" />
-          <option name="updated" value="1250116850174" />
-        </task>
-        <task id="LOCAL-00162" summary="Failed commit: Default (4)">
-          <option name="created" value="1250116850174" />
-          <option name="updated" value="1250116850174" />
-        </task>
-        <task id="LOCAL-00163" summary="Failed commit: Default">
-          <option name="created" value="1250116850174" />
-          <option name="updated" value="1250116850174" />
-        </task>
-        <task id="LOCAL-00164" summary="Failed commit: Default (7)">
-          <option name="created" value="1250116850174" />
-          <option name="updated" value="1250116850174" />
-        </task>
-        <task id="LOCAL-00165" summary="Failed commit: Default (2)">
-          <option name="created" value="1250116850174" />
-          <option name="updated" value="1250116850174" />
-        </task>
-        <task id="LOCAL-00166" summary="Failed commit: Default (3)">
-          <option name="created" value="1250212233461" />
-          <option name="updated" value="1250212233461" />
-        </task>
-        <task id="LOCAL-00167" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1250212233461" />
-          <option name="updated" value="1250212233461" />
-        </task>
-        <task id="LOCAL-00168" summary="Failed commit: Default (5)">
-          <option name="created" value="1250212233461" />
-          <option name="updated" value="1250212233461" />
-        </task>
-        <task id="LOCAL-00169" summary="Failed commit: Default (4)">
-          <option name="created" value="1250212233461" />
-          <option name="updated" value="1250212233461" />
-        </task>
-        <task id="LOCAL-00170" summary="Failed commit: Default">
-          <option name="created" value="1250212233461" />
-          <option name="updated" value="1250212233461" />
-        </task>
-        <task id="LOCAL-00171" summary="Failed commit: Default (7)">
-          <option name="created" value="1250212233462" />
-          <option name="updated" value="1250212233462" />
-        </task>
-        <task id="LOCAL-00172" summary="Failed commit: Default (2)">
-          <option name="created" value="1250212233462" />
-          <option name="updated" value="1250212233462" />
-        </task>
-        <task id="LOCAL-00173" summary="Failed commit: Default (3)">
-          <option name="created" value="1250951879921" />
-          <option name="updated" value="1250951879921" />
-        </task>
-        <task id="LOCAL-00174" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1250951879921" />
-          <option name="updated" value="1250951879921" />
-        </task>
-        <task id="LOCAL-00175" summary="Failed commit: Default (5)">
-          <option name="created" value="1250951879921" />
-          <option name="updated" value="1250951879921" />
-        </task>
-        <task id="LOCAL-00176" summary="Failed commit: Default (4)">
-          <option name="created" value="1250951879922" />
-          <option name="updated" value="1250951879922" />
-        </task>
-        <task id="LOCAL-00177" summary="Failed commit: Default">
-          <option name="created" value="1250951879922" />
-          <option name="updated" value="1250951879922" />
-        </task>
-        <task id="LOCAL-00178" summary="Failed commit: Default (7)">
-          <option name="created" value="1250951879922" />
-          <option name="updated" value="1250951879922" />
-        </task>
-        <task id="LOCAL-00179" summary="Failed commit: Default (2)">
-          <option name="created" value="1250951879922" />
-          <option name="updated" value="1250951879922" />
-        </task>
-        <task id="LOCAL-00180" summary="Failed commit: Default (3)">
-          <option name="created" value="1250975618044" />
-          <option name="updated" value="1250975618044" />
-        </task>
-        <task id="LOCAL-00181" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1250975618044" />
-          <option name="updated" value="1250975618044" />
-        </task>
-        <task id="LOCAL-00182" summary="Failed commit: Default (5)">
-          <option name="created" value="1250975618045" />
-          <option name="updated" value="1250975618045" />
-        </task>
-        <task id="LOCAL-00183" summary="Failed commit: Default (4)">
-          <option name="created" value="1250975618045" />
-          <option name="updated" value="1250975618045" />
-        </task>
-        <task id="LOCAL-00184" summary="Failed commit: Default">
-          <option name="created" value="1250975618045" />
-          <option name="updated" value="1250975618045" />
-        </task>
-        <task id="LOCAL-00185" summary="Failed commit: Default (7)">
-          <option name="created" value="1250975618045" />
-          <option name="updated" value="1250975618045" />
-        </task>
-        <task id="LOCAL-00186" summary="Failed commit: Default (2)">
-          <option name="created" value="1250975618045" />
-          <option name="updated" value="1250975618045" />
-        </task>
-        <task id="LOCAL-00187" summary="Failed commit: Default (3)">
-          <option name="created" value="1251144133893" />
-          <option name="updated" value="1251144133893" />
-        </task>
-        <task id="LOCAL-00188" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1251144133893" />
-          <option name="updated" value="1251144133893" />
-        </task>
-        <task id="LOCAL-00189" summary="Failed commit: Default (5)">
-          <option name="created" value="1251144133893" />
-          <option name="updated" value="1251144133893" />
-        </task>
-        <task id="LOCAL-00190" summary="Failed commit: Default (4)">
-          <option name="created" value="1251144133893" />
-          <option name="updated" value="1251144133893" />
-        </task>
-        <task id="LOCAL-00191" summary="Failed commit: Default">
-          <option name="created" value="1251144133893" />
-          <option name="updated" value="1251144133893" />
-        </task>
-        <task id="LOCAL-00192" summary="Failed commit: Default (7)">
-          <option name="created" value="1251144133894" />
-          <option name="updated" value="1251144133894" />
-        </task>
-        <task id="LOCAL-00193" summary="Failed commit: Default (2)">
-          <option name="created" value="1251144133894" />
-          <option name="updated" value="1251144133894" />
-        </task>
-        <task id="LOCAL-00194" summary="Failed commit: Default (3)">
-          <option name="created" value="1251146153257" />
-          <option name="updated" value="1251146153257" />
-        </task>
-        <task id="LOCAL-00195" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1251146153258" />
-          <option name="updated" value="1251146153258" />
-        </task>
-        <task id="LOCAL-00196" summary="Failed commit: Default (5)">
-          <option name="created" value="1251146153258" />
-          <option name="updated" value="1251146153258" />
-        </task>
-        <task id="LOCAL-00197" summary="Failed commit: Default (4)">
-          <option name="created" value="1251146153258" />
-          <option name="updated" value="1251146153258" />
-        </task>
-        <task id="LOCAL-00198" summary="Failed commit: Default">
-          <option name="created" value="1251146153258" />
-          <option name="updated" value="1251146153258" />
-        </task>
-        <task id="LOCAL-00199" summary="Failed commit: Default (7)">
-          <option name="created" value="1251146153258" />
-          <option name="updated" value="1251146153258" />
-        </task>
-        <task id="LOCAL-00200" summary="Failed commit: Default (2)">
-          <option name="created" value="1251146153258" />
-          <option name="updated" value="1251146153258" />
-        </task>
-        <task id="LOCAL-00201" summary="Failed commit: Default (3)">
-          <option name="created" value="1251579084898" />
-          <option name="updated" value="1251579084898" />
-        </task>
-        <task id="LOCAL-00202" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1251579084899" />
-          <option name="updated" value="1251579084899" />
-        </task>
-        <task id="LOCAL-00203" summary="Failed commit: Default (5)">
-          <option name="created" value="1251579084899" />
-          <option name="updated" value="1251579084899" />
-        </task>
-        <task id="LOCAL-00204" summary="Failed commit: Default (4)">
-          <option name="created" value="1251579084899" />
-          <option name="updated" value="1251579084899" />
-        </task>
-        <task id="LOCAL-00205" summary="Failed commit: Default">
-          <option name="created" value="1251579084899" />
-          <option name="updated" value="1251579084899" />
-        </task>
-        <task id="LOCAL-00206" summary="Failed commit: Default (7)">
-          <option name="created" value="1251579084899" />
-          <option name="updated" value="1251579084899" />
-        </task>
-        <task id="LOCAL-00207" summary="Failed commit: Default (2)">
-          <option name="created" value="1251579084899" />
-          <option name="updated" value="1251579084899" />
-        </task>
-        <task id="LOCAL-00208" summary="Failed commit: Default (3)">
-          <option name="created" value="1252024306176" />
-          <option name="updated" value="1252024306176" />
-        </task>
-        <task id="LOCAL-00209" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1252024306176" />
-          <option name="updated" value="1252024306176" />
-        </task>
-        <task id="LOCAL-00210" summary="Failed commit: Default (5)">
-          <option name="created" value="1252024306176" />
-          <option name="updated" value="1252024306176" />
-        </task>
-        <task id="LOCAL-00211" summary="Failed commit: Default (4)">
-          <option name="created" value="1252024306176" />
-          <option name="updated" value="1252024306176" />
-        </task>
-        <task id="LOCAL-00212" summary="Failed commit: Default">
-          <option name="created" value="1252024306176" />
-          <option name="updated" value="1252024306176" />
-        </task>
-        <task id="LOCAL-00213" summary="Failed commit: Default (7)">
-          <option name="created" value="1252024306176" />
-          <option name="updated" value="1252024306176" />
-        </task>
-        <task id="LOCAL-00214" summary="Failed commit: Default (2)">
-          <option name="created" value="1252024306176" />
-          <option name="updated" value="1252024306176" />
-        </task>
-        <task id="LOCAL-00215" summary="Failed commit: Default (3)">
-          <option name="created" value="1252089061441" />
-          <option name="updated" value="1252089061441" />
-        </task>
-        <task id="LOCAL-00216" summary="Favorits Menu should open progress monitor on image load">
-          <option name="created" value="1252089061441" />
-          <option name="updated" value="1252089061441" />
-        </task>
-        <task id="LOCAL-00217" summary="Failed commit: Default (5)">
-          <option name="created" value="1252089061441" />
-          <option name="updated" value="1252089061441" />
-        </task>
-        <task id="LOCAL-00218" summary="Failed commit: Default (4)">
-          <option name="created" value="1252089061441" />
-          <option name="updated" value="1252089061441" />
-        </task>
-        <task id="LOCAL-00219" summary="Failed commit: Default">
-          <option name="created" value="1252089061441" />
-          <option name="updated" value="1252089061441" />
-        </task>
-        <task id="LOCAL-00220" summary="Failed commit: Default (7)">
-          <option name="created" value="1252089061441" />
-          <option name="updated" value="1252089061441" />
-        </task>
-        <task id="LOCAL-00221" summary="Failed commit: Default (2)">
-          <option name="created" value="1252089061441" />
-          <option name="updated" value="1252089061441" />
-        </task>
-        <task id="LOCAL-00222" summary="Failed commit: Default (3)">
-          <option name="changeLists">
-            <list>
-              <ChangeListInfo id="04edeb84-78d0-4e9b-a54a-3dae7290e7aa" name="Failed commit: Default (3)" comment="Added number labels to BiSlider" />
-            </list>
-          </option>
-          <option name="created" value="1253676644070" />
-          <option name="updated" value="1253676644070" />
-        </task>
-        <task id="LOCAL-00223" summary="Favorits Menu should open progress monitor on image load">
-          <option name="changeLists">
-            <list>
-              <ChangeListInfo id="23f8a567-682a-41ec-8fbc-f90972e5b533" name="Favorits Menu should open progress monitor on image load" comment="various and sundry" />
-            </list>
-          </option>
-          <option name="created" value="1253676644070" />
-          <option name="updated" value="1253676644070" />
-        </task>
-        <task id="LOCAL-00224" summary="Failed commit: Default (5)">
-          <option name="changeLists">
-            <list>
-              <ChangeListInfo id="64c6bf13-b5f4-40b7-bf97-5239b2b30b52" name="Failed commit: Default (5)" comment="Added number labels to BiSlider" />
-            </list>
-          </option>
-          <option name="created" value="1253676644070" />
-          <option name="updated" value="1253676644070" />
-        </task>
-        <task id="LOCAL-00225" summary="Failed commit: Default (4)">
-          <option name="changeLists">
-            <list>
-              <ChangeListInfo id="c8652d77-ea6c-4f54-a7b3-b6318514a155" name="Failed commit: Default (4)" comment="Added number labels to BiSlider" />
-            </list>
-          </option>
-          <option name="created" value="1253676644070" />
-          <option name="updated" value="1253676644070" />
-        </task>
-        <task id="LOCAL-00226" summary="Failed commit: Default">
-          <option name="changeLists">
-            <list>
-              <ChangeListInfo id="541af7d2-9da4-4385-9071-4e448e00266b" name="Failed commit: Default" comment="Failed commit: Default" />
-            </list>
-          </option>
-          <option name="created" value="1253676644070" />
-          <option name="updated" value="1253676644070" />
-        </task>
-        <task id="LOCAL-00227" summary="Failed commit: Default (7)">
-          <option name="changeLists">
-            <list>
-              <ChangeListInfo id="4debb2be-afc8-49c5-99d9-3ee746bafdbc" name="Failed commit: Default (7)" comment="Failed commit: Default (7)" />
-            </list>
-          </option>
-          <option name="created" value="1253676644070" />
-          <option name="updated" value="1253676644070" />
-        </task>
-        <task id="LOCAL-00228" summary="Failed commit: Default (2)">
-          <option name="changeLists">
-            <list>
-              <ChangeListInfo id="de34544b-73db-402c-95fc-3bb0284bf45a" name="Failed commit: Default (2)" comment="Failed commit: Default (2)" />
-            </list>
-          </option>
-          <option name="created" value="1253676644071" />
-          <option name="updated" value="1253676644071" />
-        </task>
-      </list>
-    </option>
-    <option name="localTasksCounter" value="229" />
+    <task active="true" id="Default" summary="Default task">
+      <created>1256170040793</created>
+      <updated>1256170040793</updated>
+    </task>
+    <task id="LOCAL-00229" summary="Failed commit: Default (3)">
+      <changelist id="04edeb84-78d0-4e9b-a54a-3dae7290e7aa" name="Failed commit: Default (3)" comment="Added number labels to BiSlider" />
+      <created>1256170001936</created>
+      <updated>1256170001936</updated>
+    </task>
+    <task id="LOCAL-00230" summary="Favorits Menu should open progress monitor on image load">
+      <changelist id="23f8a567-682a-41ec-8fbc-f90972e5b533" name="Favorits Menu should open progress monitor on image load" comment="various and sundry" />
+      <created>1256170001936</created>
+      <updated>1256170001936</updated>
+    </task>
+    <task id="LOCAL-00231" summary="Failed commit: Default (5)">
+      <changelist id="64c6bf13-b5f4-40b7-bf97-5239b2b30b52" name="Failed commit: Default (5)" comment="Added number labels to BiSlider" />
+      <created>1256170001936</created>
+      <updated>1256170001936</updated>
+    </task>
+    <task id="LOCAL-00232" summary="Failed commit: Default (4)">
+      <changelist id="c8652d77-ea6c-4f54-a7b3-b6318514a155" name="Failed commit: Default (4)" comment="Added number labels to BiSlider" />
+      <created>1256170001936</created>
+      <updated>1256170001936</updated>
+    </task>
+    <task id="LOCAL-00233" summary="Failed commit: Default">
+      <changelist id="541af7d2-9da4-4385-9071-4e448e00266b" name="Failed commit: Default" comment="Failed commit: Default" />
+      <created>1256170001936</created>
+      <updated>1256170001936</updated>
+    </task>
+    <task id="LOCAL-00234" summary="Failed commit: Default (7)">
+      <changelist id="4debb2be-afc8-49c5-99d9-3ee746bafdbc" name="Failed commit: Default (7)" comment="Failed commit: Default (7)" />
+      <created>1256170001936</created>
+      <updated>1256170001936</updated>
+    </task>
+    <task id="LOCAL-00235" summary="Failed commit: Default (2)">
+      <changelist id="de34544b-73db-402c-95fc-3bb0284bf45a" name="Failed commit: Default (2)" comment="Failed commit: Default (2)" />
+      <created>1256170001936</created>
+      <updated>1256170001936</updated>
+    </task>
+    <option name="localTasksCounter" value="236" />
     <option name="createChangelist" value="false" />
   </component>
   <component name="TodoView" selected-index="2">
@@ -2975,49 +2197,49 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1020" extended-state="0" />
+    <frame x="0" y="-4" width="1680" height="1023" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256351" sideWeight="0.5" order="8" side_tool="false" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32794458" sideWeight="0.0" order="7" side_tool="false" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09152752" sideWeight="0.66164386" order="1" side_tool="false" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.17563389" sideWeight="0.3394919" order="1" side_tool="true" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993865" sideWeight="0.5" order="0" side_tool="false" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32900432" sideWeight="0.6646849" order="3" side_tool="false" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3172542" sideWeight="0.76013905" order="0" side_tool="false" x="121" y="37" width="406" height="883" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41103604" sideWeight="0.5" order="11" side_tool="false" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.34807256" sideWeight="0.0" order="6" side_tool="false" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5334873" sideWeight="0.5" order="2" side_tool="false" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32678983" sideWeight="0.5" order="9" side_tool="false" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" />
-      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32896462" sideWeight="0.5" order="14" side_tool="false" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32883435" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="TestDox" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944787" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Clojure REPL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" />
-      <window_info id="Dynamic properties" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32962275" sideWeight="0.5" order="3" side_tool="false" x="573" y="77" width="533" height="866" />
-      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24984539" sideWeight="0.5" order="2" side_tool="false" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" />
-      <window_info id="SVN Properties" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32830188" sideWeight="0.5" order="17" side_tool="false" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25750577" sideWeight="0.5" order="1" side_tool="false" />
-      <window_info id="Profile" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36489606" sideWeight="0.5" order="18" side_tool="false" />
-      <window_info id="IntelliJad Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32704404" sideWeight="0.5" order="19" side_tool="false" />
-      <window_info id="Slice" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="20" side_tool="false" />
-      <window_info id="FileBrowser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20552148" sideWeight="0.5" order="3" side_tool="false" x="672" y="218" width="335" height="584" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23174971" sideWeight="0.5" order="10" side_tool="false" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" />
-      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" />
-      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962963" sideWeight="0.72401845" order="3" side_tool="false" />
-      <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="21" side_tool="false" />
-      <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32794458" sideWeight="0.5" order="12" side_tool="false" x="31" y="368" width="1617" height="284" />
-      <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="22" side_tool="false" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39954337" sideWeight="0.5" order="5" side_tool="false" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3256351" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32794458" sideWeight="0.0" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09152752" sideWeight="0.66164386" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.17563389" sideWeight="0.3394919" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993865" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32900432" sideWeight="0.6646849" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41103604" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21685255" sideWeight="0.4599303" order="0" side_tool="false" content_ui="tabs" x="121" y="37" width="406" height="883" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.34843206" sideWeight="0.0" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5319396" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32678983" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32896462" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32883435" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TestDox" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32944787" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Clojure REPL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Dynamic properties" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32962275" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="573" y="77" width="533" height="866" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24984539" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="SVN Properties" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32830188" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2543554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Profile" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36489606" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
+      <window_info id="IntelliJad Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32704404" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
+      <window_info id="Slice" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
+      <window_info id="FileBrowser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20552148" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="672" y="218" width="335" height="584" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34494773" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="21" side_tool="false" content_ui="tabs" />
+      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962963" sideWeight="0.72401845" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32794458" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" x="31" y="368" width="1617" height="284" />
+      <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="22" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39954337" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VCS.FileViewConfiguration">
@@ -3036,6 +2258,7 @@
     <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="LAST_COMMIT_MESSAGE" value="various and sundry" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
@@ -3154,186 +2377,125 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/ImageBuffer3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/layer/LayerList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="46" selection-start="482" selection-end="482" vertical-scroll-proportion="0.0" />
+        <state line="18" column="21" selection-start="478" selection-end="487" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/layer/LayerProps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0" />
+        <state line="32" column="13" selection-start="875" selection-end="875" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray2D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/YokeHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0" />
+        <state line="103" column="0" selection-start="2741" selection-end="2741" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/Viewport3D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0" />
+        <state line="21" column="13" selection-start="699" selection-end="699" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/BasicImageData3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ViewBoundsChangedListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="30" selection-start="1114" selection-end="1114" vertical-scroll-proportion="0.0" />
+        <state line="11" column="17" selection-start="232" selection-end="232" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/Data.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ViewBounds.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="35" selection-start="1961" selection-end="1961" vertical-scroll-proportion="0.0" />
+        <state line="14" column="13" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid2D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/SnapShooter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="277" selection-end="277" vertical-scroll-proportion="0.0" />
+        <state line="25" column="13" selection-start="701" selection-end="701" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/SliceRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="277" selection-end="277" vertical-scroll-proportion="0.0" />
+        <state line="19" column="17" selection-start="523" selection-end="523" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IDataGrid4D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="266" selection-end="266" vertical-scroll-proportion="0.0" />
+        <state line="380" column="62" selection-start="11129" selection-end="11129" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IndexSlice.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewClientSupport.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="4" selection-start="535" selection-end="535" vertical-scroll-proportion="0.0" />
+        <state line="16" column="13" selection-start="448" selection-end="448" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageViewClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0" />
+        <state line="13" column="17" selection-start="293" selection-end="293" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/image/data/MappedDataAcessor3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="22" selection-start="1832" selection-end="1832" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="45" column="22" selection-start="1497" selection-end="1497" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/Array2D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageSpaceChangedEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="55" selection-start="645" selection-end="645" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="14" column="13" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/Array3D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImagePlotLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="28" selection-start="676" selection-end="676" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="71" column="38" selection-start="1645" selection-end="1645" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/IArray4D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/CustomColorMapDesigner.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="17" selection-start="240" selection-end="240" vertical-scroll-proportion="0.0" />
+        <state line="307" column="75" selection-start="9312" selection-end="9624" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/boxwood/array/Array4D.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/ColorEntryTextPane.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="323" column="39" selection-start="7630" selection-end="7630" vertical-scroll-proportion="0.35315534">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="57" column="47" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.5843521" />
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
-    <option name="states">
-      <map>
-        <entry key="Copyright.UI">
-          <value>
-            <UIState>
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl>
               <option name="proportions">
-                <SplitterProportionsDataImpl />
+                <list>
+                  <option value="0.2" />
+                </list>
               </option>
-            </UIState>
-          </value>
-        </entry>
-        <entry key="Errors.UI">
-          <value>
-            <UIState>
+            </SplitterProportionsDataImpl>
+          </splitter-proportions>
+          <settings />
+        </UIState>
+      </state>
+      <state key="Copyright.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl />
+          </splitter-proportions>
+        </UIState>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <UIState>
+          <splitter-proportions>
+            <SplitterProportionsDataImpl>
               <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
+                <list>
+                  <option value="0.2" />
+                </list>
               </option>
-              <option name="lastEditedConfigurable" value="Default|IDE Profiles" />
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ScopeChooserConfigurable.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-            </UIState>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="myStates">
-      <map>
-        <entry key="Copyright.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl />
-              </option>
-            </UIState>
-          </value>
-        </entry>
-        <entry key="Errors.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-              <option name="lastEditedConfigurable" value="Default|IDE Profiles" />
-            </UIState>
-          </value>
-        </entry>
-        <entry key="ScopeChooserConfigurable.UI">
-          <value>
-            <UIState>
-              <option name="proportions">
-                <SplitterProportionsDataImpl>
-                  <option name="proportions">
-                    <list>
-                      <option value="0.2" />
-                    </list>
-                  </option>
-                </SplitterProportionsDataImpl>
-              </option>
-            </UIState>
-          </value>
-        </entry>
-      </map>
-    </option>
+            </SplitterProportionsDataImpl>
+          </splitter-proportions>
+          <settings />
+        </UIState>
+      </state>
+    </states>
   </component>
   <component name="testng.defaultConfiguration">
     <outputDirectory />

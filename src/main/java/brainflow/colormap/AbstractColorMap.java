@@ -18,7 +18,6 @@ import java.util.ListIterator;
 public abstract class AbstractColorMap implements IColorMap {
 
 
-
     private double minimumValue;
 
     private double maximumValue;
@@ -106,7 +105,7 @@ public abstract class AbstractColorMap implements IColorMap {
         byte[][] rgba = new byte[4][len];
         int lastidx = getMapSize() - 1;
 
-        ValueIterator iter = data.iterator();
+        ValueIterator iter = data.valueIterator();
 
         Color c0 = getInterval(0).getColor();
         Color cn = getInterval(lastidx).getColor();

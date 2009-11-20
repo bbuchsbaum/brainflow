@@ -6,7 +6,7 @@
 
 package brainflow.image.interpolation;
 
-import org.boxwood.array.IDataGrid3D;
+import brainflow.array.IArray3D;
 
 /**
  * @author bradley
@@ -19,7 +19,7 @@ public class NearestNeighborInterpolator implements InterpolationFunction3D {
     public NearestNeighborInterpolator() {
     }
 
-    public double interpolate(double dx, double dy, double dz, IDataGrid3D data) {
+    public double interpolate(double dx, double dy, double dz, IArray3D data) {
         int x_up = (int) Math.floor(dx + .5);
         int y_up = (int) Math.floor(dy + .5);
         int z_up = (int) Math.floor(dz + .5);

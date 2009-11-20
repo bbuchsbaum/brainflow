@@ -1,5 +1,6 @@
-package org.boxwood.array;
+package brainflow.array;
 
+import brainflow.image.interpolation.InterpolationFunction2D;
 import brainflow.utils.Dimension2D;
 
 /**
@@ -10,24 +11,12 @@ import brainflow.utils.Dimension2D;
  * To change this template use File | Settings | File Templates.
  */
 public interface IArray2D extends IArray {
-
+    
+    public double value(double x, double y, InterpolationFunction2D interp);
 
     public double value(int i, int j);
 
     public int indexOf(int i, int j);
-
-    public void set(int i, int j, double val);
-
-    public void set(int i, int j, int val);
-
-    public void set(int i, int j, short val);
-
-    public void set(int i, int j, float val);
-
-    public void set(int i, int j, long val);
-
-    public void set(int i, int j, byte val);
-
 
     @Override
     Dimension2D<Integer> dim();

@@ -22,7 +22,7 @@ public class ParallelComponentLabeler {
 			ImageBuffer3D labelledVolumeImageWriter, int numOfThreads){
 
 		this.labelledVolumeImageWriter = labelledVolumeImageWriter;
-		labelledVolume = labelledVolumeImageWriter.asImageData();
+		labelledVolume = labelledVolumeImageWriter;
 		this.x  = labelledVolume.getDimension(Axis.X_AXIS);
 		this.y  = labelledVolume.getDimension(Axis.Y_AXIS);
 		this.z  = labelledVolume.getDimension(Axis.Z_AXIS);

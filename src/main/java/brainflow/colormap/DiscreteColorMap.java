@@ -412,7 +412,7 @@ public class DiscreteColorMap extends AbstractColorMap {
         ColorInterval firstInterval = getInterval(0);
         ColorInterval lastInterval = getInterval(getMapSize() - 1);
 
-        ValueIterator iter = data.iterator();
+        ValueIterator iter = data.valueIterator();
         while (iter.hasNext()) {
             int i = iter.index();
             double val = iter.next();

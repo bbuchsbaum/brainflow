@@ -48,7 +48,7 @@ public class ConnComp {
 
     public ConnComp(IMaskedData2D data) {
         this.data = data;
-        labels = new BasicImageData2D(data.getImageSpace(), DataType.INTEGER).createWriter(false);
+        labels = BasicImageData2D.create(data.getImageSpace(), DataType.INTEGER).createBuffer(false);
         unionArray = new UnionFindArray(50000);
     }
 
@@ -428,7 +428,7 @@ public class ConnComp {
         watch.stopAndReport("conncomp");
 
 
-        IImageData3D dat3d = Data.asImageData3D(comp.labels.asImageData(), new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
+        IImageData3D dat3d = Data.asImageData3D(comp.labels, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
         LayerProps props = new LayerProps(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);

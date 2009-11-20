@@ -1,4 +1,4 @@
-package org.boxwood.array;
+package brainflow.array;
 
 import brainflow.image.iterators.ValueIterator;
 
@@ -12,8 +12,7 @@ import brainflow.image.iterators.ValueIterator;
 public interface IDataGrid extends IArray {
   
 
-    public ValueIterator iterator();
-
+    public ValueIterator valueIterator();
 
 
 }

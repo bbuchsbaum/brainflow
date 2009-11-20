@@ -28,7 +28,7 @@ public class RobustSmoothFilter implements ImageFunctor<IImageData3D> {
 
     @Override
     public IImageData3D process(IImageData3D input) {
-        ImageBuffer3D outBuffer = input.createWriter(true);
+        ImageBuffer3D outBuffer = input.createBuffer(true);
         initializeKernel(outBuffer.getImageSpace());
 
         int xlen = input.getDimension(Axis.X_AXIS);
@@ -45,7 +45,7 @@ public class RobustSmoothFilter implements ImageFunctor<IImageData3D> {
         }
 
 
-        return outBuffer.asImageData();
+        return outBuffer;
     }
 
     private void initializeKernel(IImageSpace3D input) {

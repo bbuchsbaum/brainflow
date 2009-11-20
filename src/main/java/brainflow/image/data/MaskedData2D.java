@@ -42,7 +42,7 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
     }
 
     @Override
-    public double value(float x, float y, InterpolationFunction2D interp) {
+    public double value(double x, double y, InterpolationFunction2D interp) {
         return predicate.mask(source.value(x, y, interp))? 1 : 0;
     }
     
@@ -85,11 +85,11 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
 
     }
 
-    public ImageBuffer2D createWriter(boolean clear) {
+    public ImageBuffer2D createBuffer(boolean clear) {
         throw new UnsupportedOperationException("MaskedData2D does not support data writing");
     }
 
-    public ImageIterator iterator() {
+    public ImageIterator valueIterator() {
         return new MaskedIterator();
 
     }
@@ -138,7 +138,7 @@ public class MaskedData2D implements IImageData2D, IMaskedData2D {
         ValueIterator iter;
 
         public MaskedIterator() {
-            iter = source.iterator();
+            iter = source.valueIterator();
         }
 
         public double next() {

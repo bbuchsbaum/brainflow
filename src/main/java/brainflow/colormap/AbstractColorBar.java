@@ -39,7 +39,7 @@ public abstract class AbstractColorBar extends JPanel {
         this.orientation = orientation;
         colorMap = _colorMap;
         initListener(colorMap);
-        initBackground();
+
     }
 
     public int getOrientation() {
@@ -67,18 +67,7 @@ public abstract class AbstractColorBar extends JPanel {
     }
 
 
-    protected void initBackground() {
-        /*URL url = getClass().getClassLoader().getResource("resources/icons/checkerboard.jpg");
-        BufferedImage icon = null;
-        try {
-            icon = ImageIO.read(url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        setBackgroundImage(icon);
-        */
 
-    }
 
 
     public void paintInto(Graphics g, int x, int y, int width, int height, boolean paintBackground) {
@@ -200,9 +189,6 @@ public abstract class AbstractColorBar extends JPanel {
 
             }
         };
-
-        //colorMap.addPropertyChangeListener(mapListener);
-
 
     }
 

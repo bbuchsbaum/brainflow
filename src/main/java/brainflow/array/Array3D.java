@@ -1,6 +1,7 @@
-package org.boxwood.array;
+package brainflow.array;
 
-import brainflow.utils.Dimension2D;
+import brainflow.image.interpolation.InterpolationFunction3D;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.utils.Dimension3D;
 
 /**
@@ -10,7 +11,7 @@ import brainflow.utils.Dimension3D;
  * Time: 11:38:32 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class Array3D implements IArray3D {
+public abstract class Array3D implements IArray3D, IArrayBuffer3D {
 
     private int dim0, dim1, dim2, len;
 
@@ -26,15 +27,15 @@ public abstract class Array3D implements IArray3D {
         this.dim1 = dim1;
         this.dim2 = dim2;
 
-        dim_01 = dim0*dim1;
+        dim_01 = dim0 * dim1;
 
-        len = dim0*dim1*dim2;
+        len = dim0 * dim1 * dim2;
         dim = new Dimension3D<Integer>(dim0, dim1, dim2);
     }
 
     @Override
     public final int indexOf(int i, int j, int k) {
-        return k * dim_01 + j*dim0 + i;
+        return k * dim_01 + j * dim0 + i;
     }
 
     @Override
@@ -51,8 +52,8 @@ public abstract class Array3D implements IArray3D {
     }
 
     private static boolean checkDim(int dim0, int dim1, int dim2, int len) {
-         if (len != (dim0*dim1*dim2)) {
-            throw new IllegalArgumentException("array length must equal product of dimensions: " + len + " != " + (dim0*dim1*dim2));
+        if (len != (dim0 * dim1 * dim2)) {
+            throw new IllegalArgumentException("array length must equal product of dimensions: " + len + " != " + (dim0 * dim1 * dim2));
         }
 
         return true;
@@ -68,9 +69,14 @@ public abstract class Array3D implements IArray3D {
             this.data = data;
         }
 
+        public Double(int dim0, int dim1, int dim2) {
+            super(dim0, dim1, dim2);
+            this.data = new double[dim0*dim1*dim2];
+        }
+
         @Override
         public double value(int i, int j, int k) {
-            return data[indexOf(i,j,k)];
+            return data[indexOf(i, j, k)];
         }
 
         @Override
@@ -80,32 +86,32 @@ public abstract class Array3D implements IArray3D {
 
         @Override
         public void set(int i, int j, int k, double val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, int val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, short val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, float val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, long val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, byte val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
@@ -138,9 +144,23 @@ public abstract class Array3D implements IArray3D {
             data[i] = val;
         }
 
-        @Override
+        public double[] toArray() {
+            return data;
+        }
+
+
         public Class getType() {
             return java.lang.Double.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(float x, float y, float z, InterpolationFunction3D interp) {
+            return interp.interpolate(x, y, z, this);
         }
     }
 
@@ -153,9 +173,14 @@ public abstract class Array3D implements IArray3D {
             this.data = data;
         }
 
+        public Float(int dim0, int dim1, int dim2) {
+            super(dim0, dim1, dim2);
+            this.data = new float[dim0*dim1*dim2];
+        }
+
         @Override
         public double value(int i, int j, int k) {
-            return data[indexOf(i,j,k)];
+            return data[indexOf(i, j, k)];
         }
 
         @Override
@@ -165,37 +190,37 @@ public abstract class Array3D implements IArray3D {
 
         @Override
         public void set(int i, int j, int k, double val) {
-            data[indexOf(i,j,k)] = (float)val;
+            data[indexOf(i, j, k)] = (float) val;
         }
 
         @Override
         public void set(int i, int j, int k, int val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, short val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, float val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, long val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, byte val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, double val) {
-            data[i] = (float)val;
+            data[i] = (float) val;
         }
 
         @Override
@@ -223,9 +248,23 @@ public abstract class Array3D implements IArray3D {
             data[i] = val;
         }
 
-        @Override
+
         public Class getType() {
             return java.lang.Float.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(float x, float y, float z, InterpolationFunction3D interp) {
+            return interp.interpolate(x, y, z, this);
+        }
+
+        public float[] toArray() {
+            return data;
         }
     }
 
@@ -238,9 +277,14 @@ public abstract class Array3D implements IArray3D {
             this.data = data;
         }
 
+        public Int(int dim0, int dim1, int dim2) {
+            super(dim0, dim1, dim2);
+            this.data = new int[dim0*dim1*dim2];
+        }
+
         @Override
         public double value(int i, int j, int k) {
-            return data[indexOf(i,j,k)];
+            return data[indexOf(i, j, k)];
         }
 
         @Override
@@ -250,42 +294,42 @@ public abstract class Array3D implements IArray3D {
 
         @Override
         public void set(int i, int j, int k, double val) {
-            data[indexOf(i,j,k)] = (int)val;
+            data[indexOf(i, j, k)] = (int) val;
         }
 
         @Override
         public void set(int i, int j, int k, int val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, short val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, float val) {
-            data[indexOf(i,j,k)] = (int)val;
+            data[indexOf(i, j, k)] = (int) val;
         }
 
         @Override
         public void set(int i, int j, int k, long val) {
-            data[indexOf(i,j,k)] = (int)val;
+            data[indexOf(i, j, k)] = (int) val;
         }
 
         @Override
         public void set(int i, int j, int k, byte val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, double val) {
-            data[i] = (int)val;
+            data[i] = (int) val;
         }
 
         @Override
         public void set(int i, float val) {
-            data[i] = (int)val;
+            data[i] = (int) val;
         }
 
         @Override
@@ -300,7 +344,7 @@ public abstract class Array3D implements IArray3D {
 
         @Override
         public void set(int i, long val) {
-            data[i] = (int)val;
+            data[i] = (int) val;
         }
 
         @Override
@@ -308,9 +352,23 @@ public abstract class Array3D implements IArray3D {
             data[i] = val;
         }
 
-        @Override
+
         public Class getType() {
             return java.lang.Integer.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(float x, float y, float z, InterpolationFunction3D interp) {
+            return interp.interpolate(x, y, z, this);
+        }
+
+        public int[] toArray() {
+            return data;
         }
     }
 
@@ -323,9 +381,14 @@ public abstract class Array3D implements IArray3D {
             this.data = data;
         }
 
+        public Short(int dim0, int dim1, int dim2) {
+            super(dim0, dim1, dim2);
+            this.data = new short[dim0*dim1*dim2];
+        }
+
         @Override
         public double value(int i, int j, int k) {
-            return data[indexOf(i,j,k)];
+            return data[indexOf(i, j, k)];
         }
 
         @Override
@@ -335,42 +398,42 @@ public abstract class Array3D implements IArray3D {
 
         @Override
         public void set(int i, int j, int k, double val) {
-            data[indexOf(i,j,k)] = (short)val;
+            data[indexOf(i, j, k)] = (short) val;
         }
 
         @Override
         public void set(int i, int j, int k, int val) {
-            data[indexOf(i,j,k)] = (short)val;
+            data[indexOf(i, j, k)] = (short) val;
         }
 
         @Override
         public void set(int i, int j, int k, short val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, int j, int k, float val) {
-            data[indexOf(i,j,k)] = (short)val;
+            data[indexOf(i, j, k)] = (short) val;
         }
 
         @Override
         public void set(int i, int j, int k, long val) {
-            data[indexOf(i,j,k)] = (short)val;
+            data[indexOf(i, j, k)] = (short) val;
         }
 
         @Override
         public void set(int i, int j, int k, byte val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, double val) {
-            data[i] = (short)val;
+            data[i] = (short) val;
         }
 
         @Override
         public void set(int i, float val) {
-            data[i] = (short)val;
+            data[i] = (short) val;
         }
 
         @Override
@@ -380,12 +443,12 @@ public abstract class Array3D implements IArray3D {
 
         @Override
         public void set(int i, int val) {
-            data[i] = (short)val;
+            data[i] = (short) val;
         }
 
         @Override
         public void set(int i, long val) {
-            data[i] = (short)val;
+            data[i] = (short) val;
         }
 
         @Override
@@ -393,11 +456,26 @@ public abstract class Array3D implements IArray3D {
             data[i] = val;
         }
 
-        @Override
+
         public Class getType() {
             return java.lang.Short.TYPE;
         }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(float x, float y, float z, InterpolationFunction3D interp) {
+            return interp.interpolate(x, y, z, this);
+        }
+
+        public short[] toArray() {
+            return data;
+        }
     }
+
     public static class Byte extends Array3D {
 
         private byte[] data;
@@ -407,9 +485,14 @@ public abstract class Array3D implements IArray3D {
             this.data = data;
         }
 
+        public Byte(int dim0, int dim1, int dim2) {
+            super(dim0, dim1, dim2);
+            this.data = new byte[dim0*dim1*dim2];
+        }
+
         @Override
         public double value(int i, int j, int k) {
-            return data[indexOf(i,j,k)];
+            return data[indexOf(i, j, k)];
         }
 
         @Override
@@ -419,67 +502,81 @@ public abstract class Array3D implements IArray3D {
 
         @Override
         public void set(int i, int j, int k, double val) {
-            data[indexOf(i,j,k)] = (byte)val;
+            data[indexOf(i, j, k)] = (byte) val;
         }
 
         @Override
         public void set(int i, int j, int k, int val) {
-            data[indexOf(i,j,k)] = (byte)val;
+            data[indexOf(i, j, k)] = (byte) val;
         }
 
         @Override
         public void set(int i, int j, int k, short val) {
-            data[indexOf(i,j,k)] = (byte)val;
+            data[indexOf(i, j, k)] = (byte) val;
         }
 
         @Override
         public void set(int i, int j, int k, float val) {
-            data[indexOf(i,j,k)] = (byte)val;
+            data[indexOf(i, j, k)] = (byte) val;
         }
 
         @Override
         public void set(int i, int j, int k, long val) {
-            data[indexOf(i,j,k)] = (byte)val;
+            data[indexOf(i, j, k)] = (byte) val;
         }
 
         @Override
         public void set(int i, int j, int k, byte val) {
-            data[indexOf(i,j,k)] = val;
+            data[indexOf(i, j, k)] = val;
         }
 
         @Override
         public void set(int i, double val) {
-            data[i] = (byte)val;
+            data[i] = (byte) val;
         }
 
         @Override
         public void set(int i, float val) {
-            data[i] = (byte)val;
+            data[i] = (byte) val;
         }
 
         @Override
         public void set(int i, short val) {
-            data[i] = (byte)val;
+            data[i] = (byte) val;
         }
 
         @Override
         public void set(int i, int val) {
-            data[i] = (byte)val;
+            data[i] = (byte) val;
         }
 
         @Override
         public void set(int i, long val) {
-            data[i] = (byte)val;
+            data[i] = (byte) val;
         }
 
         @Override
         public void set(int i, byte val) {
-            data[i] = (byte)val;
+            data[i] = val;
+        }
+
+
+        public Class getType() {
+            return java.lang.Byte.TYPE;
         }
 
         @Override
-        public Class getType() {
-            return java.lang.Byte.TYPE;
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(float x, float y, float z, InterpolationFunction3D interp) {
+            return interp.interpolate(x, y, z, this);
+        }
+
+        public byte[] toArray() {
+            return data;
         }
     }
 

@@ -1,19 +1,13 @@
-package org.boxwood.array;
-
-import brainflow.utils.Dimension4D;
+package brainflow.array;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Brad
- * Date: Sep 4, 2009
- * Time: 12:26:33 AM
+ * Date: Sep 29, 2009
+ * Time: 7:59:38 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface IArray4D extends IArray {
-
-    public double value(int i, int j, int k, int m);
-
-    public int indexOf(int i, int j, int k, int m);
+public interface IArrayBuffer4D extends IArrayBuffer, IArray4D {
 
     public void set(int i, int j, int k, int m, double val);
 
@@ -27,7 +21,6 @@ public interface IArray4D extends IArray {
 
     public void set(int i, int j, int k, int m, byte val);
 
-    
-    @Override
-    Dimension4D<Integer> dim();
+
+
 }

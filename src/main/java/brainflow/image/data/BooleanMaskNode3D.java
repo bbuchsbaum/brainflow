@@ -13,7 +13,7 @@ import brainflow.image.operations.Operations;
 import brainflow.utils.DataType;
 import brainflow.utils.Dimension3D;
 import brainflow.math.Index3D;
-import org.boxwood.array.IDataGrid3D;
+import brainflow.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -91,7 +91,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
         throw new RuntimeException("illegal operation");
     }
 
-    public ImageBuffer3D createWriter(boolean clear) {
+    public ImageBuffer3D createBuffer(boolean clear) {
         throw new UnsupportedOperationException();
     }
 
@@ -139,11 +139,11 @@ public class BooleanMaskNode3D implements IMaskedData3D {
         return left.length();
     }
 
-    public ImageIterator iterator() {
+    public ImageIterator valueIterator() {
         return new MaskedDataNodeIterator();
     }
 
-    @Override
+   
     public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
@@ -170,7 +170,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
         ValueIterator iter;
 
         public MaskedDataNodeIterator() {
-            iter = left.iterator();
+            iter = left.valueIterator();
         }
 
         public final double next() {

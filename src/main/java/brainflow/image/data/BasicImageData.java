@@ -48,7 +48,7 @@ public abstract class BasicImageData extends AbstractImageData {
 
 
     private long computeHash() {
-        ImageIterator iter = this.iterator();
+        ImageIterator iter = this.valueIterator();
         double sum = 0;
         double code = 0;
 
@@ -148,7 +148,7 @@ public abstract class BasicImageData extends AbstractImageData {
 
 
 
-    public abstract ImageIterator iterator();
+    public abstract ImageIterator valueIterator();
 
 
     public boolean equals(Object o) {
@@ -168,10 +168,10 @@ public abstract class BasicImageData extends AbstractImageData {
 
     public static AbstractImageData create(IImageSpace space, DataType type) {
         if (space.getNumDimensions() == 2) {
-            return new BasicImageData2D((ImageSpace2D) space, type);
+            return BasicImageData2D.create((ImageSpace2D) space, type);
         }
         if (space.getNumDimensions() == 3) {
-            return new BasicImageData3D((ImageSpace3D) space, type);
+            return BasicImageData3D.create((ImageSpace3D) space, type);
         } else
             throw new IllegalArgumentException("Cannot create DataBufferSupport with dimensionality " + space.getNumDimensions());
     }

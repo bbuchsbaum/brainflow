@@ -231,7 +231,7 @@ public class IntervalLookupTable<T extends MutableInterval> {
     /*private int placeInterval(T interval) {
         List<T> newList = new ArrayList<T>();
 
-        Iterator<T> iter = iterator();
+        Iterator<T> iter = valueIterator();
         boolean placed = false;
         int replaceIndex = -1;
 

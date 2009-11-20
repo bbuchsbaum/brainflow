@@ -21,12 +21,9 @@ public abstract class ImagePlotLayout {
 
     public static final int DEFAULT_HEIGHT = 180;
 
-
     private ImageView view;
 
     protected List<IImagePlot> plots = new ArrayList<IImagePlot>();
-
-
 
     protected ImagePlotLayout(ImageView view) {
         this.view = view;

@@ -9,6 +9,7 @@ import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
+import brainflow.gui.IActionProvider;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridPoint3D;
@@ -54,12 +55,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.SplashScreen;
-import java.awt.event.KeyEvent;
-import java.awt.event.AWTEventListener;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Arrays;
@@ -433,7 +432,7 @@ public class BrainFlow {
 
 
         CommandBar menuBar = new CommandMenuBar();
-        menuBar.setBorder(new EmptyBorder(2,2,2,2));
+        menuBar.setBorder(new EmptyBorder(2, 2, 2, 2));
         //menuBar.setBorder(new LineBorder(Color.black, 1));
         menuBar.setStretch(true);
 
@@ -475,7 +474,7 @@ public class BrainFlow {
 
         LabelStatusBarItem crossLabel = new LabelStatusBarItem();
         crossLabel.setText("Cross: ");
-        crossLabel.setBorder(new EmptyBorder(0,0,0,0));
+        crossLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
         statusBar.add(crossLabel, JideBoxLayout.FIX);
 
         CursorCoordinates cursorCoordinates = new CursorCoordinates();
@@ -488,7 +487,7 @@ public class BrainFlow {
 
         LabelStatusBarItem cursorLabel = new LabelStatusBarItem();
         cursorLabel.setText("Cursor: ");
-        cursorLabel.setBorder(new EmptyBorder(0,0,0,0));
+        cursorLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
         statusBar.add(cursorLabel, JideBoxLayout.FIX);
 
         statusBar.add(cursorCoordinates.getXaxisLabel(), JideBoxLayout.FIX);
@@ -514,7 +513,7 @@ public class BrainFlow {
         statusBar.add(new com.jidesoft.status.MemoryStatusBarItem(), JideBoxLayout.FIX);
         brainFrame.getDockableBarManager().getMainContainer().add(statusBar, "South");
         statusBar.resetToPreferredSizes();
-         
+
     }
 
     private void bindCommand(ActionCommand command, boolean installShortCut) {
@@ -576,7 +575,7 @@ public class BrainFlow {
 
         //JToolBar mainToolbar = mainToolbarGroup.createToolBar();
         final CommandBar mainToolbar = new CommandBar();
-        mainToolbar.setBorder(new EmptyBorder(0,0,0,0));
+        mainToolbar.setBorder(new EmptyBorder(0, 0, 0, 0));
         final ButtonFactory buttonFactory = createToolBarButtonFactory();
 
         mainToolbarGroup.visitMembers(new GroupVisitor() {
@@ -596,9 +595,10 @@ public class BrainFlow {
 
         mainToolbar.setKey("toolbar");
         brainFrame.getDockableBarManager().addDockableBar(mainToolbar);
-        
+
         Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
             public void eventDispatched(AWTEvent event) {
+
                 if (event.getID() == KeyEvent.KEY_PRESSED) {
                     KeyEvent ke = (KeyEvent) event;
                     if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -615,8 +615,67 @@ public class BrainFlow {
 
                 }
 
+
             }
         }, AWTEvent.KEY_EVENT_MASK);
+
+        Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
+            public void eventDispatched(AWTEvent event) {
+                if (event.getID() == MouseEvent.MOUSE_RELEASED) {
+                    MouseEvent me = (MouseEvent) event;
+                    if (me.isPopupTrigger()) {
+                        showActionMenu(me);
+                    } else {
+                        System.out.println("event " + me);
+                    }
+                }
+
+            }
+        }, AWTEvent.MOUSE_EVENT_MASK);
+
+
+    }
+
+    private JPopupMenu createPopup(java.util.List<Action> actionList) {
+        JPopupMenu menu = new JPopupMenu();
+        for (Action action : actionList) {
+            menu.add(action);
+        }
+
+        return menu;
+    }
+
+    private void showActionMenu(MouseEvent e) {
+        Component c = SwingUtilities.getDeepestComponentAt(e.getComponent(), e.getX(), e.getY());
+        java.util.List<Action> actionList = new ArrayList<Action>();
+        while (true) {
+            if (c instanceof IActionProvider) {
+                IActionProvider provider = (IActionProvider) c;
+                provider.addActions(e, actionList);
+            } else if (c instanceof JComponent) {
+                JComponent jc = (JComponent) c;
+
+                Object provider = jc.getClientProperty(IActionProvider.KEY);
+                if (provider != null) {
+                    ((IActionProvider) provider).addActions(e, actionList);
+                }
+            }
+
+            
+            Component p = c.getParent();
+            if (p != null) {
+                c = p;
+            } else {
+                break;
+            }
+
+
+        }
+
+        if (actionList.size() > 0) {
+            createPopup(actionList).setVisible(true);
+        }
+
 
 
     }
@@ -676,7 +735,7 @@ public class BrainFlow {
         brainFrame.getDockingManager().beginLoadLayoutData();
         brainFrame.getDockingManager().setInitSplitPriority(DefaultDockingManager.SPLIT_EAST_WEST_SOUTH_NORTH);
 
-       
+
         JComponent canvas = DisplayManager.get().getSelectedCanvas().getComponent();
         canvas.setRequestFocusEnabled(true);
         canvas.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -730,7 +789,7 @@ public class BrainFlow {
         watch.stopAndReport("canvas bar");
 
         brainFrame.getDockingManager().loadLayoutData();
-     
+
     }
 
 
@@ -1123,7 +1182,7 @@ public class BrainFlow {
             EventBus.subscribeExactly(ImageViewMousePointerEvent.class, this);
             setIcon(ColorTable.createImageIcon(Color.GRAY, 40, 15));
             setText("Value :");
-            setBorder(new EmptyBorder(0,0,0,0));
+            setBorder(new EmptyBorder(0, 0, 0, 0));
             setMinimumSize(new Dimension(150, 20));
         }
 
@@ -1196,7 +1255,7 @@ public class BrainFlow {
 
         public SelectedViewStatus() {
             anatomyLabel = new LabelStatusBarItem();
-            anatomyLabel.setBorder(new EmptyBorder(0,0,0,0));
+            anatomyLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
             anatomyLabel.setText("Layer: None");
             anatomyLabel.setMinimumSize(new Dimension(200, 0));
         }

@@ -1,6 +1,6 @@
 package brainflow.image.iterators;
 
-import org.boxwood.array.IDataGrid3D;
+import brainflow.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.

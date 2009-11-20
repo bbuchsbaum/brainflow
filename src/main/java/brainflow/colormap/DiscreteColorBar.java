@@ -22,7 +22,7 @@ public class DiscreteColorBar extends AbstractColorBar {
     public DiscreteColorBar(IColorMap _colorMap, int orientation) {
         super(_colorMap, orientation);
         initListener(_colorMap);
-        initBackground();
+        
     }
 
     @Override

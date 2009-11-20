@@ -92,13 +92,11 @@ public abstract class AbstractImageData implements IImageData {
         if (minComputed) return minValue;
         minValue = computeMin();
         return minValue;
-
-
     }
 
 
     protected double computeMin() {
-        ValueIterator iter = this.iterator();
+        ValueIterator iter = this.valueIterator();
 
         double _min = Double.MAX_VALUE;
         while (iter.hasNext()) {
@@ -116,7 +114,7 @@ public abstract class AbstractImageData implements IImageData {
 
 
     protected double computeMax() {
-        ValueIterator iter = this.iterator();
+        ValueIterator iter = this.valueIterator();
 
         double _max = -Double.MAX_VALUE;
         while (iter.hasNext()) {

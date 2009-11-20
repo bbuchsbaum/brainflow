@@ -15,11 +15,11 @@ public class NiftiImageReader implements ImageReader {
 
     private NiftiImageInfo info;
 
-    private BasicImageReader reader;
+    private BasicImageReader3D reader;
 
     public NiftiImageReader(NiftiImageInfo info) {
         this.info = info;
-        reader = new BasicImageReader(info);
+        reader = new BasicImageReader3D(info);
     }
 
     @Override

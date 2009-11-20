@@ -2,8 +2,9 @@ package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.interpolation.TrilinearInterpolator;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.space.IImageSpace3D;
-import org.boxwood.array.IDataGrid3D;
+import brainflow.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -69,12 +70,16 @@ public class MappedDataAcessor3D extends AbstractImageData3D {
 
 
     @Override
+    public ValueIterator valueIterator() {
+        return data.valueIterator();
+    }
+
     public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public ImageBuffer3D createWriter(boolean clear) {
+    public ImageBuffer3D createBuffer(boolean clear) {
         throw new UnsupportedOperationException();
     }
 

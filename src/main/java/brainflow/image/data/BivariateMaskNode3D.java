@@ -12,7 +12,7 @@ import brainflow.image.operations.BinaryOperation;
 import brainflow.utils.DataType;
 import brainflow.utils.Dimension3D;
 import brainflow.math.Index3D;
-import org.boxwood.array.IDataGrid3D;
+import brainflow.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -111,7 +111,7 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         return operation.isTrue(left.value(index), right.value(index)) ? 1 : 0;
     }
 
-    public ImageIterator iterator() {
+    public ImageIterator valueIterator() {
         return new BivariateMaskedDataNodeIterator();
     }
 
@@ -129,12 +129,12 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         return left.length();
     }
 
-    @Override
+    
     public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 
-    public ImageBuffer3D createWriter(boolean clear) {
+    public ImageBuffer3D createBuffer(boolean clear) {
         throw new UnsupportedOperationException();
     }
 
@@ -147,7 +147,7 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         ValueIterator iter;
 
         public BivariateMaskedDataNodeIterator() {
-            iter = left.iterator();
+            iter = left.valueIterator();
         }
 
         public double next() {          

@@ -1,7 +1,7 @@
 package brainflow.image.interpolation;
 
 
-import org.boxwood.array.IDataGrid2D;
+import brainflow.array.IArray2D;
 
 /**
  * <p>Title: </p>
@@ -15,5 +15,5 @@ import org.boxwood.array.IDataGrid2D;
 
 public interface InterpolationFunction2D {
 
-    public double interpolate(double dx, double dy, IDataGrid2D data);
+    public double interpolate(double dx, double dy, IArray2D data);
 }

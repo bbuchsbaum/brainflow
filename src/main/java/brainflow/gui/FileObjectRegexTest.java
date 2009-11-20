@@ -5,11 +5,14 @@ import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.FileObject;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -26,17 +29,23 @@ import com.jidesoft.swing.JideBoxLayout;
  */
 public class FileObjectRegexTest extends JPanel {
 
+    //needs to search in unexpanded nodes
+
+    private JSpinner depthSpinner = new JSpinner();
+
     private JTextField regexField = new JTextField();
 
     private JLabel regexLabel = new JLabel("Pattern: ");
 
-    private JButton findButton = new JButton("Find Matches");
+    private JButton findButton = new JButton("Search");
 
     private JideSplitPane splitPane;
 
     private JList fileList = new JList();
 
     private FileExplorer explorer;
+
+    private int recursiveDepth = 1;
 
 
     public FileObjectRegexTest() throws FileSystemException {
@@ -48,10 +57,25 @@ public class FileObjectRegexTest extends JPanel {
         box.add(regexField);
         box.add(findButton);
 
+        depthSpinner.setMaximumSize(new Dimension(50, 200));
+        depthSpinner.setModel(new SpinnerNumberModel(recursiveDepth,0,5,1));
+
+        Box box2 = Box.createHorizontalBox();
+        box2.add(new JLabel("Search Depth: "));
+        box2.add(depthSpinner);
+
         JPanel treePanel = new JPanel();
         treePanel.setLayout(new BorderLayout());
         //treePanel.add(box, BorderLayout.NORTH);
         treePanel.add(new JScrollPane(explorer.getComponent()), BorderLayout.CENTER);
+
+        depthSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                recursiveDepth = ((Number)depthSpinner.getValue()).intValue();
+                updateFileList();
+            }
+        });
 
         regexField.addActionListener(new ActionListener() {
             @Override
@@ -75,6 +99,7 @@ public class FileObjectRegexTest extends JPanel {
 
         add(splitPane, BorderLayout.CENTER);
         add(box, BorderLayout.NORTH);
+        add(box2, BorderLayout.SOUTH);
 
     }
 
@@ -128,19 +153,20 @@ public class FileObjectRegexTest extends JPanel {
 
     }
 
-    private List<FileObject> matchChildren(FileExplorer.FileObjectNode node, String regex, List<FileObject> fileList) {
+    private List<FileObject> matchChildren(FileExplorer.FileObjectNode node, String regex, List<FileObject> fileList, int depth) {
+        if (depth > recursiveDepth) return fileList;
+        
         if (node.isLeaf()) {
             String name = node.getFileObject().getName().getPath();
             if (name.matches(regex)) {
-                System.out.println("adding " + node.getFileObject().getName().getPath());
+
                 fileList.add(node.getFileObject());
 
             }
         } else {
-
             Enumeration e = node.children();
             while (e.hasMoreElements()) {
-                matchChildren((FileExplorer.FileObjectNode) e.nextElement(), regex, fileList);
+                matchChildren((FileExplorer.FileObjectNode) e.nextElement(), regex, fileList, depth + 1);
             }
         }
 
@@ -160,7 +186,7 @@ public class FileObjectRegexTest extends JPanel {
         List<FileObject> matchList = new ArrayList<FileObject>();
         System.out.println("fileNodes.size() " + fileNodes.size());
         for (FileExplorer.FileObjectNode node : fileNodes) {
-            matchChildren(node, regexPattern, matchList);
+            matchChildren(node, regexPattern, matchList, 0);
 
         }
 

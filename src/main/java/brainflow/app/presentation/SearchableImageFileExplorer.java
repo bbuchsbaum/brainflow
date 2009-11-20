@@ -2,6 +2,7 @@ package brainflow.app.presentation;
 
 import brainflow.gui.AbstractPresenter;
 import brainflow.app.services.DataSourceStatusEvent;
+import brainflow.gui.IActionProvider;
 import com.jidesoft.list.ListModelWrapper;
 import com.jidesoft.swing.SearchableUtils;
 import com.jidesoft.tree.FilterableTreeModel;
@@ -12,6 +13,7 @@ import com.xduke.xswing.DataTipManager;
 import javax.swing.*;
 import javax.swing.tree.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 import org.apache.commons.vfs.VFS;
 import org.bushe.swing.event.EventBus;
@@ -24,7 +26,7 @@ import org.bushe.swing.event.EventSubscriber;
  * Time: 7:30:20 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SearchableImageFileExplorer extends AbstractPresenter {
+public class SearchableImageFileExplorer extends AbstractPresenter implements IActionProvider {
 
     private JPanel mainPanel = new JPanel(new BorderLayout(6, 6));
 
@@ -128,6 +130,8 @@ public class SearchableImageFileExplorer extends AbstractPresenter {
             }
         });
 
+        mainPanel.putClientProperty(IActionProvider.KEY, this);
+
 
     }
 
@@ -141,4 +145,11 @@ public class SearchableImageFileExplorer extends AbstractPresenter {
         return text;
     }
 
+    @Override
+    public void addActions(MouseEvent event, java.util.List<Action> actionList) {
+        System.out.println("number of selected nodes : " + explorer.getSelectedNodes());
+
+    }
+
+    
 }

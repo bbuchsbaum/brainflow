@@ -40,7 +40,7 @@ public class DataSubGrid3DSpec {
   def "subgrid iteration works as expected"() {
     when:
     def subgrid = image.subGrid(20, 40, 20, 40, 20, 40)
-    def iter = subgrid.iterator()
+    def iter = subgrid.valueIterator()
 
     then:
     iter.next() == image.value(20,20,20)

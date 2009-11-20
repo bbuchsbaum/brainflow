@@ -1,8 +1,9 @@
 package brainflow.image.data;
 
+import brainflow.array.IArray2D;
 import brainflow.image.space.IImageSpace2D;
 import brainflow.image.interpolation.InterpolationFunction2D;
-import org.boxwood.array.IDataGrid2D;
+import brainflow.utils.Dimension2D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,20 +12,14 @@ import org.boxwood.array.IDataGrid2D;
  * Time: 1:10:25 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IImageData2D extends IImageData, IDataGrid2D {
-
-    //public double value(float x, float y, InterpolationFunction2D interp);
-
-    //public double valueAtReal(float x, float y, InterpolationFunction2D interp);
-
-    //public double valueAtWorld(float x, float y, InterpolationFunction2D interp);
+public interface IImageData2D extends IImageData, IArray2D {
 
     public double worldValue(float x, float y, InterpolationFunction2D interp);
-    
-    public int indexOf(int x, int y);
 
     public IImageSpace2D getImageSpace();
 
-    public ImageBuffer2D createWriter(boolean clear);
+    public ImageBuffer2D createBuffer(boolean clear);
+
+
 
 }

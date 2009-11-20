@@ -1,4 +1,4 @@
-package org.boxwood.array;
+package brainflow.array;
 
 import brainflow.image.interpolation.InterpolationFunction2D;
 
@@ -11,6 +11,6 @@ import brainflow.image.interpolation.InterpolationFunction2D;
  */
 public interface IDataGrid2D extends IDataGrid, IArray2D {
 
-    public double value(float x, float y, InterpolationFunction2D interp);
+    public double value(double x, double y, InterpolationFunction2D interp);
 
 }

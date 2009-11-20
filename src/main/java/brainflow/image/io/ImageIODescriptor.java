@@ -27,6 +27,7 @@ public class ImageIODescriptor {
 
     private final String dataExtension;
 
+    // obsolete
     private Class dataReader;
 
     private Class headerReader;
@@ -37,7 +38,22 @@ public class ImageIODescriptor {
 
     private static Logger log = Logger.getLogger(ImageIODescriptor.class.getName());
 
+    public static final ImageIODescriptor AFNI = new ImageIODescriptor("HEAD", "BRIK", BasicImageReader3D.class, AFNIInfoReader.class, "AFNI");
+    public static final ImageIODescriptor NIFTI_ONE = new ImageIODescriptor("nii", "nii", BasicImageReader3D.class, NiftiInfoReader.class, "NIFTI");
+    public static final ImageIODescriptor NIFTI_PAIR = new ImageIODescriptor("img", "hdr", BasicImageReader3D.class, NiftiInfoReader.class, "NIFTI");
 
+    public static final ImageIODescriptor ANALYZE = new ImageIODescriptor("HEAD", "BRIK", BasicImageReader3D.class, AnalyzeInfoReader.class, "ANALYZE");
+
+
+
+    public ImageIODescriptor(String headerExtension, String dataExtension, Class dataReader, Class headerReader, String formatName) {
+        this.formatName = formatName;
+        this.headerExtension = headerExtension;
+        this.dataExtension = dataExtension;
+        this.dataReader = dataReader;
+        this.headerReader = headerReader;
+
+    }
     private ImageIODescriptor(Element formatElement) throws BrainFlowException {
         Element headerElement = formatElement.getChild("Header");
         Element dataElement = formatElement.getChild("Data");
@@ -61,7 +77,7 @@ public class ImageIODescriptor {
     }
 
     public static FileObject resolveFile(String path, String name) throws FileSystemException {
-        System.out.println("trying to resolve " + name);
+
         return VFS.getManager().resolveFile(path + File.separatorChar + name);
 
     }
@@ -69,12 +85,6 @@ public class ImageIODescriptor {
     public static FileObject resolveFile(FileObject parent, String name) throws FileSystemException {
 
         String path = parent.getName().toString();
-
-        /*if (path.matches("^" + parent.getName().getRoot().getScheme() + ":\\/\\/+.*")) {
-            String[] res = path.split(parent.getName().getRoot().getScheme() + ":\\/\\/+");
-            assert res.length == 2;
-            path = res[1];
-        }*/
 
         return resolveFile(path, name);
     }

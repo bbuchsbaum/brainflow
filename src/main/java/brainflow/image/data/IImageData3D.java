@@ -1,10 +1,12 @@
 package brainflow.image.data;
 
+import brainflow.array.IArray3D;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.math.Index3D;
-import org.boxwood.array.IDataGrid3D;
+import brainflow.utils.Dimension3D;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,23 +17,18 @@ import org.boxwood.array.IDataGrid3D;
  */
 
 
-public interface IImageData3D extends IImageData, IDataGrid3D {
+public interface IImageData3D extends IImageData, IArray3D {
 
-    public double value(float x, float y, float z, InterpolationFunction3D interp);
-
-    //public double valueAtReal(float rx, float ry, float rz, InterpolationFunction3D interp);
-
-    //public double valueAtWorld(float wx, float wy, float wz, InterpolationFunction3D interp);
-
+   
     public double worldValue(float wx, float wy, float wz, InterpolationFunction3D interp);
-
-    public int indexOf(int x, int y, int z);
 
     public Index3D indexToGrid(int idx);
 
     public IImageSpace3D getImageSpace();
 
-    public ImageBuffer3D createWriter(boolean clear);
+    public ImageBuffer3D createBuffer(boolean clear);
 
     public Anatomy3D getAnatomy();
+
+
 }

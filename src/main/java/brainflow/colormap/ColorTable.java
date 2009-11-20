@@ -46,6 +46,19 @@ public class ColorTable {
         COLOR_MAPS.put("Gray Scale", GRAYSCALE);
         COLOR_MAPS.put("Greens", ColorBrewer.Greens);
         COLOR_MAPS.put("Reds", ColorBrewer.Reds);
+        COLOR_MAPS.put("Purples", ColorBrewer.Purples);
+        COLOR_MAPS.put("Purple-Blue", ColorBrewer.PurpleBlue);
+        COLOR_MAPS.put("Red-Yellow-Blue", ColorBrewer.RedYellowBlue);
+        COLOR_MAPS.put("Yellow-Green-Blue", ColorBrewer.YellowGreenBlue);
+        COLOR_MAPS.put("Yellow-Red", ColorBrewer.YellowRed);
+        COLOR_MAPS.put("Magenta-Green", ColorBrewer.MagentaGreen);
+        COLOR_MAPS.put("Purple-Green", ColorBrewer.PurpleGreen);
+        COLOR_MAPS.put("Orange-Purple", ColorBrewer.OrangePurple);
+        COLOR_MAPS.put("Red-Blue", ColorBrewer.RedBlue);
+        COLOR_MAPS.put("Red-Yellow-Green", ColorBrewer.RedYellowGreen);
+
+
+
         
 
     }

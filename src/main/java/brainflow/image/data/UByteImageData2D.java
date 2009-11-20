@@ -57,7 +57,7 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
          
     }
 
-    public ImageIterator iterator() {
+    public ImageIterator valueIterator() {
         return new Iterator2D();
     }
 
@@ -67,7 +67,7 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
     }
 
     @Override
-    public double value(float x, float y, InterpolationFunction2D interp) {
+    public double value(double x, double y, InterpolationFunction2D interp) {
         return interp.interpolate(x, y, this);
     }
 
@@ -108,7 +108,7 @@ public class UByteImageData2D extends AbstractImageData implements IImageData2D 
     }
 
 
-    public ImageBuffer2D createWriter(boolean clear) {
+    public ImageBuffer2D createBuffer(boolean clear) {
         throw new UnsupportedOperationException();
     }
 

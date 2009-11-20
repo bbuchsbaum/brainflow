@@ -51,7 +51,7 @@ public class HistogramPresenter extends BrainFlowPresenter {
 
     public HistogramPresenter() {
         control = new HistogramControl(new LinearColorMap2(0, 100, ColorTable.GRAYSCALE),
-                new Histogram(new BasicImageData3D(Space.createImageSpace(2, 2, 2, 1, 1, 1), DataType.DOUBLE), 10),
+                new Histogram(new BasicImageData3D.Double(Space.createImageSpace(2, 2, 2, 1, 1, 1)), 10),
                 new Range(0, 0));
 
         colorMapListener = new PropertyListener() {

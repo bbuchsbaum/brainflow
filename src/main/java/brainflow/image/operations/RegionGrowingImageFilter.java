@@ -125,7 +125,7 @@ public class RegionGrowingImageFilter extends AbstractImageFilter {
             seed = _seed;
             data = _data;
             space = (ImageSpace3D) data.getImageSpace();
-            visited = ((IImageData3D) BasicImageData.create(space, DataType.INTEGER)).createWriter(false);
+            visited = ((IImageData3D) BasicImageData.create(space, DataType.INTEGER)).createBuffer(false);
         }
 
         public IntArrayList growRegion() {

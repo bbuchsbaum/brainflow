@@ -30,9 +30,7 @@ public final class AxisRange implements Cloneable {
     private static final Logger log = Logger.getLogger(AxisRange.class.getName());
 
     public AxisRange(AnatomicalAxis _aaxis, double _begin, double _end) {
-        assert _aaxis != null;
-        assert (_begin <= _end) : "Error AxisRange: begin must be less than end";
-
+     
 
         begin = _begin;
         end = _end;

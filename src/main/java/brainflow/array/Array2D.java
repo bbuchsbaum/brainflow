@@ -1,5 +1,7 @@
-package org.boxwood.array;
+package brainflow.array;
 
+import brainflow.image.interpolation.InterpolationFunction2D;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.utils.Dimension2D;
 
 /**
@@ -9,7 +11,7 @@ import brainflow.utils.Dimension2D;
  * Time: 12:43:14 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class Array2D implements IArray2D {
+public abstract class Array2D implements IArray2D, IArrayBuffer2D {
 
 
     private int dim0, dim1, len;
@@ -74,13 +76,19 @@ public abstract class Array2D implements IArray2D {
         return new Short(dim0, dim1, data);
     }
 
-    public static class Double extends Array2D {
+    public final static class Double extends Array2D {
 
         private double[] data;
 
         public Double(int dim0, int dim1, double[] data) {
             super(dim0, dim1);
             this.data = data;
+        }
+
+
+        public Double(int dim0, int dim1) {
+            super(dim0,dim1);
+            data = new double[dim0*dim1];
         }
 
         @Override
@@ -153,19 +161,38 @@ public abstract class Array2D implements IArray2D {
             data[i] = val;
         }
 
-        @Override
+
         public Class<?> getType() {
             return java.lang.Double.TYPE;
         }
+
+        public double[] toArray() {
+            return data;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, InterpolationFunction2D interp) {
+            return interp.interpolate(x,y,this);
+        }
     }
 
-    public static class Int extends Array2D {
+    public final static class Int extends Array2D {
 
         private int[] data;
 
         public Int(int dim0, int dim1, int[] data) {
             super(dim0, dim1);
             this.data = data;
+        }
+
+        public Int(int dim0, int dim1) {
+            super(dim0,dim1);
+            data = new int[dim0*dim1];
         }
 
         @Override
@@ -247,19 +274,38 @@ public abstract class Array2D implements IArray2D {
             data[i] = val;
         }
 
-        @Override
+
         public Class<?> getType() {
             return Integer.TYPE;
         }
+
+        public int[] toArray() {
+            return data;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, InterpolationFunction2D interp) {
+            return interp.interpolate(x,y,this);
+        }
     }
 
-    public static class Short extends Array2D {
+    public final static class Short extends Array2D {
 
         private short[] data;
 
         public Short(int dim0, int dim1, short[] data) {
             super(dim0, dim1);
             this.data = data;
+        }
+
+        public Short(int dim0, int dim1) {
+            super(dim0,dim1);
+            data = new short[dim0*dim1];
         }
 
         @Override
@@ -314,7 +360,7 @@ public abstract class Array2D implements IArray2D {
 
         @Override
         public void set(int i, short val) {
-            data[i] = (short)val;
+            data[i] = val;
         }
 
         @Override
@@ -340,19 +386,38 @@ public abstract class Array2D implements IArray2D {
             return data[indexOf(i,j)];
         }
 
-        @Override
+
         public Class<?> getType() {
             return java.lang.Short.TYPE;
         }
+
+        public short[] toArray() {
+            return data;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, InterpolationFunction2D interp) {
+            return interp.interpolate(x,y,this);
+        }
     }
 
-    public static class Float extends Array2D {
+    public final static class Float extends Array2D {
 
         private float[] data;
 
         public Float(int dim0, int dim1, float[] data) {
             super(dim0, dim1);
             this.data = data;
+        }
+
+        public Float(int dim0, int dim1) {
+            super(dim0,dim1);
+            data = new float[dim0*dim1];
         }
 
         @Override
@@ -433,19 +498,38 @@ public abstract class Array2D implements IArray2D {
         public float floatValue(int i, int j) {
             return data[indexOf(i,j)];
         }
-        @Override
+
         public Class<?> getType() {
             return java.lang.Float.TYPE;
         }
+
+        public float[] toArray() {
+            return data;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, InterpolationFunction2D interp) {
+            return interp.interpolate(x,y,this);
+        }
     }
 
-    public static class Byte extends Array2D {
+    public final static class Byte extends Array2D {
 
         private byte[] data;
 
         public Byte(int dim0, int dim1, byte[] data) {
             super(dim0, dim1);
             this.data = data;
+        }
+
+        public Byte(int dim0, int dim1) {
+            super(dim0,dim1);
+            data = new byte[dim0*dim1];
         }
 
         @Override
@@ -526,9 +610,135 @@ public abstract class Array2D implements IArray2D {
         public float byteValue(int i, int j) {
             return data[indexOf(i,j)];
         }
-        @Override
+       
         public Class<?> getType() {
             return java.lang.Byte.TYPE;
+        }
+
+        public byte[] toArray() {
+            return data;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, InterpolationFunction2D interp) {
+            return interp.interpolate(x,y,this);
+        }
+    }
+
+    public final static class Boolean extends Array2D {
+
+        private boolean[] data;
+
+        public Boolean(int dim0, int dim1, boolean[] data) {
+            super(dim0, dim1);
+            this.data = data;
+        }
+
+        public Boolean(int dim0, int dim1) {
+            super(dim0,dim1);
+            data = new boolean[dim0*dim1];
+        }
+
+        @Override
+        public double value(int i, int j) {
+            return data[indexOf(i,j)] ? 1 : 0;
+        }
+
+        @Override
+        public double value(int i) {
+            return data[i] ? 1 : 0;
+        }
+
+        @Override
+        public void set(int i, double val) {
+            data[i] = val != 0;
+        }
+
+        @Override
+        public void set(int i, int j, double val) {
+            data[indexOf(i,j)] = val != 0;
+        }
+
+        @Override
+        public void set(int i, int j, int val) {
+            data[indexOf(i,j)] = val != 0;
+        }
+
+        @Override
+        public void set(int i, int j, short val) {
+            data[indexOf(i,j)] = val != 0;
+        }
+
+        @Override
+        public void set(int i, int j, float val) {
+            data[indexOf(i,j)] = val != 0;
+        }
+
+        @Override
+        public void set(int i, int j, long val) {
+            data[indexOf(i,j)] = val != 0;
+        }
+
+        @Override
+        public void set(int i, int j, byte val) {
+            data[indexOf(i,j)] = val != 0;
+        }
+
+        @Override
+        public void set(int i, float val) {
+            data[i] = val != 0;
+        }
+
+        @Override
+        public void set(int i, short val) {
+            data[i] = val != 0;
+        }
+
+        @Override
+        public void set(int i, int val) {
+            data[i] = val != 0;
+        }
+
+        @Override
+        public void set(int i, long val) {
+            data[i] = val != 0;
+        }
+
+        @Override
+        public void set(int i, byte val) {
+            data[i] = val != 0;
+        }
+
+        public boolean booleanValue(int i) {
+            return data[i];
+        }
+
+        public boolean booleanValue(int i, int j) {
+            return data[indexOf(i,j)];
+        }
+
+
+        public Class<?> getType() {
+            return java.lang.Boolean.TYPE;
+        }
+
+        public boolean[] toArray() {
+            return data;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(double x, double y, InterpolationFunction2D interp) {
+            return interp.interpolate(x,y,this);
         }
     }
 

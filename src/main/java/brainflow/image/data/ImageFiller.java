@@ -7,7 +7,8 @@ import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ImageSpace2D;
-import org.boxwood.array.IDataGrid3D;
+import brainflow.array.IArray3D;
+import brainflow.array.IDataGrid3D;
 
 
 /**
@@ -98,7 +99,7 @@ public class ImageFiller {
                 axis2, ispace.getDimension(axis2));
 
 
-        return new BasicImageData2D(new ImageSpace2D(a1, a2), values);
+        return new BasicImageData2D.Float(new ImageSpace2D(a1, a2), values);
 
 
     }
@@ -116,7 +117,7 @@ public class ImageFiller {
     }
 
 
-    private float[] fillXYZ(IDataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillXYZ(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x = 0, y = 0, z = 0;
         z = fixed;
 
@@ -138,7 +139,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillYXZ(IDataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillYXZ(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x = 0, y = 0, z = 0;
         z = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
@@ -161,7 +162,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillXZY(IDataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillXZY(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x = 0, y = 0, z = 0;
         y = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
@@ -184,7 +185,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillYZX(IDataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillYZX(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x = 0, y = 0, z = 0;
         x = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
@@ -206,7 +207,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillZYX(IDataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillZYX(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x = 0, y = 0, z = 0;
         x = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
@@ -229,7 +230,7 @@ public class ImageFiller {
 
     }
 
-    private float[] fillZXY(IDataGrid3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
+    private float[] fillZXY(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
         int x = 0, y = 0, z = 0;
         y = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];

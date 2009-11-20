@@ -213,8 +213,6 @@ public class NiftiImageInfo extends ImageInfo {
                 return Nifti1Dataset.NIFTI_TYPE_INT8;
             case BYTE:
                 return Nifti1Dataset.NIFTI_TYPE_INT8;
-            case COMPLEX:
-                return Nifti1Dataset.NIFTI_TYPE_COMPLEX64;
             case DOUBLE:
                 return Nifti1Dataset.NIFTI_TYPE_FLOAT64;
             case FLOAT:

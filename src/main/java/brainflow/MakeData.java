@@ -30,10 +30,10 @@ public class MakeData {
         ImageAxis axis3 = new ImageAxis(0, 100, AnatomicalAxis.INFERIOR_SUPERIOR, zdim);
 
         ImageSpace3D space = new ImageSpace3D(axis1, axis2, axis3);
-        IImageData3D data1 = new BasicImageData3D(space, DataType.INTEGER);
-        IImageData3D data2 = new BasicImageData3D(space, DataType.INTEGER);
-        IImageData3D data3 = new BasicImageData3D(space, DataType.INTEGER);
-        IImageData3D data4 = new BasicImageData3D(space, DataType.INTEGER);
+        IImageData3D data1 = new BasicImageData3D.Int(space);
+        IImageData3D data2 = new BasicImageData3D.Int(space);
+        IImageData3D data3 = new BasicImageData3D.Int(space);
+        IImageData3D data4 = new BasicImageData3D.Int(space);
 
 
         data1 = fillHorizontal(data1);

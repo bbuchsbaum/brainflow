@@ -33,8 +33,6 @@ public class ImageViewModel implements Iterable {
 
     private ImageLayerList layers;
 
-    //private final LinkedHashMap<ImageLayer3D, Boolean> layers;
-
     private EventListenerList eventListeners = new EventListenerList();
 
     public final Property<Integer> layerSelection = ObservableProperty.create(-1);
@@ -380,7 +378,7 @@ public class ImageViewModel implements Iterable {
 
 
     private List<PropListener<ImageLayerListener>> listenToLayer(final ImageLayer3D layer) {
-
+        //todo method is an abomination, at least break it up.
 
         PropListener<ImageLayerListener> colorMapListener = new PropListener<ImageLayerListener>(layer, ImageLayerListener.class,
                 new EventForwarder<ImageLayerListener>() {

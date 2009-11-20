@@ -1,5 +1,6 @@
 package brainflow.image.data;
 
+import brainflow.array.IArray3D;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
@@ -9,7 +10,6 @@ import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.Index3D;
 import brainflow.utils.Dimension3D;
 import cern.colt.bitvector.BitVector;
-import org.boxwood.array.IDataGrid3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -45,7 +45,7 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
 
         
         BitVector bits = getBitVector();
-        ValueIterator iter = src.iterator();
+        ValueIterator iter = src.valueIterator();
 
         while (iter.hasNext()) {
             int i = iter.index();
@@ -126,8 +126,8 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
         return interp.interpolate(x, y, z, this);
     }
 
-    @Override
-    public IDataGrid3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
+
+    public IArray3D subGrid(int x0, int x1, int y0, int y1, int z0, int z1) {
         throw new UnsupportedOperationException();
     }
 
@@ -180,7 +180,7 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
 
     }
 
-    public ImageBuffer3D createWriter(boolean clear) {
+    public ImageBuffer3D createBuffer(boolean clear) {
         throw new UnsupportedOperationException();
     }
 }

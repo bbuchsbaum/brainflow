@@ -34,7 +34,7 @@ public class MeanImageFilter extends AbstractImageFilter {
         if (first == null) return null;
 
         AbstractImageData opdata = BasicImageData.create(first.getImageSpace(), outputDataType);
-        ValueIterator opiter = opdata.iterator();
+        ValueIterator opiter = opdata.valueIterator();
 
         ImageIterator[] iters = getSourceIterators();
 

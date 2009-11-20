@@ -1,4 +1,4 @@
-package org.boxwood.array;
+package brainflow.array;
 
 import java.util.List;
 import java.util.ArrayList;

@@ -11,7 +11,7 @@ public interface IntImageData3D extends IImageData3D {
 
     public int getIntValue(int x, int y, int z);
 
-    public IntImageBuffer3D createWriter(boolean clear);
+    public IntImageBuffer3D createBuffer(boolean clear);
 
-    
+
 }

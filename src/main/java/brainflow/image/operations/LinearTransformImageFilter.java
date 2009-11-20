@@ -67,7 +67,7 @@ public class LinearTransformImageFilter extends AbstractTransformImageFilter {
         outputSpace.anchorAxis(a2.getAnatomicalAxis(), a2.getAnatomicalAxis().getMinDirection(), origin.getY());
         outputSpace.anchorAxis(a3.getAnatomicalAxis(), a3.getAnatomicalAxis().getMinDirection(), origin.getZ());
 
-        ImageBuffer3D odata = ((IImageData3D) BasicImageData.create(outputSpace, outputDataType)).createWriter(false);
+        ImageBuffer3D odata = ((IImageData3D) BasicImageData.create(outputSpace, outputDataType)).createBuffer(false);
 
 
         return resample(first, odata);
@@ -110,7 +110,7 @@ public class LinearTransformImageFilter extends AbstractTransformImageFilter {
         }
 
 
-        return odat.asImageData();
+        return odat;
     }
 
 

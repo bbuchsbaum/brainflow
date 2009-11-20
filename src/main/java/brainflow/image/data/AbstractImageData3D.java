@@ -75,9 +75,7 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
         return getImageSpace().getAnatomy();
     }
 
-    public ValueIterator iterator() {
-        return new Iterator3D(this);
-    }
+
 
     public Index3D indexToGrid(int idx) {
         return getImageSpace().indexToGrid(idx);

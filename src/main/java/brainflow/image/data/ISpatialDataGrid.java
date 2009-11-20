@@ -2,7 +2,7 @@ package brainflow.image.data;
 
 import brainflow.utils.IDimension;
 import brainflow.utils.IBounds;
-import org.boxwood.array.IDataGrid;
+import brainflow.array.IDataGrid;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,7 +11,7 @@ import org.boxwood.array.IDataGrid;
  * Time: 10:43:48 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface SpatialDataGrid extends IDataGrid {
+public interface ISpatialDataGrid extends IDataGrid {
 
     public IDimension<Double> getSpacing();
 
