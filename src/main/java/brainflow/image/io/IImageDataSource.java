@@ -30,7 +30,7 @@ public interface IImageDataSource {
 
     public long whenRead();
 
-    public ImageIODescriptor getDescriptor();
+    public IImageFileDescriptor getDescriptor();
 
     public String getStem();
 

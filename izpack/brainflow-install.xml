@@ -14,10 +14,10 @@
     <info>
 
         <appname>Brainflow</appname>
-        <appversion>0.1</appversion>
+        <appversion>0.1.1</appversion>
         <authors>
 
-            <author name="Brad Buchsbaum" email="bbuchsbaum at rotman dot baycrest dot on dot ca"/>
+            <author name="Bradley R. Buchsbaum" email="bbuchsbaum at rotman dot baycrest dot on dot ca"/>
 
         </authors>
         <javaversion>1.6</javaversion>
@@ -69,7 +69,7 @@
         <pack name="Bin" required="yes">
             <description>application binary and startup scripts</description>
             <file src="brainflow.bat" targetdir="$INSTALL_PATH/bin"/>
-            <file src="../build/libs/brainflow-lean-0.1.jar" targetdir="$INSTALL_PATH/bin"/>
+            <file src="../build/libs/brainflow-lean-0.1.1.jar" targetdir="$INSTALL_PATH/bin"/>
             <file src="brainflow-icon.ico" targetdir="$INSTALL_PATH/bin"/> 
 
         </pack>

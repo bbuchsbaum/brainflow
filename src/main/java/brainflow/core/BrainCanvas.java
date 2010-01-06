@@ -134,6 +134,7 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
             return iview.whichPlot(relPoint);
         }
 
+        //todo Option?
         return null;
 
 
@@ -234,7 +235,24 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
 
     }
 
+    private JInternalFrame findNearestFrame(Point loc) {
+        JInternalFrame[] frames = desktopPane.getAllFrames();
+        if (frames.length == 0) throw new IllegalStateException("no frames visible");
 
+        double mindist = Double.MAX_VALUE;
+        JInternalFrame nearestFrame = frames[0];
+
+        for (int i=0; i<frames.length; i++) {
+            double dist = loc.distance(frames[i].getLocation());
+            if (dist < mindist) {
+                mindist = dist;
+                nearestFrame = frames[i];
+            }
+        }
+
+        return nearestFrame;
+
+    }
     public void addImageView(ImageView view) {
         view.setSize(view.getPreferredSize());
         JInternalFrame jframe = new JInternalFrame("view", true, true, true, true);
@@ -243,8 +261,34 @@ public class BrainCanvas extends JComponent implements InternalFrameListener, IB
         jframe.setContentPane(view);
         jframe.setSize(view.getSize());
         Dimension d = desktopPane.getSize();
-        Point p = desktopPane.getLocation();
-        jframe.setLocation((int) (p.x + .25 * d.width), (int) (p.y + .25 * d.height));
+        Point loc = desktopPane.getLocation();
+
+
+        Point p =  new Point((int) (loc.x + .25 * d.width), (int) (loc.y + .25 * d.height));
+        if (desktopPane.getAllFrames().length > 0) {
+            JInternalFrame nearest = findNearestFrame(p);
+            double dist =  p.distance(nearest.getLocation());
+            System.out.println("distance is " + dist);
+            if (dist < 10) {
+                System.out.println("old p " + p);
+                p = new Point(nearest.getLocation().x + desktopPane.getComponentCount()*5, nearest.getLocation().y + desktopPane.getComponentCount()*5);
+                System.out.println("new p " + p);
+            }
+
+        }
+
+
+       /* if (underView != null) {
+            System.out.println("under view is not null!");
+            double x = underView.getLocation().getX();
+            double y = underView.getLocation().getY();
+            loc = new Point((int)(x + 0.1*view.getWidth()), (int)(y + 0.1*view.getHeight()));
+        } else {
+            System.out.println("underview is null!");
+        }  */
+
+
+        jframe.setLocation(p);
 
         jframe.setVisible(true);
         jframe.addInternalFrameListener(this);

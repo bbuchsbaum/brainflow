@@ -30,19 +30,19 @@ public class ImageDataSource extends AbstractImageDataSource {
     private long lastRead = -1;
 
 
-    public ImageDataSource(ImageIODescriptor _descriptor, ImageInfo _info) {
+    public ImageDataSource(IImageFileDescriptor _descriptor, ImageInfo _info) {
         super(_descriptor, _info);
     }
 
-    public ImageDataSource(ImageIODescriptor _descriptor, FileObject _header, FileObject _data) {
+    public ImageDataSource(IImageFileDescriptor _descriptor, FileObject _header, FileObject _data) {
         super(_descriptor, _header, _data);
     }
 
-    public ImageDataSource(ImageIODescriptor _descriptor, FileObject _header) {
+    public ImageDataSource(IImageFileDescriptor _descriptor, FileObject _header) {
         super(_descriptor, _header);
     }
 
-    public ImageDataSource(ImageIODescriptor _descriptor, List<ImageInfo> infoList, int _index) {
+    public ImageDataSource(IImageFileDescriptor _descriptor, List<ImageInfo> infoList, int _index) {
         super(_descriptor, infoList, _index);
     }
 

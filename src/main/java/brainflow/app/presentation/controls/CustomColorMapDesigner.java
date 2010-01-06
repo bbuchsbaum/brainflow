@@ -26,6 +26,7 @@ import brainflow.colormap.IColorMap;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.AbstractColorBar;
 import brainflow.colormap.forms.ColorBarWithAxis;
+import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -402,7 +403,7 @@ public class CustomColorMapDesigner extends JPanel {
     public static void main(String[] args) {
         com.jidesoft.utils.Lm.verifyLicense("UIN", "BrainFlow", "S5XiLlHH0VReaWDo84sDmzPxpMJvjP3");
         try {
-            UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
+            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         } catch (ParseException e) {

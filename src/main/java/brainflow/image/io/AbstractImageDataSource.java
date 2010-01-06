@@ -24,7 +24,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
 
     private static final BufferedImage BLANK = new BufferedImage(100, 100, BufferedImage.TYPE_BYTE_GRAY);
 
-    private ImageIODescriptor descriptor;
+    private IImageFileDescriptor descriptor;
 
     private FileObject header;
 
@@ -38,7 +38,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
 
 
   
-    public AbstractImageDataSource(ImageIODescriptor _descriptor, ImageInfo _info) {
+    public AbstractImageDataSource(IImageFileDescriptor _descriptor, ImageInfo _info) {
         imageInfoList = Arrays.asList(_info);
 
         descriptor = _descriptor;
@@ -50,7 +50,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     }
 
 
-    public AbstractImageDataSource(ImageIODescriptor _descriptor, List<ImageInfo> infoList, int _index) {
+    public AbstractImageDataSource(IImageFileDescriptor _descriptor, List<ImageInfo> infoList, int _index) {
         imageInfoList = infoList;
         index = _index;
         descriptor = _descriptor;
@@ -62,13 +62,14 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     }
 
 
-    public AbstractImageDataSource(ImageIODescriptor _descriptor, FileObject _header, FileObject _data) {
+    public AbstractImageDataSource(IImageFileDescriptor _descriptor, FileObject _header, FileObject _data) {
         descriptor = _descriptor;
         dataFile = _data;
         header = _header;
     }
 
-    public AbstractImageDataSource(ImageIODescriptor _descriptor, FileObject _header) {
+    public AbstractImageDataSource(IImageFileDescriptor _descriptor, FileObject _header) {
+        //todo why have this?
         descriptor = _descriptor;
         header = _header;
     }
@@ -87,15 +88,14 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     protected void fetchImageInfo() {
 
         try {
-            ImageInfoReader reader = ((ImageInfoReader) getDescriptor().getHeaderReader().newInstance()).create(header, dataFile);
-            imageInfoList = reader.readInfo();
+
+            getDescriptor().createInfoReader(header, dataFile);
+            //ImageInfoReader reader = ((ImageInfoReader) getDescriptor().getHeaderReader().newInstance()).create(header, dataFile);
+            //imageInfoList = reader.readInfo();
+            imageInfoList = getDescriptor().createInfoReader(header, dataFile).readInfo();
 
         } catch (BrainFlowException e) {
             throw new RuntimeException(e);
-        } catch (InstantiationException e2) {
-            throw new RuntimeException(e2);
-        } catch (IllegalAccessException e3) {
-            throw new RuntimeException(e3);
         } catch(Throwable t) {
             Logger.getAnonymousLogger().severe("failed to read image info for : " + getHeaderFile());
             throw new RuntimeException(t);
@@ -113,14 +113,14 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     }
 
     public String getFileFormat() {
-        return descriptor.getFormatName();
+        return descriptor.getFileFormat();
     }
 
     public FileObject getHeaderFile() {
         return header;
     }
 
-    public ImageIODescriptor getDescriptor() {
+    public IImageFileDescriptor getDescriptor() {
         return descriptor;
     }
 
@@ -129,7 +129,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     }
 
     public String getStem() {
-        return descriptor.getStem(header.getName().getBaseName());
+        return descriptor.stripExtension(header.getName().getBaseName());
     }
 
     public int getUniqueID() {

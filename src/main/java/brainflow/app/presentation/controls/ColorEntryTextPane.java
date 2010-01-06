@@ -36,7 +36,7 @@ public class ColorEntryTextPane extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String text = inputField.getText();
                 try {
-                    Color.getColor(text, 33)
+                    Color.getColor(text, 33);
                     Color c = Color.decode(text);
                     listModel.addElement(c);
                 } catch (Throwable t) {
@@ -58,6 +58,8 @@ public class ColorEntryTextPane extends JPanel {
             i++;
 
         }
+        //todo fixme
+        return true;
 
     }
 

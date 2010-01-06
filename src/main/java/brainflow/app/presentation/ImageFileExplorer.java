@@ -600,9 +600,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                 IImageDataSource parent = getUserObject();
                 List<? extends ImageInfo> infoList = parent.getImageInfoList();
                 for (ImageInfo info : infoList) {
-
                     childNodes.add(new ImageLeafNode(new ImageDataSource(parent.getDescriptor(), info)));
-
                 }
 
                 areChildrenDefined = true;

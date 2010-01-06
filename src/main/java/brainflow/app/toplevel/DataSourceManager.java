@@ -9,6 +9,7 @@ package brainflow.app.toplevel;
 import brainflow.image.io.*;
 import brainflow.image.io.ImageIODescriptor;
 import brainflow.app.services.DataSourceStatusEvent;
+import org.apache.commons.vfs.FileObject;
 import org.bushe.swing.event.EventBus;
 
 import java.util.LinkedHashMap;
@@ -72,9 +73,9 @@ public class DataSourceManager {
         EventBus.publish(new DataSourceStatusEvent(limg, DataSourceStatusEvent.EventID.IMAGE_REGISTERED));
     }
 
-    public IImageDataSource createDataSource(ImageIODescriptor descriptor, ImageInfo info, boolean register) {
+    public IImageDataSource createDataSource(IImageFileDescriptor descriptor, ImageInfo info, boolean register) {
 
-        IImageDataSource source = new SoftImageDataSource(descriptor, info);
+        IImageDataSource source = new ImageDataSource(descriptor, info);
         if (register) {
             register(source);
         }
@@ -82,7 +83,7 @@ public class DataSourceManager {
         return source;
     }
 
-    public IImageDataSource createDataSource(ImageIODescriptor descriptor, List<ImageInfo> infoList, int index, boolean register) {
+    public IImageDataSource createDataSource(IImageFileDescriptor descriptor, List<ImageInfo> infoList, int index, boolean register) {
 
         IImageDataSource source = new ImageDataSource(descriptor, infoList, index);
         if (register) {
@@ -101,6 +102,19 @@ public class DataSourceManager {
     public IImageDataSource lookup(int uid) {
         return imageMap.get(uid);
     }
+
+
+    public static final IImageFileDescriptor NIFTI_DESCRIPTOR = new AbstractImageFileDescriptor("nii", "nii", "NIFTI") {
+        @Override
+        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageDataSource(this, headerFile,dataFile);
+        }
+
+        @Override
+        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+            return new NiftiInfoReader(headerFile, dataFile);
+        }
+    };
 
 
 

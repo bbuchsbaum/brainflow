@@ -33,7 +33,7 @@ import org.kohsuke.args4j.Argument;
 public class BrainFlowStarter {
 
 
-    @Option(usage = "file path to mount", name = "-mount")
+    @Option(usage = "file path to mount", name = "-m")
     public String path;
 
     @Argument

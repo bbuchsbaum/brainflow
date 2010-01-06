@@ -1,5 +1,8 @@
 
 
+Fix: cannot drag and drop model on to canvas from project tree
+Fix: [???? Macos crosshair stops responding if imageview if several imageviews are created and then all but one are deleted. ???]
+
 Fix: zooming doesn't always maintain aspect ratio //GH
 Fix: should be able to drag model from project view on to canvas
 Fix: "use mask" checkbox doesn't do anything //GH

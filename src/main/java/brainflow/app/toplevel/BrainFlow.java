@@ -25,6 +25,7 @@ import com.jidesoft.document.*;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.plaf.UIDefaultsLookup;
 import com.jidesoft.plaf.basic.ThemePainter;
+import com.jidesoft.plaf.office2003.Office2003Painter;
 import com.jidesoft.status.LabelStatusBarItem;
 import com.jidesoft.status.StatusBar;
 import com.jidesoft.swing.*;
@@ -71,7 +72,6 @@ import java.util.logging.Logger;
 import java.net.URI;
 
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
 
 
 /**
@@ -198,22 +198,23 @@ public class BrainFlow {
     }
 
 
-    public void launch() throws Throwable {
-
-
+    private void initLookAndFeel() {
         try {
-            openSplash();
-            drawSplashProgress("loading look and feel");
 
 
             String osname = System.getProperty("os.name");
             System.out.println("os name is : " + osname);
             if (osname.toUpperCase().contains("WINDOWS")) {
+                log.info("windows");
+                //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 //UIManager.setLookAndFeel(de.javasoft.plaf.synthetica.blackmoon.);
-                //UIManager.setLookAndFeel(new SyntheticaWhiteVisionLookAndFeel());
+                // UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel());
                 com.jidesoft.plaf.LookAndFeelFactory.installDefaultLookAndFeel();
-                LookAndFeelFactory.installJideExtension(LookAndFeelFactory.OFFICE2007_STYLE);
-                LookAndFeelFactory.installJideExtension();
+                LookAndFeelFactory.installJideExtension(LookAndFeelFactory.OFFICE2003_STYLE);
+                ((Office2003Painter) Office2003Painter.getInstance()).setColorName("Metallic");
+
+
+                //LookAndFeelFactory.installJideExtension();
 
             } else if (osname.toUpperCase().contains("LINUX")) {
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
@@ -227,7 +228,7 @@ public class BrainFlow {
                 System.setProperty("com.apple.mrj.application.apple.menu.about.name", "BrainFlow");
                 System.setProperty("com.apple.macos.useScreenMenuBar", "true");
                 System.setProperty("apple.awt.graphics.UseQuartz", "true");
-
+                System.setProperty("apple.awt.brushMetalLook", "true");
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
 
@@ -250,6 +251,19 @@ public class BrainFlow {
 
         }
 
+    }
+
+    public void launch(java.util.List<String> imageFiles) {
+        
+
+
+    }
+
+
+    public void launch() throws Throwable {
+        openSplash();
+        drawSplashProgress("loading look and feel");
+        initLookAndFeel();
 
         StopWatch clock = new StopWatch();
         clock.start("launch");
@@ -308,6 +322,8 @@ public class BrainFlow {
         clock.start("status bar");
         initializeStatusBar();
         clock.stopAndReport("status bar");
+
+        brainFrame.setVisible(true);
 
 
     }
@@ -600,16 +616,22 @@ public class BrainFlow {
             public void eventDispatched(AWTEvent event) {
 
                 if (event.getID() == KeyEvent.KEY_PRESSED) {
+
                     KeyEvent ke = (KeyEvent) event;
+                    Component comp = ke.getComponent();
                     if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
                         ImageView view = BrainFlow.get().getSelectedView();
-                        if (view.hasFocus()) {
+
+                        if (/*view.hasFocus() || */ parentIsImageView(comp)) {
                             previousSliceCommand.execute();
                         }
                     } else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
                         ImageView view = BrainFlow.get().getSelectedView();
-                        if (view.hasFocus()) {
+
+                        if ( /*view.hasFocus() */ parentIsImageView(comp)) {
                             nextSliceCommand.execute();
+                        } else {
+                            System.out.println("no focus");
                         }
                     }
 
@@ -625,14 +647,30 @@ public class BrainFlow {
                     MouseEvent me = (MouseEvent) event;
                     if (me.isPopupTrigger()) {
                         showActionMenu(me);
-                    } else {
-                        System.out.println("event " + me);
                     }
                 }
 
             }
         }, AWTEvent.MOUSE_EVENT_MASK);
 
+
+    }
+
+    private boolean parentIsImageView(Component c) {
+        if (c instanceof ImageView) {
+            return true;
+        }
+
+        while (c != null) {
+            Container comp = c.getParent();
+            if (comp instanceof ImageView) {
+                return true;
+            }
+
+            c = c.getParent();
+        }
+
+        return false;
 
     }
 
@@ -661,7 +699,7 @@ public class BrainFlow {
                 }
             }
 
-            
+
             Component p = c.getParent();
             if (p != null) {
                 c = p;
@@ -675,7 +713,6 @@ public class BrainFlow {
         if (actionList.size() > 0) {
             createPopup(actionList).setVisible(true);
         }
-
 
 
     }
@@ -780,7 +817,7 @@ public class BrainFlow {
         brainFrame.toFront();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         brainFrame.setSize((int) screenSize.getWidth(), (int) screenSize.getHeight() - 50);
-        brainFrame.setVisible(true);
+
         watch.stopAndReport("layout docks");
 
         watch.start("canvas bar");
@@ -1200,7 +1237,7 @@ public class BrainFlow {
             }
 
             if (event.getLocation() == null) {
-                // well, shouldn't realy happen but ...
+                // well, shouldn't really happen but ...
                 return false;
             }
 

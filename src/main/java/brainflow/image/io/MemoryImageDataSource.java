@@ -62,7 +62,7 @@ public class MemoryImageDataSource implements IImageDataSource {
         throw new UnsupportedOperationException();
     }
 
-    public ImageIODescriptor getDescriptor() {
+    public IImageFileDescriptor getDescriptor() {
         throw new UnsupportedOperationException("MemoryImage does not have associated descriptor object");
     }
 

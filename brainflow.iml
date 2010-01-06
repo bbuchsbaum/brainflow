@@ -4,6 +4,8 @@
     <facet type="Scala" name="Scala">
       <configuration>
         <option name="takeFromSettings" value="true" />
+        <option name="myScalaCompilerJarPath" value="C:\javacode\scala-2.8.0\lib\scala-compiler.jar" />
+        <option name="myScalaSdkJarPath" value="C:\javacode\scala-2.8.0\lib\scala-library.jar" />
       </configuration>
     </facet>
   </component>
@@ -41,14 +43,13 @@
     <orderEntry type="library" name="jvyaml" level="application" />
     <orderEntry type="library" name="jxlayer-3.0" level="application" />
     <orderEntry type="library" name="args4j" level="application" />
-    <orderEntry type="library" name="jide-2.7.0" level="application" />
+    <orderEntry type="library" name="jide-2.8.2" level="application" />
     <orderEntry type="library" name="synthetica" level="application" />
     <orderEntry type="library" name="balloontip" level="application" />
     <orderEntry type="library" name="commons-pipeline" level="application" />
     <orderEntry type="library" name="miglayout" level="application" />
     <orderEntry type="library" name="kd-tree" level="application" />
-    <orderEntry type="module" module-name="scalaflow" />
-    <orderEntry type="library" name="scala-2.7.5" level="application" />
+    <orderEntry type="module" module-name="scalaflow" exported="" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -59,7 +60,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="gradle" level="application" />
-    <orderEntry type="library" name="scala-2.8.0" level="application" />
+    <orderEntry type="library" exported="" name="scala-2.8.0" level="application" />
   </component>
 </module>
 

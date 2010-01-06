@@ -33,20 +33,20 @@ public class SoftImageDataSource extends AbstractImageDataSource {
     private long lastRead = -1;
 
 
-    public SoftImageDataSource(ImageIODescriptor _descriptor, ImageInfo _info) {
+    public SoftImageDataSource(IImageFileDescriptor _descriptor, ImageInfo _info) {
         super(_descriptor, _info);
     }
 
-    public SoftImageDataSource(ImageIODescriptor _descriptor, FileObject _header, FileObject _data) {
+    public SoftImageDataSource(IImageFileDescriptor _descriptor, FileObject _header, FileObject _data) {
         super(_descriptor, _header, _data);
     }
 
-    public SoftImageDataSource(ImageIODescriptor _descriptor, FileObject _header) {
+    public SoftImageDataSource(IImageFileDescriptor _descriptor, FileObject _header) {
         super(_descriptor, _header);
 
     }
 
-    public SoftImageDataSource(ImageIODescriptor _descriptor, List<ImageInfo> infoList, int _index) {
+    public SoftImageDataSource(IImageFileDescriptor _descriptor, List<ImageInfo> infoList, int _index) {
         super(_descriptor, infoList, _index);
     }
 

@@ -1,12 +1,13 @@
 import org.gradle.api.tasks.util.FileSet
-
+GRADLE_OPTS="Xmx500m"
 //name = "brainflow"
-version = "0.1"
+version = "0.1.1"
 
 usePlugin("java")
 
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
 
 defaultTasks 'dists'
 
@@ -20,7 +21,7 @@ configurations {
 }
 
 dependencies {
-    compile new FileSet(dir: new File(rootDir, 'lib'), includes: ['*.jar', '*.jnilib'])
+    compile new FileSet(dir: new File(rootDir, 'lib'), includes: ['*.jar'])
 }
 
 
@@ -50,7 +51,7 @@ task collectRuntimeLibs(dependsOn: 'libs') {
   }
 }
 
-task izpack(dependsOn: 'collectRuntimeLibs') << {
+task izpack(dependsOn: 'proguard') << {
   
   ant {
     taskdef(name: 'IzPack',
@@ -130,8 +131,35 @@ task makedist(type: Zip) {
     }
 }
 
+task proguard(dependsOn:'dists') << {
+  ant.taskdef(resource: 'proguard/ant/task.properties',
+	          classpath: 'auxlib/proguard.jar'    )
 
+  ant.proguard(configuration: 'brainflow.pro')
+}
 
+task googleup(dependsOn: 'izpack') << {
+  ant.taskdef(classname: "net.bluecow.googlecode.ant.GoogleCodeUploadTask",
+              classpath: "auxlib/ant-googlecode-0.0.2.jar",
+              name:"gcupload")
+
+  ant.gcupload(username: "brad.buchsbaum@gmail.com",
+               password: "s2f2c9k7",
+               projectname: "brainflow",
+               filename: "izpack/brainflow-install.jar",
+               targetfilename: "brainflow-install-${version}.jar",
+               summary:"cross-platform installer",
+               labels:"Featured, Type-Package, OpSys-All")
+  
+  ant.gcupload(username: "brad.buchsbaum@gmail.com",
+               password: "s2f2c9k7",
+               projectname: "brainflow",
+               filename: "izpack/brainflow-install.jar",
+               targetfilename: "brainflow-install-${version}.jar",
+               summary:"cross-platform installer",
+               labels:"Featured, Type-Package, OpSys-All")
+  
+}
 
 
 

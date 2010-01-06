@@ -143,8 +143,8 @@ public class DisplayManager {
     protected void display(final ImageView view) {
         view.setTransferHandler(new ImageViewTransferHandler());
 
-        // adding the listener here is a bit dicey as it behavior depends on using the "display" method.
-        // it seems rather that this behavior should be in a factory method.
+        // adding the listener here is a bit dicey as its behavior depends on using the "display" method.
+        // it seems rather that this behavior should be in a singleton method.
 
         BeanContainer.get().addListener(view.viewModel, new PropertyListener() {
             @Override

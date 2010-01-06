@@ -39,11 +39,14 @@ public class ImageIODescriptor {
     private static Logger log = Logger.getLogger(ImageIODescriptor.class.getName());
 
     public static final ImageIODescriptor AFNI = new ImageIODescriptor("HEAD", "BRIK", BasicImageReader3D.class, AFNIInfoReader.class, "AFNI");
+    public static final ImageIODescriptor AFNI_GZ = new ImageIODescriptor("HEAD.GZ", "BRIK.GZ", BasicImageReader3D.class, AFNIInfoReader.class, "AFNI");
     public static final ImageIODescriptor NIFTI_ONE = new ImageIODescriptor("nii", "nii", BasicImageReader3D.class, NiftiInfoReader.class, "NIFTI");
-    public static final ImageIODescriptor NIFTI_PAIR = new ImageIODescriptor("img", "hdr", BasicImageReader3D.class, NiftiInfoReader.class, "NIFTI");
+    public static final ImageIODescriptor NIFTI_ONE_GZ = new ImageIODescriptor("nii.gz", "nii.gz", BasicImageReader3D.class, NiftiInfoReader.class, "NIFTI");
 
-    public static final ImageIODescriptor ANALYZE = new ImageIODescriptor("HEAD", "BRIK", BasicImageReader3D.class, AnalyzeInfoReader.class, "ANALYZE");
+    //public static final ImageIODescriptor NIFTI_PAIR = new ImageIODescriptor("hdr", "img", BasicImageReader3D.class, NiftiInfoReader.class, "NIFTI");
+    public static final ImageIODescriptor ANALYZE = new ImageIODescriptor("hdr", "img", BasicImageReader3D.class, AnalyzeInfoReader.class, "ANALYZE");
 
+    //todo need to start over on this
 
 
     public ImageIODescriptor(String headerExtension, String dataExtension, Class dataReader, Class headerReader, String formatName) {
@@ -106,7 +109,7 @@ public class ImageIODescriptor {
                     FileObject dobj = resolveFile(fobjs[i].getParent(), getDataName(fobjs[i]));
 
                     if (dobj != null && dobj.exists()) {
-                        limglist.add(new ImageDataSource(this, fobjs[i], dobj));
+                        //limglist.add(new ImageDataSource(this, fobjs[i], dobj));
                     } else {
                         log.warning("file " + fobjs[i] + " could not be resolved");
                     }
@@ -152,7 +155,7 @@ public class ImageIODescriptor {
             throw new IllegalArgumentException("data " + data.getName().getBaseName() + " does not have correct suffix for format : " + this.getFormatName());
         }
 
-        return new ImageDataSource(this, header, data);
+        return new ImageDataSource(null/*this*/, header, data);
 
     }
 
@@ -174,7 +177,7 @@ public class ImageIODescriptor {
         }
 
 
-        return new ImageDataSource(this, header, data);
+        return new ImageDataSource(null /*this*/, header, data);
 
     }
 
