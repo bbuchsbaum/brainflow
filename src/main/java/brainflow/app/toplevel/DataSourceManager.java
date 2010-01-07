@@ -104,18 +104,7 @@ public class DataSourceManager {
     }
 
 
-    public static final IImageFileDescriptor NIFTI_DESCRIPTOR = new AbstractImageFileDescriptor("nii", "nii", "NIFTI") {
-        @Override
-        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
-            return new ImageDataSource(this, headerFile,dataFile);
-        }
-
-        @Override
-        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
-            return new NiftiInfoReader(headerFile, dataFile);
-        }
-    };
-
+    
 
 
 

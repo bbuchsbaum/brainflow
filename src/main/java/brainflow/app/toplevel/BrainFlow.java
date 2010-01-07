@@ -13,6 +13,7 @@ import brainflow.gui.IActionProvider;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageDataSource;
 import brainflow.gui.ExceptionDialog;
 import brainflow.utils.StopWatch;
@@ -253,11 +254,7 @@ public class BrainFlow {
 
     }
 
-    public void launch(java.util.List<String> imageFiles) {
-        
 
-
-    }
 
 
     public void launch() throws Throwable {
@@ -269,6 +266,8 @@ public class BrainFlow {
         clock.start("launch");
         clock.start("construct brainframe");
         drawSplashProgress("creating frame ...");
+
+
         brainFrame = new BrainFrame();
         statusBar = new StatusBar();
 
@@ -288,10 +287,10 @@ public class BrainFlow {
         drawSplashProgress("binding container ...");
         bindContainer();
 
-        drawSplashProgress("initializing IO ...");
-        clock.start("init io");
-        initImageIO();
-        clock.stopAndReport("init io");
+        //drawSplashProgress("initializing IO ...");
+        //clock.start("init io");
+        //initImageIO();
+        //clock.stopAndReport("init io");
 
 
         clock.start("workspace");
@@ -991,7 +990,7 @@ public class BrainFlow {
     }
 
 
-    boolean initImageIO() {
+    /*boolean initImageIO() {
         log.info("initializing imageio");
         try {
             ImageIOManager.getInstance().initialize();
@@ -1001,7 +1000,7 @@ public class BrainFlow {
         }
 
         return true;
-    }
+    }  */
 
     private boolean initializeResources() {
         log.info("initializing resources");
@@ -1152,19 +1151,20 @@ public class BrainFlow {
             throw new BrainFlowException("argument " + path + " not found");
         }
 
-        if (!ImageIOManager.getInstance().isLoadableImage(path)) {
+        if (!BrainIO.isSupportedImageFile(path)) {
             throw new BrainFlowException("argument " + path + "is not a valid image path");
         }
 
-        IImageDataSource[] sources = ImageIOManager.getInstance().findLoadableImages(new File[]{file});
+        java.util.List<IImageDataSource> sources = BrainIO.loadDataSources(new File[]{file});
 
-        assert sources.length != 0;
 
-        if (sources.length > 1) {
+
+        if (sources.size() > 1) {
+            // todo fix this to handle multiple files correctly
             log.warning("mulitple matching files for path " + path + "... using first match.");
         }
 
-        return sources[0];
+        return sources.get(0);
 
 
     }

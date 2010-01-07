@@ -75,7 +75,7 @@ public class ColorRangePresenter extends BrainFlowPresenter implements Bindable 
     @Override
     protected void layerSelected(ImageLayer3D layer) {
 
-        System.out.println("new layer, rebind color range");
+
        bind();
     }
 
@@ -84,9 +84,9 @@ public class ColorRangePresenter extends BrainFlowPresenter implements Bindable 
     }
 
     public void bind() {
-        System.out.println("binding color range");
+
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
-        System.out.println("layer is " + layer);
+        
         ExtBind.get().bindBiSlider(layer.getLayerProps().clipRange, bislider);
         bislider.repaint();
        

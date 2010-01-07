@@ -106,7 +106,7 @@ public class BrainFlowStarter {
 
     public void launch() {
         final BrainFlow bflow = BrainFlow.get();
-        bflow.initImageIO();
+        //bflow.initImageIO();
 
         if (extras.size() > 0) {
             try {

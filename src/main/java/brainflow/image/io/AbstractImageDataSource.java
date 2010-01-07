@@ -89,9 +89,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
 
         try {
 
-            getDescriptor().createInfoReader(header, dataFile);
-            //ImageInfoReader reader = ((ImageInfoReader) getDescriptor().getHeaderReader().newInstance()).create(header, dataFile);
-            //imageInfoList = reader.readInfo();
+          
             imageInfoList = getDescriptor().createInfoReader(header, dataFile).readInfo();
 
         } catch (BrainFlowException e) {

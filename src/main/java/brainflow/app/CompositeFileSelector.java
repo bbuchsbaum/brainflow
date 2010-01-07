@@ -1,10 +1,12 @@
 package brainflow.app;
 
-import brainflow.image.io.ImageIODescriptor;
+import brainflow.image.io.IImageFileDescriptor;
 import org.apache.commons.vfs.FileSelectInfo;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.FileSelector;
 import org.apache.commons.vfs.FileType;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,10 +17,10 @@ import org.apache.commons.vfs.FileType;
  */
 public class CompositeFileSelector implements FileSelector {
 
-    private ImageIODescriptor[] desc;
+    private List<IImageFileDescriptor> descriptors;
 
-    public CompositeFileSelector(ImageIODescriptor[] _desc) {
-        desc = _desc;
+    public CompositeFileSelector(List<IImageFileDescriptor> _desc) {
+        descriptors = _desc;
     }
 
     /**
@@ -31,8 +33,8 @@ public class CompositeFileSelector implements FileSelector {
         if (fileInfo.getFile().getType() == FileType.FOLDER) {
             return true;
         } else {
-            for (int i = 0; i < desc.length; i++) {
-                if (desc[i].isHeaderMatch(fileInfo.getFile())) {
+            for (IImageFileDescriptor desc : descriptors) {
+                if (desc.isHeaderMatch(fileInfo.getFile().getName().getBaseName())) {
                     return true;
                 }
             }

@@ -99,12 +99,7 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
             return name + ".img";
     }
 
-    public static String getStem(String name) {
-        //todo check if valid header name
-        return name.substring(0, name.length() - 4);
-
-    }
-
+    
     @Override
     public List<ImageInfo> readInfo() throws BrainFlowException {
         try {

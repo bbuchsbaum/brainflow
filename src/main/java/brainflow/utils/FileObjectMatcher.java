@@ -41,8 +41,7 @@ public class FileObjectMatcher {
                 public boolean includeFile(FileSelectInfo fileSelectInfo) throws Exception {
 
                     if (fileSelectInfo.getFile().getType() == FileType.FILE) {
-                        System.out.println("matching " + fileSelectInfo.getFile().getName().getBaseName());
-                        return fileSelectInfo.getFile().getName().getBaseName().matches(regex);
+                         return fileSelectInfo.getFile().getName().getBaseName().matches(regex);
                     } else {
                         return false;
                     }
@@ -51,13 +50,7 @@ public class FileObjectMatcher {
 
                 @Override
                 public boolean traverseDescendents(FileSelectInfo fileSelectInfo) throws Exception {
-                    if (fileSelectInfo.getDepth() > recursiveDepth) {
-                        System.out.println("not descending in to " + fileSelectInfo.getFile().getName());
-                        return false;
-                    } else {
-                        System.out.println("descending in to " + fileSelectInfo.getFile().getName());
-                        return true;
-                    }
+                    return fileSelectInfo.getDepth() > recursiveDepth;
                 }
             });
 

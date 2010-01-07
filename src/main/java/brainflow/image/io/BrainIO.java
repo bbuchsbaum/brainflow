@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.List;
 
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
@@ -41,8 +41,138 @@ public class BrainIO {
 
     private static Logger log = Logger.getLogger(BrainIO.class.getCanonicalName());
 
+    public static final IImageFileDescriptor NIFTI = new AbstractImageFileDescriptor("nii", "nii", "NIFTI") {
+        @Override
+        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageDataSource(this, headerFile, dataFile);
+        }
 
-    public BrainIO() {
+        @Override
+        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+            return new NiftiInfoReader(headerFile, dataFile);
+        }
+
+
+    };
+
+    public static final IImageFileDescriptor NIFTI_GZ = new AbstractImageFileDescriptor("nii", "nii", "NIFTI", BinaryEncoding.GZIP, BinaryEncoding.GZIP) {
+        @Override
+        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageDataSource(this, headerFile, dataFile);
+        }
+
+        @Override
+        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+            return new NiftiInfoReader(headerFile, dataFile);
+        }
+
+
+    };
+
+    public static final IImageFileDescriptor AFNI = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI") {
+        @Override
+        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageDataSource(this, headerFile, dataFile);
+        }
+
+        @Override
+        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+            return new AFNIInfoReader(headerFile, dataFile);
+        }
+    };
+
+    public static final IImageFileDescriptor AFNI_GZ = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI", BinaryEncoding.GZIP, BinaryEncoding.GZIP) {
+        @Override
+        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageDataSource(this, headerFile, dataFile);
+        }
+
+        @Override
+        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+            return new AFNIInfoReader(headerFile, dataFile);
+        }
+    };
+
+    public static final IImageFileDescriptor AFNI_GZ_BRIK = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI", BinaryEncoding.RAW, BinaryEncoding.GZIP) {
+        @Override
+        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageDataSource(this, headerFile, dataFile);
+        }
+
+        @Override
+        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+            return new AFNIInfoReader(headerFile, dataFile);
+        }
+    };
+
+    /*public static final IImageFileDescriptor ANALYZE = new AbstractImageFileDescriptor("hdr", "img", "ANALYZE7.5") {
+       @Override
+       public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+           return new ImageDataSource(this, headerFile, dataFile);
+       }
+
+       @Override
+       public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+           return new AnalyzeInfoReader(headerFile, dataFile);
+       }
+   }; */
+
+
+    public static final IImageFileDescriptor NIFTI_PAIR = new AbstractImageFileDescriptor("hdr", "img", "NIFTI") {
+        @Override
+        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageDataSource(this, headerFile, dataFile);
+        }
+
+        private boolean isNifti(FileObject headerFile) {
+            try {
+                InputStream istream = headerFile.getContent().getInputStream();
+                istream.skip(344);
+                byte[] bb = new byte[4];
+                istream.read(bb);
+                istream.close();
+                String magic = new StringBuffer(new String(bb)).toString().trim();
+                System.out.println("magic: " + magic);
+                return magic.equals("ni1") || magic.equals("n+1");
+            } catch (FileSystemException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e2) {
+                throw new RuntimeException(e2);
+            }
+
+
+        }
+
+        @Override
+        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+            if (!isNifti(headerFile)) {
+                return new AnalyzeInfoReader(headerFile, dataFile);
+            } else {
+                return new NiftiInfoReader(headerFile, dataFile);
+            }
+        }
+
+
+    };
+
+
+    public static final IImageFileDescriptor ANALYZE_GZ = new AbstractImageFileDescriptor("hdr", "img", "ANALYZE7.5", BinaryEncoding.GZIP, BinaryEncoding.GZIP) {
+        @Override
+        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageDataSource(this, headerFile, dataFile);
+        }
+
+        @Override
+        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+            return new AnalyzeInfoReader(headerFile, dataFile);
+        }
+    };
+
+
+    public static final List<IImageFileDescriptor> supportedImageFormats = Arrays.asList(NIFTI, NIFTI_GZ, AFNI, AFNI_GZ, NIFTI_PAIR);
+
+
+    private BrainIO() {
     }
 
     public static void main(String[] args) {
@@ -51,12 +181,11 @@ public class BrainIO {
             FileObject fobj = VFS.getManager().resolveFile(name);
             InputStream is = fobj.getContent().getInputStream();
             is.read();
-            System.out.println("fobj is open?" + fobj.isContentOpen());
+
             is.close();
-            System.out.println("fobj is open?" + fobj.isContentOpen());
-            System.out.println("can open?" + fobj.getContent().getInputStream());
+
             fobj.close();
-            System.out.println("fobj is open?" + fobj.isContentOpen());
+
 
         } catch (FileSystemException e) {
             e.printStackTrace();
@@ -124,12 +253,135 @@ public class BrainIO {
                 ret = new FileObjectMatcher(fobj, regex, 1).matchFiles();
             }
 
-             return loadVolumeList(ret);
-            
+            return loadVolumeList(ret);
+
         } catch (FileSystemException e) {
             throw new BrainFlowException(e);
         }
     }
+
+    public static IImageDataSource loadDataSource(FileObject fobj) throws BrainFlowException {
+        IImageDataSource ret;
+
+        if (BrainIO.isSupportedImageHeaderFile(fobj)) {
+            IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
+            try {
+                ret = desc.createDataSource(fobj, desc.resolveDataFileObject(fobj));
+            } catch (IOException e) {
+                throw new BrainFlowException(e);
+            }
+        } else if (BrainIO.isSupportedImageDataFile(fobj)) {
+            IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
+            try {
+                ret = desc.createDataSource(fobj, desc.resolveDataFileObject(fobj));
+            } catch (IOException e) {
+                throw new BrainFlowException(e);
+            }
+        } else {
+            throw new BrainFlowException("file object " + fobj + " cannot be loaded ");
+        }
+
+        return ret;
+
+    }
+
+    public static List<IImageDataSource> loadDataSources(FileObject[] fobjs) {
+        List<IImageDataSource> sources = new ArrayList<IImageDataSource>();
+
+        try {
+            for (FileObject fobj : fobjs) {
+
+                if (BrainIO.isSupportedImageHeaderFile(fobj) || BrainIO.isSupportedImageDataFile(fobj)) {
+                    IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
+                    try {
+                        sources.add(loadDataSource(fobj));
+                    } catch (BrainFlowException e) {
+                        log.warning("could not resolve data file for header: " + fobj.getName().getPath());
+                    }
+                }
+
+            }
+        } catch (BrainFlowException e) {
+            throw new RuntimeException(e);
+        }
+
+        return sources;
+    }
+
+
+
+    public static List<IImageDataSource> loadDataSources(File[] files) {
+        FileObject[] fobjs = new FileObject[files.length];
+
+        try {
+            for (int i=0; i<files.length; i++) {
+                fobjs[i] = (VFS.getManager().resolveFile(files[i].getAbsolutePath()));
+            }
+        } catch (FileSystemException e) {
+            log.log(Level.SEVERE, e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
+
+        return loadDataSources(fobjs);
+
+    }
+
+    public static boolean isSupportedImageHeaderFile(FileObject headerFile) {
+        for (IImageFileDescriptor desc : supportedImageFormats) {
+            if (desc.isHeaderMatch(headerFile.getName().getBaseName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean isSupportedImageDataFile(FileObject dataFile) {
+        for (IImageFileDescriptor desc : supportedImageFormats) {
+            if (desc.isDataMatch(dataFile.getName().getBaseName())) {
+                return true;
+            }
+        }
+
+        return false;
+
+
+    }
+
+    public static boolean isSupportedImageFile(String fileName) {
+        for (IImageFileDescriptor desc : supportedImageFormats) {
+            if (desc.isDataMatch(fileName) || desc.isHeaderMatch(fileName)) {
+                return true;
+            }
+        }
+
+        return false;
+
+
+    }
+
+    public static IImageFileDescriptor getImageFileDescriptor(FileObject fobj) throws BrainFlowException {
+        for (IImageFileDescriptor desc : supportedImageFormats) {
+            if (desc.isHeaderMatch(fobj.getName().getBaseName()) || desc.isDataMatch(fobj.getName().getBaseName())) {
+                return desc;
+            }
+        }
+
+        throw new BrainFlowException("Could not find ImageIODescriptor for supplied File " + fobj);
+
+    }
+
+
+    //public boolean isLoadableImage(String file) {
+    //    try {
+    //        FileObject fobj = VFS.getManager().resolveFile(file);
+    //        return isLoadableImage(fobj);
+    //    } catch (FileSystemException e) {
+    //        log.warning("could not resolve file " + file);
+    //        return false;
+    //    }
+
+    // }
 
     public static boolean isSupportedFile(String fileName) {
         if (NiftiImageInfo.isHeaderFile(fileName) || NiftiImageInfo.isImageFile(fileName)) {

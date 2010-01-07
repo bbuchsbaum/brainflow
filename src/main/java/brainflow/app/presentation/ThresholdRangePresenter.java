@@ -61,7 +61,7 @@ public class ThresholdRangePresenter extends BrainFlowPresenter {
         form.add(bislider, BorderLayout.CENTER);
 
 
-        symmetricalCheckBox.setBorder(new EmptyBorder(12,5,5,5));
+        symmetricalCheckBox.setBorder(new EmptyBorder(12, 5, 5, 5));
 
         form.add(symmetricalCheckBox, BorderLayout.SOUTH);
 
@@ -95,9 +95,7 @@ public class ThresholdRangePresenter extends BrainFlowPresenter {
     }
 
     @Override
-    protected void layerSelected(ImageLayer3D layer) {       
-        System.out.println("new layer, rebind thresh range");
-//        new Throwable().printStackTrace();
+    protected void layerSelected(ImageLayer3D layer) {
         bind();
     }
 
@@ -115,16 +113,13 @@ public class ThresholdRangePresenter extends BrainFlowPresenter {
     }
 
     public void bind() {
-
-
-        System.out.println("binding threshold range");
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
         ExtBind.get().bindBiSlider(layer.getLayerProps().thresholdRange, bislider);
 
         if (layer.getLayerProps().clipRange.get().getMin() >= 0) {
             symmetricalCheckBox.setEnabled(false);
         } else {
-            symmetricalCheckBox.setEnabled(true); 
+            symmetricalCheckBox.setEnabled(true);
         }
 
         //todo egregious hack

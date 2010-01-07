@@ -346,7 +346,6 @@ public class ProjectTreeView extends BrainFlowPresenter implements MouseListener
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) en.nextElement();
                 if (node.getUserObject() == event.getModel()) {
                     remove(node);
-                    System.out.println("removing node " + node);
                     treeModel.nodesWereRemoved(this, new int[] {i}, new Object[] { node } );
                 }
 
@@ -421,8 +420,7 @@ public class ProjectTreeView extends BrainFlowPresenter implements MouseListener
         @Override
         public void remove(int childIndex) {
             super.remove(childIndex);
-            System.out.println("removing child Index");
-        }
+         }
 
         @Override
         public TreeNode getChildAt(int index) {

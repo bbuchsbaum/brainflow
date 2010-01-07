@@ -72,7 +72,7 @@ public class ImageIOManager {
             if (desc.isHeaderMatch(header)) {
                 return true;
             }
-            //IImageDataSource[] limg = desc.findLoadableImages(fobjs);
+            //IImageDataSource[] limg = desc.loadDataSources(fobjs);
             //Collections.addAll(limglist, limg);
         }
 

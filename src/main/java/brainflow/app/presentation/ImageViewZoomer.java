@@ -111,16 +111,10 @@ public class ImageViewZoomer extends BrainFlowPresenter {
             public void stateChanged(ChangeEvent e) {
 
                 ImageView view = getSelectedView();
-                System.out.println("slider value " + zoomSlider.getValue());
                 double prop = convertToProportion(zoomSlider.getValue());
                 double curProp = 1/view.getSelectedPlot().getViewBounds().getXProportion();
 
-                System.out.println("prop = " + prop);
-                System.out.println("cur prop = " + curProp);
-                if (NumberUtils.equals(prop, curProp, .0001)) {
-                    System.out.println("prop");
-                    System.out.println("cur prop equals prop, no need to do anything");
-                }
+              
 
                 if (view != null) {
 

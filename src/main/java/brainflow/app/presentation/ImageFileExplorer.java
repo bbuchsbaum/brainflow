@@ -2,14 +2,10 @@ package brainflow.app.presentation;
 
 import brainflow.app.*;
 import brainflow.app.dnd.DnDUtils;
-import brainflow.app.toplevel.ImageIOManager;
 import brainflow.gui.AbstractPresenter;
 import brainflow.gui.FileExplorer;
+import brainflow.image.io.*;
 import brainflow.utils.ResourceLoader;
-import brainflow.image.io.IImageDataSource;
-import brainflow.image.io.ImageInfo;
-import brainflow.image.io.ImageDataSource;
-import brainflow.image.io.ImageIODescriptor;
 import brainflow.core.BrainFlowException;
 import com.jidesoft.tree.DefaultTreeModelWrapper;
 import com.jidesoft.tree.TreeUtils;
@@ -74,7 +70,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     public ImageFileExplorer(FileObject _rootObject) {
 
 
-        selector = new CompositeFileSelector(ImageIOManager.getInstance().descriptorArray());
+        selector = new CompositeFileSelector(BrainIO.supportedImageFormats);
 
 
         explorer = new FileExplorer(_rootObject, selector) {
@@ -502,9 +498,9 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             if (fobj.getType() == FileType.FOLDER) {
                 ret = new FolderNode(fobj);
                 monitorFolder((FolderNode)ret);
-            } else if (fobj.getType() == FileType.FILE && ImageIOManager.getInstance().isLoadableImage(fobj)) {
-                ImageIODescriptor desc = ImageIOManager.getInstance().getDescriptor(fobj);
-                IImageDataSource source = desc.createLoadableImage(fobj);
+            } else if (fobj.getType() == FileType.FILE && BrainIO.isSupportedImageHeaderFile(fobj)) {
+                IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
+                IImageDataSource source = desc.createDataSource(fobj);
                 List<ImageInfo> infoList = source.getImageInfoList();
 
                  assert infoList.size() != 0;

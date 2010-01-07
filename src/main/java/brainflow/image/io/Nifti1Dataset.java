@@ -474,8 +474,7 @@ public class Nifti1Dataset {
             dis = new MemoryCacheImageInputStream(inputStream);
         try {
             
-            System.out.println("stream length? " + dis.length());
-
+          
             ///// first, read dim[0] to get endian-ness
             dis.skipBytes(40);
             s = dis.readShort();
