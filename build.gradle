@@ -51,7 +51,18 @@ task collectRuntimeLibs(dependsOn: 'libs') {
   }
 }
 
+task update_izpack << {
+  def configFileName = rootDir.getAbsolutePath() + "/izpack/brainflow-install.xml"
+  def configFile = new File(configFileName)
+
+  def sw = new StringWriter()
+  configFile.filterLine(sw) { it =~ /Groovy/ }
+
+}
 task izpack(dependsOn: 'proguard') << {
+
+  def configFileName = rootDir.getAbsolutePath() + "/izpack/brainflow-install.xml"
+  def configFile = new File(configFileName)
   
   ant {
     taskdef(name: 'IzPack',
