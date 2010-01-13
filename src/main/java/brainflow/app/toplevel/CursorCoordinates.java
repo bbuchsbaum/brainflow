@@ -1,8 +1,7 @@
 package brainflow.app.toplevel;
 
 import brainflow.app.services.ImageViewMousePointerEvent;
-import brainflow.image.anatomy.SpatialLoc3D;
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import com.jidesoft.status.LabelStatusBarItem;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
@@ -58,7 +57,7 @@ public class CursorCoordinates implements EventSubscriber {
     public void onEvent(Object evt) {
 
         ImageViewMousePointerEvent event = (ImageViewMousePointerEvent) evt;
-        VoxelLoc3D gpoint = event.getLocation();
+        GridLoc3D gpoint = event.getLocation();
         SpatialLoc3D worldPoint = gpoint.toWorld();
 
         if (gpoint != null) {

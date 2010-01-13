@@ -1,6 +1,6 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 
 import java.util.Iterator;
 
@@ -25,8 +25,8 @@ public class LinkedSliceController extends SimpleSliceController {
         BeanContainer.get().addListener(getView().cursorPos, new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
 
-                VoxelLoc3D oldval = (VoxelLoc3D)oldValue;
-                VoxelLoc3D newval = (VoxelLoc3D)newValue;
+                GridLoc3D oldval = (GridLoc3D)oldValue;
+                GridLoc3D newval = (GridLoc3D)newValue;
 
                 if (!oldval.equals(newval)) {
                     Iterator<IImagePlot> iter = getView().plotIterator();
@@ -34,7 +34,7 @@ public class LinkedSliceController extends SimpleSliceController {
                     while (iter.hasNext()) {
                         IImagePlot plot = iter.next();
 
-                        VoxelLoc3D crossSlice = getView().getCursorPos();
+                        GridLoc3D crossSlice = getView().getCursorPos();
 
                         if (!plot.getSlice().equals(crossSlice))
                             plot.setSlice(crossSlice);

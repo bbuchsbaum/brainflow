@@ -124,7 +124,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
     protected IImagePlot configPlot(IImagePlot plot, int index, int row, int column) {
         MontageSliceController controller = this.createSliceController();
         plot.setName(displayAnatomy.XY_PLANE.getOrientation().toString() + row + ", " + column);
-        VoxelLoc3D nextSlice = controller.getSliceForPlot(index);
+        GridLoc3D nextSlice = controller.getSliceForPlot(index);
         plot.setSlice(nextSlice);
 
         return plot;
@@ -164,7 +164,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
     class MontageSliceController extends SimpleSliceController {
 
 
-        private VoxelLoc3D sentinel;
+        private GridLoc3D sentinel;
 
 
         MontageSliceController(ImageView imageView) {
@@ -172,9 +172,9 @@ public class MontagePlotLayout extends ImagePlotLayout {
             sentinel = getView().getCursorPos();
         }
 
-        private VoxelLoc3D getSliceForPlot(int i) {
+        private GridLoc3D getSliceForPlot(int i) {
 
-            VoxelLoc1D z = sentinel.getValue(zaxis().getAnatomicalAxis(), false);
+            GridLoc1D z = sentinel.getValue(zaxis().getAnatomicalAxis(), false);
             return sentinel.replace(new SpatialLoc1D(z.getAnatomy(), z.toReal().getValue() + (i * sliceGap)));
 
         }
@@ -205,11 +205,11 @@ public class MontagePlotLayout extends ImagePlotLayout {
         protected void initCursorListener() {
             BeanContainer.get().addListener(getView().cursorPos, new PropertyListener() {
                 public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                    VoxelLoc3D oldval = (VoxelLoc3D) oldValue;
-                    VoxelLoc3D newval = (VoxelLoc3D) newValue;
+                    GridLoc3D oldval = (GridLoc3D) oldValue;
+                    GridLoc3D newval = (GridLoc3D) newValue;
 
                     if (!oldval.equals(newval)) {
-                        VoxelLoc1D zselected = newval.getValue(zaxis().getAnatomicalAxis(), false);
+                        GridLoc1D zselected = newval.getValue(zaxis().getAnatomicalAxis(), false);
                         if (outOfRange(zselected.toReal())) {
                             setSlice(newval);
                         } else {
@@ -246,7 +246,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
 
             int i = 0;
             for (IImagePlot plot : plotList) {
-                VoxelLoc3D slice = getSliceForPlot(i);
+                GridLoc3D slice = getSliceForPlot(i);
                 if (Space.containsPoint(getView().getModel().getImageSpace(), slice)) {
                     plot.setSlice(slice);
                 } else {
@@ -261,7 +261,7 @@ public class MontagePlotLayout extends ImagePlotLayout {
         }
 
 
-        public void setSlice(VoxelLoc3D slice) {
+        public void setSlice(GridLoc3D slice) {
             if (!slice.equals(sentinel)) {
                 sentinel = slice;
                 updateSlices();

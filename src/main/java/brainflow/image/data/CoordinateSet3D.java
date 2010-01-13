@@ -199,7 +199,7 @@ public class CoordinateSet3D {
 
     }
 
-    public List<Integer> indicesWithinPlane(VoxelLoc1D slice) {
+    public List<Integer> indicesWithinPlane(GridLoc1D slice) {
         List<Integer> idx = new ArrayList<Integer>();
 
         for (int i = 0; i < getRows(); i++) {

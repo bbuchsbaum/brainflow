@@ -2,7 +2,6 @@ package brainflow.display;
 
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.SpatialLoc1D;
-import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.core.Viewport3D;
 

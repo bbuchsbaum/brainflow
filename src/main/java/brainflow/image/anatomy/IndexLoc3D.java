@@ -1,8 +1,8 @@
 package brainflow.image.anatomy;
 
-import brainflow.image.space.IImageSpace3D;
-import brainflow.image.space.Axis;
 import brainflow.image.axis.ImageAxis;
+import brainflow.image.space.Axis;
+import brainflow.image.space.IImageSpace3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,63 +11,58 @@ import brainflow.image.axis.ImageAxis;
  * Time: 10:08:50 AM
  * To change this template use File | Settings | File Templates.
  */
-public class VoxelLoc3D {
+public class IndexLoc3D {
 
 
-    private VoxelLoc1D gridX, gridY, gridZ;
+    private IndexLoc1D gridX, gridY, gridZ;
 
     private IImageSpace3D space;
 
-    public final LocationType unit = LocationType.VOXEL;
+    public final LocationType unit = LocationType.GRID;
 
 
-    public VoxelLoc3D(double x, double y, double z, IImageSpace3D space) {
+    public IndexLoc3D(double x, double y, double z, IImageSpace3D space) {
         this.gridX = clamp(x, space.getImageAxis(Axis.X_AXIS));
         this.gridY = clamp(y, space.getImageAxis(Axis.Y_AXIS));
         this.gridZ = clamp(z, space.getImageAxis(Axis.Z_AXIS));
         this.space = space;
     }
 
-    private VoxelLoc1D clamp(double val, ImageAxis axis) {
+    private IndexLoc1D clamp(double val, ImageAxis axis) {
         val = Math.min(val, axis.getNumSamples());
         val = Math.max(val, 0);
 
-        return new VoxelLoc1D((float) val, axis);
+        return new IndexLoc1D((float) val, axis);
     }
 
-    public static VoxelLoc3D fromWorld(double x, double y, double z, IImageSpace3D space) {
+    public static IndexLoc3D fromWorld(double x, double y, double z, IImageSpace3D space) {
         float[] grid = space.worldToGrid((float) x, (float) y, (float) z);
-        return new VoxelLoc3D(grid[0], grid[1], grid[2], space);
+        return new IndexLoc3D(grid[0], grid[1], grid[2], space);
     }
 
-    public static VoxelLoc3D fromReal(float x, float y, float z, IImageSpace3D space) {
+    public static IndexLoc3D fromReal(float x, float y, float z, IImageSpace3D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(z);
-        return new VoxelLoc3D(gridx, gridy, gridz, space);
+        return new IndexLoc3D(gridx, gridy, gridz, space);
     }
 
-    //public static GridPoint3D fromReal(BrainPoint1D one, BrainPoint1D two, BrainPoint1D three, IImageSpace3D space) {
-    //GridPoint1D gp1 = GridPoint1D.f
-    //}
-
-
-    public static VoxelLoc3D fromReal(SpatialLoc3D bp, IImageSpace3D space) {
+    public static IndexLoc3D fromReal(SpatialLoc3D bp, IImageSpace3D space) {
         if (space.getAnatomy() != bp.getAnatomy()) {
             throw new IllegalArgumentException("incompatible axes: BrainPoint3D " + bp.getAnatomy() + " does not equals IIMageSpace3D anatomy: " + space.getAnatomy());
         }
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(bp.getX());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(bp.getY());
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(bp.getZ());
-        return new VoxelLoc3D(gridx, gridy, gridz, space);
+        return new IndexLoc3D(gridx, gridy, gridz, space);
     }
 
 
-    public static VoxelLoc3D fromReal(double x, double y, double z, IImageSpace3D space) {
+    public static IndexLoc3D fromReal(double x, double y, double z, IImageSpace3D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(z);
-        return new VoxelLoc3D(gridx, gridy, gridz, space);
+        return new IndexLoc3D(gridx, gridy, gridz, space);
     }
 
 
@@ -83,7 +78,7 @@ public class VoxelLoc3D {
         return space;
     }
 
-    public VoxelLoc1D getValue(AnatomicalAxis axis, boolean flip) {
+    public IndexLoc1D getValue(AnatomicalAxis axis, boolean flip) {
         if (axis.sameAxis(getAnatomy().XAXIS)) {
             if (!flip || axis == getAnatomy().XAXIS) return gridX;
             else {
@@ -119,20 +114,20 @@ public class VoxelLoc3D {
 
     }
 
-    public VoxelLoc3D replace(SpatialLoc1D pt) {
+    public IndexLoc3D replace(SpatialLoc1D pt) {
         SpatialLoc3D bp = toReal();
-        return VoxelLoc3D.fromReal(bp.replace(pt), space);
+        return IndexLoc3D.fromReal(bp.replace(pt), space);
     }
 
-    public VoxelLoc1D getX() {
+    public IndexLoc1D getX() {
         return gridX;
     }
 
-    public VoxelLoc1D getY() {
+    public IndexLoc1D getY() {
         return gridY;
     }
 
-    public VoxelLoc1D getZ() {
+    public IndexLoc1D getZ() {
         return gridZ;
     }
 
@@ -143,7 +138,7 @@ public class VoxelLoc3D {
                 "gridX=" + gridX.getValue() +
                 ", gridY=" + gridY.getValue() +
                 ", gridZ=" + gridZ.getValue() +
-                ", anatomy=" + space.getAnatomy() + 
+                ", anatomy=" + space.getAnatomy() +
                 //", space=" + space +
                 //", unit=" + unit +
                 '}';
@@ -154,7 +149,7 @@ public class VoxelLoc3D {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        VoxelLoc3D that = (VoxelLoc3D) o;
+        IndexLoc3D that = (IndexLoc3D) o;
 
         if (gridX != null ? !gridX.equals(that.gridX) : that.gridX != null) return false;
         if (gridY != null ? !gridY.equals(that.gridY) : that.gridY != null) return false;

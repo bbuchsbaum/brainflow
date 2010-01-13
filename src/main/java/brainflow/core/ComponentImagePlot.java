@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public class ComponentImagePlot extends JPanel implements IImagePlot {
 
-    private VoxelLoc3D slice;
+    private GridLoc3D slice;
 
     private ViewBounds viewBounds;
 
@@ -73,7 +73,7 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
         this.viewBounds = viewBounds;
         this.model = model;
 
-        slice = VoxelLoc3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
+        slice = GridLoc3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
         producer = new CompositeImageProducer(this,  slice);
 
         initAnnotationListener();
@@ -119,7 +119,7 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     }
 
 
-    public void setSlice(VoxelLoc3D slice) {
+    public void setSlice(GridLoc3D slice) {
         if (getSlice() == null || !getSlice().equals(slice)) {
             this.slice = slice;
             producer.setSlice(slice);
@@ -129,7 +129,7 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
 
     }
 
-    public VoxelLoc3D getSlice() {
+    public GridLoc3D getSlice() {
         return slice;
     }
 

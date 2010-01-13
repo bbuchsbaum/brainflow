@@ -1,11 +1,10 @@
 package brainflow.core.binding;
 
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import net.java.dev.properties.container.ObservableWrapper;
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.RProperty;
 import net.java.dev.properties.WProperty;
-import brainflow.image.anatomy.SpatialLoc3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,14 +16,14 @@ import brainflow.image.anatomy.SpatialLoc3D;
 public class GridToWorldConverter extends ObservableWrapper.ReadWrite<SpatialLoc3D> {
 
 
-    public GridToWorldConverter(BaseProperty<VoxelLoc3D> property) {
+    public GridToWorldConverter(BaseProperty<GridLoc3D> property) {
         super(property);
         //BeanContainer.bind(this);
 
     }
 
-    private VoxelLoc3D getValue() {
-        RProperty<VoxelLoc3D> prop = (RProperty<VoxelLoc3D>) getProperty();
+    private GridLoc3D getValue() {
+        RProperty<GridLoc3D> prop = (RProperty<GridLoc3D>) getProperty();
         return prop.get();
     }
 
@@ -34,10 +33,10 @@ public class GridToWorldConverter extends ObservableWrapper.ReadWrite<SpatialLoc
             throw new IllegalArgumentException("wrong anatomy " + spatialLoc3D.getAnatomy() + " : it must match world anatomy of reference image space");
         }
 
-        VoxelLoc3D gp = VoxelLoc3D.fromWorld(spatialLoc3D.getX(), spatialLoc3D.getY(), spatialLoc3D.getZ(), getValue().getSpace());
+        GridLoc3D gp = GridLoc3D.fromWorld(spatialLoc3D.getX(), spatialLoc3D.getY(), spatialLoc3D.getZ(), getValue().getSpace());
 
         if (!gp.equals(getValue())) {
-            WProperty<VoxelLoc3D> wprop = (WProperty<VoxelLoc3D>) getProperty();
+            WProperty<GridLoc3D> wprop = (WProperty<GridLoc3D>) getProperty();
             wprop.set(gp);
         }
 
@@ -46,7 +45,7 @@ public class GridToWorldConverter extends ObservableWrapper.ReadWrite<SpatialLoc
 
     @Override
     public SpatialLoc3D get() {
-        VoxelLoc3D ap = getValue();
+        GridLoc3D ap = getValue();
         return ap.toWorld();
     }
 }

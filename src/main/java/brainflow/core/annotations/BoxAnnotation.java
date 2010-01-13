@@ -1,7 +1,6 @@
 package brainflow.core.annotations;
 
 import brainflow.core.IImagePlot;
-import brainflow.image.anatomy.SpatialLoc2D;
 import net.java.dev.properties.Property;
 import net.java.dev.properties.container.ObservableProperty;
 import net.java.dev.properties.container.BeanContainer;

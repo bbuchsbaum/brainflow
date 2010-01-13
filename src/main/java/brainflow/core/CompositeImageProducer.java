@@ -43,15 +43,15 @@ public class CompositeImageProducer extends AbstractImageProducer {
 
 
     public CompositeImageProducer(IImagePlot plot) {
-        this(plot, VoxelLoc3D.fromReal(plot.getModel().getImageSpace().getCentroid(), plot.getModel().getImageSpace()));
+        this(plot, GridLoc3D.fromReal(plot.getModel().getImageSpace().getCentroid(), plot.getModel().getImageSpace()));
 
     }
 
-    public CompositeImageProducer(IImagePlot plot, VoxelLoc3D slice) {
+    public CompositeImageProducer(IImagePlot plot, GridLoc3D slice) {
         this(plot, slice, Executors.newSingleThreadExecutor());
     }
 
-    public CompositeImageProducer(IImagePlot plot, VoxelLoc3D slice, ExecutorService service) {
+    public CompositeImageProducer(IImagePlot plot, GridLoc3D slice, ExecutorService service) {
         super();
         this.plot = plot;
         setSlice(slice);
@@ -81,9 +81,9 @@ public class CompositeImageProducer extends AbstractImageProducer {
         //getPlot().getComponent().repaint();
     }
 
-    public void setSlice(VoxelLoc3D slice) {
+    public void setSlice(GridLoc3D slice) {
         System.out.println("setting slice for display Anatomy " + getDisplayAnatomy().ZAXIS);
-        VoxelLoc1D pt = slice.getValue(getDisplayAnatomy().ZAXIS, true);
+        GridLoc1D pt = slice.getValue(getDisplayAnatomy().ZAXIS, true);
         System.out.println("grid slice is " + slice);
         System.out.println("display slice is " + pt);
         if (!NumberUtils.equals(pt.getValue(), getSlice().getValue(getDisplayAnatomy().ZAXIS, true).getValue(), .0001)) {
@@ -177,7 +177,7 @@ public class CompositeImageProducer extends AbstractImageProducer {
             lastImage = ((TerminalFeeder) pipeline.getTerminalFeeder()).getImage();
             dirty = false;
         } catch (Exception ex) {
-            VoxelLoc3D gp = plot.getSlice();
+            GridLoc3D gp = plot.getSlice();
             log.info("error occurred while rendering slice " + gp);
             throw new RuntimeException("error during image rendering: " + ex.getMessage(), ex);
         }

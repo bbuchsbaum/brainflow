@@ -1,8 +1,8 @@
 package brainflow.core;
 
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.SpatialLoc1D;
-import brainflow.image.anatomy.VoxelLoc3D;
-import brainflow.image.anatomy.VoxelLoc1D;
+import brainflow.image.anatomy.GridLoc1D;
 import brainflow.image.space.Axis;
 import brainflow.image.axis.ImageAxis;
 import net.java.dev.properties.container.BeanContainer;
@@ -31,8 +31,8 @@ class SimpleSliceController implements SliceController {
     protected void initCursorListener() {
         BeanContainer.get().addListener(imageView.cursorPos, new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                VoxelLoc3D oldval = (VoxelLoc3D)oldValue;
-                VoxelLoc3D newval = (VoxelLoc3D)newValue;
+                GridLoc3D oldval = (GridLoc3D)oldValue;
+                GridLoc3D newval = (GridLoc3D)newValue;
          
                 if (!oldval.equals(newval)) {
                     imageView.getSelectedPlot().setSlice(newval);
@@ -45,13 +45,13 @@ class SimpleSliceController implements SliceController {
     }
 
 
-    public VoxelLoc3D getSlice() {
+    public GridLoc3D getSlice() {
         return imageView.getCursorPos();
     }
 
     
 
-    public void setSlice(VoxelLoc3D slice) {
+    public void setSlice(GridLoc3D slice) {
         if (!slice.equals(imageView.cursorPos.get())) {
             imageView.cursorPos.set(slice);
         }
@@ -64,10 +64,10 @@ class SimpleSliceController implements SliceController {
 
     }
 
-    protected VoxelLoc3D incrementSlice(double incr) {
-        VoxelLoc3D slice = getSlice();
+    protected GridLoc3D incrementSlice(double incr) {
+        GridLoc3D slice = getSlice();
         ImageAxis iaxis = zaxis();
-        VoxelLoc1D pt = slice.getValue(iaxis.getAnatomicalAxis(), false);
+        GridLoc1D pt = slice.getValue(iaxis.getAnatomicalAxis(), false);
         double z = pt.toReal().getValue() + incr;
         return slice.replace(new SpatialLoc1D(iaxis.getAnatomicalAxis(), z));
 

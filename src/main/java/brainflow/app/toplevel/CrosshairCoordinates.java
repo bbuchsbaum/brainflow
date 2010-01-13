@@ -1,7 +1,6 @@
 package brainflow.app.toplevel;
 
 import brainflow.app.services.ImageViewCursorEvent;
-import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import com.jidesoft.status.LabelStatusBarItem;
 import org.bushe.swing.event.EventBus;

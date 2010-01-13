@@ -1,7 +1,6 @@
 package brainflow.image.space;
 
 import brainflow.image.anatomy.Anatomy2D;
-import brainflow.image.anatomy.SpatialLoc2D;
 import brainflow.utils.Dimension2D;
 
 /**

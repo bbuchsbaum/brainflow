@@ -10,16 +10,16 @@ import brainflow.utils.NumberUtils;
  * Time: 3:46:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public class VoxelLoc1D {
+public class IndexLoc1D {
 
 
     private float gridX;
 
     private ImageAxis axis;
 
-    public final LocationType unit = LocationType.VOXEL;
+    public final LocationType unit = LocationType.GRID;
 
-    public VoxelLoc1D(float gridX, ImageAxis axis) {
+    public IndexLoc1D(float gridX, ImageAxis axis) {
         this.gridX = gridX;
         this.axis = axis;
     }
@@ -28,8 +28,8 @@ public class VoxelLoc1D {
         return gridX;
     }
 
-    public VoxelLoc1D reverse() {
-        return new VoxelLoc1D(axis.getNumSamples() - gridX, axis.flip());
+    public IndexLoc1D reverse() {
+        return new IndexLoc1D(axis.getNumSamples() - gridX, axis.flip());
 
     }
 
@@ -51,7 +51,7 @@ public class VoxelLoc1D {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        VoxelLoc1D that = (VoxelLoc1D) o;
+        IndexLoc1D that = (IndexLoc1D) o;
 
         if (!NumberUtils.equals(that.gridX, gridX, .001)) return false;
         if (axis != null ? !axis.equals(that.axis) : that.axis != null) return false;

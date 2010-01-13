@@ -3,9 +3,8 @@ package brainflow.core;
 import brainflow.core.ImageView;
 import brainflow.core.SimpleImageView;
 import brainflow.core.ImageViewModel;
-import brainflow.image.anatomy.SpatialLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.VoxelLoc3D;
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.events.PropertyListener;
@@ -111,8 +110,8 @@ public class YokeHandler  {
         }
 
         public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-            VoxelLoc3D newval = (VoxelLoc3D)newValue;
-            VoxelLoc3D oldval = (VoxelLoc3D)oldValue;
+            GridLoc3D newval = (GridLoc3D)newValue;
+            GridLoc3D oldval = (GridLoc3D)oldValue;
 
             if (!newval.equals(oldval)) {
 

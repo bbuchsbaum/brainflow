@@ -1,10 +1,9 @@
 package brainflow.core.rendering;
 
 import brainflow.colormap.IColorMap;
-import brainflow.image.anatomy.SpatialLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.AnatomicalAxis;
-import brainflow.image.anatomy.VoxelLoc3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.image.data.CoordinateSet3D;
@@ -31,7 +30,7 @@ import java.util.List;
 public class BasicCoordinateSliceRenderer implements SliceRenderer {
 
 
-    private VoxelLoc3D slice;
+    private GridLoc3D slice;
 
     private CoordinateLayer layer;
 
@@ -41,7 +40,7 @@ public class BasicCoordinateSliceRenderer implements SliceRenderer {
 
     private ICoordinateSpace space;
 
-    public BasicCoordinateSliceRenderer(CoordinateLayer layer, VoxelLoc3D slice, Anatomy3D displayAnatomy) {
+    public BasicCoordinateSliceRenderer(CoordinateLayer layer, GridLoc3D slice, Anatomy3D displayAnatomy) {
         this.slice = slice;
         this.layer = layer;
         this.displayAnatomy = displayAnatomy;
@@ -73,14 +72,14 @@ public class BasicCoordinateSliceRenderer implements SliceRenderer {
 
     
 
-    public void setSlice(VoxelLoc3D slice) {
+    public void setSlice(GridLoc3D slice) {
         if (!getSlice().equals(slice)) {
             this.slice = slice;
             flush();
         }
     }
 
-    public VoxelLoc3D getSlice() {
+    public GridLoc3D getSlice() {
         return slice;
     }
 

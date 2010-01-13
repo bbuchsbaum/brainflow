@@ -1,6 +1,6 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,9 +12,9 @@ import brainflow.image.anatomy.VoxelLoc3D;
 public interface SliceController {
 
 
-    public VoxelLoc3D getSlice();
+    public GridLoc3D getSlice();
 
-    public void setSlice(VoxelLoc3D slice);
+    public void setSlice(GridLoc3D slice);
 
     public void nextSlice();
 

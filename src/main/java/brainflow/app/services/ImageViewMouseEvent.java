@@ -1,7 +1,7 @@
 package brainflow.app.services;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import org.bushe.swing.event.AbstractEventServiceEvent;
 
 import java.awt.event.MouseEvent;
@@ -34,7 +34,7 @@ public class ImageViewMouseEvent extends AbstractEventServiceEvent {
         return iview;
     }
 
-    public VoxelLoc3D getLocation() {
+    public GridLoc3D getLocation() {
         throw new UnsupportedOperationException();
     }
 

@@ -1,11 +1,10 @@
 package brainflow.image.space;
 
-import brainflow.image.anatomy.SpatialLoc3D;
+import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.utils.Dimension3D;
 
 import java.util.Arrays;

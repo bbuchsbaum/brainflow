@@ -1,10 +1,10 @@
 package brainflow.image.data;
 
 import brainflow.array.ConstantValueIterator;
+import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.image.space.*;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.axis.ImageAxis;

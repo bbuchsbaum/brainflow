@@ -2,7 +2,7 @@ package brainflow.core;
 
 import brainflow.display.InterpolationType;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.axis.AxisRange;
 
 import java.awt.*;
@@ -27,9 +27,9 @@ public interface IImageProducer {
 
     public Anatomy3D getDisplayAnatomy();
 
-    public void setSlice(VoxelLoc3D slice);
+    public void setSlice(GridLoc3D slice);
 
-    public VoxelLoc3D getSlice();
+    public GridLoc3D getSlice();
 
     public void setScreenSize(Rectangle rect);
 

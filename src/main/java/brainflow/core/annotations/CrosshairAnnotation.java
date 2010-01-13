@@ -2,8 +2,8 @@ package brainflow.core.annotations;
 
 import brainflow.core.IImagePlot;
 import brainflow.core.ImageView;
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.SpatialLoc1D;
-import brainflow.image.anatomy.VoxelLoc3D;
 import net.java.dev.properties.Property;
 
 import java.awt.*;
@@ -47,11 +47,11 @@ public class CrosshairAnnotation extends AbstractAnnotation {
     private Point location;
 
 
-    private Property<VoxelLoc3D> crosshair;
+    private Property<GridLoc3D> crosshair;
 
     private ImageView view;
 
-    public CrosshairAnnotation(Property<VoxelLoc3D> _crosshair, ImageView _view) {
+    public CrosshairAnnotation(Property<GridLoc3D> _crosshair, ImageView _view) {
         crosshair = _crosshair;
         linePaint = DEFAULT_LINE_PAINT;
         lineLength = DEFAULT_LINE_LENGTH.doubleValue();

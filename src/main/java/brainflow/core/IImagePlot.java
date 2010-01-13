@@ -2,9 +2,8 @@ package brainflow.core;
 
 import brainflow.core.annotations.IAnnotation;
 import brainflow.display.InterpolationType;
-import brainflow.image.anatomy.SpatialLoc2D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.axis.AxisRange;
 
 import javax.swing.*;
@@ -53,9 +52,9 @@ public interface IImagePlot {
 
     public double getScaleY();
 
-    public void setSlice(VoxelLoc3D slice);
+    public void setSlice(GridLoc3D slice);
 
-    public VoxelLoc3D getSlice();
+    public GridLoc3D getSlice();
 
     public Point translateAnatToScreen(SpatialLoc2D pt);
 

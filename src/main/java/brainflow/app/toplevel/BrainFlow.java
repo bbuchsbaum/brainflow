@@ -12,7 +12,7 @@ import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.IActionProvider;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageDataSource;
 import brainflow.gui.ExceptionDialog;
@@ -1264,7 +1264,7 @@ public class BrainFlow {
             ImageView view = event.getImageView();
             if (!validEvent(event)) return;
 
-            VoxelLoc3D gpoint = event.getLocation();
+            GridLoc3D gpoint = event.getLocation();
             ImageLayer3D layer = view.getSelectedLayer();
 
 

@@ -1,7 +1,7 @@
 package brainflow.core.layer;
 
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.space.ICoordinateSpace;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.data.CoordinateSet3D;
@@ -26,7 +26,7 @@ public class CoordinateLayer extends AbstractLayer {
         coordinates = coords;
     }
 
-    public double getValue(VoxelLoc3D pt) {
+    public double getValue(GridLoc3D pt) {
         return 0;
     }
 
@@ -34,7 +34,7 @@ public class CoordinateLayer extends AbstractLayer {
         return coordinates;
     }
 
-    public SliceRenderer getSliceRenderer(IImageSpace refspace, VoxelLoc3D slice, Anatomy3D displayAnatomy) {
+    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridLoc3D slice, Anatomy3D displayAnatomy) {
        return new BasicCoordinateSliceRenderer(this, slice, displayAnatomy);
     }
 

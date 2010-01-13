@@ -9,7 +9,9 @@ package brainflow.image.anatomy;
  */
 public enum LocationType {
 
-    VOXEL,
+    INDEX,
+    GRID,
     REAL,
+    WORLD
     
 }

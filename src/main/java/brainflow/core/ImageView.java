@@ -75,9 +75,9 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     };
 
 
-    public final Property<VoxelLoc3D> cursorPos = new ObservableProperty<VoxelLoc3D>() {
+    public final Property<GridLoc3D> cursorPos = new ObservableProperty<GridLoc3D>() {
 
-        public void set(VoxelLoc3D gp) {
+        public void set(GridLoc3D gp) {
             //ap = ap.snapToBounds();
             if (!gp.equals(get())) {
                 super.set(gp);
@@ -236,7 +236,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         viewport = new Viewport3D(model);
         if (cursorPos.get() == null || model.getImageSpace().getAnatomy() != cursorPos.get().getAnatomy() || !viewport.inBounds(cursorPos.get().toReal())) {
             SpatialLoc3D centroid = model.getImageSpace().getCentroid();
-            cursorPos.set(VoxelLoc3D.fromReal((float) centroid.getX(), (float) centroid.getY(), (float) centroid.getZ(), model.getImageSpace()));
+            cursorPos.set(GridLoc3D.fromReal((float) centroid.getX(), (float) centroid.getY(), (float) centroid.getZ(), model.getImageSpace()));
         }
 
     }
@@ -333,7 +333,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     }
 
 
-    public VoxelLoc3D getCursorPos() {
+    public GridLoc3D getCursorPos() {
         return cursorPos.get();
     }
 
@@ -406,7 +406,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     }
 
     //todo this method is just really, really bad. fix it.
-    public VoxelLoc3D getAnatomicalLocation(Component source, Point p) {
+    public GridLoc3D getAnatomicalLocation(Component source, Point p) {
 
         Point viewPoint = SwingUtilities.convertPoint(source, p, this);
 
@@ -423,7 +423,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
 
         Anatomy3D displayAnatomy = plot.getDisplayAnatomy();
 
-        VoxelLoc3D gslice = plot.getSlice();
+        GridLoc3D gslice = plot.getSlice();
 
         Anatomy3D matchedAnatomy = Anatomy3D.matchAnatomy(
                 plot.getXAxisRange().getAnatomicalAxis(),
@@ -443,7 +443,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         SpatialLoc3D converted = ap3d.convertTo(space);
         assert converted.getAnatomy() == space.getAnatomy();
 
-        return VoxelLoc3D.fromReal(converted.getX(), converted.getY(), converted.getZ(), space);
+        return GridLoc3D.fromReal(converted.getX(), converted.getY(), converted.getZ(), space);
 
 
     }

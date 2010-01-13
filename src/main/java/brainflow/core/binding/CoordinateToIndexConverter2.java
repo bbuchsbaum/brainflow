@@ -1,6 +1,5 @@
 package brainflow.core.binding;
 
-import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.math.Index3D;

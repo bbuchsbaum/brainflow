@@ -1,7 +1,7 @@
 package brainflow.core.annotations;
 
 import brainflow.core.IImagePlot;
-import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.GridLoc3D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -33,7 +33,7 @@ public class SliceAnnotation extends AbstractAnnotation {
 
         FontMetrics fmetric = g2d.getFontMetrics(font);
 
-        VoxelLoc3D pt = plot.getSlice();
+        GridLoc3D pt = plot.getSlice();
         
         String label = "" + (int)Math.round(pt.getValue(plot.getDisplayAnatomy().ZAXIS, false).getValue());
         Rectangle2D strBounds = fmetric.getStringBounds(label, g2d);

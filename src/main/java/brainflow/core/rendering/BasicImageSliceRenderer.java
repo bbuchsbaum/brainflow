@@ -36,7 +36,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     private static final Logger log = Logger.getLogger(BasicImageSliceRenderer.class.getName());
 
-    private VoxelLoc3D slice;
+    private GridLoc3D slice;
 
     private ImageLayer3D layer;
 
@@ -58,14 +58,14 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     private IImageSpace3D refSpace;
 
-    private SoftCache<VoxelLoc1D, IImageData2D> dataCache;
+    private SoftCache<GridLoc1D, IImageData2D> dataCache;
 
-    private SoftCache<VoxelLoc1D, RGBAImage> rgbaCache;
+    private SoftCache<GridLoc1D, RGBAImage> rgbaCache;
 
     private IColorMap lastColorMap;
 
 
-    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, VoxelLoc3D slice) {
+    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridLoc3D slice) {
         //todo not DRY
         this.slice = slice;
         this.layer = layer;
@@ -82,7 +82,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
 
-    public BasicImageSliceRenderer(BasicImageSliceRenderer renderer, VoxelLoc3D slice, boolean keepCache) {
+    public BasicImageSliceRenderer(BasicImageSliceRenderer renderer, GridLoc3D slice, boolean keepCache) {
         //todo not DRY
         this.slice = slice;
         this.layer = renderer.layer;
@@ -109,7 +109,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
 
 
-    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, VoxelLoc3D slice, Anatomy3D displayAnatomy) {
+    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridLoc3D slice, Anatomy3D displayAnatomy) {
         this.slice = slice;
         this.layer = layer;
         this.refSpace = refSpace;
@@ -123,14 +123,14 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
     private void initCache() {
-        dataCache = new SoftCache<VoxelLoc1D, IImageData2D>();
-        rgbaCache = new SoftCache<VoxelLoc1D, RGBAImage>();
+        dataCache = new SoftCache<GridLoc1D, IImageData2D>();
+        rgbaCache = new SoftCache<GridLoc1D, RGBAImage>();
 
 
     }
 
 
-    public SoftCache<VoxelLoc1D, IImageData2D> getDataCache() {
+    public SoftCache<GridLoc1D, IImageData2D> getDataCache() {
         return dataCache;
     }
 
@@ -151,7 +151,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         if (data != null) return data;
 
 
-        VoxelLoc1D zdisp = getZSlice();
+        GridLoc1D zdisp = getZSlice();
 
         IImageData2D ret = dataCache.get(zdisp);
 
@@ -167,9 +167,9 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         return data;
     }
 
-    private VoxelLoc1D getZSlice() {
+    private GridLoc1D getZSlice() {
 
-        VoxelLoc1D zdisp = slice.getValue(displayAnatomy.ZAXIS, false);
+        GridLoc1D zdisp = slice.getValue(displayAnatomy.ZAXIS, false);
         int slice = (int) Math.round(zdisp.getValue());
 
         if (slice >= refSpace.getDimension(displayAnatomy.ZAXIS)) {
@@ -178,7 +178,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
             slice = 0;
         }
 
-        return new VoxelLoc1D(slice, zdisp.getImageAxis());
+        return new GridLoc1D(slice, zdisp.getImageAxis());
 
 
     }
@@ -191,7 +191,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         }
 
 
-        VoxelLoc1D zdisp = getZSlice();
+        GridLoc1D zdisp = getZSlice();
 
         if (lastColorMap != layer.getLayerProps().colorMap.get()) {
             rgbaCache.clear();
@@ -244,7 +244,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
     @Override
-    public void setSlice(VoxelLoc3D slice) {
+    public void setSlice(GridLoc3D slice) {
         if (!getSlice().equals(slice)) {
             this.slice = slice;
             flush();
@@ -283,7 +283,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         return true;
     }
 
-    public VoxelLoc3D getSlice() {
+    public GridLoc3D getSlice() {
         return slice;
     }
 
@@ -376,7 +376,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         //todo check if opaque
         ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
 
-        VoxelLoc1D zdisp = getZSlice();
+        GridLoc1D zdisp = getZSlice();
 
         //todo what is the correct way to round zdisp  here?
         // todo check if zdisp is valid?
