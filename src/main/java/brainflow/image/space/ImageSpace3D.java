@@ -1,11 +1,12 @@
 package brainflow.image.space;
 
-import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.ImageAxis;
 import brainflow.math.Index3D;
 import brainflow.math.Vector3f;
 import brainflow.utils.Dimension3D;
+import brainflow.utils.IDimension;
 
 /**
  * Created by IntelliJ IDEA.
@@ -132,6 +133,11 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
         return new Dimension3D<Integer>(getDimension(Axis.X_AXIS), getDimension(Axis.Y_AXIS), getDimension(Axis.Z_AXIS));
     }
 
+     @Override
+    public IDimension<Float> getSpacing() {
+        return new Dimension3D<Float>((float)getSpacing(Axis.X_AXIS), (float)getSpacing(Axis.Y_AXIS), (float)getSpacing(Axis.Z_AXIS));
+    }
+
 
     public float[] gridToWorld(float[] gridpos) {
         if (gridpos.length != 3) {
@@ -243,14 +249,14 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
     }
 
 
-    public BrainPoint3D getCentroid() {
+    public SpatialLoc3D getCentroid() {
 
         ImageAxis a1 = getImageAxis(Axis.X_AXIS);
         ImageAxis a2 = getImageAxis(Axis.Y_AXIS);
         ImageAxis a3 = getImageAxis(Axis.Z_AXIS);
 
 
-        return new BrainPoint3D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue(), a3.getCenter().getValue());
+        return new SpatialLoc3D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue(), a3.getCenter().getValue());
         //Vector3f p = mapping.gridToWorld(x,y,z);
         //return new BrainPoint3D(Anatomy3D.REFERENCE_ANATOMY, p.x,  p.y, p.z);
     }

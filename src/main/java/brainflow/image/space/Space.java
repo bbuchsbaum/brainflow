@@ -1,11 +1,11 @@
 package brainflow.image.space;
 
+import brainflow.image.anatomy.VoxelLoc3D;
 import brainflow.image.iterators.XYZIterator;
 import brainflow.image.LinearSet1D;
 import brainflow.image.LinearSet3D;
 import brainflow.image.anatomy.AnatomicalAxis;
-import brainflow.image.anatomy.BrainPoint3D;
-import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.axis.AxisRange;
@@ -29,8 +29,8 @@ public class Space {
         return new ImageSpace3D(xaxis, yaxis, zaxis);
     }
 
-    public static boolean containsPoint(IImageSpace3D space, BrainPoint3D pt) {
-        BrainPoint3D cpt = pt.convertTo(space);
+    public static boolean containsPoint(IImageSpace3D space, SpatialLoc3D pt) {
+        SpatialLoc3D cpt = pt.convertTo(space);
         if (space.getImageAxis(Axis.X_AXIS).contains(cpt.getValue(Axis.X_AXIS.getId())) &&
             space.getImageAxis(Axis.Y_AXIS).contains(cpt.getValue(Axis.Y_AXIS.getId())) &&
             space.getImageAxis(Axis.Z_AXIS).contains(cpt.getValue(Axis.Z_AXIS.getId()))) {
@@ -42,7 +42,7 @@ public class Space {
 
     }
 
-    public static boolean containsPoint(IImageSpace3D space, GridPoint3D pt) {
+    public static boolean containsPoint(IImageSpace3D space, VoxelLoc3D pt) {
         if (pt.getAnatomy() != space.getAnatomy()) throw new IllegalArgumentException("arguments have non-matching anatomy");
         return (pt.getX().getValue() >= 0 && pt.getX().getValue() <= space.getImageAxis(Axis.X_AXIS).getNumSamples() &&
             pt.getY().getValue() >= 0 && pt.getY().getValue() <= space.getImageAxis(Axis.Y_AXIS).getNumSamples() &&

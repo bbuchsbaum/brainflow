@@ -1,10 +1,9 @@
 package brainflow.core.layer;
 
-import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.anatomy.VoxelLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.space.IImageSpace;
 import brainflow.core.SliceRenderer;
-import org.bushe.swing.event.EventBus;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,9 +23,9 @@ public interface ILayer {
 
     public abstract IMaskProperty getMaskProperty();
 
-    public abstract double getValue(GridPoint3D pt);
+    public abstract double getValue(VoxelLoc3D pt);
 
-    public abstract SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy);
+    public abstract SliceRenderer getSliceRenderer(IImageSpace refspace, VoxelLoc3D slice, Anatomy3D displayAnatomy);
 
     
 }

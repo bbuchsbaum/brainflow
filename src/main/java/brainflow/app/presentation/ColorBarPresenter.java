@@ -83,14 +83,12 @@ public class ColorBarPresenter extends BrainFlowPresenter {
             colorMenu.add(iter.next());
         }
 
-        colorMenu.add(new GradientColorAction("Solid Color ..."));
+        //colorMenu.add(new GradientColorAction("Solid Color ..."));
 
 
         colorMapListener = new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-
                 IColorMap cmap = (IColorMap) newValue;
-                
                 form.setColorMap(cmap);
             }
         };
@@ -142,6 +140,12 @@ public class ColorBarPresenter extends BrainFlowPresenter {
         actions = new ArrayList<Action>();
         Iterator<String> iter = maps.keySet().iterator();
 
+        DesignColorMapCommand command = new DesignColorMapCommand();
+        command.getDefaultFace(true).setText("Custom Colors...");
+        Action designAction = command.getActionAdapter();
+
+        actions.add(designAction);
+
         while (iter.hasNext()) {
             String name = iter.next();
             IndexColorModel icm = maps.get(name);
@@ -154,11 +158,8 @@ public class ColorBarPresenter extends BrainFlowPresenter {
 
         }
 
-        DesignColorMapCommand command = new DesignColorMapCommand();
-        command.getDefaultFace(true).setText("Custom Colors...");
-        Action designAction = command.getActionAdapter();
 
-        actions.add(designAction);
+
 
         return actions;
     }

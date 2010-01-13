@@ -37,7 +37,7 @@ public class ResourceManager {
     }
 
     public IndexColorModel getDefaultColorMap() {
-        return getColorMap(defaultColorMap);
+        return ColorTable.GRAYSCALE;
 
     }
 
@@ -78,8 +78,10 @@ public class ResourceManager {
         cachedMaps.put("Reds", ColorBrewer.Reds);
         cachedMaps.put("Greens", ColorBrewer.Greens);
         cachedMaps.put("OrangePurple", ColorBrewer.OrangePurple);
+        cachedMaps.put("RedBlue", ColorBrewer.RedBlue);
+        cachedMaps.put("MagentaGreen", ColorBrewer.MagentaGreen);
 
-        InputStream istream = getClass().getClassLoader().getResourceAsStream("colormaps/colormap.properties");
+        /*InputStream istream = getClass().getClassLoader().getResourceAsStream("colormaps/colormap.properties");
 
 
         Properties props = new Properties();
@@ -99,7 +101,7 @@ public class ResourceManager {
                 log.severe("Failed to load colormap: " + name + ", at: " + location);
                 throw new RuntimeException("Failed to load colormap: " + name + ", at: " + location, bfe);
             }
-        }
+        }*/
 
 
     }

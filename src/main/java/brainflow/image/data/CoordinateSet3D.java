@@ -199,7 +199,7 @@ public class CoordinateSet3D {
 
     }
 
-    public List<Integer> indicesWithinPlane(GridPoint1D slice) {
+    public List<Integer> indicesWithinPlane(VoxelLoc1D slice) {
         List<Integer> idx = new ArrayList<Integer>();
 
         for (int i = 0; i < getRows(); i++) {
@@ -214,8 +214,8 @@ public class CoordinateSet3D {
         return idx;
     }
 
-    public List<BrainPoint3D> pointsWithinPlane(BrainPoint1D slice) {
-        List<BrainPoint3D> pts = new ArrayList<BrainPoint3D>();
+    public List<SpatialLoc3D> pointsWithinPlane(SpatialLoc1D slice) {
+        List<SpatialLoc3D> pts = new ArrayList<SpatialLoc3D>();
         for (int i = 0; i < getRows(); i++) {
             double coord = getCoordinate(i, slice.getAnatomy());
             double radius = getRadius(i);
@@ -229,12 +229,12 @@ public class CoordinateSet3D {
 
     }
 
-    public BrainPoint3D getAnatomicalPoint(int index) {
+    public SpatialLoc3D getAnatomicalPoint(int index) {
         if (index < 0 || index >= getRows()) {
             throw new IndexOutOfBoundsException("illegal index " + index);
         }
 
-        return new BrainPoint3D((Anatomy3D) space.getAnatomy(), points.get(index, 0), points.get(index, 1), points.get(index, 2));
+        return new SpatialLoc3D((Anatomy3D) space.getAnatomy(), points.get(index, 0), points.get(index, 1), points.get(index, 2));
 
     }
 

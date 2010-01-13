@@ -54,14 +54,15 @@ public class DiscreteColorMap extends AbstractColorMap {
         int numIntervals = segments.getNumIntervals();
 
         int isize = _intervals.size() - 1;
-        intervals = new ArrayList<ColorInterval>(segments.getNumIntervals());
+        intervals = new ArrayList<ColorInterval>(_intervals.size());
         for (int i = 0; i < numIntervals; i++) {
             double perc = (double) i / (double) (numIntervals - 1);
             int index = (int) (perc * isize);
             ColorInterval ival = new ColorInterval(segments.getInterval(i), _intervals.get(index).getColor());
             intervals.add(ival);
         }
-
+        System.out.println("num intervals " + intervals.size());
+        System.out.println("map size = " + getMapSize());
         equalizeIntervals(0, getMapSize() - 1);
     }
 
@@ -379,8 +380,15 @@ public class DiscreteColorMap extends AbstractColorMap {
 
     public DiscreteColorMap newClipRange(double lowClip, double highClip, double min, double max) {
         //todo figure out what to do with max
+        System.out.println("new low clip " + lowClip);
+        System.out.println("new high clip " + highClip);
+        System.out.println("min " + min);
+        System.out.println("max " + max);
+
+        System.out.println("segmenet intervals: " + segments.getNumIntervals());
+        System.out.println("intervals.length() " + intervals.size());
         return new DiscreteColorMap(new SegmentArray(segments.getNumIntervals(), lowClip, highClip,
-                segments.getMinimum(), segments.getMaximum()), intervals);
+                min, max), intervals);
 
     }
 

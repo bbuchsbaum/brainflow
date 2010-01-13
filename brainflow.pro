@@ -25,7 +25,7 @@
 -injars build\runtimeLibs\jdom.jar
 
 
--outjars build\brainflow-pro.jar
+-outjars onejar\brainflow-app.jar
 -libraryjars  "c:\Program Files\Java\jdk1.6.0_17\jre\lib\rt.jar"
 
 
@@ -56,13 +56,20 @@
     public protected *;
 }
 
+-keep public class org.apache.commons.vfs.provider.** {
+    public protected *;
+}
+
 -keep public class org.apache.commons.vfs.impl.** {
     public protected *;
 }
 
--keep public class org.apache.commons.vfs.provider.** {
+
+-keep public class com.jidesoft.utils.** {
     public protected *;
 }
+
+
 
 -keep public class org.apache.commons.logging.impl.** {
     public protected *;

@@ -1,7 +1,7 @@
 package brainflow.app.services;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,7 +17,7 @@ public class ImageViewCursorEvent extends ImageViewEvent {
      */
 
 
-    private BrainPoint3D cpos;
+    private SpatialLoc3D cpos;
 
     public ImageViewCursorEvent(ImageView view) {
         super(view);
@@ -25,7 +25,7 @@ public class ImageViewCursorEvent extends ImageViewEvent {
         cpos = view.worldCursorPos.get();
     }
 
-    public BrainPoint3D getCursor() {
+    public SpatialLoc3D getCursor() {
         return cpos;
     }
 

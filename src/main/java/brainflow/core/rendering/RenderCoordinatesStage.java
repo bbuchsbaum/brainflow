@@ -3,11 +3,9 @@ package brainflow.core.rendering;
 import org.apache.commons.pipeline.StageException;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import brainflow.core.layer.CoordinateLayer;
 import brainflow.core.layer.AbstractLayer;
-import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.AnatomicalAxis;
 
 /**

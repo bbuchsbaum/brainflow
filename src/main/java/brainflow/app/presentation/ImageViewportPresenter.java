@@ -4,7 +4,7 @@ import brainflow.core.YokeHandler;
 import brainflow.core.binding.PropertyConnector;
 import brainflow.core.*;
 import brainflow.core.annotations.BoxAnnotation;
-import brainflow.image.anatomy.BrainPoint2D;
+import brainflow.image.anatomy.SpatialLoc2D;
 import brainflow.image.anatomy.Anatomy3D;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -390,7 +390,7 @@ public class ImageViewportPresenter extends BrainFlowPresenter {
 
     class Panner extends MouseAdapter implements MouseMotionListener {
 
-        private BrainPoint2D lastPoint = null;
+        private SpatialLoc2D lastPoint = null;
 
 
         public void mousePressed(MouseEvent e) {
@@ -412,7 +412,7 @@ public class ImageViewportPresenter extends BrainFlowPresenter {
             IImagePlot plot = boxView.getSelectedPlot();
 
             if (boxAnnotation.containsPoint(plot, e.getPoint())) {
-                BrainPoint2D next = boxAnnotation.translateFromJava2D(plot, e.getPoint());
+                SpatialLoc2D next = boxAnnotation.translateFromJava2D(plot, e.getPoint());
 
 
                 Number xold = boxAnnotation.getXmin();

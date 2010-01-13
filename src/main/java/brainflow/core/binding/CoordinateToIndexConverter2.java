@@ -1,6 +1,6 @@
 package brainflow.core.binding;
 
-import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.math.Index3D;
@@ -23,7 +23,7 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
 
     private IImageSpace3D space;
 
-    public CoordinateToIndexConverter2(BaseProperty<BrainPoint3D> property, IImageSpace3D _space, Axis _axis) {
+    public CoordinateToIndexConverter2(BaseProperty<SpatialLoc3D> property, IImageSpace3D _space, Axis _axis) {
         super(property);
         //todo is this necessary?
         BeanContainer.bind(this);
@@ -33,13 +33,13 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
 
     }
 
-    private BrainPoint3D getValue() {
-        RProperty<BrainPoint3D> prop = (RProperty<BrainPoint3D>) getProperty();
+    private SpatialLoc3D getValue() {
+        RProperty<SpatialLoc3D> prop = (RProperty<SpatialLoc3D>) getProperty();
         return prop.get();
     }
 
     private Index3D getGridValue() {
-        BrainPoint3D ap = getValue();
+        SpatialLoc3D ap = getValue();
         float[] gpt = space.worldToGrid((float)ap.getX(), (float)ap.getY(), (float)ap.getZ());
         return new Index3D(Math.round(gpt[0]), Math.round(gpt[1]), Math.round(gpt[2]));
 
@@ -47,7 +47,7 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
 
     @Override
     public Integer get() {
-        BrainPoint3D ap = getValue();
+        SpatialLoc3D ap = getValue();
 
         float ret;
         if (axis == Axis.X_AXIS) {
@@ -85,9 +85,9 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
 
         float[] ret = space.gridToWorld(voxel.i1(),  voxel.i2(), voxel.i3());
 
-        BrainPoint3D nap = new BrainPoint3D(space.getMapping().getWorldAnatomy(), ret[0], ret[1], ret[2]);
+        SpatialLoc3D nap = new SpatialLoc3D(space.getMapping().getWorldAnatomy(), ret[0], ret[1], ret[2]);
 
-        WProperty<BrainPoint3D> wprop = (WProperty<BrainPoint3D>) getProperty();
+        WProperty<SpatialLoc3D> wprop = (WProperty<SpatialLoc3D>) getProperty();
         wprop.set(nap);
     }
 

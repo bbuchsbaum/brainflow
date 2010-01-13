@@ -56,10 +56,10 @@ public class CoordinateSpace2D extends AbstractCoordinateSpace {
         CoordinateAxis a1 = getImageAxis(Axis.X_AXIS);
         CoordinateAxis a2 = getImageAxis(Axis.Y_AXIS);
 
-        BrainPoint1D x = a1.getRange().getCenter();
-        BrainPoint1D y = a2.getRange().getCenter();
+        SpatialLoc1D x = a1.getRange().getCenter();
+        SpatialLoc1D y = a2.getRange().getCenter();
 
-        return new BrainPoint2D(getAnatomy(), x.getValue(), y.getValue());
+        return new SpatialLoc2D(getAnatomy(), x.getValue(), y.getValue());
     }
 
     protected CoordinateAxis[] getAxes() {

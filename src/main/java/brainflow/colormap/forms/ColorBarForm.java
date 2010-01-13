@@ -12,6 +12,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.JideSplitButton;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author buchs
@@ -58,7 +59,12 @@ public class ColorBarForm extends javax.swing.JPanel {
     }
 
     public void setColorMap(IColorMap colorMap) {
-        colorBar.setColorMap(colorMap);
+        colorBar = colorMap.createColorBar();
+        cbar.updateColorBar(colorBar);
+       // colorBarPanel.removeAll();
+        //colorBarPanel.add(createColorBar(colorMap), BorderLayout.CENTER);
+      //  revalidate();
+        //colorBar.setColorMap(colorMap);
         cbar.updateAxis(colorMap.getMinimumValue(), colorMap.getMaximumValue());
     }
 

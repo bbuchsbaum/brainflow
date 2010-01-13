@@ -1,7 +1,6 @@
 package brainflow.image.anatomy;
 
 import brainflow.image.axis.ImageAxis;
-import brainflow.image.space.Axis;
 import brainflow.utils.NumberUtils;
 
 /**
@@ -11,16 +10,16 @@ import brainflow.utils.NumberUtils;
  * Time: 3:46:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GridPoint1D {
+public class VoxelLoc1D {
 
 
     private float gridX;
 
     private ImageAxis axis;
 
-    public final BrainUnit unit = BrainUnit.VOXEL;
+    public final LocationType unit = LocationType.VOXEL;
 
-    public GridPoint1D(float gridX, ImageAxis axis) {
+    public VoxelLoc1D(float gridX, ImageAxis axis) {
         this.gridX = gridX;
         this.axis = axis;
     }
@@ -29,8 +28,8 @@ public class GridPoint1D {
         return gridX;
     }
 
-    public GridPoint1D reverse() {
-        return new GridPoint1D(axis.getNumSamples() - gridX, axis.flip());
+    public VoxelLoc1D reverse() {
+        return new VoxelLoc1D(axis.getNumSamples() - gridX, axis.flip());
 
     }
 
@@ -42,8 +41,8 @@ public class GridPoint1D {
         return axis;
     }
 
-    public BrainPoint1D toReal() {
-        return new BrainPoint1D(axis.getAnatomicalAxis(),
+    public SpatialLoc1D toReal() {
+        return new SpatialLoc1D(axis.getAnatomicalAxis(),
                 gridX * axis.getSpacing() + axis.getMinimum());
     }
 
@@ -52,7 +51,7 @@ public class GridPoint1D {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GridPoint1D that = (GridPoint1D) o;
+        VoxelLoc1D that = (VoxelLoc1D) o;
 
         if (!NumberUtils.equals(that.gridX, gridX, .001)) return false;
         if (axis != null ? !axis.equals(that.axis) : that.axis != null) return false;

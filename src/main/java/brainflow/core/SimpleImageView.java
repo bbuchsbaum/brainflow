@@ -78,6 +78,8 @@ public class SimpleImageView extends ImageView {
         initDisplayAnatomy(displayAnatomy);
               
         initToolBar();
+
+        //initSlider();
     }
 
     protected void layoutPlots() {
@@ -149,4 +151,9 @@ public class SimpleImageView extends ImageView {
 
 
     }
+
+    //protected void initSlider() {
+    //    JSlider slider = new JSlider(JSlider.HORIZONTAL);
+    //    add(slider, BorderLayout.SOUTH);
+    //}
 }

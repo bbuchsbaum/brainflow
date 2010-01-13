@@ -39,6 +39,8 @@ public class ImageViewZoomer extends BrainFlowPresenter {
 
         initSlider();
 
+       
+
     }
 
     private double convertToProportion(int sliderValue) {

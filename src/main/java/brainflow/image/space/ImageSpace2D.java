@@ -5,6 +5,7 @@ import brainflow.image.axis.ImageAxis;
 import brainflow.utils.Dimension2D;
 import brainflow.math.Index2D;
 import brainflow.math.Vector2f;
+import brainflow.utils.IDimension;
 
 /**
  * Created by IntelliJ IDEA.
@@ -93,6 +94,10 @@ public class ImageSpace2D extends AbstractImageSpace implements IImageSpace2D {
         return (Anatomy2D) super.getAnatomy();    //To change body of overridden methods use File | Settings | File Templates.
     }
 
+    @Override
+    public IDimension<Float> getSpacing() {
+        return new Dimension2D<Float>((float)getSpacing(Axis.X_AXIS), (float)getSpacing(Axis.Y_AXIS));
+    }
 
     public float gridToWorldY(float x, float y, float z) {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
@@ -136,10 +141,10 @@ public class ImageSpace2D extends AbstractImageSpace implements IImageSpace2D {
         throw new UnsupportedOperationException();
     }
 
-    public BrainPoint2D getCentroid() {
+    public SpatialLoc2D getCentroid() {
         ImageAxis a1 = getImageAxis(Axis.X_AXIS);
         ImageAxis a2 = getImageAxis(Axis.Y_AXIS);
-        return new BrainPoint2D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue());
+        return new SpatialLoc2D(getAnatomy(), a1.getCenter().getValue(), a2.getCenter().getValue());
     }
 
     public float[] worldToGrid(float[] coord) {

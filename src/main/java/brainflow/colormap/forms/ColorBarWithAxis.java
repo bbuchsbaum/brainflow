@@ -43,6 +43,13 @@ public class ColorBarWithAxis extends JPanel {
         add(axispanel, BorderLayout.SOUTH);
     }
 
+    public void updateColorBar(AbstractColorBar colorBar) {
+        this.removeAll();
+        add(colorBar, BorderLayout.CENTER);
+        add(axispanel, BorderLayout.SOUTH);
+        revalidate();
+    }
+
     public void updateAxis(double min, double max) {
         axis.setMin(min);
         axis.setMax(max);

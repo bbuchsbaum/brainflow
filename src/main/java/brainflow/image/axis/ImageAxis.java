@@ -2,7 +2,7 @@ package brainflow.image.axis;
 
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.AnatomicalDirection;
-import brainflow.image.anatomy.BrainPoint1D;
+import brainflow.image.anatomy.SpatialLoc1D;
 
 import java.util.Arrays;
 
@@ -112,7 +112,7 @@ public class ImageAxis extends CoordinateAxis {
         return getSamples()[idx];
     }
 
-    public final int nearestSample(BrainPoint1D pt) {
+    public final int nearestSample(SpatialLoc1D pt) {
         assert pt.getAnatomy().sameAxis(getAnatomicalAxis());
 
 
@@ -126,7 +126,7 @@ public class ImageAxis extends CoordinateAxis {
         return getSamples()[idx];
     }
 
-    public final double valueOf(BrainPoint1D sample) {
+    public final double valueOf(SpatialLoc1D sample) {
         assert sample.getAnatomy().sameAxis(getAnatomicalAxis());
 
         if (sample.getAnatomy() == getAnatomicalAxis().getFlippedAxis()) {
@@ -138,9 +138,9 @@ public class ImageAxis extends CoordinateAxis {
     }
 
 
-    public final BrainPoint1D valueOf(int sample) {
+    public final SpatialLoc1D valueOf(int sample) {
         double relpos = sample * spacing + spacing / 2f;
-        return new BrainPoint1D(getAnatomicalAxis(), relpos + getRange().getMinimum());
+        return new SpatialLoc1D(getAnatomicalAxis(), relpos + getRange().getMinimum());
     }
 
     public int[] getSampleArray() {

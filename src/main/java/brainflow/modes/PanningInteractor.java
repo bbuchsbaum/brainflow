@@ -1,7 +1,7 @@
 package brainflow.modes;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.BrainPoint2D;
+import brainflow.image.anatomy.SpatialLoc2D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.core.Viewport3D;
 
@@ -39,8 +39,8 @@ public class PanningInteractor extends ImageViewInteractor {
         if (lastPoint != null) {
 
             ImageView view = getView();
-            BrainPoint2D lastpos = view.getSelectedPlot().translateScreenToAnat(SwingUtilities.convertPoint(e.getComponent(), lastPoint, view.getSelectedPlot().getComponent()));
-            BrainPoint2D curpos = view.getSelectedPlot().translateScreenToAnat(SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), view.getSelectedPlot().getComponent()));
+            SpatialLoc2D lastpos = view.getSelectedPlot().translateScreenToAnat(SwingUtilities.convertPoint(e.getComponent(), lastPoint, view.getSelectedPlot().getComponent()));
+            SpatialLoc2D curpos = view.getSelectedPlot().translateScreenToAnat(SwingUtilities.convertPoint(e.getComponent(), e.getPoint(), view.getSelectedPlot().getComponent()));
 
             double dx = curpos.getX().getValue() - lastpos.getX().getValue();
             double dy = curpos.getY().getValue() - lastpos.getY().getValue();

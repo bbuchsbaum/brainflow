@@ -28,11 +28,11 @@ public abstract class AbstractSliceController implements SliceController {
         return getView().getModel().getImageAxis(axis);
     }
 
-    public GridPoint3D incrementSlice(double incr, Anatomy3D anatomy) {
-        GridPoint3D slice = getSlice();
+    public VoxelLoc3D incrementSlice(double incr, Anatomy3D anatomy) {
+        VoxelLoc3D slice = getSlice();
         ImageAxis iaxis = sliceAxis(anatomy);
-        GridPoint1D gp = slice.getValue(iaxis.getAnatomicalAxis(), false);
-        BrainPoint1D pt = new BrainPoint1D(gp.getAnatomy(), gp.toReal().getValue() + incr);
+        VoxelLoc1D gp = slice.getValue(iaxis.getAnatomicalAxis(), false);
+        SpatialLoc1D pt = new SpatialLoc1D(gp.getAnatomy(), gp.toReal().getValue() + incr);
         return slice.replace(pt);
     }
 }

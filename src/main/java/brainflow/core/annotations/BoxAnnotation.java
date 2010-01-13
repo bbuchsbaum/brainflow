@@ -1,7 +1,7 @@
 package brainflow.core.annotations;
 
 import brainflow.core.IImagePlot;
-import brainflow.image.anatomy.BrainPoint2D;
+import brainflow.image.anatomy.SpatialLoc2D;
 import net.java.dev.properties.Property;
 import net.java.dev.properties.container.ObservableProperty;
 import net.java.dev.properties.container.BeanContainer;
@@ -60,7 +60,7 @@ public class BoxAnnotation extends AbstractAnnotation {
 
 
     public boolean containsPoint(IImagePlot plot, Point plotPoint) {
-        BrainPoint2D pt = plot.translateScreenToAnat(plotPoint);
+        SpatialLoc2D pt = plot.translateScreenToAnat(plotPoint);
 
         if (pt.getX().getValue() < xmin.get()) return false;
         if (pt.getY().getValue() < ymin.get()) return false;
@@ -71,7 +71,7 @@ public class BoxAnnotation extends AbstractAnnotation {
 
     }
 
-    public BrainPoint2D translateFromJava2D(IImagePlot plot, Point plotPoint) {
+    public SpatialLoc2D translateFromJava2D(IImagePlot plot, Point plotPoint) {
         return plot.translateScreenToAnat(plotPoint);
 
     }

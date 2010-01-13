@@ -7,7 +7,7 @@ package brainflow.image.anatomy;
  * Time: 10:22:36 AM
  * To change this template use File | Settings | File Templates.
  */
-public enum BrainUnit {
+public enum LocationType {
 
     VOXEL,
     REAL,

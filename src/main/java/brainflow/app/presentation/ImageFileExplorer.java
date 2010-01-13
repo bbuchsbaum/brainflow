@@ -2,6 +2,7 @@ package brainflow.app.presentation;
 
 import brainflow.app.*;
 import brainflow.app.dnd.DnDUtils;
+import brainflow.app.toplevel.BrainFlow;
 import brainflow.gui.AbstractPresenter;
 import brainflow.gui.FileExplorer;
 import brainflow.image.io.*;
@@ -391,7 +392,16 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     private MouseEvent firstMouseEvent = null;
 
     public void mouseClicked(MouseEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
+            List<LazyNode> nodes = getSelectedNodes();
+            if (nodes.size() == 1 && nodes.get(0) instanceof ImageLeafNode) {
+                ImageLeafNode leaf = (ImageLeafNode)nodes.get(0);
+                BrainFlow.get().loadAndDisplay(leaf.getUserObject());
+
+
+            }
+
+        }
     }
 
     public void mousePressed(MouseEvent e) {

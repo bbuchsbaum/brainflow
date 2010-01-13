@@ -12,7 +12,7 @@ import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.IActionProvider;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.anatomy.VoxelLoc3D;
 import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageDataSource;
 import brainflow.gui.ExceptionDialog;
@@ -42,7 +42,6 @@ import com.pietschy.command.toggle.ToggleGroup;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.factory.ButtonFactory;
 import com.pietschy.command.factory.MenuFactory;
-import com.pietschy.command.factory.ToolbarFactory;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
@@ -54,7 +53,6 @@ import org.bushe.swing.event.EventSubscriber;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.SplashScreen;
 import java.awt.event.*;
@@ -71,8 +69,6 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.net.URI;
-
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 
 
 /**
@@ -482,7 +478,7 @@ public class BrainFlow {
         SelectedViewStatus viewStatus = new SelectedViewStatus();
         log.info("initializing status bar");
         statusBar.setAutoAddSeparator(false);
-
+        statusBar.setChildrenOpaque(true);
 
         statusBar.add(viewStatus.getComponent(), JideBoxLayout.FIX);
         statusBar.add(new com.jidesoft.status.StatusBarSeparator(), JideBoxLayout.FIX);
@@ -516,16 +512,20 @@ public class BrainFlow {
 
         LabelStatusBarItem zoomLabel = new LabelStatusBarItem();
         zoomLabel.setText("Magnify: ");
+        zoomLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
         statusBar.add(zoomLabel, JideBoxLayout.FIX);
 
         ImageViewZoomer zoomer = new ImageViewZoomer();
         zoomer.getComponent().setOpaque(false);
+        zoomer.getComponent().setBorder(new EmptyBorder(0, 0, 0, 0));
+
         statusBar.add(zoomer.getComponent(), JideBoxLayout.FIX);
 
         statusBar.add(new LabelStatusBarItem(), JideBoxLayout.VARY);
         //statusBar.add(new com.jidesoft.status.ProgressStatusBarItem(), JideBoxLayout.FIX);
 
         statusBar.add(new com.jidesoft.status.MemoryStatusBarItem(), JideBoxLayout.FIX);
+        statusBar.setMinimumSize(new Dimension(10, 100));
         brainFrame.getDockableBarManager().getMainContainer().add(statusBar, "South");
         statusBar.resetToPreferredSizes();
 
@@ -1089,6 +1089,9 @@ public class BrainFlow {
 
         log.info("loading and displaying : " + dataSource);
 
+        final Cursor cursor = brainFrame.getCursor();
+        brainFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
         final IImageDataSource checkedDataSource = specialHandling(dataSource);
         register(checkedDataSource);
 
@@ -1098,7 +1101,7 @@ public class BrainFlow {
                 ImageViewModel displayModel = ProjectManager.get().createViewModel(checkedDataSource, true);
                 ImageView iview = ImageViewFactory.createAxialView(displayModel);
                 DisplayManager.get().display(iview);
-                //DisplayManager.get().getSelectedCanvas().addImageView(iview);
+                brainFrame.setCursor(cursor);
             }
         });
 
@@ -1107,22 +1110,30 @@ public class BrainFlow {
 
 
     public void load(final IImageDataSource dataSource) {
+        final Cursor cursor = brainFrame.getCursor();
+        brainFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         final IImageDataSource checkedDataSource = specialHandling(dataSource);
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
 
         monitor.loadImage(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 register(checkedDataSource);
+                brainFrame.setCursor(cursor);
             }
         });
 
 
     }
 
+    
+
 
     public void loadAndDisplay(final IImageDataSource dataSource, final ImageView view) {
         final IImageDataSource checkedDataSource = specialHandling(dataSource);
         register(checkedDataSource);
+
+        final Cursor cursor = brainFrame.getCursor();
+        brainFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
         monitor.loadImage(new ActionListener() {
@@ -1131,6 +1142,7 @@ public class BrainFlow {
                 ImageLayer3D layer = ImageLayerFactory.createImageLayer(dataSource);
                 model.add(layer);
                 model.layerSelection.set(model.indexOf(layer));
+                brainFrame.setCursor(cursor);
 
             }
         });
@@ -1252,7 +1264,7 @@ public class BrainFlow {
             ImageView view = event.getImageView();
             if (!validEvent(event)) return;
 
-            GridPoint3D gpoint = event.getLocation();
+            VoxelLoc3D gpoint = event.getLocation();
             ImageLayer3D layer = view.getSelectedLayer();
 
 

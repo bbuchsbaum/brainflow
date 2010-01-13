@@ -1,11 +1,11 @@
 package brainflow.image.space;
 
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.BrainPoint3D;
-import brainflow.image.anatomy.BrainPoint1D;
+import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.utils.Dimension3D;
 
 import java.util.Arrays;
@@ -109,17 +109,17 @@ public class CoordinateSpace3D extends AbstractCoordinateSpace implements ICoord
 
     }
 
-    public BrainPoint3D getCentroid() {
+    public SpatialLoc3D getCentroid() {
 
         CoordinateAxis a1 = getImageAxis(Axis.X_AXIS);
         CoordinateAxis a2 = getImageAxis(Axis.Y_AXIS);
         CoordinateAxis a3 = getImageAxis(Axis.Z_AXIS);
 
-        BrainPoint1D x = a1.getRange().getCenter();
-        BrainPoint1D y = a2.getRange().getCenter();
-        BrainPoint1D z = a3.getRange().getCenter();
+        SpatialLoc1D x = a1.getRange().getCenter();
+        SpatialLoc1D y = a2.getRange().getCenter();
+        SpatialLoc1D z = a3.getRange().getCenter();
 
-        return new BrainPoint3D(getAnatomy(), x.getValue(), y.getValue(), z.getValue());
+        return new SpatialLoc3D(getAnatomy(), x.getValue(), y.getValue(), z.getValue());
 
 
     }

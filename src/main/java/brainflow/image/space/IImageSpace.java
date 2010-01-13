@@ -23,6 +23,8 @@ public interface IImageSpace extends ICoordinateSpace {
 
     public IDimension<Float> getOrigin();
 
+    public IDimension<Float> getSpacing();
+
     public int getDimension(Axis axis);
 
     public double getSpacing(Axis axis);

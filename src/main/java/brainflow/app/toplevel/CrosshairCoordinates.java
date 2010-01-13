@@ -1,7 +1,7 @@
 package brainflow.app.toplevel;
 
 import brainflow.app.services.ImageViewCursorEvent;
-import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import com.jidesoft.status.LabelStatusBarItem;
 import org.bushe.swing.event.EventBus;
@@ -60,7 +60,7 @@ public class CrosshairCoordinates extends LabelStatusBarItem implements EventSub
     public void onEvent(Object evt) {
         //todo much is redundant with class CursorCoordinates ...
         ImageViewCursorEvent event = (ImageViewCursorEvent) evt;
-        BrainPoint3D cursor = event.getCursor();
+        SpatialLoc3D cursor = event.getCursor();
 
         if (cursor != null) {
 

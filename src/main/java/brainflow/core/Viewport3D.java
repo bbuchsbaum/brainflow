@@ -1,7 +1,7 @@
 package brainflow.core;
 
 import brainflow.image.anatomy.AnatomicalAxis;
-import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.ImageAxis;
@@ -102,7 +102,7 @@ public class Viewport3D  {
         return bounds;
     }
 
-    public boolean inBounds(BrainPoint3D pt) {
+    public boolean inBounds(SpatialLoc3D pt) {
         if (pt.getAnatomy() != bounds.getAnatomy()) {
             throw new IllegalArgumentException("supplied point must have same Anatomy as Viewport for inBounds test." +
                     "arg : " + pt.getAnatomy() + " viewport : " + bounds.getAnatomy());

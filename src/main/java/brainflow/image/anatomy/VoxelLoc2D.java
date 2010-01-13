@@ -11,55 +11,55 @@ import brainflow.image.axis.ImageAxis;
  * Time: 1:31:19 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GridPoint2D {
+public class VoxelLoc2D {
 
 
-    private GridPoint1D gridX, gridY;
+    private VoxelLoc1D gridX, gridY;
     
     private IImageSpace2D space;
 
-    public final BrainUnit unit = BrainUnit.VOXEL;
+    public final LocationType unit = LocationType.VOXEL;
 
 
-    public GridPoint2D(double x, double y, IImageSpace2D space) {
+    public VoxelLoc2D(double x, double y, IImageSpace2D space) {
         this.gridX = clamp(x, space.getImageAxis(Axis.X_AXIS));
         this.gridY = clamp(y, space.getImageAxis(Axis.Y_AXIS));
         this.space = space;
     }
 
-    private GridPoint1D clamp(double val, ImageAxis axis) {
+    private VoxelLoc1D clamp(double val, ImageAxis axis) {
         val = Math.min(val, axis.getMaximum());
         val = Math.max(val, axis.getMinimum());
-        return new GridPoint1D((float)val, axis);
+        return new VoxelLoc1D((float)val, axis);
     }
 
-    public static GridPoint2D fromWorld(double x, double y, IImageSpace2D space) {
+    public static VoxelLoc2D fromWorld(double x, double y, IImageSpace2D space) {
         float[] grid = space.worldToGrid((float) x, (float) y);
-        return new GridPoint2D(grid[0], grid[1], space);
+        return new VoxelLoc2D(grid[0], grid[1], space);
     }
 
-    public static GridPoint2D fromReal(float x, float y,  IImageSpace2D space) {
+    public static VoxelLoc2D fromReal(float x, float y,  IImageSpace2D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
-        return new GridPoint2D(gridx, gridy, space);
+        return new VoxelLoc2D(gridx, gridy, space);
     }
 
-    public static GridPoint2D fromReal(BrainPoint2D bp, IImageSpace2D space) {
+    public static VoxelLoc2D fromReal(SpatialLoc2D bp, IImageSpace2D space) {
         if (space.getAnatomy() != bp.getAnatomy()) {
             throw new IllegalArgumentException("incompatible axes: BrainPoint3D " + bp.getAnatomy() + " does not equals IIMageSpace3D anatomy: " + space.getAnatomy());
         }
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(bp.getX().getValue());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(bp.getY().getValue());
-        return new GridPoint2D(gridx, gridy, space);
+        return new VoxelLoc2D(gridx, gridy, space);
     }
 
 
 
 
-    public static GridPoint2D fromReal(double x, double y, IImageSpace2D space) {
+    public static VoxelLoc2D fromReal(double x, double y, IImageSpace2D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
-         return new GridPoint2D(gridx, gridy, space);
+         return new VoxelLoc2D(gridx, gridy, space);
     }
 
 
@@ -86,23 +86,23 @@ public class GridPoint2D {
 
     }
 
-    public BrainPoint2D toWorld() {
+    public SpatialLoc2D toWorld() {
         float[] vals = space.gridToWorld((float)gridX.getValue(), (float)gridY.getValue());
-        return new BrainPoint2D(space.getMapping().getWorldAnatomy(), vals[0], vals[1]);
+        return new SpatialLoc2D(space.getMapping().getWorldAnatomy(), vals[0], vals[1]);
     }
 
-    public BrainPoint2D toReal() {
-        return new BrainPoint2D(getGridAnatomy(),
+    public SpatialLoc2D toReal() {
+        return new SpatialLoc2D(getGridAnatomy(),
                 gridX.getValue() * space.getSpacing(Axis.X_AXIS) + space.getImageAxis(Axis.X_AXIS).getMinimum(),
                 gridY.getValue() * space.getSpacing(Axis.Y_AXIS) + space.getImageAxis(Axis.Y_AXIS).getMinimum());
 
     }
 
-    public GridPoint1D getX() {
+    public VoxelLoc1D getX() {
         return gridX;
     }
 
-    public GridPoint1D getY() {
+    public VoxelLoc1D getY() {
         return gridY;
     }
 

@@ -75,9 +75,9 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     };
 
 
-    public final Property<GridPoint3D> cursorPos = new ObservableProperty<GridPoint3D>() {
+    public final Property<VoxelLoc3D> cursorPos = new ObservableProperty<VoxelLoc3D>() {
 
-        public void set(GridPoint3D gp) {
+        public void set(VoxelLoc3D gp) {
             //ap = ap.snapToBounds();
             if (!gp.equals(get())) {
                 super.set(gp);
@@ -88,7 +88,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     };
 
 
-    public final Property<BrainPoint3D> worldCursorPos = new GridToWorldConverter(cursorPos);
+    public final Property<SpatialLoc3D> worldCursorPos = new GridToWorldConverter(cursorPos);
 
     private InterpolationType screenInterpolation = InterpolationType.NEAREST_NEIGHBOR;
 
@@ -235,8 +235,8 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     protected void initViewport(ImageViewModel model) {
         viewport = new Viewport3D(model);
         if (cursorPos.get() == null || model.getImageSpace().getAnatomy() != cursorPos.get().getAnatomy() || !viewport.inBounds(cursorPos.get().toReal())) {
-            BrainPoint3D centroid = model.getImageSpace().getCentroid();
-            cursorPos.set(GridPoint3D.fromReal((float) centroid.getX(), (float) centroid.getY(), (float) centroid.getZ(), model.getImageSpace()));
+            SpatialLoc3D centroid = model.getImageSpace().getCentroid();
+            cursorPos.set(VoxelLoc3D.fromReal((float) centroid.getX(), (float) centroid.getY(), (float) centroid.getZ(), model.getImageSpace()));
         }
 
     }
@@ -333,7 +333,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     }
 
 
-    public GridPoint3D getCursorPos() {
+    public VoxelLoc3D getCursorPos() {
         return cursorPos.get();
     }
 
@@ -352,7 +352,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     }
 
 
-    public BrainPoint3D getCentroid() {
+    public SpatialLoc3D getCentroid() {
         ICoordinateSpace3D compositeSpace = getModel().get(0).getCoordinateSpace();
         return compositeSpace.getCentroid();
     }
@@ -406,7 +406,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     }
 
     //todo this method is just really, really bad. fix it.
-    public GridPoint3D getAnatomicalLocation(Component source, Point p) {
+    public VoxelLoc3D getAnatomicalLocation(Component source, Point p) {
 
         Point viewPoint = SwingUtilities.convertPoint(source, p, this);
 
@@ -419,11 +419,11 @@ public abstract class ImageView extends JPanel implements ListDataListener {
 
         Point plotPoint = SwingUtilities.convertPoint(this, viewPoint, plot.getComponent());
 
-        BrainPoint2D apoint = plot.translateScreenToAnat(plotPoint);
+        SpatialLoc2D apoint = plot.translateScreenToAnat(plotPoint);
 
         Anatomy3D displayAnatomy = plot.getDisplayAnatomy();
 
-        GridPoint3D gslice = plot.getSlice();
+        VoxelLoc3D gslice = plot.getSlice();
 
         Anatomy3D matchedAnatomy = Anatomy3D.matchAnatomy(
                 plot.getXAxisRange().getAnatomicalAxis(),
@@ -432,7 +432,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
 
         assert matchedAnatomy == plot.getDisplayAnatomy();
 
-        BrainPoint3D ap3d = new BrainPoint3D(
+        SpatialLoc3D ap3d = new SpatialLoc3D(
                 matchedAnatomy,
                 apoint.getX().getValue(), apoint.getY().getValue(),
                 gslice.getValue(displayAnatomy.ZAXIS, true).toReal().getValue());
@@ -440,10 +440,10 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         IImageSpace3D space = getModel().getImageSpace();
 
 
-        BrainPoint3D converted = ap3d.convertTo(space);
+        SpatialLoc3D converted = ap3d.convertTo(space);
         assert converted.getAnatomy() == space.getAnatomy();
 
-        return GridPoint3D.fromReal(converted.getX(), converted.getY(), converted.getZ(), space);
+        return VoxelLoc3D.fromReal(converted.getX(), converted.getY(), converted.getZ(), space);
 
 
     }
@@ -580,8 +580,6 @@ public abstract class ImageView extends JPanel implements ListDataListener {
 
 
     }
-
-
 
 
     class PlotSelectionHandler extends MouseAdapter {

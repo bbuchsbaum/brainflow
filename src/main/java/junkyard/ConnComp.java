@@ -3,7 +3,7 @@ package junkyard;
 import brainflow.image.data.*;
 import brainflow.image.space.Axis;
 import brainflow.image.io.BrainIO;
-import brainflow.image.anatomy.BrainPoint1D;
+import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.utils.DataType;
 import brainflow.utils.Range;
@@ -428,7 +428,7 @@ public class ConnComp {
         watch.stopAndReport("conncomp");
 
 
-        IImageData3D dat3d = Data.asImageData3D(comp.labels, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
+        IImageData3D dat3d = Data.asImageData3D(comp.labels, new SpatialLoc1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0), 1);
         LayerProps props = new LayerProps(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);

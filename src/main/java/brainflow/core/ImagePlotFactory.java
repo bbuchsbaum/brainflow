@@ -1,8 +1,7 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.BrainPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.anatomy.VoxelLoc3D;
 import brainflow.image.axis.AxisRange;
 
 import java.util.concurrent.ExecutorService;
@@ -32,7 +31,7 @@ public class ImagePlotFactory {
         IImagePlot plot = new ComponentImagePlot(model, new ViewBounds(model.getImageSpace(), displayAnatomy, xrange, yrange));
         plot.setName(displayAnatomy.XY_PLANE.getOrientation().toString());
 
-        GridPoint3D slice = GridPoint3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
+        VoxelLoc3D slice = VoxelLoc3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
         //IImageProducer producer = new CompositeImageProducer(plot, displayAnatomy, slice, threadService);
         IImageProducer producer = new CompositeImageProducer(plot, slice, threadService);
         plot.setImageProducer(producer);

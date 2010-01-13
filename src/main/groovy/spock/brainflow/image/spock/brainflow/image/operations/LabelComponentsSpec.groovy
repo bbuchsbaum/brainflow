@@ -10,6 +10,7 @@ import brainflow.image.data.MaskPredicate
 import spock.lang.Sputnik
 import brainflow.image.io.BrainIO
 import brainflow.core.BF
+import brainflow.image.data.ClusterSet
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,8 +38,9 @@ class LabelComponentsSpec {
     labeler.label()
 
     then:
-    BF.quickView(labeler.getLabelledComponents());
     println labeler.getClusterSizes()
+    def cset = new ClusterSet(labeler.getLabelledComponents());
+    println cset.getSortedClustersBySize()
 
   }
 

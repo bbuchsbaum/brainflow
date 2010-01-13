@@ -1,9 +1,8 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.BrainPoint1D;
-import brainflow.image.anatomy.BrainPoint3D;
-import brainflow.image.anatomy.GridPoint3D;
-import brainflow.image.anatomy.GridPoint1D;
+import brainflow.image.anatomy.SpatialLoc1D;
+import brainflow.image.anatomy.VoxelLoc3D;
+import brainflow.image.anatomy.VoxelLoc1D;
 import brainflow.image.space.Axis;
 import brainflow.image.axis.ImageAxis;
 import net.java.dev.properties.container.BeanContainer;
@@ -32,8 +31,8 @@ class SimpleSliceController implements SliceController {
     protected void initCursorListener() {
         BeanContainer.get().addListener(imageView.cursorPos, new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                GridPoint3D oldval = (GridPoint3D)oldValue;
-                GridPoint3D newval = (GridPoint3D)newValue;
+                VoxelLoc3D oldval = (VoxelLoc3D)oldValue;
+                VoxelLoc3D newval = (VoxelLoc3D)newValue;
          
                 if (!oldval.equals(newval)) {
                     imageView.getSelectedPlot().setSlice(newval);
@@ -46,13 +45,13 @@ class SimpleSliceController implements SliceController {
     }
 
 
-    public GridPoint3D getSlice() {
+    public VoxelLoc3D getSlice() {
         return imageView.getCursorPos();
     }
 
     
 
-    public void setSlice(GridPoint3D slice) {
+    public void setSlice(VoxelLoc3D slice) {
         if (!slice.equals(imageView.cursorPos.get())) {
             imageView.cursorPos.set(slice);
         }
@@ -65,12 +64,12 @@ class SimpleSliceController implements SliceController {
 
     }
 
-    protected GridPoint3D incrementSlice(double incr) {
-        GridPoint3D slice = getSlice();
+    protected VoxelLoc3D incrementSlice(double incr) {
+        VoxelLoc3D slice = getSlice();
         ImageAxis iaxis = zaxis();
-        GridPoint1D pt = slice.getValue(iaxis.getAnatomicalAxis(), false);
+        VoxelLoc1D pt = slice.getValue(iaxis.getAnatomicalAxis(), false);
         double z = pt.toReal().getValue() + incr;
-        return slice.replace(new BrainPoint1D(iaxis.getAnatomicalAxis(), z));
+        return slice.replace(new SpatialLoc1D(iaxis.getAnatomicalAxis(), z));
 
     }
 

@@ -11,13 +11,13 @@ import brainflow.image.anatomy.*;
  */
 public class ImageOrigin2D implements IImageOrigin {
 
-    private BrainPoint2D origin;
+    private SpatialLoc2D origin;
 
     private AnatomicalDirection[] dirs;
 
     public ImageOrigin2D(AnatomicalDirection a1, AnatomicalDirection a2, double x, double y) {
 
-        origin = new BrainPoint2D(Anatomy2D.matchAnatomy(a1, a2), x, y);
+        origin = new SpatialLoc2D(Anatomy2D.matchAnatomy(a1, a2), x, y);
 
         dirs = new AnatomicalDirection[3];
         dirs[0] = a1;

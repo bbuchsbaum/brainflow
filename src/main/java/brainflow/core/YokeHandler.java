@@ -3,9 +3,9 @@ package brainflow.core;
 import brainflow.core.ImageView;
 import brainflow.core.SimpleImageView;
 import brainflow.core.ImageViewModel;
-import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.GridPoint3D;
+import brainflow.image.anatomy.VoxelLoc3D;
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.events.PropertyListener;
@@ -92,11 +92,11 @@ public class YokeHandler  {
         return sources.containsKey((view));
     }
 
-    public void setTargetLocation(BrainPoint3D point) {
+    public void setTargetLocation(SpatialLoc3D point) {
         target.worldCursorPos.set(point);     
     }
 
-    public BrainPoint3D getTargetLocation() {
+    public SpatialLoc3D getTargetLocation() {
         return target.getCursorPos().toReal();
     }
 
@@ -111,12 +111,12 @@ public class YokeHandler  {
         }
 
         public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-            GridPoint3D newval = (GridPoint3D)newValue;
-            GridPoint3D oldval = (GridPoint3D)oldValue;
+            VoxelLoc3D newval = (VoxelLoc3D)newValue;
+            VoxelLoc3D oldval = (VoxelLoc3D)oldValue;
 
             if (!newval.equals(oldval)) {
 
-                BrainPoint3D bp = newval.toWorld();
+                SpatialLoc3D bp = newval.toWorld();
 
                 if (handler.get() != null) {
                     if (!bp.equals(handler.get().getTargetLocation())) {

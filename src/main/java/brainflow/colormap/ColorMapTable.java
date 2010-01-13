@@ -86,7 +86,7 @@ public class ColorMapTable extends AbstractPresenter {
 
     private void setUpColorRenderer(JTable table) {
         table.setDefaultRenderer(Color.class,
-                new ColorCellRenderer(true));
+                new ColorTableCellRenderer(true));
     }
 
 

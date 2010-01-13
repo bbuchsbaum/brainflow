@@ -1,7 +1,11 @@
 package brainflow.app.presentation.controls;
 
+import com.jidesoft.dialog.ButtonPanel;
 import com.jidesoft.dialog.JideOptionPane;
+import com.jidesoft.popup.JidePopup;
 import com.jidesoft.swing.AutoResizingTextArea;
+import com.jidesoft.swing.JideButton;
+import com.jidesoft.swing.JideSplitButton;
 import com.jidesoft.swing.TitledSeparator;
 import com.jidesoft.plaf.LookAndFeelFactory;
 
@@ -15,7 +19,6 @@ import java.util.*;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -26,7 +29,6 @@ import brainflow.colormap.IColorMap;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.AbstractColorBar;
 import brainflow.colormap.forms.ColorBarWithAxis;
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -42,6 +44,8 @@ public class CustomColorMapDesigner extends JPanel {
 
     private IColorMap colorMap = new DiscreteColorMap(Arrays.asList(Color.RED), Arrays.asList(0d, 255d));
 
+    private IndexColorModel selectedModel = ColorTable.COLOR_MAPS.get("Spectrum");
+
     private AutoResizingTextArea inputArea = new AutoResizingTextArea("", 4, 10, 10);
     //private JTextArea inputArea = new JTextArea("");
 
@@ -53,17 +57,27 @@ public class CustomColorMapDesigner extends JPanel {
 
     private JLabel gradientSelectionLabel = new JLabel("Auto Gradient:");
 
-    private JComboBox gradientSelection;
+
+
+    private JideSplitButton colorMapSelector;
+
+    private JideSplitButton generateValues = new JideSplitButton("generate");
 
     private JFormattedTextField minValueField = new JFormattedTextField(NumberFormat.getNumberInstance());
 
     private JFormattedTextField maxValueField = new JFormattedTextField(NumberFormat.getNumberInstance());
 
+    private JFormattedTextField autoGap = new JFormattedTextField(NumberFormat.getNumberInstance());
+
     private JButton clearButton = new JButton("Clear");
 
-    private JComboBox sequenceFunction = new JComboBox();
+    private JideButton interpRightButton = new JideButton("extrapolate next");
 
-    private JSpinner numSegments = new JSpinner(new SpinnerNumberModel(10, 1, 255, 1));
+    private JideSplitButton autoInterpButton = new JideSplitButton("auto generate");
+
+
+    //private JComboBox sequenceFunction = new JComboBox();
+
 
     private String lastValidInput = "";
 
@@ -80,11 +94,14 @@ public class CustomColorMapDesigner extends JPanel {
 
     }
 
+    
+
     private void buildGUI() {
         MigLayout layout = new MigLayout();
         setLayout(layout);
 
-        gradientSelection = createComboBox();
+
+        colorMapSelector = createColorMapSelector();
 
         minValueField.setColumns(6);
         maxValueField.setColumns(6);
@@ -97,10 +114,12 @@ public class CustomColorMapDesigner extends JPanel {
         colorBarPanel.setLayout(new BorderLayout());
         colorBarPanel.add(createColorBar(colorMap), BorderLayout.CENTER);
         colorBarPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
         add(new TitledSeparator("Color Bar"), "growx, wrap 13px");
         add(gradientSelectionLabel, "split 6");
-        add(gradientSelection);
-        add(new JLabel("from:"), "gap left 30");
+        add(colorMapSelector, "width 100:150:200");
+
+        add(new JLabel("from:"), "gap left 60");
         add(minValueField);
         add(new JLabel("to:"));
         add(maxValueField, "wrap 15px");
@@ -109,14 +128,26 @@ public class CustomColorMapDesigner extends JPanel {
         add(invertColorCheckBox, "align right, wrap");
 
 
-        add(new TitledSeparator("Color Sequence Editor"), "growx, wrap 13px");
+        add(new TitledSeparator("Color Map Boundaries"), "growx, wrap 13px");
         JScrollPane textPane = new JScrollPane(inputArea);
         add(textPane, "grow, wrap 8px");
-        add(clearButton, "split 6");
 
-        add(sequenceFunction, "gap left 50, growx");
-        add(new JLabel("Segments: "), "gap left 10");
-        add(numSegments);
+        
+        add(clearButton, "split 5");
+
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("icons/control_play_blue.png"));
+        interpRightButton.setIcon(icon);
+        icon = new ImageIcon(getClass().getClassLoader().getResource("icons/control_fastforward_blue.png"));
+        autoInterpButton.setIcon(icon);
+
+        add(interpRightButton, "gap left 60");
+        add(autoInterpButton);
+        add(new JLabel("auto gap: "));
+        add(autoGap, "wrap, width 40:50:60");
+
+        autoGap.setValue(valueRange.getInterval()/10.0);
+       
+
         //add(defineGradientButton, "gap left 40, wrap");
 
         initTextListener();
@@ -125,7 +156,7 @@ public class CustomColorMapDesigner extends JPanel {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 invertColors = invertColorCheckBox.isSelected();
-                updateColorBar(parseValues(inputArea.getText()));
+                updateColorBar(parseValues(inputArea.getText()), selectedModel);
             }
 
         });
@@ -140,23 +171,124 @@ public class CustomColorMapDesigner extends JPanel {
 
         });
 
+        autoInterpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean success = true;
+                while(success) {
+                    success = advanceValue();
+                }
+            }
+        });
+
+        interpRightButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                advanceValue();
+            }
+        });
+
+
+
 
     }
 
-    private JComboBox createComboBox() {
+    private void setSelectedModel(IndexColorModel model) {
+        selectedModel = model;
+    }
+
+
+
+    /*private JComboBox createComboBox() {
         String[] names = new String[ColorTable.COLOR_MAPS.size()];
         ColorTable.COLOR_MAPS.keySet().toArray(names);
         gradientSelection = new JComboBox(names);
         gradientSelection.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                updateColorBar(parseValues(inputArea.getText()));
+                selectedModel = ColorTable.COLOR_MAPS.get(gradientSelection.getSelectedItem());
+                updateColorBar(parseValues(inputArea.getText()), selectedModel);
 
             }
         });
 
         return gradientSelection;
 
+
+    }*/
+
+    private JideSplitButton createColorMapSelector() {
+        String[] names = new String[ColorTable.COLOR_MAPS.size()];
+        ColorTable.COLOR_MAPS.keySet().toArray(names);
+        colorMapSelector = new JideSplitButton(names[0]);
+        final JidePopup popup = new JidePopup();
+        final ColorSequenceBuilder sequenceBuilder = new ColorSequenceBuilder();
+
+
+        colorMapSelector.add(new AbstractAction("Custom Colors") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                colorMapSelector.setText("Custom Colors");
+
+                popup.getContentPane().setLayout(new BorderLayout());
+
+
+                popup.add(sequenceBuilder, BorderLayout.CENTER);
+                popup.setOwner(colorMapSelector);
+                popup.setResizable(true);
+                popup.setMovable(true);
+
+                ButtonPanel pane = new ButtonPanel(SwingConstants.LEFT);
+
+                JButton ok = new JButton("OK");
+                ok.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        popup.hidePopupImmediately();
+                        IndexColorModel model = ColorTable.createIndexColorModel(sequenceBuilder.getColorSequence());
+                        setSelectedModel(model);
+                        updateColorBar(parseValues(inputArea.getText()), selectedModel);
+                    }
+                });
+
+                pane.add(ok, ButtonPanel.AFFIRMATIVE_BUTTON);
+                pane.add(new JButton("Cancel"), ButtonPanel.CANCEL);
+                pane.setBorder(BorderFactory.createEmptyBorder(8, 6, 8, 2));
+
+
+                popup.add(pane, BorderLayout.SOUTH);
+                popup.showPopup();
+
+                /*ColorSequenceBuilder builder = new ColorSequenceBuilder();
+                ButtonPanel pane = new ButtonPanel(SwingConstants.LEFT);
+                pane.add(new JButton("OK"), ButtonPanel.AFFIRMATIVE_BUTTON);
+                pane.add(new JButton("Cancel"), ButtonPanel.CANCEL);
+
+                JDialog dialog = new JDialog();
+                dialog.add(builder, BorderLayout.CENTER);
+                dialog.add(pane, BorderLayout.SOUTH);
+                dialog.pack();
+                dialog.setVisible(true); */
+
+
+            }
+        });
+
+         for (final String map : names) {
+             Action colorAction = new AbstractAction(map, ColorTable.createImageIcon(ColorTable.COLOR_MAPS.get(map), 30, 12)) {
+                 @Override
+                 public void actionPerformed(ActionEvent e) {
+                     colorMapSelector.setText(map);
+                     selectedModel = ColorTable.COLOR_MAPS.get(map);
+                     updateColorBar(parseValues(inputArea.getText()), selectedModel);
+                 }
+             };
+             colorMapSelector.add(colorAction);
+         }
+
+       
+
+        return colorMapSelector;
 
     }
 
@@ -169,13 +301,13 @@ public class CustomColorMapDesigner extends JPanel {
     }
 
 
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(600, 400);
-    }
+    //@Override
+    //public Dimension getPreferredSize() {
+    //    return new Dimension(600, 400);
+    //}
 
-    private void updateColorBar(List<Double> values) {
-        colorMap = createMap(valueRange, values);
+    private void updateColorBar(List<Double> values, IndexColorModel model) {
+        colorMap = createMap(valueRange, values, model);
         colorBarPanel.removeAll();
         colorBarPanel.add(createColorBar(colorMap), BorderLayout.CENTER);
         revalidate();
@@ -185,16 +317,19 @@ public class CustomColorMapDesigner extends JPanel {
         inputArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
+                System.out.println("insert update");
                 processInput(e);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
+                System.out.println("remove update");
                 processInput(e);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
+                System.out.println("change update");
                 processInput(e);
             }
         });
@@ -209,11 +344,10 @@ public class CustomColorMapDesigner extends JPanel {
             public void keyPressed(KeyEvent e) {
 
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    int caretPos = inputArea.getCaretPosition();
-                    if (caretPos == inputArea.getText().length() && inputArea.getText().charAt(inputArea.getText().length() - 1) == ' ') {
-                        interpolateRight();
-                    }
+                    advanceValue();
                 }
+
+
             }
 
             @Override
@@ -224,20 +358,80 @@ public class CustomColorMapDesigner extends JPanel {
 
     }
 
+    private boolean advanceValue() {
+        int caretPos = inputArea.getCaretPosition();
 
-    private void interpolateRight() {
-        if (inputSequence.size() >= 2) {
-            double vlast = inputSequence.get(inputSequence.size() - 1);
-            double vpen = inputSequence.get(inputSequence.size() - 2);
-            double diff = vlast - vpen;
-            double vnext = Math.min(vlast + diff, valueRange.getMax());
-            if (vnext == vlast) {
-                Toolkit.getDefaultToolkit().beep();
-                return;
-            }
-
-            inputArea.setText(inputArea.getText() + " " + vnext + " ");
+        if (inputArea.getText().trim().length() <= 0) {
+            return interpolateRight();
         }
+
+        inputArea.setText(trimText(inputArea.getText()));
+
+        System.out.println("caret pos " + caretPos);
+        System.out.println("text length " + inputArea.getText().length());
+        System.out.println("last char " + inputArea.getText().charAt(inputArea.getText().length() - 1));
+        String text = trimText(inputArea.getText());
+
+        if (caretPos >= 0 && caretPos >= inputArea.getText().length() && inputArea.getText().charAt(inputArea.getText().length() - 1) == ' ') {
+            return interpolateRight();
+        } else if (caretPos == inputArea.getText().length()) {
+            List<Double> ret = parseValues(inputArea.getText());
+            if (isMonotonic(ret)) {
+                updateInputSequence(ret);
+                return interpolateRight();
+
+            }
+        }
+
+        System.out.println("cannot advance");
+
+        return false;
+    }
+
+
+    private boolean setNextValue(double vnext) {
+        double vlast = valueRange.getMin();
+
+        if (inputSequence.size() > 0) {
+            vlast = inputSequence.get(inputSequence.size() - 1);
+        }
+        
+        if (vnext == vlast) {
+            Toolkit.getDefaultToolkit().beep();
+            return false;
+        }
+
+        inputArea.setText(inputArea.getText().trim() + " " + vnext + " ");
+        return true;
+    }
+
+
+    private boolean interpolateRight() {
+        if (inputSequence.size() == 0) {
+
+            double diff = ((Number)autoGap.getValue()).doubleValue();
+            double vnext = valueRange.getMin() + diff;
+             if (vnext < valueRange.getMax())
+                return setNextValue(vnext);
+        }
+        if (inputSequence.size() == 1) {
+            double vlast = inputSequence.get(0);
+            double diff = ((Number)autoGap.getValue()).doubleValue();
+            double vnext = vlast + diff;
+            if (vnext < valueRange.getMax())
+                return setNextValue(vnext);
+        } else if (inputSequence.size() >= 2) {
+            double vlast = inputSequence.get(inputSequence.size() - 1);
+            //double vpen = inputSequence.get(inputSequence.size() - 2);
+            double diff = ((Number)autoGap.getValue()).doubleValue();
+            double vnext = vlast + diff;
+            if (vnext < valueRange.getMax())
+               return setNextValue(vnext);
+        }
+
+        System.out.println("cannot interpolate right");
+        System.out.println("inputSequence is " + Arrays.toString(inputSequence.toArray()));
+        return false;
 
     }
 
@@ -265,32 +459,64 @@ public class CustomColorMapDesigner extends JPanel {
 
     }
 
+    private void updateInputSequence(List<Double> sequence) {
+        System.out.println("updating input sequence");
+        if (isMonotonic(sequence)) {
+            System.out.println("");
+            inputSequence = sequence;
+            System.out.println("input sequence is " + Arrays.toString(inputSequence.toArray()));
+            updateColorBar(inputSequence, selectedModel);
+            lastValidInput = inputArea.getText();
+        } else {
+            editError("invalid input: number sequence must be increasing");
+
+        }
+
+    }
+
+    private String trimText(String text) {
+        if (text.length() > 2) {
+            if (text.substring(text.length() - 1).matches("\\s")) {
+                return text.trim() + " ";
+            }
+        }
+
+        return text;
+    }
+
     private void processInput(DocumentEvent e) {
         int endpos = e.getDocument().getEndPosition().getOffset();
 
-        String text = inputArea.getText();
+        String text = trimText(inputArea.getText());
+
+
+
+
         System.out.println("-->" + text);
-        if (text.length() >= 2 && text.substring(text.length() - 1).equals(" ")) {
+        if (text.length() == 0) {
+            updateInputSequence(new ArrayList<Double>());
+        } else if (text.length() >= 2 && text.substring(text.length() - 1).equals(" ")) {
             try {
-                List<Double> ret = parseValues(inputArea.getText());
+                List<Double> ret = parseValues(text);
+                System.out.println("numbers: " + Arrays.toString(ret.toArray()));
                 if (!inBounds(ret)) {
                     editError(ret.get(ret.size() - 1) + " outside intensity range : " + valueRange);
                     return;
                 }
-                if (isMonotonic(ret)) {
-                    inputSequence = ret;
-                    updateColorBar(ret);
-                    lastValidInput = text;
-                } else {
-                    editError("invalid input: number sequence must be increasing");
 
-                }
+                updateInputSequence(ret);
+
             } catch (NumberFormatException ex) {
                 editError("\"invalid input: failed to parse number sequence");
 
 
             }
-        }
+        } //else {
+          //  List<Double> ret = parseValues(text);
+          //  if (!ret.equals(inputSequence)) {
+
+          //  }
+        //}
 
     }
 
@@ -332,19 +558,18 @@ public class CustomColorMapDesigner extends JPanel {
 
     }
 
-    private IColorMap createMap(IRange range, List<Double> interior) {
+    private IColorMap createMap(IRange range, List<Double> interior, IndexColorModel model) {
+        System.out.println("interior.size() " + interior.size());
         double[] boundaries = new double[interior.size() + 2];
         System.arraycopy(toDoubleArray(interior), 0, boundaries, 1, interior.size());
         boundaries[0] = range.getMin();
         boundaries[boundaries.length - 1] = range.getMax();
 
-        IndexColorModel model = ColorTable.COLOR_MAPS.get(gradientSelection.getSelectedItem().toString());
-        System.out.println("model size : " + model.getMapSize());
+
         if (invertColors) {
-            System.out.println("inverting colors");
             return new DiscreteColorMap(ColorTable.createColorGradient(ColorTable.invert(model), boundaries.length - 1), boundaries);
         } else {
-
+            //todo this should perform true interpolation between discrete items, especially when oversampling color map.
             return new DiscreteColorMap(ColorTable.createColorGradient(model, boundaries.length - 1), boundaries);
         }
     }
@@ -403,10 +628,11 @@ public class CustomColorMapDesigner extends JPanel {
     public static void main(String[] args) {
         com.jidesoft.utils.Lm.verifyLicense("UIN", "BrainFlow", "S5XiLlHH0VReaWDo84sDmzPxpMJvjP3");
         try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+            LookAndFeelFactory.installDefaultLookAndFeelAndExtension();
+            //UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
+        //} //catch (UnsupportedLookAndFeelException e) {
+          //  e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         LookAndFeelFactory.installJideExtension();

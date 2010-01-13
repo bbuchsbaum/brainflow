@@ -11,40 +11,40 @@ import brainflow.image.axis.ImageAxis;
  * Time: 10:08:50 AM
  * To change this template use File | Settings | File Templates.
  */
-public class GridPoint3D {
+public class VoxelLoc3D {
 
 
-    private GridPoint1D gridX, gridY, gridZ;
+    private VoxelLoc1D gridX, gridY, gridZ;
 
     private IImageSpace3D space;
 
-    public final BrainUnit unit = BrainUnit.VOXEL;
+    public final LocationType unit = LocationType.VOXEL;
 
 
-    public GridPoint3D(double x, double y, double z, IImageSpace3D space) {
+    public VoxelLoc3D(double x, double y, double z, IImageSpace3D space) {
         this.gridX = clamp(x, space.getImageAxis(Axis.X_AXIS));
         this.gridY = clamp(y, space.getImageAxis(Axis.Y_AXIS));
         this.gridZ = clamp(z, space.getImageAxis(Axis.Z_AXIS));
         this.space = space;
     }
 
-    private GridPoint1D clamp(double val, ImageAxis axis) {
+    private VoxelLoc1D clamp(double val, ImageAxis axis) {
         val = Math.min(val, axis.getNumSamples());
         val = Math.max(val, 0);
 
-        return new GridPoint1D((float) val, axis);
+        return new VoxelLoc1D((float) val, axis);
     }
 
-    public static GridPoint3D fromWorld(double x, double y, double z, IImageSpace3D space) {
+    public static VoxelLoc3D fromWorld(double x, double y, double z, IImageSpace3D space) {
         float[] grid = space.worldToGrid((float) x, (float) y, (float) z);
-        return new GridPoint3D(grid[0], grid[1], grid[2], space);
+        return new VoxelLoc3D(grid[0], grid[1], grid[2], space);
     }
 
-    public static GridPoint3D fromReal(float x, float y, float z, IImageSpace3D space) {
+    public static VoxelLoc3D fromReal(float x, float y, float z, IImageSpace3D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(z);
-        return new GridPoint3D(gridx, gridy, gridz, space);
+        return new VoxelLoc3D(gridx, gridy, gridz, space);
     }
 
     //public static GridPoint3D fromReal(BrainPoint1D one, BrainPoint1D two, BrainPoint1D three, IImageSpace3D space) {
@@ -52,22 +52,22 @@ public class GridPoint3D {
     //}
 
 
-    public static GridPoint3D fromReal(BrainPoint3D bp, IImageSpace3D space) {
+    public static VoxelLoc3D fromReal(SpatialLoc3D bp, IImageSpace3D space) {
         if (space.getAnatomy() != bp.getAnatomy()) {
             throw new IllegalArgumentException("incompatible axes: BrainPoint3D " + bp.getAnatomy() + " does not equals IIMageSpace3D anatomy: " + space.getAnatomy());
         }
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(bp.getX());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(bp.getY());
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(bp.getZ());
-        return new GridPoint3D(gridx, gridy, gridz, space);
+        return new VoxelLoc3D(gridx, gridy, gridz, space);
     }
 
 
-    public static GridPoint3D fromReal(double x, double y, double z, IImageSpace3D space) {
+    public static VoxelLoc3D fromReal(double x, double y, double z, IImageSpace3D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(z);
-        return new GridPoint3D(gridx, gridy, gridz, space);
+        return new VoxelLoc3D(gridx, gridy, gridz, space);
     }
 
 
@@ -83,7 +83,7 @@ public class GridPoint3D {
         return space;
     }
 
-    public GridPoint1D getValue(AnatomicalAxis axis, boolean flip) {
+    public VoxelLoc1D getValue(AnatomicalAxis axis, boolean flip) {
         if (axis.sameAxis(getAnatomy().XAXIS)) {
             if (!flip || axis == getAnatomy().XAXIS) return gridX;
             else {
@@ -106,33 +106,33 @@ public class GridPoint3D {
     }
 
 
-    public BrainPoint3D toWorld() {
+    public SpatialLoc3D toWorld() {
         float[] vals = space.gridToWorld((float) gridX.getValue(), (float) gridY.getValue(), (float) gridZ.getValue());
-        return new BrainPoint3D(space.getMapping().getWorldAnatomy(), vals[0], vals[1], vals[2]);
+        return new SpatialLoc3D(space.getMapping().getWorldAnatomy(), vals[0], vals[1], vals[2]);
     }
 
-    public BrainPoint3D toReal() {
-        return new BrainPoint3D(getAnatomy(),
+    public SpatialLoc3D toReal() {
+        return new SpatialLoc3D(getAnatomy(),
                 gridX.getValue() * space.getSpacing(Axis.X_AXIS) + space.getImageAxis(Axis.X_AXIS).getMinimum(),
                 gridY.getValue() * space.getSpacing(Axis.Y_AXIS) + space.getImageAxis(Axis.Y_AXIS).getMinimum(),
                 gridZ.getValue() * space.getSpacing(Axis.Z_AXIS) + space.getImageAxis(Axis.Z_AXIS).getMinimum());
 
     }
 
-    public GridPoint3D replace(BrainPoint1D pt) {
-        BrainPoint3D bp = toReal();
-        return GridPoint3D.fromReal(bp.replace(pt), space);
+    public VoxelLoc3D replace(SpatialLoc1D pt) {
+        SpatialLoc3D bp = toReal();
+        return VoxelLoc3D.fromReal(bp.replace(pt), space);
     }
 
-    public GridPoint1D getX() {
+    public VoxelLoc1D getX() {
         return gridX;
     }
 
-    public GridPoint1D getY() {
+    public VoxelLoc1D getY() {
         return gridY;
     }
 
-    public GridPoint1D getZ() {
+    public VoxelLoc1D getZ() {
         return gridZ;
     }
 
@@ -154,7 +154,7 @@ public class GridPoint3D {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GridPoint3D that = (GridPoint3D) o;
+        VoxelLoc3D that = (VoxelLoc3D) o;
 
         if (gridX != null ? !gridX.equals(that.gridX) : that.gridX != null) return false;
         if (gridY != null ? !gridY.equals(that.gridY) : that.gridY != null) return false;

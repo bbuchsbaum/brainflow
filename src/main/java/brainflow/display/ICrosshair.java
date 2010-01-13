@@ -1,8 +1,8 @@
 package brainflow.display;
 
 import brainflow.image.anatomy.AnatomicalAxis;
-import brainflow.image.anatomy.BrainPoint1D;
-import brainflow.image.anatomy.BrainPoint3D;
+import brainflow.image.anatomy.SpatialLoc1D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.core.Viewport3D;
 
@@ -39,11 +39,11 @@ public interface ICrosshair {
 
     public double getZValue();
 
-    public BrainPoint1D getValue(AnatomicalAxis axis);
+    public SpatialLoc1D getValue(AnatomicalAxis axis);
 
-    public void setLocation(BrainPoint3D ap);
+    public void setLocation(SpatialLoc3D ap);
 
-    public BrainPoint3D getLocation();
+    public SpatialLoc3D getLocation();
 
     public void setXValue(double x);
 
@@ -51,5 +51,5 @@ public interface ICrosshair {
 
     public void setZValue(double z);
 
-    public void setValue(BrainPoint1D val);
+    public void setValue(SpatialLoc1D val);
 }

@@ -11,7 +11,6 @@ public class Index3D extends Index2D implements IIndex3D {
 
     private final int i3;
 
-    
 
     public Index3D(int i1, int i2, int i3) {
         super(i1, i2);
@@ -24,7 +23,6 @@ public class Index3D extends Index2D implements IIndex3D {
 
     public final int i3() {
         return i3;
-
     }
 
     public int product() {

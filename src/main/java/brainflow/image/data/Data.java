@@ -4,7 +4,7 @@ import brainflow.array.ConstantValueIterator;
 import brainflow.image.space.*;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.BrainPoint1D;
+import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.image.io.ImageInfo;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.axis.ImageAxis;
@@ -29,7 +29,7 @@ public class Data {
     private Data() {}
 
 
-    public static IImageData3D asImageData3D(IImageData2D data2d, BrainPoint1D zvalue, double thickness) {
+    public static IImageData3D asImageData3D(IImageData2D data2d, SpatialLoc1D zvalue, double thickness) {
         IImageSpace2D space2d = data2d.getImageSpace();
 
         ImageAxis zaxis = new ImageAxis(zvalue.getValue() - (thickness / 2.0), zvalue.getValue() + (thickness / 2.0), zvalue.getAnatomy(), 1);
