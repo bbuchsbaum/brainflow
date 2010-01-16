@@ -1,6 +1,7 @@
 package brainflow.image.space;
 
 import brainflow.image.anatomy.SpatialLoc1D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.axis.AxisRange;

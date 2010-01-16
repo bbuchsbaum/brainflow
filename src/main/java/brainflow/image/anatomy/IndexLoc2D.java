@@ -21,27 +21,27 @@ public class IndexLoc2D {
     public final LocationType unit = LocationType.GRID;
 
 
-    public IndexLoc2D(double x, double y, IImageSpace2D space) {
+    public IndexLoc2D(int x, int y, IImageSpace2D space) {
         this.indexX = clamp(x, space.getImageAxis(Axis.X_AXIS));
         this.indexY = clamp(y, space.getImageAxis(Axis.Y_AXIS));
         this.space = space;
     }
 
-    private IndexLoc1D clamp(double val, ImageAxis axis) {
-        val = Math.min(val, axis.getMaximum());
-        val = Math.max(val, axis.getMinimum());
-        return new IndexLoc1D((float)val, axis);
+    private static IndexLoc1D clamp(int val, ImageAxis axis) {
+        val = Math.min(0, axis.getNumSamples()-1);
+        val = Math.max(0, axis.getNumSamples()-1);
+        return new IndexLoc1D(val, axis);
     }
 
     public static IndexLoc2D fromWorld(double x, double y, IImageSpace2D space) {
         float[] grid = space.worldToGrid((float) x, (float) y);
-        return new IndexLoc2D(grid[0], grid[1], space);
+        return new IndexLoc2D((int)Math.round(grid[0]), (int)Math.round(grid[1]), space);
     }
 
     public static IndexLoc2D fromReal(float x, float y,  IImageSpace2D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
-        return new IndexLoc2D(gridx, gridy, space);
+        return new IndexLoc2D((int)Math.round(gridx), (int)Math.round(gridy), space);
     }
 
     public static IndexLoc2D fromReal(SpatialLoc2D bp, IImageSpace2D space) {
@@ -50,13 +50,13 @@ public class IndexLoc2D {
         }
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(bp.getX().getValue());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(bp.getY().getValue());
-        return new IndexLoc2D(gridx, gridy, space);
+        return new IndexLoc2D((int)Math.round(gridx), (int)Math.round(gridy), space);
     }
 
     public static IndexLoc2D fromReal(double x, double y, IImageSpace2D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
-         return new IndexLoc2D(gridx, gridy, space);
+        return new IndexLoc2D((int)Math.round(gridx), (int)Math.round(gridy), space);
     }
 
 
@@ -90,8 +90,11 @@ public class IndexLoc2D {
 
     public SpatialLoc2D toReal() {
         return new SpatialLoc2D(getGridAnatomy(),
-                indexX.getValue() * space.getSpacing(Axis.X_AXIS) + space.getImageAxis(Axis.X_AXIS).getMinimum(),
-                indexY.getValue() * space.getSpacing(Axis.Y_AXIS) + space.getImageAxis(Axis.Y_AXIS).getMinimum());
+                // should be specialized for indices
+                indexX.toReal(),
+                indexY.toReal());
+                //indexX.getValue() * space.getSpacing(Axis.X_AXIS) + space.getImageAxis(Axis.X_AXIS).getMinimum(),
+              //  indexY.getValue() * space.getSpacing(Axis.Y_AXIS) + space.getImageAxis(Axis.Y_AXIS).getMinimum());
 
     }
 

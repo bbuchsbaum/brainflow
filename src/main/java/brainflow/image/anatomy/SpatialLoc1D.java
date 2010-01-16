@@ -10,7 +10,7 @@ import brainflow.image.axis.ImageAxis;
  * Time: 12:31:47 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SpatialLoc1D implements BrainPoint {
+public class SpatialLoc1D implements BrainLoc {
 
 
 

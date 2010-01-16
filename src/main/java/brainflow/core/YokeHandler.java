@@ -5,6 +5,7 @@ import brainflow.core.SimpleImageView;
 import brainflow.core.ImageViewModel;
 import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.events.PropertyListener;

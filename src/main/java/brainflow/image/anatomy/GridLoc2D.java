@@ -11,7 +11,7 @@ import brainflow.image.axis.ImageAxis;
  * Time: 1:31:19 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GridLoc2D {
+public class GridLoc2D implements BrainLoc {
 
 
     private GridLoc1D gridX, gridY;
@@ -38,6 +38,11 @@ public class GridLoc2D {
         return new GridLoc2D(grid[0], grid[1], space);
     }
 
+    @Override
+    public int getNumDimensions() {
+        return 2;
+    }
+
     public static GridLoc2D fromReal(float x, float y,  IImageSpace2D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
@@ -46,7 +51,7 @@ public class GridLoc2D {
 
     public static GridLoc2D fromReal(SpatialLoc2D bp, IImageSpace2D space) {
         if (space.getAnatomy() != bp.getAnatomy()) {
-            throw new IllegalArgumentException("incompatible axes: BrainPoint3D " + bp.getAnatomy() + " does not equals IIMageSpace3D anatomy: " + space.getAnatomy());
+            throw new IllegalArgumentException("incompatible axes: SpatialLoc2D " + bp.getAnatomy() + " does not equals IImageSpace2D anatomy: " + space.getAnatomy());
         }
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(bp.getX().getValue());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(bp.getY().getValue());
@@ -73,6 +78,7 @@ public class GridLoc2D {
     }
 
     public double getValue(AnatomicalAxis axis) {
+        //todo this is dangerous allows flipped axes
         if (axis.sameAxis(getGridAnatomy().XAXIS)) {
             return gridX.getValue();
         } else if (axis.sameAxis(getGridAnatomy().YAXIS)) {

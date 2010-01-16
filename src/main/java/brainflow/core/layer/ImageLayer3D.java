@@ -1,6 +1,7 @@
 package brainflow.core.layer;
 
 import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.io.MemoryImageDataSource;
 

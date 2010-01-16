@@ -1,6 +1,7 @@
 package brainflow.image.space;
 
 import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.iterators.XYZIterator;
 import brainflow.image.LinearSet1D;
 import brainflow.image.LinearSet3D;

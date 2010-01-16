@@ -21,30 +21,25 @@ public class IndexLoc3D {
     public final LocationType unit = LocationType.GRID;
 
 
-    public IndexLoc3D(double x, double y, double z, IImageSpace3D space) {
-        this.gridX = clamp(x, space.getImageAxis(Axis.X_AXIS));
-        this.gridY = clamp(y, space.getImageAxis(Axis.Y_AXIS));
-        this.gridZ = clamp(z, space.getImageAxis(Axis.Z_AXIS));
+    public IndexLoc3D(int x, int y, int z, IImageSpace3D space) {
+        this.gridX = new IndexLoc1D(x, space.getImageAxis(Axis.X_AXIS));
+        this.gridY = new IndexLoc1D(y, space.getImageAxis(Axis.Y_AXIS));
+        this.gridZ = new IndexLoc1D(z, space.getImageAxis(Axis.Z_AXIS));
         this.space = space;
     }
 
-    private IndexLoc1D clamp(double val, ImageAxis axis) {
-        val = Math.min(val, axis.getNumSamples());
-        val = Math.max(val, 0);
 
-        return new IndexLoc1D((float) val, axis);
-    }
 
     public static IndexLoc3D fromWorld(double x, double y, double z, IImageSpace3D space) {
         float[] grid = space.worldToGrid((float) x, (float) y, (float) z);
-        return new IndexLoc3D(grid[0], grid[1], grid[2], space);
+        return new IndexLoc3D((int)grid[0], (int)grid[1], (int)grid[2], space);
     }
 
     public static IndexLoc3D fromReal(float x, float y, float z, IImageSpace3D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(z);
-        return new IndexLoc3D(gridx, gridy, gridz, space);
+        return new IndexLoc3D((int)gridx, (int)gridy, (int)gridz, space);
     }
 
     public static IndexLoc3D fromReal(SpatialLoc3D bp, IImageSpace3D space) {
@@ -54,7 +49,7 @@ public class IndexLoc3D {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(bp.getX());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(bp.getY());
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(bp.getZ());
-        return new IndexLoc3D(gridx, gridy, gridz, space);
+        return new IndexLoc3D((int)gridx, (int)gridy, (int)gridz, space);
     }
 
 
@@ -62,7 +57,7 @@ public class IndexLoc3D {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(z);
-        return new IndexLoc3D(gridx, gridy, gridz, space);
+        return new IndexLoc3D((int)gridx, (int)gridy, (int)gridz, space);
     }
 
 

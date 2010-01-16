@@ -30,7 +30,7 @@ public class ImageOrigin2D implements IImageOrigin {
         return dirs;
     }
 
-    public BrainPoint getOrigin() {
+    public BrainLoc getOrigin() {
         return origin;
     }
 }

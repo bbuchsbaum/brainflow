@@ -85,6 +85,10 @@ public class ClusterSet {
             return indices.size();
         }
 
+        public int[] getIndices() {
+            return indices.elements().clone();
+        }
+
         public double getArea() {
            return indices.size() * labels.getImageSpace().getSpacing().product().doubleValue();
         }

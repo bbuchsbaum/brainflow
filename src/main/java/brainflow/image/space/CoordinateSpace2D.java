@@ -52,7 +52,7 @@ public class CoordinateSpace2D extends AbstractCoordinateSpace {
 
     }
 
-    public BrainPoint getCentroid() {
+    public BrainLoc getCentroid() {
         CoordinateAxis a1 = getImageAxis(Axis.X_AXIS);
         CoordinateAxis a2 = getImageAxis(Axis.Y_AXIS);
 

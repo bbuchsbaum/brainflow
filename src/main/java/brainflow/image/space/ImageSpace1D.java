@@ -1,6 +1,6 @@
 package brainflow.image.space;
 
-import brainflow.image.anatomy.BrainPoint;
+import brainflow.image.anatomy.BrainLoc;
 import brainflow.utils.IDimension;
 import brainflow.math.IIndex;
 
@@ -18,7 +18,7 @@ public class ImageSpace1D extends AbstractImageSpace implements IImageSpace {
         throw new UnsupportedOperationException();
     }
 
-    public BrainPoint getCentroid() {
+    public BrainLoc getCentroid() {
         throw new UnsupportedOperationException();
     }
 

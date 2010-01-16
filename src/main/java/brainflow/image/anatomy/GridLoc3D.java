@@ -11,7 +11,7 @@ import brainflow.image.axis.ImageAxis;
  * Time: 10:08:50 AM
  * To change this template use File | Settings | File Templates.
  */
-public class GridLoc3D {
+public class GridLoc3D implements BrainLoc {
 
 
     private GridLoc1D gridX, gridY, gridZ;
@@ -33,6 +33,11 @@ public class GridLoc3D {
         val = Math.max(val, 0);
 
         return new GridLoc1D((float) val, axis);
+    }
+
+    @Override
+    public int getNumDimensions() {
+        return 3;
     }
 
     public static GridLoc3D fromWorld(double x, double y, double z, IImageSpace3D space) {

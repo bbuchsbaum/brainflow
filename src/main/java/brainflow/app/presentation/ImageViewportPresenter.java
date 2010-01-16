@@ -5,6 +5,7 @@ import brainflow.core.binding.PropertyConnector;
 import brainflow.core.*;
 import brainflow.core.annotations.BoxAnnotation;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.SpatialLoc2D;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.JideBorderLayout;

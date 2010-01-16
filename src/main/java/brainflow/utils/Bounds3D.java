@@ -57,6 +57,8 @@ public class Bounds3D<T extends Number> implements IBounds<T>, java.io.Serializa
 
     }
 
+    
+
     @Override
     public int numDim() {
         return 3;  //To change body of implemented methods use File | Settings | File Templates.
@@ -81,5 +83,36 @@ public class Bounds3D<T extends Number> implements IBounds<T>, java.io.Serializa
     @Override
     public Number[] toArray() {
         return new Number[] { xbounds.getMin(0), xbounds.getMax(0), ybounds.getMin(0), ybounds.getMax(0), zbounds.getMin(0), zbounds.getMax(0)};
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bounds3D bounds3D = (Bounds3D) o;
+
+        if (xbounds != null ? !xbounds.equals(bounds3D.xbounds) : bounds3D.xbounds != null) return false;
+        if (ybounds != null ? !ybounds.equals(bounds3D.ybounds) : bounds3D.ybounds != null) return false;
+        if (zbounds != null ? !zbounds.equals(bounds3D.zbounds) : bounds3D.zbounds != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = xbounds != null ? xbounds.hashCode() : 0;
+        result = 31 * result + (ybounds != null ? ybounds.hashCode() : 0);
+        result = 31 * result + (zbounds != null ? zbounds.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Bounds3D{" +
+                "xbounds=" + xbounds +
+                ", ybounds=" + ybounds +
+                ", zbounds=" + zbounds +
+                '}';
     }
 }

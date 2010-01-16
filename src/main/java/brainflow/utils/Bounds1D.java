@@ -58,4 +58,32 @@ public class Bounds1D<T extends Number> implements IBounds<T>, java.io.Serializa
     public Number[] toArray() {
         return new Number[] { x0, x1};
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bounds1D bounds1D = (Bounds1D) o;
+
+        if (x0 != null ? !x0.equals(bounds1D.x0) : bounds1D.x0 != null) return false;
+        if (x1 != null ? !x1.equals(bounds1D.x1) : bounds1D.x1 != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = x0 != null ? x0.hashCode() : 0;
+        result = 31 * result + (x1 != null ? x1.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Bounds1D{" +
+                "x0=" + x0 +
+                ", x1=" + x1 +
+                '}';
+    }
 }

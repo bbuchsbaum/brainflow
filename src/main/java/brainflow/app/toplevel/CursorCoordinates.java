@@ -2,6 +2,7 @@ package brainflow.app.toplevel;
 
 import brainflow.app.services.ImageViewMousePointerEvent;
 import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import com.jidesoft.status.LabelStatusBarItem;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;

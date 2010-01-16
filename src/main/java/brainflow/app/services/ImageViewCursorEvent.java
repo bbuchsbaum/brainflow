@@ -1,6 +1,7 @@
 package brainflow.app.services;
 
 import brainflow.core.ImageView;
+import brainflow.image.anatomy.SpatialLoc3D;
 
 /**
  * Created by IntelliJ IDEA.

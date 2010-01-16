@@ -73,7 +73,7 @@ public class Anatomy2D implements Anatomy {
     }
 
     public static Anatomy2D matchAnatomy(AnatomicalDirection a1, AnatomicalDirection a2) {
-
+        //todo this is not efficient, obviously
         for (int i = 0; i < instances.length; i++) {
             Anatomy2D tmp = instances[i];
             if ((tmp.XAXIS.getMinDirection() == a1) && (tmp.YAXIS.getMinDirection() == a2)) {
@@ -87,7 +87,7 @@ public class Anatomy2D implements Anatomy {
 
 
     public static Anatomy2D matchAnatomy(AnatomicalAxis xaxis, AnatomicalAxis yaxis) {
-
+        //todo this is not efficient, obviously
         for (int i=0; i<instances.length; i++) {
             if ( (instances[i].XAXIS == xaxis) && (instances[i].YAXIS == yaxis) )
                 return instances[i];

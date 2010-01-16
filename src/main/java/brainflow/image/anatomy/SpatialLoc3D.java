@@ -12,7 +12,7 @@ import brainflow.image.space.IImageSpace3D;
  * Time: 2:48:05 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SpatialLoc3D implements BrainPoint {
+public class SpatialLoc3D implements BrainLoc {
 
 
     private SpatialLoc1D x;
@@ -39,7 +39,7 @@ public class SpatialLoc3D implements BrainPoint {
             throw new IllegalArgumentException("supplied image space must have same anatomy as BrainPoint instance, space argument " + space.getAnatomy() + " does not equal " + anatomy);
         }
 
-       double newx = x.getValue();
+        double newx = x.getValue();
         double newy = y.getValue();
         double newz = z.getValue();
 
@@ -51,7 +51,7 @@ public class SpatialLoc3D implements BrainPoint {
 
         if (y.getValue() < space.getImageAxis(Axis.Y_AXIS).getMinimum()) {
             newy = space.getImageAxis(Axis.Y_AXIS).getMinimum();
-       } else if (y.getValue() > space.getImageAxis(Axis.Y_AXIS).getMaximum()) {
+        } else if (y.getValue() > space.getImageAxis(Axis.Y_AXIS).getMaximum()) {
             newy = space.getImageAxis(Axis.Y_AXIS).getMaximum();
         }
 
@@ -59,11 +59,10 @@ public class SpatialLoc3D implements BrainPoint {
             newz = space.getImageAxis(Axis.Z_AXIS).getMinimum();
         } else if (z.getValue() > space.getImageAxis(Axis.Z_AXIS).getMaximum()) {
             newz = space.getImageAxis(Axis.Z_AXIS).getMaximum();
-         }
+        }
 
-            SpatialLoc3D ret = new SpatialLoc3D(space.getAnatomy(), newx, newy, newz);
-            return ret;
-
+        SpatialLoc3D ret = new SpatialLoc3D(space.getAnatomy(), newx, newy, newz);
+        return ret;
 
 
     }
@@ -109,7 +108,7 @@ public class SpatialLoc3D implements BrainPoint {
 
         if (space.getAnatomy() != pt.getAnatomy()) {
             throw new IllegalArgumentException("SpatialLoc3D and ImageSpace arguments must have same anatomical orientation: " +
-                    "point: " + pt.getAnatomy() + " space: " +space.getAnatomy());
+                    "point: " + pt.getAnatomy() + " space: " + space.getAnatomy());
         }
 
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(pt.getX());
@@ -146,25 +145,25 @@ public class SpatialLoc3D implements BrainPoint {
 
     }
 
-   /* public BrainPoint1D getValue(ImageAxis axis) {
-        AnatomicalAxis anataxis = axis.getAnatomicalAxis();
-        if (anataxis == getAnatomy().XAXIS) {
-            return x;
-        } else if (anataxis == getAnatomy().YAXIS) {
-            return y;
-        } else if (anataxis == getAnatomy().ZAXIS) {
-            return z;
-        } else if (anataxis.getFlippedAxis() == getAnatomy().XAXIS) {
-            return x;
-        } else if (anataxis.getFlippedAxis() == getAnatomy().YAXIS) {
-            return y;
-        } else if (anataxis.getFlippedAxis() == getAnatomy().ZAXIS) {
-            return z;
-        }  else {
-            throw new IllegalArgumentException("axis : " + axis + " incompatible with Anatomy3D " + getAnatomy());
-        }
+    /* public BrainPoint1D getValue(ImageAxis axis) {
+ AnatomicalAxis anataxis = axis.getAnatomicalAxis();
+ if (anataxis == getAnatomy().XAXIS) {
+     return x;
+ } else if (anataxis == getAnatomy().YAXIS) {
+     return y;
+ } else if (anataxis == getAnatomy().ZAXIS) {
+     return z;
+ } else if (anataxis.getFlippedAxis() == getAnatomy().XAXIS) {
+     return x;
+ } else if (anataxis.getFlippedAxis() == getAnatomy().YAXIS) {
+     return y;
+ } else if (anataxis.getFlippedAxis() == getAnatomy().ZAXIS) {
+     return z;
+ }  else {
+     throw new IllegalArgumentException("axis : " + axis + " incompatible with Anatomy3D " + getAnatomy());
+ }
 
-    }       */
+}       */
 
 
     /*public BrainPoint1D getValueold(AnatomicalAxis axis) {

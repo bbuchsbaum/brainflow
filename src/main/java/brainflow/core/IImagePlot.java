@@ -4,6 +4,7 @@ import brainflow.core.annotations.IAnnotation;
 import brainflow.display.InterpolationType;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.SpatialLoc2D;
 import brainflow.image.axis.AxisRange;
 
 import javax.swing.*;

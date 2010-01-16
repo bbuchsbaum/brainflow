@@ -10,7 +10,7 @@ import brainflow.utils.NumberUtils;
  * Time: 3:46:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GridLoc1D {
+public class GridLoc1D implements BrainLoc {
 
 
     private float gridX;
@@ -20,6 +20,9 @@ public class GridLoc1D {
     public final LocationType unit = LocationType.GRID;
 
     public GridLoc1D(float gridX, ImageAxis axis) {
+        if (gridX < 0 || gridX > (axis.getNumSamples())) {
+            throw new IllegalArgumentException("grid value " + gridX + " out of bounds for axis " + axis);
+        }
         this.gridX = gridX;
         this.axis = axis;
     }
@@ -35,6 +38,11 @@ public class GridLoc1D {
 
     public AnatomicalAxis getAnatomy() {
         return axis.getAnatomicalAxis();
+    }
+
+    @Override
+    public int getNumDimensions() {
+        return 1;
     }
 
     public ImageAxis getImageAxis() {

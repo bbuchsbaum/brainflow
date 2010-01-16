@@ -13,23 +13,28 @@ import brainflow.utils.NumberUtils;
 public class IndexLoc1D {
 
 
-    private float gridX;
+    private int indexX;
 
     private ImageAxis axis;
 
+    
     public final LocationType unit = LocationType.GRID;
 
-    public IndexLoc1D(float gridX, ImageAxis axis) {
-        this.gridX = gridX;
+    public IndexLoc1D(int indexX, ImageAxis axis) {
+        if (indexX < 0 || indexX > (axis.getNumSamples()-1)) {
+            throw new IllegalArgumentException("index " + indexX + " out of bounds for axis " + axis);
+        }
+        this.indexX = indexX;
         this.axis = axis;
+
     }
 
     public double getValue() {
-        return gridX;
+        return indexX;
     }
 
     public IndexLoc1D reverse() {
-        return new IndexLoc1D(axis.getNumSamples() - gridX, axis.flip());
+        return new IndexLoc1D(axis.getNumSamples() - indexX, axis.flip());
 
     }
 
@@ -43,7 +48,7 @@ public class IndexLoc1D {
 
     public SpatialLoc1D toReal() {
         return new SpatialLoc1D(axis.getAnatomicalAxis(),
-                gridX * axis.getSpacing() + axis.getMinimum());
+                indexX * axis.getSpacing() + axis.getMinimum() + axis.getSpacing()/2);
     }
 
     @Override
@@ -53,7 +58,7 @@ public class IndexLoc1D {
 
         IndexLoc1D that = (IndexLoc1D) o;
 
-        if (!NumberUtils.equals(that.gridX, gridX, .001)) return false;
+        if (!NumberUtils.equals(that.indexX, indexX, .001)) return false;
         if (axis != null ? !axis.equals(that.axis) : that.axis != null) return false;
         if (unit != that.unit) return false;
 
@@ -62,7 +67,7 @@ public class IndexLoc1D {
 
     @Override
     public int hashCode() {
-        int result = (gridX != +0.0f ? Float.floatToIntBits(gridX) : 0);
+        int result = (indexX != +0.0f ? Float.floatToIntBits(indexX) : 0);
         result = 31 * result + (axis != null ? axis.hashCode() : 0);
         result = 31 * result + (unit != null ? unit.hashCode() : 0);
         return result;
@@ -71,7 +76,7 @@ public class IndexLoc1D {
     @Override
     public String toString() {
         return "GridPoint1D{" +
-                "gridX=" + gridX +
+                "indexX=" + indexX +
                 ", axis=" + axis +
                 ", unit=" + unit +
                 '}';

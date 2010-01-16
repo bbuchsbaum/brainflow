@@ -1,9 +1,6 @@
 package brainflow.image.anatomy;
 
 
-import brainflow.image.axis.ImageAxis;
-import brainflow.image.space.ImageSpace2D;
-
 /**
  * Created by IntelliJ IDEA.
  * User: Brad Buchsbaum
@@ -11,7 +8,7 @@ import brainflow.image.space.ImageSpace2D;
  * Time: 12:29:43 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SpatialLoc2D implements BrainPoint {
+public class SpatialLoc2D implements BrainLoc {
 
     private Anatomy2D anatomy;
 
@@ -23,12 +20,17 @@ public class SpatialLoc2D implements BrainPoint {
         anatomy = _anatomy;
         this.x = new SpatialLoc1D(anatomy.XAXIS, x);
         this.y = new SpatialLoc1D(anatomy.YAXIS, y);
-
-
     }
 
 
-    public static SpatialLoc2D convertPoint(ImageSpace2D fromSpace, SpatialLoc2D from, Anatomy2D to) {
+    public SpatialLoc2D(Anatomy2D _anatomy, SpatialLoc1D x, SpatialLoc1D y) {
+        anatomy = Anatomy2D.matchAnatomy(x.getAnatomy(), y.getAnatomy());
+        this.x = x;
+        this.y = y;
+    }
+
+
+    /*public static SpatialLoc2D convertPoint(ImageSpace2D fromSpace, SpatialLoc2D from, Anatomy2D to) {
 
         ImageAxis to_x = fromSpace.getImageAxis(to.XAXIS, true);
         ImageAxis to_y = fromSpace.getImageAxis(to.YAXIS, true);
@@ -41,7 +43,7 @@ public class SpatialLoc2D implements BrainPoint {
 
 
         return new SpatialLoc2D(to, a1.getValue(), a2.getValue());
-    }
+    } */
 
     public SpatialLoc1D getX() {
         return x;
@@ -74,6 +76,7 @@ public class SpatialLoc2D implements BrainPoint {
     }
 
     public SpatialLoc1D getValue(AnatomicalAxis axis) {
+        //todo this is bug prone because it allows flipped axes
         if (axis.sameDirection(anatomy.XAXIS)) {
             return x;
         } else if (axis.sameDirection(anatomy.YAXIS)) {
@@ -85,6 +88,7 @@ public class SpatialLoc2D implements BrainPoint {
 
 
     public SpatialLoc1D getValue(AnatomicalAxis axis, double min, double max) {
+        //todo this is bug prone because it allows flipped axes
         if (axis.sameAxis(anatomy.XAXIS)) {
             return new SpatialLoc1D(axis, anatomy.XAXIS.convertValue(axis, min, max, x.getValue()));
         } else if (axis.sameAxis(anatomy.YAXIS)) {

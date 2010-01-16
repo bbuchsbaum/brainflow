@@ -3,6 +3,7 @@ package brainflow.modes;
 import brainflow.core.ImageView;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.core.Viewport3D;
+import brainflow.image.anatomy.SpatialLoc2D;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

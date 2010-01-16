@@ -4,6 +4,7 @@ import brainflow.colormap.IColorMap;
 import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.AnatomicalAxis;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.CoordinateAxis;
 import brainflow.image.data.CoordinateSet3D;

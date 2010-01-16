@@ -11,6 +11,7 @@ import spock.lang.Sputnik
 import brainflow.image.io.BrainIO
 import brainflow.core.BF
 import brainflow.image.data.ClusterSet
+import brainflow.image.space.IndexSet3D
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,7 +33,7 @@ class LabelComponentsSpec {
     IImageData3D  image = BrainIO.readNiftiImage("src/main/groovy/testdata/cohtrend_GLT#0_Tstat.nii")
     def max = image.maxValue()
     println max
-    IMaskedData3D mask = new MaskedData3D(image, { it > max/4 } as MaskPredicate)
+    IMaskedData3D mask = new MaskedData3D(image, { it > max/1.2 } as MaskPredicate)
     println mask.cardinality()
     ComponentLabeler labeler = new ComponentLabeler(mask, 12)
     labeler.label()
@@ -40,7 +41,11 @@ class LabelComponentsSpec {
     then:
     println labeler.getClusterSizes()
     def cset = new ClusterSet(labeler.getLabelledComponents());
-    println cset.getSortedClustersBySize()
+    SortedSet clusters = cset.getSortedClustersBySize();
+
+    def clus1 = clusters.iterator().next()
+    def iset = new IndexSet3D(mask.getImageSpace(), clus1.getIndices());
+    println(iset.getBounds())
 
   }
 

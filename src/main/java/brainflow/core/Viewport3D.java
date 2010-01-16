@@ -2,6 +2,7 @@ package brainflow.core;
 
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.ImageAxis;
 import brainflow.image.space.Axis;
