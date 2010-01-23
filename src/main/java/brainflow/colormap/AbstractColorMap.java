@@ -115,8 +115,9 @@ public abstract class AbstractColorMap implements IColorMap {
 
         while (iter.hasNext()) {
 
-            int i = iter.index();
+
             double val = iter.next();
+            int i = iter.index();
 
           
             if (val < getLowClip()) {

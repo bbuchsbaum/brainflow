@@ -1,13 +1,21 @@
 package brainflow.core;
 
+import brainflow.colormap.HistogramColorBar;
+import brainflow.core.binding.CoordinateToIndexConverter2;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.core.annotations.IAnnotation;
+import brainflow.image.space.Axis;
+import com.jidesoft.swing.JideBoxLayout;
 import com.pietschy.command.CommandContainer;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.group.GroupBuilder;
 import com.pietschy.command.toggle.ToggleCommand;
 import com.pietschy.command.toggle.ToggleVetoException;
 import com.pietschy.command.toggle.ToggleGroup;
+import net.java.dev.properties.binding.swing.adapters.SwingBind;
+import net.java.dev.properties.container.BeanContainer;
+import org.jdesktop.jxlayer.JXLayer;
+import org.jdesktop.jxlayer.plaf.AbstractLayerUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +33,8 @@ public class SimpleImageView extends ImageView {
 
 
     private CommandContainer commandContainer = new CommandContainer();
+
+    private JSlider slider = new JSlider(JSlider.HORIZONTAL);
 
     protected class SwitchSagittal extends ToggleCommand {
 
@@ -69,6 +79,7 @@ public class SimpleImageView extends ImageView {
     public SimpleImageView(ImageViewModel imodel, Anatomy3D displayAnatomy) {
         super(imodel);
 
+        BeanContainer.bind(this);
         commandContainer.bind(this);
 
         this.displayAnatomy = displayAnatomy;
@@ -79,7 +90,7 @@ public class SimpleImageView extends ImageView {
               
         initToolBar();
 
-        //initSlider();
+        initSlider();
     }
 
     protected void layoutPlots() {
@@ -152,8 +163,37 @@ public class SimpleImageView extends ImageView {
 
     }
 
-    //protected void initSlider() {
-    //    JSlider slider = new JSlider(JSlider.HORIZONTAL);
-    //    add(slider, BorderLayout.SOUTH);
-    //}
+    protected void bindSlider() {
+        CoordinateToIndexConverter2 kconv = new CoordinateToIndexConverter2(this.worldCursorPos, getModel().getImageSpace(), Axis.Z_AXIS);
+        SwingBind.get().bind(kconv, slider);
+
+    }
+
+    protected void initSlider() {
+        int max = getModel().getImageSpace().getDimension(Axis.Z_AXIS)-1;
+
+        slider = new JSlider(JSlider.HORIZONTAL, 0, max, max/2);
+        /*JXLayer<JSlider> sliderLayer = new JXLayer<JSlider>(slider);
+        AbstractLayerUI<JSlider> layerUI = new AbstractLayerUI<JSlider>() {
+             @Override
+             protected void paintLayer(Graphics2D g2, JXLayer<JSlider> l) {
+                 super.paintLayer(g2, l);
+                 double w = slider.getBounds().getWidth();
+                 double h = slider.getBounds().getHeight();
+                 g2.drawString("hello",(int)(w/2.0), (int)(h/2.0));
+             }
+         };
+
+        sliderLayer.setUI(layerUI);
+
+
+        add(sliderLayer, BorderLayout.SOUTH);   */
+
+
+
+        add(slider, BorderLayout.SOUTH);
+        bindSlider();        
+
+
+    }
 }

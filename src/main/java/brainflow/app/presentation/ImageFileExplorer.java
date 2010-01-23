@@ -357,8 +357,11 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         for (int i : selRows) {
             TreePath path = explorer.getJTree().getPathForRow(i);
             Object[] opath = path.getPath();
-            if (opath != null && opath.length > 0)
-                nodes.add((LazyNode) opath[opath.length-1]);
+            if (opath != null && opath.length > 0) {
+                if (opath[opath.length-1] instanceof LazyNode) {
+                    nodes.add((LazyNode) opath[opath.length-1]);
+                }
+            }
         }
 
         return nodes;

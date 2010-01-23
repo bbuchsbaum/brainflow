@@ -95,9 +95,7 @@ public abstract class BinaryImageData extends AbstractImageData {
     }
 
 
-    public ImageIterator valueIterator() {
-        throw new UnsupportedOperationException();
-    }
+    
 
 
 }

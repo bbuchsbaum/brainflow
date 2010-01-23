@@ -36,6 +36,26 @@ class DockWindowManager implements DockableFrameListener {
         return (DockWindowManager) SingletonRegistry.REGISTRY.getInstance("brainflow.app.toplevel.DockWindowManager");
     }
 
+    public DockableFrame createDockableFrame(String title,  int state, int side) {
+
+        DockableFrame dframe = new DockableFrame(title);
+
+
+
+        dframe.getContext().setInitMode(state);
+        dframe.getContext().setInitSide(side);
+        dframe.getContext().setInitIndex(0);
+        dframe.getContext().setHidable(true);
+
+
+
+        dockMenu.add(createCommand(dframe, title).createMenuItem());
+
+
+        windowMap.put(title, dframe);
+        return dframe;
+
+    }
     public DockableFrame createDockableFrame(String title, String iconLocation, int state, int side) {
 
         DockableFrame dframe = new DockableFrame(title,

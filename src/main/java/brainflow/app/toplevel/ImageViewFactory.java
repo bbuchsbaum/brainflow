@@ -7,7 +7,9 @@ import brainflow.core.annotations.SelectedPlotAnnotation;
 import brainflow.core.annotations.SliceAnnotation;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.AxisRange;
+import brainflow.image.data.IImageData3D;
 import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.MemoryImageDataSource;
 import brainflow.utils.StringGenerator;
 
 import java.util.logging.Logger;
@@ -98,6 +100,14 @@ public class ImageViewFactory {
 
     }
 
+    public static ImageView createAxialView(IImageData3D data) {
+        MemoryImageDataSource source = new MemoryImageDataSource(data);
+        ImageLayer3D layer = ImageLayerFactory.createImageLayer(source);
+        ImageViewModel model = new ImageViewModel("untitled", layer);
+       
+        return new SimpleImageView(model, Anatomy3D.getCanonicalAxial());
+    }
+
 
     public static ImageView createAxialView(ImageViewModel displayModel) {
         ImageView view = new SimpleImageView(displayModel, Anatomy3D.getCanonicalAxial());
@@ -112,6 +122,11 @@ public class ImageViewFactory {
 
         return view;
     }
+
+
+    //public static ImageView createViewWithSlider(final ImageView view) {
+    //
+    //}
 
 
 

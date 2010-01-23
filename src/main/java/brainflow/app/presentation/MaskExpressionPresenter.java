@@ -53,7 +53,7 @@ public class MaskExpressionPresenter extends BrainFlowPresenter {
 
     private ButtonPanel buttonPanel;
 
-    private JButton freezeButton = new JButton("Freeze");
+   // private JButton freezeButton = new JButton("Freeze");
    
     private String lastExpression;
 
@@ -66,7 +66,7 @@ public class MaskExpressionPresenter extends BrainFlowPresenter {
         primaryField = new JTextField(15);
 
         expressionArea = new JTextArea();
-        expressionArea.setRows(8);
+        expressionArea.setRows(4);
         expressionArea.setBorder(BorderFactory.createEtchedBorder());
         primaryField.setEditable(false);
 
@@ -94,7 +94,7 @@ public class MaskExpressionPresenter extends BrainFlowPresenter {
 
         buttonPanel = new ButtonPanel(SwingConstants.LEFT, ButtonPanel.SAME_SIZE);
         buttonPanel.addButton(computeButton);
-        buttonPanel.addButton(freezeButton);
+        //buttonPanel.addButton(freezeButton);
 
         mainPanel.add(buttonPanel, cc.xyw(2, 10, 2));
         //mainPanel.add(freezeButton, cc.xy(4, 10));
@@ -136,7 +136,7 @@ public class MaskExpressionPresenter extends BrainFlowPresenter {
             }
         });
 
-        freezeButton.addActionListener(new ActionListener() {
+        /*freezeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 final ImageLayer3D layer = getSelectedLayer();
@@ -164,7 +164,7 @@ public class MaskExpressionPresenter extends BrainFlowPresenter {
                 }
 
             }
-        });
+        }); */
 
 
 
@@ -176,7 +176,7 @@ public class MaskExpressionPresenter extends BrainFlowPresenter {
                 String ret = expressionArea.getText().trim();
                 if (!ret.equals(lastExpression)) {
                     computeButton.setEnabled(true);
-                    freezeButton.setEnabled(true);
+                    //freezeButton.setEnabled(true);
                 } else {
                     computeButton.setEnabled(false);
                 }
@@ -187,7 +187,7 @@ public class MaskExpressionPresenter extends BrainFlowPresenter {
                 String ret = expressionArea.getText().trim();
                 if (!ret.equals(lastExpression)) {
                     computeButton.setEnabled(true);
-                    freezeButton.setEnabled(true);
+                   // freezeButton.setEnabled(true);
                 } else {
                     computeButton.setEnabled(false);
                 }
@@ -197,7 +197,7 @@ public class MaskExpressionPresenter extends BrainFlowPresenter {
                 String ret = expressionArea.getText().trim();
                 if (!ret.equals(lastExpression)) {
                     computeButton.setEnabled(true);
-                    freezeButton.setEnabled(true);
+                    //freezeButton.setEnabled(true);
                 } else {
                     computeButton.setEnabled(false);
                 }

@@ -33,7 +33,7 @@ public class MaskPresenter extends BrainFlowPresenter {
 
     private ImageView maskView;
 
-    private JSlider sliceSlider;
+    //private JSlider sliceSlider;
 
 
     public MaskPresenter() {
@@ -51,8 +51,8 @@ public class MaskPresenter extends BrainFlowPresenter {
 
         mainPanel.add(maskView);
 
-        sliceSlider = new JSlider(JSlider.HORIZONTAL, 0, 200, 0);
-        mainPanel.add(sliceSlider);
+        //sliceSlider = new JSlider(JSlider.HORIZONTAL, 0, 200, 0);
+        //mainPanel.add(sliceSlider);
 
         mainPanel.setPreferredSize(new Dimension(256, 256));
 
@@ -68,27 +68,27 @@ public class MaskPresenter extends BrainFlowPresenter {
 
     private void bind() {
 
-        Anatomy3D displayAnatomy = maskView.getPlots().get(0).getDisplayAnatomy();
-        IImageSpace3D space = maskView.getModel().getImageSpace();
-        Axis zaxis = space.findAxis(displayAnatomy.ZAXIS);
+       // Anatomy3D displayAnatomy = maskView.getPlots().get(0).getDisplayAnatomy();
+       // IImageSpace3D space = maskView.getModel().getImageSpace();
+       // Axis zaxis = space.findAxis(displayAnatomy.ZAXIS);
 
 
-        CoordinateToIndexConverter2 conv = new CoordinateToIndexConverter2(maskView.worldCursorPos, maskView.getModel().getImageSpace(), zaxis);
+        //CoordinateToIndexConverter2 conv = new CoordinateToIndexConverter2(maskView.worldCursorPos, maskView.getModel().getImageSpace(), zaxis);
 
-        int nslices = space.getDimension(displayAnatomy.ZAXIS);
-        sliceSlider.setMaximum(nslices);
-        SwingBind.get().bind(conv, sliceSlider);
+        //int nslices = space.getDimension(displayAnatomy.ZAXIS);
+        //sliceSlider.setMaximum(nslices);
+        //SwingBind.get().bind(conv, sliceSlider);
     }
 
-    private void unbind() {
-        SwingBind.get().unbind(sliceSlider);
-    }
+    //private void unbind() {
+    //    SwingBind.get().unbind(sliceSlider);
+    //}
 
     @Override
     public void viewDeselected(ImageView view) {
         BeanContainer.get().removeListener(view.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
         BeanContainer.get().removeListener((view.getSelectedLayer()).maskProperty, thresholdListener);
-        unbind();
+        //unbind();
 
     }
 

@@ -13,18 +13,19 @@ public class ArrayValueIterator implements ValueIterator {
 
     private IArray array;
 
-    private int i=0;
+    private int i=-1;
 
     private int len;
 
     public ArrayValueIterator(IArray array) {
         this.array=array;
-        len=array.length();
+        len=array.length()-1;
     }
 
     @Override
     public double next() {
-        return array.value(i++);
+        i++;
+        return array.value(i);
 
     }
 

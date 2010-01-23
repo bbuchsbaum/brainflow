@@ -2,6 +2,7 @@ package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.iterators.BooleanIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.IImageSpace;
@@ -139,7 +140,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
         return left.length();
     }
 
-    public ImageIterator valueIterator() {
+    public BooleanIterator valueIterator() {
         return new MaskedDataNodeIterator();
     }
 
@@ -165,7 +166,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
     }
 
 
-    class MaskedDataNodeIterator implements ImageIterator {
+    class MaskedDataNodeIterator implements BooleanIterator {
 
         ValueIterator iter;
 
@@ -174,9 +175,19 @@ public class BooleanMaskNode3D implements IMaskedData3D {
         }
 
         public final double next() {
-            int idx = iter.index();
             advance();
+            int idx = iter.index();
+
             return operation.isTrue(left.isTrue(idx), right.isTrue(idx)) ? 1 : 0;
+
+        }
+
+        @Override
+        public boolean nextBoolean() {
+            advance();
+            int idx = iter.index();
+
+            return operation.isTrue(left.isTrue(idx), right.isTrue(idx));
 
         }
 
@@ -195,7 +206,9 @@ public class BooleanMaskNode3D implements IMaskedData3D {
             return iter.index();
         }
 
-        @Override
+
+
+        //@Override
         public IImageSpace getImageSpace() {
             return left.getImageSpace();
         }

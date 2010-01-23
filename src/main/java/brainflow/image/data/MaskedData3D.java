@@ -1,5 +1,6 @@
 package brainflow.image.data;
 
+import brainflow.image.iterators.BooleanIterator;
 import brainflow.utils.DataType;
 import brainflow.utils.Dimension3D;
 import brainflow.image.interpolation.InterpolationFunction3D;
@@ -124,7 +125,7 @@ public class MaskedData3D implements IMaskedData3D {
         return source.getImageLabel();
     }
 
-    public ImageIterator valueIterator() {
+    public BooleanIterator valueIterator() {
         return new MaskedIterator();
     }
 
@@ -145,7 +146,7 @@ public class MaskedData3D implements IMaskedData3D {
 
     }
 
-    class MaskedIterator implements ImageIterator {
+    class MaskedIterator implements BooleanIterator {
 
         ValueIterator iter;
 
@@ -170,6 +171,11 @@ public class MaskedData3D implements IMaskedData3D {
         }
 
         @Override
+        public boolean nextBoolean() {
+            return predicate.mask(iter.next());
+        }
+
+        //@Override
         public IImageSpace getImageSpace() {
             return source.getImageSpace();
         }

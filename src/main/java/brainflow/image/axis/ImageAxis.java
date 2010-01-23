@@ -26,8 +26,8 @@ public class ImageAxis extends CoordinateAxis {
 
     public ImageAxis() {
         super(AnatomicalAxis.LEFT_RIGHT);
-        samples = 1;
-        sampleArray = new int[1];
+        samples = 10;
+        sampleArray = new int[samples];
         spacing = 1;
     }
 

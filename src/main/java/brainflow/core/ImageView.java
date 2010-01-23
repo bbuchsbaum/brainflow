@@ -130,8 +130,6 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     };
 
 
-
-
     protected abstract void layoutPlots();
 
     private void clearListeners(ImageViewModel oldModel) {
@@ -143,7 +141,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
 
     }
 
-    public void clearListeners() {
+    protected void clearListeners() {
         clearListeners(viewModel.get());
 
     }
@@ -200,10 +198,6 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         //}
         //todo end
 
-
-        //sliceController = layout.createSliceController();
-        //revalidate();
-        //repaint();
 
 
     }

@@ -3,6 +3,7 @@ package brainflow.array;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.utils.Dimension3D;
+import brainflow.utils.NumberUtils;
 
 /**
  * Created by IntelliJ IDEA.
@@ -498,6 +499,110 @@ public abstract class Array3D implements IArray3D, IArrayBuffer3D {
         @Override
         public double value(int i) {
             return data[i];
+        }
+
+        @Override
+        public void set(int i, int j, int k, double val) {
+            data[indexOf(i, j, k)] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, int j, int k, int val) {
+            data[indexOf(i, j, k)] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, int j, int k, short val) {
+            data[indexOf(i, j, k)] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, int j, int k, float val) {
+            data[indexOf(i, j, k)] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, int j, int k, long val) {
+            data[indexOf(i, j, k)] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, int j, int k, byte val) {
+            data[indexOf(i, j, k)] = val;
+        }
+
+        @Override
+        public void set(int i, double val) {
+            data[i] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, float val) {
+            data[i] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, short val) {
+            data[i] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, int val) {
+            data[i] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, long val) {
+            data[i] = (byte) val;
+        }
+
+        @Override
+        public void set(int i, byte val) {
+            data[i] = val;
+        }
+
+
+        public Class getType() {
+            return java.lang.Byte.TYPE;
+        }
+
+        @Override
+        public ValueIterator valueIterator() {
+            return new ArrayValueIterator(this);
+        }
+
+        @Override
+        public double value(float x, float y, float z, InterpolationFunction3D interp) {
+            return interp.interpolate(x, y, z, this);
+        }
+
+        public byte[] toArray() {
+            return data;
+        }
+    }
+
+    public static class UByte extends Array3D {
+
+        private byte[] data;
+
+        public UByte(int dim0, int dim1, int dim2, byte[] data) {
+            super(dim0, dim1, dim2);
+            this.data = data;
+        }
+
+        public UByte(int dim0, int dim1, int dim2) {
+            super(dim0, dim1, dim2);
+            this.data = new byte[dim0*dim1*dim2];
+        }
+
+        @Override
+        public double value(int i, int j, int k) {
+            return NumberUtils.ubyte(data[indexOf(i, j, k)]);
+        }
+
+        @Override
+        public double value(int i) {
+            return NumberUtils.ubyte(data[i]);
         }
 
         @Override

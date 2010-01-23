@@ -6,6 +6,8 @@ import brainflow.image.anatomy.Anatomy;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.axis.ImageAxis;
 
+import java.util.Arrays;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Bradley
@@ -219,6 +221,25 @@ public abstract class AbstractImageSpace implements IImageSpace {
         return true;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AbstractImageSpace that = (AbstractImageSpace) o;
+
+        if (anatomy != null ? !anatomy.equals(that.anatomy) : that.anatomy != null) return false;
+        if (!Arrays.equals(axes, that.axes)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = axes != null ? Arrays.hashCode(axes) : 0;
+        result = 31 * result + (anatomy != null ? anatomy.hashCode() : 0);
+        return result;
+    }
 
     protected void setAnatomy(Anatomy _anatomy) {
         //todo this is bad!

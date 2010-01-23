@@ -130,6 +130,9 @@ public class ImageLayerInfoPresenter extends BrainFlowPresenter {
         property = createProperty("Data Type", data.getDataType(), "Image Data", String.class, "Data Storage Type");
         list.add(property);
 
+        property = createProperty("Scale Factor", data.getImageInfo().getScaleFactor(), "Image Data", Float.class, "Scale Factor");
+        list.add(property);
+
         
 
         return list;

@@ -9,6 +9,7 @@ import brainflow.image.space.IImageSpace3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.math.Index3D;
 import brainflow.utils.DataType;
+import brainflow.utils.NumberUtils;
 
 
 /**
@@ -83,26 +84,25 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
     }
 
 
-    public final double value(float x, float y, float z, InterpolationFunction3D interp) {
+    public double value(float x, float y, float z, InterpolationFunction3D interp) {
         return data.value(x, y, z, interp);
     }
 
 
-    public final double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
+    public  double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
         float x = space3d.worldToGridX(realx, realy, realz);
         float y = space3d.worldToGridY(realx, realy, realz);
         float z = space3d.worldToGridZ(realx, realy, realz);
 
-
         return data.value(x, y, z, interp);
     }
 
-    public final double value(int index) {
+    public  double value(int index) {
         return data.value(index);
     }
 
 
-    public final double value(int x, int y, int z) {
+    public  double value(int x, int y, int z) {
         return data.value(x, y, z);
     }
 
@@ -558,6 +558,93 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
         public ByteBuffer createBuffer(boolean clear) {
             if (clear) {
                 return new ByteBuffer(this.getImageSpace());
+            } else {
+                return this;
+            }
+        }
+
+    }
+
+
+    private static abstract class AbstractUByte extends BasicImageData3D {
+        public AbstractUByte(BasicImageData3D.AbstractUByte src) {
+            super(src.getImageSpace(), DataType.UBYTE);
+            data = new Array3D.UByte(src.dim().getDim(0), src.dim().getDim(1), src.dim().getDim(2), ((Array3D.Byte) src.data).toArray());
+        }
+
+        public AbstractUByte(IImageSpace3D space) {
+            super(space, DataType.BYTE);
+            data = new Array3D.UByte(space.getDimension(Axis.X_AXIS), space.getDimension(Axis.Y_AXIS), space.getDimension(Axis.Z_AXIS));
+        }
+
+        public AbstractUByte(IImageSpace3D space, byte[] _data) {
+            super(space, DataType.UBYTE);
+            if (_data.length != space.getNumSamples()) {
+                throw new IllegalArgumentException("array has wrong number of elements: " + _data.length);
+            }
+
+            data = new Array3D.UByte(space.getDimension(Axis.X_AXIS), space.getDimension(Axis.Y_AXIS), space.getDimension(Axis.Z_AXIS), _data);
+        }
+
+        
+
+        @Override
+        public UByteBuffer createBuffer(boolean clear) {
+            if (clear) {
+                return new UByteBuffer(this.getImageSpace());
+            } else {
+                return new UByteBuffer(this);
+            }
+        }
+
+    }
+
+    public static final class UByte extends AbstractUByte {
+        public UByte(BasicImageData3D.AbstractUByte src) {
+            super(src);
+        }
+
+        public UByte(IImageSpace3D space) {
+            super(space);
+
+        }
+
+        public UByte(IImageSpace3D space, byte[] _data) {
+            super(space, _data);
+        }
+
+    }
+
+    public static final class UByteBuffer extends AbstractUByte implements ImageBuffer3D {
+        public UByteBuffer(BasicImageData3D.AbstractUByte src) {
+            super(src);
+
+        }
+
+        public UByteBuffer(IImageSpace3D space) {
+            super(space);
+
+        }
+
+        public UByteBuffer(IImageSpace3D space, byte[] _data) {
+            super(space, _data);
+        }
+
+
+        @Override
+        public final void setValue(int x, int y, int z, double val) {
+            data.set(x, y, z, val);
+        }
+
+        @Override
+        public final void setValue(int index, double value) {
+            data.set(index, value);
+        }
+
+        @Override
+        public UByteBuffer createBuffer(boolean clear) {
+            if (clear) {
+                return new UByteBuffer(this.getImageSpace());
             } else {
                 return this;
             }

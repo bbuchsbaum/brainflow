@@ -265,6 +265,7 @@ public class ComponentLabeler {
      * Method used for labelling a voxel
      */
     private void label(Index3D index) {
+       // assert imageMask.isTrue(index.i1(), index.i2(), index.i3());
         labelledVolume.
                 setValue(index.i1(), index.i2(), index.i3(), currentLabel);
     }

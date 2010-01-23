@@ -1,7 +1,9 @@
 package brainflow.image.data;
 
+import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.space.IImageSpace3D;
+import brainflow.math.Index3D;
 import cern.colt.list.IntArrayList;
 
 import java.util.*;
@@ -20,8 +22,14 @@ public class ClusterSet {
 
     private IImageData3D labels;
 
-    public ClusterSet(IImageData3D labels) {
+    private IImageData3D data;
+
+    public ClusterSet(IImageData3D labels, IImageData3D data) {
+        if (!data.getImageSpace().equals(labels.getImageSpace())) {
+            throw new IllegalArgumentException("labels and data arguments must have same IImageSpace");
+        }
         this.labels = labels;
+        this.data = data;
         build();
     }
 
@@ -48,7 +56,7 @@ public class ClusterSet {
             }
 
         }
-        
+
     }
 
     @Override
@@ -64,6 +72,7 @@ public class ClusterSet {
         return sb.toString();
     }
 
+
     public class Cluster implements Comparable<Cluster> {
 
         //VoxelSet should be a set of voxels (which can be mapped to coordinates (CoordinateSet)
@@ -72,13 +81,34 @@ public class ClusterSet {
 
         public int label;
 
+        private double maxValue = -Double.MAX_VALUE;
+
+        private double minValue = Double.MAX_VALUE;
+
+        private int maxIndex = 0;
+
+        private int minIndex = 0;
+
+        private SpatialLoc3D worldCentroid;
+
         public Cluster(int label) {
-           indices = new IntArrayList();
-           this.label = label;
+            indices = new IntArrayList();
+            this.label = label;
         }
 
         private void addIndex(int idx) {
             indices.add(idx);
+            double val = data.value(idx);
+
+            if (val > maxValue) {
+                maxValue = val;
+                maxIndex = idx;
+            }
+            if (val < minValue) {
+                minValue = val;
+                minIndex = idx;
+            }
+
         }
 
         public int getSize() {
@@ -90,7 +120,58 @@ public class ClusterSet {
         }
 
         public double getArea() {
-           return indices.size() * labels.getImageSpace().getSpacing().product().doubleValue();
+            return indices.size() * labels.getImageSpace().getSpacing().product().doubleValue();
+        }
+
+        public SpatialLoc3D getWorldCentroid() {
+            if (worldCentroid != null) return worldCentroid;
+
+            double x = 0;
+            double y = 0;
+            double z = 0;
+            for (int i = 0; i < indices.size(); i++) {
+                Index3D index = data.getImageSpace().indexToGrid(indices.get(i));
+                float[] p = data.getImageSpace().indexToWorld(index.i1(), index.i2(), index.i3());
+                x = p[0] + x;
+                y = p[1] + y;
+                z = p[2] + z;
+            }
+
+            worldCentroid = new SpatialLoc3D(data.getImageSpace().getMapping().getWorldAnatomy(), x / indices.size(), y / indices.size(), z / indices.size());
+            return worldCentroid;
+        }
+
+        public double getExtremeValue() {
+            if (Math.abs(getMaxValue()) >= Math.abs(getMinValue())) {
+                return getMaxValue();
+            } else {
+                return getMinValue();
+            }
+        }
+
+        public Index3D getExtremeVoxel() {
+            if (Math.abs(getMaxValue()) >= Math.abs(getMinValue())) {
+                return getMaxVoxel();
+            } else {
+                return getMinVoxel();
+            }
+
+        }
+
+        public Index3D getMaxVoxel() {
+            return data.getImageSpace().indexToGrid(maxIndex);
+        }
+
+        public Index3D getMinVoxel() {
+            return data.getImageSpace().indexToGrid(minIndex);
+        }
+
+        public double getMaxValue() {
+            return maxValue;
+        }
+
+        public double getMinValue() {
+            return minValue;
         }
 
         @Override
@@ -117,7 +198,6 @@ public class ClusterSet {
         }
 
 
-
         @Override
         public int hashCode() {
             int result = indices != null ? indices.hashCode() : 0;
@@ -129,6 +209,7 @@ public class ClusterSet {
         public String toString() {
             return "Cluster{" +
                     ", label=" + label +
+                    ", max value=" + maxValue +
                     ", size=" + getSize() +
                     '}';
         }
@@ -146,8 +227,4 @@ public class ClusterSet {
     }
 
 
-
-
-
-    
 }

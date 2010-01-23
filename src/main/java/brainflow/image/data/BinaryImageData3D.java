@@ -2,6 +2,9 @@ package brainflow.image.data;
 
 import brainflow.array.IArray3D;
 import brainflow.image.interpolation.InterpolationFunction3D;
+import brainflow.image.iterators.BooleanIterator;
+import brainflow.image.iterators.MaskIterator;
+import brainflow.image.space.IImageSpace;
 import brainflow.image.space.ImageSpace3D;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
@@ -178,6 +181,12 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
     public final boolean isTrue(int index) {
         return getBitVector().getQuick(index);
 
+    }
+
+    @Override
+    public BooleanIterator valueIterator() {
+        return new MaskIterator(this);
+        
     }
 
     public ImageBuffer3D createBuffer(boolean clear) {

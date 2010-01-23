@@ -38,6 +38,7 @@ public class CoordinateToIndexConverter extends ObservableWrapper.ReadWrite<Inte
 
     @Override
     public void set(Integer i) {
+        System.out.println("setting coordinate to index " + i);
         double newval = axis.valueOf(i).getValue();
         WProperty<Double> wprop = (WProperty<Double>) getProperty();
         wprop.set(newval); 

@@ -41,9 +41,8 @@ public class BasicImageReader3D extends AbstractImageReader {
     }
 
 
-
     public IImageSpace3D getImageSpace() {
-        return (IImageSpace3D)super.getImageSpace();
+        return (IImageSpace3D) super.getImageSpace();
     }
 
     @Override
@@ -55,6 +54,11 @@ public class BasicImageReader3D extends AbstractImageReader {
 
         InputStream istream = null;
         IImageData3D dat = null;
+        boolean scaleRequired = true;
+        double sf = getImageInfo().getScaleFactor();
+        if (NumberUtils.equals(sf, 1, .00000000001) || NumberUtils.equals(sf, 0, 0.0000000001)) {
+            scaleRequired = false;
+        }
 
         try {
 
@@ -101,14 +105,6 @@ public class BasicImageReader3D extends AbstractImageReader {
             listener.setString("Converting Bytes To Array of Type: " + getDatatype());
 
 
-
-            //double sf = getImageInfo().getScaleFactor();
-            //
-            //boolean scaleRequired = true;
-            //if (NumberUtils.equals(sf, 1, .00000000001) || NumberUtils.equals(sf, 0,0.0000000001)) {
-            //    scaleRequired = false;
-            //}
-
             if (getDatatype() == DataType.BYTE) {
                 byte[] data = new byte[numBytes];
                 wholeBuffer.get(data);
@@ -116,10 +112,10 @@ public class BasicImageReader3D extends AbstractImageReader {
             } else if (getDatatype() == DataType.UBYTE) {
                 byte[] data = new byte[imageSpace.getNumSamples()];
                 wholeBuffer.get(data);
-                dat = new BasicImageData3D.Byte(imageSpace, data);
+                dat = new BasicImageData3D.UByte(imageSpace, data);
             } else if (getDatatype() == DataType.SHORT) {
                 short[] data = new short[imageSpace.getNumSamples()];
-                wholeBuffer.asShortBuffer().get( data);
+                wholeBuffer.asShortBuffer().get(data);
                 dat = new BasicImageData3D.Short(imageSpace, data);
             } else if (getDatatype() == DataType.FLOAT) {
                 float[] data = new float[imageSpace.getNumSamples()];
@@ -158,11 +154,15 @@ public class BasicImageReader3D extends AbstractImageReader {
         }
 
         listener.finished();
+
+        if (scaleRequired) {
+            dat = Data.createScaledData(dat, sf);
+
+        }
         return dat;
 
 
     }
-
 
 
     @Override

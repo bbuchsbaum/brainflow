@@ -1,6 +1,7 @@
 package brainflow.image.data;
 
 import brainflow.image.interpolation.InterpolationFunction2D;
+import brainflow.image.iterators.ValueIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.ImageSpace2D;
 import brainflow.image.iterators.ImageIterator;
@@ -121,6 +122,11 @@ public class BinaryImageData2D extends BinaryImageData implements IMaskedData2D 
     }
 
     public ImageBuffer2D createBuffer(boolean clear) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ValueIterator valueIterator() {
         throw new UnsupportedOperationException();
     }
 }

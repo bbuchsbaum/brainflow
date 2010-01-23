@@ -1,5 +1,6 @@
 package brainflow.image.data;
 
+import brainflow.image.iterators.BooleanIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.IImageSpace;
@@ -111,7 +112,7 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         return operation.isTrue(left.value(index), right.value(index)) ? 1 : 0;
     }
 
-    public ImageIterator valueIterator() {
+    public BooleanIterator valueIterator() {
         return new BivariateMaskedDataNodeIterator();
     }
 
@@ -142,7 +143,7 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         return left.getImageLabel() + " " + operation + " " + right.getImageLabel();
     }
 
-    class BivariateMaskedDataNodeIterator implements ImageIterator {
+    class BivariateMaskedDataNodeIterator implements BooleanIterator {
 
         ValueIterator iter;
 
@@ -150,14 +151,19 @@ public class BivariateMaskNode3D implements IMaskedData3D {
             iter = left.valueIterator();
         }
 
-        public double next() {          
-            double val =  value(iter.index());
+        public double next() {
             advance();
-            return val;
+            return value(iter.index());
 
         }
 
         @Override
+        public boolean nextBoolean() {
+            advance();
+            return  isTrue(iter.index());
+     
+        }
+
         public IImageSpace getImageSpace() {
             return left.getImageSpace();
         }

@@ -7,7 +7,7 @@ package brainflow.image.data;
  * Time: 10:38:27 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IMaskedData {
+public interface IMaskedData extends IImageData {
 
     public int cardinality();
 

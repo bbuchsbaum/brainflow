@@ -60,6 +60,8 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
             throw new AssertionError("illegal image axis : " + axis);
         }
 
+        System.out.println("requesting spatial loc " + ret);
+
         return Math.round(ret);
     }
 
@@ -67,7 +69,7 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
     public void set(Integer i) {
 
         Index3D voxel = getGridValue();
-
+        System.out.println("setting coordinate to index " + i);
         System.out.println("axis : " + axis);
         System.out.println("setting voxel index to " + i);
         System.out.println("grid value : " + voxel);

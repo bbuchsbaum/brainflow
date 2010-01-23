@@ -23,12 +23,14 @@ import com.jidesoft.docking.DefaultDockingManager;
 import com.jidesoft.docking.DockContext;
 import com.jidesoft.docking.DockableFrame;
 import com.jidesoft.document.*;
+import com.jidesoft.pane.FloorTabbedPane;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.plaf.UIDefaultsLookup;
 import com.jidesoft.plaf.basic.ThemePainter;
 import com.jidesoft.plaf.office2003.Office2003Painter;
 import com.jidesoft.status.LabelStatusBarItem;
 import com.jidesoft.status.StatusBar;
+import com.jidesoft.status.StatusBarItem;
 import com.jidesoft.swing.*;
 import com.jidesoft.action.CommandBar;
 import com.jidesoft.action.CommandMenuBar;
@@ -57,6 +59,7 @@ import java.awt.*;
 import java.awt.SplashScreen;
 import java.awt.event.*;
 import java.io.*;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,6 +126,10 @@ public class BrainFlow {
 
 
         final BrainFlow bflow = get();
+
+        Class myClass = BrainFlow.class;
+        URL url = myClass.getResource("BrainFlow.class");
+        //System.out.println("class located: " + url);
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -215,9 +222,6 @@ public class BrainFlow {
 
             } else if (osname.toUpperCase().contains("LINUX")) {
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-                //LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
-                //UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaSimple2DLookAndFeel());
-                //UIManager.setLookAndFeel(new WindowsLookAndFeel());
                 LookAndFeelFactory.installJideExtension();
 
             } else if (osname.toUpperCase().contains("MAC")) {
@@ -227,10 +231,7 @@ public class BrainFlow {
                 System.setProperty("apple.awt.graphics.UseQuartz", "true");
                 System.setProperty("apple.awt.brushMetalLook", "true");
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-
-                //UIManager.setLookAndFeel("apple.laf.AquaLookAndFeel");
-                LookAndFeelFactory.installJideExtension(1);
+            LookAndFeelFactory.installJideExtension(1);
 
             }
 
@@ -397,6 +398,7 @@ public class BrainFlow {
             public JButton createButton() {
                 JideButton button = new JideButton();
                 button.setButtonStyle(JideButton.TOOLBAR_STYLE);
+                button.setText("");
                 return button;
             }
 
@@ -519,7 +521,7 @@ public class BrainFlow {
         zoomer.getComponent().setOpaque(false);
         zoomer.getComponent().setBorder(new EmptyBorder(0, 0, 0, 0));
 
-        statusBar.add(zoomer.getComponent(), JideBoxLayout.FIX);
+        statusBar.add(new SliderStatusBarItem((JSlider)zoomer.getComponent()), JideBoxLayout.FIX);
 
         statusBar.add(new LabelStatusBarItem(), JideBoxLayout.VARY);
         //statusBar.add(new com.jidesoft.status.ProgressStatusBarItem(), JideBoxLayout.FIX);
@@ -543,6 +545,7 @@ public class BrainFlow {
 
 
         CommandGroup mainToolbarGroup = new CommandGroup("main-toolbar");
+
         mainToolbarGroup.bind(getApplicationFrame());
 
 
@@ -598,6 +601,7 @@ public class BrainFlow {
             public void visit(ActionCommand actionCommand) {
                 JideButton jb = new JideButton(actionCommand.getActionAdapter());
                 jb.setButtonStyle(JideButton.TOOLBAR_STYLE);
+                jb.setText("");
                 mainToolbar.add(jb);
             }
 
@@ -798,6 +802,7 @@ public class BrainFlow {
         log.info("initializing control panel");
         watch.start("init control panel");
         initControlPanel();
+        initCoordinatePanel();
         watch.stopAndReport("init control panel");
         log.info("initializing event monitor");
         watch.start("event bus monitor");
@@ -952,6 +957,22 @@ public class BrainFlow {
     }
 
 
+    private void initCoordinatePanel() {
+        CoordinateControls coordinateControls = new CoordinateControls();
+        DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Coordinates",
+                //"icons/types.gif",
+                DockContext.STATE_FRAMEDOCKED,
+                DockContext.DOCK_SIDE_EAST);
+
+        FloorTabbedPane floorPane = new FloorTabbedPane();
+        floorPane.addTab("Navigation",coordinateControls.getComponent() );
+
+        dframe.getContentPane().add(floorPane);
+
+        dframe.setPreferredSize(new Dimension(300, 500));
+        brainFrame.getDockingManager().addFrame(dframe);
+
+    }
     private void initControlPanel() {
 
         JideTabbedPane tabbedPane = new JideTabbedPane();
@@ -964,7 +985,7 @@ public class BrainFlow {
 
         ColorAdjustmentControl colorAdjustmentControl = new ColorAdjustmentControl();
 
-        CoordinateControls coordinateControls = new CoordinateControls();
+        //CoordinateControls coordinateControls = new CoordinateControls();
 
         LayerInfoControl layerInfoControl = new LayerInfoControl();
 
@@ -974,12 +995,12 @@ public class BrainFlow {
 
         //MaskTablePresenter maskPresenter = new MaskTablePresenter();
 
-        tabbedPane.addTab("Adjustment", new JScrollPane(colorAdjustmentControl.getComponent()));
-        tabbedPane.addTab("Image Mask", maskControl.getComponent());
-        tabbedPane.addTab("Layer Info", new JScrollPane(layerInfoControl.getComponent()));
+        tabbedPane.addTab("Adjust", new JScrollPane(colorAdjustmentControl.getComponent()));
+        tabbedPane.addTab("Mask", maskControl.getComponent());
+        tabbedPane.addTab("Info", new JScrollPane(layerInfoControl.getComponent()));
         //tabbedPane.addTab("Color Table", tablePresenter.getComponent());
         //tabbedPane.addTab("Mask Table", maskPresenter.getComponent());
-        tabbedPane.addTab("Coordinates", new JScrollPane(coordinateControls.getComponent()));
+        //tabbedPane.addTab("Coordinates", new JScrollPane(coordinateControls.getComponent()));
 
 
         dframe.getContentPane().add(tabbedPane);
@@ -990,17 +1011,6 @@ public class BrainFlow {
     }
 
 
-    /*boolean initImageIO() {
-        log.info("initializing imageio");
-        try {
-            ImageIOManager.getInstance().initialize();
-        } catch (BrainFlowException e) {
-            log.severe("Could not initialize IO facilities, aborting");
-            throw new RuntimeException(e);
-        }
-
-        return true;
-    }  */
 
     private boolean initializeResources() {
         log.info("initializing resources");
@@ -1218,6 +1228,29 @@ public class BrainFlow {
         IImageDataSource[] limg = loadingDock.requestLoadableImages();
         return Arrays.asList(limg);
 
+    }
+
+
+    class SliderStatusBarItem extends StatusBarItem {
+
+        JSlider slider;
+
+        SliderStatusBarItem(JSlider slider) {
+            setLayout(new BorderLayout());
+            this.slider = slider;
+            
+            add(slider, BorderLayout.CENTER);
+        }
+
+        @Override
+        public String getItemName() {
+            return "slider";
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            return slider.getPreferredSize();
+        }
     }
 
 

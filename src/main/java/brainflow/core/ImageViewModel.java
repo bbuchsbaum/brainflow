@@ -10,6 +10,7 @@ import brainflow.image.data.IImageData3D;
 
 import java.util.*;
 
+import brainflow.image.space.ImageSpace3D;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.container.ObservableProperty;
 import net.java.dev.properties.events.PropertyListener;
@@ -39,7 +40,7 @@ public class ImageViewModel implements Iterable {
 
     private String name = "view_model";
 
-    private IImageSpace3D space;
+    private IImageSpace3D space = new ImageSpace3D(new ImageAxis(0,1,AnatomicalAxis.LEFT_RIGHT,10),new ImageAxis(0,1,AnatomicalAxis.ANTERIOR_POSTERIOR,10),new ImageAxis(0,1,AnatomicalAxis.INFERIOR_SUPERIOR,10));
 
     private Map<ImageLayer3D, List<PropListener<ImageLayerListener>>> listenerRefs = new HashMap<ImageLayer3D, List<PropListener<ImageLayerListener>>>();
 

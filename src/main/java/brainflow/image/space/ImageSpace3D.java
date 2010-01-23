@@ -279,6 +279,10 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
                 '}';
     }
 
+
+
+
+
     /*public BrainPoint3D convertPoint(BrainPoint3D otherPoint3D) {
        Anatomy3D avol = otherPoint3D.getAnatomy();
 
