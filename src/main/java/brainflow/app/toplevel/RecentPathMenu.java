@@ -7,11 +7,15 @@ import brainflow.app.actions.MountDirectoryCommand;
 import com.pietschy.command.group.CommandGroup;
 import com.pietschy.command.group.GroupBuilder;
 import com.pietschy.command.ActionCommand;
+import org.apache.commons.vfs.FileObject;
+import org.apache.commons.vfs.FileSystemException;
+import org.apache.commons.vfs.VFS;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -28,6 +32,8 @@ public class RecentPathMenu {
     private RollingList recentDirectories = new RollingList(6);
 
     private static Preferences userPrefs = Preferences.userNodeForPackage(RecentPathMenu.class);
+
+    private static final Logger log = Logger.getLogger(RecentPathMenu.class.getName());
 
 
     private CommandGroup commandGroup;
@@ -99,7 +105,18 @@ public class RecentPathMenu {
         for (int i = 0; i < 6; i++) {
             String curstr = userPrefs.get("recent-dir-" + (i + 1), def);
             if (!curstr.equals(last)) {
-                recentDirectories.addItem(curstr);
+                try {
+                    FileObject fobj = VFS.getManager().resolveFile(curstr);
+                    if (fobj.exists()) {
+                        recentDirectories.addItem(curstr);
+
+                    } else{
+                        userPrefs.remove("recent-dir-" + (i + 1));
+                    }
+                }catch(FileSystemException e) {
+                    log.warning(e.getMessage());
+                   
+                }
             }
 
             last = curstr;

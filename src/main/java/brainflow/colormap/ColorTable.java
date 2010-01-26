@@ -79,7 +79,7 @@ public class ColorTable {
         return table;
     }
 
-    public static byte[][] extractTable(LinearColorMap2 lcm) {
+    public static byte[][] extractTable(LinearColorMap lcm) {
         byte[][] table = new byte[4][lcm.getMapSize()];
 
         for (int i = 0; i < lcm.getMapSize(); i++) {
@@ -94,7 +94,7 @@ public class ColorTable {
 
 
     public static ImageIcon createImageIcon(IndexColorModel icm, int swatchWidth, int swatchHeight) {
-        LinearColorMap2 cmap = new LinearColorMap2(0, 255, icm);
+        LinearColorMap cmap = new LinearColorMap(0, 255, icm);
         LinearColorBar cbar = new LinearColorBar(cmap, SwingConstants.HORIZONTAL);
 
         cbar.setSize(swatchWidth, swatchHeight);

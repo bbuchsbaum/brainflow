@@ -59,7 +59,7 @@ public class ColorBarPlot extends ChartPanel {
     public ColorBarPlot() {
         super(null);
 
-        dataset = new ColorMapDataset(new LinearColorMap2(0, 255, ColorTable.SPECTRUM));
+        dataset = new ColorMapDataset(new LinearColorMap(0, 255, ColorTable.SPECTRUM));
         //dataset.addChangeListener(handler);
         colorBar = dataset.getColorMap().createColorBar();
         colorBar.setOrientation(SwingUtilities.HORIZONTAL);

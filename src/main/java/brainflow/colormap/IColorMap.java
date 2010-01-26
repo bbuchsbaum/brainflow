@@ -37,6 +37,8 @@ public interface IColorMap {
 
     public ListIterator<ColorInterval> iterator();
 
+    
+
     public RGBAImage getRGBAImage(IImageData2D data);
 
     public AbstractColorBar createColorBar();

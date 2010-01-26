@@ -2,7 +2,7 @@ package brainflow.core.layer;
 
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
-import brainflow.colormap.LinearColorMap2;
+import brainflow.colormap.LinearColorMap;
 import brainflow.display.*;
 import brainflow.utils.IRange;
 import brainflow.utils.Range;
@@ -41,7 +41,7 @@ public class LayerProps implements Serializable {
             InterpolationType.NEAREST_NEIGHBOR, InterpolationType.LINEAR, InterpolationType.CUBIC);
 
 
-    public final Property<InterpolationType> interpolationType = ObservableProperty.create(InterpolationType.LINEAR);
+    public final Property<InterpolationType> interpolationType = ObservableProperty.create(InterpolationType.NEAREST_NEIGHBOR);
 
     public final Property<Integer> interpolationSelection = new ObservableWrapper.ReadWrite<Integer>(interpolationType) {
         public Integer get() {
@@ -85,14 +85,14 @@ public class LayerProps implements Serializable {
 
     public LayerProps(IRange _dataRange) {
         BeanContainer.bind(this);
-        IColorMap imap = new LinearColorMap2(_dataRange.getMin(), _dataRange.getMax(), ColorTable.GRAYSCALE);
+        IColorMap imap = new LinearColorMap(_dataRange.getMin(), _dataRange.getMax(), ColorTable.GRAYSCALE);
         init(imap, _dataRange);
     }
 
 
     public LayerProps(IndexColorModel _icm, IRange _dataRange) {
         BeanContainer.bind(this);
-        IColorMap imap = new LinearColorMap2(_dataRange.getMin(), _dataRange.getMax(), _icm);
+        IColorMap imap = new LinearColorMap(_dataRange.getMin(), _dataRange.getMax(), _icm);
         init(imap, _dataRange);
     }
 

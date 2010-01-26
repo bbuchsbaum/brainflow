@@ -12,12 +12,12 @@ package brainflow.app.presentation;
 
 import brainflow.app.actions.DesignColorMapCommand;
 import brainflow.app.actions.SelectColorMapCommand;
+import brainflow.colormap.LinearColorMap;
 import brainflow.colormap.forms.ColorBarForm;
 
 import brainflow.app.toplevel.ResourceManager;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
-import brainflow.colormap.LinearColorMap2;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer3D;
@@ -58,7 +58,7 @@ public class ColorBarPresenter extends BrainFlowPresenter {
 
     public ColorBarPresenter() {
         super();
-        colorMap = new LinearColorMap2(0, 255, ColorTable.GRAYSCALE);
+        colorMap = new LinearColorMap(0, 255, ColorTable.GRAYSCALE);
         init();
 
 

@@ -2,10 +2,9 @@ package brainflow.app.presentation.controls;
 
 import brainflow.colormap.IColorMap;
 import brainflow.colormap.HistogramColorBar;
-import brainflow.colormap.LinearColorMap2;
+import brainflow.colormap.LinearColorMap;
 import brainflow.colormap.ColorTable;
 import brainflow.image.Histogram;
-import brainflow.image.MaskedHistogram;
 import brainflow.image.io.IImageDataSource;
 import brainflow.core.BrainFlowException;
 import brainflow.app.IBrainFlowClient;
@@ -430,7 +429,7 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
         }
         Histogram histo = new Histogram(dataSource.getData(), 75);
         histo.computeBins();
-        IColorMap map = new LinearColorMap2(histo.getMinValue(), histo.getMaxValue(), ColorTable.GRAYSCALE);
+        IColorMap map = new LinearColorMap(histo.getMinValue(), histo.getMaxValue(), ColorTable.GRAYSCALE);
         final HistogramControl control = new HistogramControl(map, histo, new Range(histo.getMinValue(), histo.getMaxValue()));
         //bar.setPreferredSize(new Dimension(350, 100));
 

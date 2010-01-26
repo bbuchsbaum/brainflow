@@ -102,7 +102,7 @@ public class ColorBandChartPresenter extends BrainFlowPresenter {
             byte[] alpha = chartAlpha.getBandData();
 
             IndexColorModel icm = new IndexColorModel(8, 256, reds, greens, blues, alpha);
-            colorMap = new LinearColorMap2(colorMap.getMinimumValue(), colorMap.getMaximumValue(), icm);
+            colorMap = new LinearColorMap(colorMap.getMinimumValue(), colorMap.getMaximumValue(), icm);
             ImageLayer layer = getSelectedView().getSelectedLayer();
             layer.getLayerProps().colorMap.set(colorMap);
 
@@ -113,7 +113,7 @@ public class ColorBandChartPresenter extends BrainFlowPresenter {
         JFrame jf = new JFrame();
 
 
-        jf.add(new ColorBandChartPresenter(new LinearColorMap2(0, 300, ColorTable.SPECTRUM)).getComponent());
+        jf.add(new ColorBandChartPresenter(new LinearColorMap(0, 300, ColorTable.SPECTRUM)).getComponent());
         jf.pack();
         jf.setVisible(true);
 

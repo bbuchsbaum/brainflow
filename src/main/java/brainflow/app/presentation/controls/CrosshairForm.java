@@ -1,8 +1,8 @@
 package brainflow.app.presentation.controls;
 
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+
 import com.jidesoft.combobox.ColorComboBox;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,6 @@ import java.awt.*;
  */
 public class CrosshairForm extends JPanel {
 
-    private FormLayout layout;
 
     private ColorComboBox colorChooser;
 
@@ -34,11 +33,40 @@ public class CrosshairForm extends JPanel {
 
     }
 
-
     private void buildGUI() {
+        MigLayout layout = new MigLayout();
+        setLayout(layout);
+        colorChooser = new ColorComboBox();
+
+        lineWidthSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 12, 1));
+        gapSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1, .1));
+        lineLengthSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 1, .1));
+
+        add(visibleBox, "span 2, wrap 18px");
+
+        add(new JLabel("Line Color:"));
+        add(colorChooser, "gap left 30, width 100:120:200, wrap 15px");
+
+        add(new JLabel("Line Width:"));
+        add(lineWidthSpinner, "gap left 30, width 60::, growx, wrap 15px");
+
+        add(new JLabel("Gap:"));
+        add(gapSpinner, "gap left 30, width 60::, growx, wrap 15px");
+
+        add(new JLabel("Length:"));
+        add(lineLengthSpinner, "gap left 30, width 60::, growx");
+
+        colorChooser.setSelectedColor(Color.GREEN);
+        colorChooser.setColorValueVisible(false);
 
 
-        layout = new FormLayout("2dlu, l:p, 20dlu, r:p:g, 3dlu, 2dlu", "6dlu, p, 12dlu, p, 12dlu, p, 12dlu, p, 12dlu, p, 12dlu");
+    }
+
+
+ /*   private void _buildGUI() {
+
+
+        FormLayout layout = new FormLayout("2dlu, l:p, 20dlu, r:p:g, 3dlu, 2dlu", "6dlu, p, 12dlu, p, 12dlu, p, 12dlu, p, 12dlu, p, 12dlu");
         setLayout(layout);
 
 
@@ -65,23 +93,21 @@ public class CrosshairForm extends JPanel {
         add(new JLabel("Length:"), cc.xy(2, 10));
         add(lineLengthSpinner, cc.xyw(4, 10, 2));
 
-        /*okButton = new JButton("OK");
+        okButton = new JButton("OK");
         cancelButton = new JButton("Cancel");
         applyButton = new JButton("Apply");
 
         add(ButtonBarFactory.buildRightAlignedBar(okButton, cancelButton, applyButton),
-                cc.xyw(2,12, 4));         */
+                cc.xyw(2,12, 4));
 
-        colorChooser.setSelectedColor(Color.GREEN);
-        colorChooser.setColorValueVisible(false);
-
-
-    }
+        //colorChooser.setSelectedColor(Color.GREEN);
+       // colorChooser.setColorValueVisible(false);
 
 
-    public FormLayout getLayout() {
-        return layout;
-    }
+    } */
+
+
+
 
     public ColorComboBox getColorChooser() {
         return colorChooser;

@@ -1,18 +1,17 @@
 package brainflow.app.presentation;
 
+import brainflow.colormap.LinearColorMap;
 import brainflow.core.ImageView;
 import brainflow.core.ClipRange;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.app.presentation.controls.HistogramControl;
-import brainflow.colormap.LinearColorMap2;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.IColorMap;
 import brainflow.image.Histogram;
 import brainflow.image.space.Space;
 import brainflow.image.data.BasicImageData3D;
 import brainflow.image.data.IImageData;
-import brainflow.utils.DataType;
 import brainflow.utils.Range;
 
 import javax.swing.*;
@@ -50,7 +49,7 @@ public class HistogramPresenter extends BrainFlowPresenter {
     };
 
     public HistogramPresenter() {
-        control = new HistogramControl(new LinearColorMap2(0, 100, ColorTable.GRAYSCALE),
+        control = new HistogramControl(new LinearColorMap(0, 100, ColorTable.GRAYSCALE),
                 new Histogram(new BasicImageData3D.Double(Space.createImageSpace(2, 2, 2, 1, 1, 1)), 10),
                 new Range(0, 0));
 

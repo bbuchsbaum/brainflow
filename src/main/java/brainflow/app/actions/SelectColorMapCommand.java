@@ -1,7 +1,7 @@
 package brainflow.app.actions;
 
 import brainflow.colormap.IColorMap;
-import brainflow.colormap.LinearColorMap2;
+import brainflow.colormap.LinearColorMap;
 import brainflow.core.ImageView;
 import brainflow.core.layer.ImageLayer;
 
@@ -35,7 +35,7 @@ public class SelectColorMapCommand extends BrainFlowCommand  {
 
             IColorMap map = layer.getLayerProps().getColorMap();
 
-            LinearColorMap2 lmap = new LinearColorMap2(map.getMinimumValue(), map.getMaximumValue(), map.getLowClip(), map.getHighClip(), icm);
+            LinearColorMap lmap = new LinearColorMap(map.getMinimumValue(), map.getMaximumValue(), map.getLowClip(), map.getHighClip(), icm);
             layer.getLayerProps().colorMap.set(lmap);
 
 

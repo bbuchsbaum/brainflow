@@ -297,7 +297,7 @@ public class HistogramColorBar extends JComponent {
         Histogram histo = new Histogram(dataSource.getData(), 75);
         histo.ignoreRange(new Range(0, 10));
         histo.computeBins();
-        IColorMap map = new LinearColorMap2(histo.getMinValue(), histo.getMaxValue(), ColorTable.GRAYSCALE);
+        IColorMap map = new LinearColorMap(histo.getMinValue(), histo.getMaxValue(), ColorTable.GRAYSCALE);
         final HistogramColorBar bar = new HistogramColorBar(map, histo);
         bar.setPreferredSize(new Dimension(350, 100));
 

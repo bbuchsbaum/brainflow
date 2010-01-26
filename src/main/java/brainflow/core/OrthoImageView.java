@@ -3,14 +3,13 @@ package brainflow.core;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.image.axis.AxisRange;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.CommandContainer;
 import com.pietschy.command.group.GroupBuilder;
 import com.pietschy.command.toggle.ToggleCommand;
 import com.pietschy.command.toggle.ToggleVetoException;
 import com.pietschy.command.toggle.ToggleGroup;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.util.*;
@@ -262,7 +261,9 @@ public class OrthoImageView extends ImageView {
             }
 
 
-        }
+
+
+        } 
 
         private JPanel wrapPlot(IImagePlot plot, JSlider slider) {
              JPanel panel = new JPanel();
@@ -285,16 +286,17 @@ public class OrthoImageView extends ImageView {
                     getView().getContentPane().add(wrapPlot(plots.get(2), slider3.getSlider()));
 
 
+
                     break;
 
                 case TRIANGULAR:
-                    FormLayout layout2a = new FormLayout("p:grow(.85), p:grow(.15)", "p:g, 1dlu:g, p:g, 1dlu:g");
-                    layout2a.setColumnGroups(new int[][]{{1, 2}});
-                    getView().getContentPane().setLayout(layout2a);
-                    CellConstraints cc = new CellConstraints();
-                    getView().getContentPane().add(plots.get(0).getComponent(), cc.xywh(1, 1, 1, 4));
-                    getView().getContentPane().add(plots.get(1).getComponent(), cc.xywh(2, 1, 1, 2));
-                    getView().getContentPane().add(plots.get(2).getComponent(), cc.xywh(2, 3, 1, 2));
+                    MigLayout layout2 = new MigLayout();
+
+                    getView().getContentPane().setLayout(layout2);
+
+                    getView().getContentPane().add(wrapPlot(plots.get(0), slider1.getSlider()), "grow, width 80:400:1000, height 80:400:1000, span 2 2");
+                    getView().getContentPane().add(wrapPlot(plots.get(1), slider2.getSlider()), "grow, width 80:400:1000, height 80:400:1000, wrap");
+                    getView().getContentPane().add(wrapPlot(plots.get(2), slider3.getSlider()), "grow, width 80:400:1000, height 80:400:1000");
                     break;
 
                 case VERTICAL:

@@ -8,8 +8,10 @@ package brainflow.app.presentation.controls;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author buchs
@@ -32,7 +34,7 @@ public class RenderingParamsForm extends JPanel {
 
     private JLabel interpolationLabel;
 
-    private FormLayout layout;
+    private LayoutManager layout;
 
     /**
      * Creates new form OpacityPanel
@@ -41,13 +43,13 @@ public class RenderingParamsForm extends JPanel {
         buildGUI();
     }
 
-    public JComboBox getInterpolationChoices() {
-        return interpolationChoices;
-    }
+   // public JComboBox getInterpolationChoices() {
+  //      return interpolationChoices;
+  //  }
 
-    public JLabel getInterpolationLabel() {
-        return interpolationLabel;
-    }
+    //public JLabel getInterpolationLabel() {
+    //    return interpolationLabel;
+    //}
 
     public JLabel getOpacityValueLabel() {
         return opacityValueLabel;
@@ -74,6 +76,34 @@ public class RenderingParamsForm extends JPanel {
     }
 
     private void buildGUI() {
+        layout = new MigLayout("", "[][grow]", "[][]");
+        setLayout(layout);
+        opacityLabel = new JLabel("Opacity: ");
+        opacitySlider = new JSlider(JSlider.HORIZONTAL);
+        opacityValueLabel = new JLabel("");
+
+        smoothingLabel = new JLabel("Smoothing Radius: ");
+        smoothingSlider = new JSlider(JSlider.HORIZONTAL);
+        //smoothingSlider.setValue(0);
+        smoothingValueLabel = new JLabel("");
+
+        add(opacityLabel);
+        add(opacityValueLabel,"wrap");
+        add(opacitySlider, "width 80:250:400, growx, span 2, wrap");
+
+        add(smoothingLabel);
+        add(smoothingValueLabel,"wrap");
+        add(smoothingSlider, "width 80:250:400, growx, span 2, wrap");
+
+        //interpolationLabel = new JLabel("Interpolation: ");
+        //add(interpolationLabel);
+
+        //interpolationChoices = new JComboBox();
+        //add(interpolationChoices, "growx, span 2");
+
+    }
+
+    private void _buildGUI() {
         layout = new FormLayout("6dlu, p, p, 6dlu:g, 6dlu", "8dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 6dlu, p, 8dlu");
         setLayout(layout);
         CellConstraints cc = new CellConstraints();

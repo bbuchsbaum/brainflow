@@ -454,7 +454,7 @@ public class DiscreteColorMap extends AbstractColorMap {
 
 
     public static void main(String[] args) {
-        LinearColorMap2 cmap = new LinearColorMap2(0, 255, ColorTable.SPECTRUM);
+        LinearColorMap cmap = new LinearColorMap(0, 255, ColorTable.SPECTRUM);
         DiscreteColorMap tmp = new DiscreteColorMap(cmap);
         tmp.setUpperBound(34, 125);
 

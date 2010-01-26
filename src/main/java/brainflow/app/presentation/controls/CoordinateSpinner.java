@@ -4,6 +4,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jidesoft.swing.StyledLabel;
 import com.jidesoft.swing.StyleRange;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class CoordinateSpinner extends JPanel {
 
     private StyledLabel zspinnerHeader;
 
-    private FormLayout layout;
+    private LayoutManager layout;
 
     public CoordinateSpinner() {
         xlabel = new JLabel("X: ");
@@ -43,11 +44,34 @@ public class CoordinateSpinner extends JPanel {
         zlabel = new JLabel("Z: ");
 
         xspinner = new JSpinner(new SpinnerNumberModel());
-
         yspinner = new JSpinner(new SpinnerNumberModel());
-        
         zspinner = new JSpinner(new SpinnerNumberModel());
 
+        xspinnerHeader = createLabel("X");
+        yspinnerHeader = createLabel("Y");
+        zspinnerHeader = createLabel("Z");
+
+        layout2();
+
+
+    }
+
+    private void layout2() {
+        layout = new MigLayout();
+        setLayout(layout);
+        add(xspinnerHeader, "cell 1 0");
+        add(yspinnerHeader, "cell 3 0");
+        add(zspinnerHeader, "cell 5 0");
+        add(xlabel, "cell 0 1");
+        add(ylabel, "cell 2 1");
+        add(zlabel, "cell 4 1");
+        add(xspinner, "cell 1 1, width 40:60:, growx");
+        add(yspinner, "cell 3 1, width 40:60:, growx");
+        add(zspinner, "cell 5 1, width 40:60:, growx");
+
+    }
+
+    private void layout1() {
         layout = new FormLayout("8dlu, l:p, 2dlu, 30dlu:g, 5dlu, l:p, 2dlu, 30dlu:g, 5dlu, l:p, 2dlu, 30dlu:g, 8dlu", "8dlu, pref, 2dlu, pref, 8dlu");
         setLayout(layout);
 
@@ -55,17 +79,7 @@ public class CoordinateSpinner extends JPanel {
 
         CellConstraints cc = new CellConstraints();
 
-        xspinnerHeader = new StyledLabel("X");
-        xspinnerHeader.setEnabled(false);
-        xspinnerHeader.addStyleRange(new StyleRange(Font.BOLD, Color.GRAY));
 
-        yspinnerHeader = new StyledLabel("Y");
-        yspinnerHeader.addStyleRange(new StyleRange(Font.BOLD, Color.GRAY));
-        yspinnerHeader.setEnabled(false);
-
-        zspinnerHeader = new StyledLabel("Z");
-        zspinnerHeader.addStyleRange(new StyleRange(Font.BOLD, Color.GRAY));
-        zspinnerHeader.setEnabled(false);
 
         add(xspinnerHeader, cc.xy(4, 2));
         add(yspinnerHeader, cc.xy(8, 2));
@@ -82,7 +96,13 @@ public class CoordinateSpinner extends JPanel {
         add(zlabel, cc.xy(10, 4));
         add(zspinner, cc.xy(12, 4));
 
+    }
 
+    private StyledLabel createLabel(String lab) {
+        StyledLabel label = new StyledLabel(lab);
+        label.setEnabled(false);
+        label.addStyleRange(new StyleRange(Font.BOLD, Color.GRAY));
+        return label;
     }
 
     public StyledLabel getXspinnerHeader() {

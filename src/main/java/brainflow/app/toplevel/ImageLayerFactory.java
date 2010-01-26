@@ -1,10 +1,10 @@
 package brainflow.app.toplevel;
 
+import brainflow.colormap.LinearColorMap;
 import brainflow.image.io.IImageDataSource;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerProps;
 import brainflow.utils.Range;
-import brainflow.colormap.LinearColorMap2;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,7 +26,7 @@ public class ImageLayerFactory {
                 new Range(dataSource.getData().minValue(),
                         dataSource.getData().maxValue()));
 
-        params.colorMap.set(new LinearColorMap2(dataSource.getData().minValue(),
+        params.colorMap.set(new LinearColorMap(dataSource.getData().minValue(),
                 dataSource.getData().maxValue(),
                 ResourceManager.getInstance().getDefaultColorMap()));
 

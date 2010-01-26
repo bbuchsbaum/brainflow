@@ -52,15 +52,15 @@ public class RenderingParamsPresenter extends BrainFlowPresenter implements Bind
 
     public void viewSelected(ImageView view) {
         bind();
-        form.getInterpolationLabel().setEnabled(true);
-        form.getInterpolationChoices().setEnabled(true);
+        //form.getInterpolationLabel().setEnabled(true);
+        //form.getInterpolationChoices().setEnabled(true);
        
     }
 
     public void allViewsDeselected() {
         form.setEnabled(false);
-        form.getInterpolationChoices().setEnabled(false);
-        form.getInterpolationLabel().setEnabled(false);
+        //form.getInterpolationChoices().setEnabled(false);
+       // form.getInterpolationLabel().setEnabled(false);
     }
 
     @Override
@@ -77,8 +77,8 @@ public class RenderingParamsPresenter extends BrainFlowPresenter implements Bind
         ImageLayer layer = getSelectedView().getModel().getSelectedLayer();
         SwingBind.get().bind(new PercentageRangeConverter(layer.getLayerProps().opacity, 0, 1, 100), form.getOpacitySlider());
         SwingBind.get().bind(new PercentageRangeConverter(layer.getLayerProps().smoothingRadius, 0, 15, 100), form.getSmoothingSlider());
-        SwingBind.get().bindContent(layer.getLayerProps().interpolationSet, form.getInterpolationChoices());
-        SwingBind.get().bindIndex(layer.getLayerProps().interpolationSelection, form.getInterpolationChoices());
+        //SwingBind.get().bindContent(layer.getLayerProps().interpolationSet, form.getInterpolationChoices());
+        //SwingBind.get().bindIndex(layer.getLayerProps().interpolationSelection, form.getInterpolationChoices());
     }
 
     public void unbind() {

@@ -93,7 +93,7 @@ public class ColorMapTable extends AbstractPresenter {
     public static void main(String[] args) {
         com.jidesoft.utils.Lm.verifyLicense("UIN", "BrainFlow", "S5XiLlHH0VReaWDo84sDmzPxpMJvjP3");
 
-        ColorMapTable table = new ColorMapTable(new LinearColorMap2(0, 255, ColorTable.SPECTRUM));
+        ColorMapTable table = new ColorMapTable(new LinearColorMap(0, 255, ColorTable.SPECTRUM));
         JFrame jf = new JFrame();
         jf.add(new JScrollPane(table.getComponent()));
         jf.pack();

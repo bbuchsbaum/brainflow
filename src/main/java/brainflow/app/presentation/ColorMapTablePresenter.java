@@ -38,7 +38,7 @@ public class ColorMapTablePresenter extends BrainFlowPresenter {
 
 
     public ColorMapTablePresenter() {
-        colorTable = new ColorMapTable(new LinearColorMap2(0, 255, ColorTable.SPECTRUM));
+        colorTable = new ColorMapTable(new LinearColorMap(0, 255, ColorTable.SPECTRUM));
         JScrollPane scrollPane = new JScrollPane(colorTable.getComponent());
 
 
