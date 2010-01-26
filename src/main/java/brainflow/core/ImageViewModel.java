@@ -28,7 +28,7 @@ import javax.swing.event.EventListenerList;
  * Time: 8:17:35 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ImageViewModel implements Iterable {
+public class ImageViewModel implements Iterable<ImageLayer3D> {
 
     private List<Boolean> visibleList;
 
@@ -153,6 +153,7 @@ public class ImageViewModel implements Iterable {
     
 
     public ImageLayer3D remove(int i) {
+        //todo awful method
         if (i < 0 || i >= size()) {
             throw new IllegalArgumentException("removal index is out of range " + i);
         }

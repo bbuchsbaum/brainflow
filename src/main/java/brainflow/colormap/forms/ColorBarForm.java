@@ -10,6 +10,7 @@ import brainflow.colormap.*;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.swing.JideSplitButton;
+import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +28,11 @@ public class ColorBarForm extends javax.swing.JPanel {
 
     private JideSplitButton colorMenu;
 
-    private FormLayout layout;
+    private JCheckBox invertColors;
+
+    private JSpinner numColors;
+
+    private MigLayout layout;
 
     /**
      * Creates new form ColorBarForm
@@ -38,7 +43,8 @@ public class ColorBarForm extends javax.swing.JPanel {
         colorBar.setBorder(BorderFactory.createEtchedBorder());
         cbar = new ColorBarWithAxis(colorBar);
         colorMenu = new JideSplitButton("Select Map");
-
+        invertColors = new JCheckBox("invert", false);
+        numColors = new JSpinner(new SpinnerNumberModel(1,1, 256, 1));
         buildGUI();
     }
 
@@ -48,7 +54,8 @@ public class ColorBarForm extends javax.swing.JPanel {
         colorBar.setBorder(BorderFactory.createEtchedBorder());
         cbar = new ColorBarWithAxis(colorBar);
         colorMenu = new JideSplitButton("Select Map");
-
+        invertColors = new JCheckBox("invert", false);
+        numColors = new JSpinner(new SpinnerNumberModel(1,1, 256, 1));
         buildGUI();
 
     }
@@ -61,22 +68,22 @@ public class ColorBarForm extends javax.swing.JPanel {
     public void setColorMap(IColorMap colorMap) {
         colorBar = colorMap.createColorBar();
         cbar.updateColorBar(colorBar);
-       // colorBarPanel.removeAll();
-        //colorBarPanel.add(createColorBar(colorMap), BorderLayout.CENTER);
-      //  revalidate();
-        //colorBar.setColorMap(colorMap);
         cbar.updateAxis(colorMap.getMinimumValue(), colorMap.getMaximumValue());
     }
 
 
     private void buildGUI() {
 
-        layout = new FormLayout("5px, l:max(100dlu;p):g, 3dlu, 6dlu", "3dlu, p, 3dlu, max(35dlu;p), 3dlu");
-        CellConstraints cc = new CellConstraints();
+        layout = new MigLayout();
+       
         setLayout(layout);
 
-        add(colorMenu, cc.xy(2, 2));
-        add(cbar, cc.xywh(2, 4, 2, 2));
+        add(colorMenu);
+        add(new JLabel("# of colors"), "align right, gap left 30");
+        add(numColors, "width 40:60:80, wrap");
+        //add(invertColors, "align right, wrap");
+        add(cbar, "span 3, height 65");
+        //add(invertColors, "span 3, align right");
 
     }
 

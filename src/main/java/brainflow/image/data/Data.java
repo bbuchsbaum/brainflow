@@ -1,5 +1,6 @@
 package brainflow.image.data;
 
+import brainflow.array.Array3D;
 import brainflow.array.ConstantValueIterator;
 import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.image.space.*;
@@ -48,6 +49,11 @@ public class Data {
 
 
         return buffer;
+
+    }
+
+    public static IImageData3D wrap(Array3D.Int dat, IImageSpace3D space) {
+        return new BasicImageData3D.Int(space, dat);
 
     }
 
@@ -281,16 +287,19 @@ public class Data {
 
             @Override
             public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
+                //todo check bounds
                 return value;
             }
 
             @Override
             public double value(float x, float y, float z, InterpolationFunction3D interp) {
+                //todo check bounds
                 return value;
             }
 
             @Override
             public double value(int x, int y, int z) {
+                //todo check bounds
                 return value;
             }
 

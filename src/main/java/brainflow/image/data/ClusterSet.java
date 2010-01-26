@@ -15,7 +15,7 @@ import java.util.*;
  * Time: 9:54:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ClusterSet {
+public class ClusterSet implements Iterable<ClusterSet.Cluster>{
 
 
     private HashMap<Integer, Cluster> clusters = new HashMap<Integer, Cluster>();
@@ -23,6 +23,9 @@ public class ClusterSet {
     private IImageData3D labels;
 
     private IImageData3D data;
+
+    public ClusterSet() {
+    }
 
     public ClusterSet(IImageData3D labels, IImageData3D data) {
         if (!data.getImageSpace().equals(labels.getImageSpace())) {
@@ -36,6 +39,10 @@ public class ClusterSet {
 
     public int size() {
         return clusters.size();
+    }
+
+    public boolean isEmpty() {
+        return true;
     }
 
     private void build() {
@@ -72,6 +79,10 @@ public class ClusterSet {
         return sb.toString();
     }
 
+    @Override
+    public Iterator<Cluster> iterator() {
+        return getClusters().iterator();
+    }
 
     public class Cluster implements Comparable<Cluster> {
 
@@ -99,6 +110,7 @@ public class ClusterSet {
         private void addIndex(int idx) {
             indices.add(idx);
             double val = data.value(idx);
+
 
             if (val > maxValue) {
                 maxValue = val;
@@ -130,14 +142,15 @@ public class ClusterSet {
             double y = 0;
             double z = 0;
             for (int i = 0; i < indices.size(); i++) {
-                Index3D index = data.getImageSpace().indexToGrid(indices.get(i));
-                float[] p = data.getImageSpace().indexToWorld(index.i1(), index.i2(), index.i3());
-                x = p[0] + x;
-                y = p[1] + y;
-                z = p[2] + z;
+                Index3D index = labels.getImageSpace().indexToGrid(indices.get(i));
+
+                x = index.i1() + x;
+                y = index.i2() + y;
+                z = index.i3() + z;
             }
 
-            worldCentroid = new SpatialLoc3D(data.getImageSpace().getMapping().getWorldAnatomy(), x / indices.size(), y / indices.size(), z / indices.size());
+            float[] centroid = labels.getImageSpace().indexToWorld((int)(x/indices.size()), (int)(y/indices.size()), (int)(z/indices.size()));
+            worldCentroid = new SpatialLoc3D(labels.getImageSpace().getMapping().getWorldAnatomy(),centroid[0], centroid[1], centroid[2]);
             return worldCentroid;
         }
 
@@ -159,6 +172,9 @@ public class ClusterSet {
         }
 
         public Index3D getMaxVoxel() {
+
+            Index3D vox = data.getImageSpace().indexToGrid(maxIndex);
+        
             return data.getImageSpace().indexToGrid(maxIndex);
         }
 

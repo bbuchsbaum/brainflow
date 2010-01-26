@@ -49,6 +49,11 @@ public class BivariateMaskNode3D implements IMaskedData3D {
         return count;
     }
 
+    @Override
+    public boolean alwaysTrue() {
+        return false;
+    }
+
     public boolean isTrue(int index) {
         return operation.isTrue(left.value(index), right.value(index));
     }

@@ -82,9 +82,9 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
     }
 
     public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
-        double x = space.getImageAxis(Axis.X_AXIS).gridPosition(realx);
-        double y = space.getImageAxis(Axis.Y_AXIS).gridPosition(realy);
-        double z = space.getImageAxis(Axis.Z_AXIS).gridPosition(realz);
+        double x = space.getImageAxis(Axis.X_AXIS).gridPosition(realx) -.5f;
+        double y = space.getImageAxis(Axis.Y_AXIS).gridPosition(realy) -.5f;
+        double z = space.getImageAxis(Axis.Z_AXIS).gridPosition(realz) -.5f;
         return interp.interpolate(x, y, z, this);
     }
 

@@ -217,8 +217,8 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
         }
 
 
-        g2.drawRenderedImage(producer.getImage(), AffineTransform.getTranslateInstance((int) plotArea.getMinX(), (int) plotArea.getMinY()));
-
+        g2.drawRenderedImage(producer.getImage(), AffineTransform.getTranslateInstance((int) plotArea.getX(), (int) plotArea.getY()));
+    
         for (String annot : annotationMap.keySet()) {
             IAnnotation ia = annotationMap.get(annot);
             if (ia.isVisible()) {
@@ -258,7 +258,6 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
         double sy = maxDrawHeight / yspace;
 
         if (isPreserveAspectRatio()) {
-
             double sxy = Math.min(sx, sy);
 
             drawWidth = (int) (sxy * xspace);
@@ -364,11 +363,14 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
                     " Plot Y: " + getYAxisRange().getAnatomicalAxis());
         }
 
-        Insets insets = getInsets();
-        Insets plotMargins = getPlotMargins();
+        //Insets insets = getInsets();
+        //Insets plotMargins = getPlotMargins();
 
-        int x = (int) (pt.getX().getValue() * getScaleX() + plotMargins.left + insets.left);
-        int y = (int) (pt.getY().getValue() * getScaleY() + plotMargins.top + insets.top);
+        //int x = (int) (pt.getX().getValue() * getScaleX() + plotMargins.left + insets.left);
+        //int y = (int) (pt.getY().getValue() * getScaleY() + plotMargins.top + insets.top);
+
+        int x = (int) (pt.getX().getValue() * getScaleX() + plotArea.x);
+        int y = (int) (pt.getY().getValue() * getScaleY() + plotArea.y);
         return new Point(x, y);
     }
 
@@ -378,11 +380,12 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
 
 
     public SpatialLoc2D translateScreenToAnat(Point screenPoint) {
-        Insets insets = getInsets();
-        Insets plotMargins = getPlotMargins();
 
-        double x = (screenPoint.getX() - insets.left - plotMargins.left) / getScaleX();
-        double y = (screenPoint.getY() - insets.top - plotMargins.top) / getScaleY();
+
+        double x = (screenPoint.getX() - plotArea.x) / getScaleX();
+        double y = (screenPoint.getY() - plotArea.y) / getScaleY();
+
+
 
         return new SpatialLoc2D(Anatomy2D.matchAnatomy(
                 getXAxisRange().getAnatomicalAxis(),

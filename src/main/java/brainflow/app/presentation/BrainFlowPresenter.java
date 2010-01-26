@@ -172,6 +172,8 @@ public abstract class BrainFlowPresenter extends AbstractPresenter  {
         return selectedView;
     }
 
+
+
     public ImageLayer3D getSelectedLayer() {
         if (selectedView == null) return null;
         return getSelectedView().getSelectedLayer();

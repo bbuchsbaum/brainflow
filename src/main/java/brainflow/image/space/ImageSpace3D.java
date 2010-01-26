@@ -22,9 +22,11 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
     private final int planeSize;
 
-    private final int dim0;
+    private int dim0, dim1, dim2 = 0;
 
     private final Dimension3D<Float> origin;
+
+
 
 
     public ImageSpace3D(ICoordinateSpace cspace) {
@@ -69,7 +71,8 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
         planeSize = getDimension(Axis.X_AXIS) * getDimension(Axis.Y_AXIS);
         dim0 = getDimension(Axis.X_AXIS);
-
+        dim1 = getDimension(Axis.Y_AXIS);
+        dim2 = getDimension(Axis.Z_AXIS);
 
     }
 
@@ -160,7 +163,7 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
     public float[] indexToWorld(int x, int y, int z) {
 
-        Vector3f ret = mapping.gridToWorld(x + .5f, y + .5f, z + .5f);
+        Vector3f ret = mapping.gridToWorld(x+.5f, y+.5f, z+.5f);
         return ret.toArray(new float[3]);
     }
 
@@ -205,19 +208,19 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
     public final Index3D indexToGrid(int idx) {
         int remainder = (idx % planeSize);
-        return new Index3D(remainder % getDimension(Axis.X_AXIS), remainder / getDimension(Axis.X_AXIS), idx / planeSize);
+        return new Index3D(remainder % dim0, remainder / dim0, idx / planeSize);
 
     }
 
     public final int indexToGridX(int idx) {
         int remainder = (idx % planeSize);
-        return remainder % getDimension(Axis.X_AXIS);
+        return remainder % dim0;
 
     }
 
     public final int indexToGridY(int idx) {
         int remainder = (idx % planeSize);
-        return remainder / getDimension(Axis.X_AXIS);
+        return remainder / dim0;
     }
 
     public final int indexToGridZ(int idx) {

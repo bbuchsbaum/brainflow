@@ -2,6 +2,7 @@ package brainflow.core.layer;
 
 import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.SpatialLoc3D;
+import brainflow.image.interpolation.TrilinearInterpolator;
 import brainflow.image.io.IImageDataSource;
 import brainflow.image.io.MemoryImageDataSource;
 
@@ -30,6 +31,10 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
 
 
     public final Property<MaskProperty3D> maskProperty = ObservableProperty.create();
+
+    public final Property<ClusterProperty> clusterProperty = ObservableProperty.create();
+
+    public final Property<Boolean> autoCluster = ObservableProperty.create(false);
 
 
     public ImageLayer3D(ImageLayer3D layer) {
@@ -61,6 +66,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
     private void init() {
         BeanContainer.bind(this);
         maskProperty.set(new MaskProperty3D(this));
+        clusterProperty.set(new ClusterProperty(this));
 
     }
 
@@ -71,7 +77,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
 
     public double getValue(GridLoc3D pt) {
        SpatialLoc3D apt = pt.toWorld();
-        return getData().worldValue((float) apt.getX(), (float) apt.getY(), (float) apt.getZ(), new NearestNeighborInterpolator());
+       return getData().worldValue((float) apt.getX(), (float) apt.getY(), (float) apt.getZ(), new NearestNeighborInterpolator());
     }
 
     public MaskProperty3D getMaskProperty() {
@@ -80,6 +86,14 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
 
     public void setMaskProperty(MaskProperty3D mask) {
         maskProperty.set(mask);
+    }
+
+    public ClusterSet getClusterSet() {
+        return clusterProperty.get().getClusterSet();
+    }
+
+    public ClusterProperty  getClusterProperty() {
+        return clusterProperty.get();
     }
 
     //private Map<Anatomy3D, ImageSliceRenderer> rendererMap = new ConcurrentHashMap<Anatomy3D, ImageSliceRenderer>();

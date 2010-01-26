@@ -3,6 +3,7 @@ package brainflow.core;
 import brainflow.app.services.ImageViewLayerSelectionEvent;
 import brainflow.app.services.ImageViewListDataEvent;
 import brainflow.app.services.ImagePlotSelectionEvent;
+import brainflow.core.binding.CoordinateToIndexConverter;
 import brainflow.core.binding.GridToWorldConverter;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.core.layer.ImageLayer3D;
@@ -16,6 +17,7 @@ import brainflow.image.space.IImageSpace3D;
 
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.Property;
+import net.java.dev.properties.binding.swing.adapters.SwingBind;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.container.ObservableProperty;
 import net.java.dev.properties.events.PropertyListener;
@@ -563,7 +565,12 @@ public abstract class ImageView extends JPanel implements ListDataListener {
             if (selectionIndex >= 0 && (oldIndex != selectionIndex)) {
 
                 ImageLayer3D selectedLayer = getModel().get(selectionIndex);
-                ImageLayer3D deselectedLayer = getModel().get(oldIndex);
+
+                ImageLayer3D deselectedLayer = null;
+
+                if (oldIndex >= 0 && oldIndex < getModel().size()) {
+                    deselectedLayer = getModel().get(oldIndex);
+                }
 
                 if (selectionIndex >= 0) {
                     EventBus.publish(new ImageViewLayerSelectionEvent(ImageView.this, deselectedLayer, selectedLayer));
@@ -594,6 +601,47 @@ public abstract class ImageView extends JPanel implements ListDataListener {
             }
         }
 
+    }
+
+    public static class Slider {
+
+        private Anatomy3D displayAnatomy;
+
+        private ImageView view;
+
+        private JSlider slider;
+
+        public Slider(ImageView view, Anatomy3D displayAnatomy) {
+            this.displayAnatomy = displayAnatomy;
+            this.view = view;
+            initSlider();
+        }
+
+        public Anatomy3D getDisplayAnatomy() {
+            return displayAnatomy;
+        }
+
+        public void setDisplayAnatomy(Anatomy3D displayAnatomy) {
+            this.displayAnatomy = displayAnatomy;
+            bindSlider();
+        }
+
+        public JSlider getSlider() {
+            return slider;
+        }
+
+        protected void initSlider() {
+            int max = view.getModel().getImageSpace().getDimension(Axis.Z_AXIS)-1;
+            slider = new JSlider(JSlider.HORIZONTAL, 0, max, max/2);
+            bindSlider();
+        }
+
+        protected void bindSlider() {
+            SwingBind.get().unbind(slider);
+            CoordinateToIndexConverter kconv = new CoordinateToIndexConverter(view.worldCursorPos, view.getModel().getImageSpace(), view.getModel().getImageSpace().findAxis(displayAnatomy.ZAXIS));
+            SwingBind.get().bind(kconv, slider);
+
+        }
     }
 
 }

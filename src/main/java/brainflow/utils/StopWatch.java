@@ -67,7 +67,7 @@ public class StopWatch {
     }
 
 
-    private static class ClockState {
+    public static class ClockState {
 
         public long start = 0;
 

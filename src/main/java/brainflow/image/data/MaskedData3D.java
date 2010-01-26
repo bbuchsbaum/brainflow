@@ -42,6 +42,11 @@ public class MaskedData3D implements IMaskedData3D {
     }
 
     @Override
+    public boolean alwaysTrue() {
+        return false;
+    }
+
+    @Override
     public Dimension3D<Integer> dim() {
         return source.dim();
     }

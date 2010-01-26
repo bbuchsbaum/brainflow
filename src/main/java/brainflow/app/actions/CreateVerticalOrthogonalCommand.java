@@ -2,7 +2,7 @@ package brainflow.app.actions;
 
 import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.core.ImageView;
-import brainflow.core.OrthoPlotLayout;
+import brainflow.core.OrthoImageView;
 import brainflow.core.IBrainCanvas;
 
 /**
@@ -23,7 +23,7 @@ public class CreateVerticalOrthogonalCommand extends BrainFlowCommand {
 
         if (view != null) {
 
-            ImageView sview = ImageViewFactory.createOrthogonalView(view, OrthoPlotLayout.ORIENTATION.VERTICAL);
+            ImageView sview = ImageViewFactory.createOrthogonalView(view, OrthoImageView.ORIENTATION.VERTICAL);
             IBrainCanvas canvas = getSelectedCanvas();
 
             if (canvas != null) {

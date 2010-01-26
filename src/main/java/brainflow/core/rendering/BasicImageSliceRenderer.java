@@ -369,6 +369,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         //StopWatch watch = new StopWatch();
 
         if (layer.getMaskProperty().isOpaque()) {
+            System.out.println("short circuiting threshold : opaque");
             return rgba;
         }
 

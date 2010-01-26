@@ -76,6 +76,8 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
 
     }
 
+
+
     public BinaryImageData3D OR(BinaryImageData data) {
         if (data.getImageSpace().getNumSamples() != this.getImageSpace().getNumSamples()) {
             throw new IllegalArgumentException("argument must have same dimensions as image for OR operation");
@@ -96,6 +98,12 @@ public class BinaryImageData3D extends BinaryImageData implements IMaskedData3D 
         ret.and(data.getBitVector());
         return new BinaryImageData3D(getImageSpace(), ret);
 
+    }
+
+    @Override
+    public boolean alwaysTrue() {
+        //todo improve on this
+        return false;
     }
 
     @Override

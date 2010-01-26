@@ -60,7 +60,7 @@ public class CrosshairCoordinates extends LabelStatusBarItem implements EventSub
     public void onEvent(Object evt) {
         //todo much is redundant with class CursorCoordinates ...
         ImageViewCursorEvent event = (ImageViewCursorEvent) evt;
-        SpatialLoc3D cursor = event.getCursor();
+        SpatialLoc3D cursor = event.getCursorWorld();
 
         if (cursor != null) {
 

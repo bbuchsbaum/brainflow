@@ -18,8 +18,6 @@ public interface IArray3D extends IArray {
 
     public int indexOf(int i, int j, int k);
 
-
-
     @Override
     Dimension3D<Integer> dim();
 }

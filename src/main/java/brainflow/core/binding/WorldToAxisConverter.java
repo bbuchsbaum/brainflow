@@ -51,14 +51,11 @@ public class WorldToAxisConverter extends ObservableWrapper.ReadWrite<Double> {
         Property<SpatialLoc3D> wprop = (Property<SpatialLoc3D>) getProperty();
         SpatialLoc3D old = wprop.get();
 
-        System.out.println("setting world to " + val + " for axis " + axis);
-        System.out.println("old point = " + old);
 
 
         if (axis == Axis.X_AXIS) {
             wprop.set(new SpatialLoc3D(old.getAnatomy(), val, old.getY(), old.getZ()));
         } else if (axis == Axis.Y_AXIS) {
-            System.out.println("new point : " + new SpatialLoc3D(old.getAnatomy(), old.getX(), val, old.getZ()));
             wprop.set(new SpatialLoc3D(old.getAnatomy(), old.getX(), val, old.getZ()));
         } else if (axis == Axis.Z_AXIS) {
             wprop.set(new SpatialLoc3D(old.getAnatomy(), old.getX(), old.getY(), val));

@@ -189,6 +189,10 @@ public abstract class Array3D implements IArray3D, IArrayBuffer3D {
             return data[i];
         }
 
+        public final float floatValue(int i) {
+            return data[i];
+        }
+
         @Override
         public void set(int i, int j, int k, double val) {
             data[indexOf(i, j, k)] = (float) val;
@@ -291,6 +295,14 @@ public abstract class Array3D implements IArray3D, IArrayBuffer3D {
         @Override
         public double value(int i) {
             return data[i];
+        }
+
+        public final int intValue(int i) {
+            return data[i];
+        }
+
+        public final int intValue(int i, int j, int k) {
+            return data[indexOf(i, j, k)];
         }
 
         @Override

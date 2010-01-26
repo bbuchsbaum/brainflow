@@ -69,7 +69,7 @@ public class ImageViewFactory {
     }
 
 
-    public static ImageView createOrthogonalView(ImageView source, OrthoPlotLayout.ORIENTATION orientation) {
+    public static ImageView createOrthogonalView(ImageView source, OrthoImageView.ORIENTATION orientation) {
         ImageView view = new OrthoImageView(source.getModel(), orientation);
         addDefaultAnnotations(view);
 

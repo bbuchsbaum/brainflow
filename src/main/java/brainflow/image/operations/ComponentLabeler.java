@@ -2,9 +2,9 @@ package brainflow.image.operations;
 
 
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.Stack;
 
+import brainflow.array.Array3D;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.data.*;
@@ -26,7 +26,9 @@ public class ComponentLabeler {
     /**
      * Writer used for setting values in the volume
      */
-    private ImageBuffer3D labelledVolume;
+
+    private Array3D.Int labelledVolume;
+    //private ImageBuffer3D labelledVolume;
 
     /**
      * The size of the sub-volume used in the iterations
@@ -36,7 +38,9 @@ public class ComponentLabeler {
     /**
      * Linked list containing the newly labelled voxels
      */
-    private LinkedList<Index3D> newlyLocatedVoxelsBuffer;
+
+    private Stack<Index3D> voxelStack = new Stack<Index3D>();
+    //private LinkedList<Index3D> voxelStack;
 
     /**
      * Current label value
@@ -75,7 +79,10 @@ public class ComponentLabeler {
 
 
     public ComponentLabeler(IMaskedData3D imageMask) {
-        this(imageMask, Data.createWriter(imageMask, DataType.INTEGER), 0, 0, 0,
+        this(imageMask, new Array3D.Int(imageMask.getDimension(Axis.X_AXIS),
+                imageMask.getDimension(Axis.Y_AXIS),
+                imageMask.getDimension(Axis.Z_AXIS)),
+                0, 0, 0,
                 imageMask.getDimension(Axis.X_AXIS),
                 imageMask.getDimension(Axis.Y_AXIS),
                 imageMask.getDimension(Axis.Z_AXIS), 12, 1);
@@ -85,7 +92,9 @@ public class ComponentLabeler {
 
 
     public ComponentLabeler(IMaskedData3D imageMask, int subVolumeSizeRadius) {
-        this(imageMask, Data.createWriter(imageMask, DataType.INTEGER), 0, 0, 0,
+        this(imageMask, new Array3D.Int(imageMask.getDimension(Axis.X_AXIS),
+                imageMask.getDimension(Axis.Y_AXIS),
+                imageMask.getDimension(Axis.Z_AXIS)), 0, 0, 0,
                 imageMask.getDimension(Axis.X_AXIS),
                 imageMask.getDimension(Axis.Y_AXIS),
                 imageMask.getDimension(Axis.Z_AXIS), subVolumeSizeRadius, 1);
@@ -94,9 +103,10 @@ public class ComponentLabeler {
     }
 
     public ComponentLabeler(IMaskedData3D imageMask,
-                            ImageBuffer3D labelledVolumeImageWriter,
+                            Array3D.Int labelledVolumeImageWriter,
                             int bX, int bY, int bZ, int tX, int tY, int tZ,
                             int subSize, int startingLabel) {
+
 
         this.imageMask = imageMask;
 
@@ -109,10 +119,10 @@ public class ComponentLabeler {
         this.subVolumeSizeRadius = (subSize - 1) / 2;
 
         //Initialize the unlabelled volume
+        //this.labelledVolume = labelledVolumeImageWriter;
         this.labelledVolume = labelledVolumeImageWriter;
-        this.labelledVolume = labelledVolume;
 
-        newlyLocatedVoxelsBuffer = new LinkedList<Index3D>();
+        //voxelStack = new LinkedList<Index3D>();
 
         /**Set the dimension values of where the algorithm is to iterate
          * through */
@@ -135,12 +145,12 @@ public class ComponentLabeler {
      */
     public void labelCluster(int clusterLabel, int index) {
 
-        newlyLocatedVoxelsBuffer.push(imageMask.indexToGrid(index));
+        voxelStack.push(imageMask.indexToGrid(index));
 
         /**Use iteration and recursion to get all the cells
          * within the cluster */
-        while (newlyLocatedVoxelsBuffer.size() > 0) {
-            Index3D center = newlyLocatedVoxelsBuffer.pop();
+        while (voxelStack.size() > 0) {
+            Index3D center = voxelStack.pop();
             labelClusterRecursive(clusterLabel, center, center);
         }
     }
@@ -161,14 +171,13 @@ public class ComponentLabeler {
                   //  Index3D tempIndex3D = new Index3D(iX, iY, iZ);
 
                     /**If an unlabelled voxel is found add it onto the stack */
-                    if (labelledVolume.value(iX, iY, iZ) < startingLabel
-                            && imageMask.isTrue(iX, iY, iZ)) {
-                        newlyLocatedVoxelsBuffer.push(new Index3D(iX, iY, iZ));
+                    if (imageMask.isTrue(iX, iY, iZ) && labelledVolume.intValue(iX, iY, iZ) < startingLabel) {
+                        voxelStack.push(new Index3D(iX, iY, iZ));
 
                         /**Continue to recurse through sub-volumes for label voxels
                          * until the queue is empty */
-                        while (!newlyLocatedVoxelsBuffer.isEmpty()) {
-                            Index3D center = newlyLocatedVoxelsBuffer.pop();
+                        while (!voxelStack.isEmpty()) {
+                            Index3D center = voxelStack.pop();
                             labelRecursive(center, center);
                         }
 
@@ -218,13 +227,13 @@ public class ComponentLabeler {
         int clusterLabel = (int) labelledVolume.value(index);
 
         /**Clear the linked list for the use of this algorithm */
-        newlyLocatedVoxelsBuffer.clear();
-        newlyLocatedVoxelsBuffer.push(imageMask.indexToGrid(index));
+        voxelStack.clear();
+        voxelStack.push(imageMask.indexToGrid(index));
 
         /**Use iteration and recursion to get all the cells
          * within the cluster */
-        while (newlyLocatedVoxelsBuffer.size() > 0) {
-            Index3D center = newlyLocatedVoxelsBuffer.pop();
+        while (voxelStack.size() > 0) {
+            Index3D center = voxelStack.pop();
             getNeighbouringCells(center, center, clusterLabel);
         }
         return cellCluster;
@@ -234,7 +243,7 @@ public class ComponentLabeler {
      * Method for returning the labelled volume
      */
     public IImageData3D getLabelledComponents() {
-        return labelledVolume;
+        return Data.wrap(labelledVolume, imageMask.getImageSpace());
     }
 
     /**
@@ -266,16 +275,14 @@ public class ComponentLabeler {
      */
     private void label(Index3D index) {
        // assert imageMask.isTrue(index.i1(), index.i2(), index.i3());
-        labelledVolume.
-                setValue(index.i1(), index.i2(), index.i3(), currentLabel);
+        labelledVolume.set(index.i1(), index.i2(), index.i3(), currentLabel);
     }
 
     /**
      * Method used for getting the label for a voxel
      */
     private int getLabel(Index3D index) {
-        return (int) labelledVolume.
-                value(index.i1(), index.i2(), index.i3());
+        return (int) labelledVolume.intValue(index.i1(), index.i2(), index.i3());
     }
 
     /**
@@ -332,11 +339,10 @@ public class ComponentLabeler {
 
         /**Add a voxel to the linked list if it belongs to the
          * foreground and is unlabelled */
-        if (getLabel(current) < startingLabel
-                && imageMask.isTrue(current.i1(), current.i2(), current.i3())) {
+        if (imageMask.isTrue(current.i1(), current.i2(), current.i3()) && (getLabel(current) < startingLabel) ) {
 
-            if (!current.equals(center)) {
-                newlyLocatedVoxelsBuffer.push(current);
+            if (current.equals(center)) {
+                voxelStack.push(current);
             }
             /**Spread recursively from the voxel if it exists within the
              * boundary of the center voxel and the image itself */
@@ -373,7 +379,7 @@ public class ComponentLabeler {
                 !cellCluster.contains(integerIndexForm)) {
 
             if (!current.equals(center)) {
-                newlyLocatedVoxelsBuffer.push(current);
+                voxelStack.push(current);
             }
 
             /**Spread recursively from the voxel if it exists within the
@@ -409,14 +415,14 @@ public class ComponentLabeler {
                 imageMask.isTrue(current.i1(), current.i2(), current.i3())) {
 
             if (!current.equals(center)) {
-                newlyLocatedVoxelsBuffer.push(current);
+                voxelStack.push(current);
             }
 
             /**Spread recursively from the voxel if it exists within the
              * boundary of the center voxel */
             if (checkSubBoundary(current, center)) {
                 labelledVolume.
-                        setValue(current.i1(), current.i2(), current.i3(), clusterLabel);
+                        set(current.i1(), current.i2(), current.i3(), clusterLabel);
 
                 /**Check for all 26-neighbour voxels reachable from the
                  * current voxel */

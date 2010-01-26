@@ -47,7 +47,10 @@ public class BooleanMaskNode3D implements IMaskedData3D {
 
     }
 
-
+    @Override
+    public boolean alwaysTrue() {
+        return left.alwaysTrue() && right.alwaysTrue();
+    }
 
     public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
         return operation.isTrue((int) left.worldValue(realx, realy, realz, interp), (int) right.worldValue(realx, realy, realz, interp)) ? 1 : 0;

@@ -79,9 +79,9 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
     }
 
 
-    public final Index3D indexToGrid(int idx) {
-        return getImageSpace().indexToGrid(idx);
-    }
+    //public final Index3D indexToGrid(int idx) {
+    //    return getImageSpace().indexToGrid(idx);
+    //}
 
 
     public double value(float x, float y, float z, InterpolationFunction3D interp) {
@@ -90,9 +90,9 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
 
 
     public  double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
-        float x = space3d.worldToGridX(realx, realy, realz);
-        float y = space3d.worldToGridY(realx, realy, realz);
-        float z = space3d.worldToGridZ(realx, realy, realz);
+        float x = space3d.worldToGridX(realx, realy, realz) -.5f;
+        float y = space3d.worldToGridY(realx, realy, realz) -.5f;
+        float z = space3d.worldToGridZ(realx, realy, realz) -.5f;
 
         return data.value(x, y, z, interp);
     }
@@ -333,6 +333,15 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
             data = new Array3D.Int(space.getDimension(Axis.X_AXIS), space.getDimension(Axis.Y_AXIS), space.getDimension(Axis.Z_AXIS), _data);
         }
 
+        public AbstractInt(IImageSpace3D space, Array3D.Int _data) {
+            super(space, DataType.INTEGER);
+            if (_data.length() != space.getNumSamples()) {
+                throw new IllegalArgumentException("array has wrong number of elements: " + _data.length());
+            }
+
+            data = _data;
+        }
+
         @Override
         public IntBuffer createBuffer(boolean clear) {
             if (clear) {
@@ -358,6 +367,9 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
             super(space, _data);
         }
 
+        public Int(IImageSpace3D space, Array3D.Int _data) {
+            super(space, _data);
+        }
     }
 
     public static final class IntBuffer extends AbstractInt implements ImageBuffer3D {

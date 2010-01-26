@@ -1,6 +1,6 @@
 package brainflow.app.presentation;
 
-import brainflow.core.binding.CoordinateToIndexConverter2;
+import brainflow.core.binding.CoordinateToIndexConverter;
 import brainflow.app.presentation.controls.CoordinateSpinner;
 import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
@@ -42,9 +42,9 @@ public class IndexCoordinatePresenter extends BrainFlowPresenter {
         ImageView view = getSelectedView();
 
         
-        CoordinateToIndexConverter2 iconv = new CoordinateToIndexConverter2(view.worldCursorPos, view.getModel().getImageSpace(), Axis.X_AXIS);
-        CoordinateToIndexConverter2 jconv = new CoordinateToIndexConverter2(view.worldCursorPos, view.getModel().getImageSpace(), Axis.Y_AXIS);
-        CoordinateToIndexConverter2 kconv = new CoordinateToIndexConverter2(view.worldCursorPos, view.getModel().getImageSpace(), Axis.Z_AXIS);
+        CoordinateToIndexConverter iconv = new CoordinateToIndexConverter(view.worldCursorPos, view.getModel().getImageSpace(), Axis.X_AXIS);
+        CoordinateToIndexConverter jconv = new CoordinateToIndexConverter(view.worldCursorPos, view.getModel().getImageSpace(), Axis.Y_AXIS);
+        CoordinateToIndexConverter kconv = new CoordinateToIndexConverter(view.worldCursorPos, view.getModel().getImageSpace(), Axis.Z_AXIS);
 
         // bind cursorPos values to JSliders using double --> integer converter wrapper
 

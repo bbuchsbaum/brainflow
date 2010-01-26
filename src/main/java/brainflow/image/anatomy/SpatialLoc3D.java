@@ -102,6 +102,8 @@ public class SpatialLoc3D implements BrainLoc {
 
     }
 
+    
+
     public static SpatialLoc3D convertToWorld(SpatialLoc3D pt, IImageSpace3D space) {
         //todo this conversion seems like a hack ...
         pt = pt.convertTo(space);

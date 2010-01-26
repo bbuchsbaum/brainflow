@@ -129,18 +129,18 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
         if (data != null) return data;
 
 
-        GridLoc1D zdisp = getZSlice();
+        int slice = getZSlice();
 
-        int slice = (int) Math.round(zdisp.getValue());
+        //int slice = (int) Math.round(zdisp.getValue());
         return slicer.getSlice(getDisplayAnatomy(), slice);
 
 
     }
 
-    private GridLoc1D getZSlice() {
+    private int getZSlice() {
 
         GridLoc1D zdisp = slice.getValue(displayAnatomy.ZAXIS, false);
-        int slice = (int) Math.round(zdisp.getValue());
+        int slice = (int) (zdisp.getValue() -.5f);
 
         if (slice >= refSpace.getDimension(displayAnatomy.ZAXIS)) {
             slice = refSpace.getDimension(displayAnatomy.ZAXIS) - 1;
@@ -148,7 +148,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
             slice = 0;
         }
 
-        return new GridLoc1D(slice, zdisp.getImageAxis());
+        return slice;
 
 
     }
@@ -326,6 +326,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
         //StopWatch watch = new StopWatch();
 
         if (layer.getMaskProperty().isOpaque()) {
+            System.out.println("short crcuiting: opaque");
             return rgba;
         }
 
@@ -333,14 +334,14 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
         //todo check if opaque
         ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
 
-        GridLoc1D zdisp = getZSlice();
+        int slice = getZSlice();
 
         //todo what is the correct way to round zdisp  here?
         // todo check if zdisp is valid?
 
         //System.out.println("zslice : " + zdisp);
 
-        IImageData2D maskData = slicer.getSlice(getDisplayAnatomy(), (int) (zdisp.getValue()));
+        IImageData2D maskData = slicer.getSlice(getDisplayAnatomy(), slice);
         UByteImageData2D alpha = rgba.getAlpha();
         UByteImageData2D out = new UByteImageData2D(alpha.getImageSpace());
 

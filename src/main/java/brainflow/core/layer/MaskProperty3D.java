@@ -19,7 +19,6 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
 
     private HashMap<MASK_KEY, IMaskedData3D> maskMap = new HashMap<MASK_KEY, IMaskedData3D>();
 
-
     private ImageLayer3D layer;
 
     private IMaskedData3D frozenMask;

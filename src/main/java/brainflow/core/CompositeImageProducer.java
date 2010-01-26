@@ -82,10 +82,10 @@ public class CompositeImageProducer extends AbstractImageProducer {
     }
 
     public void setSlice(GridLoc3D slice) {
-        System.out.println("setting slice for display Anatomy " + getDisplayAnatomy().ZAXIS);
+        //System.out.println("setting slice for display Anatomy " + getDisplayAnatomy().ZAXIS);
         GridLoc1D pt = slice.getValue(getDisplayAnatomy().ZAXIS, true);
-        System.out.println("grid slice is " + slice);
-        System.out.println("display slice is " + pt);
+        //System.out.println("grid slice is " + slice);
+        //System.out.println("display slice is " + pt);
         if (!NumberUtils.equals(pt.getValue(), getSlice().getValue(getDisplayAnatomy().ZAXIS, true).getValue(), .0001)) {
             super.setSlice(slice);
             dirty = true;

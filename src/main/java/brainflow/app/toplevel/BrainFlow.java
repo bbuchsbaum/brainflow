@@ -4,15 +4,11 @@ import brainflow.app.*;
 import brainflow.app.dnd.BrainCanvasTransferHandler;
 import brainflow.app.actions.*;
 import brainflow.app.presentation.*;
-import brainflow.app.services.ImageViewMousePointerEvent;
-import brainflow.colormap.ColorTable;
-import brainflow.colormap.IColorMap;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.IActionProvider;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageDataSource;
 import brainflow.gui.ExceptionDialog;
@@ -49,10 +45,6 @@ import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
 
 
-import org.bushe.swing.event.EventBus;
-import org.bushe.swing.event.EventSubscriber;
-
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -60,10 +52,7 @@ import java.awt.SplashScreen;
 import java.awt.event.*;
 import java.io.*;
 import java.net.URL;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Arrays;
 
 import java.util.concurrent.ExecutorService;
@@ -497,19 +486,23 @@ public class BrainFlow {
         statusBar.add(crosshairCoordinates.getYaxisLabel(), JideBoxLayout.FIX);
         statusBar.add(crosshairCoordinates.getZaxisLabel(), JideBoxLayout.FIX);
         statusBar.addSeparator();
+        statusBar.add(new ValueStatusItem.Crosshair(), JideBoxLayout.FIX);
+
 
         LabelStatusBarItem cursorLabel = new LabelStatusBarItem();
         cursorLabel.setText("Cursor: ");
         cursorLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
         statusBar.add(cursorLabel, JideBoxLayout.FIX);
 
+
+        statusBar.addSeparator();
         statusBar.add(cursorCoordinates.getXaxisLabel(), JideBoxLayout.FIX);
         statusBar.add(cursorCoordinates.getYaxisLabel(), JideBoxLayout.FIX);
         statusBar.add(cursorCoordinates.getZaxisLabel(), JideBoxLayout.FIX);
 
         statusBar.addSeparator();
 
-        statusBar.add(new ValueStatusItem(), JideBoxLayout.FIX);
+        statusBar.add(new ValueStatusItem.Mouse(), JideBoxLayout.FIX);
         statusBar.addSeparator();
 
         LabelStatusBarItem zoomLabel = new LabelStatusBarItem();
@@ -998,6 +991,7 @@ public class BrainFlow {
         tabbedPane.addTab("Adjust", new JScrollPane(colorAdjustmentControl.getComponent()));
         tabbedPane.addTab("Mask", maskControl.getComponent());
         tabbedPane.addTab("Info", new JScrollPane(layerInfoControl.getComponent()));
+        tabbedPane.addTab("Clustering", new ClusterPresenter().getComponent());
         //tabbedPane.addTab("Color Table", tablePresenter.getComponent());
         //tabbedPane.addTab("Mask Table", maskPresenter.getComponent());
         //tabbedPane.addTab("Coordinates", new JScrollPane(coordinateControls.getComponent()));
@@ -1250,82 +1244,6 @@ public class BrainFlow {
         @Override
         public Dimension getPreferredSize() {
             return slider.getPreferredSize();
-        }
-    }
-
-
-    class ValueStatusItem extends LabelStatusBarItem implements EventSubscriber {
-
-        private Map<Color, ImageIcon> colorMap = new HashMap<Color, ImageIcon>();
-        private NumberFormat format = NumberFormat.getNumberInstance();
-
-        public ValueStatusItem() {
-            super();
-            EventBus.subscribeExactly(ImageViewMousePointerEvent.class, this);
-            setIcon(ColorTable.createImageIcon(Color.GRAY, 40, 15));
-            setText("Value :");
-            setBorder(new EmptyBorder(0, 0, 0, 0));
-            setMinimumSize(new Dimension(150, 20));
-        }
-
-        private boolean validEvent(ImageViewMousePointerEvent event) {
-            //todo only publish events when cursorPos is over valid view
-            ImageView view = event.getImageView();
-
-            if (view == null) {
-                //todo this should be impossible
-                return false;
-            }
-            if (view.getModel().getSelectedIndex() < 0) {
-                // an empty view ... hmmm
-                return false;
-            }
-
-            if (event.getLocation() == null) {
-                // well, shouldn't really happen but ...
-                return false;
-            }
-
-            return true;
-
-        }
-
-        public void onEvent(Object evt) {
-            ImageViewMousePointerEvent event = (ImageViewMousePointerEvent) evt;
-
-            //todo only publish events when cursorPos is over valid view
-            ImageView view = event.getImageView();
-            if (!validEvent(event)) return;
-
-            GridLoc3D gpoint = event.getLocation();
-            ImageLayer3D layer = view.getSelectedLayer();
-
-
-            double value = layer.getValue(gpoint);
-
-
-            IColorMap cmap = layer.getLayerProps().getColorMap();
-
-            Color c = null;
-            try {
-                c = cmap.getColor(value);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            ImageIcon icon = colorMap.get(c);
-            if (icon == null) {
-                icon = ColorTable.createImageIcon(c, 40, 15);
-                colorMap.put(c, icon);
-                if (colorMap.size() > 256) {
-                    colorMap.clear();
-
-                }
-            }
-
-            setText("Value: " + format.format(value));
-            this.setIcon(icon);
-
         }
     }
 

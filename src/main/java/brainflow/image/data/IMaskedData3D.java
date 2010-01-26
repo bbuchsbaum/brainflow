@@ -15,6 +15,8 @@ public interface IMaskedData3D extends IImageData3D, IMaskedData {
 
     public boolean isTrue(int x, int y, int z);
 
+    public boolean alwaysTrue();
+
     @Override
     public BooleanIterator valueIterator();
 }

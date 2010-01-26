@@ -33,7 +33,7 @@ public class CrosshairAnnotation extends AbstractAnnotation {
 
     public static final Float DEFAULT_LINE_LENGTH = 1.0f;
     public static final Float DEFAULT_LINE_WIDTH = 1f;
-    public static final Integer DEFAULT_GAP = 4;
+    public static final Integer DEFAULT_GAP = 0;
 
     private Paint linePaint = DEFAULT_LINE_PAINT;
 

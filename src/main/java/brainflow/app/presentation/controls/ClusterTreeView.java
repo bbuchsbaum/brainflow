@@ -9,10 +9,7 @@ import brainflow.image.io.BrainIO;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.operations.ComponentLabeler;
 import brainflow.math.Index3D;
-import com.jidesoft.grid.AbstractExpandableRow;
-import com.jidesoft.grid.Row;
-import com.jidesoft.grid.TreeTable;
-import com.jidesoft.grid.TreeTableModel;
+import com.jidesoft.grid.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,7 +31,7 @@ public class ClusterTreeView extends JPanel {
 
     private ClusterSet clusterSet;
 
-    private ClusterTableModel clusterTableModel;
+    private SortableTreeTableModel clusterTableModel;
 
     public ClusterTreeView(ClusterSet clusterSet) {
         this.clusterSet = clusterSet;
@@ -57,9 +54,6 @@ public class ClusterTreeView extends JPanel {
         // do not select row when expanding a row.
         clusterTable.setSelectRowWhenToggling(false);
 
-        //clusterTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-       // clusterTable.getColumnModel().getColumn(1).setPreferredWidth(30);
-        //clusterTable.getColumnModel().getColumn(2).setPreferredWidth(30);
         clusterTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         com.jidesoft.grid.TableUtils.autoResizeAllColumns(clusterTable);
       
@@ -69,9 +63,41 @@ public class ClusterTreeView extends JPanel {
 
         setLayout(new BorderLayout(6, 6));
         add(scrollPane, BorderLayout.CENTER);
-        add(new JLabel("Cluster Table: "), BorderLayout.BEFORE_FIRST_LINE);
+
         
 
+    }
+
+    public TreeTable getClusterTable() {
+        return clusterTable;
+    }
+
+    public ClusterTableModel getClusterTableModel() {
+        return (ClusterTableModel)clusterTableModel.getActualModel();
+    }
+
+    public SortableTreeTableModel getTableModel() {
+        return clusterTableModel;
+    }
+
+    public void updateTable(ClusterSet cset) {
+         clusterTableModel = createTableModel();
+        clusterTable.setModel(clusterTableModel);
+
+    }
+
+    public ClusterSet getClusterSet() {
+        return clusterSet;
+    }
+
+    public ClusterSet.Cluster getSelectedCluster() {
+        int row = clusterTable.getSelectedRow();
+        return getClusterTableModel().getRowAt(row).cluster;
+    }
+
+    public void setClusterSet(ClusterSet clusterSet) {
+        this.clusterSet = clusterSet;
+        updateTable(clusterSet);
     }
 
     public static void main(String[] args) {
@@ -79,7 +105,7 @@ public class ClusterTreeView extends JPanel {
             IImageData3D image = (IImageData3D) BrainIO.readNiftiImage("src/main/groovy/testdata/cohtrend_GLT#0_Tstat.nii");
             final double max = image.maxValue();
 
-            System.out.println("max value = " + max);
+         
 
             IMaskedData3D mask = new
                     MaskedData3D(image, new MaskPredicate() {
@@ -136,14 +162,14 @@ public class ClusterTreeView extends JPanel {
 
     }
 
-    private ClusterTableModel createTableModel() {
+    private SortableTreeTableModel createTableModel() {
         Collection<ClusterSet.Cluster> coll = clusterSet.getClusters();
         List<ClusterRow> rows = new ArrayList<ClusterRow>();
         for (ClusterSet.Cluster clus : coll) {
             rows.add(new ClusterRow(clus));
         }
 
-        return new ClusterTableModel(rows);
+        return new SortableTreeTableModel(new ClusterTableModel(rows));
 
     }
 
@@ -167,7 +193,9 @@ public class ClusterTreeView extends JPanel {
 
         }
 
-
+        public ClusterSet.Cluster getCluster() {
+            return cluster;
+        }
 
         @Override
         public Object getValueAt(int columnIndex) {
@@ -211,8 +239,10 @@ public class ClusterTreeView extends JPanel {
 
         @Override
         public String toString() {
-            SpatialLoc3D loc = cluster.getWorldCentroid();
-            return "" + Math.round(loc.getX()) + " " + Math.round(loc.getY()) + " " + Math.round(loc.getZ());
+            Index3D voxel =cluster.getExtremeVoxel();
+            //float[] wpos = cluster..indexToWorld(voxel.i1(), voxel.i2(), voxel.i3());
+           // SpatialLoc3D loc = cluster.getWorldCentroid();
+            return "" + Math.round(voxel.i1()) + " " + Math.round(voxel.i2()) + " " + Math.round(voxel.i3());
         }
     }
 

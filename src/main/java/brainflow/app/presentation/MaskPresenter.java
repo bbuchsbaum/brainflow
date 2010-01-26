@@ -3,11 +3,7 @@ package brainflow.app.presentation;
 import brainflow.core.*;
 import brainflow.core.layer.*;
 import brainflow.display.InterpolationType;
-import brainflow.core.binding.CoordinateToIndexConverter2;
-import brainflow.image.space.IImageSpace3D;
-import brainflow.image.space.Axis;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.app.services.ViewBoundsChangedEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +11,6 @@ import java.util.concurrent.ExecutionException;
 
 import net.java.dev.properties.events.PropertyListener;
 import net.java.dev.properties.BaseProperty;
-import net.java.dev.properties.binding.swing.adapters.SwingBind;
 import net.java.dev.properties.container.BeanContainer;
 
 /**

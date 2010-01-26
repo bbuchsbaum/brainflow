@@ -1,6 +1,9 @@
 package brainflow.core.binding;
 
-import brainflow.image.axis.ImageAxis;
+import brainflow.image.anatomy.SpatialLoc3D;
+import brainflow.image.space.Axis;
+import brainflow.image.space.IImageSpace3D;
+import brainflow.math.Index3D;
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.RProperty;
 import net.java.dev.properties.WProperty;
@@ -16,32 +19,78 @@ import net.java.dev.properties.container.BeanContainer;
  */
 public class CoordinateToIndexConverter extends ObservableWrapper.ReadWrite<Integer> {
 
-    private ImageAxis axis;
+    private Axis axis;
 
-    public CoordinateToIndexConverter(BaseProperty<Double> property, ImageAxis _axis) {
+    private IImageSpace3D space;
+
+    public CoordinateToIndexConverter(BaseProperty<SpatialLoc3D> property, IImageSpace3D _space, Axis _axis) {
         super(property);
-        BeanContainer.bind(property);
+        //todo is this necessary?
+        BeanContainer.bind(this);
+        //todo is this necessary?
         axis = _axis;
+        space = _space;
 
     }
 
-    private double getValue() {
-        RProperty<Double> prop = (RProperty<Double>) getProperty();
-        return prop.get().doubleValue();
+    private SpatialLoc3D getValue() {
+        RProperty<SpatialLoc3D> prop = (RProperty<SpatialLoc3D>) getProperty();
+        return prop.get();
+    }
+
+    private Index3D getGridValue() {
+        SpatialLoc3D ap = getValue();
+        float[] gpt = space.worldToGrid((float)ap.getX(), (float)ap.getY(), (float)ap.getZ());
+        return new Index3D((int)(gpt[0]-.5f), (int)(gpt[1]-.5), (int)(gpt[2]-.5));
+
     }
 
     @Override
     public Integer get() {
-        double val = getValue();
-        return axis.nearestSample(val);
+        SpatialLoc3D ap = getValue();
+
+        float ret;
+        if (axis == Axis.X_AXIS) {
+            ret = space.worldToGridX((float)ap.getX(), (float)ap.getY(), (float)ap.getZ());
+        } else if (axis == Axis.Y_AXIS) {
+            ret = space.worldToGridY((float)ap.getX(), (float)ap.getY(), (float)ap.getZ());
+        } else if (axis == Axis.Z_AXIS) {
+            ret = space.worldToGridZ((float)ap.getX(), (float)ap.getY(), (float)ap.getZ());
+        } else {
+            throw new AssertionError("illegal image axis : " + axis);
+        }
+
+        //System.out.println("requesting spatial loc " + ret);
+
+        return (int)(ret-.5f);
     }
 
     @Override
     public void set(Integer i) {
-        System.out.println("setting coordinate to index " + i);
-        double newval = axis.valueOf(i).getValue();
-        WProperty<Double> wprop = (WProperty<Double>) getProperty();
-        wprop.set(newval); 
+
+        Index3D voxel = getGridValue();
+       // System.out.println("setting coordinate to index " + i);
+       // System.out.println("axis : " + axis);
+       // System.out.println("setting voxel index to " + i);
+       // System.out.println("grid value : " + voxel);
+
+        if (axis == Axis.X_AXIS) {
+             voxel = new Index3D(i, voxel.i2(), voxel.i3());
+        } else if (axis == Axis.Y_AXIS) {
+            voxel = new Index3D(voxel.i1(), i, voxel.i3());
+        } else if (axis == Axis.Z_AXIS) {
+            voxel = new Index3D(voxel.i1(), voxel.i2(), i);
+        } else {
+            throw new AssertionError("illegal image axis : " + axis);
+        }
+
+
+        float[] ret = space.indexToWorld(voxel.i1(),  voxel.i2(), voxel.i3());
+
+        SpatialLoc3D nap = new SpatialLoc3D(space.getMapping().getWorldAnatomy(), ret[0], ret[1], ret[2]);
+
+        WProperty<SpatialLoc3D> wprop = (WProperty<SpatialLoc3D>) getProperty();
+        wprop.set(nap);
     }
 
 
