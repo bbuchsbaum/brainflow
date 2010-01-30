@@ -40,19 +40,11 @@
     <list default="true" id="23f8a567-682a-41ec-8fbc-f90972e5b533" name="Favorits Menu should open progress monitor on image load" comment="various and sundry">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/brainflow.iws" afterPath="$PROJECT_DIR$/brainflow.iws" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\controls\TripleRangeSliderForm.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/.svn/text-base/TripleRangeSliderForm.java.svn-base" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewCursorEvent.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/services/ImageViewCursorEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/LinearColorMap.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/MapToIndex.java" />
-      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\controls\OpacityForm.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/.svn/text-base/OpacityForm.java.svn-base" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ColorTableCellRenderer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/anatomy/BrainLoc.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/image/operations/LabelComponents.java" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\controls\ThresholdRangeForm.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/.svn/text-base/ThresholdRangeForm.java.svn-base" />
+      <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\controls\OpacityForm.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/.svn/text-base/OpacityForm.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\core\binding\CoordinateToIndexConverter2.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/core/binding/.svn/text-base/CoordinateToIndexConverter2.java.svn-base" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/ContinuousColorMap.java" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\controls\DoubleSliderForm.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/.svn/text-base/DoubleSliderForm.java.svn-base" />
       <change type="MOVED" beforePath="C:\javacode\googlecode\brainflow\src\main\java\brainflow\app\presentation\controls\TripleSliderForm.java" afterPath="$PROJECT_DIR$/src/main/java/brainflow/app/presentation/controls/.svn/text-base/TripleSliderForm.java.svn-base" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/brainflow/colormap/DiscreteColorMap2Test.java" />
     </list>
     <list id="64c6bf13-b5f4-40b7-bf97-5239b2b30b52" name="Failed commit: Default (5)" comment="Added number labels to BiSlider" />
     <list id="c8652d77-ea6c-4f54-a7b3-b6318514a155" name="Failed commit: Default (4)" comment="Added number labels to BiSlider" />
@@ -287,15 +279,6 @@
   <component name="FileColors" enabled="false" enabledForTabs="false" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BrainVolume.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scalaflow/src/sc/brainflow/image/data/BrainVolume.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="6" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MultiSeq.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scalaflow/src/sc/brainflow/image/array/MultiSeq.scala">
           <provider selected="true" editor-type-id="text-editor">
@@ -323,10 +306,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InstanceGuard.txt" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="InstanceGuard.txt" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/utils/InstanceGuard.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ColorSequenceParser.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scalaflow/src/sc/brainflow/colormap/ColorSequenceParser.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="74" column="59" selection-start="1911" selection-end="1911" vertical-scroll-proportion="0.43711844">
               <folding />
             </state>
           </provider>
@@ -700,6 +692,10 @@
               <option name="myItemId" value="image" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="io" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -756,6 +752,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="sc.brainflow" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="colormap" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2873,11 +2873,6 @@
     <option name="myLastEditedConfigurable" value="IDE Profiles" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/app/presentation/BrainFlowPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="41" selection-start="929" selection-end="929" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/core/ImageView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="308" column="0" selection-start="9408" selection-end="9408" vertical-scroll-proportion="0.0" />
@@ -2957,6 +2952,13 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/brainflow/utils/InstanceGuard.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scalaflow/src/sc/brainflow/colormap/ColorSequenceParser.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="59" selection-start="1911" selection-end="1911" vertical-scroll-proportion="0.43711844">
           <folding />
         </state>
       </provider>
