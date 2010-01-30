@@ -168,7 +168,9 @@ public class ImageViewModel implements Iterable<ImageLayer3D> {
 
         if (l.isEmpty()) {
             layers = new ImageLayerList();
+            //todo is this necessary?
             layerSelection.set(-1);
+            ///////////////
         } else {
             layers = new ImageLayerList(l);
             if (i == selIndex) {

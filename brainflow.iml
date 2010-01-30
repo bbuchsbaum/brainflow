@@ -6,15 +6,14 @@
         <option name="takeFromSettings" value="true" />
         <option name="myScalaCompilerJarPaths">
           <array>
-            <option value="C:\javacode\scala-2.8.0\lib\scala-compiler.jar" />
+            <option value="C:/scala2.8beta1/lib/scala-compiler.jar" />
           </array>
         </option>
         <option name="myScalaSdkJarPaths">
           <array>
-            <option value="C:\Users\Brad\.IntelliJIdea90\config\plugins\Scala\lib\scala-library.jar" />
+            <option value="C:/scala2.8beta1/lib/scala-library.jar" />
           </array>
         </option>
-        <option name="myScalaCompilerJarPath" value="C:\javacode\scala-2.8.0\lib\scala-compiler.jar" />
       </configuration>
     </facet>
   </component>

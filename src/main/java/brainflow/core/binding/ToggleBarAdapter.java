@@ -37,8 +37,9 @@ public class ToggleBarAdapter extends SwingAdapter<Integer, ToggleBar> implement
     }
 
     protected void updateUI(Integer newValue) {
-
-        getComponent().setSelectedIndex(newValue);
+        if (newValue.intValue() >= 0) {
+            getComponent().setSelectedIndex(newValue);
+        }
 
     }
 

@@ -6,8 +6,7 @@
 
 package brainflow.app.presentation.controls;
 
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
+
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -103,35 +102,6 @@ public class RenderingParamsForm extends JPanel {
 
     }
 
-    private void _buildGUI() {
-        layout = new FormLayout("6dlu, p, p, 6dlu:g, 6dlu", "8dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 3dlu, p, 6dlu, p, 8dlu");
-        setLayout(layout);
-        CellConstraints cc = new CellConstraints();
-
-        opacityLabel = new JLabel("Opacity: ");
-        opacitySlider = new JSlider(JSlider.HORIZONTAL);
-        opacityValueLabel = new JLabel("");
-
-        smoothingLabel = new JLabel("Smoothing Radius: ");
-        smoothingSlider = new JSlider(JSlider.HORIZONTAL);
-        //smoothingSlider.setValue(0);
-        smoothingValueLabel = new JLabel("");
-
-        add(opacityLabel, cc.xy(2, 2));
-        add(opacityValueLabel, cc.xy(3, 2));
-        add(opacitySlider, cc.xywh(2, 4, 3, 1));
-
-        add(smoothingLabel, cc.xy(2, 6));
-        add(smoothingValueLabel, cc.xy(3, 6));
-        add(smoothingSlider, cc.xywh(2, 8, 3, 1));
-
-        interpolationLabel = new JLabel("Interpolation: ");
-        add(interpolationLabel, cc.xy(2, 10));
-
-        interpolationChoices = new JComboBox();
-        add(interpolationChoices, cc.xywh(2, 12, 3, 1));
-
-
-    }
+   
 
 }

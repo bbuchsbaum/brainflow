@@ -259,8 +259,9 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             }
         }
 
-        if (!hasnode)
+        if (!hasnode) {
             explorer.addFileRoot(fobj);
+        }
     }
 
     private void monitorFolder(final FolderNode folder) {
@@ -399,7 +400,10 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             List<LazyNode> nodes = getSelectedNodes();
             if (nodes.size() == 1 && nodes.get(0) instanceof ImageLeafNode) {
                 ImageLeafNode leaf = (ImageLeafNode)nodes.get(0);
+
+                //todo ref to brainflow singleton is suspect, should operate through event bus
                 BrainFlow.get().loadAndDisplay(leaf.getUserObject());
+                //todo ref to brain lfow singleton is suspect
 
 
             }

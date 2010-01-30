@@ -809,9 +809,9 @@ public class BrainFlow {
 
         watch.start("layout docks");
 
-
+        
         brainFrame.getDockableBarManager().loadLayoutData();
-        brainFrame.toFront();
+       // brainFrame.toFront();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         brainFrame.setSize((int) screenSize.getWidth(), (int) screenSize.getHeight() - 50);
 

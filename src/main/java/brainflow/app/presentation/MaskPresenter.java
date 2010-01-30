@@ -97,10 +97,10 @@ public class MaskPresenter extends BrainFlowPresenter {
     @Override
     public void viewSelected(final ImageView view) {
 
-
+        final ImageLayer3D layer = view.getSelectedLayer();
         SwingWorker<ImageViewModel, Void> worker = new SwingWorker<ImageViewModel, Void>() {
             protected ImageViewModel doInBackground() throws Exception {
-                return createMaskModel();
+                return createMaskModel(layer);
 
             }
 
@@ -110,8 +110,8 @@ public class MaskPresenter extends BrainFlowPresenter {
             protected void done() {
 
                 try {
-                    BeanContainer.get().addListener(view.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
-                    BeanContainer.get().addListener(view.getSelectedLayer().maskProperty, thresholdListener);
+                    BeanContainer.get().addListener(layer.getLayerProps().thresholdRange, thresholdListener);
+                    BeanContainer.get().addListener(layer.maskProperty, thresholdListener);
 
                     ImageViewModel model = get();
                     maskView.setModel(model);
@@ -143,7 +143,7 @@ public class MaskPresenter extends BrainFlowPresenter {
     @Override
     protected void layerSelected(ImageLayer3D layer) {
 
-        ImageViewModel model = createMaskModel();
+        ImageViewModel model = createMaskModel(layer);
         maskView.setModel(model);
         BeanContainer.get().addListener(layer.getLayerProps().thresholdRange, thresholdListener);
         BeanContainer.get().addListener((layer).maskProperty, thresholdListener);
@@ -168,9 +168,8 @@ public class MaskPresenter extends BrainFlowPresenter {
         return mainPanel;
     }
 
-
-    private ImageViewModel createMaskModel() {
-        ImageLayer3D layer = getSelectedLayer();
+    //todo not thread safe !
+    private ImageViewModel createMaskModel(ImageLayer3D layer) {
         MaskLayer3D maskLayer = new MaskLayer3D(layer.getMaskProperty().buildMask());
         return new ImageViewModel("mask_model", new LayerList<ImageLayer3D>(maskLayer));
 

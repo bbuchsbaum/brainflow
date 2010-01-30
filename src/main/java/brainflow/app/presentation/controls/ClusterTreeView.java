@@ -163,7 +163,7 @@ public class ClusterTreeView extends JPanel {
     }
 
     private SortableTreeTableModel createTableModel() {
-        Collection<ClusterSet.Cluster> coll = clusterSet.getClusters();
+        Collection<ClusterSet.Cluster> coll = clusterSet.getSortedClustersBySize();
         List<ClusterRow> rows = new ArrayList<ClusterRow>();
         for (ClusterSet.Cluster clus : coll) {
             rows.add(new ClusterRow(clus));

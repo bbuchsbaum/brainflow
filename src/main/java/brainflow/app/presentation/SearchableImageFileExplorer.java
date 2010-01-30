@@ -147,7 +147,6 @@ public class SearchableImageFileExplorer extends AbstractPresenter implements IA
 
     @Override
     public void addActions(MouseEvent event, java.util.List<Action> actionList) {
-        System.out.println("number of selected nodes : " + explorer.getSelectedNodes());
 
     }
 

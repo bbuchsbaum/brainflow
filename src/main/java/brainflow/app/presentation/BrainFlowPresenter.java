@@ -29,12 +29,14 @@ public abstract class BrainFlowPresenter extends AbstractPresenter  {
     private EventSubscriber<ImageViewSelectionEvent> e1 = new EventSubscriber<ImageViewSelectionEvent>() {
         @Override
         public void onEvent(ImageViewSelectionEvent evt) {
-            if (selectedView != null) {
+            if (selectedView != null && !selectedView.getModel().isEmpty()) {
                 viewDeselected(selectedView);
             }
 
             selectedView = evt.getSelectedImageView();
-            if (selectedView != null && selectedView.getSelectedLayerIndex() >= 0) viewSelected(selectedView);
+            if (selectedView != null && selectedView.getSelectedLayerIndex() >= 0) {
+                viewSelected(selectedView);
+            }
             else allViewsDeselected();
 
 

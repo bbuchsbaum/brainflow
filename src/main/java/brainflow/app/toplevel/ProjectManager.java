@@ -134,7 +134,10 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
                         DisplayManager.get().removeView(view);
                         //still need to remove layers to notify event listeners, etc.
                         for (ImageLayer3D layer : removables) {
-                            view.getModel().remove(layer);
+                            if (view.getModel().contains(layer)) {
+                                //todo some views share models ... which means we should iterate through the models not the views
+                                view.getModel().remove(layer);
+                            }
                         }
                         //////
                     }
