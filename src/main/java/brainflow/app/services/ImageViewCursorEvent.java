@@ -1,6 +1,8 @@
 package brainflow.app.services;
 
 import brainflow.core.ImageView;
+import brainflow.core.services.*;
+import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.SpatialLoc3D;
 
 /**
@@ -10,32 +12,38 @@ import brainflow.image.anatomy.SpatialLoc3D;
  * Time: 6:18:00 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ImageViewCursorEvent extends ImageViewEvent {
-
+public class ImageViewCursorEvent extends brainflow.core.services.ImageViewEvent {
     /**
      * Creates a new instance of ImageViewEvent
      */
 
 
-    private SpatialLoc3D cpos;
+    private GridLoc3D cpos;
+
+    private SpatialLoc3D spos;
 
     public ImageViewCursorEvent(ImageView view) {
         super(view);
         assert view != null;
-        cpos = view.worldCursorPos.get();
+        cpos = view.cursorPos.get();
+        spos = view.worldCursorPos.get();
     }
 
-    public SpatialLoc3D getCursor() {
+    public GridLoc3D getCursor() {
         return cpos;
+    }
+
+    public SpatialLoc3D getCursorWorld() {
+        return spos;
     }
 
     public String toString() {
         StringBuilder builder = new StringBuilder("Crosshair at : ");
 
 
-        builder.append("zero: " + (int) cpos.getX());
-        builder.append(" zero: " + (int) cpos.getY());
-        builder.append(" one: " + (int) cpos.getZ());
+        builder.append("x: " + (int) cpos.getX().getValue());
+        builder.append("y: " + (int) cpos.getY().getValue());
+        builder.append("z: " + (int) cpos.getZ().getValue());
 
         return builder.toString();
     }
