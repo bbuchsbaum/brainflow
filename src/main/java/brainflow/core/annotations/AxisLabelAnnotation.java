@@ -2,7 +2,7 @@ package brainflow.core.annotations;
 
 import brainflow.core.IImagePlot;
 import brainflow.image.anatomy.AnatomicalAxis;
-import org.jfree.text.TextUtilities;
+
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
@@ -66,7 +66,7 @@ public class AxisLabelAnnotation extends AbstractAnnotation {
         drawArrow(g2d, fontHeight + axisLineXStart, fontHeight + axisLineYStart, fontHeight + axisLineXStart, fontHeight + axisLineYStart + lineLength, 8);
 
 
-        TextUtilities.drawRotatedString(ylabel, g2d, Math.PI / 2, yFontStart, axisLineYStart + fontHeight);
+        //TextUtilities.drawRotatedString(ylabel, g2d, Math.PI / 2, yFontStart, axisLineYStart + fontHeight);
 
 
         g2d.setPaint(oldPaint);

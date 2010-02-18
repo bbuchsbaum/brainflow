@@ -35,12 +35,14 @@ public interface IImageDataSource {
     public String getStem();
 
     public FileObject getDataFile();
-
+      
     public FileObject getHeaderFile();
 
     public String getFileFormat();
 
     public ImageInfo getImageInfo();
+
+
 
     public List<ImageInfo> getImageInfoList();
 

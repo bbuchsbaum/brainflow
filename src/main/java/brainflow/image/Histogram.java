@@ -52,12 +52,19 @@ public class Histogram {
         if (computed)
             return binList;
 
+
+
         maxValue = data.maxValue();
         minValue = data.minValue();
+
+        System.out.println("min value of histogram is " + minValue);
+        System.out.println("max value of histogram is " + maxValue);
 
         int[] bins = new int[numBins];
 
         binSize = (maxValue - minValue) / numBins;
+
+        System.out.println("bin size = " + binSize);
 
         ValueIterator iter = data.valueIterator();
 
@@ -69,8 +76,13 @@ public class Histogram {
                     continue;
 
             int nbin = (int) ((val - minValue) / binSize);
+
             if (nbin >= bins.length)
                 nbin = bins.length - 1;
+
+            if (nbin < 0) {
+                System.out.println("bin is less than zero " + nbin);
+            }
 
             bins[nbin]++;
         }

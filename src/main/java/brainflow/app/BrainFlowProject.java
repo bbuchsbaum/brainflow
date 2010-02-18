@@ -22,6 +22,8 @@ import java.util.logging.Logger;
  */
 public class BrainFlowProject {
 
+    
+
     private static final Logger log = Logger.getLogger(BrainFlowProject.class.getName());
 
     private List<ImageViewModel> modelList = new ArrayList<ImageViewModel>();

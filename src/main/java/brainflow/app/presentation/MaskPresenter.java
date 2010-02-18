@@ -117,6 +117,7 @@ public class MaskPresenter extends BrainFlowPresenter {
                     maskView.setModel(model);
                     bind();
                 } catch(ExecutionException e) {
+                    throw new RuntimeException(e.getMessage(),e);
 
                 } catch (InterruptedException e2) {
 

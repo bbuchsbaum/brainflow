@@ -13,6 +13,7 @@ import collection.generic.CanBuildFrom
  */
 
 trait MultiSeq[T] extends Seq[T] {
+
   def numDim() = {
     dim.length
   }
@@ -68,6 +69,23 @@ trait MultiSeq2D[T] extends MultiSeq[T] {
     def hasNext = i < len
   }
 
+  class LineIterator(val axis: Int, val fixed: Int) extends Iterator[T] {
+    var i = -1
+    var len = dim(axis) - 1
+
+    val _next = if (axis == 0) {
+      () => { i = i + 1; self(fixed, i)}
+    } else {
+      () => { i = i + 1; self(i, fixed)}
+    }
+
+    def next() = {
+      _next()
+    }
+
+    def hasNext = i < len
+  }
+
 
   class ColumnView(val colnum: Int) extends Seq[T] {
 
@@ -85,7 +103,7 @@ trait MultiSeq2D[T] extends MultiSeq[T] {
 
     def apply(v1: Int): T = self.apply(colnum, v1)
 
-    def length = self.dim(0)
+    def length = self.dim(1)
   }
 
   class RowView(val rownum: Int) extends Seq[T] {
@@ -96,7 +114,7 @@ trait MultiSeq2D[T] extends MultiSeq[T] {
 
       def next() = {
         i = i + 1
-        self.apply(rownum, i)
+        self(rownum, i)
       }
 
       def hasNext = i < len
@@ -109,8 +127,8 @@ trait MultiSeq2D[T] extends MultiSeq[T] {
 
 }
 
-trait MultiSeq3D[T] extends MultiSeq[T] {
-  self =>
+trait MultiSeq3D[T] extends MultiSeq[T] { self =>
+  
   lazy val d01 = dim(0) * dim(1)
   lazy val d12 = dim(1) * dim(2)
   lazy val d02 = dim(0) * dim(2)

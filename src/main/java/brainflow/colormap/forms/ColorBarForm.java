@@ -71,7 +71,7 @@ public class ColorBarForm extends javax.swing.JPanel {
 
     private void buildGUI() {
 
-        layout = new MigLayout();
+        layout = new MigLayout("", "[][grow][]", "[][]");
        
         setLayout(layout);
 
@@ -79,7 +79,7 @@ public class ColorBarForm extends javax.swing.JPanel {
         //add(new JLabel("# of colors"), "align right, gap left 30");
         //add(numColors, "width 40:60:80, wrap");
         //add(invertColors, "align right, wrap");
-        add(cbar, "span 3, height 65");
+        add(cbar, "span 3, growx, width 40::500, height 65");
         //add(invertColors, "span 3, align right");
 
     }

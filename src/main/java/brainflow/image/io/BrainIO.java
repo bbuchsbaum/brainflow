@@ -72,38 +72,32 @@ public class BrainIO {
     public static final IImageFileDescriptor AFNI = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI") {
         @Override
         public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+
             return new ImageDataSource(this, headerFile, dataFile);
         }
 
         @Override
         public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+
             return new AFNIInfoReader(headerFile, dataFile);
         }
     };
 
-    public static final IImageFileDescriptor AFNI_GZ = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI", BinaryEncoding.GZIP, BinaryEncoding.GZIP) {
+    public static final IImageFileDescriptor AFNI_GZ = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI", BinaryEncoding.RAW, BinaryEncoding.GZIP) {
         @Override
         public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+
             return new ImageDataSource(this, headerFile, dataFile);
         }
 
         @Override
         public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
+           
             return new AFNIInfoReader(headerFile, dataFile);
         }
     };
 
-    public static final IImageFileDescriptor AFNI_GZ_BRIK = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI", BinaryEncoding.RAW, BinaryEncoding.GZIP) {
-        @Override
-        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
-            return new ImageDataSource(this, headerFile, dataFile);
-        }
 
-        @Override
-        public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
-            return new AFNIInfoReader(headerFile, dataFile);
-        }
-    };
 
     /*public static final IImageFileDescriptor ANALYZE = new AbstractImageFileDescriptor("hdr", "img", "ANALYZE7.5") {
        @Override
@@ -132,7 +126,6 @@ public class BrainIO {
                 istream.read(bb);
                 istream.close();
                 String magic = new StringBuffer(new String(bb)).toString().trim();
-                System.out.println("magic: " + magic);
                 return magic.equals("ni1") || magic.equals("n+1");
             } catch (FileSystemException e) {
                 throw new RuntimeException(e);
@@ -362,7 +355,7 @@ public class BrainIO {
 
     public static IImageFileDescriptor getImageFileDescriptor(FileObject fobj) throws BrainFlowException {
         for (IImageFileDescriptor desc : supportedImageFormats) {
-            if (desc.isHeaderMatch(fobj.getName().getBaseName()) || desc.isDataMatch(fobj.getName().getBaseName())) {
+            if (desc.canResolve(fobj)) {
                 return desc;
             }
         }

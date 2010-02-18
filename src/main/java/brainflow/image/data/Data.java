@@ -3,6 +3,7 @@ package brainflow.image.data;
 import brainflow.array.Array3D;
 import brainflow.array.ConstantValueIterator;
 import brainflow.image.anatomy.SpatialLoc1D;
+import brainflow.image.iterators.ImageValueIterator;
 import brainflow.image.space.*;
 import brainflow.image.interpolation.InterpolationFunction3D;
 import brainflow.image.anatomy.Anatomy3D;
@@ -223,7 +224,8 @@ public class Data {
 
             @Override
             public ValueIterator valueIterator() {
-                return data.valueIterator();
+                return new ImageValueIterator(this);
+
             }
 
             public double maxValue() {

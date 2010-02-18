@@ -1,7 +1,7 @@
 package brainflow.app.services;
 
 import brainflow.core.ImageView;
-import brainflow.core.services.*;
+
 import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.SpatialLoc3D;
 
@@ -12,7 +12,7 @@ import brainflow.image.anatomy.SpatialLoc3D;
  * Time: 6:18:00 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ImageViewCursorEvent extends brainflow.core.services.ImageViewEvent {
+public class ImageViewCursorEvent extends ImageViewEvent {
     /**
      * Creates a new instance of ImageViewEvent
      */

@@ -15,6 +15,7 @@ import brainflow.image.data.IImageData;
 import brainflow.utils.Range;
 
 import javax.swing.*;
+import javax.swing.event.ListDataEvent;
 
 import net.java.dev.properties.events.PropertyListener;
 import net.java.dev.properties.BaseProperty;
@@ -22,6 +23,7 @@ import net.java.dev.properties.container.BeanContainer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -74,21 +76,48 @@ public class HistogramPresenter extends BrainFlowPresenter {
     }
 
     private void updateHistogram() {
-        IImageData data = getSelectedView().getSelectedLayer().getData();
+   
+        final IImageData data = getSelectedView().getSelectedLayer().getData();
         Histogram histo = cache.get(data);
 
 
         if (histo == null) {
-            int nbins = Math.min(getSelectedLayer().getLayerProps().colorMap.get().getMapSize(), 30);
-            histo = new Histogram(data, nbins);
-            histo.ignoreRange(new Range(0, 0));
-            cache.put(data, histo);
+            SwingWorker worker = new SwingWorker<Histogram, Void>() {
+                @Override
+                protected Histogram doInBackground() throws Exception {
+                    int nbins = Math.min(getSelectedLayer().getLayerProps().colorMap.get().getMapSize(), 30);
+                    Histogram histo = new Histogram(data, nbins);
+                    histo.ignoreRange(new Range(0, 0));
+                    return histo;
+
+                }
+
+                @Override
+                protected void done() {
+                    try {
+                        Histogram histo = get();
+                        cache.put(data, histo);
+                        control.setHistogram(histo);
+                        control.setOverlayRange(getSelectedView().getSelectedLayer().getLayerProps().thresholdRange.get().getInnerRange());
+                        control.setColorMap(getSelectedLayer().getLayerProps().colorMap.get());
+                    } catch (ExecutionException e1) {
+                        throw new RuntimeException(e1);
+                    } catch (InterruptedException e2) {
+                    }
+
+                }
+            };
+
+            worker.execute();
+
+
+        } else {
+            control.setHistogram(histo);
+            control.setOverlayRange(getSelectedView().getSelectedLayer().getLayerProps().thresholdRange.get().getInnerRange());
+            control.setColorMap(getSelectedLayer().getLayerProps().colorMap.get());
 
         }
 
-        control.setHistogram(histo);
-        control.setOverlayRange(getSelectedView().getSelectedLayer().getLayerProps().thresholdRange.get().getInnerRange());
-        control.setColorMap(getSelectedLayer().getLayerProps().colorMap.get());
 
     }
 
@@ -103,6 +132,10 @@ public class HistogramPresenter extends BrainFlowPresenter {
         BeanContainer.get().addListener(view.getSelectedLayer().getLayerProps().thresholdRange, thresholdListener);
     }
 
+    @Override
+    protected void layerContentsChanged(ListDataEvent event) {
+        updateHistogram();
+    }
 
     @Override
     public void viewModelChanged(ImageView view, ImageViewModel oldModel, ImageViewModel newModel) {

@@ -24,6 +24,8 @@ public interface IImageFileDescriptor {
 
     public boolean isDataMatch(String dataFileName);
 
+    public boolean canResolve(FileObject fileObject);
+
     public String stripExtension(String fullName);
 
     public String getHeaderExtension();

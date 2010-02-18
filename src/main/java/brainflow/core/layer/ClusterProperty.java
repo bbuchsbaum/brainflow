@@ -6,6 +6,7 @@ import brainflow.image.data.IImageData3D;
 import brainflow.image.operations.LabelComponents;
 import brainflow.image.iterators.ValueIterator;
 import brainflow.image.operations.ComponentLabeler;
+import brainflow.image.space.Axis;
 import brainflow.utils.DataType;
 import net.java.dev.properties.BaseProperty;
 import net.java.dev.properties.container.BeanContainer;
@@ -60,6 +61,9 @@ public class ClusterProperty {
 
     public ClusterSet computeCluster() {
         //ComponentLabeler labeler = new ComponentLabeler(layer.getMaskProperty().buildMask(), 12);
+        int radius = Math.max(layer.getData().getDimension(Axis.X_AXIS)/4,1);
+        System.out.println("radius is " + radius);
+
         LabelComponents labeler = new LabelComponents(layer.getMaskProperty().buildMask(), Data.createWriter(layer.getData(), DataType.INTEGER), 12,1);
       
         labeler.labelComponents();

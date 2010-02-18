@@ -18,7 +18,8 @@ public abstract class HeaderAttribute {
         string_attribute,
         float_attribute,
         integer_attribute,
-        double_attribute;
+        double_attribute,
+        none;
 
     }
 

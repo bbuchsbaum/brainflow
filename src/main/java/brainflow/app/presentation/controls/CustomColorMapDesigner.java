@@ -383,7 +383,7 @@ public class CustomColorMapDesigner extends JPanel {
             }
         }
 
-        System.out.println("cannot advance");
+        System.out.println("cannot next");
 
         return false;
     }

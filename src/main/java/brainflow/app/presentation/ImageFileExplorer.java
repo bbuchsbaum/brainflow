@@ -8,6 +8,9 @@ import brainflow.gui.FileExplorer;
 import brainflow.image.io.*;
 import brainflow.utils.ResourceLoader;
 import brainflow.core.BrainFlowException;
+import com.jidesoft.status.LabelStatusBarItem;
+import com.jidesoft.status.StatusBar;
+import com.jidesoft.swing.JideBoxLayout;
 import com.jidesoft.tree.DefaultTreeModelWrapper;
 import com.jidesoft.tree.TreeUtils;
 import com.jidesoft.swing.DefaultOverlayable;
@@ -29,6 +32,9 @@ import java.net.URISyntaxException;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.logging.Logger;
 
 /**
@@ -58,6 +64,10 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     private ImageIcon imageBucketIcon = new ImageIcon(ResourceLoader.getResource("icons/bin_closed.png"));
 
     private DefaultOverlayable overlayPanel;
+
+    private StatusBar statusBar = new StatusBar();
+
+    private LabelStatusBarItem status;
 
     private InfiniteProgressPanel progressPanel = new InfiniteProgressPanel() {
         public Dimension getPreferredSize() {
@@ -89,7 +99,15 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         initDnD();
 
         scrollPane = new JScrollPane(explorer.getComponent());
-        overlayPanel = new DefaultOverlayable(scrollPane);
+        status = new LabelStatusBarItem();
+        statusBar.add(status, JideBoxLayout.VARY);
+        statusBar.setBorder(BorderFactory.createEmptyBorder());
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        contentPanel.add(statusBar, BorderLayout.SOUTH);
+
+        overlayPanel = new DefaultOverlayable(contentPanel);
         overlayPanel.addOverlayComponent(progressPanel);
         overlayPanel.setOverlayVisible(false);
         overlayPanel.setOverlayLocation(explorer.getComponent(), SwingConstants.CENTER);
@@ -186,6 +204,8 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     }
 
+
+
     private void initDnD() {
         explorer.getJTree().setDragEnabled(true);
         explorer.getJTree().addMouseListener(this);
@@ -212,6 +232,23 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                         DataSourceNode dnode = (DataSourceNode) node;
                         IImageDataSource source = dnode.getUserObject();
                         ret = DnDUtils.createTransferable(source);
+                    } else if (node instanceof FolderNode) {
+                        //todo need way to represent a bundle of images
+                        
+                        FolderNode fnode = (FolderNode)node;
+                        List<LazyNode> nodeList = fnode.fetchChildNodes();
+                        List<IImageDataSource> sourceList = new ArrayList<IImageDataSource>();
+
+                        for (LazyNode n : nodeList) {
+                            if (n instanceof ImageLeafNode) {
+                                IImageDataSource dsource = ((ImageLeafNode)n).getUserObject();
+                                sourceList.add(dsource);
+                            }
+                        }
+
+                        if (sourceList.size() > 0) {
+                            ret = DnDUtils.createTransferable(new MultiImageDataSource(sourceList,0));
+                        }
                     }
 
 
@@ -414,6 +451,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     public void mousePressed(MouseEvent e) {
         firstMouseEvent = e;
         e.consume();
+
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -437,7 +475,17 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
     public void mouseMoved(MouseEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        //TreePath path = explorer.getJTree().getPathForLocation(e.getX(), e.getY());
+        //if (path!= null) {
+        //    Object obj = path.getLastPathComponent();
+        //    if (obj instanceof DataSourceNode) {
+        //        DataSourceNode node = (DataSourceNode)obj;
+        //        String nodePath = node.getUserObject().getHeaderFile().getName().getBaseName();
+        //        status.setText(nodePath);
+        //
+        //    }
+        //}
+
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -495,6 +543,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         protected void process(List<LazyNode> chunks) {
             for (LazyNode node : chunks) {
                 parent.add(node);
+
             }
 
             DefaultTreeModel dtm = getDefaultTreeModel();
@@ -507,7 +556,23 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
 
+    private void updateStatus(final String str) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            ImageFileExplorer.this.status.setText(str);
+
+        } else {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    ImageFileExplorer.this.status.setText(str);
+                }
+            });
+        }
+    }
+
+
     private LazyNode makeNode(FileObject fobj) {
+
 
         LazyNode ret = null;
 
@@ -515,12 +580,15 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             if (fobj.getType() == FileType.FOLDER) {
                 ret = new FolderNode(fobj);
                 monitorFolder((FolderNode)ret);
+
             } else if (fobj.getType() == FileType.FILE && BrainIO.isSupportedImageHeaderFile(fobj)) {
+                updateStatus("Scanning file: " + fobj.getName().getBaseName());
+
                 IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
                 IImageDataSource source = desc.createDataSource(fobj);
                 List<ImageInfo> infoList = source.getImageInfoList();
 
-                 assert infoList.size() != 0;
+                assert infoList.size() != 0;
 
                 if (infoList.size() > 1) {
                     ret = new ImageContainerNode(source);
@@ -531,12 +599,15 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
 
         } catch (FileSystemException e) {
+            e.printStackTrace();
             log.severe("failed to load image info for file : " + fobj);
             throw new RuntimeException(e);
         } catch (BrainFlowException e) {
+            e.printStackTrace();
             log.severe("failed to load image info for file : " + fobj);
             throw new RuntimeException(e);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             log.severe("failed to load image info for file : " + fobj);
             throw new RuntimeException(e);
         }

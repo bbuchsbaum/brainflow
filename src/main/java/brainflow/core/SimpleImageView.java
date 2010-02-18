@@ -111,6 +111,12 @@ public class SimpleImageView extends ImageView {
 
     }
 
+    @Override
+    public void setModel(ImageViewModel model) {
+        super.setModel(model);
+        slider.bindSlider();
+    }
+
     protected CommandContainer getCommandContainer() {
         return commandContainer;
     }

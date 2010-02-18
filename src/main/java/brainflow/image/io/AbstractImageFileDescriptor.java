@@ -48,20 +48,49 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
 
     @Override
     public boolean isHeaderMatch(String headerFileName) {
-        return headerFileName.endsWith("." + headerExtension);
+         return headerFileName.endsWith(getDottedHeaderExtension());
     }
 
     @Override
     public boolean isDataMatch(String dataFileName) {
-        return dataFileName.endsWith("." + dataExtension);
+        return dataFileName.endsWith(getDottedDataExtension());
     }
+
+    @Override
+    public boolean canResolve(FileObject fileObject) {
+        FileObject other = null;
+
+        try {
+            if (isHeaderMatch(fileObject.getName().getBaseName())) {
+                other = resolveDataFileObject(fileObject);
+
+            } else if (isDataMatch(fileObject.getName().getBaseName())) {
+                other = resolveHeaderFileObject(fileObject);
+            }
+
+            if (other == null || !other.exists()) {
+                return false;
+            }
+
+        } catch(Exception e) {
+             return false;
+        }
+
+        return true;
+
+
+    }
+
 
     protected String getDottedHeaderExtension() {
         if (headerEncoding.getExtension().equals("")) {
             return "." + headerExtension;
         } else {
             return "." + headerExtension + "." + headerEncoding.getExtension();
+
         }
+
+
     }
 
     protected String getDottedDataExtension() {
@@ -69,6 +98,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
             return "." + dataExtension;
         } else {
             return "." + dataExtension + "." + dataEncoding.getExtension();
+
         }
     }
 
@@ -77,9 +107,9 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
     public String stripExtension(String fullName) {
         String ret = fullName;
 
-        if (fullName.endsWith("." + headerExtension)) {
+        if (fullName.endsWith(getDottedHeaderExtension())) {
             ret = fullName.substring(0, fullName.length() - (getDottedHeaderExtension().length()));
-        } else if (fullName.endsWith("." + dataExtension)) {
+        } else if (fullName.endsWith(getDottedDataExtension())) {
             ret = fullName.substring(0, fullName.length() - (getDottedDataExtension().length()));
         } //else {
         //  throw new IllegalArgumentException("String " + fullName + " does not match descriptor " + this);
@@ -90,21 +120,14 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
 
     @Override
     public String getHeaderExtension() {
-        if (headerEncoding == BinaryEncoding.RAW) {
-            return headerExtension;
-        } else {
-            return headerExtension + "." + headerEncoding.getExtension();
-        }
+        return headerExtension;
 
     }
 
     @Override
     public String getDataExtension() {
-        if (dataEncoding == BinaryEncoding.RAW) {
-            return dataExtension;
-        } else {
-            return dataExtension + "." + dataEncoding.getExtension();
-        }
+        return dataExtension;
+
     }
 
     @Override
@@ -125,7 +148,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
     public FileObjectFilter createHeaderFileFilter() {
         return new FileObjectFilter() {
             public boolean accept(FileObject fobj) {
-                return isDataMatch(fobj.getName().getPath());
+                return isHeaderMatch(fobj.getName().getPath());
             }
         };
 
@@ -147,7 +170,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
         }
 
         String stem = stripExtension(headerFile.getName().getBaseName());
-        return stem + "." + dataExtension;
+        return stem + getDottedDataExtension();
 
     }
 
@@ -158,7 +181,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
         }
 
         String stem = stripExtension(dataFile.getName().getBaseName());
-        return stem + dataExtension;
+        return stem + getDottedHeaderExtension();
 
 
     }
@@ -167,7 +190,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
     public FileObject resolveDataFileObject(FileObject headerFile) throws IOException {
         try {
             return resolveFile(headerFile.getParent(), getDataName(headerFile));
-        } catch(FileSystemException e) {
+        } catch (FileSystemException e) {
             throw new IOException(e);
         }
 
@@ -177,7 +200,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
     public FileObject resolveHeaderFileObject(FileObject dataFile) throws IOException {
         try {
             return resolveFile(dataFile.getParent(), getDataName(dataFile));
-        } catch(FileSystemException e) {
+        } catch (FileSystemException e) {
             throw new IOException(e);
         }
 
@@ -199,7 +222,6 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
 
     @Override
     public IImageDataSource createDataSource(FileObject headerFile) {
-        String dataName = getDataName(headerFile);
 
         if (!isHeaderMatch(headerFile.getName().getBaseName())) {
             throw new IllegalArgumentException("header " + headerFile.getName().getBaseName() + " does not have correct suffix for format : " + this.getFileFormat());
@@ -211,6 +233,15 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
 
             dataFile = resolveFile(headerFile.getParent(), getDataName(headerFile));
             headerFile = resolveFile(headerFile.getParent(), headerFile.getName().getBaseName());
+
+            if (!isDataMatch(dataFile.getName().getBaseName())) {
+               throw new IllegalArgumentException("data file" + dataFile.getName().getBaseName() + " does not have correct suffix for format : " + this.getFileFormat());
+            }
+
+            if (!dataFile.exists()) {
+                throw new IllegalArgumentException("data file" + dataFile.getName().getBaseName() + " does not exist");
+
+            }
 
         } catch (FileSystemException e) {
             throw new IllegalArgumentException("Cannot locate matching data file for header " + headerFile);

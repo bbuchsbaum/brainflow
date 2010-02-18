@@ -108,7 +108,8 @@ public class BasicImageReader3D extends AbstractImageReader {
             if (getDatatype() == DataType.BYTE) {
                 byte[] data = new byte[numBytes];
                 wholeBuffer.get(data);
-                dat = new BasicImageData3D.Byte(imageSpace, data);
+                /// always unsigned byte ...
+                dat = new BasicImageData3D.UByte(imageSpace, data);
             } else if (getDatatype() == DataType.UBYTE) {
                 byte[] data = new byte[imageSpace.getNumSamples()];
                 wholeBuffer.get(data);

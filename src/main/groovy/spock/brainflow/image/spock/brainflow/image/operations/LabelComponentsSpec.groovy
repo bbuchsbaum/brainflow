@@ -1,17 +1,18 @@
 package spock.brainflow.image.spock.brainflow.image.operations
 
-import spock.lang.Speck
+
 import org.junit.runner.RunWith
 import brainflow.image.data.IImageData3D
 import brainflow.image.operations.ComponentLabeler
 import brainflow.image.data.IMaskedData3D
 import brainflow.image.data.MaskedData3D
 import brainflow.image.data.MaskPredicate
-import spock.lang.Sputnik
+
 import brainflow.image.io.BrainIO
 import brainflow.core.BF
 import brainflow.image.data.ClusterSet
 import brainflow.image.space.IndexSet3D
+import spock.lang.Specification
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,10 +22,7 @@ import brainflow.image.space.IndexSet3D
  * To change this template use File | Settings | File Templates.
  */
 
-
-@Speck
-@RunWith (Sputnik)
-class LabelComponentsSpec {
+class LabelComponentsSpec extends Specification {
 
 
   def "clustering a big anatomical file is possible"() {

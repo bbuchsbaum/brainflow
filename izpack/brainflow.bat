@@ -1,1 +1,1 @@
-java -Xmx800m -jar brainflow-lean-0.1.1.jar
+java -Xmx999m -jar brainflow-0.1.2.jar

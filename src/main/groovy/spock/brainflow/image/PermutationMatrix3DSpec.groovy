@@ -7,15 +7,14 @@ package spock.brainflow.image
  * To change this template use File | Settings | File Templates.
  */
 
-import org.junit.runner.RunWith
+
 import spock.lang.*
 import brainflow.image.io.NiftiImageInfo
 import brainflow.image.space.Space
 import brainflow.image.anatomy.Anatomy3D;
 
-@Speck
-@RunWith (Sputnik)
-public class PermutationMatrix3DSpec {
+
+public class PermutationMatrix3DSpec extends Specification {
 
   def setupSpeck() {
 

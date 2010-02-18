@@ -93,7 +93,7 @@ public class FavoritesMenu {
             String uri = fav.uri;
             int lastIndex = uri.lastIndexOf("/");
             String name = uri.substring(lastIndex+1, uri.length());
-            ActionCommand command = new FavoriteCommand(name + " " + fav.timesAccessed, uri);
+            ActionCommand command = new FavoriteCommand(name, uri);
             //ActionCommand command = new FavoriteCommand(name, uri);
 
 
@@ -121,8 +121,8 @@ public class FavoritesMenu {
 
 
                 } catch (ParseException e) {
-                    //todo throw an exception ?
-                    Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
+                    System.out.println("could not load favorite " + "favorite-" + (i + 1));
+                    Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
                 }
             }
 
@@ -224,13 +224,11 @@ public class FavoritesMenu {
             System.out.println("name is " + name);
 
             try {
-                IImageDataSource dsource = BrainFlow.get().createDataSource(new URI(getURI()));
+                IImageDataSource dsource = BrainFlow.get().createDataSource(URI);
                 BrainFlow.get().loadAndDisplay(dsource);
             } catch(BrainFlowException e) {
                 throw new RuntimeException(e);
-            } catch(URISyntaxException e2) {
-                throw new RuntimeException(e2);
-            }
+            } 
 
 
         }

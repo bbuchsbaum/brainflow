@@ -6,7 +6,6 @@ import com.jidesoft.converter.ObjectConverterManager;
 import com.jidesoft.grid.*;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.swing.JideScrollPane;
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -105,14 +104,7 @@ public class ColorSequenceBuilder extends JPanel {
 
 
     public static void main(String[] args) {
-        com.jidesoft.utils.Lm.verifyLicense("UIN", "BrainFlow", "S5XiLlHH0VReaWDo84sDmzPxpMJvjP3");
-        try {
-            UIManager.setLookAndFeel(new SyntheticaStandardLookAndFeel());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        
         LookAndFeelFactory.installJideExtension();
         JFrame jf = new JFrame();
         jf.add(new ColorSequenceBuilder());

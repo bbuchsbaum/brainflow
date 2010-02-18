@@ -80,8 +80,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     public final Property<GridLoc3D> cursorPos = new ObservableProperty<GridLoc3D>() {
 
         public void set(GridLoc3D gp) {
-            //ap = ap.snapToBounds();
-            if (!gp.equals(get())) {
+             if (!gp.equals(get())) {
                 super.set(gp);
             }
         }

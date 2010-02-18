@@ -1,33 +1,45 @@
 import org.gradle.api.tasks.util.FileSet
-GRADLE_OPTS="Xmx500m"
-//name = "brainflow"
-version = "0.1.1"
+import groovy.xml.MarkupBuilder
+
+GRADLE_OPTS = "Xmx500m"
+
+version = "0.1.3"
 
 usePlugin("java")
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
+//processResources.srcDirs = fileTree(dir: 'src/main/resources', excludes: ["**/data/"])
 
-defaultTasks 'dists'
+defaultTasks 'assemble'
+
+compileJava {
+  source = fileTree(dir: 'src/main/java', includes: ['**/*.java'], excludes: ["**/junkyard/*.java"])
+
+}
+
+processResources {
+  sourceDirs = fileTree(dir: 'src/main/resources', excludes: ["**/data/**"])
+}
+
+
 
 
 configurations {
-    compile
+  compile
 }
 
 dependencies {
-    compile new FileSet(dir: new File(rootDir, 'lib'), includes: ['*.jar'])
+  compile fileTree(dir: 'lib', includes: ['*.jar'])
+
 }
-
-
-
 
 
 
 def runtimeLibsDir = new File(buildDir, 'runtimeLibs')
 
-task collectRuntimeLibs(dependsOn: 'libs') {
+task collectRuntimeLibs(dependsOn: 'compileJava') << {
 
   runtimeLibsDir.mkdirs()
   configurations.compile.files.each {File file ->
@@ -35,127 +47,198 @@ task collectRuntimeLibs(dependsOn: 'libs') {
   }
 }
 
-task update_izpack << {
-  def configFileName = rootDir.getAbsolutePath() + "/izpack/brainflow-install.xml"
-  def configFile = new File(configFileName)
 
-  def sw = new StringWriter()
-  configFile.filterLine(sw) { it =~ /Groovy/ }
+
+task izpackConfig << {
+
+  PrintWriter pw = new PrintWriter("izpack/brainflow.version")
+  pw.write("" + version)
+  pw.close()
+
+
+
+  def writer = new StringWriter()
+  def xml = new MarkupBuilder(writer)
+  xml.installation(version: '1.0') {
+    info() {
+      appname('Brainflow')
+      appversion(version)
+      authors() {
+        author(name: "Bradley R. Buchsbaum", email: "brad dot buchsbaum at gmail dot com")
+      }
+      javaversion('1.6')
+      url('http://code.google.com/p/brainflow')
+    }
+    resources() {
+      res(id: "LicencePanel.licence", src: "legal/license.txt")
+      res(id: "shortcutSpec.xml", src: "shortcutSpec.xml")
+    }
+    xml.native(type: "izpack", name: "ShellLink.dll")
+    panels() {
+      panel(classname: "HelloPanel")
+      panel(classname: "LicencePanel")
+      panel(classname: "TargetPanel")
+      panel(classname: "PacksPanel")
+      panel(classname: "InstallPanel")
+      panel(classname: "ShortcutPanel")
+      panel(classname: "JDKPathPanel")
+      panel(classname: "FinishPanel")
+    }
+    guiprefs(width: "650", height: "500", resizable: "no")
+
+    packs() {
+      //pack(name:"Docs", required:"no") {
+      //  description("documentation")
+      //  xml.file(src:"doc", targetdir: "\$INSTALL_PATH/doc")
+      //}
+      //pack(name:"Sources", required:"no") {
+      //  description("source code")
+      //   xml.file(src:"src", targetdir: "\$INSTALL_PATH/src")
+      //}
+      pack(name: "Lib", required: "yes") {
+        description("runtime libraries")
+        fileset(dir: "../build/runtimeLibs", targetdir: "\$INSTALL_PATH/lib") {
+          include(name: "*.jar")
+        }
+      }
+      pack(name: "Bin", required: "yes") {
+        description("application binary and startup scripts")
+        xml.file(src: "brainflow.bat", targetdir: "\$INSTALL_PATH/bin")
+        xml.file(src: "../build/libs/brainflow-${version}.jar", targetdir: "\$INSTALL_PATH/bin")
+        xml.file(src: "brainflow-icon.ico", targetdir: "\$INSTALL_PATH/bin")
+        xml.file(src: "brainflow.version", targetdir: "\$INSTALL_PATH/bin")
+        xml.file(src: "brainflow.vmoptions", targetdir: "\$INSTALL_PATH/bin")
+        xml.file(src: "brainflow.sh", targetdir: "\$INSTALL_PATH/bin")
+      }
+    }
+
+    locale() {
+      langpack(iso3: "eng")
+    }
+  }
+
+
+
+  pw = new PrintWriter("izpack/brainflow-latest-install.xml")
+  pw.write(writer.toString())
+  pw.close()
+
 
 }
 
 
-task izpack(dependsOn: 'proguard') << {
+
+task izpack(dependsOn: ['assemble', 'collectRuntimeLibs', 'izpackConfig']) << {
+
 
   def configFileName = rootDir.getAbsolutePath() + "/izpack/brainflow-install.xml"
   def configFile = new File(configFileName)
-  
+
   ant {
     taskdef(name: 'IzPack',
             classname: 'com.izforge.izpack.ant.IzPackTask',
-            classpath: new File('c:/Program Files/izpack/lib/standalone-compiler.jar'))
+            classpath: new File('/home/brad/pkgs/IzPack/lib/standalone-compiler.jar'))
 
   }
 
-  ant.IzPack(input:rootDir.getAbsolutePath() + "/izpack/brainflow-install.xml",
-             output:rootDir.getAbsolutePath() + "/izpack/brainflow-install.jar",
-             basedir:rootDir.getAbsolutePath() + "/izpack")
+  ant.IzPack(input: rootDir.getAbsolutePath() + "/izpack/brainflow-latest-install.xml",
+          output: rootDir.getAbsolutePath() + "/izpack/brainflow-install.jar",
+          basedir: rootDir.getAbsolutePath() + "/izpack")
 
   ant.copy(file: "izpack/brainflow-install.jar", todir: rootDir)
 
-  def command = "izpack2exe --file=brainflow-install.jar  --with-7z=\"c:\\Program Files\\IzPack\\utils\\wrappers\\izpack2exe\\7za\""
+  def command = "python /home/brad/pkgs/IzPack/utils/wrappers/izpack2exe/izpack2exe.py --file=brainflow-install.jar  --with-7z=\"/usr/bin/p7zip\""
   def proc = command.execute()
-  //proc.waitFor()
+  proc.waitFor()
 
   //println "return code: ${ proc.exitValue()}"
   //println "stderr: ${proc.err.text}"
   //println "stdout: ${proc.in.text}"
-    
+
 }
 
 def classpath = new java.lang.StringBuffer()
 
-task constructManifest(dependsOn: 'compile') << {
+task constructManifest(dependsOn: 'compileJava') << {
 
 
-  configurations.compile.files.each { dep ->
-      classpath.append(' ')
-      classpath.append('../lib/'+ dep.getName())
+  configurations.compile.files.each {dep ->
+    classpath.append(' ')
+    classpath.append('../lib/' + dep.getName())
   }
 
   manifest.mainAttributes(
-                    'Main-Class': 'brainflow.app.toplevel.BrainFlow',
-                    'Implementation-Version': version,
-                    'SplashScreen-Image': 'logo/brainflow_logo.png',
-                    'Class-Path': classpath.toString())
+          'Main-Class': 'brainflow.app.toplevel.BrainFlow',
+          'Implementation-Version': version,
+          'SplashScreen-Image': 'icons/brainflow_logo.png',
+          'Class-Path': classpath.toString())
 
-  classpath.delete(0,1)
+  classpath.delete(0, 1)
 
   println(classpath)
 
 }
 
 
-
-task leanjar(type: Jar) {
-    appendix = "app"
-    zipFileSet(dir: "build/classes") {
-      exclude("data/**")
-    }
-}
-
-task corejar(type: Jar, dependsOn:'constructManifest') {
-  appendix = "core"
+task leanjar(type: Jar, dependsOn: 'constructManifest') {
+  appendix = "app"
   zipFileSet(dir: "build/classes") {
-      include("brainflow/**")
-      exclude("brainflow/app/**")
+    exclude("data/**")
   }
 }
 
-task appjar(type: Jar, dependsOn:'constructManifest') {
+task corejar(type: Jar, dependsOn: 'constructManifest') {
+  appendix = "core"
+  zipFileSet(dir: "build/classes") {
+    include("brainflow/**")
+    exclude("brainflow/app/**")
+  }
+}
+
+task appjar(type: Jar, dependsOn: 'constructManifest') {
   appendix = "app-testdata"
   zipFileSet(dir: "build/classes") {
-      include("brainflow/app/**")
+    include("brainflow/app/**")
   }
 
 }
 
 task makedist(type: Zip) {
-    appendix = 'dist'
-    zipFileSet(dir: runtimeLibsDir, prefix: "lib")
-    zipFileSet(dir: buildDir, prefix: "bin") {
-       include("libs/brainflow*.jar")
-    }
+  appendix = 'dist'
+  zipFileSet(dir: runtimeLibsDir, prefix: "lib")
+  zipFileSet(dir: buildDir, prefix: "bin") {
+    include("libs/brainflow*.jar")
+  }
 }
 
-task proguard(dependsOn:'dists') << {
+task proguard(dependsOn: 'assemble') << {
   ant.taskdef(resource: 'proguard/ant/task.properties',
-	          classpath: 'auxlib/proguard.jar'    )
+          classpath: 'auxlib/proguard.jar')
 
   ant.proguard(configuration: 'brainflow.pro')
 }
 
 task googleup(dependsOn: 'izpack') << {
   ant.taskdef(classname: "net.bluecow.googlecode.ant.GoogleCodeUploadTask",
-              classpath: "auxlib/ant-googlecode-0.0.2.jar",
-              name:"gcupload")
+          classpath: "auxlib/ant-googlecode-0.0.2.jar",
+          name: "gcupload")
 
   ant.gcupload(username: "brad.buchsbaum@gmail.com",
-               password: "s2f2c9k7",
-               projectname: "brainflow",
-               filename: "izpack/brainflow-install.jar",
-               targetfilename: "brainflow-install-${version}.jar",
-               summary:"cross-platform installer",
-               labels:"Featured, Type-Package, OpSys-All")
-  
+          password: "s2f2c9k7",
+          projectname: "brainflow",
+          filename: "izpack/brainflow-install.jar",
+          targetfilename: "brainflow-install-${version}.jar",
+          summary: "cross-platform installer",
+          labels: "Featured, Type-Package, OpSys-All")
+
   ant.gcupload(username: "brad.buchsbaum@gmail.com",
-               password: "s2f2c9k7",
-               projectname: "brainflow",
-               filename: "izpack/brainflow-install.jar",
-               targetfilename: "brainflow-install-${version}.jar",
-               summary:"cross-platform installer",
-               labels:"Featured, Type-Package, OpSys-All")
-  
+          password: "s2f2c9k7",
+          projectname: "brainflow",
+          filename: "izpack/brainflow-install.jar",
+          targetfilename: "brainflow-install-${version}.jar",
+          summary: "cross-platform installer",
+          labels: "Featured, Type-Package, OpSys-All")
+
 }
 
 

@@ -48,7 +48,7 @@ import java.util.logging.Logger;
  */
 public class Matrix3f implements Serializable {
     private static final Logger logger = Logger.getLogger(Matrix3f.class.getName());
-
+    ///
     private static final long serialVersionUID = 1L;
 
     public float m00, m01, m02;
@@ -1142,7 +1142,7 @@ public class Matrix3f implements Serializable {
      *
      * @param start normalized non-zero starting vector
      * @param end   normalized non-zero ending vector
-     * @see "Tomas Möller, John Hughes \"Efficiently Building a Matrix to Rotate \
+     * @see "Tomas Mï¿½ller, John Hughes \"Efficiently Building a Matrix to Rotate \
      *      One Vector to Another\" Journal of Graphics Tools, 4(4):1-4, 1999"
      */
     public void fromStartEndVectors(Vector3f start, Vector3f end) {

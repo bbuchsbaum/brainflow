@@ -14,13 +14,13 @@ import brainflow.core.BrainFlowException;
 public interface IMultiImageDataSource extends IImageDataSource {
 
 
-    public int indexOf(String imageLabel);
+    public IMultiImageDataSource next();
+
+    public IMultiImageDataSource previous();
 
     public IImageData load(int index, ProgressListener plistener) throws BrainFlowException;
 
     public IImageData load(int index) throws BrainFlowException;
-
-    public IImageDataSource getDataSource(String label);
 
     public IImageDataSource getDataSource(int index);
 

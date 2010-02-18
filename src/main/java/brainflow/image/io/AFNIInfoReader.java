@@ -184,10 +184,16 @@ public class AFNIInfoReader extends AbstractInfoReader {
     }
 
     private HeaderAttribute parseElement(BufferedReader reader) throws IOException {
+        String typeStr = "";
 
-        String typeStr = reader.readLine();
+        do {
+            typeStr = reader.readLine();
+            if (typeStr == null) return null;
+        } while(typeStr.equals(""));
 
-        if (typeStr == null) return null;
+
+
+
 
         String nameStr = reader.readLine();
 
@@ -206,6 +212,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
         } while (line != null && !line.equals(""));
 
         //sb.trimToSize();
+        //System.out.println("typeStr = " + typeStr);
         HeaderAttribute.HEADER_ATTRIBUTE_TYPE type = HeaderAttribute.parseType(typeStr.replaceFirst("-", "_"));
 
         //todo should check to see whether attribute exists ..s
@@ -219,6 +226,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
             attribute = HeaderAttribute.createAttribute(type, AFNIAttributeKey.AD_HOC, HeaderAttribute.parseCount(countStr), sb.toString());
         }
 
+      
 
         return attribute;
 

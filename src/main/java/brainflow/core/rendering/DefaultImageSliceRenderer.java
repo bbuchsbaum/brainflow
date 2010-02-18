@@ -160,12 +160,10 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
             return rgbaImage;
         }
 
-
         IColorMap colorMap = layer.getLayerProps().colorMap.get();
 
         lastColorMap = colorMap;
         return colorMap.getRGBAImage(getData());
-
 
     }
 
@@ -326,12 +324,11 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
         //StopWatch watch = new StopWatch();
 
         if (layer.getMaskProperty().isOpaque()) {
-            System.out.println("short crcuiting: opaque");
             return rgba;
         }
 
 
-        //todo check if opaque
+
         ImageSlicer slicer = ImageSlicer.createSlicer(refSpace, layer.getMaskProperty().buildMask());
 
         int slice = getZSlice();
@@ -339,8 +336,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
         //todo what is the correct way to round zdisp  here?
         // todo check if zdisp is valid?
 
-        //System.out.println("zslice : " + zdisp);
-
+    
         IImageData2D maskData = slicer.getSlice(getDisplayAnatomy(), slice);
         UByteImageData2D alpha = rgba.getAlpha();
         UByteImageData2D out = new UByteImageData2D(alpha.getImageSpace());

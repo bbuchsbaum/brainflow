@@ -1,6 +1,5 @@
 package brainflow.app.actions;
 
-import brainflow.app.presentation.ColorBandChartPresenter;
 import brainflow.app.presentation.controls.CustomColorMapDesigner;
 import brainflow.colormap.IColorMap;
 import brainflow.core.layer.ImageLayer;

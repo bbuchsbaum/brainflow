@@ -94,9 +94,9 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
 
         } catch (BrainFlowException e) {
             throw new RuntimeException(e);
-        } catch(Throwable t) {
+        } catch(Exception e) {
             Logger.getAnonymousLogger().severe("failed to read image info for : " + getHeaderFile());
-            throw new RuntimeException(t);
+            throw new RuntimeException(e);
         }
 
     }

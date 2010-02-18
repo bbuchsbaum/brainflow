@@ -1,11 +1,12 @@
 package spock.brainflow.image
 
-import spock.lang.Speck
+
 import org.junit.runner.RunWith
 import brainflow.image.io.BrainIO
-import spock.lang.Sputnik
+
 import brainflow.image.data.IImageData3D
 import spock.lang.Shared
+import spock.lang.Specification
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,9 +16,8 @@ import spock.lang.Shared
  * To change this template use File | Settings | File Templates.
  */
 
-@Speck
-@RunWith (Sputnik)
-public class DataSubGrid3DSpec {
+
+public class DataSubGrid3DSpec extends Specification {
 
    @Shared IImageData3D  image =  BrainIO.readNiftiImage("src/main/groovy/testdata/207_anat_alepi.nii")
 

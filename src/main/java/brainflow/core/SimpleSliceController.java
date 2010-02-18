@@ -34,7 +34,6 @@ class SimpleSliceController implements SliceController {
                 GridLoc3D oldval = (GridLoc3D)oldValue;
                 GridLoc3D newval = (GridLoc3D)newValue;
 
-                System.out.println("new grid loc = " + newval);
          
                 if (!oldval.equals(newval)) {
                     imageView.getSelectedPlot().setSlice(newval);
@@ -56,7 +55,6 @@ class SimpleSliceController implements SliceController {
     public void setSlice(GridLoc3D slice) {
         if (!slice.equals(imageView.cursorPos.get())) {
             imageView.cursorPos.set(slice);
-            System.out.println("setting slice to gridloc " + slice);
         }
 
         

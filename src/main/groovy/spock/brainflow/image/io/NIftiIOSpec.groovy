@@ -10,7 +10,7 @@ package spock.brainflow.image.io
 import brainflow.image.io.NiftiInfoReader
 import org.junit.runner.RunWith
 import spock.lang.*
-import static spock.lang.Predef.*
+
 import brainflow.image.anatomy.Anatomy3D
 import brainflow.utils.DataType
 import java.nio.ByteOrder
@@ -23,9 +23,8 @@ import brainflow.image.io.BrainIO
 import brainflow.image.io.NiftiImageWriter
 import brainflow.image.data.Data
 
-@Speck
-@RunWith (Sputnik)
-public class NIftiIOSpec {
+
+public class NIftiIOSpec extends Specification {
 
   def infoReader
 

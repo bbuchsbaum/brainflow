@@ -11,6 +11,5 @@ import org.apache.commons.vfs.FileObject;
  */
 public interface FileObjectFilter {
 
-
     public boolean accept(FileObject fobj);
 }

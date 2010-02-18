@@ -1,9 +1,9 @@
 package spock.brainflow.image.io
 
-import spock.lang.Speck
+
 import org.junit.runner.RunWith
 import brainflow.image.io.AFNIInfoReader
-import spock.lang.Sputnik
+import spock.lang.Specification
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,18 +13,37 @@ import spock.lang.Sputnik
  * To change this template use File | Settings | File Templates.
  */
 
-@Speck
-@RunWith (Sputnik)
-public class AFNIIOSpec  {
+
+public class AFNIIOSpec extends Specification {
 
 
   def "reading motion-reg2+orig succeeds"() {
     when:
-    def reader = new AFNIInfoReader("src/main/groovy/testdata/motion-reg2+orig")
+    def reader = new AFNIInfoReader("motion-reg2+orig")
     def infolist = reader.readInfo()
 
     then:
     infolist != null
+  }
+
+  def "reading TT_N27+tlrc.BRIK.gz succeeds"() {
+    when:
+    def reader = new AFNIInfoReader("brainflow/src/main/testdata/TT_N27+tlrc.BRIK.gz")
+    def infolist = reader.readInfo()
+
+    then:
+    infolist != null
+
+  }
+
+  def "reading TT_icbm452+tlrc.HEAD succeeds"() {
+    when:
+    def reader = new AFNIInfoReader("brainflow/src/main/testdata/TT_icbm452+tlrc.HEAD")
+    def infolist = reader.readInfo()
+
+    then:
+    infolist != null
+
   }
 
 }

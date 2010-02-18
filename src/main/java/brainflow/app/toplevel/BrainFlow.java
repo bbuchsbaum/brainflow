@@ -40,6 +40,7 @@ import com.pietschy.command.toggle.ToggleGroup;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.factory.ButtonFactory;
 import com.pietschy.command.factory.MenuFactory;
+import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.VFS;
@@ -116,8 +117,8 @@ public class BrainFlow {
 
         final BrainFlow bflow = get();
 
-        Class myClass = BrainFlow.class;
-        URL url = myClass.getResource("BrainFlow.class");
+        //Class myClass = BrainFlow.class;
+        //URL url = myClass.getResource("BrainFlow.class");
         //System.out.println("class located: " + url);
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -199,19 +200,21 @@ public class BrainFlow {
             System.out.println("os name is : " + osname);
             if (osname.toUpperCase().contains("WINDOWS")) {
                 log.info("windows");
-                //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                //UIManager.setLookAndFeel(de.javasoft.plaf.synthetica.blackmoon.);
-                // UIManager.setLookAndFeel(new de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel());
-                com.jidesoft.plaf.LookAndFeelFactory.installDefaultLookAndFeel();
+                 com.jidesoft.plaf.LookAndFeelFactory.installDefaultLookAndFeel();
                 LookAndFeelFactory.installJideExtension(LookAndFeelFactory.OFFICE2003_STYLE);
                 ((Office2003Painter) Office2003Painter.getInstance()).setColorName("Metallic");
+
+                //UIManager.setLookAndFeel(new NimbusLookAndFeel());
+                //LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
 
 
                 //LookAndFeelFactory.installJideExtension();
 
             } else if (osname.toUpperCase().contains("LINUX")) {
-                UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-                LookAndFeelFactory.installJideExtension();
+                //UIManager.setLookAndFeel(new com.jgoodies.looks.plastic.Plastic3DLookAndFeel());
+                UIManager.setLookAndFeel(new NimbusLookAndFeel());
+                //UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+                LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
 
             } else if (osname.toUpperCase().contains("MAC")) {
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -220,7 +223,9 @@ public class BrainFlow {
                 System.setProperty("apple.awt.graphics.UseQuartz", "true");
                 System.setProperty("apple.awt.brushMetalLook", "true");
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            LookAndFeelFactory.installJideExtension(1);
+                //UIManager.setLookAndFeel(new NimbusLookAndFeel());
+                //LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
+                LookAndFeelFactory.installJideExtension(1);
 
             }
 
@@ -239,8 +244,6 @@ public class BrainFlow {
         }
 
     }
-
-
 
 
     public void launch() throws Throwable {
@@ -514,7 +517,7 @@ public class BrainFlow {
         zoomer.getComponent().setOpaque(false);
         zoomer.getComponent().setBorder(new EmptyBorder(0, 0, 0, 0));
 
-        statusBar.add(new SliderStatusBarItem((JSlider)zoomer.getComponent()), JideBoxLayout.FIX);
+        statusBar.add(new SliderStatusBarItem((JSlider) zoomer.getComponent()), JideBoxLayout.FIX);
 
         statusBar.add(new LabelStatusBarItem(), JideBoxLayout.VARY);
         //statusBar.add(new com.jidesoft.status.ProgressStatusBarItem(), JideBoxLayout.FIX);
@@ -809,9 +812,9 @@ public class BrainFlow {
 
         watch.start("layout docks");
 
-        
+
         brainFrame.getDockableBarManager().loadLayoutData();
-       // brainFrame.toFront();
+        // brainFrame.toFront();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         brainFrame.setSize((int) screenSize.getWidth(), (int) screenSize.getHeight() - 50);
 
@@ -862,7 +865,7 @@ public class BrainFlow {
                     DockContext.DOCK_SIDE_WEST);
 
             //explorer.getComponent().setPreferredSize(new Dimension(400,200));
-            dframe.setPreferredSize(new Dimension(275, 200));
+            dframe.setPreferredSize(new Dimension(275, 400));
 
             //JScrollPane jsp = new JScrollPane(explorer.getComponent());
             //jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -958,7 +961,7 @@ public class BrainFlow {
                 DockContext.DOCK_SIDE_EAST);
 
         FloorTabbedPane floorPane = new FloorTabbedPane();
-        floorPane.addTab("Navigation",coordinateControls.getComponent() );
+        floorPane.addTab("Navigation", coordinateControls.getComponent());
 
         dframe.getContentPane().add(floorPane);
 
@@ -966,9 +969,12 @@ public class BrainFlow {
         brainFrame.getDockingManager().addFrame(dframe);
 
     }
+
     private void initControlPanel() {
 
-        JideTabbedPane tabbedPane = new JideTabbedPane();
+        
+        //JideTabbedPane tabbedPane = new JideTabbedPane();
+        JTabbedPane tabbedPane = new JTabbedPane();
 
         DockableFrame dframe = DockWindowManager.getInstance().createDockableFrame("Tool Box",
                 "icons/types.gif",
@@ -978,24 +984,14 @@ public class BrainFlow {
 
         ColorAdjustmentControl colorAdjustmentControl = new ColorAdjustmentControl();
 
-        //CoordinateControls coordinateControls = new CoordinateControls();
-
         LayerInfoControl layerInfoControl = new LayerInfoControl();
 
         MaskControl maskControl = new MaskControl();
-
-        //ColorMapTablePresenter tablePresenter = new ColorMapTablePresenter();
-
-        //MaskTablePresenter maskPresenter = new MaskTablePresenter();
 
         tabbedPane.addTab("Adjust", new JScrollPane(colorAdjustmentControl.getComponent()));
         tabbedPane.addTab("Mask", maskControl.getComponent());
         tabbedPane.addTab("Info", new JScrollPane(layerInfoControl.getComponent()));
         tabbedPane.addTab("Clustering", new ClusterPresenter().getComponent());
-        //tabbedPane.addTab("Color Table", tablePresenter.getComponent());
-        //tabbedPane.addTab("Mask Table", maskPresenter.getComponent());
-        //tabbedPane.addTab("Coordinates", new JScrollPane(coordinateControls.getComponent()));
-
 
         dframe.getContentPane().add(tabbedPane);
 
@@ -1003,7 +999,6 @@ public class BrainFlow {
         brainFrame.getDockingManager().addFrame(dframe);
 
     }
-
 
 
     private boolean initializeResources() {
@@ -1129,8 +1124,6 @@ public class BrainFlow {
 
     }
 
-    
-
 
     public void loadAndDisplay(final IImageDataSource dataSource, final ImageView view) {
         final IImageDataSource checkedDataSource = specialHandling(dataSource);
@@ -1156,31 +1149,37 @@ public class BrainFlow {
 
 
     public IImageDataSource createDataSource(URI uri) throws BrainFlowException {
-        File file = new File(uri);
-        return createDataSource(file.getAbsolutePath());
+        try {
+            FileObject fobj = VFS.getManager().resolveFile(uri.getPath());
+
+            java.util.List<IImageDataSource> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
+            return sources.get(0);
+        } catch (FileSystemException e) {
+            throw new BrainFlowException(e);
+        }
     }
 
+
     public IImageDataSource createDataSource(String path) throws BrainFlowException {
-        File file = new File(path);
 
-        if (!file.exists()) {
-            throw new BrainFlowException("argument " + path + " not found");
+
+        try {
+            FileObject fobj = VFS.getManager().resolveFile(path);
+            
+            if (!BrainIO.isSupportedImageFile(fobj.getName().getBaseName())) {
+                throw new BrainFlowException("argument " + fobj.getName().getBaseName() + " is not a valid image path");
+            }
+
+            java.util.List<IImageDataSource> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
+            if (sources.size() > 1) {
+                log.warning("multiple matching files for path " + path + "... using first match.");
+            }
+
+            return sources.get(0);
+
+        } catch (FileSystemException e) {
+            throw new BrainFlowException(e.getMessage(), e);
         }
-
-        if (!BrainIO.isSupportedImageFile(path)) {
-            throw new BrainFlowException("argument " + path + "is not a valid image path");
-        }
-
-        java.util.List<IImageDataSource> sources = BrainIO.loadDataSources(new File[]{file});
-
-
-
-        if (sources.size() > 1) {
-            // todo fix this to handle multiple files correctly
-            log.warning("mulitple matching files for path " + path + "... using first match.");
-        }
-
-        return sources.get(0);
 
 
     }
@@ -1232,7 +1231,7 @@ public class BrainFlow {
         SliderStatusBarItem(JSlider slider) {
             setLayout(new BorderLayout());
             this.slider = slider;
-            
+
             add(slider, BorderLayout.CENTER);
         }
 

@@ -9,9 +9,8 @@ import org.junit.runner.RunWith
 import spock.lang.*
 import brainflow.image.io.NiftiImageInfo
 
-@Speck
-@RunWith(Sputnik)
-public class NIftiStringExtensionSpec {
+
+public class NIftiStringExtensionSpec extends Specification {
 
 
   def "getting an image file name from a header name, where header ends with .hdr"() {
