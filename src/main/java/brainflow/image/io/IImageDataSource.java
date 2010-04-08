@@ -43,7 +43,6 @@ public interface IImageDataSource {
     public ImageInfo getImageInfo();
 
 
-
     public List<ImageInfo> getImageInfoList();
 
     public BufferedImage getPreview();

@@ -6,6 +6,9 @@ import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerProps;
 import brainflow.utils.Range;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Brad
@@ -15,6 +18,16 @@ import brainflow.utils.Range;
  */
 public class ImageLayerFactory {
 
+
+
+    public static List<ImageLayer3D> createImageLayerList(List<IImageDataSource> sources) {
+        List<ImageLayer3D> ret = new ArrayList<ImageLayer3D>();
+        for (IImageDataSource s : sources) {
+            ret.add(createImageLayer(s));
+        }
+
+        return ret;
+    }
 
     public static ImageLayer3D createImageLayer(IImageDataSource dataSource) {
         //double[] sortedVals = ImageData.sort(dataSource.getData());

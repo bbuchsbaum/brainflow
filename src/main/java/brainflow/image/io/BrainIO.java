@@ -302,8 +302,10 @@ public class BrainIO {
     }
 
 
+    
 
-    public static List<IImageDataSource> loadDataSources(File[] files) {
+
+    public static List<IImageDataSource> loadDataSources(File... files) {
         FileObject[] fobjs = new FileObject[files.length];
 
         try {

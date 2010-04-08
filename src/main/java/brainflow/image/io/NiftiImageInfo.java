@@ -1,6 +1,6 @@
 package brainflow.image.io;
 
-import brainflow.image.io.ImageInfo;
+
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.math.Matrix4f;
@@ -36,7 +36,7 @@ public class NiftiImageInfo extends ImageInfo {
 
     public static final String[] validHeaderExtensions = { ".nii", ".nii.gz", ".hdr", ".hdr.gz"};
 
-    public static final String[] validImageExtensions = { ".nii", ".nii.gz", ".img", ".img.gz"};
+    public static final String[] validImageExtensions = { ".nii", ".nii.gz", ".img", ".img.gz" };
 
     public static final Map<String, String> validExtensionPairs = new HashMap<String, String>();
 

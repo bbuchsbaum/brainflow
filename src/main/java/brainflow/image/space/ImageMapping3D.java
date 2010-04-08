@@ -12,8 +12,6 @@ import brainflow.image.anatomy.Anatomy3D;
  */
 public interface ImageMapping3D {
 
-
-
     public Anatomy3D getAnatomy();
 
     public Anatomy3D getWorldAnatomy();

@@ -34,6 +34,7 @@ object ImageFileDescriptor {
 }
 
 trait ImageFileDescriptor {
+  
   import ImageFileDescriptor._
 
   def headerExtension: String
