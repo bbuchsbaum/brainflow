@@ -149,7 +149,7 @@ case object RawBinaryEncoding extends FileEncoding {
   def extension = ""
 }
 
-object FileDescriptors {
+object ImageFileDescriptors {
 
   abstract class GenericFileDescriptor(val headerExtension: String, val dataExtension: String, val fileFormat: String, val headerEncoding: FileEncoding, val dataEncoding: FileEncoding) extends ImageFileDescriptor
 
@@ -163,6 +163,15 @@ object FileDescriptors {
   }
 
   case object NIFTI_GZ extends GenericFileDescriptor("nii", "nii", "NIFTI", GZIPEncoding, GZIPEncoding) {
+    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = None
+
+    def createDataSource(headerFile: FileObject, dataFile: FileObject) = None
+
+    def unapply(filename: String) = filename.endsWith(".nii.gz")
+
+  }
+
+  case object NIFTI_PAIR extends GenericFileDescriptor("hdr", "img", "NIFTI", RawBinaryEncoding, RawBinaryEncoding) {
     def createInfoReader(headerFile: FileObject, dataFile: FileObject) = None
 
     def createDataSource(headerFile: FileObject, dataFile: FileObject) = None
@@ -193,6 +202,7 @@ object FileDescriptors {
     fileName match {
       case NIFTI() => true
       case NIFTI_GZ() => true
+      case NIFTI_PAIR() => true
       case AFNI() => true
       case AFNI_GZ() => true
       case _ => false
@@ -205,24 +215,24 @@ object FileDescriptors {
 }
 
 object Test {
-  import FileDescriptors._
+  import ImageFileDescriptors._
 
   def main(args:Array[String]) {
     val x = "x.HEAD"
     x match {
-      case FileDescriptors.AFNI() => println(x + " is an afni header")
+      case ImageFileDescriptors.AFNI() => println(x + " is an afni header")
       case _ => println("not an afni header")
     }
 
     val y = "hello/hello/goodbye/junk.BRIK.gz"
     y match {
-      case FileDescriptors.AFNI_GZ() => println(y + " is an afni gz header")
+      case ImageFileDescriptors.AFNI_GZ() => println(y + " is an afni gz header")
       case _ => println("not an afni gz header")
     }
 
     val z = "hello/hello/goodbye/junk.nii"
     z match {
-      case FileDescriptors.NIFTI() => println(z + " is a nifti header")
+      case ImageFileDescriptors.NIFTI() => println(z + " is a nifti header")
       case _ => println("not a nifti header")
     }
 
