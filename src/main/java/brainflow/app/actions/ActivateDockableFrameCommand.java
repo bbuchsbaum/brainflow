@@ -16,7 +16,7 @@ import com.pietschy.command.toggle.ToggleVetoException;
  */
 public class ActivateDockableFrameCommand extends BrainFlowToggleCommand {
 
-    DockableFrame dframe;
+    private DockableFrame dframe;
 
     public ActivateDockableFrameCommand(DockableFrame _dframe) {
         //super("activate-dock");

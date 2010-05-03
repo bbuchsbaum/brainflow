@@ -62,6 +62,7 @@ public class ThresholdRangePresenter extends BrainFlowPresenter {
 
 
         symmetricalCheckBox.setBorder(new EmptyBorder(12, 5, 5, 5));
+        symmetricalCheckBox.setEnabled(false);
 
         form.add(symmetricalCheckBox, BorderLayout.SOUTH);
 
@@ -84,6 +85,7 @@ public class ThresholdRangePresenter extends BrainFlowPresenter {
 
     @Override
     public void viewSelected(ImageView view) {
+        //symmetricalCheckBox.setEnabled(true);
         bind();
     }
 
@@ -101,6 +103,7 @@ public class ThresholdRangePresenter extends BrainFlowPresenter {
 
 
     public void allViewsDeselected() {
+        symmetricalCheckBox.setEnabled(false);
         unbind();
     }
 

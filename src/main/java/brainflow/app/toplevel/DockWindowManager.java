@@ -36,6 +36,10 @@ class DockWindowManager implements DockableFrameListener {
         return (DockWindowManager) SingletonRegistry.REGISTRY.getInstance("brainflow.app.toplevel.DockWindowManager");
     }
 
+    public void dockableFrameTransferred(DockableFrameEvent dockableFrameEvent) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     public DockableFrame createDockableFrame(String title,  int state, int side) {
 
         DockableFrame dframe = new DockableFrame(title);

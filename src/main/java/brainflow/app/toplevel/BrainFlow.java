@@ -12,24 +12,31 @@ import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageDataSource;
 import brainflow.gui.ExceptionDialog;
+import brainflow.utils.AbstractBuilder;
 import brainflow.utils.StopWatch;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jidesoft.docking.DefaultDockingManager;
 import com.jidesoft.docking.DockContext;
 import com.jidesoft.docking.DockableFrame;
-import com.jidesoft.document.*;
+import com.jidesoft.document.DocumentComponent;
+import com.jidesoft.document.DocumentComponentAdapter;
+import com.jidesoft.document.DocumentComponentEvent;
+import com.jidesoft.document.DocumentPane;
 import com.jidesoft.pane.FloorTabbedPane;
 import com.jidesoft.plaf.LookAndFeelFactory;
 import com.jidesoft.plaf.UIDefaultsLookup;
 import com.jidesoft.plaf.basic.ThemePainter;
-import com.jidesoft.plaf.office2003.Office2003Painter;
 import com.jidesoft.status.LabelStatusBarItem;
 import com.jidesoft.status.StatusBar;
 import com.jidesoft.status.StatusBarItem;
-import com.jidesoft.swing.*;
 import com.jidesoft.action.CommandBar;
 import com.jidesoft.action.CommandMenuBar;
+import com.jidesoft.swing.JideBoxLayout;
+import com.jidesoft.swing.JideButton;
+import com.jidesoft.swing.JideMenu;
+import com.jidesoft.swing.JideSplitPane;
+import com.jidesoft.swing.JideToggleButton;
 import com.pietschy.command.CommandContainer;
 import com.pietschy.command.GuiCommands;
 import com.pietschy.command.configuration.ParseException;
@@ -43,19 +50,20 @@ import com.pietschy.command.factory.MenuFactory;
 import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
+import org.apache.commons.vfs.FileType;
 import org.apache.commons.vfs.VFS;
 
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.SplashScreen;
 import java.awt.event.*;
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -200,15 +208,16 @@ public class BrainFlow {
             System.out.println("os name is : " + osname);
             if (osname.toUpperCase().contains("WINDOWS")) {
                 log.info("windows");
-                 com.jidesoft.plaf.LookAndFeelFactory.installDefaultLookAndFeel();
-                LookAndFeelFactory.installJideExtension(LookAndFeelFactory.OFFICE2003_STYLE);
-                ((Office2003Painter) Office2003Painter.getInstance()).setColorName("Metallic");
+
+                com.jidesoft.plaf.LookAndFeelFactory.installDefaultLookAndFeel();
+                LookAndFeelFactory.installJideExtension(LookAndFeelFactory.OFFICE2007_STYLE);
+                //((Office2003Painter) Office2003Painter.getInstance()).setColorName("Metallic");
 
                 //UIManager.setLookAndFeel(new NimbusLookAndFeel());
                 //LookAndFeelFactory.installJideExtension(LookAndFeelFactory.XERTO_STYLE);
 
 
-                //LookAndFeelFactory.installJideExtension();
+
 
             } else if (osname.toUpperCase().contains("LINUX")) {
                 //UIManager.setLookAndFeel(new com.jgoodies.looks.plastic.Plastic3DLookAndFeel());
@@ -247,6 +256,11 @@ public class BrainFlow {
 
 
     public void launch() throws Throwable {
+        launch(new LaunchConfiguration().build());
+    }
+
+
+    public void launch(LaunchConfiguration config) throws Throwable {
         openSplash();
         drawSplashProgress("loading look and feel");
         initLookAndFeel();
@@ -311,8 +325,20 @@ public class BrainFlow {
         initializeStatusBar();
         clock.stopAndReport("status bar");
 
+
+
         brainFrame.setVisible(true);
 
+        mountInitialDirectories(config.mountPoints);
+
+
+
+    }
+
+    private void mountInitialDirectories(List<FileObject> mountPoints) {
+        for (FileObject mp : mountPoints) {
+            DirectoryManager.getInstance().mountFileSystem(mp);
+        }
 
     }
 
@@ -441,7 +467,9 @@ public class BrainFlow {
         //menuBar.setBorder(new LineBorder(Color.black, 1));
         menuBar.setStretch(true);
 
-        //menuBar.setPaintBackground(false);
+        // for nimbus look and feel
+        menuBar.setPaintBackground(false);
+        // for nimbus look and feel
 
         menuBar.add(fileMenuGroup.createMenuItem());
         menuBar.add(viewMenuGroup.createMenuItem());
@@ -541,6 +569,7 @@ public class BrainFlow {
 
 
         CommandGroup mainToolbarGroup = new CommandGroup("main-toolbar");
+      
 
         mainToolbarGroup.bind(getApplicationFrame());
 
@@ -589,6 +618,10 @@ public class BrainFlow {
 
         //JToolBar mainToolbar = mainToolbarGroup.createToolBar();
         final CommandBar mainToolbar = new CommandBar();
+        // for nimbus look and feel
+               mainToolbar.setPaintBackground(false);
+               // for nimbus look and feel
+
         mainToolbar.setBorder(new EmptyBorder(0, 0, 0, 0));
         final ButtonFactory buttonFactory = createToolBarButtonFactory();
 
@@ -721,6 +754,20 @@ public class BrainFlow {
         DisplayManager.get().getSelectedCanvas().getComponent().setTransferHandler(handler);
 
     }
+
+
+    public void mountDirectory(FileObject dir) {
+        try {
+            if (dir.getType() != FileType.FOLDER) {
+                throw new IllegalArgumentException("argument " + dir + " is not a directory");
+            }
+            DirectoryManager.getInstance().mountFileSystem(dir);
+
+        } catch(FileSystemException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public void addCanvas(IBrainCanvas canvas) {
         //todo sync with DisplayManager?
@@ -1208,10 +1255,6 @@ public class BrainFlow {
         DisplayManager.get().display(view);
     }
 
-    //public void updateViews(ImageViewModel oldModel, ImageViewModel newModel) {
-    //    DisplayManager.get().updateViews(oldModel, newModel);
-    //}
-
     public IBrainCanvas newCanvas() {
         return DisplayManager.get().newCanvas();
     }
@@ -1221,6 +1264,32 @@ public class BrainFlow {
         IImageDataSource[] limg = loadingDock.requestLoadableImages();
         return Arrays.asList(limg);
 
+    }
+
+
+    public static class LaunchConfiguration extends AbstractBuilder {
+
+        public final List<FileObject> mountPoints = new ArrayList<FileObject>();
+
+        public final List<List<FileObject>> datasets = new ArrayList<List<FileObject>>();
+
+        public LaunchConfiguration() {}
+
+        public LaunchConfiguration addMountPoint(FileObject dir) {
+            mountPoints.add(dir);
+            return this;
+        }
+
+        public LaunchConfiguration addDataset(List<FileObject> dset) {
+            datasets.add(dset);
+            return this;
+        }
+
+        public LaunchConfiguration build() {
+            this.checkBuilt();
+            this.isBuilt = true;
+            return this;
+        }
     }
 
 
