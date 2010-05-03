@@ -2,7 +2,7 @@ package sc.brainflow.controls
 
 import boxwood.io.RichFileObject._
 import java.net.{URISyntaxException, URI}
-import org.apache.commons.vfs._
+
 import javax.swing.tree._
 import collection.mutable.ArrayBuffer
 import swing.{SwingApplication}
@@ -11,6 +11,7 @@ import boxwood.io.RichFileObject
 import java.lang.String
 import java.awt.{BorderLayout, Component}
 import sc.brainflow.swing.tree.FileObjectTreeNode
+import org.apache.commons.vfs.{FileSelectInfo, FileObject, FileSelector}
 
 /**
  * Created by IntelliJ IDEA.

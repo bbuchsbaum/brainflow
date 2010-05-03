@@ -41,7 +41,7 @@ class ImageLayer3D(val name: String, val data: IImageData3D) extends ImageLayer 
   def layerProperties = this
 
 
-  class DefaultRenderer(val refSpace: A, val slice: GridLoc3D, val displayAnatomy: Anatomy3D) extends ImageSliceRenderer {
+  class DefaultRenderer(val refSpace: S, val slice: GridLoc3D, val displayAnatomy: Anatomy3D) extends ImageSliceRenderer {
 
     lazy val zslice = {
       val zdisp = slice.getValue(displayAnatomy.ZAXIS, false)
@@ -50,8 +50,8 @@ class ImageLayer3D(val name: String, val data: IImageData3D) extends ImageLayer 
     }
 
     lazy val data = {
-      var slice: Int = getZSlice
-      ImageSlicer.createSlicer(refSpace, self.data).getSlice(getDisplayAnatomy, getZSlice)
+      var slice: Int = zslice
+      ImageSlicer.createSlicer(refSpace, self.data).getSlice(displayAnatomy, zslice)
     }
 
     lazy val rgbImage = {

@@ -8,10 +8,9 @@ package sc.brainflow.image.io
  * To change this template use File | Settings | File Templates.
  */
 
-trait NiftiImageInfo extends ImageMetaInfo {
+trait NiftiImageInfo //extends ImageMetaInfo {
 
-  def 
+  //def 
 
   
 
-}
