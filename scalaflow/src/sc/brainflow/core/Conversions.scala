@@ -1,7 +1,7 @@
 package sc.brainflow.core
 
 import _root_.brainflow.core.ImageViewModel
-import _root_.brainflow.image.io.IImageDataSource
+import _root_.brainflow.image.io.IImageSource
 
 /**
  * Created by IntelliJ IDEA.

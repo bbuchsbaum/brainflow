@@ -5,6 +5,7 @@ import boxwood.io.VFSUtils
 import joptsimple.{OptionSet, OptionParser}
 import scalaj.collection.Imports._
 import org.apache.commons.vfs.FileObject
+import sc.brainflow.image.io.ImageFileDescriptors
 
 
 /**
@@ -30,10 +31,12 @@ case class BrainFlowLauncher(val args: Array[String]) {
 
     if (options.has("mount")) {
       val mountPoint = options.valueOf("mount").toString
-      val ret = VFSUtils.resolveFileObject(mountPoint) match {
+      VFSUtils.resolveFileObject(mountPoint) match {
         case Right(mp) => config.addMountPoint(mp)
-        case Left(e) => throw new RuntimeException(e)
+        case Left(e) => None
       }
+
+
     }
 
     if (options.has("show")) {
@@ -45,7 +48,12 @@ case class BrainFlowLauncher(val args: Array[String]) {
         case _ =>
       })
 
-      config.addDataset(files.flatMap(_.right.toSeq).asJava)
+
+
+      val validFiles = files.flatMap(_.right.toSeq)
+      val supportedFiles = validFiles.filter(x => isSupportedFile(x.getName.getPath))
+      println("number of files " + supportedFiles.length)
+      config.addDataset(supportedFiles.asJava)
 
     }
 
@@ -53,6 +61,8 @@ case class BrainFlowLauncher(val args: Array[String]) {
     bflow.launch(config)
 
   }
+
+  def isSupportedFile(fileName: String) = ImageFileDescriptors.supportedFileType(fileName)
 
   def fail(msg: String) = {
     System.err.println("error: " + msg)

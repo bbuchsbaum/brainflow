@@ -4,11 +4,11 @@ import collection.mutable.ArrayBuffer
 import boxwood.io.RichFileObject._
 import swing.SwingApplication
 import javax.swing.{JTree, JFrame}
-import org.apache.commons.vfs.{FileSelectInfo, FileSelector, FileObject}
 import javax.swing.tree._
 import boxwood.io.RichFileObject
 import java.awt.BorderLayout
 import java.net.{URI, URISyntaxException}
+import org.apache.commons.vfs.{FileType, FileSelectInfo, FileSelector, FileObject}
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,34 +19,22 @@ import java.net.{URI, URISyntaxException}
  */
 
 trait GenericTreeNode[A] extends MutableTreeNode {
+
   var parent: Option[MutableTreeNode]
 
   def value: A
 
-  def childNodes: ArrayBuffer[GenericTreeNode[A]]
-
-  def numChildren = childNodes.size
-
-  def indexOf(node: TreeNode) = childNodes.indexOf(node)
-
   def allowsChildren: Boolean
 
-  def isLeaf = !allowsChildren
+  def isLeaf: Boolean
 
-
-  def children: java.util.Enumeration[TreeNode] = {
-    new TreeEnum(childNodes).asInstanceOf[java.util.Enumeration[TreeNode]]
-
-  }
-
-
+  def numChildren: Int
 
   def getPath: Array[TreeNode] = {
     return getPathToRoot(this, 0)
   }
 
 
- 
   protected def getPathToRoot(aNode: TreeNode, depth: Int): Array[TreeNode] = {
     var retNodes: Array[TreeNode] = null
 
@@ -63,6 +51,62 @@ trait GenericTreeNode[A] extends MutableTreeNode {
     retNodes
   }
 
+  override def setUserObject(`object` : Any) = error("cannot set user object")
+
+  override def getAllowsChildren = allowsChildren
+
+  override def getParent = parent.getOrElse(null)
+
+  override def setParent(newParent: MutableTreeNode) = parent = Some(newParent)
+
+  override def removeFromParent = parent match {
+    case Some(x) => x.remove(this)
+    case _ => ()
+  }
+
+}
+
+trait GenericLeafNode[A] extends GenericTreeNode[A] {
+
+  def isLeaf = true
+
+  def allowsChildren = false;
+
+  def numChildren: Int = 0
+
+  override def getChildCount = 0
+
+  def remove(node: MutableTreeNode) = error("cannot remove elemtnet from leaf node")
+
+  def remove(index: Int) = error("cannot remove elemtnet from leaf node")
+
+  def insert(child: MutableTreeNode, index: Int) = error("cannot insert element in to a leaf node")
+
+  def children: java.util.Enumeration[TreeNode] = error("cannot insert element in to a leaf node")
+
+  def getIndex(node: TreeNode) = error("cannot remove elemtnet from leaf node")
+
+  def getChildAt(childIndex: Int) = error("cannot remove elemtnet from leaf node")
+}
+
+trait GenericBranchNode[A, B] extends GenericTreeNode[A] {
+  def childNodes: ArrayBuffer[GenericTreeNode[B]]
+
+  def indexOf(node: TreeNode) = childNodes.indexOf(node)
+
+  def allowsChildren: Boolean
+
+  def isLeaf = !allowsChildren
+
+  def numChildren: Int = childNodes.size
+
+  def children: java.util.Enumeration[TreeNode] = {
+    new TreeEnum(childNodes).asInstanceOf[java.util.Enumeration[TreeNode]]
+
+  }
+
+
+
   override def getAllowsChildren = allowsChildren
 
   override def getIndex(node: TreeNode) = indexOf(node)
@@ -73,21 +117,11 @@ trait GenericTreeNode[A] extends MutableTreeNode {
 
   override def getChildAt(childIndex: Int) = childNodes(childIndex)
 
-
-  override def setParent(newParent: MutableTreeNode) = parent = Some(newParent)
-
-  override def removeFromParent = parent match {
-    case Some(x) => x.remove(this)
-    case _ => ()
-  }
-
-  override def setUserObject(`object` : Any) = error("cannot set user object")
-
-  override def remove(node: MutableTreeNode) = node.asInstanceOf[GenericTreeNode[A]]
+  override def remove(node: MutableTreeNode) = childNodes - node.asInstanceOf[GenericTreeNode[B]]
 
   override def remove(index: Int) = childNodes.remove(index)
 
-  override def insert(child: MutableTreeNode, index: Int) = childNodes.insert(index, child.asInstanceOf[GenericTreeNode[A]])
+  override def insert(child: MutableTreeNode, index: Int) = childNodes.insert(index, child.asInstanceOf[GenericTreeNode[B]])
 
   override def toString = value.toString()
 }
@@ -115,10 +149,8 @@ object NonRecursiveFileSelector extends FileSelector {
 
 }
 
-
-class FileObjectTreeNode(override var parent: Option[MutableTreeNode], override val value: FileObject, val selector: FileSelector) extends GenericTreeNode[FileObject] {
+class FolderTreeNode(override var parent: Option[MutableTreeNode], override val value: FileObject, val selector: FileSelector) extends GenericBranchNode[FileObject, FileObject] {
   self =>
-  
   var cachedNodes: Option[ArrayBuffer[GenericTreeNode[FileObject]]] = None
 
   def childNodes: ArrayBuffer[GenericTreeNode[FileObject]] = {
@@ -126,31 +158,56 @@ class FileObjectTreeNode(override var parent: Option[MutableTreeNode], override 
       case Some(x) => x
       case None => {
         val res = ArrayBuffer(value.findFiles(selector): _*)
-        res.map(child => new FileObjectTreeNode(Some(self), child, self.selector))
-      }
+        res.map(child => {
+          child.getType match {
+            case FileType.FOLDER => new FolderTreeNode(Some(self), child, self.selector)
+            case FileType.FILE => new FileTreeNode(Some(self), child)
+          }
+        })
 
+      }
     }
   }
 
+  def allowsChildren = true
 
-  override def allowsChildren = value.isFolder
-
- 
   override def toString: String = {
-    if (this == !parent.isDefined) {
-      try {
-        val uri: URI = new URI(value.getName.getURI)
-        uri.getHost + ":" + uri.getPath
+
+    /*try {
+      val uri: URI = new URI(value.getName.getURI)
+      uri.getHost + ":" + uri.getPath
+    }
+    catch {
+      case e: URISyntaxException => {
+        return value.getName.getURI
       }
-      catch {
-        case e: URISyntaxException => {
-          return value.getName.getURI
-        }
+    } */
+
+    value.name
+  }
+}
+
+
+
+
+class FileTreeNode(override var parent: Option[MutableTreeNode], override val value: FileObject) extends GenericLeafNode[FileObject] {
+  self =>
+
+
+  override def toString: String = {
+    /*try {
+      val uri: URI = new URI(value.getName.getURI)
+      uri.getHost + ":" + uri.getPath
+    }
+    catch {
+      case e: URISyntaxException => {
+        return value.getName.getURI
       }
     }
-
-    else value.name
+  }*/
+    value.name
   }
+
 }
 
 object TreeTest extends SwingApplication {
@@ -160,7 +217,7 @@ object TreeTest extends SwingApplication {
     val treeModel = new DefaultTreeModel(rootNode)
     val fileTree: JTree = new JTree(treeModel)
 
-    val node = new FileObjectTreeNode(None, RichFileObject("/home/brad"), NonRecursiveFileSelector)
+    val node = new FolderTreeNode(None, RichFileObject("c:/javacode"), NonRecursiveFileSelector)
     val root: MutableTreeNode = treeModel.getRoot.asInstanceOf[MutableTreeNode]
     treeModel.insertNodeInto(node, root, root.getChildCount)
 

@@ -39,14 +39,10 @@ case class Dim3[T](val one:T, two: T, three: T)(implicit m0: ClassManifest[T], m
 
 case class Dim4[T](val one:T, two: T, three: T, four: T)(implicit m0: ClassManifest[T], m: Numeric[T]) extends Dim[T] {
   val arr = Array[T](one, two, three, four)
-
-
-
 }
 
 case class Dim5[T](val one: T, two: T, three: T, four: T, five: T)(implicit m0: ClassManifest[T], m: Numeric[T]) extends Dim[T] {
   val arr = Array[T](one, two, three, four, five)
-
   
 }
 

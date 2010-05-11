@@ -3,7 +3,7 @@ package sc.brainflow.image.io
 import java.io.File
 import boxwood.io.RichFileObject._
 import org.apache.commons.vfs.{FileSystemException, VFS, FileObject}
-import brainflow.image.io.{ImageDataSource,ImageInfoReader, IImageDataSource}
+import brainflow.image.io._
 
 /**
  * Created by IntelliJ IDEA.
@@ -115,10 +115,10 @@ trait ImageFileDescriptor {
   def headerFileFilter: FileObject => Boolean = (fileObject => this.isHeaderMatch(fileObject.path))
 
 
-  def createDataSource(headerFile: FileObject, dataFile: FileObject): Option[IImageDataSource]
+  def createDataSource(headerFile: FileObject, dataFile: FileObject): Option[IImageSource[_]]
 
 
-  def createDataSource(headerFile: FileObject): Option[IImageDataSource] = {
+  def createDataSource(headerFile: FileObject): Option[IImageSource[_]] = {
     require(isHeaderMatch(headerFile.name))
     require(headerFile.exists)
 
@@ -153,8 +153,11 @@ object ImageFileDescriptors {
 
   abstract class GenericFileDescriptor(val headerExtension: String, val dataExtension: String, val fileFormat: String, val headerEncoding: FileEncoding, val dataEncoding: FileEncoding) extends ImageFileDescriptor
 
+  val descList = List(NIFTI, NIFTI_GZ, NIFTI_PAIR, AFNI, AFNI_GZ)
+
+
   case object NIFTI extends GenericFileDescriptor("nii", "nii", "NIFTI", RawBinaryEncoding, RawBinaryEncoding) {
-    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = None
+    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = Some(new NiftiInfoReader(headerFile, dataFile))
 
     def createDataSource(headerFile: FileObject, dataFile: FileObject) = None
 
@@ -163,7 +166,7 @@ object ImageFileDescriptors {
   }
 
   case object NIFTI_GZ extends GenericFileDescriptor("nii", "nii", "NIFTI", GZIPEncoding, GZIPEncoding) {
-    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = None
+    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = Some(new NiftiInfoReader(headerFile, dataFile))
 
     def createDataSource(headerFile: FileObject, dataFile: FileObject) = None
 
@@ -172,7 +175,7 @@ object ImageFileDescriptors {
   }
 
   case object NIFTI_PAIR extends GenericFileDescriptor("hdr", "img", "NIFTI", RawBinaryEncoding, RawBinaryEncoding) {
-    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = None
+    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = Some(new NiftiInfoReader(headerFile, dataFile))
 
     def createDataSource(headerFile: FileObject, dataFile: FileObject) = None
 
@@ -181,7 +184,7 @@ object ImageFileDescriptors {
   }
 
   case object AFNI extends GenericFileDescriptor("HEAD", "BRIK", "AFNI", RawBinaryEncoding, RawBinaryEncoding) {
-    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = None
+    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = Some(new AFNIInfoReader(headerFile, dataFile))
 
     def createDataSource(headerFile: FileObject, dataFile: FileObject) = None
 
@@ -190,11 +193,23 @@ object ImageFileDescriptors {
   }
 
   case object AFNI_GZ extends GenericFileDescriptor("HEAD", "BRIK", "AFNI", GZIPEncoding, GZIPEncoding) {
-    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = None
+    def createInfoReader(headerFile: FileObject, dataFile: FileObject) = Some(new AFNIInfoReader(headerFile, dataFile))
 
     def createDataSource(headerFile: FileObject, dataFile: FileObject) = None
 
     def unapply(filename: String) = filename.endsWith(".HEAD.gz") || filename.endsWith(".BRIK.gz")
+
+  }
+
+  def createInfoReader(header: FileObject) : Option[ImageInfoReader] = {
+    header.name match {
+      case NIFTI() => NIFTI.createInfoReader(header, NIFTI.resolveDataFileObject(header).getOrElse(header))
+      case NIFTI_GZ() => NIFTI_GZ.createInfoReader(header, NIFTI_GZ.resolveDataFileObject(header).getOrElse(header))
+      case NIFTI_PAIR() => NIFTI_PAIR.createInfoReader(header, NIFTI_PAIR.resolveDataFileObject(header).getOrElse(header))
+      case AFNI() => AFNI.createInfoReader(header, AFNI.resolveDataFileObject(header).getOrElse(header))
+      case AFNI_GZ() => AFNI_GZ.createInfoReader(header, AFNI_GZ.resolveDataFileObject(header).getOrElse(header))
+      case _ => None
+    }
 
   }
 
@@ -207,6 +222,14 @@ object ImageFileDescriptors {
       case AFNI_GZ() => true
       case _ => false
     }
+  }
+
+  def supportedHeaderFile(file: String) = {
+    descList.exists(_.isHeaderMatch(file))
+  }
+
+  def supportedDataFile(file: String) = {
+    descList.exists(_.isDataMatch(file))
   }
 
 
@@ -237,6 +260,7 @@ object Test {
     }
 
     println("is jojo.nii a supported file type? " + supportedFileType("jojo.nii"))
+    println("is jojo.nii a supported header? " + supportedHeaderFile("jojo.nii"))
     println("is jojo.nii0 a supported file type? " + supportedFileType("jojo.nii0"))
 
 

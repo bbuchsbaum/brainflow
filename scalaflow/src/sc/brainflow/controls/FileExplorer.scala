@@ -10,8 +10,8 @@ import javax.swing._
 import boxwood.io.RichFileObject
 import java.lang.String
 import java.awt.{BorderLayout, Component}
-import sc.brainflow.swing.tree.FileObjectTreeNode
-import org.apache.commons.vfs.{FileSelectInfo, FileObject, FileSelector}
+import org.apache.commons.vfs.{FileType, FileSelectInfo, FileObject, FileSelector}
+import sc.brainflow.swing.tree.{FileTreeNode, FolderTreeNode, GenericTreeNode}
 
 /**
  * Created by IntelliJ IDEA.
@@ -42,7 +42,6 @@ class FileExplorer(root: FileObject, val selector: FileSelector) extends JPanel 
 
   init()
 
-
   private def init(): Unit = {
 
     fileTree.setCellRenderer(new FileTreeCellRenderer)
@@ -65,19 +64,21 @@ class FileExplorer(root: FileObject, val selector: FileSelector) extends JPanel 
     fileTree.scrollPathToVisible(new TreePath(node.getPath))
   }
 
-  def makeNode(fileObject: FileObject) : FileObjectTreeNode = {
-    new FileObjectTreeNode(None, fileObject, selector)
+  def makeNode(fileObject: FileObject) : GenericTreeNode[_] = {
+    fileObject.getType match {
+      case FileType.FOLDER => new FolderTreeNode(None, fileObject, selector)
+      case FileType.FILE => new FileTreeNode(None, fileObject)
+    }
 
   }
-
-
 
   private class FileTreeCellRenderer extends DefaultTreeCellRenderer {
  
     override def getTreeCellRendererComponent(tree: JTree, value: Any, sel: Boolean, expanded: Boolean, leaf: Boolean, row: Int, hasFocus: Boolean): Component = {
 
       val node = value match {
-        case x: FileObjectTreeNode => value.asInstanceOf[FileObjectTreeNode]
+        case x: FolderTreeNode => value.asInstanceOf[FolderTreeNode]
+        case y: FileTreeNode => value.asInstanceOf[FileTreeNode]
         case _ => return super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus)
       }
 
