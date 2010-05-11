@@ -26,9 +26,6 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
     private final Dimension3D<Float> origin;
 
-
-
-
     public ImageSpace3D(ICoordinateSpace cspace) {
         this(new ImageAxis(cspace.getImageAxis(Axis.X_AXIS).getRange(), 1),
                 new ImageAxis(cspace.getImageAxis(Axis.Y_AXIS).getRange(), 1),
@@ -197,14 +194,7 @@ public class ImageSpace3D extends AbstractImageSpace implements IImageSpace3D {
 
     }
 
-    /*public final Index3D indexToGrid(int idx, Index3D voxel) {
-     voxel.i = idx / planeSize;
-     int remainder = (idx % planeSize);
-     voxel.k = remainder / dim(Axis.X_AXIS);
-     voxel.j = remainder % dim(Axis.X_AXIS);
 
-     return voxel;
- }   */
 
     public final Index3D indexToGrid(int idx) {
         int remainder = (idx % planeSize);

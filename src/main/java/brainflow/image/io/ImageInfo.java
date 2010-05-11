@@ -25,9 +25,9 @@ import java.util.Arrays;
 
 public class ImageInfo implements java.io.Serializable {
 
-    public static Anatomy3D DEFAULT_ANATOMY = Anatomy3D.AXIAL_LPI;
+    private IDimension<Integer> dimensions;
 
-    private IDimension<Integer> arrayDim = new Dimension3D<Integer>(0, 0, 0);
+    private IDimension<Integer> volumeDim = new Dimension3D<Integer>(0, 0, 0);
 
     private IDimension<Double> spacing = new Dimension3D<Double>(0.0, 0.0, 0.0);
 
@@ -37,7 +37,7 @@ public class ImageInfo implements java.io.Serializable {
 
     private Point3D origin = new Point3D();
 
-    private int numImages = 1;
+    private int numVolumes = 1;
 
     private int imageIndex = 0;
 
@@ -54,6 +54,8 @@ public class ImageInfo implements java.io.Serializable {
     private float scaleFactor = 1;
 
     private float intercept = 0;
+    
+    // List<String> subLabels ....
 
     private String imageLabel = null;
 
@@ -79,15 +81,16 @@ public class ImageInfo implements java.io.Serializable {
         anatomy = info.anatomy;
         dimensionality = info.dimensionality;
         byteOffset = info.byteOffset;
-        numImages = info.numImages;
+        numVolumes = info.numVolumes;
         origin = new Point3D(info.origin);
         imageIndex = info.imageIndex;
         voxelOffset = info.voxelOffset;
         imageLabel = info.imageLabel;
         spacing = info.spacing;
-        arrayDim = info.arrayDim;
+        volumeDim = info.volumeDim;
         imageLabel = info.imageLabel;
         mapping = info.mapping;
+        dimensions =info.dimensions;
     }
 
     protected ImageInfo(ImageInfo info, String _imageLabel, int index) {
@@ -100,14 +103,15 @@ public class ImageInfo implements java.io.Serializable {
         anatomy = info.anatomy;
         dimensionality = info.dimensionality;
         byteOffset = info.byteOffset;
-        numImages = info.numImages;
+        numVolumes = info.numVolumes;
         origin = new Point3D(info.origin);
         imageIndex = index;
         voxelOffset = info.voxelOffset;
         spacing = info.spacing;
-        arrayDim = info.arrayDim;
+        volumeDim = info.volumeDim;
         imageLabel = _imageLabel;
         mapping = info.mapping;
+        dimensions =info.dimensions;
     }
 
 
@@ -120,7 +124,7 @@ public class ImageInfo implements java.io.Serializable {
 
         setAnatomy((Anatomy3D) space.getAnatomy());
 
-        setArrayDim(new Dimension3D<Integer>(dimensions[0], dimensions[1], dimensions[2]));
+        setVolumeDim(new Dimension3D<Integer>(dimensions[0], dimensions[1], dimensions[2]));
         setDataType(data.getDataType());
         setDimensionality(space.getNumDimensions());
 
@@ -190,8 +194,13 @@ public class ImageInfo implements java.io.Serializable {
             return this;
         }
 
-        public Builder arrayDim(IDimension<Integer> dim) {
-            info.arrayDim = dim;
+        public Builder volumeDim(IDimension<Integer> dim) {
+            info.volumeDim = dim;
+            return this;
+        }
+        
+        public Builder dimensions(IDimension<Integer> dim) {
+            info.dimensions = dim;
             return this;
         }
 
@@ -230,8 +239,8 @@ public class ImageInfo implements java.io.Serializable {
             return this;
         }
 
-        public Builder numImages(int num) {
-            info.numImages = num;
+        public Builder numVolumes(int num) {
+            info.numVolumes = num;
             return this;
         }
 
@@ -265,6 +274,13 @@ public class ImageInfo implements java.io.Serializable {
             return this;
         }
 
+        @Override
+        public void checkBuilt() {
+            if (info.dimensions == null || info.dimensions.numDim() < 3) {
+                throw new IllegalStateException("invalid dimensions " + info.dimensions);
+            }
+        }
+
         public ImageInfo build() {
             this.checkBuilt();
             this.isBuilt = true;
@@ -274,8 +290,8 @@ public class ImageInfo implements java.io.Serializable {
 
 
     public ImageInfo selectInfo(int index) {
-        if (index < 0 || index >= getNumImages()) {
-            throw new IllegalArgumentException("illegal selection index for image info with " + getNumImages() + " sub images");
+        if (index < 0 || index >= getNumVolumes()) {
+            throw new IllegalArgumentException("illegal selection index for image info with " + getNumVolumes() + " sub images");
         }
 
         ImageInfo.Builder builder = new ImageInfo.Builder(this);
@@ -290,10 +306,10 @@ public class ImageInfo implements java.io.Serializable {
         ImageAxis[] iaxes = new ImageAxis[3];
         AnatomicalAxis[] aaxes = anatomy.getAnatomicalAxes();
 
-        IDimension<Double> realDim = ImageInfo.calculateRealDim(arrayDim, spacing);
+        IDimension<Double> realDim = ImageInfo.calculateRealDim(volumeDim, spacing);
         for (int i = 0; i < iaxes.length; i++) {
             iaxes[i] = new ImageAxis(-realDim.getDim(i) / 2, realDim.getDim(i) / 2,
-                    aaxes[i], arrayDim.getDim(i));
+                    aaxes[i], volumeDim.getDim(i));
         }
 
         return new ImageSpace3D(iaxes[0], iaxes[1], iaxes[2], mapping);
@@ -306,7 +322,6 @@ public class ImageInfo implements java.io.Serializable {
 
     void setDataFile(FileObject fobj) {
         dataFile = fobj;
-
     }
 
     public FileObject getDataFile() {
@@ -326,8 +341,8 @@ public class ImageInfo implements java.io.Serializable {
         return endian;
     }
 
-    public IDimension<Integer> getArrayDim() {
-        return arrayDim;
+    public IDimension<Integer> getVolumeDim() {
+        return volumeDim;
     }
 
     public DataType getDataType() {
@@ -339,13 +354,13 @@ public class ImageInfo implements java.io.Serializable {
     }
 
     public int getDataOffset(int index) {
-        return (getArrayDim().product().intValue() * getDataType().getBytesPerUnit() * index) + getDataOffset();
+        return (getVolumeDim().product().intValue() * getDataType().getBytesPerUnit() * index) + getDataOffset();
 
     }
 
     public static IDimension<Double> calculateRealDim(IDimension<Integer> arrayDim, IDimension<? extends Number> spacing) {
         if (arrayDim.numDim() != spacing.numDim()) {
-            throw new IllegalArgumentException("dimensions do not match: arrayDim = " + arrayDim.numDim() + "  spacing = " + spacing.numDim());
+            throw new IllegalArgumentException("dimensions do not match: volumeDim = " + arrayDim.numDim() + "  spacing = " + spacing.numDim());
         }
         Double[] realVals = new Double[arrayDim.numDim()];
         for (int i = 0; i < realVals.length; i++) {
@@ -387,12 +402,12 @@ public class ImageInfo implements java.io.Serializable {
     }
 
 
-    void setNumImages(int _numImages) {
-        numImages = _numImages;
+    void setNumVolumes(int _numVolumes) {
+        numVolumes = _numVolumes;
     }
 
-    public int getNumImages() {
-        return numImages;
+    public int getNumVolumes() {
+        return numVolumes;
     }
 
 
@@ -426,8 +441,8 @@ public class ImageInfo implements java.io.Serializable {
         anatomy = _anatomy;
     }
 
-    void setArrayDim(IDimension arrayDim) {
-        this.arrayDim = arrayDim;
+    void setVolumeDim(IDimension volumeDim) {
+        this.volumeDim = volumeDim;
     }
 
     void setDataType(DataType dataType) {

@@ -7,7 +7,7 @@ import brainflow.app.toplevel.*;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.*;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 
 import javax.swing.*;
 import javax.swing.event.ListDataEvent;
@@ -93,7 +93,7 @@ public class ProjectTreeView extends BrainFlowPresenter implements MouseListener
         TransferHandler handler = new ImageDropHandler() {
 
 
-            private void importDataSource(IImageDataSource dsource, TransferSupport support) {
+            private void importDataSource(IImageSource dsource, TransferSupport support) {
                 //todo this logic does not belong in TreeView class
 
                 if (!dsource.isLoaded()) {
@@ -148,8 +148,8 @@ public class ProjectTreeView extends BrainFlowPresenter implements MouseListener
 
 
             public void dispatchOnObject(Object obj, TransferSupport support) {
-                if (obj instanceof IImageDataSource) {
-                    importDataSource((IImageDataSource) obj, support);
+                if (obj instanceof IImageSource) {
+                    importDataSource((IImageSource) obj, support);
                 } else if (obj instanceof ImageLayer3D) {
                     importImageLayer((ImageLayer3D) obj, support);
                 }

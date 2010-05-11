@@ -7,7 +7,7 @@ package brainflow.image.data;
  * Time: 4:56:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface ImageBuffer4D extends ImageBuffer, IImageData4D {
+public interface ImageBufferVector3D extends ImageBuffer, IImageDataVector3D {
 
     public void setValue(int x, int y, int z, int t, double val);
 }

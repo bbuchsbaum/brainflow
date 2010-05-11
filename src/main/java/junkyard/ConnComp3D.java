@@ -1,16 +1,15 @@
 package junkyard;
 
 import brainflow.image.data.*;
+import brainflow.image.io.MemoryImageSource;
 import brainflow.image.space.Axis;
 import brainflow.image.io.BrainIO;
-import brainflow.utils.DataType;
 import brainflow.utils.Range;
 import brainflow.utils.StopWatch;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerProps;
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.MemoryImageDataSource;
 import brainflow.image.operations.UnionFindArray;
 import brainflow.image.operations.ImageSlicer;
 import brainflow.app.toplevel.ImageViewFactory;
@@ -205,7 +204,7 @@ public class ConnComp3D {
         LayerProps props = new LayerProps(icm, new Range(0, dat3d.maxValue()));
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
 
-        model.add(new ImageLayer3D(new MemoryImageDataSource(dat3d), props));
+        model.add(new ImageLayer3D(new MemoryImageSource(dat3d), props));
 
         ImageView view = ImageViewFactory.createMontageView(model, 4, 4, 6);
         view.setScreenInterpolation(InterpolationType.NEAREST_NEIGHBOR);

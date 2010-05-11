@@ -1,7 +1,7 @@
 package brainflow.app.actions;
 
 import brainflow.image.io.BrainIO;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.app.toplevel.BrainFlow;
 import com.pietschy.command.file.AbstractFileOpenCommand;
 
@@ -26,8 +26,8 @@ public class OpenImageCommand extends AbstractFileOpenCommand {
     }
 
     protected void performOpen(File[] files) {
-        List<IImageDataSource> dsources = BrainIO.loadDataSources(files);
-        for (IImageDataSource ds : dsources) {
+        List<IImageSource> dsources = BrainIO.loadDataSources(files);
+        for (IImageSource ds : dsources) {
             BrainFlow.get().loadAndDisplay(ds);
             //DataSourceManager.get().register(dsource[i]);
         }

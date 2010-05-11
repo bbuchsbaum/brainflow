@@ -8,8 +8,8 @@ import brainflow.core.annotations.SliceAnnotation;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.data.IImageData3D;
-import brainflow.image.io.IImageDataSource;
-import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.io.IImageSource;
+import brainflow.image.io.MemoryImageSource;
 import brainflow.utils.StringGenerator;
 
 import java.util.logging.Logger;
@@ -30,11 +30,20 @@ public class ImageViewFactory {
     private static final Logger log = Logger.getLogger(ImageViewFactory.class.getCanonicalName());
 
 
-    public static ImageViewModel createModel(String name, IImageDataSource dataSource) {
+    public static ImageViewModel createModel(String name, IImageSource dataSource) {
         List<ImageLayer3D> layers = new ArrayList<ImageLayer3D>();
         layers.add(ImageLayerFactory.createImageLayer(dataSource));
         return new ImageViewModel(name, layers);
     }
+
+    public static ImageViewModel createModel(String name, List<IImageSource> dataSourceList) {
+        List<ImageLayer3D> layers = new ArrayList<ImageLayer3D>();
+        for (IImageSource source : dataSourceList) {
+            layers.add(ImageLayerFactory.createImageLayer(source));
+        }
+        return new ImageViewModel(name, layers);
+    }
+
 
 
     public static IImagePlot createAxialPlot(ImageViewModel displayModel) {
@@ -101,7 +110,7 @@ public class ImageViewFactory {
     }
 
     public static ImageView createAxialView(IImageData3D data) {
-        MemoryImageDataSource source = new MemoryImageDataSource(data);
+        MemoryImageSource source = new MemoryImageSource(data);
         ImageLayer3D layer = ImageLayerFactory.createImageLayer(source);
         ImageViewModel model = new ImageViewModel("untitled", layer);
        

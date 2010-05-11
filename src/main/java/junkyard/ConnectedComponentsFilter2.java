@@ -1,7 +1,7 @@
 package junkyard;
 
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.io.MemoryImageSource;
 import brainflow.image.data.*;
 import brainflow.image.io.BrainIO;
 import brainflow.image.space.Axis;
@@ -195,7 +195,7 @@ public class ConnectedComponentsFilter2 extends AbstractImageFilter {
             //todo but this doesn't really enforce nearest neighbor due to the MappedDataAccessor method
             IImageData3D background = BrainIO.loadVolume(BF.getDataURL("anat_alepi.nii"));
             ImageLayer3D backLayer = new ImageLayer3D(background);
-            ImageLayer3D layer = new ImageLayer3D(new MemoryImageDataSource(dat3d), props);
+            ImageLayer3D layer = new ImageLayer3D(new MemoryImageSource(dat3d), props);
 
             ImageViewModel model = new ImageViewModel("test", backLayer, layer);
 

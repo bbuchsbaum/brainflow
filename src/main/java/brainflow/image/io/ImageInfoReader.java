@@ -20,9 +20,9 @@ public interface ImageInfoReader {
 
     public ImageInfoReader create(FileObject headerFile, FileObject dataFile);
     
-    public List<ImageInfo> readInfo() throws BrainFlowException;
+    public List<ImageInfo> readInfoList() throws BrainFlowException;
 
-    
+    public ImageInfo readInfo();
 
 
 }

@@ -9,14 +9,12 @@
 
 package brainflow.core.layer;
 
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.colormap.ColorTable;
 import brainflow.image.data.IImageData;
 import brainflow.image.space.IImageSpace;
 import brainflow.utils.Range;
 import brainflow.utils.IRange;
-import brainflow.core.layer.AbstractLayer;
-import brainflow.core.layer.LayerProps;
 import brainflow.core.IClipRange;
 
 
@@ -28,7 +26,7 @@ import brainflow.core.IClipRange;
 public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
 
-    private IImageDataSource dataSource;
+    private IImageSource dataSource;
 
 
     public ImageLayer(ImageLayer layer) {
@@ -43,7 +41,7 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
     }
 
-    public ImageLayer(IImageDataSource dataSource, IRange range) {
+    public ImageLayer(IImageSource dataSource, IRange range) {
         super(dataSource.getImageInfo().getImageLabel(), new LayerProps(ColorTable.GRAYSCALE, range));
         this.dataSource = dataSource;
 
@@ -53,7 +51,7 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
     }
 
-    public ImageLayer(String name, IImageDataSource dataSource) {
+    public ImageLayer(String name, IImageSource dataSource) {
         super(name, new LayerProps(ColorTable.GRAYSCALE, new Range(0, 255)));
         this.dataSource = dataSource;
 
@@ -69,11 +67,11 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
 
     }
 
-    public ImageLayer(IImageDataSource dataSource) {
+    public ImageLayer(IImageSource dataSource) {
         this(dataSource.getImageInfo().getImageLabel(), dataSource);
     }
 
-    public ImageLayer(IImageDataSource dataSource, LayerProps _props) {
+    public ImageLayer(IImageSource dataSource, LayerProps _props) {
         super(dataSource.getImageInfo().getImageLabel(), _props);
         this.dataSource = dataSource;
 
@@ -112,7 +110,7 @@ public abstract class ImageLayer<T extends IImageSpace> extends AbstractLayer {
         return dataSource.getData();
     }
 
-    public IImageDataSource getDataSource() {
+    public IImageSource getDataSource() {
         return dataSource;
     }
 

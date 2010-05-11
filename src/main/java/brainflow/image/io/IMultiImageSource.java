@@ -11,18 +11,18 @@ import brainflow.core.BrainFlowException;
  * Time: 2:03:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IMultiImageDataSource extends IImageDataSource {
+public interface IMultiImageSource extends IImageSource {
 
 
-    public IMultiImageDataSource next();
+    public IMultiImageSource next();
 
-    public IMultiImageDataSource previous();
+    public IMultiImageSource previous();
 
     public IImageData load(int index, ProgressListener plistener) throws BrainFlowException;
 
     public IImageData load(int index) throws BrainFlowException;
 
-    public IImageDataSource getDataSource(int index);
+    public IImageSource getDataSource(int index);
 
     public int size();
 

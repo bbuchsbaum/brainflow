@@ -14,7 +14,8 @@ public final class Axis {
   public static final Axis X_AXIS = new Axis("X Axis", 0);
   public static final Axis Y_AXIS = new Axis("Y Axis", 1);
   public static final Axis Z_AXIS = new Axis("Z Axis", 2);
-  public static final Axis T_AXIS = new Axis("Time", 3);
+  public static final Axis M_AXIS = new Axis("M Axis", 3);
+  public static final Axis N_AXIS = new Axis("N Axis", 4);
     
   private String label;
   private int id;
@@ -29,7 +30,8 @@ public final class Axis {
       if (id == 0) return Axis.X_AXIS;
       if (id == 1) return Axis.Y_AXIS;
       if (id == 2) return Axis.Z_AXIS;
-      if (id == 3) return Axis.T_AXIS;
+      if (id == 3) return Axis.M_AXIS;
+      if (id == 4) return Axis.N_AXIS;
 
       assert false : "id corresponds to no know Axis, will throw IllegalArgumentException...";
 

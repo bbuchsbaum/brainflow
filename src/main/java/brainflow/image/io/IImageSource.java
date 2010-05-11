@@ -17,12 +17,7 @@ import java.util.List;
  * Time: 2:49:10 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface IImageDataSource {
-
-    // todo a single file can give rise to an array of ImageInfos which leads to an array of DataSources.
-    // read header in descriptor?
-    // this yields dimensionality
-    
+public interface IImageSource<T extends IImageData> {
 
     public int getImageIndex();
     
@@ -42,19 +37,17 @@ public interface IImageDataSource {
 
     public ImageInfo getImageInfo();
 
-
     public List<ImageInfo> getImageInfoList();
 
     public BufferedImage getPreview();
 
-    public IImageData getData();
+    public T getData();
 
     public void releaseData();
 
-    public IImageData load(ProgressListener plistener) throws BrainFlowException;
+    public T load(ProgressListener plistener) throws BrainFlowException;
 
-    public IImageData load() throws BrainFlowException;
-
+    public T load() throws BrainFlowException;
 
     public int getUniqueID();
 

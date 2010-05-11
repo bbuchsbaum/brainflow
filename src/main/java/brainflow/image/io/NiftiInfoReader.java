@@ -60,7 +60,7 @@ public class NiftiInfoReader extends AbstractInfoReader {
 
 
     @Override
-    public List<ImageInfo> readInfo() throws BrainFlowException {
+    public List<ImageInfo> readInfoList() throws BrainFlowException {
 
         try {
             String headerName = NiftiImageInfo.getHeaderName(getHeaderFile().getName().getBaseName(), ".nii");
@@ -95,10 +95,10 @@ public class NiftiInfoReader extends AbstractInfoReader {
             throw new BrainFlowException("Nifti images with fewer than 3 or more than 4 dimensions are not supported." + numDims);
         }
 
-        builder.arrayDim(new Dimension3D<Integer>((int) dim[1], (int) dim[2], (int) dim[3]));
+        builder.volumeDim(new Dimension3D<Integer>((int) dim[1], (int) dim[2], (int) dim[3]));
        
         if (numDims == 4) {
-            builder.numImages(dim[4]);
+            builder.numVolumes(dim[4]);
         }
 
 
@@ -181,6 +181,10 @@ public class NiftiInfoReader extends AbstractInfoReader {
 
     }
 
+    @Override
+    public ImageInfo readInfo() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     private List<ImageInfo> readHeader(String name, FileObject headerFile, FileObject dataFile) throws IOException, BrainFlowException {
         ImageInfo info;
@@ -201,7 +205,8 @@ public class NiftiInfoReader extends AbstractInfoReader {
             throw e;
         }
 
-        int nimages = info.getNumImages();
+        int nimages = info.getNumVolumes();
+        
         if (nimages == 1) {
             return Arrays.asList(info);
         } else {

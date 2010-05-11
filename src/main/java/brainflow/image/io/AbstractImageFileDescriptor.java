@@ -221,7 +221,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
     }
 
     @Override
-    public IImageDataSource createDataSource(FileObject headerFile) {
+    public IImageSource createDataSource(FileObject headerFile) {
 
         if (!isHeaderMatch(headerFile.getName().getBaseName())) {
             throw new IllegalArgumentException("header " + headerFile.getName().getBaseName() + " does not have correct suffix for format : " + this.getFileFormat());
@@ -253,5 +253,5 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
     }
 
     @Override
-    public abstract IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile);
+    public abstract IImageSource createDataSource(FileObject headerFile, FileObject dataFile);
 }

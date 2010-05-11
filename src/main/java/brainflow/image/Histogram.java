@@ -1,10 +1,10 @@
 package brainflow.image;
 
+import brainflow.image.io.IImageSource;
 import cern.colt.list.DoubleArrayList;
 import cern.jet.stat.Descriptive;
 import brainflow.image.data.IImageData;
 import brainflow.image.iterators.ValueIterator;
-import brainflow.image.io.IImageDataSource;
 import brainflow.math.ArrayUtils;
 import brainflow.utils.IRange;
 
@@ -191,7 +191,7 @@ public class Histogram {
     }
 
     public static void main(String[] args) {
-        IImageDataSource dataSource = null; //TestUtils.quickDataSource("resources/data/global_mean+orig.HEAD");
+        IImageSource dataSource = null; //TestUtils.quickDataSource("resources/data/global_mean+orig.HEAD");
         Histogram histo = new Histogram(dataSource.getData(),256);
         histo.computeBins();
         

@@ -41,7 +41,7 @@ public class LayerProps implements Serializable {
             InterpolationType.NEAREST_NEIGHBOR, InterpolationType.LINEAR, InterpolationType.CUBIC);
 
 
-    public final Property<InterpolationType> interpolationType = ObservableProperty.create(InterpolationType.NEAREST_NEIGHBOR);
+    public final Property<InterpolationType> interpolationType = ObservableProperty.create(InterpolationType.CUBIC);
 
     public final Property<Integer> interpolationSelection = new ObservableWrapper.ReadWrite<Integer>(interpolationType) {
         public Integer get() {

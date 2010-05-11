@@ -4,8 +4,8 @@ import brainflow.image.data.*;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.space.Axis;
 import brainflow.image.io.BrainIO;
-import brainflow.image.io.IImageDataSource;
-import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.io.IImageSource;
+import brainflow.image.io.MemoryImageSource;
 import brainflow.image.operations.AbstractImageFilter;
 import brainflow.core.BrainFlowException;
 //import brainflow.display.ThresholdRange;
@@ -274,7 +274,7 @@ public class ConnectedComponentsFilter3 extends AbstractImageFilter {
 
     public static void main(String[] args) {
         try {
-            IImageDataSource img = new MemoryImageDataSource(BrainIO.readNiftiImage("F:/data/anyback/tRepeat-stat.nii"));
+            IImageSource img = new MemoryImageSource(BrainIO.readNiftiImage("F:/data/anyback/tRepeat-stat.nii"));
             IImageData3D data = (IImageData3D) img.getData();
 
             MaskedData3D mask = new MaskedData3D(data, new MaskPredicate() {

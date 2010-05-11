@@ -1,8 +1,7 @@
 package brainflow.app.actions;
 
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.app.toplevel.DataSourceManager;
-import brainflow.app.toplevel.DisplayManager;
 import brainflow.app.toplevel.BrainFlow;
 import com.jidesoft.dialog.JideOptionPane;
 
@@ -22,7 +21,7 @@ public class RemoveDataSourceCommand extends BrainFlowCommand {
     }
 
     protected void handleExecute() {
-       IImageDataSource dataSource = (IImageDataSource) getParameter(SELECTED_DATASOURCE);
+       IImageSource dataSource = (IImageSource) getParameter(SELECTED_DATASOURCE);
         if (dataSource != null) {
             if (BrainFlow.get().isShowing(dataSource)) {
                 String message = "The selected image " + dataSource.getStem() + " is currently being viewed. Are you sure you would like to remove it?";

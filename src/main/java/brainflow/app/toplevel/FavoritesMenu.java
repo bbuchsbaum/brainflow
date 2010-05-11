@@ -1,12 +1,12 @@
 package brainflow.app.toplevel;
 
+import brainflow.image.io.IImageSource;
 import com.pietschy.command.group.CommandGroup;
 import com.pietschy.command.group.GroupBuilder;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.face.Face;
 import brainflow.app.services.DataSourceStatusEvent;
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.IImageDataSource;
 
 import java.util.prefs.Preferences;
 import java.util.prefs.BackingStoreException;
@@ -15,8 +15,6 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
@@ -42,7 +40,7 @@ public class FavoritesMenu {
             public void onEvent(Object event) {
                 DataSourceStatusEvent e = (DataSourceStatusEvent) event;
                 if (e.getEventID() == DataSourceStatusEvent.EventID.IMAGE_REGISTERED) {
-                    IImageDataSource dsource = e.getLoadableImage();
+                    IImageSource dsource = e.getLoadableImage();
                     String uri = dsource.getImageInfo().getHeaderFile().getName().getURI();
                     Favorite fav = favMap.get(uri);
                     if (fav != null) {
@@ -224,7 +222,7 @@ public class FavoritesMenu {
             System.out.println("name is " + name);
 
             try {
-                IImageDataSource dsource = BrainFlow.get().createDataSource(URI);
+                IImageSource dsource = BrainFlow.get().createDataSource(URI);
                 BrainFlow.get().loadAndDisplay(dsource);
             } catch(BrainFlowException e) {
                 throw new RuntimeException(e);

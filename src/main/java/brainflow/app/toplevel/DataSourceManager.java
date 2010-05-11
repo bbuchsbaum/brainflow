@@ -7,9 +7,7 @@
 package brainflow.app.toplevel;
 
 import brainflow.image.io.*;
-import brainflow.image.io.ImageIODescriptor;
 import brainflow.app.services.DataSourceStatusEvent;
-import org.apache.commons.vfs.FileObject;
 import org.bushe.swing.event.EventBus;
 
 import java.util.LinkedHashMap;
@@ -26,7 +24,7 @@ public class DataSourceManager {
      * Creates a new instance of DataSourceManager
      */
 
-    private LinkedHashMap<Integer, IImageDataSource> imageMap = new LinkedHashMap<Integer, IImageDataSource>();
+    private LinkedHashMap<Integer, IImageSource> imageMap = new LinkedHashMap<Integer, IImageSource>();
 
     private Logger log = Logger.getLogger(DataSourceManager.class.getName());
 
@@ -40,7 +38,7 @@ public class DataSourceManager {
     }
 
 
-    public boolean requestRemoval(IImageDataSource limg) {
+    public boolean requestRemoval(IImageSource limg) {
         //todo need to rethink mechanism for image removal/unloading
 
         if (imageMap.containsKey(limg.getUniqueID())) {
@@ -54,11 +52,11 @@ public class DataSourceManager {
 
     }
 
-    public boolean isRegistered(IImageDataSource limg) {
+    public boolean isRegistered(IImageSource limg) {
         return imageMap.containsKey(limg.getUniqueID());
     }
 
-    public void register(IImageDataSource limg) {
+    public void register(IImageSource limg) {
         int uid = limg.getUniqueID();
         if (imageMap.containsKey(uid)) {
 
@@ -73,9 +71,9 @@ public class DataSourceManager {
         EventBus.publish(new DataSourceStatusEvent(limg, DataSourceStatusEvent.EventID.IMAGE_REGISTERED));
     }
 
-    public IImageDataSource createDataSource(IImageFileDescriptor descriptor, ImageInfo info, boolean register) {
+    public IImageSource createDataSource(IImageFileDescriptor descriptor, ImageInfo info, boolean register) {
 
-        IImageDataSource source = new ImageDataSource(descriptor, info);
+        IImageSource source = new ImageSource3D(descriptor, info);
         if (register) {
             register(source);
         }
@@ -83,9 +81,9 @@ public class DataSourceManager {
         return source;
     }
 
-    public IImageDataSource createDataSource(IImageFileDescriptor descriptor, List<ImageInfo> infoList, int index, boolean register) {
+    public IImageSource createDataSource(IImageFileDescriptor descriptor, List<ImageInfo> infoList, int index, boolean register) {
 
-        IImageDataSource source = new ImageDataSource(descriptor, infoList, index);
+        IImageSource source = new ImageSource3D(descriptor, infoList, index);
         if (register) {
             if (!isRegistered(source))
                 register(source);
@@ -99,7 +97,7 @@ public class DataSourceManager {
         return imageMap.size();
     }
 
-    public IImageDataSource lookup(int uid) {
+    public IImageSource lookup(int uid) {
         return imageMap.get(uid);
     }
 

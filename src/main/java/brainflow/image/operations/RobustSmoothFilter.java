@@ -131,7 +131,7 @@ public class RobustSmoothFilter implements ImageFunctor<IImageData3D> {
         try {
 
             NiftiInfoReader reader = new NiftiInfoReader("c:/javacode/googlecode/brainflow/src/main/resources/data/cohtrend_GLT#0_Tstat.nii");
-            NiftiImageInfo info = (NiftiImageInfo) reader.readInfo().get(0);
+            NiftiImageInfo info = (NiftiImageInfo) reader.readInfoList().get(0);
 
             IImageData3D data = (IImageData3D) BrainIO.readNiftiImage("c:/javacode/googlecode/brainflow/src/main/resources/data/cohtrend_GLT#0_Tstat.nii");
             RobustSmoothFilter filter = new RobustSmoothFilter();

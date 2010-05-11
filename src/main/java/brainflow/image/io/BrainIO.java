@@ -43,8 +43,8 @@ public class BrainIO {
 
     public static final IImageFileDescriptor NIFTI = new AbstractImageFileDescriptor("nii", "nii", "NIFTI") {
         @Override
-        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
-            return new ImageDataSource(this, headerFile, dataFile);
+        public IImageSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageSource3D(this, headerFile, dataFile);
         }
 
         @Override
@@ -57,8 +57,8 @@ public class BrainIO {
 
     public static final IImageFileDescriptor NIFTI_GZ = new AbstractImageFileDescriptor("nii", "nii", "NIFTI", BinaryEncoding.GZIP, BinaryEncoding.GZIP) {
         @Override
-        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
-            return new ImageDataSource(this, headerFile, dataFile);
+        public IImageSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageSource3D(this, headerFile, dataFile);
         }
 
         @Override
@@ -71,9 +71,9 @@ public class BrainIO {
 
     public static final IImageFileDescriptor AFNI = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI") {
         @Override
-        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+        public IImageSource createDataSource(FileObject headerFile, FileObject dataFile) {
 
-            return new ImageDataSource(this, headerFile, dataFile);
+            return new ImageSource3D(this, headerFile, dataFile);
         }
 
         @Override
@@ -85,9 +85,9 @@ public class BrainIO {
 
     public static final IImageFileDescriptor AFNI_GZ = new AbstractImageFileDescriptor("HEAD", "BRIK", "AFNI", BinaryEncoding.RAW, BinaryEncoding.GZIP) {
         @Override
-        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
+        public IImageSource createDataSource(FileObject headerFile, FileObject dataFile) {
 
-            return new ImageDataSource(this, headerFile, dataFile);
+            return new ImageSource3D(this, headerFile, dataFile);
         }
 
         @Override
@@ -114,8 +114,8 @@ public class BrainIO {
 
     public static final IImageFileDescriptor NIFTI_PAIR = new AbstractImageFileDescriptor("hdr", "img", "NIFTI") {
         @Override
-        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
-            return new ImageDataSource(this, headerFile, dataFile);
+        public IImageSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageSource3D(this, headerFile, dataFile);
         }
 
         private boolean isNifti(FileObject headerFile) {
@@ -151,8 +151,8 @@ public class BrainIO {
 
     public static final IImageFileDescriptor ANALYZE_GZ = new AbstractImageFileDescriptor("hdr", "img", "ANALYZE7.5", BinaryEncoding.GZIP, BinaryEncoding.GZIP) {
         @Override
-        public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
-            return new ImageDataSource(this, headerFile, dataFile);
+        public IImageSource createDataSource(FileObject headerFile, FileObject dataFile) {
+            return new ImageSource3D(this, headerFile, dataFile);
         }
 
         @Override
@@ -190,7 +190,7 @@ public class BrainIO {
 
     public static IImageData3D loadVolume(String fileName) throws BrainFlowException {
         ImageInfoReader reader = createInfoReader(fileName);
-        List<? extends ImageInfo> info = reader.readInfo();
+        List<? extends ImageInfo> info = reader.readInfoList();
 
 
         BasicImageReader3D ireader = new BasicImageReader3D(info.get(0));
@@ -199,7 +199,7 @@ public class BrainIO {
 
     public static IImageData3D loadVolume(FileObject fileObject) throws BrainFlowException {
         ImageInfoReader reader = createInfoReader(fileObject);
-        List<? extends ImageInfo> info = reader.readInfo();
+        List<? extends ImageInfo> info = reader.readInfoList();
         BasicImageReader3D ireader = new BasicImageReader3D(info.get(0));
         return ireader.readImage();
     }
@@ -207,7 +207,7 @@ public class BrainIO {
 
     public static IImageData3D loadVolume(URL url) throws BrainFlowException {
         ImageInfoReader reader = createInfoReader(url);
-        List<? extends ImageInfo> info = reader.readInfo();
+        List<? extends ImageInfo> info = reader.readInfoList();
         BasicImageReader3D ireader = new BasicImageReader3D(info.get(0));
         return ireader.readImage();
     }
@@ -253,8 +253,8 @@ public class BrainIO {
         }
     }
 
-    public static IImageDataSource loadDataSource(FileObject fobj) throws BrainFlowException {
-        IImageDataSource ret;
+    public static IImageSource loadDataSource(FileObject fobj) throws BrainFlowException {
+        IImageSource ret;
 
         if (BrainIO.isSupportedImageHeaderFile(fobj)) {
             IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
@@ -278,8 +278,8 @@ public class BrainIO {
 
     }
 
-    public static List<IImageDataSource> loadDataSources(FileObject[] fobjs) {
-        List<IImageDataSource> sources = new ArrayList<IImageDataSource>();
+    public static List<IImageSource> loadDataSources(List<FileObject> fobjs) {
+        List<IImageSource> sources = new ArrayList<IImageSource>();
 
         try {
             for (FileObject fobj : fobjs) {
@@ -301,11 +301,16 @@ public class BrainIO {
         return sources;
     }
 
+    public static List<IImageSource> loadDataSources(FileObject[] fobjs) {
+        return loadDataSources(Arrays.asList(fobjs));
+    }
+
 
     
 
 
-    public static List<IImageDataSource> loadDataSources(File... files) {
+    public static List<IImageSource> loadDataSources(File... files) {
+        
         FileObject[] fobjs = new FileObject[files.length];
 
         try {
@@ -464,7 +469,7 @@ public class BrainIO {
 
     public static IImageData readNiftiImage(FileObject fobj) throws BrainFlowException {
         NiftiInfoReader reader = new NiftiInfoReader(fobj, fobj);
-        List<ImageInfo> info = reader.readInfo();
+        List<ImageInfo> info = reader.readInfoList();
 
         BasicImageReader3D ireader = new BasicImageReader3D(info.get(0));
         return ireader.readImage(new ProgressAdapter());
@@ -473,7 +478,7 @@ public class BrainIO {
     public static IImageData readNiftiImage(URL header) throws BrainFlowException {
 
         NiftiInfoReader reader = new NiftiInfoReader(header.getPath());
-        List<ImageInfo> info = reader.readInfo();
+        List<ImageInfo> info = reader.readInfoList();
 
         BasicImageReader3D ireader = new BasicImageReader3D(info.get(0));
         return ireader.readImage(new ProgressAdapter());
@@ -496,7 +501,7 @@ public class BrainIO {
 
     public static IImageData readAnalyzeImage(URL header) throws BrainFlowException {
         AnalyzeInfoReader reader = new AnalyzeInfoReader(header.toString());
-        List<? extends ImageInfo> info = reader.readInfo();
+        List<? extends ImageInfo> info = reader.readInfoList();
         BasicImageReader3D ireader = new BasicImageReader3D(info.get(0));
         return ireader.readImage(new ProgressAdapter());
 
@@ -506,7 +511,7 @@ public class BrainIO {
     public static IImageData readAnalyzeImage(String fname) throws BrainFlowException {
         AnalyzeInfoReader reader = new AnalyzeInfoReader(fname);
 
-        List<ImageInfo> info = reader.readInfo();
+        List<ImageInfo> info = reader.readInfoList();
 
         BasicImageReader3D ireader = new BasicImageReader3D(info.get(0));
         return ireader.readImage(new ProgressAdapter());

@@ -15,7 +15,7 @@ public class Index1D implements IIndex, IIndex1D {
         i1 = val;
     }
 
-    public int i1() {
+    public final int i1() {
         return i1;
     }
 

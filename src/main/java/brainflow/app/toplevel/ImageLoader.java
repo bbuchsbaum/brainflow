@@ -1,7 +1,7 @@
 package brainflow.app.toplevel;
 
 import brainflow.image.data.IImageData;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.utils.ProgressListener;
 
 import javax.swing.*;
@@ -19,9 +19,9 @@ public class ImageLoader extends SwingWorker<IImageData, Integer> {
 
     public static String PROGRESS_MESSAGE = "progress_message";
 
-    private IImageDataSource dataSource;
+    private IImageSource dataSource;
 
-    public ImageLoader(IImageDataSource dataSource) {
+    public ImageLoader(IImageSource dataSource) {
         this.dataSource = dataSource;
     }
 

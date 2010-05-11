@@ -1,7 +1,7 @@
 package brainflow.app.toplevel;
 
 import brainflow.colormap.LinearColorMap;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerProps;
 import brainflow.utils.Range;
@@ -20,16 +20,16 @@ public class ImageLayerFactory {
 
 
 
-    public static List<ImageLayer3D> createImageLayerList(List<IImageDataSource> sources) {
+    public static List<ImageLayer3D> createImageLayerList(List<IImageSource> sources) {
         List<ImageLayer3D> ret = new ArrayList<ImageLayer3D>();
-        for (IImageDataSource s : sources) {
+        for (IImageSource s : sources) {
             ret.add(createImageLayer(s));
         }
 
         return ret;
     }
 
-    public static ImageLayer3D createImageLayer(IImageDataSource dataSource) {
+    public static ImageLayer3D createImageLayer(IImageSource dataSource) {
         //double[] sortedVals = ImageData.sort(dataSource.getData());
 
         //double highclip = sortedVals[(int) (.98 * sortedVals.length)];

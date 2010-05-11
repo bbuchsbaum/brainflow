@@ -42,9 +42,9 @@ public interface IImageFileDescriptor {
 
     public FileObjectFilter createHeaderFileFilter();
 
-    public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile);
+    public IImageSource createDataSource(FileObject headerFile, FileObject dataFile);
 
-    public IImageDataSource createDataSource(FileObject headerFile);
+    public IImageSource createDataSource(FileObject headerFile);
 
     public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile);
 

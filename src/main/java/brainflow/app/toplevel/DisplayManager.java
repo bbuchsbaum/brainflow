@@ -11,8 +11,8 @@ import brainflow.app.dnd.ImageViewTransferHandler;
 import brainflow.app.presentation.BrainFlowPresenter;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
+import brainflow.image.io.IImageSource;
 import brainflow.modes.ImageViewInteractor;
-import brainflow.image.io.IImageDataSource;
 import net.java.dev.properties.container.BeanContainer;
 import net.java.dev.properties.events.PropertyListener;
 import net.java.dev.properties.events.IndexedPropertyListener;
@@ -121,7 +121,7 @@ public class DisplayManager {
         }
     }
 
-    protected boolean isShowing(IImageDataSource dsource) {
+    protected boolean isShowing(IImageSource dsource) {
         for (IBrainCanvas canvas : canvasList) {
             List<ImageView> views = canvas.getViews();
             for (ImageView v : views) {

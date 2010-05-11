@@ -28,11 +28,13 @@ public class CompositeFileSelector implements FileSelector {
      */
 
     public boolean includeFile(final FileSelectInfo fileInfo) throws FileSystemException {
-        if (fileInfo.getDepth() == 0)
+        if (fileInfo.getDepth() == 0) {            
             return false;
+        }
         if (fileInfo.getFile().getType() == FileType.FOLDER) {
             return true;
         } else {
+
             for (IImageFileDescriptor desc : descriptors) {
                 if (desc.isHeaderMatch(fileInfo.getFile().getName().getBaseName())) {
                     return true;
@@ -48,10 +50,7 @@ public class CompositeFileSelector implements FileSelector {
      * Determines whether a folder should be traversed.
      */
     public boolean traverseDescendents(final FileSelectInfo fileInfo) {
-        if (fileInfo.getDepth() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return (fileInfo.getDepth() == 0);
+
     }
 }

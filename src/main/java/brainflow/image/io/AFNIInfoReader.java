@@ -1,7 +1,6 @@
 package brainflow.image.io;
 
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.ImageInfo;
 import brainflow.image.anatomy.AnatomicalAxis;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.utils.*;
@@ -104,13 +103,15 @@ public class AFNIInfoReader extends AbstractInfoReader {
         return name + ".BRIK";
     }
 
-
+    @Override
+    public ImageInfo readInfo() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     @Override
-    public List<ImageInfo> readInfo() throws BrainFlowException {
+    public List<ImageInfo> readInfoList() throws BrainFlowException {
         try {
             return readHeader(headerFile.getContent().getInputStream());
-
         } catch (FileSystemException e) {
             throw new BrainFlowException(e);
         } catch (IOException e) {
@@ -165,7 +166,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
         for (int i = 0; i < infoList.size(); i++) {
             AFNIImageInfo info = (AFNIImageInfo)infoList.get(i);
             info.setByteOffset(offset);
-            offset = offset + (info.getDataType().getBytesPerUnit() * info.getArrayDim().product().intValue());
+            offset = offset + (info.getDataType().getBytesPerUnit() * info.getVolumeDim().product().intValue());
         }
     }
 
@@ -196,10 +197,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
 
 
         String nameStr = reader.readLine();
-
-
         String countStr = reader.readLine();
-
         StringBuffer sb = new StringBuffer();
 
         String line;
@@ -211,8 +209,8 @@ public class AFNIInfoReader extends AbstractInfoReader {
 
         } while (line != null && !line.equals(""));
 
-        //sb.trimToSize();
-        //System.out.println("typeStr = " + typeStr);
+
+
         HeaderAttribute.HEADER_ATTRIBUTE_TYPE type = HeaderAttribute.parseType(typeStr.replaceFirst("-", "_"));
 
         //todo should check to see whether attribute exists ..s
@@ -225,8 +223,6 @@ public class AFNIInfoReader extends AbstractInfoReader {
         } else {
             attribute = HeaderAttribute.createAttribute(type, AFNIAttributeKey.AD_HOC, HeaderAttribute.parseCount(countStr), sb.toString());
         }
-
-      
 
         return attribute;
 
@@ -281,7 +277,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
 
         IDimension idim = DimensionFactory.create(dims);
         for (ImageInfo info : infoList) {
-            info.setArrayDim(idim);
+            info.setVolumeDim(idim);
             //todo this is hard coded and dangerous
             info.setDimensionality(3);
         }
@@ -352,7 +348,7 @@ public class AFNIInfoReader extends AbstractInfoReader {
 
         // is it a bucket? is it a brik? 
         for (ImageInfo info : infoList) {
-            info.setNumImages(1);
+            info.setNumVolumes(1);
         }
 
     }

@@ -1,11 +1,10 @@
 package brainflow.core;
 
 import brainflow.image.io.BrainIO;
-import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.io.MemoryImageSource;
 import brainflow.image.data.IImageData3D;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerList;
-import brainflow.core.BrainFlowException;
 import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.app.toplevel.ImageLayerFactory;
 import brainflow.utils.Pair;
@@ -93,7 +92,7 @@ public class BF {
     }
 
     public static Pair<ImageView, JFrame> quickView(IImageData3D data) {
-        ImageLayer3D layer = ImageLayerFactory.createImageLayer(new MemoryImageDataSource(data));
+        ImageLayer3D layer = ImageLayerFactory.createImageLayer(new MemoryImageSource(data));
         ImageView view = ImageViewFactory.createAxialView(new ImageViewModel("view", layer));
         JFrame frame = new JFrame();
         frame.add(view, BorderLayout.CENTER);

@@ -1,7 +1,7 @@
 package brainflow.core;
 
-import brainflow.image.io.IImageDataSource;
-import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.io.IImageSource;
+import brainflow.image.io.MemoryImageSource;
 import brainflow.colormap.ColorTable;
 import brainflow.colormap.DiscreteColorMap;
 import brainflow.colormap.LinearColorMap;
@@ -129,12 +129,12 @@ public class SnapShooter {
         try {
 
             ImageDisplayModel dset = new ImageDisplayModel("snapper");
-            IImageDataSource il1 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/ch2"));
-            IImageDataSource il2 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAgeXDiag"));
-            IImageDataSource il3 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAge.Schiz"));
-            IImageDataSource il4 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAge.Norm"));
-            IImageDataSource il5 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/bAge.Schiz"));
-            IImageDataSource il6 = new MemoryImageDataSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/bAge.Norm"));
+            IImageSource il1 = new MemoryImageSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/ch2"));
+            IImageSource il2 = new MemoryImageSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAgeXDiag"));
+            IImageSource il3 = new MemoryImageSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAge.Schiz"));
+            IImageSource il4 = new MemoryImageSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/tAge.Norm"));
+            IImageSource il5 = new MemoryImageSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/bAge.Schiz"));
+            IImageSource il6 = new MemoryImageSource(BrainIO.readAnalyzeImage("c:/DTI/slopes/bAge.Norm"));
 
 
             LinearColorMap lmap = new LinearColorMap(0, 221, ColorTable.GRAYSCALE);

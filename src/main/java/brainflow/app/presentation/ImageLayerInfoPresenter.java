@@ -4,7 +4,7 @@ import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.data.IImageData;
 import com.jidesoft.grid.*;
@@ -56,7 +56,7 @@ public class ImageLayerInfoPresenter extends BrainFlowPresenter {
         IImageSpace space = layer.getCoordinateSpace();
 
         ArrayList<Property> list = new ArrayList<Property>();
-        IImageDataSource source = layer.getDataSource();
+        IImageSource source = layer.getDataSource();
 
         list.addAll(fileProps(source));
         list.addAll(spaceProps(source));
@@ -77,7 +77,7 @@ public class ImageLayerInfoPresenter extends BrainFlowPresenter {
 
     }
 
-    private List<Property> fileProps(IImageDataSource source) {
+    private List<Property> fileProps(IImageSource source) {
 
         List<Property> list = new ArrayList<Property>();
         Property property = createProperty("Path", source.getDataFile(), "Data Source", FileObject.class, "The full path of the image file");
@@ -97,7 +97,7 @@ public class ImageLayerInfoPresenter extends BrainFlowPresenter {
     }
 
 
-    private List<Property> spaceProps(IImageDataSource source) {
+    private List<Property> spaceProps(IImageSource source) {
         IImageSpace space = source.getData().getImageSpace();
 
         List<Property> list = new ArrayList<Property>();
@@ -119,7 +119,7 @@ public class ImageLayerInfoPresenter extends BrainFlowPresenter {
     }
 
 
-    private List<Property> dataProps(IImageDataSource source) {
+    private List<Property> dataProps(IImageSource source) {
         IImageData data = source.getData();
 
         List<Property> list = new ArrayList<Property>();

@@ -61,7 +61,7 @@ public class AnalyzeInfoWriter implements brainflow.image.io.ImageInfoWriter {
             dim[1] = (short) _dim[0];
             dim[2] = (short) _dim[1];
             dim[3] = (short) _dim[2];
-            dim[4] = (short) info.getNumImages();
+            dim[4] = (short) info.getNumVolumes();
             dim[5] = (short) (_dim[0] / 2);
             dim[6] = (short) (_dim[1] / 2);
             dim[7] = (short) (_dim[2] / 2);

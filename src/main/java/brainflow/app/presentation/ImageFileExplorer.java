@@ -32,9 +32,6 @@ import java.net.URISyntaxException;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.logging.Logger;
 
 /**
@@ -77,7 +74,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     private JScrollPane scrollPane;
 
-
     public ImageFileExplorer(FileObject _rootObject) {
 
 
@@ -102,6 +98,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         status = new LabelStatusBarItem();
         statusBar.add(status, JideBoxLayout.VARY);
         statusBar.setBorder(BorderFactory.createEmptyBorder());
+
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(scrollPane, BorderLayout.CENTER);
@@ -129,7 +126,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                     } else {
                         label.setIcon(folderOpenIcon);
                     }
-                } else if (value instanceof ImageContainerNode) {
+                } else if (value instanceof ImageBucketNode) {
                     if (!expanded) {
                         label.setIcon(imageBucketIcon);
                     } else {
@@ -138,12 +135,12 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
                 } else if (value instanceof ImageLeafNode) {
                     ImageLeafNode node = (ImageLeafNode) value;
-                    IImageDataSource limg = node.getUserObject();
+                    IImageSource limg = node.getUserObject();
                     label.setIcon(brickIcon);
 
 
                     if (limg.isLoaded()) { //&& !selected) {
-                         label.setForeground(Color.GREEN.darker().darker());
+                        label.setForeground(Color.GREEN.darker().darker());
                     }
 
                 }
@@ -195,15 +192,13 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     private void startProgressSignal() {
         progressPanel.start();
         overlayPanel.setOverlayVisible(true);
-
     }
+
 
     private void hideProgressSignal() {
         progressPanel.stop();
         overlayPanel.setOverlayVisible(false);
-
     }
-
 
 
     private void initDnD() {
@@ -230,24 +225,24 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
                     if (node instanceof DataSourceNode) {
                         DataSourceNode dnode = (DataSourceNode) node;
-                        IImageDataSource source = dnode.getUserObject();
+                        IImageSource source = dnode.getUserObject();
                         ret = DnDUtils.createTransferable(source);
                     } else if (node instanceof FolderNode) {
                         //todo need way to represent a bundle of images
-                        
-                        FolderNode fnode = (FolderNode)node;
+
+                        FolderNode fnode = (FolderNode) node;
                         List<LazyNode> nodeList = fnode.fetchChildNodes();
-                        List<IImageDataSource> sourceList = new ArrayList<IImageDataSource>();
+                        List<IImageSource> sourceList = new ArrayList<IImageSource>();
 
                         for (LazyNode n : nodeList) {
                             if (n instanceof ImageLeafNode) {
-                                IImageDataSource dsource = ((ImageLeafNode)n).getUserObject();
+                                IImageSource dsource = ((ImageLeafNode) n).getUserObject();
                                 sourceList.add(dsource);
                             }
                         }
 
                         if (sourceList.size() > 0) {
-                            ret = DnDUtils.createTransferable(new MultiImageDataSource(sourceList,0));
+                            ret = DnDUtils.createTransferable(new MultiImageSource(sourceList, 0));
                         }
                     }
 
@@ -261,8 +256,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
         explorer.getJTree().setTransferHandler(handler);
     }
-
-
 
 
     public TreeModel getTreeModel() {
@@ -280,7 +273,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
     public void addFileRoot(FileObject fobj) {
-       TreeNode root = (TreeNode) explorer.getJTree().getModel().getRoot();
+        TreeNode root = (TreeNode) explorer.getJTree().getModel().getRoot();
         Enumeration e = root.children();
 
         boolean hasnode = false;
@@ -297,7 +290,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         }
 
         if (!hasnode) {
-            explorer.addFileRoot(fobj);
+            explorer.addFileRoot(fobj, true);
         }
     }
 
@@ -352,6 +345,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         return dtm;
 
     }
+
     public void updateNodeStructure(TreeNode node) {
 
 
@@ -369,7 +363,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
 
     public void updateNodeContent(TreeNode node) {
-       DefaultTreeModel dtm = getDefaultTreeModel();
+        DefaultTreeModel dtm = getDefaultTreeModel();
 
         if (dtm != null) {
             //workaraound for JIDE bug found in forum
@@ -385,7 +379,8 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     public List<LazyNode> getSelectedNodes() {
         int[] selRows = explorer.getJTree().getSelectionModel().getSelectionRows();
-        if (selRows ==null) {
+
+        if (selRows == null) {
             return Collections.emptyList();
         }
 
@@ -396,8 +391,8 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             TreePath path = explorer.getJTree().getPathForRow(i);
             Object[] opath = path.getPath();
             if (opath != null && opath.length > 0) {
-                if (opath[opath.length-1] instanceof LazyNode) {
-                    nodes.add((LazyNode) opath[opath.length-1]);
+                if (opath[opath.length - 1] instanceof LazyNode) {
+                    nodes.add((LazyNode) opath[opath.length - 1]);
                 }
             }
         }
@@ -406,10 +401,10 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
     }
 
-    public IImageDataSource[] requestLoadableImages() {
+    public IImageSource[] requestLoadableImages() {
         TreePath[] paths = explorer.getJTree().getSelectionPaths();
-        if (paths == null) return new IImageDataSource[0];
-        List<IImageDataSource> list = new ArrayList<IImageDataSource>();
+        if (paths == null) return new IImageSource[0];
+        List<IImageSource> list = new ArrayList<IImageSource>();
         for (int p = 0; p < paths.length; p++) {
             Object[] obj = paths[p].getPath();
 
@@ -417,15 +412,15 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) obj[i];
                 if (node.isLeaf()) {
                     Object userObject = node.getUserObject();
-                    if (userObject instanceof IImageDataSource) {
-                        list.add((IImageDataSource) userObject);
+                    if (userObject instanceof IImageSource) {
+                        list.add((IImageSource) userObject);
 
                     }
                 }
             }
         }
 
-        IImageDataSource[] ret = new IImageDataSource[list.size()];
+        IImageSource[] ret = new IImageSource[list.size()];
         list.toArray(ret);
         return ret;
     }
@@ -436,7 +431,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
             List<LazyNode> nodes = getSelectedNodes();
             if (nodes.size() == 1 && nodes.get(0) instanceof ImageLeafNode) {
-                ImageLeafNode leaf = (ImageLeafNode)nodes.get(0);
+                ImageLeafNode leaf = (ImageLeafNode) nodes.get(0);
 
                 //todo ref to brainflow singleton is suspect, should operate through event bus
                 BrainFlow.get().loadAndDisplay(leaf.getUserObject());
@@ -449,8 +444,10 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
     public void mousePressed(MouseEvent e) {
+
         firstMouseEvent = e;
         e.consume();
+
 
     }
 
@@ -489,7 +486,26 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
     }
 
     public void mouseReleased(MouseEvent e) {
-        firstMouseEvent = null;
+        if (e.isPopupTrigger()) {
+            TreePath path = explorer.getJTree().getPathForLocation(e.getX(), e.getY());
+            List<LazyNode> selNodes = this.getSelectedNodes();
+            System.out.println("number of selected nodes " + selNodes.size());
+
+            if (path!= null) {
+                Object obj = path.getLastPathComponent();
+                if (selNodes.contains(obj)) {
+                    System.out.println("selected node is " + obj);
+                } else {
+                    System.out.println("last node" + obj + " not among selected");
+
+                }
+            }
+
+
+
+        } else {
+            firstMouseEvent = null;
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -579,19 +595,20 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         try {
             if (fobj.getType() == FileType.FOLDER) {
                 ret = new FolderNode(fobj);
-                monitorFolder((FolderNode)ret);
+                monitorFolder((FolderNode) ret);
 
             } else if (fobj.getType() == FileType.FILE && BrainIO.isSupportedImageHeaderFile(fobj)) {
                 updateStatus("Scanning file: " + fobj.getName().getBaseName());
 
                 IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
-                IImageDataSource source = desc.createDataSource(fobj);
+                IImageSource source = desc.createDataSource(fobj);
                 List<ImageInfo> infoList = source.getImageInfoList();
+
 
                 assert infoList.size() != 0;
 
                 if (infoList.size() > 1) {
-                    ret = new ImageContainerNode(source);
+                    ret = new ImageBucketNode(source);
                 } else {
                     ret = new ImageLeafNode(source);
                 }
@@ -639,21 +656,66 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         public abstract int priority();
     }
 
-    public abstract class DataSourceNode extends LazyNode {
-        public IImageDataSource getUserObject() {
-            return (IImageDataSource) super.getUserObject();
-        }
 
-    }
-
-
-    public class ImageContainerNode extends DataSourceNode {
+    public class ImageContainerNode extends LazyNode {
 
         private List<LazyNode> childNodes = new ArrayList<LazyNode>();
 
         boolean areChildrenDefined = false;
 
-        public ImageContainerNode(IImageDataSource dataSource) {
+        public ImageContainerNode(List<ImageSource3D> sourceList) {
+            setUserObject(sourceList);
+            fetchChildNodes();
+        }
+
+
+        @Override
+        public List<ImageSource3D> getUserObject() {
+            return (List<ImageSource3D>) super.getUserObject();    //To change body of overridden methods use File | Settings | File Templates.
+        }
+
+        @Override
+        public List<LazyNode> fetchChildNodes() {
+            if (!areChildrenDefined()) {
+                childNodes.clear();
+                List<ImageSource3D> sourceList = getUserObject();
+
+                for (ImageSource3D source : sourceList) {
+                    childNodes.add(new ImageLeafNode(source));
+                }
+
+                areChildrenDefined = true;
+            }
+
+            return childNodes;
+        }
+
+
+        @Override
+        public boolean areChildrenDefined() {
+            return areChildrenDefined;
+        }
+
+        @Override
+        public int priority() {
+            return 2;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+    }
+
+    public abstract class DataSourceNode extends LazyNode {
+        public IImageSource<?> getUserObject() {
+            return (IImageSource<?>) super.getUserObject();
+        }
+    }
+
+
+    public class ImageBucketNode extends DataSourceNode {
+
+        private List<LazyNode> childNodes = new ArrayList<LazyNode>();
+
+        boolean areChildrenDefined = false;
+
+        public ImageBucketNode(IImageSource dataSource) {
             if (dataSource.getImageInfoList().size() < 2) {
                 throw new IllegalArgumentException("invalid data source ( < 2 images) for ImageContainerNode");
             }
@@ -662,7 +724,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         }
 
         public void setUserObject(Object userObject) {
-            if (!(userObject instanceof IImageDataSource)) {
+            if (!(userObject instanceof IImageSource)) {
                 throw new IllegalArgumentException("user object must be an instance of IImageDataSource");
             }
 
@@ -681,10 +743,10 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         public List<LazyNode> fetchChildNodes() {
             if (!areChildrenDefined()) {
                 childNodes.clear();
-                IImageDataSource parent = getUserObject();
+                IImageSource parent = getUserObject();
                 List<? extends ImageInfo> infoList = parent.getImageInfoList();
                 for (ImageInfo info : infoList) {
-                    childNodes.add(new ImageLeafNode(new ImageDataSource(parent.getDescriptor(), info)));
+                    childNodes.add(new ImageLeafNode(new ImageSource3D(parent.getDescriptor(), info)));
                 }
 
                 areChildrenDefined = true;
@@ -695,7 +757,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
 
         public int priority() {
-            return 2;  //To change body of implemented methods use File | Settings | File Templates.
+            return 2;
         }
     }
 
@@ -705,7 +767,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
         boolean areChildrenDefined = false;
 
-        public ImageLeafNode(IImageDataSource dataSource) {
+        public ImageLeafNode(IImageSource dataSource) {
             setUserObject(dataSource);
         }
 
@@ -714,7 +776,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
         }
 
         public void setUserObject(Object userObject) {
-            if (!(userObject instanceof IImageDataSource)) {
+            if (!(userObject instanceof IImageSource)) {
                 throw new IllegalArgumentException("user object must be an instance of IImageDataSource");
             }
 
@@ -770,10 +832,10 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                 removeAllChildren();
                 fetchChildNodes();
 
-                for (int i=0; i<childNodes.size(); i++) {
+                for (int i = 0; i < childNodes.size(); i++) {
                     add(childNodes.get(i));
                 }
-               
+
             }
 
         }

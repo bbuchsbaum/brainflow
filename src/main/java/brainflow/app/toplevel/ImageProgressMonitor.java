@@ -1,6 +1,6 @@
 package brainflow.app.toplevel;
 
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,16 +20,16 @@ public class ImageProgressMonitor {
 
     private ProgressMonitor monitor;
 
-    private IImageDataSource dataSource;
+    private IImageSource dataSource;
 
     private Component parentComponent;
 
-    public ImageProgressMonitor(IImageDataSource dataSource, Component parent) {
+    public ImageProgressMonitor(IImageSource dataSource, Component parent) {
         this.dataSource = dataSource;
         parentComponent = parent;
     }
 
-    public IImageDataSource getDataSource() {
+    public IImageSource getDataSource() {
         return dataSource;
     }
 

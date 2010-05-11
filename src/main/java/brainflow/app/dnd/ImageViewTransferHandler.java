@@ -5,7 +5,7 @@ import brainflow.core.ImageView;
 import brainflow.core.ImageViewModel;
 import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 
 import java.awt.*;
 import java.util.logging.Logger;
@@ -29,7 +29,7 @@ public class ImageViewTransferHandler extends ImageDropHandler {
         super();
     }
 
-    private void importDataSource(IImageDataSource dsource, TransferSupport support) {
+    private void importDataSource(IImageSource dsource, TransferSupport support) {
         Component c = support.getComponent();
 
         if (c instanceof ImageView) {
@@ -62,8 +62,8 @@ public class ImageViewTransferHandler extends ImageDropHandler {
 
 
     public void dispatchOnObject(Object obj, TransferSupport support) {
-        if (obj instanceof IImageDataSource) {
-            importDataSource((IImageDataSource) obj, support);
+        if (obj instanceof IImageSource) {
+            importDataSource((IImageSource) obj, support);
         } else if (obj instanceof ImageLayer) {
             importImageLayer((ImageLayer) obj, support);
         }

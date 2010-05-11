@@ -11,10 +11,9 @@ import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.ToggleBar;
 import brainflow.image.io.ImageInfo;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import com.pietschy.command.ActionCommand;
 import com.pietschy.command.factory.ButtonFactory;
-import com.jidesoft.swing.JideBoxLayout;
 import com.jidesoft.swing.JideButton;
 import com.jidesoft.swing.JideToggleButton;
 import com.jidesoft.action.CommandBar;
@@ -122,7 +121,7 @@ public class CanvasBar extends BrainFlowPresenter {
                 String label = (String) imageSpinner.getValue();
 
                 final ImageLayer3D layer = getSelectedLayer();
-                IImageDataSource dsource = layer.getDataSource();
+                IImageSource dsource = layer.getDataSource();
 
                 //todo List<ImageInfo> might be Map<String, ImageInfo> (or something?)
                 List<String> labels = extractLabels(dsource.getImageInfoList());
@@ -130,7 +129,7 @@ public class CanvasBar extends BrainFlowPresenter {
          
                 assert index >= 0;
 
-                final IImageDataSource dsource2 = DataSourceManager.get().createDataSource(dsource.getDescriptor(), dsource.getImageInfoList(), index, true);
+                final IImageSource dsource2 = DataSourceManager.get().createDataSource(dsource.getDescriptor(), dsource.getImageInfoList(), index, true);
                 //todo progress mechanism needed here
 
                 SwingWorker worker = new SwingWorker() {

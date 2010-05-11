@@ -1,9 +1,9 @@
 package brainflow.image.iterators;
 
+import brainflow.image.io.IImageSource;
 import brainflow.math.Vector3f;
 import brainflow.image.space.IImageSpace3D;
 import brainflow.image.space.Axis;
-import brainflow.image.io.IImageDataSource;
 import brainflow.image.data.IImageData3D;
 
 import brainflow.core.BrainFlowException;
@@ -94,7 +94,7 @@ public class SpaceIterator3D implements XYZIterator {
 
 
     public static void main(String[] args) {
-        IImageDataSource src = null; //TestUtils.quickDataSource("BRB-20071214-09-t1_mprage-001.nii");
+        IImageSource src = null; //TestUtils.quickDataSource("BRB-20071214-09-t1_mprage-001.nii");
         try {
             IImageData3D data = (IImageData3D) src.load();
             SpaceIterator3D iter = new SpaceIterator3D(data.getImageSpace());

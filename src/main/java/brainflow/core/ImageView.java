@@ -109,7 +109,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     public ImageView(ImageViewModel imodel) {
         BeanContainer.bind(this);
 
-        setBackground(Color.BLACK);
+        //setBackground(Color.BLACK);
         setOpaque(true);
 
         viewModel.set(imodel);

@@ -163,7 +163,7 @@ public class ImageFiller {
     }
 
     private float[] fillXZY(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x = 0, y = 0, z = 0;
+        int x, y, z;
         y = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
@@ -186,7 +186,7 @@ public class ImageFiller {
     }
 
     private float[] fillYZX(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x = 0, y = 0, z = 0;
+        int x, y, z;
         x = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
@@ -208,7 +208,7 @@ public class ImageFiller {
     }
 
     private float[] fillZYX(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x = 0, y = 0, z = 0;
+        int x, y, z;
         x = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;
@@ -231,7 +231,7 @@ public class ImageFiller {
     }
 
     private float[] fillZXY(IArray3D data, QuickIterator fastIterator, QuickIterator slowIterator, int fixed) {
-        int x = 0, y = 0, z = 0;
+        int x, y, z;
         y = fixed;
         float[] op = new float[fastIterator.size() * slowIterator.size()];
         int i = 0;

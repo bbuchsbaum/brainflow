@@ -5,7 +5,7 @@ import brainflow.colormap.HistogramColorBar;
 import brainflow.colormap.LinearColorMap;
 import brainflow.colormap.ColorTable;
 import brainflow.image.Histogram;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.core.BrainFlowException;
 import brainflow.app.IBrainFlowClient;
 import brainflow.app.toplevel.BrainFlowClientSupport;
@@ -421,7 +421,7 @@ public class HistogramControl extends JPanel implements MouseListener, IBrainFlo
     }
 
     public static void main(String[] args) {
-        IImageDataSource dataSource = null; //BF.quickDataSource("resources/data/global_mean+orig.HEAD");
+        IImageSource dataSource = null; //BF.quickDataSource("resources/data/global_mean+orig.HEAD");
         try {
             dataSource.load();
         } catch (BrainFlowException e) {

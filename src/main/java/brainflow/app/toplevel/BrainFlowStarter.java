@@ -1,7 +1,7 @@
 package brainflow.app.toplevel;
 
 
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.core.BrainFlowException;
 
 import javax.swing.*;
@@ -96,7 +96,7 @@ public class BrainFlowStarter {
 
     }
 
-    private IImageDataSource convertToDataSource(String path) throws BrainFlowException {
+    private IImageSource convertToDataSource(String path) throws BrainFlowException {
 
         return BrainFlow.get().createDataSource(path);
 
@@ -111,7 +111,7 @@ public class BrainFlowStarter {
         if (extras.size() > 0) {
             try {
                 List<String> fnames = convertToAbsolutePaths(extras);
-                List<IImageDataSource> sourceList = new ArrayList<IImageDataSource>();
+                List<IImageSource> sourceList = new ArrayList<IImageSource>();
                 for (String str : fnames) {
                     sourceList.add(convertToDataSource(str));
                 }
@@ -138,7 +138,7 @@ public class BrainFlowStarter {
 
         final BrainFlow bflow = BrainFlow.get();
 
-        final List<IImageDataSource> fileSources = new ArrayList<IImageDataSource>();
+        final List<IImageSource> fileSources = new ArrayList<IImageSource>();
 
         try {
             ImageIOManager.getInstance().initialize();
@@ -154,7 +154,7 @@ public class BrainFlowStarter {
 
             if (provis.isAbsolute()) {
                 if (ImageIOManager.getInstance().isLoadableImage(provis.getPath())) {
-                    IImageDataSource[] sources = ImageIOManager.getInstance().findLoadableImages(new File[]{provis});
+                    IImageSource[] sources = ImageIOManager.getInstance().findLoadableImages(new File[]{provis});
                     if (sources.length == 0) {
                         System.err.println("could not load file " + provis);
                         System.exit(1);
@@ -174,7 +174,7 @@ public class BrainFlowStarter {
 
             } else {
                 File file = new File(System.getProperty("user.dir") + File.separatorChar + extra);
-                IImageDataSource[] sources = ImageIOManager.getInstance().findLoadableImages(new File[]{file});
+                IImageSource[] sources = ImageIOManager.getInstance().findLoadableImages(new File[]{file});
 
                 if (sources.length == 0) {
                     System.err.println("could not load file " + provis);
@@ -190,13 +190,13 @@ public class BrainFlowStarter {
             }
         }
 
-        FutureTask<List<IImageDataSource>> loadTask = null;
+        FutureTask<List<IImageSource>> loadTask = null;
 
         if (fileSources.size() > 0) {
-            loadTask = new FutureTask<List<IImageDataSource>>(new Callable<List<IImageDataSource>>() {
-                public List<IImageDataSource> call() throws Exception {
-                    List<IImageDataSource> dataList = new ArrayList<IImageDataSource>();
-                    for (IImageDataSource dsource : fileSources) {
+            loadTask = new FutureTask<List<IImageSource>>(new Callable<List<IImageSource>>() {
+                public List<IImageSource> call() throws Exception {
+                    List<IImageSource> dataList = new ArrayList<IImageSource>();
+                    for (IImageSource dsource : fileSources) {
                         DataSourceManager.get().register(dsource);
                         //System.out.println("loading data");
                         dsource.load();
@@ -246,7 +246,7 @@ public class BrainFlowStarter {
 
         try {
             if (loadTask != null) {
-                List<IImageDataSource> dlist = loadTask.get();
+                List<IImageSource> dlist = loadTask.get();
                 //IImageDisplayModel displayModel = ProjectManager.get().createViewModel(dataSource);
                 //ImageView iview = ImageViewFactory.createAxialView(displayModel);
 

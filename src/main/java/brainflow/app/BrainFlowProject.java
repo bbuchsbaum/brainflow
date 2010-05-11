@@ -3,11 +3,8 @@ package brainflow.app;
 import brainflow.app.toplevel.BrainFlowProjectEvent;
 import brainflow.app.toplevel.BrainFlowProjectListener;
 
-import brainflow.core.ImageDisplayModelListener;
 import brainflow.core.ImageViewModel;
-import brainflow.core.IImageDisplayModel;
-import brainflow.image.space.IImageSpace;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
@@ -28,7 +25,7 @@ public class BrainFlowProject {
 
     private List<ImageViewModel> modelList = new ArrayList<ImageViewModel>();
 
-    private Set<IImageDataSource> dataSources = new LinkedHashSet<IImageDataSource>();
+    private Set<IImageSource> dataSources = new LinkedHashSet<IImageSource>();
 
     private ModelListDataListener listDataListener = new ModelListDataListener();
 
@@ -37,11 +34,11 @@ public class BrainFlowProject {
     private String name = "untitled";
 
 
-    public void addDataSource(IImageDataSource dataSource) {
+    public void addDataSource(IImageSource dataSource) {
         dataSources.add(dataSource);
     }
 
-    public void removeDataSource(IImageDataSource dataSource) {
+    public void removeDataSource(IImageSource dataSource) {
         dataSources.remove(dataSource);
     }
 

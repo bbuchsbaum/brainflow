@@ -3,8 +3,6 @@ package brainflow.image.io;
 import brainflow.core.BrainFlowException;
 
 import java.io.*;
-import java.util.Collection;
-import java.nio.ByteOrder;
 
 import static brainflow.image.io.Nifti1Dataset.*;
 import brainflow.utils.IDimension;
@@ -12,10 +10,8 @@ import brainflow.math.Vector3f;
 import brainflow.math.Matrix4f;
 
 import javax.imageio.stream.MemoryCacheImageOutputStream;
-import javax.imageio.ImageIO;
 
 import org.apache.commons.vfs.VFS;
-import org.apache.commons.vfs.FileSystemException;
 import org.apache.commons.vfs.FileObject;
 
 /**
@@ -35,7 +31,7 @@ public class NiftiInfoWriter implements ImageInfoWriter<NiftiImageInfo> {
             FileObject tmpdata = fobj.getFileSystem().resolveFile("charlie.nii");
 
             NiftiInfoReader reader = new NiftiInfoReader("src/main/groovy/testdata/207_anat_alepi.nii");
-            NiftiImageInfo info = (NiftiImageInfo)(reader.readInfo().get(0));
+            NiftiImageInfo info = (NiftiImageInfo)(reader.readInfoList().get(0));
 
             NiftiImageInfo cinfo = info.copy(tmpheader, tmpdata);
             System.out.println("cinfo : " + cinfo.getHeaderFile());
@@ -46,7 +42,7 @@ public class NiftiInfoWriter implements ImageInfoWriter<NiftiImageInfo> {
             System.out.println("children length " + children.length);
 
             reader = new NiftiInfoReader(cinfo.getHeaderFile(), cinfo.getDataFile());
-            NiftiImageInfo info2 = (NiftiImageInfo)(reader.readInfo().get(0));
+            NiftiImageInfo info2 = (NiftiImageInfo)(reader.readInfoList().get(0));
 
 
 
@@ -110,13 +106,13 @@ public class NiftiInfoWriter implements ImageInfoWriter<NiftiImageInfo> {
             //regular
             ostream.writeByte(0);
 
-            IDimension<Integer> dims = info.getArrayDim();
+            IDimension<Integer> dims = info.getVolumeDim();
             // need to check nifti spec for freq, phase, slice. for now, use 0, 1, 2.
             byte b = packDimInfo((short) 0, (short) 1, (short) 2);
             ostream.writeByte(b);
 
             // number of dimensions
-            ostream.writeShort(info.getArrayDim().numDim());
+            ostream.writeShort(info.getVolumeDim().numDim());
             for (int i = 0; i < dims.numDim(); i++) {
                 ostream.writeShort(dims.getDim(i));
             }

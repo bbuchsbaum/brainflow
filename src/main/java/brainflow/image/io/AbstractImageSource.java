@@ -1,9 +1,5 @@
 package brainflow.image.io;
 
-import brainflow.image.io.ImageInfo;
-import brainflow.image.io.ImageInfoReader;
-import brainflow.image.io.IImageDataSource;
-import brainflow.image.io.ImageIODescriptor;
 import brainflow.core.BrainFlowException;
 import org.apache.commons.vfs.FileObject;
 
@@ -19,7 +15,7 @@ import java.util.logging.Logger;
  * Time: 4:53:10 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractImageDataSource implements IImageDataSource {
+public abstract class AbstractImageSource<T> implements IImageSource {
 
 
     private static final BufferedImage BLANK = new BufferedImage(100, 100, BufferedImage.TYPE_BYTE_GRAY);
@@ -36,9 +32,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
 
     private int index = 0;
 
-
-  
-    public AbstractImageDataSource(IImageFileDescriptor _descriptor, ImageInfo _info) {
+    public AbstractImageSource(IImageFileDescriptor _descriptor, ImageInfo _info) {
         imageInfoList = Arrays.asList(_info);
 
         descriptor = _descriptor;
@@ -50,7 +44,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     }
 
 
-    public AbstractImageDataSource(IImageFileDescriptor _descriptor, List<ImageInfo> infoList, int _index) {
+    public AbstractImageSource(IImageFileDescriptor _descriptor, List<ImageInfo> infoList, int _index) {
         imageInfoList = infoList;
         index = _index;
         descriptor = _descriptor;
@@ -62,13 +56,13 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
     }
 
 
-    public AbstractImageDataSource(IImageFileDescriptor _descriptor, FileObject _header, FileObject _data) {
+    public AbstractImageSource(IImageFileDescriptor _descriptor, FileObject _header, FileObject _data) {
         descriptor = _descriptor;
         dataFile = _data;
         header = _header;
     }
 
-    public AbstractImageDataSource(IImageFileDescriptor _descriptor, FileObject _header) {
+    public AbstractImageSource(IImageFileDescriptor _descriptor, FileObject _header) {
         //todo why have this?
         descriptor = _descriptor;
         header = _header;
@@ -90,7 +84,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
         try {
 
           
-            imageInfoList = getDescriptor().createInfoReader(header, dataFile).readInfo();
+            imageInfoList = getDescriptor().createInfoReader(header, dataFile).readInfoList();
 
         } catch (BrainFlowException e) {
             throw new RuntimeException(e);
@@ -145,7 +139,7 @@ public abstract class AbstractImageDataSource implements IImageDataSource {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        IImageDataSource that = (IImageDataSource) o;
+        IImageSource that = (IImageSource) o;
 
         if (!dataFile.getName().getPath().equals(that.getDataFile().getName().getPath())) return false;
         if (!header.getName().getPath().equals(that.getHeaderFile().getName().getPath())) return false;

@@ -29,7 +29,7 @@ public abstract class ImageDropHandler extends TransferHandler {
     protected void initDataFlavors() {
         try {
             DataFlavor loadableImageFlavor = new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType +
-                    ";class=brainflow.image.io.IImageDataSource");
+                    ";class=brainflow.image.io.IImageSource");
 
             DataFlavor imageLayerFlavor = new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType +
                     ";class=brainflow.core.layer.ImageLayer");

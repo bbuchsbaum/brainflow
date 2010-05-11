@@ -1,7 +1,7 @@
 package junkyard;
 
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.io.MemoryImageSource;
 import brainflow.app.toplevel.ImageViewFactory;
 import brainflow.image.data.*;
 import brainflow.image.io.BrainIO;
@@ -301,7 +301,7 @@ public class ConnectedComponentsFilter extends AbstractImageFilter {
             filter.addInput(mask);
             IImageData3D dat3d = (IImageData3D) filter.getOutput();
             ImageViewModel model = new ImageViewModel("test",
-                    new ImageLayer3D(new MemoryImageDataSource(dat3d), new LayerProps(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()))));
+                    new ImageLayer3D(new MemoryImageSource(dat3d), new LayerProps(ColorTable.SPECTRUM, new Range(0, dat3d.maxValue()))));
 
 
             ImageView view = ImageViewFactory.createAxialView(model);

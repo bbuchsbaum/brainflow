@@ -2,7 +2,7 @@ package brainflow.app.toplevel;
 
 
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.image.io.ImageIODescriptor;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
@@ -93,7 +93,7 @@ public class ImageIOManager {
     }
 
 
-    public IImageDataSource[] findLoadableImages(File[] files) {
+    public IImageSource[] findLoadableImages(File[] files) {
         FileObject[] fobjs = new FileObject[files.length];
         try {
             for (int i = 0; i < fobjs.length; i++) {
@@ -108,17 +108,17 @@ public class ImageIOManager {
 
     }
 
-    public IImageDataSource[] findLoadableImages(FileObject[] fobjs) {
+    public IImageSource[] findLoadableImages(FileObject[] fobjs) {
 
-        List<IImageDataSource> limglist = new ArrayList<IImageDataSource>();
+        List<IImageSource> limglist = new ArrayList<IImageSource>();
 
         for (Iterator<ImageIODescriptor> iter = descriptorList.iterator(); iter.hasNext();) {
             ImageIODescriptor desc = iter.next();
-            IImageDataSource[] limg = desc.findLoadableImages(fobjs);
+            IImageSource[] limg = desc.findLoadableImages(fobjs);
             Collections.addAll(limglist, limg);
         }
 
-        IImageDataSource[] ret = new IImageDataSource[limglist.size()];
+        IImageSource[] ret = new IImageSource[limglist.size()];
         limglist.toArray(ret);
 
         return ret;

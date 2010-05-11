@@ -7,8 +7,6 @@
 package brainflow.image.io;
 
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.ImageInfo;
-import brainflow.image.io.ImageInfoReader;
 import brainflow.utils.DataType;
 import brainflow.utils.Dimension3D;
 import brainflow.utils.Point3D;
@@ -99,9 +97,13 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
             return name + ".img";
     }
 
-    
     @Override
-    public List<ImageInfo> readInfo() throws BrainFlowException {
+    public ImageInfo readInfo() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<ImageInfo> readInfoList() throws BrainFlowException {
         try {
             InputStream istream = headerFile.getContent().getInputStream();
             MemoryCacheImageInputStream mis = new MemoryCacheImageInputStream(istream);
@@ -141,9 +143,9 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
             dim[7] = istream.readShort();
 
 
-            builder.arrayDim(new Dimension3D<Integer>(Math.abs(dim[1]), Math.abs(dim[2]), Math.abs(dim[3])));
+            builder.volumeDim(new Dimension3D<Integer>(Math.abs(dim[1]), Math.abs(dim[2]), Math.abs(dim[3])));
 
-            builder.numImages(Math.abs(dim[4]));
+            builder.numVolumes(Math.abs(dim[4]));
 
 
            if (dim[4] > 1) {

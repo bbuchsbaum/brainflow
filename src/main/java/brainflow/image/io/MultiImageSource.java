@@ -15,17 +15,17 @@ import java.util.List;
  * Time: 9:37:55 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MultiImageDataSource implements IMultiImageDataSource {
+public class MultiImageSource implements IMultiImageSource {
 
-    private List<IImageDataSource> sourceList;
+    private List<IImageSource> sourceList;
 
     private int index = 0;
 
-    public MultiImageDataSource(List<IImageDataSource> sourceList) {
+    public MultiImageSource(List<IImageSource> sourceList) {
         this.sourceList = sourceList;
     }
 
-    public MultiImageDataSource(List<IImageDataSource> sourceList, int index) {
+    public MultiImageSource(List<IImageSource> sourceList, int index) {
         if (index < 0 || index >= sourceList.size()) {
             throw new IllegalArgumentException("illegal index " + index);
         }
@@ -46,7 +46,7 @@ public class MultiImageDataSource implements IMultiImageDataSource {
 
 
     @Override
-    public IImageDataSource getDataSource(int index) {
+    public IImageSource getDataSource(int index) {
         return sourceList.get(index);
     }
 
@@ -60,19 +60,19 @@ public class MultiImageDataSource implements IMultiImageDataSource {
         return index;
     }
 
-    public MultiImageDataSource next() {
+    public MultiImageSource next() {
         if (index < (sourceList.size() - 1)) {
-            return new MultiImageDataSource(sourceList, index + 1);
+            return new MultiImageSource(sourceList, index + 1);
         } else {
-            return new MultiImageDataSource(sourceList, 0);
+            return new MultiImageSource(sourceList, 0);
         }
     }
 
-    public MultiImageDataSource previous() {
+    public MultiImageSource previous() {
         if (index > 0) {
-            return new MultiImageDataSource(sourceList, index - 1);
+            return new MultiImageSource(sourceList, index - 1);
         } else {
-            return new MultiImageDataSource(sourceList, sourceList.size() - 1);
+            return new MultiImageSource(sourceList, sourceList.size() - 1);
         }
     }
 

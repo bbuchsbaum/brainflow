@@ -12,14 +12,12 @@ import brainflow.utils.Dimension4D;
  */
 public interface IArray4D extends IArray {
     
-    public double value(double x, double y, double z, double t, InterpolationFunction4D interp);
+    public double value(double x, double y, double z, double v, InterpolationFunction4D interp);
 
     public double value(int i, int j, int k, int m);
 
     public int indexOf(int i, int j, int k, int m);
-
-
-    
+                                                       
     @Override
     Dimension4D<Integer> dim();
 }

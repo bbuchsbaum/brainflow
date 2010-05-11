@@ -12,7 +12,7 @@ import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.core.layer.LayerProps;
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.io.MemoryImageSource;
 import brainflow.image.operations.UnionFindArray;
 import brainflow.image.operations.ImageSlicer;
 import brainflow.app.toplevel.ImageViewFactory;
@@ -433,7 +433,7 @@ public class ConnComp {
         props.interpolationType.set(InterpolationType.NEAREST_NEIGHBOR);
         //IImageData3D dat3d = ImageData.asImageData3D(mdat, new BrainPoint1D(AnatomicalAxis.INFERIOR_SUPERIOR, 0),1);
         ImageViewModel model = new ImageViewModel("test",
-                new ImageLayer3D(new MemoryImageDataSource(dat3d), props));
+                new ImageLayer3D(new MemoryImageSource(dat3d), props));
 
 
         ImageView view = ImageViewFactory.createAxialView(model);

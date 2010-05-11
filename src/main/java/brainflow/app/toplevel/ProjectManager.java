@@ -1,9 +1,8 @@
 package brainflow.app.toplevel;
 
 import brainflow.app.BrainFlowProject;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.image.data.IImageData3D;
-import brainflow.app.toplevel.ImageViewModelEvent;
 import brainflow.app.services.DataSourceStatusEvent;
 import brainflow.core.*;
 import brainflow.core.layer.ImageLayer3D;
@@ -44,7 +43,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
         return activeProject;
     }
 
-    private void registerDataSource(IImageDataSource dsource) {
+    private void registerDataSource(IImageSource dsource) {
         boolean registered = DataSourceManager.get().isRegistered(dsource);
 
         if (!registered) {
@@ -71,7 +70,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
     }
 
 
-    public ImageViewModel createViewModel(IImageDataSource dataSource, boolean addToActiveProject) {
+    public ImageViewModel createViewModel(IImageSource dataSource, boolean addToActiveProject) {
         //todo maybe this isn't the right place for this?
 
         registerDataSource(dataSource);
@@ -101,7 +100,7 @@ public class ProjectManager implements EventSubscriber, BrainFlowProjectListener
         }
     }
 
-    protected void clearDataSource(IImageDataSource dataSource) {
+    protected void clearDataSource(IImageSource dataSource) {
         System.out.println("clearing data source " + dataSource);
         //todo just really and truly horrible
         Iterator<ImageViewModel> iter = activeProject.iterator();

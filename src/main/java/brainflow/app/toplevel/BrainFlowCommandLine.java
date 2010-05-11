@@ -1,17 +1,14 @@
 package brainflow.app.toplevel;
 
 import brainflow.image.io.BrainIO;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
-import org.kohsuke.args4j.Option;
 
 import javax.swing.*;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,8 +28,8 @@ public class BrainFlowCommandLine {
             files[i] = new File(fileNames.get(i));
         }
 
-        List<IImageDataSource> dsources = BrainIO.loadDataSources(files);
-        for (final IImageDataSource dsource : dsources) {
+        List<IImageSource> dsources = BrainIO.loadDataSources(files);
+        for (final IImageSource dsource : dsources) {
             ImageLoader loader = new ImageLoader(dsource) {
                 @Override
                 protected void done() {

@@ -10,7 +10,7 @@ import brainflow.gui.IActionProvider;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.io.BrainIO;
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.gui.ExceptionDialog;
 import brainflow.utils.AbstractBuilder;
 import brainflow.utils.StopWatch;
@@ -59,7 +59,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -330,6 +329,13 @@ public class BrainFlow {
         brainFrame.setVisible(true);
 
         mountInitialDirectories(config.mountPoints);
+
+        for(List<FileObject> flist : config.datasets) {
+            List<IImageSource> sourceList = BrainIO.loadDataSources(flist);
+            ImageViewModel model = ImageViewFactory.createModel("untitled", sourceList);
+            displayView(ImageViewFactory.createAxialView(model));
+
+        }
 
 
 
@@ -1055,7 +1061,7 @@ public class BrainFlow {
     }
 
 
-    private void register(IImageDataSource dataSource) {
+    private void register(IImageSource dataSource) {
         DataSourceManager manager = DataSourceManager.get();
         boolean alreadyRegistered = manager.isRegistered(dataSource);
 
@@ -1091,7 +1097,7 @@ public class BrainFlow {
     //    return DisplayManager.get().getSelectedCanvas();
     //}
 
-    private IImageDataSource specialHandling(IImageDataSource dataSource) {
+    private IImageSource specialHandling(IImageSource dataSource) {
 
 
         if (dataSource.getFileFormat().equals("Analyze7.5")) {
@@ -1124,7 +1130,7 @@ public class BrainFlow {
     }
 
 
-    public void loadAndDisplay(final IImageDataSource dataSource) {
+    public void loadAndDisplay(final IImageSource dataSource) {
         //this whole set of methods is a horror
         //todo need a set of related methods that allow
         // 1. loading image in background
@@ -1138,7 +1144,7 @@ public class BrainFlow {
         final Cursor cursor = brainFrame.getCursor();
         brainFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-        final IImageDataSource checkedDataSource = specialHandling(dataSource);
+        final IImageSource checkedDataSource = specialHandling(dataSource);
         register(checkedDataSource);
 
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
@@ -1155,10 +1161,10 @@ public class BrainFlow {
     }
 
 
-    public void load(final IImageDataSource dataSource) {
+    public void load(final IImageSource dataSource) {
         final Cursor cursor = brainFrame.getCursor();
         brainFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        final IImageDataSource checkedDataSource = specialHandling(dataSource);
+        final IImageSource checkedDataSource = specialHandling(dataSource);
         ImageProgressMonitor monitor = new ImageProgressMonitor(checkedDataSource, brainFrame.getContentPane());
 
         monitor.loadImage(new ActionListener() {
@@ -1172,8 +1178,8 @@ public class BrainFlow {
     }
 
 
-    public void loadAndDisplay(final IImageDataSource dataSource, final ImageView view) {
-        final IImageDataSource checkedDataSource = specialHandling(dataSource);
+    public void loadAndDisplay(final IImageSource dataSource, final ImageView view) {
+        final IImageSource checkedDataSource = specialHandling(dataSource);
         register(checkedDataSource);
 
         final Cursor cursor = brainFrame.getCursor();
@@ -1195,11 +1201,11 @@ public class BrainFlow {
     }
 
 
-    public IImageDataSource createDataSource(URI uri) throws BrainFlowException {
+    public IImageSource createDataSource(URI uri) throws BrainFlowException {
         try {
             FileObject fobj = VFS.getManager().resolveFile(uri.getPath());
 
-            java.util.List<IImageDataSource> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
+            java.util.List<IImageSource> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
             return sources.get(0);
         } catch (FileSystemException e) {
             throw new BrainFlowException(e);
@@ -1207,7 +1213,7 @@ public class BrainFlow {
     }
 
 
-    public IImageDataSource createDataSource(String path) throws BrainFlowException {
+    public IImageSource createDataSource(String path) throws BrainFlowException {
 
 
         try {
@@ -1217,7 +1223,7 @@ public class BrainFlow {
                 throw new BrainFlowException("argument " + fobj.getName().getBaseName() + " is not a valid image path");
             }
 
-            java.util.List<IImageDataSource> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
+            java.util.List<IImageSource> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
             if (sources.size() > 1) {
                 log.warning("multiple matching files for path " + path + "... using first match.");
             }
@@ -1246,7 +1252,7 @@ public class BrainFlow {
 
     }
 
-    public boolean isShowing(IImageDataSource dsource) {
+    public boolean isShowing(IImageSource dsource) {
         return DisplayManager.get().isShowing(dsource);
 
     }
@@ -1260,8 +1266,8 @@ public class BrainFlow {
     }
 
 
-    public java.util.List<IImageDataSource> getSelectedLoadableImages() {
-        IImageDataSource[] limg = loadingDock.requestLoadableImages();
+    public java.util.List<IImageSource> getSelectedLoadableImages() {
+        IImageSource[] limg = loadingDock.requestLoadableImages();
         return Arrays.asList(limg);
 
     }

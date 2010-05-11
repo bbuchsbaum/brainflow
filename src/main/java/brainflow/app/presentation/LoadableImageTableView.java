@@ -1,6 +1,6 @@
 package brainflow.app.presentation;
 
-import brainflow.image.io.IImageDataSource;
+import brainflow.image.io.IImageSource;
 import brainflow.app.actions.RemoveDataSourceCommand;
 import brainflow.app.services.DataSourceStatusEvent;
 import brainflow.gui.AbstractPresenter;
@@ -50,7 +50,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
 
     private ImageTableModel imageTableModel;
 
-    private List<IImageDataSource> imageList = new ArrayList<IImageDataSource>();
+    private List<IImageSource> imageList = new ArrayList<IImageSource>();
 
     private ActionCommand removeCommand = new RemoveDataSourceCommand();
 
@@ -94,8 +94,8 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
 
         table.setComponentFactory(new HierarchicalTableComponentFactory() {
             public Component createChildComponent(HierarchicalTable table, Object value, int row) {
-                if (value instanceof IImageDataSource) {
-                    return new ImageInfoPanel((IImageDataSource) value);
+                if (value instanceof IImageSource) {
+                    return new ImageInfoPanel((IImageSource) value);
                 }
                 return null;
             }
@@ -160,9 +160,9 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
 
 
     class ImageInfoPanel extends JPanel {
-        IImageDataSource limg;
+        IImageSource limg;
 
-        public ImageInfoPanel(IImageDataSource _limg) {
+        public ImageInfoPanel(IImageSource _limg) {
             limg = _limg;
             setLayout(new BorderLayout());
             setBorder(BorderFactory.createEmptyBorder(2, 2, 3, 2));
@@ -195,7 +195,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
             builder.append("<br>");
             builder.append("Format: " + limg.getFileFormat());
             builder.append("<br>");
-            builder.append("Dim: " + limg.getImageInfo().getArrayDim());
+            builder.append("Dim: " + limg.getImageInfo().getVolumeDim());
             builder.append("<br>");
             builder.append("Spacing: " + limg.getImageInfo().getSpacing());
             builder.append("<br>");
@@ -268,7 +268,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
             panel.add(dataTypeButton);
 
             panel.add(new NullLabel("Dimensions", NullLabel.TRAILING));
-            final NullJideButton dimButton = new NullJideButton(limg.getImageInfo().getArrayDim().toString());
+            final NullJideButton dimButton = new NullJideButton(limg.getImageInfo().getVolumeDim().toString());
             dimButton.setButtonStyle(NullJideButton.HYPERLINK_STYLE);
             dimButton.setHorizontalAlignment(SwingConstants.TRAILING);
             panel.add(dimButton);
@@ -296,8 +296,8 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
 
     class LoadableImageCellRenderer extends DefaultTableCellRenderer {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            if (value instanceof IImageDataSource) {
-                IImageDataSource limg = (IImageDataSource) value;
+            if (value instanceof IImageSource) {
+                IImageSource limg = (IImageSource) value;
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, limg.getStem(), isSelected, hasFocus, row, column);
                 //label.setIcon(getSnapshot(limg, SMALL_ICON_WIDTH, SMALL_ICON_HEIGHT));
                 return label;
@@ -307,7 +307,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
         }
     }
 
-    private long getImageSize(IImageDataSource limg) {
+    private long getImageSize(IImageSource limg) {
 
         try {
             return limg.getDataFile().getContent().getSize();
@@ -342,7 +342,7 @@ public class LoadableImageTableView extends AbstractPresenter implements EventSu
         }
 
         public Object getValueAt(int rowIndex, int columnIndex) {
-            IImageDataSource limg = imageList.get(rowIndex);
+            IImageSource limg = imageList.get(rowIndex);
 
             switch (columnIndex) {
                 case 0:

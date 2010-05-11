@@ -99,30 +99,40 @@ public class FileExplorer extends AbstractPresenter {
         DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("File Systems");
         treeModel = new DefaultTreeModel(rootNode);
 
+
         fileTree = new JTree(treeModel);
         fileTree.setCellRenderer(new FileTreeCellRenderer());
 
-        for (FileObject root : rootList) {
-            addFileRoot(root);
+
+        for (int i=0; i<rootList.size(); i++) {
+            if (i == 0) {
+                addFileRoot(rootList.get(i), true);
+            } else {
+                addFileRoot(rootList.get(i), false);
+            }
         }
 
 
         fileTree.setDragEnabled(true);
+       
         fileTree.scrollPathToVisible(new TreePath(rootNode.getPath()));
-
+        
 
     }
 
 
-    public void addFileRoot(FileObject fobj) {
+    public void addFileRoot(FileObject fobj, boolean select) {
         DefaultMutableTreeNode node = createTreeNode(fobj);
 
         MutableTreeNode root = (MutableTreeNode) treeModel.getRoot();
         treeModel.insertNodeInto(node, root,
                 root.getChildCount());
 
+        if (select) {
+            fileTree.setSelectionPath(new TreePath(node.getPath()));
+        }
         fileTree.scrollPathToVisible(new TreePath(node.getPath()));
-
+       
 
     }
 

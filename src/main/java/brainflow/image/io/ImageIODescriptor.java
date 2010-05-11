@@ -1,8 +1,6 @@
 package brainflow.image.io;
 
 import brainflow.utils.FileObjectFilter;
-import brainflow.image.io.IImageDataSource;
-import brainflow.image.io.ImageDataSource;
 import brainflow.core.BrainFlowException;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
@@ -98,9 +96,9 @@ public class ImageIODescriptor {
     }
 
 
-    public IImageDataSource[] findLoadableImages(FileObject[] fobjs) {
+    public IImageSource[] findLoadableImages(FileObject[] fobjs) {
 
-        List<IImageDataSource> limglist = new ArrayList<IImageDataSource>();
+        List<IImageSource> limglist = new ArrayList<IImageSource>();
 
         for (int i = 0; i < fobjs.length; i++) {
             if (isHeaderMatch(fobjs[i])) {
@@ -122,7 +120,7 @@ public class ImageIODescriptor {
             }
         }
 
-        IImageDataSource[] ret = new IImageDataSource[limglist.size()];
+        IImageSource[] ret = new IImageSource[limglist.size()];
         limglist.toArray(ret);
         return ret;
 
@@ -146,7 +144,7 @@ public class ImageIODescriptor {
 
     }
 
-    public IImageDataSource createLoadableImage(FileObject header, FileObject data) {
+    public IImageSource createLoadableImage(FileObject header, FileObject data) {
         
         if (!isHeaderMatch(header)) {
             throw new IllegalArgumentException("header " + header.getName().getBaseName() + " does not have correct suffix for format : " + this.getFormatName());
@@ -155,11 +153,11 @@ public class ImageIODescriptor {
             throw new IllegalArgumentException("data " + data.getName().getBaseName() + " does not have correct suffix for format : " + this.getFormatName());
         }
 
-        return new ImageDataSource(null/*this*/, header, data);
+        return new ImageSource3D(null/*this*/, header, data);
 
     }
 
-    public IImageDataSource createLoadableImage(FileObject header) {
+    public IImageSource createLoadableImage(FileObject header) {
 
         if (!isHeaderMatch(header)) {
             throw new IllegalArgumentException("header " + header.getName().getBaseName() + " does not have correct suffix for format : " + this.getFormatName());
@@ -177,7 +175,7 @@ public class ImageIODescriptor {
         }
 
 
-        return new ImageDataSource(null /*this*/, header, data);
+        return new ImageSource3D(null /*this*/, header, data);
 
     }
 

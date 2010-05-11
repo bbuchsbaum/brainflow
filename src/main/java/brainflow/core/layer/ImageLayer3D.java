@@ -2,9 +2,8 @@ package brainflow.core.layer;
 
 import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.SpatialLoc3D;
-import brainflow.image.interpolation.TrilinearInterpolator;
-import brainflow.image.io.IImageDataSource;
-import brainflow.image.io.MemoryImageDataSource;
+import brainflow.image.io.IImageSource;
+import brainflow.image.io.MemoryImageSource;
 
 import brainflow.core.rendering.DefaultImageSliceRenderer;
 import brainflow.core.SliceRenderer;
@@ -43,22 +42,22 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
     }
 
     public ImageLayer3D(IImageData data) {
-        super(new MemoryImageDataSource(data), new Range(data.minValue(), data.maxValue()));
+        super(new MemoryImageSource(data), new Range(data.minValue(), data.maxValue()));
         init();
     }
 
     public ImageLayer3D(IImageData data, LayerProps _params) {
-        super(new MemoryImageDataSource(data), _params);
+        super(new MemoryImageSource(data), _params);
         init();
     }
 
 
-    public ImageLayer3D(IImageDataSource dataSource) {
+    public ImageLayer3D(IImageSource dataSource) {
         super(dataSource);
         init();
     }
 
-    public ImageLayer3D(IImageDataSource dataSource, LayerProps _params) {
+    public ImageLayer3D(IImageSource dataSource, LayerProps _params) {
         super(dataSource, _params);
         init();
     }

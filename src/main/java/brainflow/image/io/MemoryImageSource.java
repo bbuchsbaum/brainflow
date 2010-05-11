@@ -1,11 +1,8 @@
 package brainflow.image.io;
 
 import brainflow.image.data.IImageData;
-import brainflow.image.io.ImageInfo;
-import brainflow.image.io.IImageDataSource;
 import brainflow.utils.ProgressListener;
 import brainflow.core.BrainFlowException;
-import brainflow.image.io.ImageIODescriptor;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.VFS;
 import org.apache.commons.vfs.FileSystemException;
@@ -21,14 +18,14 @@ import java.util.List;
  * Time: 2:04:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MemoryImageDataSource implements IImageDataSource {
+public class MemoryImageSource implements IImageSource {
 
 
     private IImageData data;
 
     private FileObject ramFile;
 
-    public MemoryImageDataSource(IImageData _data) {
+    public MemoryImageSource(IImageData _data) {
         data = _data;
     }
 
