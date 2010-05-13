@@ -47,7 +47,7 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
 
     }
 
-
+    @Override
     public IImageSpace3D getImageSpace() {
         return space3d;
     }
@@ -56,8 +56,6 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
     public Dimension3D<Integer> dim() {
         return getImageSpace().getDimension();
     }
-
-
 
     public int indexOf(int x, int y, int z) {
         return (z * planeSize) + dim0 * y + x;
@@ -68,18 +66,18 @@ public abstract class AbstractImageData3D extends AbstractImageData implements I
         return getImageSpace().getAnatomy();
     }
 
-
-
     public Index3D indexToGrid(int idx) {
         return getImageSpace().indexToGrid(idx);
     }
 
-    public double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
-        double x = space.getImageAxis(Axis.X_AXIS).gridPosition(realx) -.5f;
-        double y = space.getImageAxis(Axis.Y_AXIS).gridPosition(realy) -.5f;
-        double z = space.getImageAxis(Axis.Z_AXIS).gridPosition(realz) -.5f;
-        return interp.interpolate(x, y, z, this);
+    public  double worldValue(float realx, float realy, float realz, InterpolationFunction3D interp) {
+        float x = space3d.worldToGridX(realx, realy, realz) -.5f;
+        float y = space3d.worldToGridY(realx, realy, realz) -.5f;
+        float z = space3d.worldToGridZ(realx, realy, realz) -.5f;
+
+        return interp.interpolate(x,y,z,this);
     }
+
 
 
 

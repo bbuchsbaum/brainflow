@@ -5,7 +5,7 @@
  * Time: 12:23:02 PM
  * To change this template use File | Settings | File Templates.
  */
-import org.junit.runner.RunWith
+
 import spock.lang.*
 import brainflow.image.io.NiftiImageInfo
 

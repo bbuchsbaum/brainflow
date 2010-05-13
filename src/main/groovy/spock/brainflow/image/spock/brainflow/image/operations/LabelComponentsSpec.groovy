@@ -1,7 +1,7 @@
 package spock.brainflow.image.spock.brainflow.image.operations
 
 
-import org.junit.runner.RunWith
+
 import brainflow.image.data.IImageData3D
 import brainflow.image.operations.ComponentLabeler
 import brainflow.image.data.IMaskedData3D

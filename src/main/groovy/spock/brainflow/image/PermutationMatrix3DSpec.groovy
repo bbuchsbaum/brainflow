@@ -74,6 +74,8 @@ public class PermutationMatrix3DSpec extends Specification {
     // 0,0,0 --> 0, 100, 0
     pmat.permute(0, 0, 0) == [63, 99, 75] as int[]
 
+
+
   }
 
   

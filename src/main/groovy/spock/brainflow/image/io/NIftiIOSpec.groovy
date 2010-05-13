@@ -8,7 +8,7 @@ package spock.brainflow.image.io
  */
 
 import brainflow.image.io.NiftiInfoReader
-import org.junit.runner.RunWith
+
 import spock.lang.*
 
 import brainflow.image.anatomy.Anatomy3D
@@ -31,7 +31,7 @@ public class NIftiIOSpec extends Specification {
 
   def readHeader(filename) {
     def infoReader = new NiftiInfoReader(filename as String)
-    def infolist = infoReader.readInfo()
+    def infolist = infoReader.readInfoList()
     def header = infolist.get(0)
     header
 
@@ -40,14 +40,14 @@ public class NIftiIOSpec extends Specification {
 
   def setupSpeck() {
     infoReader = new NiftiInfoReader("src/main/groovy/testdata/207_anat_alepi.nii")
-    def infolist = infoReader.readInfo()
+    def infolist = infoReader.readInfoList()
    
   }
 
   def "reading a single nifti header"() {
     when:
     def infoReader = new NiftiInfoReader("src/main/groovy/testdata/207_anat_alepi.nii")
-    def infolist = infoReader.readInfo()
+    def infolist = infoReader.readInfoList()
 
     then:
     infolist != null
@@ -62,7 +62,7 @@ public class NIftiIOSpec extends Specification {
     then:
     info.getImageLabel() == "207_anat_alepi.nii"
     info.anatomy == Anatomy3D.AXIAL_RPI
-    info.arrayDim.toArray() == [256, 256, 128]
+    info.volumeDim.toArray() == [256, 256, 128]
     info.getDataOffset(0) == 3088
     info.getDataType() == DataType.FLOAT
     info.getDimensionality() == 3
@@ -110,11 +110,11 @@ public class NIftiIOSpec extends Specification {
     def streamPos = writer.writeInfo(cinfo)
     //def children = ramfs.getFileSystem().getRoot().getChildren();
     def reader = new NiftiInfoReader(cinfo.getHeaderFile(), cinfo.getDataFile())
-    def recon = reader.readInfo().get(0)
+    def recon = reader.readInfoList().get(0)
 
     then:
     streamPos == 3088
-    recon.arrayDim == cinfo.arrayDim
+    recon.volumeDim == cinfo.volumeDim
     recon.anatomy == cinfo.anatomy
     recon.spacing == cinfo.spacing
     recon.dataOffset == cinfo.dataOffset

@@ -1,7 +1,7 @@
 package spock.brainflow.image.io
 
 
-import org.junit.runner.RunWith
+
 import brainflow.image.io.AFNIInfoReader
 import spock.lang.Specification
 
@@ -20,7 +20,7 @@ public class AFNIIOSpec extends Specification {
   def "reading motion-reg2+orig succeeds"() {
     when:
     def reader = new AFNIInfoReader("motion-reg2+orig")
-    def infolist = reader.readInfo()
+    def infolist = reader.readInfoList()
 
     then:
     infolist != null
@@ -29,7 +29,7 @@ public class AFNIIOSpec extends Specification {
   def "reading TT_N27+tlrc.BRIK.gz succeeds"() {
     when:
     def reader = new AFNIInfoReader("brainflow/src/main/testdata/TT_N27+tlrc.BRIK.gz")
-    def infolist = reader.readInfo()
+    def infolist = reader.readInfoList()
 
     then:
     infolist != null
@@ -39,7 +39,7 @@ public class AFNIIOSpec extends Specification {
   def "reading TT_icbm452+tlrc.HEAD succeeds"() {
     when:
     def reader = new AFNIInfoReader("brainflow/src/main/testdata/TT_icbm452+tlrc.HEAD")
-    def infolist = reader.readInfo()
+    def infolist = reader.readInfoList()
 
     then:
     infolist != null

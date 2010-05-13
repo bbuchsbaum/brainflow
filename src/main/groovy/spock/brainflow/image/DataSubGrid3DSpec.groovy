@@ -1,7 +1,7 @@
 package spock.brainflow.image
 
 
-import org.junit.runner.RunWith
+
 import brainflow.image.io.BrainIO
 
 import brainflow.image.data.IImageData3D
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 public class DataSubGrid3DSpec extends Specification {
 
-   @Shared IImageData3D  image =  BrainIO.readNiftiImage("src/main/groovy/testdata/207_anat_alepi.nii")
+   @Shared IImageData3D  image =  BrainIO.readNiftiImage("brainflow/src/main/groovy/testdata/207_anat_alepi.nii")
 
    
 

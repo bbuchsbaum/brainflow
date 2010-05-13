@@ -7,6 +7,7 @@ import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.space.AffineMapping3D;
 import brainflow.utils.DataType;
 import brainflow.utils.Dimension3D;
+import brainflow.utils.Dimension4D;
 import brainflow.utils.Point3D;
 import brainflow.math.Vector3f;
 import brainflow.math.Matrix4f;
@@ -96,9 +97,14 @@ public class NiftiInfoReader extends AbstractInfoReader {
         }
 
         builder.volumeDim(new Dimension3D<Integer>((int) dim[1], (int) dim[2], (int) dim[3]));
-       
-        if (numDims == 4) {
+
+        if (numDims == 3) {
+            builder.dimensions(new Dimension3D<Integer>((int) dim[1], (int) dim[2], (int) dim[3]));
+            builder.numVolumes(1);
+
+        } else if (numDims == 4) {
             builder.numVolumes(dim[4]);
+            builder.dimensions(new Dimension4D<Integer>((int) dim[1], (int) dim[2], (int) dim[3], (int)dim[4]));
         }
 
 
@@ -175,6 +181,8 @@ public class NiftiInfoReader extends AbstractInfoReader {
             }
             builder.extensions(extlist);
         }
+
+
 
 
         return builder.build();

@@ -145,7 +145,7 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
         return this.getImageLabel();
     }
 
-    private static abstract class AbstractDouble extends BasicImageData3D {
+    public static abstract class AbstractDouble extends BasicImageData3D {
         public AbstractDouble(BasicImageData3D.AbstractDouble src) {
             super(src.getImageSpace(), DataType.DOUBLE);
             data = new Array3D.Double(src.dim().getDim(0), src.dim().getDim(1), src.dim().getDim(2), ((Array3D.Double) src.data).toArray());

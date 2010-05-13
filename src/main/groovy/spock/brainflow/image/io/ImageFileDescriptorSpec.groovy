@@ -1,7 +1,6 @@
 package spock.brainflow.image.io
 
 
-import org.junit.runner.RunWith
 
 import brainflow.app.toplevel.DataSourceManager
 import brainflow.image.io.BrainIO
