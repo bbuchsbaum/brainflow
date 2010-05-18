@@ -19,13 +19,16 @@ public class AFNIImageInfo extends ImageInfo {
 
     private Map<AFNIAttributeKey, HeaderAttribute> attributeMap;
 
-   
 
     public AFNIImageInfo(FileObject headerFile, FileObject dataFile, Map<AFNIAttributeKey, HeaderAttribute> attributeMap) {
         super();
         setHeaderFile(headerFile);
         setDataFile(dataFile);
         this.attributeMap = attributeMap;
+    }
+
+    public HeaderAttribute getAttribute(AFNIAttributeKey key) {
+        return attributeMap.get(key);
     }
 
     

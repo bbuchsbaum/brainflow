@@ -119,6 +119,7 @@ public class ImageInfo implements java.io.Serializable {
         IImageSpace space = data.getImageSpace();
 
         IDimension<Integer> dim = space.getDimension();
+
         int[] dimensions = new int[]{dim.getDim(0), dim.getDim(1), dim.getDim(2)};
 
 
@@ -153,17 +154,6 @@ public class ImageInfo implements java.io.Serializable {
         return false;
 
 
-    }
-
-    public static String stripExtension(String fileName, String[] validExtensions) {
-        for (int i = 0; i < validExtensions.length; i++) {
-            if (fileName.endsWith(validExtensions[i])) {
-                return fileName.substring(fileName.length() - validExtensions.length);
-            }
-
-        }
-
-        throw new IllegalArgumentException("fileName " + fileName + " does not have a valid extension from the set: " + Arrays.toString(validExtensions));
     }
 
 

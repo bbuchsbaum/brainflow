@@ -1,5 +1,6 @@
 package brainflow.app.toplevel;
 
+import brainflow.image.data.IImageData;
 import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageSource;
 import org.kohsuke.args4j.Argument;
@@ -28,7 +29,7 @@ public class BrainFlowCommandLine {
             files[i] = new File(fileNames.get(i));
         }
 
-        List<IImageSource> dsources = BrainIO.loadDataSources(files);
+        List<IImageSource<IImageData>> dsources = BrainIO.loadDataSources(files);
         for (final IImageSource dsource : dsources) {
             ImageLoader loader = new ImageLoader(dsource) {
                 @Override

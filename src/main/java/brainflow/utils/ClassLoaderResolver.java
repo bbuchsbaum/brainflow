@@ -49,7 +49,7 @@ abstract class ClassLoaderResolver
      * to {@link #getClassLoader()}. An instance of {@link DefaultClassLoadStrategy}
      * is in effect if this method is never called.
      *  
-     * @param new strategy [may not be null] 
+     * @param strategy [may not be null] 
      * @return previous setting
      */    
     public static synchronized IClassLoadStrategy setStrategy (final IClassLoadStrategy strategy)

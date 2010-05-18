@@ -1,5 +1,6 @@
 package brainflow.image.io;
 
+import brainflow.image.data.IImageData;
 import brainflow.utils.FileObjectFilter;
 import org.apache.commons.vfs.FileObject;
 
@@ -42,9 +43,9 @@ public interface IImageFileDescriptor {
 
     public FileObjectFilter createHeaderFileFilter();
 
-    public IImageSource createDataSource(FileObject headerFile, FileObject dataFile);
+    public IImageSource<IImageData> createDataSource(FileObject headerFile, FileObject dataFile);
 
-    public IImageSource createDataSource(FileObject headerFile);
+    public IImageSource<IImageData> createDataSource(FileObject headerFile);
 
     public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile);
 

@@ -92,11 +92,10 @@ public class BrainIO {
 
         @Override
         public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
-           
+
             return new AFNIInfoReader(headerFile, dataFile);
         }
     };
-
 
 
     /*public static final IImageFileDescriptor ANALYZE = new AbstractImageFileDescriptor("hdr", "img", "ANALYZE7.5") {
@@ -253,8 +252,8 @@ public class BrainIO {
         }
     }
 
-    public static IImageSource loadDataSource(FileObject fobj) throws BrainFlowException {
-        IImageSource ret;
+    public static IImageSource<IImageData> loadDataSource(FileObject fobj) throws BrainFlowException {
+        IImageSource<IImageData> ret;
 
         if (BrainIO.isSupportedImageHeaderFile(fobj)) {
             IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
@@ -278,43 +277,35 @@ public class BrainIO {
 
     }
 
-    public static List<IImageSource> loadDataSources(List<FileObject> fobjs) {
-        List<IImageSource> sources = new ArrayList<IImageSource>();
+    public static List<IImageSource<IImageData>> loadDataSources(List<FileObject> fobjs) {
+        List<IImageSource<IImageData>> sources = new ArrayList<IImageSource<IImageData>>();
+        for (FileObject fobj : fobjs) {
 
-        try {
-            for (FileObject fobj : fobjs) {
+            if (BrainIO.isSupportedImageHeaderFile(fobj) || BrainIO.isSupportedImageDataFile(fobj)) {
 
-                if (BrainIO.isSupportedImageHeaderFile(fobj) || BrainIO.isSupportedImageDataFile(fobj)) {
-                    IImageFileDescriptor desc = BrainIO.getImageFileDescriptor(fobj);
-                    try {
-                        sources.add(loadDataSource(fobj));
-                    } catch (BrainFlowException e) {
-                        log.warning("could not resolve data file for header: " + fobj.getName().getPath());
-                    }
+                try {
+                    sources.add(loadDataSource(fobj));
+                } catch (BrainFlowException e) {
+                    log.warning("could not resolve data file for header: " + fobj.getName().getPath());
                 }
-
             }
-        } catch (BrainFlowException e) {
-            throw new RuntimeException(e);
+
         }
 
         return sources;
     }
 
-    public static List<IImageSource> loadDataSources(FileObject[] fobjs) {
+    public static List<IImageSource<IImageData>> loadDataSources(FileObject[] fobjs) {
         return loadDataSources(Arrays.asList(fobjs));
     }
 
 
-    
+    public static List<IImageSource<IImageData>> loadDataSources(File... files) {
 
-
-    public static List<IImageSource> loadDataSources(File... files) {
-        
         FileObject[] fobjs = new FileObject[files.length];
 
         try {
-            for (int i=0; i<files.length; i++) {
+            for (int i = 0; i < files.length; i++) {
                 fobjs[i] = (VFS.getManager().resolveFile(files[i].getAbsolutePath()));
             }
         } catch (FileSystemException e) {
@@ -597,7 +588,7 @@ public class BrainIO {
     public static void writeAsDoubles(IImageData data, ImageOutputStream ostream) throws IOException {
         ValueIterator iter = data.valueIterator();
         while (iter.hasNext()) {
-            ostream.writeDouble((double) iter.next());
+            ostream.writeDouble( iter.next());
         }
 
     }

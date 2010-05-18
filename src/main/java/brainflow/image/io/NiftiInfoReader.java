@@ -56,13 +56,8 @@ public class NiftiInfoReader extends AbstractInfoReader {
         return new NiftiInfoReader(headerFile, dataFile);
     }
 
-
-
-
-
     @Override
-    public List<ImageInfo> readInfoList() throws BrainFlowException {
-
+    public ImageInfo readInfo() throws BrainFlowException {
         try {
             String headerName = NiftiImageInfo.getHeaderName(getHeaderFile().getName().getBaseName(), ".nii");
             return readHeader(headerName, getHeaderFile(), getDataFile());
@@ -72,20 +67,25 @@ public class NiftiInfoReader extends AbstractInfoReader {
 
     }
 
-   
+    @Override
+    public List<ImageInfo> readInfoList() throws BrainFlowException {
+        try {
+            String headerName = NiftiImageInfo.getHeaderName(getHeaderFile().getName().getBaseName(), ".nii");
+            return splitInfo(readHeader(headerName, getHeaderFile(), getDataFile()));
+        } catch (IOException e) {
+            throw new BrainFlowException(e);
+        }
+    }
 
 
     private void fillPixDim(float[] pixdim, NiftiImageInfo.Builder builder) {
         builder.qfac((int) pixdim[0]);
         builder.spacing(new Dimension3D<Double>((double) pixdim[1], (double) pixdim[2], (double) pixdim[3]));
-
     }
-
 
     private void fillDataType(short datatype, NiftiImageInfo.Builder builder) throws BrainFlowException {
         DataType dtype = NiftiImageInfo.getDataType(datatype);
         builder.dataType(dtype);
-
     }
 
     private void fillImageDim(short[] dim, NiftiImageInfo.Builder builder) throws BrainFlowException {
@@ -104,17 +104,17 @@ public class NiftiInfoReader extends AbstractInfoReader {
 
         } else if (numDims == 4) {
             builder.numVolumes(dim[4]);
-            builder.dimensions(new Dimension4D<Integer>((int) dim[1], (int) dim[2], (int) dim[3], (int)dim[4]));
+            builder.dimensions(new Dimension4D<Integer>((int) dim[1], (int) dim[2], (int) dim[3], (int) dim[4]));
         }
 
 
     }
 
     private NiftiImageInfo fillInfo(Nifti1Dataset nifti, FileObject headerFile, FileObject dataFile) throws BrainFlowException {
-       NiftiImageInfo.Builder builder = new NiftiImageInfo.Builder();
+        NiftiImageInfo.Builder builder = new NiftiImageInfo.Builder();
         builder.dataFile(dataFile);
         builder.headerFile(headerFile);
-        
+
         short[] dim = nifti.dim;
 
         Arrays.toString(dim);
@@ -122,9 +122,6 @@ public class NiftiInfoReader extends AbstractInfoReader {
         fillDataType(nifti.datatype, builder);
         float[] pixdim = nifti.pixdim;
         fillPixDim(pixdim, builder);
-
-        
-
 
 
         if (nifti.scl_slope == 0 && nifti.scl_slope == 1) {
@@ -151,8 +148,6 @@ public class NiftiInfoReader extends AbstractInfoReader {
         builder.qoffset(qo);
 
 
-
-
         Matrix4f qform = NiftiImageInfo.quaternionToMatrix(q.get(0), q.get(1), q.get(2),
                 qo.get(0), qo.get(1), qo.get(2),
                 pixdim[1], pixdim[2], pixdim[3],
@@ -174,47 +169,23 @@ public class NiftiInfoReader extends AbstractInfoReader {
 
         if (extVec.size() > 0) {
             List<NiftiImageInfo.Extension> extlist = new ArrayList<NiftiImageInfo.Extension>();
-            for (int i=0; i<extVec.size(); i++) {
-                int[] ecodes = (int[])extVec.get(i);
-                byte[] blob = (byte[])extBlobs.get(i);
+            for (int i = 0; i < extVec.size(); i++) {
+                int[] ecodes = (int[]) extVec.get(i);
+                byte[] blob = (byte[]) extBlobs.get(i);
                 extlist.add(new NiftiImageInfo.Extension(ecodes[0], ecodes[1], blob));
             }
             builder.extensions(extlist);
         }
 
 
-
-
         return builder.build();
 
     }
 
-    @Override
-    public ImageInfo readInfo() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
 
-    private List<ImageInfo> readHeader(String name, FileObject headerFile, FileObject dataFile) throws IOException, BrainFlowException {
-        ImageInfo info;
-
-        try {
-            //if (!headerFile.exists()) {
-                //throw new IllegalArgumentException("header " + headerFile + " does not exist.");
-            //}
-
-            Nifti1Dataset nifti = new Nifti1Dataset(name);
-            nifti.readHeader(headerFile.getContent().getInputStream());
-
-            info = fillInfo(nifti, headerFile, dataFile);
-
-        } catch (IOException e) {
-            throw e;
-        } catch (BrainFlowException e) {
-            throw e;
-        }
-
+    private List<ImageInfo> splitInfo(ImageInfo info) {
         int nimages = info.getNumVolumes();
-        
+
         if (nimages == 1) {
             return Arrays.asList(info);
         } else {
@@ -228,10 +199,18 @@ public class NiftiInfoReader extends AbstractInfoReader {
             return ret;
         }
 
+    }
+
+    private ImageInfo readHeader(String name, FileObject headerFile, FileObject dataFile) throws IOException, BrainFlowException {
+
+
+        Nifti1Dataset nifti = new Nifti1Dataset(name);
+        nifti.readHeader(headerFile.getContent().getInputStream());
+
+        return fillInfo(nifti, headerFile, dataFile);
+
 
     }
 
 
-
-    
 }

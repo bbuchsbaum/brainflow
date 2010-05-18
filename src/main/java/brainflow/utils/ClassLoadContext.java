@@ -8,6 +8,16 @@ package brainflow.utils;
  */
 public class ClassLoadContext {
     // public: ................................................................
+    private Class m_caller;
+
+    /**
+        * This constructor is package-private to restrict instantiation to
+        * {@link ClassLoaderResolver} only.
+        */
+       public ClassLoadContext(Class caller) {
+           m_caller = caller;
+       }
+
 
     /**
      * Returns the class representing the caller of {@link ClassLoaderResolver}
@@ -22,18 +32,11 @@ public class ClassLoadContext {
 
     // package: ...............................................................
 
-    /**
-     * This constructor is package-private to restrict instantiation to
-     * {@link ClassLoaderResolver} only.
-     */
-    ClassLoadContext(final Class caller) {
-        m_caller = caller;
-    }
 
     // private: ...............................................................
 
 
-    private final Class m_caller;
+
 
 } // end of class
 // ----------------------------------------------------------------------------

@@ -30,6 +30,8 @@ public interface IImageDataVector3D extends IImageData, IArray4D {
     @Override
     public IImageSpace3D getImageSpace();
 
+    public IImageData3D getVolume(int i);
+
     public int getNumVolumes();
 
     public Anatomy3D getAnatomy();

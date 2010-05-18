@@ -9,6 +9,7 @@ import brainflow.core.layer.ImageLayer3D;
 import brainflow.gui.IActionProvider;
 import brainflow.image.anatomy.Anatomy;
 import brainflow.image.anatomy.Anatomy3D;
+import brainflow.image.data.IImageData;
 import brainflow.image.io.BrainIO;
 import brainflow.image.io.IImageSource;
 import brainflow.gui.ExceptionDialog;
@@ -331,7 +332,7 @@ public class BrainFlow {
         mountInitialDirectories(config.mountPoints);
 
         for(List<FileObject> flist : config.datasets) {
-            List<IImageSource> sourceList = BrainIO.loadDataSources(flist);
+            List<IImageSource<IImageData>> sourceList = BrainIO.loadDataSources(flist);
             ImageViewModel model = ImageViewFactory.createModel("untitled", sourceList);
             displayView(ImageViewFactory.createAxialView(model));
 
@@ -1205,7 +1206,7 @@ public class BrainFlow {
         try {
             FileObject fobj = VFS.getManager().resolveFile(uri.getPath());
 
-            java.util.List<IImageSource> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
+            java.util.List<IImageSource<IImageData>> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
             return sources.get(0);
         } catch (FileSystemException e) {
             throw new BrainFlowException(e);
@@ -1223,7 +1224,7 @@ public class BrainFlow {
                 throw new BrainFlowException("argument " + fobj.getName().getBaseName() + " is not a valid image path");
             }
 
-            java.util.List<IImageSource> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
+            java.util.List<IImageSource<IImageData>> sources = BrainIO.loadDataSources(new FileObject[]{fobj});
             if (sources.size() > 1) {
                 log.warning("multiple matching files for path " + path + "... using first match.");
             }

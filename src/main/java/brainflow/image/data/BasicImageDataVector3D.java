@@ -153,6 +153,10 @@ public class BasicImageDataVector3D implements IImageDataVector3D {
         return numSamples * dataVec.length;
     }
 
+    @Override
+    public IImageData3D getVolume(int i) {
+        return dataVec[i];
+    }
 
     private boolean maxComputed;
     private boolean minComputed;

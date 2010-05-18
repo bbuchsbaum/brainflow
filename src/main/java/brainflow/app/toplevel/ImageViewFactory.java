@@ -7,6 +7,7 @@ import brainflow.core.annotations.SelectedPlotAnnotation;
 import brainflow.core.annotations.SliceAnnotation;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.AxisRange;
+import brainflow.image.data.IImageData;
 import brainflow.image.data.IImageData3D;
 import brainflow.image.io.IImageSource;
 import brainflow.image.io.MemoryImageSource;
@@ -36,7 +37,7 @@ public class ImageViewFactory {
         return new ImageViewModel(name, layers);
     }
 
-    public static ImageViewModel createModel(String name, List<IImageSource> dataSourceList) {
+    public static ImageViewModel createModel(String name, List<IImageSource<IImageData>> dataSourceList) {
         List<ImageLayer3D> layers = new ArrayList<ImageLayer3D>();
         for (IImageSource source : dataSourceList) {
             layers.add(ImageLayerFactory.createImageLayer(source));

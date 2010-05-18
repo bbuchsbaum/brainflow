@@ -22,7 +22,7 @@ public interface ImageInfoReader {
     
     public List<ImageInfo> readInfoList() throws BrainFlowException;
 
-    public ImageInfo readInfo();
+    public ImageInfo readInfo() throws BrainFlowException;
 
 
 }

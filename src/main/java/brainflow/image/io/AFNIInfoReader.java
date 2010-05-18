@@ -45,19 +45,13 @@ public class AFNIInfoReader extends AbstractInfoReader {
     }
 
     public static boolean isHeaderFile(String name) {
-        if (name.endsWith(".HEAD") || name.endsWith(".HEAD.gz")) {
-            return true;
-        }
+        return name.endsWith(".HEAD") || name.endsWith(".HEAD.gz");
 
-        return false;
     }
 
     public static boolean isImageFile(String name) {
-        if (name.endsWith(".BRIK") || name.endsWith(".BRIK.gz")) {
-            return true;
-        }
+        return name.endsWith(".BRIK") || name.endsWith(".BRIK.gz");
 
-        return false;
     }
 
     public static String getHeaderName(String name) {
@@ -104,8 +98,9 @@ public class AFNIInfoReader extends AbstractInfoReader {
     }
 
     @Override
-    public ImageInfo readInfo() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public ImageInfo readInfo() throws BrainFlowException {
+        return null;
+
     }
 
     @Override
@@ -120,7 +115,27 @@ public class AFNIInfoReader extends AbstractInfoReader {
 
     }
 
+    private List<ImageInfo> splitInfo(AFNIImageInfo info) {
+        HeaderAttribute attr = attributeMap.get(AFNIAttributeKey.DATASET_RANK);
+        int numImages = (Integer) attr.getData().get(1);
 
+         List<ImageInfo> infoList = new ArrayList<ImageInfo>(numImages);
+         //create instances
+        for (int i = 0; i < numImages; i++) {
+            AFNIImageInfo _info = new AFNIImageInfo(headerFile, dataFile, attributeMap);
+            infoList.add(_info);
+        }
+
+        // fill instances with data. Yes, this is all very ugly.
+        for (AFNIAttributeKey afniAttributeKey : attributeMap.keySet()) {
+            processAttribute(afniAttributeKey, attributeMap.get(afniAttributeKey), infoList);
+        }
+
+        processByteOffsets(infoList);
+        return infoList;
+
+
+    }
 
     private List<ImageInfo> readHeader(InputStream istream) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(istream));
@@ -163,8 +178,8 @@ public class AFNIInfoReader extends AbstractInfoReader {
     // must be processed after all other attributes
     private void processByteOffsets(List<ImageInfo> infoList) {
         int offset = 0;
-        for (int i = 0; i < infoList.size(); i++) {
-            AFNIImageInfo info = (AFNIImageInfo)infoList.get(i);
+        for (ImageInfo anInfoList : infoList) {
+            AFNIImageInfo info = (AFNIImageInfo) anInfoList;
             info.setByteOffset(offset);
             offset = offset + (info.getDataType().getBytesPerUnit() * info.getVolumeDim().product().intValue());
         }
@@ -401,7 +416,6 @@ public class AFNIInfoReader extends AbstractInfoReader {
         assert facs.size() == infoList.size();
         for (int i = 0; i < facs.size(); i++) {
             infoList.get(i).setScaleFactor(facs.get(i));
-
         }
     }
 
