@@ -22,14 +22,12 @@ class ImageFileExplorer(root: FileObject) extends FileExplorer(root) {
   override val selector = new FilteredFileSelector((fileInfo: FileSelectInfo) => ImageFileDescriptors.supportedHeaderFile(fileInfo.getFile.name))
 
 
-  //override def makeNode(fileObject: FileObject) = {
-    //val reader = ImageFileDescriptors.createInfoReader()
+  override def makeNode(fileObject: FileObject) = {
+    val reader = ImageFileDescriptors.createInfoReader(fileObject)
 
-
-
-    //reader match {
-      //case Some(x) => x.readInfoList
-    //}
+    reader match {
+      case Some(x) => x.readInfo
+    }
 
   //}
 
@@ -39,7 +37,7 @@ class ImageFileExplorer(root: FileObject) extends FileExplorer(root) {
   }
 }
 
-      ////
+}      ////
 case class DataSourceNode3D(override var parent: Option[MutableTreeNode] = None, override val value: ImageSource3D) extends GenericLeafNode[ImageSource3D] {
 
 }
