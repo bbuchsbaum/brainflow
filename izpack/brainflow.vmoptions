@@ -1,0 +1,7 @@
+-server
+-Xms128m
+-Xmx990m
+-XX:MaxPermSize=250m
+-ea
+-Dsun.java2d.opengl=true
+-XX:-ReduceInitialCardMarks
