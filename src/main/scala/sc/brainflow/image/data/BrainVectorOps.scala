@@ -14,13 +14,13 @@ trait  BrainVectorOps {
   self: IImageDataVector3D =>
 
 
-  def collapse(func: (Iterable[Double] => Double)) : IImageData3D = {
+  def collapse(func: (Seq[Double] => Double)) : IImageData3D = {
     val ret = new Array[Double](self.getImageSpace.getNumSamples)
     for (i <- 0 until self.getImageSpace.getNumSamples) {
       ret(i) = func(extractVector(i))
     }
 
-    new BasicImageData3D.Double(self.getImageSpace)
+    new BasicImageData3D.Double(self.getImageSpace, ret)
 
   }
 
