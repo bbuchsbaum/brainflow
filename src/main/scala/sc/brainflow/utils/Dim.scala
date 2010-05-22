@@ -23,18 +23,14 @@ sealed trait Dim[T] {
 
 case class Dim1[T](val one: T)(implicit m0: ClassManifest[T], m: Numeric[T]) extends Dim[T] {
   val arr = Array[T](one)
-
 }
 
 case class Dim2[T](val one:T, two: T)(implicit m0: ClassManifest[T], m: Numeric[T]) extends Dim[T] {
   val arr = Array[T](one, two)
-
 }
 
 case class Dim3[T](val one:T, two: T, three: T)(implicit m0: ClassManifest[T], m: Numeric[T]) extends Dim[T] {
   val arr = Array[T](one, two, three)
-
-
 }
 
 case class Dim4[T](val one:T, two: T, three: T, four: T)(implicit m0: ClassManifest[T], m: Numeric[T]) extends Dim[T] {
@@ -43,6 +39,5 @@ case class Dim4[T](val one:T, two: T, three: T, four: T)(implicit m0: ClassManif
 
 case class Dim5[T](val one: T, two: T, three: T, four: T, five: T)(implicit m0: ClassManifest[T], m: Numeric[T]) extends Dim[T] {
   val arr = Array[T](one, two, three, four, five)
-  
 }
 
