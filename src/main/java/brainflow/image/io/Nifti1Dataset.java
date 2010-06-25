@@ -226,11 +226,11 @@ public class Nifti1Dataset {
     public short session_error;    // UNUSED
     public StringBuffer regular;    // 1 char UNUSED
     public StringBuffer dim_info;    // 1 char MRI slice ordering
-    short dim[];        // data array dimensions (8 shorts)
+    public short dim[];        // data array dimensions (8 shorts)
     public float intent[];    // intents p1 p2 p3
     public short intent_code;    // nifti intent code for dataset
-    short datatype;    // dataType of image blob
-    short bitpix;        // #bits per voxel
+    public short datatype;    // dataType of image blob
+    public short bitpix;        // #bits per voxel
     public short slice_start;    // first slice index
     public float pixdim[];    // grid spacings
     public float vox_offset;    // offset to data blob in .nii file

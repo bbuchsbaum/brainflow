@@ -22,6 +22,8 @@ import org.apache.commons.vfs.FileObject;
  */
 public class NiftiImageInfo extends ImageInfo {
 
+    private Nifti1Dataset header;
+
     private int qfac = 1;
 
     private Matrix4f qform = new Matrix4f();
@@ -65,6 +67,7 @@ public class NiftiImageInfo extends ImageInfo {
         sform = info.sform;
         quaternion = info.quaternion;
         qoffset = info.qoffset;
+        header = info.header;
     }
 
     public NiftiImageInfo(NiftiImageInfo info, String _imageLabel, int index) {
@@ -74,6 +77,7 @@ public class NiftiImageInfo extends ImageInfo {
         sform = info.sform;
         quaternion = info.quaternion;
         qoffset = info.qoffset;
+        header = info.header;
     }
 
     public NiftiImageInfo selectInfo(int index) {
@@ -116,12 +120,17 @@ public class NiftiImageInfo extends ImageInfo {
             builder.sform(sform);
             builder.quaternion(quaternion);
             builder.extensions(extensionList);
-
+            //todo this is will be wrong becuase file names stored in header are different
+            builder.header(this.header);
             return builder.build();
 
         //} catch(IOException e) {
         //    throw new IllegalArgumentException(e);
         //}
+    }
+
+    public Nifti1Dataset getHeader() {
+        return header;
     }
 
     @Override
@@ -207,6 +216,8 @@ public class NiftiImageInfo extends ImageInfo {
         return NiftiImageInfo.areCompatible(headerName, imageName);
     }
 
+
+
     public static short getDataTypeCode(DataType datatype) {
         switch (datatype) {
             case BOOLEAN:
@@ -290,6 +301,11 @@ public class NiftiImageInfo extends ImageInfo {
 
         private NiftiImageInfo info() {
             return (NiftiImageInfo) super.info;
+        }
+
+        public Builder header(Nifti1Dataset header) {
+            info().header = header;
+            return this;
         }
 
         public Builder qform(Matrix4f qform) {

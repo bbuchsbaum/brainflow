@@ -1,9 +1,7 @@
 package tests.sc.brainflow.image.data
 
-import collection.mutable.Stack
 import org.scalatest.FlatSpec
 import boxwood.io.SystemResource
-import boxwood.io.RichFileObject
 import boxwood.io.RichFileObject._
 import boxwood.stats.StatFun._
 import org.apache.commons.vfs.FileObject
@@ -26,11 +24,9 @@ class BrainVectorOpsSpec extends FlatSpec {
   val imvec = BrainVector(fileSet)
 
 
-  "A BrainVectorOpsSpec" should "should be instantiable" in {
-
+  "A BrainVectorOps" should "should be instantiable" in {
     assert(imvec != null)
     assert(imvec.getNumVolumes == fileSet.size)
-
   }
 
   it should "have a max value that equals the maximum value of each of its volumes" in {

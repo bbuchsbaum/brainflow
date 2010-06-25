@@ -3,8 +3,8 @@ package sc.brainflow.image.io
 
 import _root_.java.nio.ByteOrder
 import _root_.org.apache.commons.vfs.FileObject
-import _root_.sc.brainflow.utils.{Dim4, Dim3, Dim}
-import brainflow.image.io.ImageReader
+
+import brainflow.utils.DataType
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,15 +18,15 @@ import brainflow.image.io.ImageReader
 
 trait ImageMetaInfo {
 
+  val attributes: Map[String,Any]
   
-  
-  def dataFile: Option[FileObject]
+  def dataFile: FileObject
 
-  
+  def headerFile: FileObject
 
-  def headerFile: Option[FileObject]
+  def dataType: Seq[DataType]
 
-  def apply(key: String) : Option[Any] = attributeMap.get(key)
+  def apply(key: String) : Option[Any] = attributes.get(key)
 
   def dimensions: Seq[Int]
 
@@ -34,14 +34,23 @@ trait ImageMetaInfo {
 
   def label: String
 
+  def volumeLabels: Seq[String]
+
+  def intercept: Seq[Double]
+
+  def scaleFactor: Seq[Double]
+
+  def numVolumes: Int
+
   def byteOffset: Int
 
   def endian: ByteOrder
 
-  def createImageReader: ImageReader
+  def createDataReader(index: Int): DataReader[_]
 
-  
-
+  def createDataReader(index: Seq[Int]) : Seq[DataReader[_]] = {
+    for (i <- index) yield createDataReader(i)
+  }
 }
 
 

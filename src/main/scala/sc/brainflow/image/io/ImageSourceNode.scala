@@ -13,23 +13,39 @@ import _root_.org.apache.commons.vfs.FileObject
  */
 
 
-sealed trait ImageSourceNode[T <: IImageData] {
+sealed trait ImageSourceNode {
+
+  type Data <: IImageData
 
   def metaInfo : ImageMetaInfo
 
   def label : String
 
 }
-case class ImageSource3D(val index: Int = 0, val metaInfo: ImageMetaInfo) extends ImageSourceNode[IImageData3D] {
+case class ImageSource3D(val index: Int = 0, val metaInfo: ImageMetaInfo) extends ImageSourceNode {
+  type Data = IImageData3D
+
   def load(listener: Option[ProgressListener] = None) : IImageData3D = {
+    val dfile = metaInfo.dataFile
+   // metaInfo.
     
   }
+
+
+  def label = ""
 }
 
-case class ImageSourceList[T](val children : Seq[ImageSource3D]) extends ImageSourceNode[IImageData3D] {
-  def load(listener: Option[ProgressListener] = None) : List[IImageData3D]
+case class ImageSourceList(val children : Seq[ImageSource3D]) extends ImageSourceNode {
+  type Data = IImageData3D
+
+  def load(listener: Option[ProgressListener] = None) : List[IImageData3D] = null
 
   def subLabels = children.map(_.label)
+
+
+  def label = null
+
+  def metaInfo = null
 }
 
 

@@ -25,6 +25,8 @@ import java.util.Arrays;
 
 public class ImageInfo implements java.io.Serializable {
 
+
+
     private IDimension<Integer> dimensions;
 
     private IDimension<Integer> volumeDim = new Dimension3D<Integer>(0, 0, 0);
@@ -320,6 +322,11 @@ public class ImageInfo implements java.io.Serializable {
 
     void setHeaderFile(FileObject fobj) {
         headerFile = fobj;
+    }
+
+
+    public IDimension<Integer> getDimensions() {
+        return dimensions;
     }
 
 

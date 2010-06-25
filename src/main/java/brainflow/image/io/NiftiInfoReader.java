@@ -57,7 +57,7 @@ public class NiftiInfoReader extends AbstractInfoReader {
     }
 
     @Override
-    public ImageInfo readInfo() throws BrainFlowException {
+    public NiftiImageInfo readInfo() throws BrainFlowException {
         try {
             String headerName = NiftiImageInfo.getHeaderName(getHeaderFile().getName().getBaseName(), ".nii");
             return readHeader(headerName, getHeaderFile(), getDataFile());
@@ -114,6 +114,7 @@ public class NiftiInfoReader extends AbstractInfoReader {
         NiftiImageInfo.Builder builder = new NiftiImageInfo.Builder();
         builder.dataFile(dataFile);
         builder.headerFile(headerFile);
+        builder.header(nifti);
 
         short[] dim = nifti.dim;
 
@@ -201,7 +202,7 @@ public class NiftiInfoReader extends AbstractInfoReader {
 
     }
 
-    private ImageInfo readHeader(String name, FileObject headerFile, FileObject dataFile) throws IOException, BrainFlowException {
+    private NiftiImageInfo readHeader(String name, FileObject headerFile, FileObject dataFile) throws IOException, BrainFlowException {
 
 
         Nifti1Dataset nifti = new Nifti1Dataset(name);
