@@ -1,8 +1,5 @@
 package brainflow.image.io;
 
-import brainflow.image.io.EndianCorrectInputStream;
-import brainflow.image.io.EndianCorrectOutputStream;
-
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import java.io.*;
@@ -2603,7 +2600,7 @@ public class Nifti1Dataset {
             ecs.skip(skip_vol2);
             skip_vol2 = skip_vol;
 
-            // read voxel value, convert to double, fix sign, scale
+            // read voxel file, convert to double, fix sign, scale
             switch (datatype) {
 
                 case NIFTI_TYPE_INT8:

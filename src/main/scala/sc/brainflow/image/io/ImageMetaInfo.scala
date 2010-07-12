@@ -5,6 +5,8 @@ import _root_.java.nio.ByteOrder
 import _root_.org.apache.commons.vfs.FileObject
 
 import brainflow.utils.DataType
+import brainflow.image.anatomy.Anatomy3D
+import brainflow.image.space.ImageMapping3D
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,6 +25,8 @@ trait ImageMetaInfo {
   def dataFile: FileObject
 
   def headerFile: FileObject
+
+  def anatomy: Anatomy3D
 
   def dataType: Seq[DataType]
 
@@ -46,11 +50,15 @@ trait ImageMetaInfo {
 
   def endian: ByteOrder
 
+  def coordinateMapping: ImageMapping3D
+
   def createDataReader(index: Int): DataReader[_]
 
   def createDataReader(index: Seq[Int]) : Seq[DataReader[_]] = {
     for (i <- index) yield createDataReader(i)
   }
+
+  
 }
 
 

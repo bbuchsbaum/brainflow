@@ -2,6 +2,7 @@ package sc.brainflow.image
 
 import io.{ImageMetaInfo, ImageFileDescriptors}
 import boxwood.io.VFSUtils
+import brainflow.utils.ProgressListener
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,6 +25,10 @@ package object io {
   val AFNI = ImageFileDescriptors.AFNI
 
   val AFNI_GZ = ImageFileDescriptors.AFNI_GZ
+
+  implicit def optionalListener(listener: ProgressListener) : Option[ProgressListener] = {
+    Some(listener)
+  }
 
   def readMetaInfo[T <: ImageMetaInfo](fileName: String) : Option[T] = {
     require(ImageFileDescriptors.supportedFileType(fileName))

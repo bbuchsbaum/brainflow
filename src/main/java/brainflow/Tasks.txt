@@ -94,7 +94,7 @@ Fix: Annotations edited according to plot or "apply all"
 [Fix: adding same layer to model twice causees havoc. Should clone layer first]
 
 / * Mac OS advice from http://www.pushing-pixels.org/?p=366
-   1. Check that you’re running under Apple VM. Use System.getProperty("os.name") and check that the value starts with “Mac”.
+   1. Check that you’re running under Apple VM. Use System.getProperty("os.name") and check that the file starts with “Mac”.
    2. Set Aqua (or the future default Apple VM platform look-and-feel) with UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()).
    3. Query and store the following UIManager entries: “MenuBarUI”, “MenuUI”, “MenuItemUI”, “CheckBoxMenuItemUI”, “RadioButtonMenuItemUI”, “PopupMenuUI”.
    4. Set your look-and-feel of preference with UIManager.setLookAndFeel call.

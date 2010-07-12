@@ -13,22 +13,22 @@ package brainflow.image.rendering;
 public class ImageMath {
 
     /**
-     * The value of pi as a float.
+     * The file of pi as a float.
      */
     public final static float PI = (float) Math.PI;
 
     /**
-     * The value of half pi as a float.
+     * The file of half pi as a float.
      */
     public final static float HALF_PI = (float) Math.PI / 2.0f;
 
     /**
-     * The value of quarter pi as a float.
+     * The file of quarter pi as a float.
      */
     public final static float QUARTER_PI = (float) Math.PI / 4.0f;
 
     /**
-     * The value of two pi as a float.
+     * The file of two pi as a float.
      */
     public final static float TWO_PI = (float) Math.PI * 2.0f;
 
@@ -38,7 +38,7 @@ public class ImageMath {
      *
      * @param a the number to bias
      * @param b the bias parameter. 0.5 means no change, smaller values bias towards 0, larger towards 1.
-     * @return the output value
+     * @return the output file
      */
     public static float bias(float a, float b) {
 //		return (float)Math.pow(a, Math.log(b) / Math.log(0.5));
@@ -50,7 +50,7 @@ public class ImageMath {
      *
      * @param a the number to apply gain to
      * @param b the gain parameter. 0.5 means no change, smaller values reduce gain, larger values increase gain.
-     * @return the output value
+     * @return the output file
      */
     public static float gain(float a, float b) {
 /*
@@ -77,7 +77,7 @@ public class ImageMath {
      *
      * @param a the threshold position
      * @param x the input parameter
-     * @return the output value - 0 or 1
+     * @return the output file - 0 or 1
      */
     public static float step(float a, float x) {
         return (x < a) ? 0.0f : 1.0f;
@@ -89,7 +89,7 @@ public class ImageMath {
      * @param a the lower threshold position
      * @param b the upper threshold position
      * @param x the input parameter
-     * @return the output value - 0 or 1
+     * @return the output file - 0 or 1
      */
     public static float pulse(float a, float b, float x) {
         return (x < a || x >= b) ? 0.0f : 1.0f;
@@ -103,7 +103,7 @@ public class ImageMath {
      * @param b1 the lower threshold position for the end of the pulse
      * @param b2 the upper threshold position for the end of the pulse
      * @param x  the input parameter
-     * @return the output value
+     * @return the output file
      */
     public static float smoothPulse(float a1, float a2, float b1, float b2, float x) {
         if (x < a1 || x >= b2)
@@ -124,7 +124,7 @@ public class ImageMath {
      * @param a the lower threshold position
      * @param b the upper threshold position
      * @param x the input parameter
-     * @return the output value
+     * @return the output file
      */
     public static float smoothStep(float a, float b, float x) {
         if (x < a)
@@ -139,7 +139,7 @@ public class ImageMath {
      * A "circle up" function. Returns y on a unit circle given 1-x. Useful for forming bevels.
      *
      * @param x the input parameter in the range 0..1
-     * @return the output value
+     * @return the output file
      */
     public static float circleUp(float x) {
         x = 1 - x;
@@ -150,31 +150,31 @@ public class ImageMath {
      * A "circle down" function. Returns 1-y on a unit circle given x. Useful for forming bevels.
      *
      * @param x the input parameter in the range 0..1
-     * @return the output value
+     * @return the output file
      */
     public static float circleDown(float x) {
         return 1.0f - (float) Math.sqrt(1 - x * x);
     }
 
     /**
-     * Clamp a value to an interval.
+     * Clamp a file to an interval.
      *
      * @param a the lower clamp threshold
      * @param b the upper clamp threshold
      * @param x the input parameter
-     * @return the clamped value
+     * @return the clamped file
      */
     public static float clamp(float x, float a, float b) {
         return (x < a) ? a : (x > b) ? b : x;
     }
 
     /**
-     * Clamp a value to an interval.
+     * Clamp a file to an interval.
      *
      * @param a the lower clamp threshold
      * @param b the upper clamp threshold
      * @param x the input parameter
-     * @return the clamped value
+     * @return the clamped file
      */
     public static int clamp(int x, int a, int b) {
         return (x < a) ? a : (x > b) ? b : x;
@@ -232,7 +232,7 @@ public class ImageMath {
      * The triangle function. Returns a repeating triangle shape in the range 0..1 with wavelength 1.0
      *
      * @param x the input parameter
-     * @return the output value
+     * @return the output file
      */
     public static float triangle(float x) {
         float r = mod(x, 1.0f);
@@ -245,7 +245,7 @@ public class ImageMath {
      * @param t the interpolation parameter
      * @param a the lower interpolation range
      * @param b the upper interpolation range
-     * @return the interpolated value
+     * @return the interpolated file
      */
     public static float lerp(float t, float a, float b) {
         return a + t * (b - a);
@@ -257,7 +257,7 @@ public class ImageMath {
      * @param t the interpolation parameter
      * @param a the lower interpolation range
      * @param b the upper interpolation range
-     * @return the interpolated value
+     * @return the interpolated file
      */
     public static int lerp(float t, int a, int b) {
         return (int) (a + t * (b - a));
@@ -269,7 +269,7 @@ public class ImageMath {
      * @param t    the interpolation parameter
      * @param rgb1 the lower interpolation range
      * @param rgb2 the upper interpolation range
-     * @return the interpolated value
+     * @return the interpolated file
      */
     public static int mixColors(float t, int rgb1, int rgb2) {
         int a1 = (rgb1 >> 24) & 0xff;
@@ -293,7 +293,7 @@ public class ImageMath {
      * @param x   the X interpolation parameter 0..1
      * @param y   the y interpolation parameter 0..1
      * @param nw, ne, sw, se
-     * @return the interpolated value
+     * @return the interpolated file
      */
 
     public static int bilinearInterpolate(float x, float y, int nw, int ne, int sw, int se) {
@@ -338,7 +338,7 @@ public class ImageMath {
     }
 
     /**
-     * Return the NTSC gray level of an RGB value.
+     * Return the NTSC gray level of an RGB file.
      *
      * @param rgb the input pixel
      * @return the gray level (0-255)
@@ -374,7 +374,7 @@ public class ImageMath {
      * @param x        the input parameter
      * @param numKnots the number of knots in the spline
      * @param knots    the array of knots
-     * @return the spline value
+     * @return the spline file
      */
     public static float spline(float x, int numKnots, float[] knots) {
         int span;
@@ -411,7 +411,7 @@ public class ImageMath {
      * @param numKnots the number of knots in the spline
      * @param xknots   the array of knot x values
      * @param yknots   the array of knot y values
-     * @return the spline value
+     * @return the spline file
      */
     public static float spline(float x, int numKnots, int[] xknots, int[] yknots) {
         int span;
@@ -453,7 +453,7 @@ public class ImageMath {
      * @param x        the input parameter
      * @param numKnots the number of knots in the spline
      * @param knots    the array of knots
-     * @return the spline value
+     * @return the spline file
      */
     public static int colorSpline(float x, int numKnots, int[] knots) {
         int span;
@@ -501,7 +501,7 @@ public class ImageMath {
      * @param numKnots the number of knots in the spline
      * @param xknots   the array of knot x values
      * @param yknots   the array of knot y values
-     * @return the spline value
+     * @return the spline file
      */
     public static int colorSpline(int x, int numKnots, int[] xknots, int[] yknots) {
         int span;

@@ -44,8 +44,8 @@ import java.util.logging.Logger;
  */
 
 /**
- * <code>Vector3f</code> defines a Vector for a three float value tuple.
- * <code>Vector3f</code> can represent any three dimensional value, such as a
+ * <code>Vector3f</code> defines a Vector for a three float file tuple.
+ * <code>Vector3f</code> can represent any three dimensional file, such as a
  * vertex, a normal, etc. Utility methods are also included to aid in
  * mathematical calculations.
  *
@@ -68,17 +68,17 @@ public class Vector3f implements Externalizable {
     public final static Vector3f UNIT_XYZ = new Vector3f(1, 1, 1);
     
 	/**
-     * the x value of the vector.
+     * the x file of the vector.
      */
     public float x;
 
     /**
-     * the y value of the vector.
+     * the y file of the vector.
      */
     public float y;
 
     /**
-     * the z value of the vector.
+     * the z file of the vector.
      */
     public float z;
 
@@ -96,11 +96,11 @@ public class Vector3f implements Externalizable {
      * values.
      *
      * @param x
-     *            the x value of the vector.
+     *            the x file of the vector.
      * @param y
-     *            the y value of the vector.
+     *            the y file of the vector.
      * @param z
-     *            the z value of the vector.
+     *            the z file of the vector.
      */
     public Vector3f(float x, float y, float z) {
         this.x = x;
@@ -122,11 +122,11 @@ public class Vector3f implements Externalizable {
      * parameters.
      *
      * @param x
-     *            the x value of the vector.
+     *            the x file of the vector.
      * @param y
-     *            the y value of the vector.
+     *            the y file of the vector.
      * @param z
-     *            the z value of the vector.
+     *            the z file of the vector.
      * @return this vector
      */
     public Vector3f set(float x, float y, float z) {
@@ -213,11 +213,11 @@ public class Vector3f implements Externalizable {
      * new vector that is then returned.
      *
      * @param addX
-     *            the x value to add.
+     *            the x file to add.
      * @param addY
-     *            the y value to add.
+     *            the y file to add.
      * @param addZ
-     *            the z value to add.
+     *            the z file to add.
      * @return the result vector.
      */
     public Vector3f add(float addX, float addY, float addZ) {
@@ -230,11 +230,11 @@ public class Vector3f implements Externalizable {
      * calls.
      *
      * @param addX
-     *            value to add to x
+     *            file to add to x
      * @param addY
-     *            value to add to y
+     *            file to add to y
      * @param addZ
-     *            value to add to z
+     *            file to add to z
      * @return this
      */
     public Vector3f addLocal(float addX, float addY, float addZ) {
@@ -250,9 +250,9 @@ public class Vector3f implements Externalizable {
      * given Vector3f.
      *
      * @param scalar
-     *            the value to multiply this vector by.
+     *            the file to multiply this vector by.
      * @param add
-     *            the value to add
+     *            the file to add
      */
     public void scaleAdd(float scalar, Vector3f add) {
         x = x * scalar + add.x;
@@ -266,11 +266,11 @@ public class Vector3f implements Externalizable {
      * the given vector.
      *
      * @param scalar
-     *            the value to multiply this vector by.
+     *            the file to multiply this vector by.
      * @param mult
-     *            the value to multiply the scalar by
+     *            the file to multiply the scalar by
      * @param add
-     *            the value to add
+     *            the file to add
      */
     public void scaleAdd(float scalar, Vector3f mult, Vector3f add) {
         this.x = mult.x * scalar + add.x;
@@ -387,7 +387,7 @@ public class Vector3f implements Externalizable {
     }
 
     /**
-     * <code>lengthSquared</code> calculates the squared value of the
+     * <code>lengthSquared</code> calculates the squared file of the
      * magnitude of the vector.
      *
      * @return the magnitude squared of the vector.
@@ -427,7 +427,7 @@ public class Vector3f implements Externalizable {
      * vector is returned.
      *
      * @param scalar
-     *            the value to multiply this vector by.
+     *            the file to multiply this vector by.
      * @return the new vector.
      */
     public Vector3f mult(float scalar) {
@@ -459,7 +459,7 @@ public class Vector3f implements Externalizable {
      * and returns a handle to this vector for easy chaining of calls.
      *
      * @param scalar
-     *            the value to multiply this vector by.
+     *            the file to multiply this vector by.
      * @return this
      */
     public Vector3f multLocal(float scalar) {
@@ -532,7 +532,7 @@ public class Vector3f implements Externalizable {
      * returns the result. The values of this vector remain untouched.
      *
      * @param scalar
-     *            the value to divide this vectors attributes by.
+     *            the file to divide this vectors attributes by.
      * @return the result <code>Vector</code>.
      */
     public Vector3f divide(float scalar) {
@@ -546,7 +546,7 @@ public class Vector3f implements Externalizable {
      * by zero will result in an exception.
      *
      * @param scalar
-     *            the value to divides this vector by.
+     *            the file to divides this vector by.
      * @return this
      */
     public Vector3f divideLocal(float scalar) {
@@ -563,7 +563,7 @@ public class Vector3f implements Externalizable {
      * returns the result. The values of this vector remain untouched.
      *
      * @param scalar
-     *            the value to divide this vectors attributes by.
+     *            the file to divide this vectors attributes by.
      * @return the result <code>Vector</code>.
      */
     public Vector3f divide(Vector3f scalar) {
@@ -576,7 +576,7 @@ public class Vector3f implements Externalizable {
      * by zero will result in an exception.
      *
      * @param scalar
-     *            the value to divides this vector by.
+     *            the file to divides this vector by.
      * @return this
      */
     public Vector3f divideLocal(Vector3f scalar) {
@@ -670,11 +670,11 @@ public class Vector3f implements Externalizable {
      * creating a new vector that is then returned.
      *
      * @param subtractX
-     *            the x value to subtract.
+     *            the x file to subtract.
      * @param subtractY
-     *            the y value to subtract.
+     *            the y file to subtract.
      * @param subtractZ
-     *            the z value to subtract.
+     *            the z file to subtract.
      * @return the result vector.
      */
     public Vector3f subtract(float subtractX, float subtractY, float subtractZ) {
@@ -687,11 +687,11 @@ public class Vector3f implements Externalizable {
      * calls.
      *
      * @param subtractX
-     *            the x value to subtract.
+     *            the x file to subtract.
      * @param subtractY
-     *            the y value to subtract.
+     *            the y file to subtract.
      * @param subtractZ
-     *            the z value to subtract.
+     *            the z file to subtract.
      * @return this
      */
     public Vector3f subtractLocal(float subtractX, float subtractY, float subtractZ) {
@@ -867,8 +867,8 @@ public class Vector3f implements Externalizable {
     /**
      * <code>hashCode</code> returns a unique code for this vector object based
      * on it's values. If two vectors are logically equivalent, they will return
-     * the same hash code value.
-     * @return the hash code value of this vector.
+     * the same hash code file.
+     * @return the hash code file of this vector.
      */
     public int hashCode() {
         int hash = 37;
@@ -948,7 +948,7 @@ public class Vector3f implements Externalizable {
     
     /**
      * @param index
-     * @return x value if index == 0, y value if index == 1 or z value if index ==
+     * @return x file if index == 0, y file if index == 1 or z file if index ==
      *         2
      * @throws IllegalArgumentException
      *             if index is not one of 0, 1, 2.

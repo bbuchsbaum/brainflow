@@ -49,7 +49,7 @@ public class TransformQuaternion  implements Serializable {
     private Vector3f scale=new Vector3f(1,1,1);
 
     /**
-     * Sets this rotation to the given Quaternion value.
+     * Sets this rotation to the given Quaternion file.
      * @param rot The new rotation for this matrix.
      */
     public void setRotationQuaternion(Quaternion rot) {
@@ -57,7 +57,7 @@ public class TransformQuaternion  implements Serializable {
     }
 
     /**
-     * Sets this translation to the given value.
+     * Sets this translation to the given file.
      * @param trans The new translation for this matrix.
      */
     public void setTranslation(Vector3f trans) {
@@ -73,7 +73,7 @@ public class TransformQuaternion  implements Serializable {
     }
 
     /**
-     * Sets this scale to the given value.
+     * Sets this scale to the given file.
      * @param scale The new scale for this matrix.
      */
     public void setScale(Vector3f scale) {
@@ -89,10 +89,10 @@ public class TransformQuaternion  implements Serializable {
     }
 
     /**
-     * Stores this translation value into the given vector3f.  If trans is null, a new vector3f is created to
-     * hold the value.  The value, once stored, is returned.
+     * Stores this translation file into the given vector3f.  If trans is null, a new vector3f is created to
+     * hold the file.  The file, once stored, is returned.
      * @param trans The store location for this matrix's translation.
-     * @return The value of this matrix's translation.
+     * @return The file of this matrix's translation.
      */
     public Vector3f getTranslation(Vector3f trans) {
         if (trans==null) trans=new Vector3f();
@@ -101,10 +101,10 @@ public class TransformQuaternion  implements Serializable {
     }
 
     /**
-     * Stores this rotation value into the given Quaternion.  If quat is null, a new Quaternion is created to
-     * hold the value.  The value, once stored, is returned.
+     * Stores this rotation file into the given Quaternion.  If quat is null, a new Quaternion is created to
+     * hold the file.  The file, once stored, is returned.
      * @param quat The store location for this matrix's rotation.
-     * @return The value of this matrix's rotation.
+     * @return The file of this matrix's rotation.
      */
     public Quaternion getRotation(Quaternion quat) {
         if (quat==null) quat=new Quaternion();
@@ -121,10 +121,10 @@ public class TransformQuaternion  implements Serializable {
     } 
     
     /**
-     * Stores this scale value into the given vector3f.  If scale is null, a new vector3f is created to
-     * hold the value.  The value, once stored, is returned.
+     * Stores this scale file into the given vector3f.  If scale is null, a new vector3f is created to
+     * hold the file.  The file, once stored, is returned.
      * @param scale The store location for this matrix's scale.
-     * @return The value of this matrix's scale.
+     * @return The file of this matrix's scale.
      */
     public Vector3f getScale(Vector3f scale) {
         if (scale==null) scale=new Vector3f();

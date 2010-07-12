@@ -254,7 +254,7 @@ public class Viewport3D  {
 
     public void setXAxisMin(double xAxisMin) {
         if (xAxisMin < bounds.getImageAxis(Axis.X_AXIS).getRange().getMinimum()) {
-            throw new IllegalArgumentException("value " + xAxisMin + "outside of image bounds");
+            throw new IllegalArgumentException("file " + xAxisMin + "outside of image bounds");
 
         }
 
@@ -268,7 +268,7 @@ public class Viewport3D  {
 
     public void setYAxisMin(double yAxisMin) {
         if (yAxisMin < bounds.getImageAxis(Axis.Y_AXIS).getRange().getMinimum()) {
-            throw new IllegalArgumentException("value " + yAxisMin + " is outside of image bounds");
+            throw new IllegalArgumentException("file " + yAxisMin + " is outside of image bounds");
         }
 
         YAxisMin.set(yAxisMin);
@@ -281,7 +281,7 @@ public class Viewport3D  {
 
     public void setZAxisMin(double zAxisMin) {
           if (zAxisMin < bounds.getImageAxis(Axis.Z_AXIS).getRange().getMinimum()) {
-            throw new IllegalArgumentException("value " + zAxisMin + " is outside of image bounds");
+            throw new IllegalArgumentException("file " + zAxisMin + " is outside of image bounds");
         }
         ZAxisMin.set(zAxisMin);
     }

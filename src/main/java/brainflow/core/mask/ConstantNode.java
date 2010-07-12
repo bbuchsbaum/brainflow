@@ -75,7 +75,7 @@ public class ConstantNode extends AbstractNode implements ValueNode<Double> {
                 System.out.println("negating node");
                 return new ConstantNode(-value);
             default:
-                throw new SemanticError("unsupported operation " + op + " for value : " + value);
+                throw new SemanticError("unsupported operation " + op + " for file : " + value);
         }
 
     }

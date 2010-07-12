@@ -9,8 +9,9 @@ import simplex3d.math.floatm.FloatMath._
 
 import brainflow.image.io.Nifti1Dataset
 import brainflow.image.io.NiftiImageInfo
-import brainflow.math.{Matrix3f, Matrix4f}
 import brainflow.image.anatomy.Anatomy3D
+import brainflow.image.space.{AffineMapping3D, ImageMapping3D}
+import brainflow.math.{Quaternion, Vector3f, Matrix3f, Matrix4f}
 
 /**
  * Created by IntelliJ IDEA.
@@ -53,7 +54,7 @@ class NIFTIHeader(
 
 object NiftiMetaInfo {
 
-  def convert(jinfo: NiftiImageInfo) = {
+  implicit def convert(jinfo: NiftiImageInfo) = {
     val vdim = if (jinfo.getDimensions.numDim ==3) {
       Seq[Int](jinfo.getDimensions.getDim(0).intValue, jinfo.getDimensions.getDim(1).intValue, jinfo.getDimensions.getDim(2).intValue)
     } else if (jinfo.getDimensions.numDim == 4) {
@@ -96,6 +97,7 @@ object NiftiMetaInfo {
 
     new NiftiMetaInfo(jinfo.getDataFile,
                                     jinfo.getHeaderFile,
+                                    jinfo.getAnatomy.asInstanceOf[Anatomy3D],
                                     vdim,
                                     Seq[Double](spacing.getDim(0).doubleValue, spacing.getDim(1).doubleValue, spacing.getDim(2).doubleValue),
                                     jinfo.getHeaderFile.getName.getBaseName,
@@ -116,7 +118,7 @@ object NiftiMetaInfo {
     
 
 
-class NiftiMetaInfo(val dataFile: FileObject, val headerFile: FileObject,
+class NiftiMetaInfo(val dataFile: FileObject, val headerFile: FileObject, val anatomy: Anatomy3D,
                     val dimensions: Seq[Int], val spacing: Seq[Double], val label: String, val dtype: DataType, val byteOffset: Int, val endian: ByteOrder,
                     val intercept: Seq[Double] = Seq(0.0), val scaleFactor: Seq[Double] = Seq(1.0),
                     val attributes: Map[String, Any], val header: NIFTIHeader) extends ImageMetaInfo {
@@ -135,11 +137,12 @@ class NiftiMetaInfo(val dataFile: FileObject, val headerFile: FileObject,
       case DataType.INTEGER => IntReader(reader, elements)
       case DataType.DOUBLE => DoubleReader(reader, elements)
       case DataType.LONG => LongReader(reader, elements)
+      case _ => error("unsupported data type " + dtype)
     }
   }
 
 
-  def numVolumes = if (dimensions.size == 4) dimensions(3) else 0 
+  def numVolumes = if (dimensions.size == 4) dimensions(3) else 1 
 
   lazy val dataType = Seq(dtype)
 
@@ -151,5 +154,18 @@ class NiftiMetaInfo(val dataFile: FileObject, val headerFile: FileObject,
     Vec3(header.quatern(0), header.quatern(1), header.quatern(2))
   }
 
+  lazy val offset : Vec3 = {
+    Vec3(header.qoffset(0), header.qoffset(1), header.qoffset(2))
+  }
 
+  lazy val qform : Matrix4f = {
+    val q: Vector3f = new Vector3f(quaternion(0), quaternion(1), quaternion(2))
+    val qo: Vector3f = new Vector3f(offset(0), offset(1), offset(2))
+    Quaternion.quaternionToMatrix(q.get(0), q.get(1), q.get(2), qo.get(0), qo.get(1), qo.get(2),
+                                                        spacing(0).toFloat, spacing(1).toFloat, spacing(2).toFloat, qfac)
+  }
+
+  lazy val coordinateMapping = {
+    new AffineMapping3D(qform, anatomy, Anatomy3D.REFERENCE_ANATOMY)
+  }
 }

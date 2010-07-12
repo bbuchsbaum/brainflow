@@ -11,7 +11,6 @@ import brainflow.app.services.ImageViewMousePointerEvent;
 import brainflow.image.anatomy.GridLoc3D;
 import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.interpolation.NearestNeighborInterpolator;
-import brainflow.image.interpolation.TrilinearInterpolator;
 import com.jidesoft.status.LabelStatusBarItem;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.EventSubscriber;
@@ -163,7 +162,7 @@ abstract class ValueStatusItem extends LabelStatusBarItem implements EventSubscr
             ImageLayer3D layer = view.getSelectedLayer();
 
             double value = layer.getData().worldValue((float)spoint.getX(), (float)spoint.getY(), (float)spoint.getZ(), new NearestNeighborInterpolator());
-           // double value = layer.getValue(gpoint);
+           // double file = layer.getValue(gpoint);
             updateValue(layer, value);
 
         }

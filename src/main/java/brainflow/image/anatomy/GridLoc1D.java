@@ -21,7 +21,7 @@ public class GridLoc1D implements BrainLoc {
 
     public GridLoc1D(float gridX, ImageAxis axis) {
         if (gridX < 0 || gridX > (axis.getNumSamples())) {
-            throw new IllegalArgumentException("grid value " + gridX + " out of bounds for axis " + axis);
+            throw new IllegalArgumentException("grid file " + gridX + " out of bounds for axis " + axis);
         }
         this.gridX = gridX;
         this.axis = axis;

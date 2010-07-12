@@ -1,7 +1,6 @@
 package brainflow.image.operations;
 
 
-import java.util.LinkedList;
 import java.util.Stack;
 
 import brainflow.array.Array3D;
@@ -9,7 +8,6 @@ import brainflow.image.iterators.ValueIterator;
 import brainflow.image.space.Axis;
 import brainflow.image.data.*;
 import brainflow.math.Index3D;
-import brainflow.utils.DataType;
 import cern.colt.list.IntArrayList;
 import cern.colt.map.OpenIntIntHashMap;
 
@@ -43,11 +41,11 @@ public class ComponentLabeler {
     //private LinkedList<Index3D> voxelStack;
 
     /**
-     * Current label value
+     * Current label file
      */
     private int currentLabel;
     /**
-     * Starting label value
+     * Starting label file
      */
     private int startingLabel;
     /**
@@ -409,7 +407,7 @@ public class ComponentLabeler {
     private void labelClusterRecursive(int clusterLabel, Index3D current,
                                        Index3D center) {
 
-        /**Check if the voxel has already been labelled with the same value
+        /**Check if the voxel has already been labelled with the same file
          * as the corresponding voxels on the other half of the volume */
         if (getLabel(current) != clusterLabel &&
                 imageMask.isTrue(current.i1(), current.i2(), current.i3())) {

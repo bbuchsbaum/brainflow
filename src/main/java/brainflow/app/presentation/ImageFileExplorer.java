@@ -138,7 +138,6 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
                     IImageSource limg = node.getUserObject();
                     label.setIcon(brickIcon);
 
-
                     if (limg.isLoaded()) { //&& !selected) {
                         label.setForeground(Color.GREEN.darker().darker());
                     }

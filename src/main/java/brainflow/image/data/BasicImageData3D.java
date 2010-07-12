@@ -229,7 +229,7 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
 
     }
 
-    private static abstract class AbstractFloat extends BasicImageData3D {
+    public static abstract class AbstractFloat extends BasicImageData3D {
         public AbstractFloat(BasicImageData3D.AbstractFloat src) {
             super(src.getImageSpace(), DataType.FLOAT);
             data = new Array3D.Float(src.dim().getDim(0), src.dim().getDim(1), src.dim().getDim(2), ((Array3D.Float) src.data).toArray());
@@ -313,7 +313,7 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
 
     }
 
-    private static abstract class AbstractInt extends BasicImageData3D {
+    public static abstract class AbstractInt extends BasicImageData3D {
         public AbstractInt(BasicImageData3D.AbstractInt src) {
             super(src.getImageSpace(), DataType.INTEGER);
             data = new Array3D.Int(src.dim().getDim(0), src.dim().getDim(1), src.dim().getDim(2), ((Array3D.Int) src.data).toArray());
@@ -409,7 +409,7 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
 
     }
 
-    private static abstract class AbstractShort extends BasicImageData3D {
+    public static abstract class AbstractShort extends BasicImageData3D {
         public AbstractShort(BasicImageData3D.AbstractShort src) {
             super(src.getImageSpace(), DataType.SHORT);
             data = new Array3D.Short(src.dim().getDim(0), src.dim().getDim(1), src.dim().getDim(2), ((Array3D.Short) src.data).toArray());
@@ -493,7 +493,7 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
 
     }
 
-    private static abstract class AbstractByte extends BasicImageData3D {
+    public static abstract class AbstractByte extends BasicImageData3D {
         public AbstractByte(BasicImageData3D.AbstractByte src) {
             super(src.getImageSpace(), DataType.BYTE);
             data = new Array3D.Byte(src.dim().getDim(0), src.dim().getDim(1), src.dim().getDim(2), ((Array3D.Byte) src.data).toArray());
@@ -663,6 +663,8 @@ public abstract class BasicImageData3D extends AbstractImageData3D {
         }
 
     }
+
+    
 
 
 }

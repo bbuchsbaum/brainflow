@@ -125,7 +125,7 @@ public class TransformMatrix  implements Serializable {
     }
 
     /**
-     * Multiplies every value in the matrix by a scalar
+     * Multiplies every file in the matrix by a scalar
      * @param scalar
      */
     public void mult(float scalar) {

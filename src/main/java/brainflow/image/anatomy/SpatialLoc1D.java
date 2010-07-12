@@ -107,7 +107,7 @@ public class SpatialLoc1D implements BrainLoc {
     @Override
     public String toString() {
         return "BrainPoint1D{" +
-                "value=" + value +
+                "file=" + value +
                 ", axis=" + axis +
                 '}';
     }

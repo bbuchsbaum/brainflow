@@ -120,11 +120,11 @@ public class Plane implements Serializable {
     }
 
     /**
-     * <code>setConstant</code> sets the constant value that helps define the
+     * <code>setConstant</code> sets the constant file that helps define the
      * plane.
      * 
      * @param constant
-     *            the new constant value.
+     *            the new constant file.
      */
     public void setConstant(float constant) {
         this.constant = constant;

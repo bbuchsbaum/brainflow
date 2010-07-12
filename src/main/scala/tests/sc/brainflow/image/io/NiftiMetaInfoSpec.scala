@@ -29,7 +29,15 @@ class NiftiMetaInfoSpec extends FlatSpec {
     val meta = NIFTI.readMetaInfo(fileSet(0))
     println(meta.get.dimensions)
     assert(meta.get.dimensions == List(61,73,61))
+  }
+
+  it should "have a coordinate map" in {
+    val meta = NIFTI.readMetaInfo(fileSet(0))
+    println(meta.get.coordinateMapping)
+    assert(meta.get.coordinateMapping != null)
 
   }
+
+
   
 }

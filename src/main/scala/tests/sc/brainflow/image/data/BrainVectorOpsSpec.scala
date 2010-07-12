@@ -29,7 +29,7 @@ class BrainVectorOpsSpec extends FlatSpec {
     assert(imvec.getNumVolumes == fileSet.size)
   }
 
-  it should "have a max value that equals the maximum value of each of its volumes" in {
+  it should "have a max file that equals the maximum file of each of its volumes" in {
     val maxArray = (0 until imvec.getNumVolumes).map(i => imvec.getVolume(i).maxValue)
     assert(imvec.maxValue == maxArray.max)
   }

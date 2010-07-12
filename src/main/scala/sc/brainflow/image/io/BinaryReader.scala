@@ -130,7 +130,9 @@ sealed trait DataReader[T] {
 case class ByteReader(val byteReader: BinaryReader, val elements: Int) extends DataReader[Byte] {
 
   def read(numChunks: Int=1, progressListener: Option[ProgressListener]=None) = {
-    byteReader.read(elements*2, numChunks, progressListener).array
+    val arr = new Array[Byte](elements)
+    byteReader.read(elements*2, numChunks, progressListener).get(arr)
+    arr
   }
 }
 
@@ -138,35 +140,45 @@ case class ByteReader(val byteReader: BinaryReader, val elements: Int) extends D
 case class ShortReader(val byteReader: BinaryReader, val elements: Int) extends DataReader[Short] {
 
   def read(numChunks: Int=1, progressListener: Option[ProgressListener]=None) = {
-    byteReader.read(elements*2, numChunks, progressListener).asShortBuffer.array
+    val arr = new Array[Short](elements)
+    byteReader.read(elements*2, numChunks, progressListener).asShortBuffer.get(arr)
+    arr
   }
 }
 
 case class IntReader(val byteReader: BinaryReader, val elements: Int) extends DataReader[Int] {
 
   def read(numChunks: Int=1, progressListener: Option[ProgressListener]=None) = {
-    byteReader.read(elements*4, numChunks, progressListener).asIntBuffer.array
+    val arr = new Array[Int](elements)
+    byteReader.read(elements*4, numChunks, progressListener).asIntBuffer.get(arr)
+    arr
   }
 }
 
 case class FloatReader(val byteReader: BinaryReader, val elements: Int) extends DataReader[Float] {
 
   def read(numChunks: Int=1, progressListener: Option[ProgressListener]=None) = {
-    byteReader.read(elements*4, numChunks, progressListener).asFloatBuffer.array
+    val arr = new Array[Float](elements)
+    byteReader.read(elements*4, numChunks, progressListener).asFloatBuffer.get(arr)
+    arr
   }
 }
 
 case class DoubleReader(val byteReader: BinaryReader, val elements: Int) extends DataReader[Double] {
 
   def read(numChunks: Int=1, progressListener: Option[ProgressListener]=None) = {
-    byteReader.read(elements*8, numChunks, progressListener).asDoubleBuffer.array
+    val arr = new Array[Double](elements)
+    byteReader.read(elements*8, numChunks, progressListener).asDoubleBuffer.get(arr)
+    arr
   }
 }
 
 case class LongReader(val byteReader: BinaryReader, val elements: Int) extends DataReader[Long] {
 
   def read(numChunks: Int=1, progressListener: Option[ProgressListener]=None) = {
-    byteReader.read(elements*8, numChunks, progressListener).asLongBuffer.array
+    val arr = new Array[Long](elements)
+    byteReader.read(elements*8, numChunks, progressListener).asLongBuffer.get(arr)
+    arr
   }
 }
 

@@ -243,7 +243,7 @@ public class BiSlider extends JPanel implements MouseMotionListener, MouseListen
         og.fill(area);
 
         // Here's the trick... We use SrcAtop, which effectively uses the
-        // alpha value as a coverage value for each pixel stored in the
+        // alpha file as a coverage file for each pixel stored in the
         // destination.  For the areas outside our clip shape, the destination
         // alpha will be zero, so nothing is rendered in those areas.  For
         // the areas inside our clip shape, the destination alpha will be fully

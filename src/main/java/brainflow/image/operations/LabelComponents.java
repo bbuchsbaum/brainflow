@@ -36,9 +36,9 @@ public class LabelComponents {
 	/**Linked lsit containing the newly labelled voxels */
 	private LinkedList <Index3D> newVoxelsBuffer;
 
-	/**Current label value */
+	/**Current label file */
 	private int label;
-	/**Starting label value */
+	/**Starting label file */
 	private int startingLabel;
 
 	/**x, y, z dimensions of the image */
@@ -308,7 +308,7 @@ public class LabelComponents {
 	private void labelClusterRecursive(int clusterLabel, Index3D current, 
 			Index3D center){
 		
-		/**Check if the voxel has already been labelled with the same value
+		/**Check if the voxel has already been labelled with the same file
 		 * as the corresponding voxels on the other half of the volume */
 		if(!(getLabel(current) == clusterLabel)){
 			

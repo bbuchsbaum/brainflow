@@ -35,7 +35,7 @@ public class ThresholdRangePresenter extends BrainFlowPresenter {
 
     private BiSlider bislider;
 
-    private JCheckBox symmetricalCheckBox = new JCheckBox("absolute value");
+    private JCheckBox symmetricalCheckBox = new JCheckBox("absolute file");
 
 
     /**

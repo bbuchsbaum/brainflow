@@ -158,6 +158,7 @@ object ImageFileDescriptors {
     def createInfoReader(headerFile: FileObject, dataFile: FileObject) = new NiftiInfoReader(headerFile, dataFile)
 
     def readMetaInfo(headerFile: FileObject) = {
+      println("reading nifti meta info")
       val dataFileOption = VFSUtils.resolveFileObject(headerFile.parent, getDataName(headerFile), true)
       readNiftiMetaInfo(headerFile, dataFileOption, this)
     }
@@ -234,6 +235,19 @@ object ImageFileDescriptors {
     def createDataSource(headerFile: FileObject, dataFile: FileObject) = None
 
     def unapply(filename: String) = filename.endsWith(".HEAD.gz") || filename.endsWith(".BRIK.gz")
+
+  }
+
+
+  def readMetaInfo(header: FileObject): Option[ImageMetaInfo] = {
+    header.name match {
+      case NIFTI() => NIFTI.readMetaInfo(header)
+      case NIFTI_GZ() => NIFTI_GZ.readMetaInfo(header)
+      case NIFTI_PAIR() => NIFTI_PAIR.readMetaInfo(header)
+      case AFNI() => AFNI.readMetaInfo(header)
+      case AFNI_GZ() => AFNI_GZ.readMetaInfo(header)
+      case _ => None
+    }
 
   }
 

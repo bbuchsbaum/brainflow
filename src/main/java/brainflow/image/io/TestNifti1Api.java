@@ -193,7 +193,7 @@ public class TestNifti1Api {
         System.out.println("\three\tprint dataset header fields");
 
         System.out.println("\tpeek <dataset> X Y Z T");
-        System.out.println("\three\tprint value at voxel location X Y Z T (0-based index)");
+        System.out.println("\three\tprint file at voxel location X Y Z T (0-based index)");
         System.out.println("\ttimecourse <dataset> X Y Z");
         System.out.println("\three\tprint timecourse at voxel location X Y Z (0-based index)");
 

@@ -85,7 +85,7 @@ public class CoordinateTableView extends AbstractPresenter {
                 case 2:
                     return Double.class;  // one
                 case 3:
-                    return Double.class;  // value
+                    return Double.class;  // file
                 case 4:
                     return Double.class;  // radius
                 case 5:

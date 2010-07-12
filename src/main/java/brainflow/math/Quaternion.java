@@ -78,13 +78,13 @@ public class Quaternion implements Externalizable  {
      * given list of parameters.
      *
      * @param x
-     *            the x value of the quaternion.
+     *            the x file of the quaternion.
      * @param y
-     *            the y value of the quaternion.
+     *            the y file of the quaternion.
      * @param z
-     *            the z value of the quaternion.
+     *            the z file of the quaternion.
      * @param w
-     *            the w value of the quaternion.
+     *            the w file of the quaternion.
      */
     public Quaternion(float x, float y, float z, float w) {
         this.x = x;
@@ -98,13 +98,13 @@ public class Quaternion implements Externalizable  {
      * of parameters.
      *
      * @param x
-     *            the x value of the quaternion.
+     *            the x file of the quaternion.
      * @param y
-     *            the y value of the quaternion.
+     *            the y file of the quaternion.
      * @param z
-     *            the z value of the quaternion.
+     *            the z file of the quaternion.
      * @param w
-     *            the w value of the quaternion.
+     *            the w file of the quaternion.
      */
     public void set(float x, float y, float z, float w) {
         this.x = x;
@@ -453,7 +453,7 @@ public class Quaternion implements Externalizable  {
     /**
      * <code>getRotationColumn</code> returns one of three columns specified
      * by the parameter. This column is returned as a <code>Vector3f</code>
-     * object.  The value is retrieved as if this quaternion was first normalized.
+     * object.  The file is retrieved as if this quaternion was first normalized.
      *
      * @param i
      *            the column to retrieve. Must be between 0 and 2.
@@ -571,7 +571,7 @@ public class Quaternion implements Externalizable  {
     }
 
     /**
-     * <code>slerp</code> sets this quaternion's value as an interpolation
+     * <code>slerp</code> sets this quaternion's file as an interpolation
      * between two other quaternions.
      *
      * @param q1
@@ -612,7 +612,7 @@ public class Quaternion implements Externalizable  {
             float invSinTheta = 1f / FastMath.sin(theta);
 
             // Calculate the scale for q1 and q2, according to the angle and
-            // it's sine value
+            // it's sine file
             scale0 = FastMath.sin((1 - t) * theta) * invSinTheta;
             scale1 = FastMath.sin((t * theta)) * invSinTheta;
         }
@@ -634,7 +634,7 @@ public class Quaternion implements Externalizable  {
      * changeAmnt
      *
      * @param q2
-     *            Final interpolation value
+     *            Final interpolation file
      * @param changeAmnt
      *            The amount diffrence
      */
@@ -669,7 +669,7 @@ public class Quaternion implements Externalizable  {
             float invSinTheta = 1f / FastMath.sin(theta);
 
             // Calculate the scale for q1 and q2, according to the angle and
-            // it's sine value
+            // it's sine file
             scale0 = FastMath.sin((1 - changeAmnt) * theta) * invSinTheta;
             scale1 = FastMath.sin((changeAmnt * theta)) * invSinTheta;
         }
@@ -907,13 +907,13 @@ public class Quaternion implements Externalizable  {
      * to this *= q.
      *
      * @param qx -
-     *            quat x value
+     *            quat x file
      * @param qy -
-     *            quat y value
+     *            quat y file
      * @param qz -
-     *            quat z value
+     *            quat z file
      * @param qw -
-     *            quat w value
+     *            quat w file
      *
      * @return This Quaternion, after multiplication.
      */
@@ -1111,7 +1111,7 @@ public class Quaternion implements Externalizable  {
 
     /**
      * 
-     * <code>hashCode</code> returns the hash code value as an integer and is
+     * <code>hashCode</code> returns the hash code file as an integer and is
      * supported for the benefit of hashing based collection classes such as
      * Hashtable, HashMap, HashSet etc.
      * 
@@ -1134,9 +1134,9 @@ public class Quaternion implements Externalizable  {
      * NOTE: Used with serialization. Not to be called manually.
      * 
      * @param in
-     *            the ObjectInput value to read from.
+     *            the ObjectInput file to read from.
      * @throws IOException
-     *             if the ObjectInput value has problems reading a float.
+     *             if the ObjectInput file has problems reading a float.
      * @see java.io.Externalizable
      */
     public void readExternal(ObjectInput in) throws IOException {

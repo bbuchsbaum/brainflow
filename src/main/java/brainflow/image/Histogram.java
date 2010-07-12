@@ -57,8 +57,8 @@ public class Histogram {
         maxValue = data.maxValue();
         minValue = data.minValue();
 
-        System.out.println("min value of histogram is " + minValue);
-        System.out.println("max value of histogram is " + maxValue);
+        System.out.println("min file of histogram is " + minValue);
+        System.out.println("max file of histogram is " + maxValue);
 
         int[] bins = new int[numBins];
 

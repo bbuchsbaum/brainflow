@@ -41,7 +41,7 @@ import java.util.logging.Logger;
 
 
 /**
- * <code>Vector2f</code> defines a Vector for a two float value vector.
+ * <code>Vector2f</code> defines a Vector for a two float file vector.
  * 
  * @author Mark Powell
  * @author Joshua Slack
@@ -52,11 +52,11 @@ public class Vector2f implements Externalizable {
 
     private static final long serialVersionUID = 1L;
     /**
-     * the x value of the vector.
+     * the x file of the vector.
      */
     public float x;
     /**
-     * the y value of the vector.
+     * the y file of the vector.
      */
     public float y;
 
@@ -64,9 +64,9 @@ public class Vector2f implements Externalizable {
      * Creates a Vector2f with the given initial x and y values.
      * 
      * @param x
-     *            The x value of this Vector2f.
+     *            The x file of this Vector2f.
      * @param y
-     *            The y value of this Vector2f.
+     *            The y file of this Vector2f.
      */
     public Vector2f(float x, float y) {
         this.x = x;
@@ -95,9 +95,9 @@ public class Vector2f implements Externalizable {
      * set the x and y values of the vector
      * 
      * @param x
-     *            the x value of the vector.
+     *            the x file of the vector.
      * @param y
-     *            the y value of the vector.
+     *            the y file of the vector.
      * @return this vector
      */
     public Vector2f set(float x, float y) {
@@ -161,9 +161,9 @@ public class Vector2f implements Externalizable {
      * calls.
      * 
      * @param addX
-     *            value to add to x
+     *            file to add to x
      * @param addY
-     *            value to add to y
+     *            file to add to y
      * @return this
      */
     public Vector2f addLocal(float addX, float addY) {
@@ -265,7 +265,7 @@ public class Vector2f implements Externalizable {
     }
 
     /**
-     * <code>lengthSquared</code> calculates the squared value of the
+     * <code>lengthSquared</code> calculates the squared file of the
      * magnitude of the vector.
      * 
      * @return the magnitude squared of the vector.
@@ -279,7 +279,7 @@ public class Vector2f implements Externalizable {
      * vector is returned.
      * 
      * @param scalar
-     *            the value to multiply this vector by.
+     *            the file to multiply this vector by.
      * @return the new vector.
      */
     public Vector2f mult(float scalar) {
@@ -291,7 +291,7 @@ public class Vector2f implements Externalizable {
      * and returns a handle to this vector for easy chaining of calls.
      * 
      * @param scalar
-     *            the value to multiply this vector by.
+     *            the file to multiply this vector by.
      * @return this
      */
     public Vector2f multLocal(float scalar) {
@@ -345,7 +345,7 @@ public class Vector2f implements Externalizable {
      * returns the result. The values of this vector remain untouched.
      * 
      * @param scalar
-     *            the value to divide this vectors attributes by.
+     *            the file to divide this vectors attributes by.
      * @return the result <code>Vector</code>.
      */
     public Vector2f divide(float scalar) {
@@ -358,7 +358,7 @@ public class Vector2f implements Externalizable {
      * by zero will result in an exception.
      * 
      * @param scalar
-     *            the value to divides this vector by.
+     *            the file to divides this vector by.
      * @return this
      */
     public Vector2f divideLocal(float scalar) {
@@ -446,9 +446,9 @@ public class Vector2f implements Externalizable {
      * of calls.
      * 
      * @param addX
-     *            value to subtract from x
+     *            file to subtract from x
      * @param addY
-     *            value to subtract from y
+     *            file to subtract from y
      * @return this
      */
     public Vector2f subtractLocal(float addX, float addY) {
@@ -538,9 +538,9 @@ public class Vector2f implements Externalizable {
     /**
      * <code>hashCode</code> returns a unique code for this vector object
      * based on it's values. If two vectors are logically equivalent, they will
-     * return the same hash code value.
+     * return the same hash code file.
      * 
-     * @return the hash code value of this vector.
+     * @return the hash code file of this vector.
      */
     public int hashCode() {
         int hash = 37;

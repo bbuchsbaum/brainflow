@@ -2,7 +2,6 @@ package brainflow.image.data;
 
 import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.iterators.ValueIterator;
-import brainflow.image.space.IImageSpace3D;
 import brainflow.math.Index3D;
 import cern.colt.list.IntArrayList;
 
@@ -225,7 +224,7 @@ public class ClusterSet implements Iterable<ClusterSet.Cluster>{
         public String toString() {
             return "Cluster{" +
                     ", label=" + label +
-                    ", max value=" + maxValue +
+                    ", max file=" + maxValue +
                     ", size=" + getSize() +
                     '}';
         }

@@ -219,7 +219,7 @@ public class Matrix4f  implements Serializable {
     }
 
     /**
-     * <code>get</code> retrieves a value from the matrix at the given
+     * <code>get</code> retrieves a file from the matrix at the given
      * position. If the position is invalid a <code>IllegalArgumentException</code> is
      * thrown.
      * 
@@ -227,7 +227,7 @@ public class Matrix4f  implements Serializable {
      *            the row index.
      * @param j
      *            the colum index.
-     * @return the value at (i, j).
+     * @return the file at (i, j).
      */
     public float get(int i, int j) {
         switch (i) {
@@ -369,7 +369,7 @@ public class Matrix4f  implements Serializable {
         }    }
 
     /**
-     * <code>set</code> places a given value into the matrix at the given
+     * <code>set</code> places a given file into the matrix at the given
      * position. If the position is invalid a <code>IllegalArgumentException</code> is
      * thrown.
      * 
@@ -378,7 +378,7 @@ public class Matrix4f  implements Serializable {
      * @param j
      *            the colum index.
      * @param value
-     *            the value for (i, j).
+     *            the file for (i, j).
      */
     public void set(int i, int j, float value) {
         switch (i) {
@@ -421,7 +421,7 @@ public class Matrix4f  implements Serializable {
      * values.
      * 
      * @param matrix
-     *            the matrix to set the value to.
+     *            the matrix to set the file to.
      * @throws IllegalArgumentException
      *             if the array is not of size 16.
      */
@@ -451,7 +451,7 @@ public class Matrix4f  implements Serializable {
      * <code>set</code> sets the values of this matrix from another matrix.
      *
      * @param matrix
-     *            the matrix to read the value from.
+     *            the matrix to read the file from.
      */
     public Matrix4f set(Matrix4f matrix) {
         m00 = matrix.m00; m01 = matrix.m01; m02 = matrix.m02; m03 = matrix.m03;
@@ -466,7 +466,7 @@ public class Matrix4f  implements Serializable {
      * values assuming that the data is rowMajor order;
      * 
      * @param matrix
-     *            the matrix to set the value to.
+     *            the matrix to set the file to.
      */
     public void set(float[] matrix) {
         set(matrix, true);
@@ -477,7 +477,7 @@ public class Matrix4f  implements Serializable {
      * values;
      * 
      * @param matrix
-     *            the matrix to set the value to.
+     *            the matrix to set the file to.
      * @param rowMajor
      *            whether the incoming data is in row or column major order.
      */
@@ -615,7 +615,7 @@ public class Matrix4f  implements Serializable {
     }
     
     /**
-     * <code>readFloatBuffer</code> reads value for this matrix from a FloatBuffer.
+     * <code>readFloatBuffer</code> reads file for this matrix from a FloatBuffer.
      * @param fb the buffer to read from, must be correct size
      * @return this data as a FloatBuffer.
      */
@@ -624,7 +624,7 @@ public class Matrix4f  implements Serializable {
     }
 
     /**
-     * <code>readFloatBuffer</code> reads value for this matrix from a FloatBuffer.
+     * <code>readFloatBuffer</code> reads file for this matrix from a FloatBuffer.
      * @param fb the buffer to read from, must be correct size
      * @param columnMajor if true, this buffer should be filled with column
      * 		major data, otherwise it will be filled row major.
@@ -1407,11 +1407,11 @@ public class Matrix4f  implements Serializable {
      * <code>setTranslation</code> will set the matrix's translation values.
      * 
      * @param x
-     *            value of the translation on the x axis
+     *            file of the translation on the x axis
      * @param y
-     *            value of the translation on the y axis
+     *            file of the translation on the y axis
      * @param z
-     *            value of the translation on the z axis
+     *            file of the translation on the z axis
      */
     public void setTranslation(float x, float y, float z) {
         m03 = x;
@@ -1682,7 +1682,7 @@ public class Matrix4f  implements Serializable {
 
     /**
      * 
-     * <code>hashCode</code> returns the hash code value as an integer and is
+     * <code>hashCode</code> returns the hash code file as an integer and is
      * supported for the benefit of hashing based collection classes such as
      * Hashtable, HashMap, HashSet etc.
      * 

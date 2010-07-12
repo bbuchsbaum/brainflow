@@ -44,7 +44,7 @@ public class PixelUtils {
     private static Random randomGenerator = new Random();
 
     /**
-     * Clamp a value to the range 0..255
+     * Clamp a file to the range 0..255
      */
     public static int clamp(int c) {
         if (c < 0)

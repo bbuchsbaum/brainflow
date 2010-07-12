@@ -154,7 +154,7 @@ public class SimpleColorSlider extends JPanel implements ChangeListener {
         int red = redSlider.getValue();
         int green = greenSlider.getValue();
         int blue = blueSlider.getValue();
-        //int alpha = ((Number)alphaSpinner.value()).intValue();
+        //int alpha = ((Number)alphaSpinner.file()).intValue();
 
         //setColor(new Color(red,green,blue,alpha));
         setColor(new Color(red, green, blue));

@@ -46,36 +46,36 @@ final public class FastMath {
 
     private FastMath(){}
 
-    /** A "close to zero" double epsilon value for use*/
+    /** A "close to zero" double epsilon file for use*/
     public static final double DBL_EPSILON = 2.220446049250313E-16d;
 
-    /** A "close to zero" float epsilon value for use*/
+    /** A "close to zero" float epsilon file for use*/
     public static final float FLT_EPSILON = 1.1920928955078125E-7f;
 
-    /** A "close to zero" float epsilon value for use*/
+    /** A "close to zero" float epsilon file for use*/
     public static final float ZERO_TOLERANCE = 0.0001f;
     
     public static final float ONE_THIRD = 1f/3f;
 
-    /** The value PI as a float. */
+    /** The file PI as a float. */
     public static final float PI = (float)Math.PI;
 
-    /** The value 2PI as a float. */
+    /** The file 2PI as a float. */
     public static final float TWO_PI = 2.0f * PI;
 
-    /** The value PI/2 as a float. */
+    /** The file PI/2 as a float. */
     public static final float HALF_PI = 0.5f * PI;
 
-    /** The value 1/PI as a float. */
+    /** The file 1/PI as a float. */
     public static final float INV_PI = 1.0f / PI;
 
-    /** The value 1/(2PI) as a float. */
+    /** The file 1/(2PI) as a float. */
     public static final float INV_TWO_PI = 1.0f / TWO_PI;
 
-    /** A value to multiply a degree value by, to convert it to radians. */
+    /** A file to multiply a degree file by, to convert it to radians. */
     public static final float DEG_TO_RAD = PI / 180.0f;
 
-    /** A value to multiply a radian value by, to convert it to degrees. */
+    /** A file to multiply a radian file by, to convert it to degrees. */
     public static final float RAD_TO_DEG = 180.0f / PI;
 
     /** A precreated random object for random numbers. */
@@ -120,12 +120,12 @@ final public class FastMath {
      * Basically: ((1 - percent) * startValue) + (percent * endValue)
      * 
      * @param percent
-     *            Percent value to use.
+     *            Percent file to use.
      * @param startValue
-     *            Begining value. 0% of f
+     *            Begining file. 0% of f
      * @param endValue
-     *            ending value. 100% of f
-     * @return The interpolated value between startValue and endValue.
+     *            ending file. 100% of f
+     * @return The interpolated file between startValue and endValue.
      */
     public static float LERP(float percent, float startValue, float endValue) {
         if (startValue == endValue) return startValue;
@@ -196,7 +196,7 @@ final public class FastMath {
 
     /**
      * Rounds a fValue up.  A call to Math.ceil
-     * @param fValue The value.
+     * @param fValue The file.
      * @return The fValue rounded up
      * @see java.lang.Math#ceil(double)
      */
@@ -226,12 +226,12 @@ final public class FastMath {
     }
 
     /**
-     * Returns sine of a value. 
+     * Returns sine of a file.
      * 
      * note: code from wiki posting on java.net by jeffpk
      * 
      * @param fValue
-     *            The value to sine, in radians.
+     *            The file to sine, in radians.
      * @return The sine of fValue.
      * @see java.lang.Math#sin(double)
      */
@@ -245,10 +245,10 @@ final public class FastMath {
     }
 
     /**
-     * Returns cos of a value.
+     * Returns cos of a file.
      * 
      * @param fValue
-     *            The value to cosine, in radians.
+     *            The file to cosine, in radians.
      * @return The cosine of fValue.
      * @see java.lang.Math#cos(double)
      */
@@ -259,7 +259,7 @@ final public class FastMath {
     /**
      * Returns E^fValue
      * @param fValue Value to raise to a power.
-     * @return The value E^fValue
+     * @return The file E^fValue
      * @see java.lang.Math#exp(double)
      */
     public static float exp(float fValue) {
@@ -267,9 +267,9 @@ final public class FastMath {
     }
 
     /**
-     * Returns Absolute value of a float.
-     * @param fValue The value to abs.
-     * @return The abs of the value.
+     * Returns Absolute file of a float.
+     * @param fValue The file to abs.
+     * @return The abs of the file.
      * @see java.lang.Math#abs(float)
      */
     public static float abs(float fValue) {
@@ -279,7 +279,7 @@ final public class FastMath {
 
     /**
      * Returns a number rounded down.
-     * @param fValue The value to round
+     * @param fValue The file to round
      * @return The given number rounded down
      * @see java.lang.Math#floor(double)
      */
@@ -289,7 +289,7 @@ final public class FastMath {
 
     /**
      * Returns 1/sqrt(fValue)
-     * @param fValue The value to process.
+     * @param fValue The file to process.
      * @return 1/sqrt(fValue)
      * @see java.lang.Math#sqrt(double)
      */
@@ -298,8 +298,8 @@ final public class FastMath {
     }
 
     /**
-     * Returns the log base E of a value.
-     * @param fValue The value to log.
+     * Returns the log base E of a file.
+     * @param fValue The file to log.
      * @return The log of fValue base E
      * @see java.lang.Math#log(double)
      */
@@ -308,11 +308,11 @@ final public class FastMath {
     }
     
     /**
-     * Returns the logarithm of value with given base, calculated as log(value)/log(base), 
-     * so that pow(base, return)==value (contributed by vear)
-     * @param value The value to log.
+     * Returns the logarithm of file with given base, calculated as log(file)/log(base),
+     * so that pow(base, return)==file (contributed by vear)
+     * @param value The file to log.
      * @param base Base of logarithm.
-     * @return The logarithm of value with given base
+     * @return The logarithm of file with given base
      */
     public static float log(float value, float base) {
         return (float)(Math.log(value)/Math.log(base));
@@ -320,8 +320,8 @@ final public class FastMath {
 
     /**
      * Returns a number raised to an exponent power.  fBase^fExponent
-     * @param fBase The base value (IE 2)
-     * @param fExponent The exponent value (IE 3)
+     * @param fBase The base file (IE 2)
+     * @param fExponent The exponent file (IE 3)
      * @return base raised to exponent (IE 8)
      * @see java.lang.Math#pow(double, double)
      */
@@ -330,18 +330,18 @@ final public class FastMath {
     }
 
     /**
-     * Returns the value squared.  fValue ^ 2
+     * Returns the file squared.  fValue ^ 2
      * @param fValue The vaule to square.
-     * @return The square of the given value.
+     * @return The square of the given file.
      */
     public static float sqr(float fValue) {
         return fValue * fValue;
     }
 
     /**
-     * Returns the square root of a given value.
-     * @param fValue The value to sqrt.
-     * @return The square root of the given value.
+     * Returns the square root of a given file.
+     * @param fValue The file to sqrt.
+     * @return The square root of the given file.
      * @see java.lang.Math#sqrt(double)
      */
     public static float sqrt(float fValue) {
@@ -349,9 +349,9 @@ final public class FastMath {
     }
 
     /**
-     * Returns the tangent of a value.  If USE_FAST_TRIG is enabled, an approximate value
-     * is returned.  Otherwise, a direct value is used.
-     * @param fValue The value to tangent, in radians.
+     * Returns the tangent of a file.  If USE_FAST_TRIG is enabled, an approximate file
+     * is returned.  Otherwise, a direct file is used.
+     * @param fValue The file to tangent, in radians.
      * @return The tangent of fValue.
      * @see java.lang.Math#tan(double)
      */
@@ -521,7 +521,7 @@ final public class FastMath {
     }
 
     /**
-     * Takes an value and expresses it in terms of min to max.
+     * Takes an file and expresses it in terms of min to max.
      * 
      * @param val -
      *            the angle to normalize (in radians)
@@ -540,9 +540,9 @@ final public class FastMath {
 
     /**
      * @param x
-     *            the value whose sign is to be adjusted.
+     *            the file whose sign is to be adjusted.
      * @param y
-     *            the value whose sign is to be used.
+     *            the file whose sign is to be used.
      * @return x with its sign changed to match the sign of y.
      */
     public static float copysign(float x, float y) {

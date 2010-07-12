@@ -313,7 +313,7 @@ public class ImageViewportPresenter extends BrainFlowPresenter {
         //yfovSlider.setModel(yfovAdapter);
 
         // this line links zero and zero extent so that changing zero changes the other
-        //PropertyConnector.connect(xextent, "value", yextent, "value");
+        //PropertyConnector.connect(xextent, "file", yextent, "file");
 
     }
 
@@ -357,12 +357,12 @@ public class ImageViewportPresenter extends BrainFlowPresenter {
 
 
 
-        //xspinnerModel = new SpinnerNumberModel((Number) xval.value(), getXLowerBound(view), getXUpperBound(view), 1);
-        //yspinnerModel = new SpinnerNumberModel((Number) yval.value(), getYLowerBound(view), getYUpperBound(view), 1);
+        //xspinnerModel = new SpinnerNumberModel((Number) xval.file(), getXLowerBound(view), getXUpperBound(view), 1);
+        //yspinnerModel = new SpinnerNumberModel((Number) yval.file(), getYLowerBound(view), getYUpperBound(view), 1);
 
 
-        //SpinnerAdapterFactory.connect(xspinnerModel, xval, xval.value());
-        //SpinnerAdapterFactory.connect(yspinnerModel, yval, yval.value());
+        //SpinnerAdapterFactory.connect(xspinnerModel, xval, xval.file());
+        //SpinnerAdapterFactory.connect(yspinnerModel, yval, yval.file());
 
 
     }

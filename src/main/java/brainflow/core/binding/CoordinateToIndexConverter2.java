@@ -72,7 +72,7 @@ public class CoordinateToIndexConverter2 extends ObservableWrapper.ReadWrite<Int
         System.out.println("setting coordinate to index " + i);
         System.out.println("axis : " + axis);
         System.out.println("setting voxel index to " + i);
-        System.out.println("grid value : " + voxel);
+        System.out.println("grid file : " + voxel);
 
         if (axis == Axis.X_AXIS) {
              voxel = new Index3D(i, voxel.i2(), voxel.i3());

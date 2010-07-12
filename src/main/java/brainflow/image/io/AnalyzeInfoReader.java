@@ -9,6 +9,7 @@ package brainflow.image.io;
 import brainflow.core.BrainFlowException;
 import brainflow.utils.DataType;
 import brainflow.utils.Dimension3D;
+import brainflow.utils.Dimension4D;
 import brainflow.utils.Point3D;
 import org.apache.commons.vfs.FileObject;
 import org.apache.commons.vfs.FileSystemException;
@@ -115,6 +116,7 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
 
     }
 
+
     
 
 
@@ -150,8 +152,10 @@ public class AnalyzeInfoReader extends AbstractInfoReader {
 
            if (dim[4] > 1) {
                builder.dimensionality(4);
+               builder.dimensions(new Dimension3D<Integer>((int) dim[1], (int) dim[2], (int) dim[3]));
            } else {
                builder.dimensionality(3);
+               builder.dimensions(new Dimension4D<Integer>((int) dim[1], (int) dim[2], (int) dim[3], (int) dim[4]));
            }
 
             builder.voxelOffset(new Dimension3D<Integer>((int) dim[5], (int) dim[6], (int) dim[7]));

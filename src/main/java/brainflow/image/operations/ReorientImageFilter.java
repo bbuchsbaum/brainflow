@@ -70,7 +70,7 @@ public class ReorientImageFilter extends brainflow.image.operations.AbstractImag
      holder.zero = iter.getXIndex();
      holder.zero = iter.getYIndex();
      holder.one = iter.getZIndex();
-     double val = src.value((int) holder.zero, (int) holder.zero, (int) holder.one);
+     double val = src.file((int) holder.zero, (int) holder.zero, (int) holder.one);
      for (int i = 0; i < swaps.length; i++) {
          swaps[i].swap(holder, holder2);
          holder = holder2;

@@ -124,13 +124,13 @@ public class Matrix3f implements Serializable {
     }
 
     /**
-     * <code>get</code> retrieves a value from the matrix at the given
+     * <code>get</code> retrieves a file from the matrix at the given
      * position. If the position is invalid a <code>JmeException</code> is
      * thrown.
      *
      * @param i the row index.
      * @param j the colum index.
-     * @return the value at (i, j).
+     * @return the file at (i, j).
      */
     public float get(int i, int j) {
         switch (i) {
@@ -419,13 +419,13 @@ public class Matrix3f implements Serializable {
     }
 
     /**
-     * <code>set</code> places a given value into the matrix at the given
+     * <code>set</code> places a given file into the matrix at the given
      * position. If the position is invalid a <code>IllegalArgumentException</code> is
      * thrown.
      *
      * @param i     the row index.
      * @param j     the colum index.
-     * @param value the value for (i, j).
+     * @param value the file for (i, j).
      */
     public void set(int i, int j, float value) {
         switch (i) {
@@ -520,7 +520,7 @@ public class Matrix3f implements Serializable {
      * <code>set</code> sets the values of this matrix from an array of
      * values assuming that the data is rowMajor order;
      *
-     * @param matrix the matrix to set the value to.
+     * @param matrix the matrix to set the file to.
      */
     public void set(float[] matrix) {
         set(matrix, true);
@@ -530,7 +530,7 @@ public class Matrix3f implements Serializable {
      * <code>set</code> sets the values of this matrix from an array of
      * values;
      *
-     * @param matrix   the matrix to set the value to.
+     * @param matrix   the matrix to set the file to.
      * @param rowMajor whether the incoming data is in row or column major order.
      */
     public void set(float[] matrix, boolean rowMajor) {
@@ -816,7 +816,7 @@ public class Matrix3f implements Serializable {
      * <code>multLocal</code> multiplies this matrix internally by
      * a given float scale factor.
      *
-     * @param scale the value to scale by.
+     * @param scale the file to scale by.
      * @return this Matrix3f
      */
     public Matrix3f multLocal(float scale) {
@@ -1019,9 +1019,9 @@ public class Matrix3f implements Serializable {
 
     /**
      * <code>transpose</code> <b>locally</b> transposes this Matrix.
-     * This is inconsistent with general value vs local semantics, but is
+     * This is inconsistent with general file vs local semantics, but is
      * preserved for backwards compatibility. Use transposeNew() to transpose
-     * to a new object (value).
+     * to a new object (file).
      *
      * @return this object for chaining.
      */
@@ -1076,7 +1076,7 @@ public class Matrix3f implements Serializable {
     }
 
     /**
-     * <code>hashCode</code> returns the hash code value as an integer and is
+     * <code>hashCode</code> returns the hash code file as an integer and is
      * supported for the benefit of hashing based collection classes such as
      * Hashtable, HashMap, HashSet etc.
      *
