@@ -1,6 +1,6 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,9 +12,9 @@ import brainflow.image.anatomy.GridLoc3D;
 public interface SliceController {
 
 
-    public GridLoc3D getSlice();
+    public GridPoint3D getSlice();
 
-    public void setSlice(GridLoc3D slice);
+    public void setSlice(GridPoint3D slice);
 
     public void nextSlice();
 

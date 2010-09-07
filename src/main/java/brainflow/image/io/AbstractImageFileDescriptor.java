@@ -166,7 +166,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
 
     public String getDataName(FileObject headerFile) {
         if (!isHeaderMatch(headerFile.getName().getBaseName())) {
-            throw new IllegalArgumentException("headerFile " + headerFile.getName().getBaseName() + " does not match expected naming convention for file type: " + getFileFormat());
+            throw new IllegalArgumentException("file " + headerFile.getName().getBaseName() + " does not match expected naming convention for file type: " + getFileFormat());
         }
 
         String stem = stripExtension(headerFile.getName().getBaseName());
@@ -177,7 +177,7 @@ public abstract class AbstractImageFileDescriptor implements IImageFileDescripto
 
     public String getHeaderName(FileObject dataFile) {
         if (!isDataMatch(dataFile.getName().getBaseName())) {
-            throw new IllegalArgumentException("headerFile " + dataFile.getName().getBaseName() + " does not match expected naming convention for file type: " + getFileFormat());
+            throw new IllegalArgumentException("file " + dataFile.getName().getBaseName() + " does not match expected naming convention for file type: " + getFileFormat());
         }
 
         String stem = stripExtension(dataFile.getName().getBaseName());

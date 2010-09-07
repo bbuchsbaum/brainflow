@@ -165,7 +165,7 @@ public class TestNifti1Api {
                     for (k = 0; k < zz; k++)
                         for (j = 0; j < yy; j++)
                             for (i = 0; i < xx; i++) {
-                                /// vals are slice #
+                                /// vals are cutPoint #
                                 if (args[7].equals("A")) {
                                     data[k][j][i] = l;
                                 } else if (args[7].equals("B")) {

@@ -22,7 +22,6 @@ public class ImageSlicer {
 
     private IImageData3D image;
 
-
     public static ImageSlicer createSlicer(IImageSpace3D refSpace, IImageData3D data) {
         if (refSpace.equals(data.getImageSpace())) {
             return new ImageSlicer(data);
@@ -41,7 +40,6 @@ public class ImageSlicer {
 
     }
 
-
     public ImageSlicer(IImageData3D _image) {
         image = _image;
 
@@ -52,12 +50,8 @@ public class ImageSlicer {
     }
 
     public IImageData2D getSlice(Anatomy3D displayAnatomy, int fixedSlice) {
-     
         ImageFiller filler = new ImageFiller();
         return filler.fillImage(image, displayAnatomy, fixedSlice);
-
-
-
     }
 
 

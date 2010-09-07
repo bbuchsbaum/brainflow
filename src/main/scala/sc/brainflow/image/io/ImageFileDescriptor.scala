@@ -68,17 +68,23 @@ trait ImageFileDescriptor {
     }
   }
 
-  def getDataName(headerFile: FileObject): String = {
-    require(isHeaderMatch(headerFile.name), "headerFile " + headerFile.name + " does not match expected naming convention for file type: " + fileFormat)
-
-    stripExtension(headerFile.name) + "." + dataExtension
+  def getDataName(file: FileObject): String = {
+    require(isHeaderMatch(file.name) || isDataMatch(file.name), "file " + file.name + " does not match expected naming convention for file type: " + fileFormat)
+    if (isDataMatch(file.name)) {
+      file.name
+    } else {
+      stripExtension(file.name) + "." + dataExtension
+    }
   }
 
 
-  def getHeaderName(dataFile: FileObject): String = {
-    require(isDataMatch(dataFile.name), "headerFile " + dataFile.name + " does not match expected naming convention for file type: " + fileFormat)
-
-    stripExtension(dataFile.name) + "." + dataExtension
+  def getHeaderName(file: FileObject): String = {
+    require(isHeaderMatch(file.name) || isDataMatch(file.name), "file " + file.name + " does not match expected naming convention for file type: " + fileFormat)
+    if (isHeaderMatch(file.name)) {
+      file.name
+    } else {
+      stripExtension(file.name) + "." + dataExtension
+    }
 
   }
 
@@ -158,7 +164,6 @@ object ImageFileDescriptors {
     def createInfoReader(headerFile: FileObject, dataFile: FileObject) = new NiftiInfoReader(headerFile, dataFile)
 
     def readMetaInfo(headerFile: FileObject) = {
-      println("reading nifti meta info")
       val dataFileOption = VFSUtils.resolveFileObject(headerFile.parent, getDataName(headerFile), true)
       readNiftiMetaInfo(headerFile, dataFileOption, this)
     }

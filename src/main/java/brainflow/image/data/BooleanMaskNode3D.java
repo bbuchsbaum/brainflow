@@ -33,14 +33,18 @@ public class BooleanMaskNode3D implements IMaskedData3D {
 
 
     public BooleanMaskNode3D(IMaskedData3D left, IMaskedData3D right) {
-        //todo assert left and rigfht have same space
+        if (left.getImageSpace().sameGeometry(right.getImageSpace())) {
+            throw new IllegalArgumentException("left and right masks must have same geometry");
+        }
         this.left = left;
         this.right = right;
 
     }
 
     public BooleanMaskNode3D(IMaskedData3D left, IMaskedData3D right, BooleanOperation operation) {
-        //todo assert left and rigfht have same space
+        if (left.getImageSpace().sameGeometry(right.getImageSpace())) {
+            throw new IllegalArgumentException("left and right masks must have same geometry");
+        }
         this.left = left;
         this.right = right;
         this.operation = operation;
@@ -85,16 +89,7 @@ public class BooleanMaskNode3D implements IMaskedData3D {
         return left.indexOf(x, y, z);
     }
 
-
-    public void setValue(int idx, double val) {
-        throw new RuntimeException("illegal operation");
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    public void setValue(int x, int y, int z, double val) {
-        throw new RuntimeException("illegal operation");
-    }
-
+    @Override
     public ImageBuffer3D createBuffer(boolean clear) {
         throw new UnsupportedOperationException();
     }

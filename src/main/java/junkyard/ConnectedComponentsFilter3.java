@@ -98,7 +98,7 @@ public class ConnectedComponentsFilter3 extends AbstractImageFilter {
 
                         /*
                           For 18(edge)-connectivity
-                          N.B. In current slice no difference to 26.
+                          N.B. In current cutPoint no difference to 26.
                         */
 
                         if ((y > 0) && (x > 0)) {

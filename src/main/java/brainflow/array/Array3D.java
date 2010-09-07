@@ -36,7 +36,7 @@ public abstract class Array3D implements IArray3D, IArrayBuffer3D {
 
     @Override
     public final int indexOf(int i, int j, int k) {
-        return k * dim_01 + j * dim0 + i;
+        return (k * dim_01) + (j * dim0) + i;
     }
 
     @Override

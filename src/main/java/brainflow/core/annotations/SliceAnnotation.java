@@ -1,7 +1,7 @@
 package brainflow.core.annotations;
 
 import brainflow.core.IImagePlot;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -16,7 +16,7 @@ import java.awt.geom.Rectangle2D;
 public class SliceAnnotation extends AbstractAnnotation {
 
 
-    public static final String ID = "slice label";
+    public static final String ID = "cutPoint label";
 
     private Color fontColor = Color.WHITE;
 
@@ -33,7 +33,7 @@ public class SliceAnnotation extends AbstractAnnotation {
 
         FontMetrics fmetric = g2d.getFontMetrics(font);
 
-        GridLoc3D pt = plot.getSlice();
+        GridPoint3D pt = plot.getSlice();
         
         String label = "" + (int)Math.round(pt.getValue(plot.getDisplayAnatomy().ZAXIS, false).getValue());
         Rectangle2D strBounds = fmetric.getStringBounds(label, g2d);

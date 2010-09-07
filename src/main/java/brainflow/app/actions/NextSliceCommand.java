@@ -12,7 +12,7 @@ import brainflow.core.ImageView;
 public class NextSliceCommand extends BrainFlowCommand {
 
     public NextSliceCommand() {
-        super("next-slice");
+        super("next-cutPoint");
     }
 
     protected void handleExecute() {

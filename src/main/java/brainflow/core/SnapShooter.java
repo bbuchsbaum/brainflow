@@ -68,7 +68,7 @@ public class SnapShooter {
 
         BufferedImage img = gf.createCompatibleImage(width, height);
 
-        //procurer.setSlice(new BrainPoint1D(displayAnatomy.ZAXIS, slice));
+        //procurer.setSlice(new BrainPoint1D(displayAnatomy.ZAXIS, cutPoint));
         //emulator.paint(img.createGraphics(), new Rectangle(0, 0, width, height));
         return img;
     }
@@ -92,7 +92,7 @@ public class SnapShooter {
     public RenderedImage[] shootContinuously(double startSlice, double endSlice, double increment) {
         AxisRange range = viewModel.getImageAxis(displayAnatomy.ZAXIS).getRange();
         if (!range.contains(startSlice) || (!range.contains(endSlice))) {
-            throw new IllegalArgumentException("Illegal slice range " + startSlice + " to " + endSlice);
+            throw new IllegalArgumentException("Illegal cutPoint range " + startSlice + " to " + endSlice);
         }
 
         List<RenderedImage> list = new ArrayList<RenderedImage>();

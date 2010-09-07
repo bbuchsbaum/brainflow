@@ -43,15 +43,15 @@ public class CompositeImageProducer extends AbstractImageProducer {
 
 
     public CompositeImageProducer(IImagePlot plot) {
-        this(plot, GridLoc3D.fromReal(plot.getModel().getImageSpace().getCentroid(), plot.getModel().getImageSpace()));
+        this(plot, GridPoint3D.fromReal(plot.getModel().getImageSpace().getCentroid(), plot.getModel().getImageSpace()));
 
     }
 
-    public CompositeImageProducer(IImagePlot plot, GridLoc3D slice) {
+    public CompositeImageProducer(IImagePlot plot, GridPoint3D slice) {
         this(plot, slice, Executors.newSingleThreadExecutor());
     }
 
-    public CompositeImageProducer(IImagePlot plot, GridLoc3D slice, ExecutorService service) {
+    public CompositeImageProducer(IImagePlot plot, GridPoint3D slice, ExecutorService service) {
         super();
         this.plot = plot;
         setSlice(slice);
@@ -81,11 +81,11 @@ public class CompositeImageProducer extends AbstractImageProducer {
         //getPlot().getComponent().repaint();
     }
 
-    public void setSlice(GridLoc3D slice) {
-        //System.out.println("setting slice for display Anatomy " + getDisplayAnatomy().ZAXIS);
+    public void setSlice(GridPoint3D slice) {
+        //System.out.println("setting cutPoint for display Anatomy " + getDisplayAnatomy().ZAXIS);
         GridLoc1D pt = slice.getValue(getDisplayAnatomy().ZAXIS, true);
-        //System.out.println("grid slice is " + slice);
-        //System.out.println("display slice is " + pt);
+        //System.out.println("grid cutPoint is " + cutPoint);
+        //System.out.println("display cutPoint is " + pt);
         if (!NumberUtils.equals(pt.getValue(), getSlice().getValue(getDisplayAnatomy().ZAXIS, true).getValue(), .0001)) {
             super.setSlice(slice);
             dirty = true;
@@ -177,8 +177,8 @@ public class CompositeImageProducer extends AbstractImageProducer {
             lastImage = ((TerminalFeeder) pipeline.getTerminalFeeder()).getImage();
             dirty = false;
         } catch (Exception ex) {
-            GridLoc3D gp = plot.getSlice();
-            log.info("error occurred while rendering slice " + gp);
+            GridPoint3D gp = plot.getSlice();
+            log.info("error occurred while rendering cutPoint " + gp);
             throw new RuntimeException("error during image rendering: " + ex.getMessage(), ex);
         }
 

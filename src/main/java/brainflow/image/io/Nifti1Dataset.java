@@ -51,7 +51,7 @@ import java.util.zip.GZIPInputStream;
  * <p/>
  * <li>
  * Will need to change read/writeVol methods to call read/write
- * slice methds b/c blob_size has to be an int but should be a long.
+ * cutPoint methds b/c blob_size has to be an int but should be a long.
  * 32 bit int only allows max volume 1625^3 which is too small.
  * </li>
  * <p/>
@@ -61,7 +61,7 @@ import java.util.zip.GZIPInputStream;
  * </li>
  * <p/>
  * <li>
- * Add simple method to make a Java AWT image from a slice
+ * Add simple method to make a Java AWT image from a cutPoint
  * </li>
  * <p/>
  * <li>
@@ -182,7 +182,7 @@ public class Nifti1Dataset {
     public static final short NIFTI_UNITS_HZ = 32;
     public static final short NIFTI_UNITS_PPM = 40;
 
-    // slice order codes for slice_code
+    // cutPoint order codes for slice_code
     public static final short NIFTI_SLICE_SEQ_INC = 1;
     public static final short NIFTI_SLICE_SEQ_DEC = 2;
     public static final short NIFTI_SLICE_ALT_INC = 3;
@@ -222,23 +222,23 @@ public class Nifti1Dataset {
     public int extents;    // UNUSED
     public short session_error;    // UNUSED
     public StringBuffer regular;    // 1 char UNUSED
-    public StringBuffer dim_info;    // 1 char MRI slice ordering
+    public StringBuffer dim_info;    // 1 char MRI cutPoint ordering
     public short dim[];        // data array dimensions (8 shorts)
     public float intent[];    // intents p1 p2 p3
     public short intent_code;    // nifti intent code for dataset
     public short datatype;    // dataType of image blob
     public short bitpix;        // #bits per voxel
-    public short slice_start;    // first slice index
+    public short slice_start;    // first cutPoint index
     public float pixdim[];    // grid spacings
     public float vox_offset;    // offset to data blob in .nii file
     public float scl_slope;    // data scaling: slope
     public float scl_inter;    // data scaling: intercept
-    public short slice_end;    // last slice index
-    public byte slice_code;    // slice timing order
+    public short slice_end;    // last cutPoint index
+    public byte slice_code;    // cutPoint timing order
     public byte xyzt_units;    // units of pixdim[1-4]
     public float cal_max;    // max display intensity
     public float cal_min;    // min display intensity
-    public float slice_duration;    // time to acq. 1 slice
+    public float slice_duration;    // time to acq. 1 cutPoint
     public float toffset;    // time axis shift
     public int glmax;        // UNUSED
     public int glmin;        // UNUSED
@@ -1296,9 +1296,9 @@ public class Nifti1Dataset {
 
         ///// Slice order/timing stuff
         System.out.println("Slice timing code:\three\three\three\three" + slice_code + " (" + decodeSliceOrder((short) slice_code) + ")");
-        System.out.println("MRI slice ordering (freq, phase, slice index):\three" + freq_dim + " " + phase_dim + " " + slice_dim);
+        System.out.println("MRI cutPoint ordering (freq, phase, cutPoint index):\three" + freq_dim + " " + phase_dim + " " + slice_dim);
 
-        System.out.println("Start/end slice:\three\three\three\three" + slice_start + " " + slice_end);
+        System.out.println("Start/end cutPoint:\three\three\three\three" + slice_start + " " + slice_end);
         System.out.println("Slice duration:\three\three\three\three\three" + slice_duration);
 
         ///// Orientation stuff
@@ -1794,10 +1794,10 @@ public class Nifti1Dataset {
 
     //////////////////////////////////////////////////////////////////
     /**
-     * Decode the nifti slice order codes
+     * Decode the nifti cutPoint order codes
      *
-     * @param code nifti slice order code
-     * @return a terse string describing the slice order
+     * @param code nifti cutPoint order code
+     * @return a terse string describing the cutPoint order
      */
     public String decodeSliceOrder(short code) {
 
@@ -2001,7 +2001,7 @@ public class Nifti1Dataset {
         extents = 0;        // UNUSED
         session_error = 0;        // UNUSED
         regular = new StringBuffer("\0");    // UNUSED
-        dim_info = new StringBuffer("\0");    // MRI slice ordering
+        dim_info = new StringBuffer("\0");    // MRI cutPoint ordering
         freq_dim = 0;
         phase_dim = 0;
         slice_dim = 0;
@@ -2016,7 +2016,7 @@ public class Nifti1Dataset {
         intent_code = NIFTI_INTENT_NONE;
         datatype = DT_NONE;        // dataType of image blob
         bitpix = 0;            // #bits per voxel
-        slice_start = 0;        // first slice index
+        slice_start = 0;        // first cutPoint index
         pixdim = new float[8];        // grid spacings
         pixdim[0] = 1;
         qfac = 1;
@@ -2026,15 +2026,15 @@ public class Nifti1Dataset {
         // at this point don'three know filetype
         scl_slope = (float) 0.0;        // data scaling: slope
         scl_inter = (float) 0.0;        // data scaling: intercept
-        slice_end = 0;            // last slice index
-        slice_code = (byte) 0;        // slice timing order
+        slice_end = 0;            // last cutPoint index
+        slice_code = (byte) 0;        // cutPoint timing order
         xyzt_units = (byte) 0;        // units of pixdim[1-4]
         xyz_unit_code = NIFTI_UNITS_UNKNOWN;
         t_unit_code = NIFTI_UNITS_UNKNOWN;
 
         cal_max = (float) 0.0;        // max display intensity
         cal_min = (float) 0.0;        // min display intensity
-        slice_duration = (float) 0.0;    // time to acq. 1 slice
+        slice_duration = (float) 0.0;    // time to acq. 1 cutPoint
         toffset = (float) 0.0;        // time axis shift
         glmax = 0;            // UNUSED
         glmin = 0;            // UNUSED

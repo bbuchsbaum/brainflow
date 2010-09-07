@@ -2,7 +2,7 @@ package brainflow.app.services;
 
 import brainflow.core.ImageView;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.anatomy.SpatialLoc3D;
 
 /**
@@ -18,7 +18,7 @@ public class ImageViewCursorEvent extends ImageViewEvent {
      */
 
 
-    private GridLoc3D cpos;
+    private GridPoint3D cpos;
 
     private SpatialLoc3D spos;
 
@@ -29,7 +29,7 @@ public class ImageViewCursorEvent extends ImageViewEvent {
         spos = view.worldCursorPos.get();
     }
 
-    public GridLoc3D getCursor() {
+    public GridPoint3D getCursor() {
         return cpos;
     }
 

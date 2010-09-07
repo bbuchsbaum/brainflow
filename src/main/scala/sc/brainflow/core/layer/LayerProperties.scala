@@ -1,4 +1,4 @@
-package sc.brainflow.core
+package sc.brainflow.core.layer
 
 import brainflow.core.IClipRange
 import boxwood.binding.Observable

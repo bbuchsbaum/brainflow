@@ -2,7 +2,7 @@ package brainflow.core;
 
 import brainflow.display.InterpolationType;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.axis.AxisRange;
 import brainflow.image.space.Space;
 
@@ -21,7 +21,7 @@ public abstract class AbstractImageProducer implements IImageProducer {
     private ImageViewModel model;
 
 
-    private GridLoc3D slice = GridLoc3D.fromReal(0,0,0, Space.createImageSpace(1,1,1,1,1,1));
+    private GridPoint3D slice = GridPoint3D.fromReal(0,0,0, Space.createImageSpace(1,1,1,1,1,1));
 
     private Rectangle screenSize;
 
@@ -30,7 +30,7 @@ public abstract class AbstractImageProducer implements IImageProducer {
 
     public void setModel(ImageViewModel model) {
         this.model = model;
-        slice = GridLoc3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
+        slice = GridPoint3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
     }
 
     public ImageViewModel getModel() {
@@ -40,7 +40,7 @@ public abstract class AbstractImageProducer implements IImageProducer {
 
     public abstract Anatomy3D getDisplayAnatomy();
 
-    public void setSlice(GridLoc3D slice) {
+    public void setSlice(GridPoint3D slice) {
         this.slice = slice;
     }
 
@@ -58,7 +58,7 @@ public abstract class AbstractImageProducer implements IImageProducer {
     public abstract AxisRange getYAxis();
 
 
-    public GridLoc3D getSlice() {
+    public GridPoint3D getSlice() {
         return slice;
     }
 

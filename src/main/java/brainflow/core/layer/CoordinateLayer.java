@@ -1,13 +1,11 @@
 package brainflow.core.layer;
 
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.space.ICoordinateSpace;
 import brainflow.image.space.IImageSpace;
 import brainflow.image.data.CoordinateSet3D;
 import brainflow.core.rendering.BasicCoordinateSliceRenderer;
-import brainflow.core.layer.AbstractLayer;
-import brainflow.core.layer.LayerProps;
 import brainflow.core.SliceRenderer;
 
 /**
@@ -26,7 +24,7 @@ public class CoordinateLayer extends AbstractLayer {
         coordinates = coords;
     }
 
-    public double getValue(GridLoc3D pt) {
+    public double getValue(GridPoint3D pt) {
         return 0;
     }
 
@@ -34,7 +32,7 @@ public class CoordinateLayer extends AbstractLayer {
         return coordinates;
     }
 
-    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridLoc3D slice, Anatomy3D displayAnatomy) {
+    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
        return new BasicCoordinateSliceRenderer(this, slice, displayAnatomy);
     }
 

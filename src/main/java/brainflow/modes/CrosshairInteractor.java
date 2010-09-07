@@ -1,7 +1,7 @@
 package brainflow.modes;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +44,7 @@ public class CrosshairInteractor extends ImageViewInteractor {
         }
 
 
-        GridLoc3D gp = iview.getAnatomicalLocation(source, p);
+        GridPoint3D gp = iview.getAnatomicalLocation(source, p);
 
         if (gp != null && iview.getViewport().inBounds(gp.toReal())) {
             iview.cursorPos.set(gp);

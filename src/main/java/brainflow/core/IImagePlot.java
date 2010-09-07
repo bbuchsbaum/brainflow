@@ -3,7 +3,7 @@ package brainflow.core;
 import brainflow.core.annotations.IAnnotation;
 import brainflow.display.InterpolationType;
 import brainflow.image.anatomy.Anatomy3D;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.anatomy.SpatialLoc2D;
 import brainflow.image.axis.AxisRange;
 
@@ -53,9 +53,9 @@ public interface IImagePlot {
 
     public double getScaleY();
 
-    public void setSlice(GridLoc3D slice);
+    public void setSlice(GridPoint3D slice);
 
-    public GridLoc3D getSlice();
+    public GridPoint3D getSlice();
 
     public Point translateAnatToScreen(SpatialLoc2D pt);
 

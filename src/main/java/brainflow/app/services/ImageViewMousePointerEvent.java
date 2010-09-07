@@ -1,7 +1,7 @@
 package brainflow.app.services;
 
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 
 import java.awt.event.MouseEvent;
 
@@ -14,21 +14,21 @@ import java.awt.event.MouseEvent;
  */
 public class ImageViewMousePointerEvent extends ImageViewMouseEvent {
 
-    private GridLoc3D ap;
+    private GridPoint3D ap;
 
     public ImageViewMousePointerEvent(ImageView view, MouseEvent _event) {
         super(view, _event);
 
     }
 
-    public GridLoc3D getLocation() {
+    public GridPoint3D getLocation() {
 
         if (ap == null) {
             MouseEvent event = getEvent();
 
-            GridLoc3D cursorPos = getImageView().getCursorPos();
+            GridPoint3D cursorPos = getImageView().getCursorPos();
             if (!getImageView().pointInPlot(event.getComponent(), event.getPoint())) {
-                ap = new GridLoc3D(0,0,0, cursorPos.getSpace());
+                ap = new GridPoint3D(0,0,0, cursorPos.getSpace());
             } else {
                 ap = getImageView().getAnatomicalLocation(event.getComponent(), event.getPoint());
             }
@@ -41,7 +41,7 @@ public class ImageViewMousePointerEvent extends ImageViewMouseEvent {
 
     public String toString() {
         StringBuilder builder = new StringBuilder("Cursor at : ");
-        GridLoc3D tmp = getLocation();
+        GridPoint3D tmp = getLocation();
         if (tmp == null) return "cursorPos : --";
 
         builder.append("zero: " + (int) getLocation().getX().getValue());

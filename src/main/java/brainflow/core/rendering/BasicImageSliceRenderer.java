@@ -36,7 +36,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
     private static final Logger log = Logger.getLogger(BasicImageSliceRenderer.class.getName());
 
-    private GridLoc3D slice;
+    private GridPoint3D slice;
 
     private ImageLayer3D layer;
 
@@ -65,7 +65,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     private IColorMap lastColorMap;
 
 
-    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridLoc3D slice) {
+    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice) {
         //todo not DRY
         this.slice = slice;
         this.layer = layer;
@@ -82,7 +82,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
 
-    public BasicImageSliceRenderer(BasicImageSliceRenderer renderer, GridLoc3D slice, boolean keepCache) {
+    public BasicImageSliceRenderer(BasicImageSliceRenderer renderer, GridPoint3D slice, boolean keepCache) {
         //todo not DRY
         this.slice = slice;
         this.layer = renderer.layer;
@@ -109,7 +109,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
 
 
 
-    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridLoc3D slice, Anatomy3D displayAnatomy) {
+    public BasicImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice, Anatomy3D displayAnatomy) {
         this.slice = slice;
         this.layer = layer;
         this.refSpace = refSpace;
@@ -244,7 +244,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
     }
 
     @Override
-    public void setSlice(GridLoc3D slice) {
+    public void setSlice(GridPoint3D slice) {
         if (!getSlice().equals(slice)) {
             this.slice = slice;
             flush();
@@ -283,7 +283,7 @@ public class BasicImageSliceRenderer implements SliceRenderer {
         return true;
     }
 
-    public GridLoc3D getSlice() {
+    public GridPoint3D getSlice() {
         return slice;
     }
 

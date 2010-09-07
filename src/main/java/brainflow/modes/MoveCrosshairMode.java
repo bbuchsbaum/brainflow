@@ -2,7 +2,7 @@ package brainflow.modes;
 
 import brainflow.core.BrainCanvas;
 import brainflow.core.ImageView;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class MoveCrosshairMode extends ImageCanvasMode {
         if (iview == null) return;
         if (canvas.isSelectedView(iview)) {
 
-            GridLoc3D ap = iview.getAnatomicalLocation(source, p);
+            GridPoint3D ap = iview.getAnatomicalLocation(source, p);
             //ap = ap.convertTo((IImageSpace3D)iview.getModel().getImageSpace());
             if (iview.getViewport().inBounds(ap.toReal())) {
                 iview.cursorPos.set(ap);

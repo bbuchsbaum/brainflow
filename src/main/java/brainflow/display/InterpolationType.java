@@ -22,7 +22,6 @@ public enum InterpolationType {
 
     InterpolationType(int _id) {
         id = _id;
-
     }
 
     public int getID() {

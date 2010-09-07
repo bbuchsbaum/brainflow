@@ -11,7 +11,7 @@ import brainflow.image.axis.ImageAxis;
  * Time: 10:08:50 AM
  * To change this template use File | Settings | File Templates.
  */
-public class GridLoc3D implements BrainLoc {
+public class GridPoint3D implements BrainLoc {
 
 
     private GridLoc1D gridX, gridY, gridZ;
@@ -21,7 +21,7 @@ public class GridLoc3D implements BrainLoc {
     public final LocationType unit = LocationType.GRID;
 
 
-    public GridLoc3D(double x, double y, double z, IImageSpace3D space) {
+    public GridPoint3D(double x, double y, double z, IImageSpace3D space) {
         this.gridX = clamp(x, space.getImageAxis(Axis.X_AXIS));
         this.gridY = clamp(y, space.getImageAxis(Axis.Y_AXIS));
         this.gridZ = clamp(z, space.getImageAxis(Axis.Z_AXIS));
@@ -40,34 +40,34 @@ public class GridLoc3D implements BrainLoc {
         return 3;
     }
 
-    public static GridLoc3D fromWorld(double x, double y, double z, IImageSpace3D space) {
+    public static GridPoint3D fromWorld(double x, double y, double z, IImageSpace3D space) {
         float[] grid = space.worldToGrid((float) x, (float) y, (float) z);
-        return new GridLoc3D(grid[0], grid[1], grid[2], space);
+        return new GridPoint3D(grid[0], grid[1], grid[2], space);
     }
 
-    public static GridLoc3D fromReal(float x, float y, float z, IImageSpace3D space) {
+    public static GridPoint3D fromReal(float x, float y, float z, IImageSpace3D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(z);
-        return new GridLoc3D(gridx, gridy, gridz, space);
+        return new GridPoint3D(gridx, gridy, gridz, space);
     }
 
-    public static GridLoc3D fromReal(SpatialLoc3D bp, IImageSpace3D space) {
+    public static GridPoint3D fromReal(SpatialLoc3D bp, IImageSpace3D space) {
         if (space.getAnatomy() != bp.getAnatomy()) {
             throw new IllegalArgumentException("incompatible axes: BrainPoint3D " + bp.getAnatomy() + " does not equals IIMageSpace3D anatomy: " + space.getAnatomy());
         }
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(bp.getX());
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(bp.getY());
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(bp.getZ());
-        return new GridLoc3D(gridx, gridy, gridz, space);
+        return new GridPoint3D(gridx, gridy, gridz, space);
     }
 
 
-    public static GridLoc3D fromReal(double x, double y, double z, IImageSpace3D space) {
+    public static GridPoint3D fromReal(double x, double y, double z, IImageSpace3D space) {
         double gridx = space.getImageAxis(Axis.X_AXIS).gridPosition(x);
         double gridy = space.getImageAxis(Axis.Y_AXIS).gridPosition(y);
         double gridz = space.getImageAxis(Axis.Z_AXIS).gridPosition(z);
-        return new GridLoc3D(gridx, gridy, gridz, space);
+        return new GridPoint3D(gridx, gridy, gridz, space);
     }
 
 
@@ -119,9 +119,9 @@ public class GridLoc3D implements BrainLoc {
 
     }
 
-    public GridLoc3D replace(SpatialLoc1D pt) {
+    public GridPoint3D replace(SpatialLoc1D pt) {
         SpatialLoc3D bp = toReal();
-        return GridLoc3D.fromReal(bp.replace(pt), space);
+        return GridPoint3D.fromReal(bp.replace(pt), space);
     }
 
     public GridLoc1D getX() {
@@ -154,7 +154,7 @@ public class GridLoc3D implements BrainLoc {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GridLoc3D that = (GridLoc3D) o;
+        GridPoint3D that = (GridPoint3D) o;
 
         if (gridX != null ? !gridX.equals(that.gridX) : that.gridX != null) return false;
         if (gridY != null ? !gridY.equals(that.gridY) : that.gridY != null) return false;

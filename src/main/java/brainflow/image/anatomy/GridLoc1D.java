@@ -33,7 +33,6 @@ public class GridLoc1D implements BrainLoc {
 
     public GridLoc1D reverse() {
         return new GridLoc1D(axis.getNumSamples() - gridX, axis.flip());
-
     }
 
     public AnatomicalAxis getAnatomy() {

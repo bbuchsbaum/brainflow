@@ -107,7 +107,7 @@ public class NiftiInfoWriter implements ImageInfoWriter<NiftiImageInfo> {
             ostream.writeByte(0);
 
             IDimension<Integer> dims = info.getVolumeDim();
-            // need to check nifti spec for freq, phase, slice. for now, use 0, 1, 2.
+            // need to check nifti spec for freq, phase, cutPoint. for now, use 0, 1, 2.
             byte b = packDimInfo((short) 0, (short) 1, (short) 2);
             ostream.writeByte(b);
 
@@ -164,10 +164,10 @@ public class NiftiInfoWriter implements ImageInfoWriter<NiftiImageInfo> {
             ostream.writeFloat(0);
             ostream.writeFloat(0);
 
-            //punting on slice duration ...
+            //punting on cutPoint duration ...
             ostream.writeFloat(1);
 
-            //punting on slice duration
+            //punting on cutPoint duration
             ostream.writeFloat(0);
 
             //punting on global_max

@@ -63,7 +63,7 @@ trait ImageMetaInfo {
 
 
 
-/*class ImageMetaInfo3D(val dataFile: Option[FileObject], val headerFile: Option[FileObject], val dim: Array[Int], val spacing: Dim3[Double],
+/*class ImageMetaInfo3D(val file: Option[FileObject], val file: Option[FileObject], val dim: Array[Int], val spacing: Dim3[Double],
                                              val index: Int = 0, val byteOffset: Int = 0, val scaleFactor: Double = 1, val intercept: Double=0,
                                              val endian: ByteOrder = ByteOrder.nativeOrder, val label: String = "untitled") extends ImageFileMetaInfo[Dim3] {
   
@@ -71,7 +71,7 @@ trait ImageMetaInfo {
 
 }
 
-class ImageMetaInfo4D(val dataFile: Option[FileObject], val headerFile: Option[FileObject], val dim: Dim4[Int], val spacing: Dim4[Double],
+class ImageMetaInfo4D(val file: Option[FileObject], val file: Option[FileObject], val dim: Dim4[Int], val spacing: Dim4[Double],
                                              val index: Int = 0, val byteOffset: Int = 0, val scaleFactor: Double = 1, val intercept: Double=0,
                                              val endian: ByteOrder = ByteOrder.nativeOrder, val label: String = "untitled") extends ImageFileMetaInfo[Dim4] {
 

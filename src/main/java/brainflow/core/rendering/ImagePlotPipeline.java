@@ -1,6 +1,6 @@
 package brainflow.core.rendering;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import org.apache.commons.pipeline.Pipeline;
 import org.apache.commons.pipeline.Stage;
 
@@ -28,7 +28,7 @@ public class ImagePlotPipeline extends Pipeline {
 
     private Rectangle2D frameBounds;
 
-    private GridLoc3D slice;
+    private GridPoint3D slice;
 
 
     public ImagePlotPipeline(IImagePlot _plot) {
@@ -71,7 +71,7 @@ public class ImagePlotPipeline extends Pipeline {
         return plot.getDisplayAnatomy();
     }
 
-    public GridLoc3D getSlice() {
+    public GridPoint3D getSlice() {
         return plot.getSlice();
     }
 

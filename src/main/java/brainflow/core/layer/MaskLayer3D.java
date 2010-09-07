@@ -1,6 +1,6 @@
 package brainflow.core.layer;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.data.*;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.space.IImageSpace;
@@ -42,7 +42,7 @@ public class MaskLayer3D extends ImageLayer3D {
     }
 
     @Override
-    public double getValue(GridLoc3D pt) {
+    public double getValue(GridPoint3D pt) {
         IImageSpace space = getCoordinateSpace();
         assert space.getAnatomy() == pt.getAnatomy();
         float x = (float) pt.getValue(space.getAnatomicalAxis(Axis.X_AXIS), false).getValue();
@@ -59,7 +59,7 @@ public class MaskLayer3D extends ImageLayer3D {
     }
 
    
-    protected SliceRenderer createSliceRenderer(IImageSpace3D refspace, GridLoc3D slice, Anatomy3D displayAnatomy) {
+    protected SliceRenderer createSliceRenderer(IImageSpace3D refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
         return new DefaultImageSliceRenderer(refspace, this, slice, displayAnatomy) {
             @Override
             protected RGBAImage thresholdRGBA(RGBAImage rgba) {
@@ -70,7 +70,7 @@ public class MaskLayer3D extends ImageLayer3D {
     }
 
     @Override
-    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridLoc3D slice, Anatomy3D displayAnatomy) {
+    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
         return createSliceRenderer((IImageSpace3D)refspace, slice, displayAnatomy);   
     }
 

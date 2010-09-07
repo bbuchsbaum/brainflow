@@ -92,14 +92,14 @@ public class ViewBounds {
 
 
     public ViewBounds newXRange(double start, double end) {
-        if (start > end) throw new IllegalArgumentException("start file cannot exceed end file");
+        if (start > end) throw new IllegalArgumentException("start cannot be greater than end");
         return new ViewBounds(referenceSpace, displayAnatomy, new AxisRange(xrange.getAnatomicalAxis(), start, end),
                 yrange);
 
     }
 
     public ViewBounds newYRange(double start, double end) {
-        if (start > end) throw new IllegalArgumentException("start file cannot exceed end file");
+        if (start > end) throw new IllegalArgumentException("start cannot be greater than end");
         return new ViewBounds(referenceSpace, displayAnatomy, xrange, new AxisRange(yrange.getAnatomicalAxis(), start, end));
 
     }

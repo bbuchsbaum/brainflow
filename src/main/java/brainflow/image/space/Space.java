@@ -1,6 +1,6 @@
 package brainflow.image.space;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.iterators.XYZIterator;
 import brainflow.image.LinearSet1D;
@@ -42,7 +42,7 @@ public class Space {
 
     }
 
-    public static boolean containsPoint(IImageSpace3D space, GridLoc3D pt) {
+    public static boolean containsPoint(IImageSpace3D space, GridPoint3D pt) {
         if (pt.getAnatomy() != space.getAnatomy()) throw new IllegalArgumentException("arguments have non-matching anatomy");
         return (pt.getX().getValue() >= 0 && pt.getX().getValue() <= space.getImageAxis(Axis.X_AXIS).getNumSamples() &&
             pt.getY().getValue() >= 0 && pt.getY().getValue() <= space.getImageAxis(Axis.Y_AXIS).getNumSamples() &&

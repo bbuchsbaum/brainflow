@@ -15,7 +15,7 @@ public class PageForwardSliceCommand extends BrainFlowCommand {
 
 
     public PageForwardSliceCommand() {
-        super("page-forward-slice");
+        super("page-forward-cutPoint");
     }
 
     protected void handleExecute() {

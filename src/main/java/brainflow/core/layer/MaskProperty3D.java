@@ -91,7 +91,7 @@ public class MaskProperty3D implements IMaskProperty<IMaskedData3D> {
                 }
             };
 
-            IMaskedData3D retmask = (IMaskedData3D) Data.createMask(pred, layer.getData());
+            IMaskedData3D retmask = Data.createMask3D(pred, layer.getData());
 
             IMaskedData3D secondaryMask = maskMap.get(MASK_KEY.EXPRESSION_MASK);
 

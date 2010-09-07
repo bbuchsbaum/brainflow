@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public class ComponentImagePlot extends JPanel implements IImagePlot {
 
-    private GridLoc3D slice;
+    private GridPoint3D slice;
 
     private ViewBounds viewBounds;
 
@@ -73,7 +73,7 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
         this.viewBounds = viewBounds;
         this.model = model;
 
-        slice = GridLoc3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
+        slice = GridPoint3D.fromReal(model.getImageSpace().getCentroid(), model.getImageSpace());
         producer = new CompositeImageProducer(this,  slice);
 
         initAnnotationListener();
@@ -119,7 +119,7 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     }
 
 
-    public void setSlice(GridLoc3D slice) {
+    public void setSlice(GridPoint3D slice) {
         if (getSlice() == null || !getSlice().equals(slice)) {
             this.slice = slice;
             producer.setSlice(slice);
@@ -129,7 +129,7 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
 
     }
 
-    public GridLoc3D getSlice() {
+    public GridPoint3D getSlice() {
         return slice;
     }
 
@@ -170,10 +170,10 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
     public Insets getPlotMargins() {
         Insets plotSlack = getPlotSlack();
         Insets plotInsets = getPlotInsets();
-        Insets insets = new Insets(plotInsets.top + plotSlack.top, plotInsets.left + plotSlack.left,
+        return new Insets(plotInsets.top + plotSlack.top, plotInsets.left + plotSlack.left,
                 plotInsets.bottom + plotSlack.bottom, plotInsets.right + plotSlack.right);
 
-        return insets;
+
     }
 
     public void setImageProducer(IImageProducer producer) {
@@ -291,7 +291,6 @@ public class ComponentImagePlot extends JPanel implements IImagePlot {
 
     public double getScaleY() {
         return plotArea.getHeight() / getYAxisRange().getInterval();
-
     }
 
     public void setPlotInsets(Insets insets) {

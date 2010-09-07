@@ -16,6 +16,9 @@ import org.apache.commons.vfs._
 import org.apache.commons.vfs.impl.DefaultFileMonitor
 import boxwood.binding.swing.tree._
 import java.awt.datatransfer.Transferable
+import scala.util.continuations._
+import actors.Actor._
+import boxwood.swing._
 
 /**
  * Created by IntelliJ IDEA.
@@ -62,12 +65,43 @@ class ImageFileExplorer(root: FileObject) extends JPanel with ImageNodeFactory {
   def treeModel = tree.treeModel
 
 
+  def block(thunk: => Unit) = {
+    shift { k: (Unit => Unit) =>
+      actor {
+        println("spawning actor, executing thunk")
+        thunk
+        SwingUtilities.invokeLater(new Runnable() {
+          def run = {
+            println("calling continuation")
+            k()
+          }
+        })
+
+      }
+
+    }
+  }
+
   private def initExpansionListener {
     treeComponent.addTreeExpansionListener(new TreeExpansionListener() {
       def treeCollapsed(event: TreeExpansionEvent) = {}
 
+
       def treeExpanded(event: TreeExpansionEvent) = {
-        println("tree expanded")
+        val node = event.getPath.getLastPathComponent.asInstanceOf[TreeNode]
+        node match {
+          case folder: ImageFolderNode if (!folder.nodesAreDefined) =>  reset {
+            SwingJob.rewind {
+              folder.fetchNodes
+            }
+
+            updateNodeContent(node)
+          }
+
+          case _ =>
+
+        }
+
       }
     })
   }
@@ -99,8 +133,7 @@ class ImageFileExplorer(root: FileObject) extends JPanel with ImageNodeFactory {
         var ret: Transferable = null
         if (c.isInstanceOf[JTree]) {
           val tree = c.asInstanceOf[JTree]
-          var path = tree.getSelectionPath
-          val obj = path.getPath
+          var obj = tree.getSelectionPath.getPath
           val node: GenericTreeNode[_] = obj(obj.length - 1).asInstanceOf[GenericTreeNode[_]]
           println("dragged node is " + node)
         }
@@ -230,23 +263,22 @@ case class ImageFolderNode(override var parent: Option[MutableTreeNode] = None, 
 
   var cachedNodes: Option[Buffer[GenericTreeNode[ImageSourceNode]]] = None
 
+  var nodesAreDefined = false
+
   def makeNode(child: FileObject) : GenericTreeNode[ImageSourceNode] = nodeFactory.makeNode(child)
 
-  def childNodes: Buffer[GenericTreeNode[ImageSourceNode]] = {
-    cachedNodes match {
-      case Some(x) => x
-      case None => {
-        val nodes = ArrayBuffer(file.find(selector): _*).map(child => makeNode(child))
-        cachedNodes = Some(nodes)
-        nodes
-        }
-      }
+  def fetchNodes = {
+    nodesAreDefined = true
+    cachedNodes = Some(ArrayBuffer(file.find(selector): _*).map(child => makeNode(child)))
+
   }
+
+  def childNodes: Buffer[GenericTreeNode[ImageSourceNode]] =  cachedNodes.getOrElse(ArrayBuffer[GenericTreeNode[ImageSourceNode]]())
 
   def resync = {
     cachedNodes = None
     // this blocks ...
-    childNodes
+    fetchNodes
   }
 
   def allowsChildren = true

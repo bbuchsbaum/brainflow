@@ -1,9 +1,10 @@
-package sc.brainflow.core
+package sc.brainflow.core.layer
 
 import brainflow.image.data.IImageData
 import brainflow.image.space.{ICoordinateSpace, IImageSpace}
 import brainflow.core.{SliceRenderer, IClipRange}
-import brainflow.image.anatomy.{Anatomy, GridLoc3D, Anatomy3D}
+import brainflow.image.anatomy.{Anatomy, Anatomy3D}
+import sc.brainflow.image.space.GridPoint3D
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,9 +24,7 @@ trait ImageLayer {
 
   val data: D
   
-  def name: String
-
-  def createSliceRenderer(refspace: S, slice: GridLoc3D, displayAnatomy: A): ImageSliceRenderer
+  def createSliceRenderer(refspace: S, slice: GridPoint3D, displayAnatomy: A): ImageLayerRenderer3D
 
   def minValue: Double  = data.minValue
 
@@ -36,4 +35,3 @@ trait ImageLayer {
 
 
 }
-

@@ -3,6 +3,8 @@ package sc.brainflow.image.data
 import brainflow.image.data.IImageData3D
 import brainflow.image.space.Axis
 import brainflow.image.interpolation.InterpolationFunction3D
+import org.apache.commons.vfs.FileObject
+import sc.brainflow.image.io.{ImageSource3D, ImageFileDescriptors}
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,6 +21,15 @@ object BrainVolume {
 
   implicit def wrap(x: IImageData3D) = new BrainVolumeWrapper(x)
 
+  def apply(file: FileObject) = {
+    val metaInfo = ImageFileDescriptors.readMetaInfo(file)
+    val source = metaInfo match {
+      case Some(info) => new ImageSource3D(0, info)
+      case None => error("could not load image: " + file.getName.getBaseName)
+    }
+
+    new BrainVolumeWrapper(source.load(1))
+  }
    
 }
 

@@ -1,6 +1,6 @@
 package brainflow.core.layer;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.space.IImageSpace;
 import brainflow.core.SliceRenderer;
@@ -23,9 +23,9 @@ public interface ILayer {
 
     public abstract IMaskProperty getMaskProperty();
 
-    public abstract double getValue(GridLoc3D pt);
+    public abstract double getValue(GridPoint3D pt);
 
-    public abstract SliceRenderer getSliceRenderer(IImageSpace refspace, GridLoc3D slice, Anatomy3D displayAnatomy);
+    public abstract SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy);
 
     
 }

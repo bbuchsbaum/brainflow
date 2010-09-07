@@ -128,6 +128,7 @@ class NiftiMetaInfo(val dataFile: FileObject, val headerFile: FileObject, val an
 
   def createDataReader(index: Int): DataReader[_] = {
     val elements = dimensions(0) * dimensions(1) * dimensions(2)
+    println("byte offset is: " + byteOffset)
     val reader = new FileObjectBinaryReader(dataFile, byteOffset + index*elements, endian)
     dtype match {
       case DataType.UBYTE => ByteReader(reader, elements)

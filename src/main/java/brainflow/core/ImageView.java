@@ -77,9 +77,9 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     };
 
 
-    public final Property<GridLoc3D> cursorPos = new ObservableProperty<GridLoc3D>() {
+    public final Property<GridPoint3D> cursorPos = new ObservableProperty<GridPoint3D>() {
 
-        public void set(GridLoc3D gp) {
+        public void set(GridPoint3D gp) {
              if (!gp.equals(get())) {
                 super.set(gp);
             }
@@ -231,7 +231,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         viewport = new Viewport3D(model);
         if (cursorPos.get() == null || model.getImageSpace().getAnatomy() != cursorPos.get().getAnatomy() || !viewport.inBounds(cursorPos.get().toReal())) {
             SpatialLoc3D centroid = model.getImageSpace().getCentroid();
-            cursorPos.set(GridLoc3D.fromReal((float) centroid.getX(), (float) centroid.getY(), (float) centroid.getZ(), model.getImageSpace()));
+            cursorPos.set(GridPoint3D.fromReal((float) centroid.getX(), (float) centroid.getY(), (float) centroid.getZ(), model.getImageSpace()));
         }
 
     }
@@ -328,7 +328,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     }
 
 
-    public GridLoc3D getCursorPos() {
+    public GridPoint3D getCursorPos() {
         return cursorPos.get();
     }
 
@@ -401,7 +401,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
     }
 
     //todo this method is just really, really bad. fix it.
-    public GridLoc3D getAnatomicalLocation(Component source, Point p) {
+    public GridPoint3D getAnatomicalLocation(Component source, Point p) {
 
         Point viewPoint = SwingUtilities.convertPoint(source, p, this);
 
@@ -418,7 +418,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
 
         Anatomy3D displayAnatomy = plot.getDisplayAnatomy();
 
-        GridLoc3D gslice = plot.getSlice();
+        GridPoint3D gslice = plot.getSlice();
 
         Anatomy3D matchedAnatomy = Anatomy3D.matchAnatomy(
                 plot.getXAxisRange().getAnatomicalAxis(),
@@ -438,7 +438,7 @@ public abstract class ImageView extends JPanel implements ListDataListener {
         SpatialLoc3D converted = ap3d.convertTo(space);
         assert converted.getAnatomy() == space.getAnatomy();
 
-        return GridLoc3D.fromReal(converted.getX(), converted.getY(), converted.getZ(), space);
+        return GridPoint3D.fromReal(converted.getX(), converted.getY(), converted.getZ(), space);
 
 
     }

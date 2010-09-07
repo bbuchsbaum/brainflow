@@ -8,7 +8,7 @@ import brainflow.core.layer.ImageLayer;
 import brainflow.core.layer.ImageLayer3D;
 import brainflow.app.services.ImageViewCursorEvent;
 import brainflow.app.services.ImageViewMousePointerEvent;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.interpolation.NearestNeighborInterpolator;
 import com.jidesoft.status.LabelStatusBarItem;
@@ -114,7 +114,7 @@ abstract class ValueStatusItem extends LabelStatusBarItem implements EventSubscr
             ImageView view = event.getImageView();
             if (!validEvent(event)) return;
 
-            GridLoc3D gpoint = event.getLocation();
+            GridPoint3D gpoint = event.getLocation();
             ImageLayer3D layer = view.getSelectedLayer();
 
 

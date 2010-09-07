@@ -100,13 +100,13 @@ public class BrainIO {
 
     /*public static final IImageFileDescriptor ANALYZE = new AbstractImageFileDescriptor("hdr", "img", "ANALYZE7.5") {
        @Override
-       public IImageDataSource createDataSource(FileObject headerFile, FileObject dataFile) {
-           return new ImageDataSource(this, headerFile, dataFile);
+       public IImageDataSource createDataSource(FileObject file, FileObject file) {
+           return new ImageDataSource(this, file, file);
        }
 
        @Override
-       public ImageInfoReader createInfoReader(FileObject headerFile, FileObject dataFile) {
-           return new AnalyzeInfoReader(headerFile, dataFile);
+       public ImageInfoReader createInfoReader(FileObject file, FileObject file) {
+           return new AnalyzeInfoReader(file, file);
        }
    }; */
 

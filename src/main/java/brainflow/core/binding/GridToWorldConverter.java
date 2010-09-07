@@ -1,6 +1,6 @@
 package brainflow.core.binding;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.anatomy.SpatialLoc3D;
 import net.java.dev.properties.container.ObservableWrapper;
 import net.java.dev.properties.BaseProperty;
@@ -17,14 +17,14 @@ import net.java.dev.properties.WProperty;
 public class GridToWorldConverter extends ObservableWrapper.ReadWrite<SpatialLoc3D> {
 
 
-    public GridToWorldConverter(BaseProperty<GridLoc3D> property) {
+    public GridToWorldConverter(BaseProperty<GridPoint3D> property) {
         super(property);
         //BeanContainer.bind(this);
 
     }
 
-    private GridLoc3D getValue() {
-        RProperty<GridLoc3D> prop = (RProperty<GridLoc3D>) getProperty();
+    private GridPoint3D getValue() {
+        RProperty<GridPoint3D> prop = (RProperty<GridPoint3D>) getProperty();
         return prop.get();
     }
 
@@ -34,10 +34,10 @@ public class GridToWorldConverter extends ObservableWrapper.ReadWrite<SpatialLoc
             throw new IllegalArgumentException("wrong anatomy " + spatialLoc3D.getAnatomy() + " : it must match world anatomy of reference image space");
         }
 
-        GridLoc3D gp = GridLoc3D.fromWorld(spatialLoc3D.getX(), spatialLoc3D.getY(), spatialLoc3D.getZ(), getValue().getSpace());
+        GridPoint3D gp = GridPoint3D.fromWorld(spatialLoc3D.getX(), spatialLoc3D.getY(), spatialLoc3D.getZ(), getValue().getSpace());
 
         if (!gp.equals(getValue())) {
-            WProperty<GridLoc3D> wprop = (WProperty<GridLoc3D>) getProperty();
+            WProperty<GridPoint3D> wprop = (WProperty<GridPoint3D>) getProperty();
             wprop.set(gp);
         }
 
@@ -46,7 +46,7 @@ public class GridToWorldConverter extends ObservableWrapper.ReadWrite<SpatialLoc
 
     @Override
     public SpatialLoc3D get() {
-        GridLoc3D ap = getValue();
+        GridPoint3D ap = getValue();
         return ap.toWorld();
     }
 }

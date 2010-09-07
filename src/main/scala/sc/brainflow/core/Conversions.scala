@@ -1,7 +1,8 @@
 package sc.brainflow.core
 
-import _root_.brainflow.core.ImageViewModel
-import _root_.brainflow.image.io.IImageSource
+
+import boxwood.binding.Converter
+import sc.brainflow.image.space.{RealPoint3D, GridPoint3D}
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,6 +13,12 @@ import _root_.brainflow.image.io.IImageSource
  */
 
 object Conversions {
+
+  implicit val gridLoc3DConverter = new Converter[GridPoint3D, RealPoint3D] {
+    def reverse(b: RealPoint3D) = GridPoint3D.fromReal(b.x, b.y, b.z, b.xaxis,b.yaxis,b.zaxis)
+
+    def forward(a: GridPoint3D) = RealPoint3D.fromGrid(a.x, a.y, a.z, a.xaxis, a.yaxis, a.zaxis)
+  }
 
   
 

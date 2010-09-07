@@ -36,11 +36,7 @@ public class ImageViewZoomer extends BrainFlowPresenter {
 
     public ImageViewZoomer() {
         super();
-
         initSlider();
-
-       
-
     }
 
     private double convertToProportion(int sliderValue) {
@@ -114,9 +110,6 @@ public class ImageViewZoomer extends BrainFlowPresenter {
 
                 ImageView view = getSelectedView();
                 double prop = convertToProportion(zoomSlider.getValue());
-                double curProp = 1/view.getSelectedPlot().getViewBounds().getXProportion();
-
-              
 
                 if (view != null) {
 

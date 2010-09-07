@@ -32,7 +32,7 @@ public class ImageFiller {
         AnatomicalAxis zaxis = ispace.getAnatomicalAxis(Axis.Z_AXIS);
 
         if (displayIndex < 0 || displayIndex >= ispace.getImageAxis(displayAnatomy.ZAXIS, true).getNumSamples()) {
-            throw new IllegalArgumentException("slice is is out of image bounds");
+            throw new IllegalArgumentException("cutPoint is is out of image bounds");
         }
 
         AnatomicalAxis axis1 = displayAnatomy.XAXIS;

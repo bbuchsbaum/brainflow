@@ -64,16 +64,10 @@ public class Data {
 
     }
 
-
-    public static IMaskedData createMask(MaskPredicate pred, IImageData dat) {
-        if (dat instanceof IImageData2D) {
-            return new MaskedData2D((IImageData2D) dat, pred);
-        } else if (dat instanceof IImageData3D) {
-            return new MaskedData3D((IImageData3D) dat, pred);
-        }
-
-        throw new IllegalArgumentException("could not create mask, wrong data class " + dat.getClass());
+     public static IMaskedData3D createMask3D(MaskPredicate pred, IImageData3D dat) {
+            return new MaskedData3D(dat, pred);
     }
+
 
     public static boolean elementsEquals(IImageData d1, IImageData d2, float tolerance) {
         if (d1.length() != d2.length()) return false;

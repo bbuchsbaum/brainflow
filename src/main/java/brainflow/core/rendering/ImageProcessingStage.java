@@ -1,6 +1,6 @@
 package brainflow.core.rendering;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import org.apache.commons.pipeline.stage.BaseStage;
 import org.apache.commons.pipeline.StageException;
 import org.apache.commons.pipeline.StageContext;
@@ -31,7 +31,7 @@ public abstract class ImageProcessingStage extends BaseStage {
         return pipeline.getModel();
     }
 
-    public GridLoc3D getSlice() {
+    public GridPoint3D getSlice() {
         return pipeline.getSlice();
     }
 

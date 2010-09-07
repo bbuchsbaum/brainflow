@@ -95,10 +95,11 @@ class FileObjectBinaryReader(val file: FileObject, override val offset: Int=0, o
   private def readFromChannel(file: File, numBytes: Int) : ByteBuffer = {
     val istream = new FileInputStream(file)
     val channel = istream.getChannel
-    channel.map(MapMode.READ_ONLY, offset, numBytes)
-    val buffer = ByteBuffer.allocateDirect(numBytes)
+    val buffer = channel.map(MapMode.READ_ONLY, offset, numBytes)
 
-    channel.read(buffer)
+    //val buffer = ByteBuffer.allocateDirect(numBytes)
+    buffer.order(byteOrder)
+    //channel.read(buffer)
     buffer.rewind
     buffer
   }
@@ -108,8 +109,7 @@ class FileObjectBinaryReader(val file: FileObject, override val offset: Int=0, o
     if (isLocalFile) {
       val locFile = file.getFileSystem().replicateFile(file, Selectors.SELECT_SELF);
       readFromChannel(locFile, numBytes)
-    }
-    else super.read(numBytes, 1, listener)
+    } else super.read(numBytes, 1, listener)
   }
 
   override def read(numBytes: Int, numChunks: Int = 1, listener: Option[ProgressListener] = None): ByteBuffer = {

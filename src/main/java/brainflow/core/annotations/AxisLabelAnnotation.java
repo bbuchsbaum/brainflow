@@ -58,7 +58,7 @@ public class AxisLabelAnnotation extends AbstractAnnotation {
         g2d.drawString(xlabel, xFontStart + fontHeight, fontHeight);
 
 
-        int lineLength = 0;//(int) (Math.min(plotArea.getWidth(), plotArea.getHeight()) / 1.5);
+        int lineLength = 0;//(int) (Math.min(screenArea.getWidth(), screenArea.getHeight()) / 1.5);
         lineLength = Math.min(stringLen, 200);
         lineLength = Math.max(lineLength, 75);
 

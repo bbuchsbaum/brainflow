@@ -8,7 +8,7 @@ import brainflow.core.layer.LayerProps;
 import brainflow.display.InterpolationType;
 import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.anatomy.GridLoc1D;
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.data.IImageData2D;
 import brainflow.image.data.RGBAImage;
 import brainflow.image.data.UByteImageData2D;
@@ -43,7 +43,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
 
     private static final Logger log = Logger.getLogger(DefaultImageSliceRenderer.class.getName());
 
-    private GridLoc3D slice;
+    private GridPoint3D slice;
 
     private ImageLayer3D layer;
 
@@ -68,7 +68,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
     private IColorMap lastColorMap;
 
 
-    public DefaultImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridLoc3D slice) {
+    public DefaultImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice) {
         //todo not DRY
         this.slice = slice;
         this.layer = layer;
@@ -83,7 +83,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
     }
 
 
-    public DefaultImageSliceRenderer(DefaultImageSliceRenderer renderer, GridLoc3D slice) {
+    public DefaultImageSliceRenderer(DefaultImageSliceRenderer renderer, GridPoint3D slice) {
         //todo not DRY
         this.slice = slice;
         this.layer = renderer.layer;
@@ -101,7 +101,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
     }
 
 
-    public DefaultImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridLoc3D slice, Anatomy3D displayAnatomy) {
+    public DefaultImageSliceRenderer(IImageSpace3D refSpace, ImageLayer3D layer, GridPoint3D slice, Anatomy3D displayAnatomy) {
         this.slice = slice;
         this.layer = layer;
         this.refSpace = refSpace;
@@ -131,7 +131,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
 
         int slice = getZSlice();
 
-        //int slice = (int) Math.round(zdisp.getValue());
+        //int cutPoint = (int) Math.round(zdisp.getValue());
         return slicer.getSlice(getDisplayAnatomy(), slice);
 
 
@@ -199,7 +199,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
     }
 
     @Override
-    public void setSlice(GridLoc3D slice) {
+    public void setSlice(GridPoint3D slice) {
         if (!getSlice().equals(slice)) {
             this.slice = slice;
             flush();
@@ -238,7 +238,7 @@ public class DefaultImageSliceRenderer implements SliceRenderer {
         return true;
     }
 
-    public GridLoc3D getSlice() {
+    public GridPoint3D getSlice() {
         return slice;
     }
 

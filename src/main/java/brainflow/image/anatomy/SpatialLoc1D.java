@@ -34,6 +34,7 @@ public class SpatialLoc1D implements BrainLoc {
     }
 
     public SpatialLoc1D convertTo(CoordinateAxis other) {
+
         if (other.getAnatomicalAxis() == getAnatomy()) {
             // todo what if other axis does not contain point?
             return new SpatialLoc1D(other.getAnatomicalAxis(), value);

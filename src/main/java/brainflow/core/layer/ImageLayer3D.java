@@ -1,6 +1,6 @@
 package brainflow.core.layer;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.anatomy.SpatialLoc3D;
 import brainflow.image.io.IImageSource;
 import brainflow.image.io.MemoryImageSource;
@@ -74,7 +74,7 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
         return (IImageData3D) super.getData();
     }
 
-    public double getValue(GridLoc3D pt) {
+    public double getValue(GridPoint3D pt) {
        SpatialLoc3D apt = pt.toWorld();
        return getData().worldValue((float) apt.getX(), (float) apt.getY(), (float) apt.getZ(), new NearestNeighborInterpolator());
     }
@@ -98,12 +98,12 @@ public class ImageLayer3D extends ImageLayer<IImageSpace3D> {
     //private Map<Anatomy3D, ImageSliceRenderer> rendererMap = new ConcurrentHashMap<Anatomy3D, ImageSliceRenderer>();
 
 
-    private SliceRenderer getSliceRenderer(IImageSpace3D refspace, GridLoc3D slice, Anatomy3D displayAnatomy) {
+    private SliceRenderer getSliceRenderer(IImageSpace3D refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
         return new DefaultImageSliceRenderer(refspace, this, slice, displayAnatomy);
     }
 
     //todo what on earth?
-    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridLoc3D slice, Anatomy3D displayAnatomy) {
+    public SliceRenderer getSliceRenderer(IImageSpace refspace, GridPoint3D slice, Anatomy3D displayAnatomy) {
         return getSliceRenderer((IImageSpace3D)refspace, slice, displayAnatomy);
     }
     //todo what on earth?

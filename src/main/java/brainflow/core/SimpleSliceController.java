@@ -1,6 +1,6 @@
 package brainflow.core;
 
-import brainflow.image.anatomy.GridLoc3D;
+import brainflow.image.anatomy.GridPoint3D;
 import brainflow.image.anatomy.SpatialLoc1D;
 import brainflow.image.anatomy.GridLoc1D;
 import brainflow.image.space.Axis;
@@ -31,8 +31,8 @@ class SimpleSliceController implements SliceController {
     protected void initCursorListener() {
         BeanContainer.get().addListener(imageView.cursorPos, new PropertyListener() {
             public void propertyChanged(BaseProperty prop, Object oldValue, Object newValue, int index) {
-                GridLoc3D oldval = (GridLoc3D)oldValue;
-                GridLoc3D newval = (GridLoc3D)newValue;
+                GridPoint3D oldval = (GridPoint3D)oldValue;
+                GridPoint3D newval = (GridPoint3D)newValue;
 
          
                 if (!oldval.equals(newval)) {
@@ -46,13 +46,13 @@ class SimpleSliceController implements SliceController {
     }
 
 
-    public GridLoc3D getSlice() {
+    public GridPoint3D getSlice() {
         return imageView.getCursorPos();
     }
 
     
 
-    public void setSlice(GridLoc3D slice) {
+    public void setSlice(GridPoint3D slice) {
         if (!slice.equals(imageView.cursorPos.get())) {
             imageView.cursorPos.set(slice);
         }
@@ -65,8 +65,8 @@ class SimpleSliceController implements SliceController {
 
     }
 
-    protected GridLoc3D incrementSlice(double incr) {
-        GridLoc3D slice = getSlice();
+    protected GridPoint3D incrementSlice(double incr) {
+        GridPoint3D slice = getSlice();
         ImageAxis iaxis = zaxis();
         GridLoc1D pt = slice.getValue(iaxis.getAnatomicalAxis(), false);
         double z = pt.toReal().getValue() + incr;
@@ -82,8 +82,6 @@ class SimpleSliceController implements SliceController {
 
     public void nextSlice() {
         imageView.cursorPos.set(incrementSlice(zaxis().getSpacing()));
-
-
     }
 
     public void previousSlice() {
@@ -96,7 +94,6 @@ class SimpleSliceController implements SliceController {
 
     public void pageForward() {
         imageView.cursorPos.set(incrementSlice(zaxis().getExtent() * pageStep));
-
 
     }
 }
