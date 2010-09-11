@@ -10,6 +10,7 @@ import brainflow.image.operations.ImageSlicer
 import brainflow.colormap.IColorMap
 import scala.math._
 import sc.brainflow.image.space.GridPoint3D
+import sc.brainflow._
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,8 +24,8 @@ class DefaultLayerRenderer3D(val layer: ImageLayer3D, val refSpace: IImageSpace3
 
 
   lazy val zslice = {
-    val zdisp = cutPoint.value(displayAnatomy.ZAXIS, false)
-    val index: Int = max((zdisp - .5f).asInstanceOf[Int], 0)
+    val zdisp = cutPoint(displayAnatomy.ZAXIS, false)
+    val index: Int = max((zdisp.x - .5f).toInt, 0)
     min(index, refSpace.getDimension(displayAnatomy.ZAXIS) - 1)
   }
 
@@ -44,8 +45,8 @@ class DefaultLayerRenderer3D(val layer: ImageLayer3D, val refSpace: IImageSpace3
   lazy val resampledImage = {
     val interp = layer.interpolation.value
     val ispace = data.getImageSpace
-    val sx = ispace.getImageAxis(Axis.X_AXIS).getRange.getInterval / ispace.getDimension(Axis.X_AXIS)
-    val sy = ispace.getImageAxis(Axis.Y_AXIS).getRange.getInterval / ispace.getDimension(Axis.Y_AXIS)
+    val sx = ispace.x_axis.getRange.getInterval / ispace.xdim
+    val sy = ispace.y_axis.getRange.getInterval / ispace.ydim
     val at = AffineTransform.getTranslateInstance(0, 0)
 
     at.scale(sx, sy)
@@ -56,14 +57,14 @@ class DefaultLayerRenderer3D(val layer: ImageLayer3D, val refSpace: IImageSpace3
 
   def renderUnto(frame: Rectangle2D, g2: Graphics2D) = {
     val space = data.getImageSpace
-    val minx = space.getImageAxis(Axis.X_AXIS).getRange.getMinimum
-    val miny = space.getImageAxis(Axis.Y_AXIS).getRange.getMinimum
+    val minx = space.x_axis.getMinimum
+    val miny = space.y_axis.getMinimum
     val transx = (minx - frame.getMinX)
     val transy = (miny - frame.getMinY)
 
     val oldComposite: Composite = g2.getComposite
 
-    val composite: AlphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, layer.opacity.value.asInstanceOf[Float])
+    val composite: AlphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, layer.opacity.value.toFloat)
     g2.setComposite(composite)
 
     g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY)

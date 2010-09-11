@@ -2,7 +2,7 @@ package sc.brainflow.core
 
 
 import boxwood.binding.Converter
-import sc.brainflow.image.space.{RealPoint3D, GridPoint3D}
+import sc.brainflow.image.space.{IndexPoint3D, RealPoint3D, GridPoint3D}
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,6 +19,13 @@ object Conversions {
 
     def forward(a: GridPoint3D) = RealPoint3D.fromGrid(a.x, a.y, a.z, a.xaxis, a.yaxis, a.zaxis)
   }
+
+  implicit val gridIndexConverter = new Converter[GridPoint3D, IndexPoint3D] {
+    def reverse(b: IndexPoint3D) = b.toGrid
+
+    def forward(a: GridPoint3D) = a.toIndex
+  }
+
 
   
 

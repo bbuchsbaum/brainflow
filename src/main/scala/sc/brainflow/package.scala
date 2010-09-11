@@ -1,7 +1,7 @@
 package sc
 
 import brainflow.core.ImageViewModel
-import brainflow.image.space.RichImageSpace3D
+import brainflow.image.space.{RichImageSpace2D, RichImageSpace3D}
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,6 +20,7 @@ package object brainflow {
   type Tuple3X3F = Tuple3[Tuple3F, Tuple3F, Tuple3F]
 
   implicit def wrapImageSpace3D = RichImageSpace3D.wrap _
+  implicit def wrapImageSpace2D = RichImageSpace2D.wrap _
 
 
   

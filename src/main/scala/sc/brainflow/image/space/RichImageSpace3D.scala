@@ -29,6 +29,9 @@ class RichImageSpace3D(x: IImageSpace3D) extends Proxy {
   val y_axis = x.getImageAxis(Axis.Y_AXIS)
   val z_axis = x.getImageAxis(Axis.Z_AXIS)
 
+  val xdim = x.getDimension(Axis.X_AXIS)
+  val ydim = x.getDimension(Axis.Y_AXIS)
+  val zdim = x.getDimension(Axis.Z_AXIS)
 
 }
 
@@ -36,9 +39,10 @@ class RichImageSpace2D(x: IImageSpace2D) extends Proxy {
 
   def self: Any = x
 
-  val x_axis = x.getImageAxis(Axis.X_AXIS)
-  val y_axis = x.getImageAxis(Axis.Y_AXIS)
+  lazy val x_axis = x.getImageAxis(Axis.X_AXIS)
+  lazy val y_axis = x.getImageAxis(Axis.Y_AXIS)
 
-
+  lazy val xdim = x.getDimension(Axis.X_AXIS)
+  lazy val ydim = x.getDimension(Axis.Y_AXIS)
 
 }
