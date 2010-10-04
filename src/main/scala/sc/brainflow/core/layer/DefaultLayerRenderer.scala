@@ -24,8 +24,12 @@ class DefaultLayerRenderer3D(val layer: ImageLayer3D, val refSpace: IImageSpace3
 
 
   lazy val zslice = {
-    val zdisp = cutPoint(displayAnatomy.ZAXIS, false)
+    //println("display anat: " + displayAnatomy)
+    //println("cut point " + cutPoint)
+    val zdisp = cutPoint(displayAnatomy.ZAXIS)
+    //println("z slice " + zdisp)
     val index: Int = max((zdisp.x - .5f).toInt, 0)
+    //println("index " + index)
     min(index, refSpace.getDimension(displayAnatomy.ZAXIS) - 1)
   }
 

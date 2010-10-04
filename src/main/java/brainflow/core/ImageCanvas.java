@@ -448,7 +448,7 @@ public class ImageCanvas extends JComponent implements MouseListener, MouseMotio
                 }
 
                 if (canvasModel.getSelectedView() != selView) {
-                    // not selected, do not forward mouse event ...
+                    // not selected, do not apply mouse event ...
                 } else {
                     Point componentPoint = SwingUtilities.convertPoint(rootPane.getGlassPane(),
                             glassPanePoint,
@@ -461,7 +461,7 @@ public class ImageCanvas extends JComponent implements MouseListener, MouseMotio
                             componentPoint.zero,
                             componentPoint.zero,
                             e.getClickCount(),
-                            e.isPopupTrigger()));// forward event....
+                            e.isPopupTrigger()));// apply event....
 
 
                 }

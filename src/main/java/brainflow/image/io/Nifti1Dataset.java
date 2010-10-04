@@ -1303,20 +1303,20 @@ public class Nifti1Dataset {
 
         ///// Orientation stuff
         System.out.println("Q factor:\three\three\three\three\three" + qfac);
-        System.out.println("Qform transform code:\three\three\three\three" + qform_code + " (" + decodeXform(qform_code) + ")");
+        System.out.println("Qform map code:\three\three\three\three" + qform_code + " (" + decodeXform(qform_code) + ")");
         System.out.println("Quaternion b,c,d params:\three\three\three" + quatern[0] + " " + quatern[1] + " " + quatern[2]);
         System.out.println("Quaternion zero,zero,one shifts:\three\three\three" + qoffset[0] + " " + qoffset[1] + " " + qoffset[2]);
 
-        System.out.println("Affine transform code:\three\three\three\three" + sform_code + " (" + decodeXform(sform_code) + ")");
-        System.out.print("1st row affine transform:\three\three\three");
+        System.out.println("Affine map code:\three\three\three\three" + sform_code + " (" + decodeXform(sform_code) + ")");
+        System.out.print("1st row affine map:\three\three\three");
         for (i = 0; i < 4; i++)
             System.out.print(srow_x[i] + " ");
         System.out.println("");
-        System.out.print("2nd row affine transform:\three\three\three");
+        System.out.print("2nd row affine map:\three\three\three");
         for (i = 0; i < 4; i++)
             System.out.print(srow_y[i] + " ");
         System.out.println("");
-        System.out.print("3rd row affine transform:\three\three\three");
+        System.out.print("3rd row affine map:\three\three\three");
         for (i = 0; i < 4; i++)
             System.out.print(srow_z[i] + " ");
         System.out.println("");
@@ -2600,7 +2600,7 @@ public class Nifti1Dataset {
             ecs.skip(skip_vol2);
             skip_vol2 = skip_vol;
 
-            // read voxel file, convert to double, fix sign, scale
+            // read voxel file, map to double, fix sign, scale
             switch (datatype) {
 
                 case NIFTI_TYPE_INT8:

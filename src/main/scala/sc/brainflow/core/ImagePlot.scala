@@ -9,9 +9,9 @@ import javax.swing.{JPanel, JComponent}
 import scala.math._
 import java.awt._
 import brainflow.image.space.Axis
-import boxwood.binding.Observable
 import brainflow.image.anatomy.Anatomy3D
 import sc.brainflow.image.space.GridPoint3D
+import boxwood.binding.{Observing, Observable}
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,17 +26,17 @@ import sc.brainflow.image.space.GridPoint3D
 object ImagePlot {
 
   def apply(model: ImageViewModel, displayAnatomy: Anatomy3D = Anatomy3D.AXIAL_LPI) : ImagePlotPanel = {
-    val renderer = new BasicImageViewRenderer(model, displayAnatomy)
-    ImagePlot(model, renderer)
+    val renderer = new BasicImageViewRenderer(model)
+    ImagePlot(model, renderer, displayAnatomy)
   }
 
-  def apply(model: ImageViewModel, renderer: ImageViewRenderer[BufferedImage]) : ImagePlotPanel = {
+  def apply(model: ImageViewModel, renderer: ImageViewRenderer[BufferedImage], displayAnatomy: Anatomy3D) : ImagePlotPanel = {
     val xrange: AxisRange = model.space.x_axis.getRange
     val yrange: AxisRange = model.space.y_axis.getRange
 
     val centroid = model.space.getCentroid
     val slice = GridPoint3D.fromReal(centroid.getX, centroid.getY, centroid.getZ, model.space)
-    new ImagePlotPanel(renderer, slice, ImagePlotBounds(xrange, yrange))
+    new ImagePlotPanel(renderer, displayAnatomy, slice, ImagePlotBounds(xrange, yrange))
   }
 
 
@@ -76,7 +76,7 @@ case class ImagePlotBounds(xrange: AxisRange, yrange: AxisRange, plotInsets: Ins
 }
 
 
-class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], slice0: GridPoint3D, private[this] var plotBounds0: ImagePlotBounds) extends JPanel with ImagePlot {
+class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], displayAnatomy0: Anatomy3D, slice0: GridPoint3D, private[this] var plotBounds0: ImagePlotBounds) extends JPanel with ImagePlot with Observing {
   setBackground(Color.BLACK)
   setOpaque(true)
 
@@ -86,6 +86,20 @@ class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], slice0
   private[this] var cachedImage: Option[BufferedImage] = None
 
   val plotSlice = Observable[GridPoint3D](slice0)
+
+  val plotAnatomy = Observable[Anatomy3D](displayAnatomy0)
+
+  observe(plotSlice) { e =>
+    cachedImage = None
+    repaint()
+  }
+
+  observe(plotAnatomy) { e =>
+    println("anatomy is now " + plotAnatomy)
+    cachedImage = None
+    repaint()
+
+  }
 
   def plotBounds = plotBounds0
 
@@ -99,7 +113,9 @@ class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], slice0
 
   def plotInsets = plotBounds.plotInsets
 
-  def displayAnatomy = modelRenderer.displayAnatomy
+  def displayAnatomy = plotAnatomy()
+
+  //def displayAnatomy_(anat: Anatomy3D) = plotAnatomy := anat
 
   def screenArea = plotArea
 
@@ -109,7 +125,7 @@ class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], slice0
 
   def scale = ( (plotArea.getWidth / xaxis.getInterval).toFloat, (plotArea.getHeight / yaxis.getInterval).toFloat)
 
-  def slice = plotSlice.value
+  def slice = plotSlice()
 
 
   override def getPreferredSize = new Dimension((xaxis.getInterval*1.5).toInt, (yaxis.getInterval*1.5).toInt)
@@ -122,9 +138,6 @@ class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], slice0
 
     val maxDrawWidth: Int = available.getWidth.toInt
     val maxDrawHeight: Int = available.getHeight.toInt
-
-    //var xspace: Double = getModel.getImageSpace.getImageAxis(displayAnatomy.XAXIS, true).getRange.getInterval
-    //var yspace: Double = getModel.getImageSpace.getImageAxis(displayAnatomy.YAXIS, true).getRange.getInterval
 
     val xspace = xaxis.getInterval
     val yspace = yaxis.getInterval
@@ -155,10 +168,10 @@ class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], slice0
     val g2 = g.asInstanceOf[Graphics2D]
 
     plotArea = computePlotArea
-    println("plot area " + plotArea)
-    println("plot region " + plotBounds.region)
+
 
     if (plotArea.getWidth > 5 && plotArea.getHeight > 5) {
+      println("slice is " + slice.z)
       val image = cachedImage.getOrElse(modelRenderer.render(slice, displayAnatomy, plotBounds.region, plotArea, InterpolationType.LINEAR))
       g2.drawRenderedImage(image, AffineTransform.getTranslateInstance(plotArea.x, plotArea.y))
       cachedImage = Some(image)

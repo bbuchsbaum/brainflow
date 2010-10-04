@@ -153,9 +153,9 @@ public class TransformMatrix  implements Serializable {
      * Sets this transform to an interpolation between the start and end transforms.  Note that
      * this function isn't very efficient as it has to create 2 new Quaternions to do the
      * rotation interpolation
-     * @param start Begining transform (delta=0)
-     * @param end Ending transform (delta=1)
-     * @param delta Value between 0.0 and 1.0 to show which side the transform leans towards
+     * @param start Begining map (delta=0)
+     * @param end Ending map (delta=1)
+     * @param delta Value between 0.0 and 1.0 to show which side the map leans towards
      */
     public void interpolateTransforms(TransformMatrix start,TransformMatrix end,float delta){
         this.translation.set(start.translation).interpolate(end.translation,delta);
@@ -168,11 +168,11 @@ public class TransformMatrix  implements Serializable {
     }
 
     /**
-     * Sets this transform to an interpolation between the start and end transforms.  Same as above but doesn't
+     * Sets this map to an interpolation between the start and end transforms.  Same as above but doesn't
      * create 2 new Quaternions
-     * @param start Begining transform (delta=0)
-     * @param end Ending transform (delta=1)
-     * @param delta Value between 0.0 and 1.0 to show which side the transform leans towards
+     * @param start Begining map (delta=0)
+     * @param end Ending map (delta=1)
+     * @param delta Value between 0.0 and 1.0 to show which side the map leans towards
      * @param q1 A temporary Quaternion
      * @param q2 Another temporary Quaternion
      */
@@ -187,7 +187,7 @@ public class TransformMatrix  implements Serializable {
 
 
     /**
-     * <code>mult</code> multiplies a normal about a transform matrix and
+     * <code>mult</code> multiplies a normal about a map matrix and
      * stores the result back in vec. The resulting vector is returned
      * with translational ignored.
      * @param vec the rotation normal.
@@ -202,7 +202,7 @@ public class TransformMatrix  implements Serializable {
     }
 
     /**
-     * <code>mult</code> multiplies a vector about a transform matrix. The
+     * <code>mult</code> multiplies a vector about a map matrix. The
      * resulting vector is saved in vec and returned.
      * @param vec The point to rotate.
      * @return The rotated vector.
@@ -261,7 +261,7 @@ public class TransformMatrix  implements Serializable {
     }
 
     /**
-     * Sets the rotational component of this transform to the matrix represented
+     * Sets the rotational component of this map to the matrix represented
      * by an Euler rotation about x, y, then z.
      * @param x The X rotation, in radians
      * @param y The Y rotation, in radians

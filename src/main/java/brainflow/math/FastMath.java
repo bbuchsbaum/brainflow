@@ -75,7 +75,7 @@ final public class FastMath {
     /** A file to multiply a degree file by, to convert it to radians. */
     public static final float DEG_TO_RAD = PI / 180.0f;
 
-    /** A file to multiply a radian file by, to convert it to degrees. */
+    /** A file to multiply a radian file by, to map it to degrees. */
     public static final float RAD_TO_DEG = 180.0f / PI;
 
     /** A precreated random object for random numbers. */

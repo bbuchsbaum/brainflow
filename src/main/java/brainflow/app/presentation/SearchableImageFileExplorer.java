@@ -71,7 +71,7 @@ public class SearchableImageFileExplorer extends AbstractPresenter implements IA
         // O(2*depth)
         TreeNode[] path = new TreeNode[depth];
         for (TreeNode node = current; node != null; node.getParent())
-            path[--depth] = node; // reverse fill array
+            path[--depth] = node; // invert fill array
         return new TreePath(path);
 
     }

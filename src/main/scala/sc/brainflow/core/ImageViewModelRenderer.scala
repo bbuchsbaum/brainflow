@@ -28,8 +28,6 @@ trait ImageViewRenderer[T] {
 
   def modelState: ImageViewModel
 
-  def displayAnatomy: Anatomy3D
-
   def render(slice: GridPoint3D, displayAnatomy: Anatomy3D, region: Rectangle2D, outputFrame: Rectangle, interp: InterpolationType = InterpolationType.LINEAR) : T
 
   //def allTransparent = renderers.map(_.layer.opacity.value == 0 || _.l)
@@ -55,10 +53,10 @@ trait ImageViewRenderer[T] {
       image
     } else {
 
-      val xmin: Int = max(round(region.getX - bounds.getX), 0).asInstanceOf[Int]
-      val ymin: Int = max(round(region.getY - bounds.getY), 0).asInstanceOf[Int]
-      var width: Int = min(bounds.getWidth - xmin, region.getWidth).asInstanceOf[Int]
-      var height: Int = min(bounds.getHeight - ymin, region.getHeight).asInstanceOf[Int]
+      val xmin: Int = max(round(region.getX - bounds.getX), 0).toInt
+      val ymin: Int = max(round(region.getY - bounds.getY), 0).toInt
+      var width: Int = min(bounds.getWidth - xmin, region.getWidth).toInt
+      var height: Int = min(bounds.getHeight - ymin, region.getHeight).toInt
       width = min(width, image.getWidth)
       height = min(height, image.getHeight)
       image.getSubimage(xmin, ymin, width, height)
@@ -68,12 +66,12 @@ trait ImageViewRenderer[T] {
 }
 
 
-class BasicImageViewRenderer(val modelState: ImageViewModel, val displayAnatomy: Anatomy3D) extends ImageViewRenderer[BufferedImage] {
+class BasicImageViewRenderer(val modelState: ImageViewModel) extends ImageViewRenderer[BufferedImage] {
 
 
 
   def renderImage(rendSeq: Seq[ImageLayerRenderer3D], slice: GridPoint3D, sliceBounds: Rectangle2D) = {
-    val sourceImage: BufferedImage = RenderUtils.createCompatibleImage(sliceBounds.getWidth.asInstanceOf[Int], sliceBounds.getHeight.asInstanceOf[Int])
+    val sourceImage: BufferedImage = RenderUtils.createCompatibleImage(sliceBounds.getWidth.toInt, sliceBounds.getHeight.toInt)
     val g2: Graphics2D = sourceImage.getGraphics.asInstanceOf[Graphics2D]
     rendSeq.filter(x => modelState.isVisible(x.layer)).foreach(_.renderUnto(sliceBounds, g2))
     g2.dispose
@@ -94,7 +92,7 @@ class BasicImageViewRenderer(val modelState: ImageViewModel, val displayAnatomy:
 }
 
 
-class ParallelImageViewRenderer(modelState: ImageViewModel, displayAnatomy: Anatomy3D) extends BasicImageViewRenderer(modelState, displayAnatomy) {
+class ParallelImageViewRenderer(modelState: ImageViewModel) extends BasicImageViewRenderer(modelState) {
 
 
 

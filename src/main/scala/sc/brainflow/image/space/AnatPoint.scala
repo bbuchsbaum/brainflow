@@ -32,6 +32,12 @@ trait AnatPoint[T, U <: CoordinateAxis] {
 
     index
   }
+
+  def findAxis(axis: AnatomicalAxis, ignoreDirection: Boolean = false) = {
+    val id = whichAxis(axis, ignoreDirection)
+    require(id >= 0)
+    axes(id)
+  }
 }
 
 
@@ -54,6 +60,7 @@ trait AnatPoint2D[T, U <: CoordinateAxis] extends AnatPoint1D[T, U] {
   def xaxis: U
 
   def yaxis: U
+
 
   override lazy val axes = Seq[U](xaxis, yaxis)
 
@@ -79,32 +86,77 @@ trait AnatPoint3D[T, U <: CoordinateAxis] extends AnatPoint2D[T,U] {
 
 }
 
+trait ImageAxisPoint1D[T] extends AnatPoint1D[T,ImageAxis] {
 
-
-
-case class GridPoint1D(x: Double, xaxis: ImageAxis) extends AnatPoint1D[Double, ImageAxis] {
 
   def numDimensions = 1
 
-  def reverse: GridPoint1D =  new GridPoint1D(xaxis.getNumSamples - x, xaxis.flip)
+}
+
+trait ImageAxisPoint2D[T] extends AnatPoint2D[T,ImageAxis] {
+
+  def space: IImageSpace2D
+
+  def numDimensions = 2
+
+  lazy val xaxis = space.getImageAxis(Axis.X_AXIS)
+
+  lazy val yaxis = space.getImageAxis(Axis.Y_AXIS)
 
 
 
 }
 
+trait ImageAxisPoint3D[T] extends AnatPoint3D[T,ImageAxis] {
 
-case class GridPoint2D(x: Double, y: Double, space: IImageSpace2D) extends AnatPoint2D[Double, ImageAxis] {
+  def space: IImageSpace3D
 
-  def numDimensions = 2
+  def numDimensions = 3
 
-  def xaxis = space.getImageAxis(Axis.X_AXIS)
+  lazy val xaxis = space.getImageAxis(Axis.X_AXIS)
 
-  def yaxis = space.getImageAxis(Axis.Y_AXIS)
+  lazy val yaxis = space.getImageAxis(Axis.Y_AXIS)
 
-  def toIndex = IndexPoint2D(xaxis.nearestSample(x), yaxis.nearestSample(y), space)
+  lazy val zaxis = space.getImageAxis(Axis.Z_AXIS)
+
+
+}
+
+
+
+
+case class GridPoint1D(x: Double, xaxis: ImageAxis) extends ImageAxisPoint1D[Double] {
+
+
+  def reverse: GridPoint1D =  new GridPoint1D(xaxis.getNumSamples - x, xaxis.flip)
+
+}
+
+
+case class GridPoint2D(x: Double, y: Double, space: IImageSpace2D) extends ImageAxisPoint2D[Double] {
+
+  def toIndex = IndexPoint2D(x.toInt, y.toInt, space)
+
+  def replace(gp: GridPoint1D) = {
+    val axid = whichAxis(gp.xaxis.getAnatomicalAxis, true)
+    require(axid >= 0)
+
+    val gp1 = if (axes(axid).getAnatomicalAxis.sameDirection(gp.xaxis.getAnatomicalAxis)) {
+      gp.reverse
+    } else {
+      gp
+    }
+
+    axid match {
+      case 0 => GridPoint2D(gp1.x, y, space)
+      case 1 => GridPoint2D(x, gp1.x, space)
+    }
+
+  }
 
   def apply(axis: AnatomicalAxis) = {
     val axid = whichAxis(axis, true)
+    require(axid >= 0)
     val ret = axid match {
       case 0 => GridPoint1D(x, xaxis)
       case 1 => GridPoint1D(y, yaxis)
@@ -116,17 +168,27 @@ case class GridPoint2D(x: Double, y: Double, space: IImageSpace2D) extends AnatP
 }
 
 
-case class GridPoint3D(x: Double, y: Double, z:Double, space: IImageSpace3D) extends AnatPoint3D[Double, ImageAxis] {
+case class GridPoint3D(x: Double, y: Double, z:Double, space: IImageSpace3D) extends ImageAxisPoint3D[Double] {
 
-  def numDimensions = 3
+  def toIndex = IndexPoint3D(x.toInt, y.toInt, z.toInt, space)
 
-  def xaxis = space.getImageAxis(Axis.X_AXIS)
+  def replace(gp: GridPoint1D) = {
+    val axid = whichAxis(gp.xaxis.getAnatomicalAxis, true)
 
-  def yaxis = space.getImageAxis(Axis.Y_AXIS)
+    val gp1 = if (!axes(axid).getAnatomicalAxis.sameDirection(gp.xaxis.getAnatomicalAxis)) {
+      gp.reverse
+    } else {
+      gp
+    }
 
-  def zaxis = space.getImageAxis(Axis.Z_AXIS)
+    axid match {
+      case 0 => GridPoint3D(gp1.x, y, z, space)
+      case 1 => GridPoint3D(x, gp1.x, z, space)
+      case 2 => GridPoint3D(x, y, gp1.x, space)
+    }
 
-  def toIndex = IndexPoint3D(xaxis.nearestSample(x), yaxis.nearestSample(y), zaxis.nearestSample(z), space)
+  }
+
 
   def apply(axis: AnatomicalAxis) = {
     val axid = whichAxis(axis, true)
@@ -167,9 +229,8 @@ object GridPoint3D {
   }
 }
 
-case class RealPoint1D(x: Double, xaxis: ImageAxis) extends AnatPoint1D[Double, ImageAxis] {
+case class RealPoint1D(x: Double, xaxis: ImageAxis) extends ImageAxisPoint1D[Double] {
 
-  def numDimensions = 1
 
   def reverse: RealPoint1D =  new RealPoint1D(xaxis.getMaximum - x, xaxis.flip)
 
@@ -177,13 +238,8 @@ case class RealPoint1D(x: Double, xaxis: ImageAxis) extends AnatPoint1D[Double, 
 }
 
 
-case class RealPoint2D(x: Double, y: Double, space: IImageSpace2D) extends AnatPoint2D[Double, ImageAxis] {
+case class RealPoint2D(x: Double, y: Double, space: IImageSpace2D) extends ImageAxisPoint2D[Double] {
 
-  def numDimensions = 2
-
-  def xaxis = space.getImageAxis(Axis.X_AXIS)
-
-  def yaxis = space.getImageAxis(Axis.Y_AXIS)
 
   def apply(axis: AnatomicalAxis) = {
     val axid = whichAxis(axis, true)
@@ -199,15 +255,8 @@ case class RealPoint2D(x: Double, y: Double, space: IImageSpace2D) extends AnatP
 
 }
 
-case class RealPoint3D(x: Double, y: Double, z:Double, space: IImageSpace3D) extends AnatPoint3D[Double, ImageAxis] {
+case class RealPoint3D(x: Double, y: Double, z:Double, space: IImageSpace3D) extends ImageAxisPoint3D[Double] {
 
-  def numDimensions = 3
-
-  def xaxis = space.getImageAxis(Axis.X_AXIS)
-
-  def yaxis = space.getImageAxis(Axis.Y_AXIS)
-
-  def zaxis = space.getImageAxis(Axis.Z_AXIS)
 
   def apply(axis: AnatomicalAxis) = {
     val axid = whichAxis(axis, true)
@@ -219,14 +268,6 @@ case class RealPoint3D(x: Double, y: Double, z:Double, space: IImageSpace3D) ext
 
     if (axis.sameDirection(axes(axid).getAnatomicalAxis)) ret else ret.reverse
   }
-
-  //def replace(pt: IndexPoint1D) = {
-  //  val axid = whichAxis(pt.xaxis.getAnatomicalAxis, true)
-  //  pt.xaxis.getAnatomicalAxis match {
-  //    case 0 => RealPoint3D(pt.app)
-  //
-  //  }
-  //}
 
 
 }
@@ -257,23 +298,20 @@ object IndexPoint3D {
 }
 
 
-case class IndexPoint1D(x: Int, xaxis: ImageAxis) extends AnatPoint1D[Int, ImageAxis] {
+case class IndexPoint1D(x: Int, xaxis: ImageAxis) extends ImageAxisPoint1D[Int] {
 
-  def numDimensions = 1
 
   def reverse: IndexPoint1D =  new IndexPoint1D((xaxis.getNumSamples-1) - x, xaxis.flip)
+
+  def toReal = RealPoint1D(x*xaxis.getSpacing + xaxis.getSpacing/2 + xaxis.getMinimum, xaxis)
 
   def toGrid = GridPoint1D(x + xaxis.getSpacing/2, xaxis)
 
 }
 
-case class IndexPoint2D(x: Int, y: Int, space: IImageSpace2D) extends AnatPoint2D[Int, ImageAxis] {
+case class IndexPoint2D(x: Int, y: Int, space: IImageSpace2D) extends ImageAxisPoint2D[Int] {
 
-  def numDimensions = 2
 
-  def xaxis = space.getImageAxis(Axis.X_AXIS)
-
-  def yaxis = space.getImageAxis(Axis.Y_AXIS)
 
   def toGrid = GridPoint2D(x + xaxis.getSpacing/2, y + yaxis.getSpacing/2, space)
 
@@ -294,17 +332,14 @@ case class IndexPoint2D(x: Int, y: Int, space: IImageSpace2D) extends AnatPoint2
 }
 
 
-case class IndexPoint3D(x: Int, y: Int, z: Int, space: IImageSpace3D) extends AnatPoint3D[Int, ImageAxis] {
+case class IndexPoint3D(x: Int, y: Int, z: Int, space: IImageSpace3D) extends ImageAxisPoint3D[Int] {
 
-  def numDimensions = 3
 
-  def xaxis = space.getImageAxis(Axis.X_AXIS)
+  def toReal = RealPoint3D(x*xaxis.getSpacing + xaxis.getSpacing/2 + xaxis.getMinimum,
+                           y*yaxis.getSpacing + yaxis.getSpacing/2 + yaxis.getMinimum,
+                           z*zaxis.getSpacing + zaxis.getSpacing/2 + zaxis.getMinimum, space)
 
-  def yaxis = space.getImageAxis(Axis.Y_AXIS)
-
-  def zaxis = space.getImageAxis(Axis.Z_AXIS)
-
-  def toGrid = GridPoint3D(x + xaxis.getSpacing/2, y + yaxis.getSpacing/2, z + zaxis.getSpacing/2, space)
+  def toGrid = GridPoint3D(x + xaxis.getSpacing/2, y + yaxis.getSpacing/2,  z + zaxis.getSpacing/2, space)
 
   def apply(axis: AnatomicalAxis) = {
     val axid = whichAxis(axis, true)
