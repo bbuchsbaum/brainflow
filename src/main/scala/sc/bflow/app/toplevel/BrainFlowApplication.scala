@@ -2,7 +2,6 @@ package sc.bflow.app.toplevel
 
 import com.jidesoft.document.DocumentPane
 import com.jidesoft.status.StatusBar
-import brainflow.app.toplevel.DockWindowManager
 import java.awt.{Toolkit, BorderLayout, Dimension}
 import com.jidesoft.docking.{DockingManager, DefaultDockingManager, DockContext}
 import javax.swing._
@@ -14,6 +13,10 @@ import com.jidesoft.action. {CommandBar, CommandMenuBar, DefaultDockableBarDocka
 import brainflow.app.actions. {ExitApplicationCommand, MountFileSystemCommand, GoToVoxelCommand}
 import com.pietschy.command.group. {ExpansionPointBuilder, CommandGroup}
 import sc.bflow.app.presentation. {SearchableImageFileExplorer, ImageFileExplorer}
+import org.apache.commons.vfs.FileObject
+import boxwood.binding. {Observing, Add, ElemAdd}
+import brainflow.app.toplevel. {RecentPathMenu, DockWindowManager}
+import sc.bflow.app.commands.{RecentPathList, ExitApplication, MountFileSystem}
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,7 +26,7 @@ import sc.bflow.app.presentation. {SearchableImageFileExplorer, ImageFileExplore
  * To change this template use File | Settings | File Templates.
  */
 
-trait BrainFlowApplication {
+trait BrainFlowApplication extends Observing {
   this: BrainFlowContext =>
 
   val mainFrame = new DefaultDockableBarDockableHolder("BrainFlow")
@@ -32,9 +35,13 @@ trait BrainFlowApplication {
 
   lazy val statusBar = new StatusBar()
 
-  lazy val fileExplorer =  new ImageFileExplorer(fileSystemService.currentDirectory())
+  lazy val fileExplorer =  new SearchableImageFileExplorer(fileSystemService.currentDirectory())
 
   lazy val dockWindowManager = new DockWindowManager()
+
+
+
+  implicit val context = this
 
 
 
@@ -57,6 +64,14 @@ trait BrainFlowApplication {
     dock.setPreferredSize(new Dimension(275, 400))
     dock.getContentPane.add(fileExplorer)
     mainFrame.getDockingManager.addFrame(dock)
+
+    observe(fileSystemService.fileRoots) {
+      case ev @ Add(_, ElemAdd(x:FileObject,i)) => println("adding file root: " + x); fileExplorer.addFileRoot(x)
+      case _ =>
+    }
+
+    println("added observer to " + fileSystemService.fileRoots)
+    println("added observer to " + System.identityHashCode(fileSystemService.fileRoots))
 
   }
 
@@ -105,19 +120,17 @@ trait BrainFlowApplication {
 
     mainFrame.getDockableBarManager.addDockableBar(menuBar)
 
-
-
-    //val mountFileSystemCommand: MountFileSystemCommand = new MountFileSystemCommand
-    //mountFileSystemCommand.bind(mainFrame)
-
-
-    val exitCommand: ExitApplicationCommand = new ExitApplicationCommand
+    val exitCommand: ExitApplication = new ExitApplication
     exitCommand.bind(mainFrame)
 
+    val mountFileSystem: MountFileSystem = new MountFileSystem
+    mountFileSystem.bind(mainFrame)
 
-    //val builder: ExpansionPointBuilder = fileMenuGroup.getExpansionPointBuilder
-    //builder.add(pathMenu.getCommandGroup)
-    //builder.applyChanges
+    val pathMenu = new RecentPathList()
+    val builder: ExpansionPointBuilder = fileMenuGroup.getExpansionPointBuilder
+    builder.add(pathMenu.commandGroup)
+    builder.applyChanges
+
 
     //menuBar.add(DockWindowManager.getInstance.getDockMenu)
     //var favMenu: JMenuItem = favoritesMenu.getCommandGroup.createMenuItem
@@ -130,18 +143,11 @@ trait BrainFlowApplication {
 
   }
 
+
+
 }
 
 
 
-object BrainFlowApplicationTest extends BrainFlowApplication with BrainFlowContext {
-  override val fileSystemService = new FileSystemService
 
-  def main(args: Array[String]) {
-    BrainFlowInitialization.initLookAndFeel
-    show
-
-  }
-
-}
 

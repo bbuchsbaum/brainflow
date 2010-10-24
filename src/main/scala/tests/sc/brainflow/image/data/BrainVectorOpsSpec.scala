@@ -6,8 +6,8 @@ import boxwood.io.RichFileObject._
 import boxwood.stats.StatFun._
 import org.apache.commons.vfs.FileObject
 import brainflow.image.data.BasicImageDataVector3D
-import sc.brainflow.image.data.{BrainVector, BrainVectorOps}
-import sc.brainflow.image.data.BrainVolume._
+import sc.bflow.image.data.{BrainVector, BrainVectorOps}
+import sc.bflow.image.data.BrainVolume._
 
 /**
  * Created by IntelliJ IDEA.

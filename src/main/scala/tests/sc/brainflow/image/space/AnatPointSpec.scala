@@ -4,7 +4,7 @@ import org.scalatest.FlatSpec
 import brainflow.image.axis.ImageAxis
 import brainflow.image.anatomy.AnatomicalAxis
 import brainflow.image.space.ImageSpace3D
-import sc.brainflow.image.space.IndexPoint3D
+import sc.bflow.image.space.IndexPoint3D
 
 /**
  * Created by IntelliJ IDEA.

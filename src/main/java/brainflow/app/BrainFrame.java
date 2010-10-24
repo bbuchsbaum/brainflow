@@ -26,8 +26,6 @@ public class BrainFrame extends DefaultDockableBarDockableHolder {
 
     private static Logger log = Logger.getLogger(BrainFrame.class.getName());
 
-
-
     public BrainFrame() {
         super("BrainFlow");
 
@@ -38,10 +36,6 @@ public class BrainFrame extends DefaultDockableBarDockableHolder {
     public static void main(String[] args) {
         log.info("verifying license");
         com.jidesoft.utils.Lm.verifyLicense("UIN", "BrainFrame", "7.YTcWgxxjx1xjSnUqG:U1ldgGetfRn1");
-
-
-     
-
 
         BrainFrame bf = new BrainFrame();
         

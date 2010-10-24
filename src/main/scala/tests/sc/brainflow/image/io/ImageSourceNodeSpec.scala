@@ -1,11 +1,11 @@
 package tests.sc.brainflow.image.io
 
 import org.apache.commons.vfs.FileObject
-import sc.brainflow.image.io._
+import sc.bflow.image.io._
 import org.scalatest.FlatSpec
 import boxwood.io.SystemResource
 import boxwood.io.RichFileObject._
-import sc.brainflow.image.io.ImageSource3D
+import sc.bflow.image.io.ImageSource3D
 import java.lang.String
 import brainflow.utils.ProgressListener
 

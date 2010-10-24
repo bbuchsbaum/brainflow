@@ -2,7 +2,7 @@ package tests.sc.brainflow.app.presentation
 
 import org.scalatest.FlatSpec
 import boxwood.io.SystemResource
-import sc.brainflow.app.presentation.ImageFileExplorer
+import sc.bflow.app.presentation.ImageFileExplorer
 
 /**
  * Created by IntelliJ IDEA.

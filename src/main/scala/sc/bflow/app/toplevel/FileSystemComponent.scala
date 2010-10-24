@@ -3,7 +3,7 @@ package sc.bflow.app.toplevel
 import org.apache.commons.vfs.FileObject
 import java.io.File
 import boxwood.io.RichFileObject
-import boxwood.binding. {ObservableBuffer, Observable}
+import boxwood.binding.{ObservableBuffer, Observable}
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,11 +19,15 @@ trait FileSystemComponent {
 
   class FileSystemService {
 
-    lazy val fileRoots = ObservableBuffer(List.empty[FileObject])
+    val fileRoots = ObservableBuffer(List.empty[FileObject])
 
     lazy val currentDirectory = Observable(RichFileObject(System.getProperty("user.dir")))
 
     def mount(fileObj: FileObject) = {
+      println("mounting file to " + System.identityHashCode(fileRoots))
+      println("mounting file to " + fileRoots)
+
+
       if (!fileRoots().contains(fileObj)) {
         fileRoots += fileObj
       } else {

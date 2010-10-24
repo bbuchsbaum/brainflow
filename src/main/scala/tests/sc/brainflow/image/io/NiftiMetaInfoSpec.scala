@@ -3,7 +3,7 @@ package tests.sc.brainflow.image.io
 import org.scalatest.FlatSpec
 import boxwood.io.SystemResource
 import org.apache.commons.vfs.FileObject
-import sc.brainflow.image.io._
+import sc.bflow.image.io._
 import boxwood.io.RichFileObject._
 
 /**

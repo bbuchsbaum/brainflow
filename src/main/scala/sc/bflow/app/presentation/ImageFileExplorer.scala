@@ -7,9 +7,9 @@ import swing.SwingApplication
 import java.awt.BorderLayout
 import boxwood.io.RichFileObject._
 import boxwood.io.{FilteredFileSelector, SystemResource, RichFileObject}
-import javax.swing.event.{TreeExpansionEvent, TreeExpansionListener}
 import collection.mutable.{Buffer, ArrayBuffer}
 import javax.swing._
+import event. {TreeWillExpandListener, TreeExpansionEvent, TreeExpansionListener}
 import tree._
 import com.jidesoft.tree.{DefaultTreeModelWrapper, TreeUtils}
 import org.apache.commons.vfs._
@@ -86,11 +86,12 @@ class ImageFileExplorer(roots: FileObject*) extends JPanel with ImageNodeFactory
   }
 
   private def initExpansionListener {
-    treeComponent.addTreeExpansionListener(new TreeExpansionListener() {
-      def treeCollapsed(event: TreeExpansionEvent) = {}
+    treeComponent.addTreeWillExpandListener(new TreeWillExpandListener() {
+
+      def treeWillCollapse(event: TreeExpansionEvent) = {}
 
 
-      def treeExpanded(event: TreeExpansionEvent) = {
+      def treeWillExpand(event: TreeExpansionEvent) = {
         val node = event.getPath.getLastPathComponent.asInstanceOf[TreeNode]
         node match {
           case folder: ImageFolderNode if (!folder.nodesAreDefined) =>  reset {
@@ -152,9 +153,12 @@ class ImageFileExplorer(roots: FileObject*) extends JPanel with ImageNodeFactory
 
 
   def addFileRoot(fobj: FileObject): Unit = {
-    fileRoots append fobj
-    val node = makeNode(None, fobj)
-    tree.addNode(node)
+    if (!fileRoots.contains(fobj)) {
+      fileRoots append fobj
+      val node = makeNode(Some(rootNode), fobj)
+      tree.addNode(node)
+      updateNodeContent(node)
+    }
 
   }
 
@@ -181,7 +185,10 @@ class ImageFileExplorer(roots: FileObject*) extends JPanel with ImageNodeFactory
     val dtm: DefaultTreeModel = defaultTreeModel
     val state = TreeUtils.saveExpansionStateByTreePath(treeComponent)
     dtm.nodeStructureChanged(node)
+    //dtm.reload
+    //dtm.nodeChanged(node)
     TreeUtils.loadExpansionStateByTreePath(treeComponent, state)
+
   }
 
    def makeImageNode(parent: Option[MutableTreeNode], fileObject: FileObject) = {
@@ -250,6 +257,8 @@ case class ImageBucketNode(override var parent: Option[MutableTreeNode] = None, 
     value.children.map(x => ImageLeafNode3D(Some(this), x)).toBuffer
   }
 
+
+
   override def toString = value.label
 }
 
@@ -297,6 +306,9 @@ case class ImageFolderNode(override var parent: Option[MutableTreeNode] = None, 
   lazy val icon = SystemResource("icons/folder.png").toImageIcon
 
   lazy val expandedIcon = SystemResource("icons/folderOpen.png").toImageIcon
+
+
+  override def hashCode = System.identityHashCode(this)
 }
 
 

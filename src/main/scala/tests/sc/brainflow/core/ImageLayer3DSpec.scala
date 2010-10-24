@@ -3,13 +3,13 @@ package tests.sc.brainflow.core
 import org.scalatest.FlatSpec
 import org.apache.commons.vfs.FileObject
 import boxwood.io.SystemResource
-import sc.brainflow.image.data.BrainVolume
-import sc.brainflow.core.layer.ImageLayer3D
+import sc.bflow.image.data.BrainVolume
+import sc.bflow.core.layer.ImageLayer3D
 import boxwood.io.RichFileObject._
 import brainflow.image.anatomy.{Anatomy3D}
 import javax.imageio.ImageIO
 import java.io.File
-import sc.brainflow.image.space.GridPoint3D
+import sc.bflow.image.space.GridPoint3D
 
 /**
  * Created by IntelliJ IDEA.

@@ -59,7 +59,7 @@ public class SearchableImageFileExplorer extends AbstractPresenter implements IA
     private TreePath getPathForNode(TreeNode current) {
         // Get node depth
         int depth = 0;
-        for (TreeNode node = current; node != null; node.getParent())
+        for (TreeNode node = current; node != null; node=node.getParent())
             depth++;
         // Construct node path
         // First scan helped us, now we can directly allocate array of exact

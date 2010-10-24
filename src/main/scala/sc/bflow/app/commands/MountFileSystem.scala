@@ -15,8 +15,7 @@ import org.apache.commons.vfs.VFS
  * To change this template use File | Settings | File Templates.
  */
 
-class MountFileSystem extends ActionCommand("mount-filesystem") with BrainFlowContext {
-  context: BrainFlowContext =>
+class MountFileSystem(implicit val context: BrainFlowContext) extends ActionCommand("mount-filesystem") {
 
   lazy val chooser = new FolderChooser(context.fileSystemService.currentDirectory().toLocalFile)
 
@@ -29,9 +28,5 @@ class MountFileSystem extends ActionCommand("mount-filesystem") with BrainFlowCo
     }
 
   }
-
-
-
-
 
 }
