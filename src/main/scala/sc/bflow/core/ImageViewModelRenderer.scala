@@ -76,7 +76,7 @@ class BasicImageViewRenderer(val modelState: ImageViewModel) extends ImageViewRe
     val sourceImage: BufferedImage = RenderUtils.createCompatibleImage(sliceBounds.getWidth.toInt, sliceBounds.getHeight.toInt)
     val g2: Graphics2D = sourceImage.getGraphics.asInstanceOf[Graphics2D]
     rendSeq.filter(x => modelState.isVisible(x.layer)).foreach(_.renderUnto(sliceBounds, g2))
-    g2.dispose
+    g2.dispose()
     sourceImage
 
   }
@@ -111,7 +111,7 @@ class ParallelImageViewRenderer(modelState: ImageViewModel) extends BasicImageVi
       rendSeq.filter(x => modelState.isVisible(x.layer)).map(x => future { x.render }).foreach { _() }
 
 
-      g2.dispose
+      g2.dispose()
       sourceImage
 
   }

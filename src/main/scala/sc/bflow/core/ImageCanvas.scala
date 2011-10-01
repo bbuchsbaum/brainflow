@@ -21,9 +21,11 @@ trait ImageCanvas {
 
   def model: ImageCanvasModel
 
-  def +=(view: ImageViewPanel) = {
-    addView(view)
+  def component: JComponent = self.asInstanceOf[JComponent]
+
+  def +=(view: ImageViewPanel)  {
     model.views += view
+    addView(view)
     if (model.selectedIndex().isEmpty) model.selectedIndex := Some(model.views.size-1)
   }
 
@@ -103,7 +105,6 @@ class ImageCanvasDesktop(_views: ImageViewPanel*) extends JPanel with ImageCanva
   }
 
 
-
   def positionForFrame(jframe: JInternalFrame) = {
     val d: Dimension = container.getSize
     val loc: Point = container.getLocation
@@ -123,11 +124,15 @@ class ImageCanvasDesktop(_views: ImageViewPanel*) extends JPanel with ImageCanva
   private[this] def titleFor(view: ImageViewPanel) = "View [" + (model.views().indexOf(view) + 1) + "]"
 
 
-  protected[this] def removeView(view: ImageViewPanel) = {}
+  protected[this] def removeView(view: ImageViewPanel) {
+    val frame = whichFrame(view)
+    frame.foreach( f => {
+      container.remove(f)
+    })
+  }
 
 
-
-  protected[this] def addView(view: ImageViewPanel) = {
+  protected[this] def addView(view: ImageViewPanel) {
     view.setSize(view.getPreferredSize)
 
     val jframe: JInternalFrame = new JInternalFrame("view", true, true, true, true)
@@ -139,7 +144,7 @@ class ImageCanvasDesktop(_views: ImageViewPanel*) extends JPanel with ImageCanva
 
     jframe.setTitle(titleFor(view))
     container.add(jframe)
-    jframe.moveToFront
+    jframe.moveToFront()
   }
 
   def whichFrame(view: ImageViewPanel): Option[JInternalFrame] = {
@@ -151,11 +156,11 @@ class ImageCanvasDesktop(_views: ImageViewPanel*) extends JPanel with ImageCanva
 
   def internalFrameDeactivated(e: InternalFrameEvent) = {}
 
-  private def updateSelection(view: ImageViewPanel): Unit = {
-    val frame = whichFrame(view)
+  private def updateSelection(view: ImageViewPanel) {
+    val frame: Option[JInternalFrame] = whichFrame(view)
     frame.foreach( f => {
-      f.moveToFront
-      if (!f.isSelected) f.setSelected(true)
+      f.moveToFront()
+      if (!f.isSelected()) f.setSelected(true)
     })
   }
 
@@ -194,7 +199,7 @@ class ImageCanvasDesktop(_views: ImageViewPanel*) extends JPanel with ImageCanva
 
 object ImageCanvasDesktop {
 
-  def main(args: Array[String]) = {
+  def main(args: Array[String]) {
     val im1 = BrainVolume(SystemResource("data/anat_alepi.nii").toFileObject)
 
     val view1: ImageViewPanel = ImageView(im1)

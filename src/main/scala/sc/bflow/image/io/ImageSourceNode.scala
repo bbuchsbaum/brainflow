@@ -8,6 +8,8 @@ import brainflow.image.axis.ImageAxis
 import brainflow.image.io.ImageInfo
 import brainflow.utils.{IDimension, ProgressListener}
 import brainflow.image.space.{ImageSpace3D, IImageSpace3D}
+import boxwood.swing.utils.{Finished, WatchableProcess, Progress, ProgressMessage, ErrorMessage}
+import sc.bflow.utils.ProcessListener
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,18 +20,22 @@ import brainflow.image.space.{ImageSpace3D, IImageSpace3D}
  */
 
 
-sealed trait ImageSourceNode {
+sealed trait ImageSourceNode  {
 
 
   //def metaInfo : ImageMetaInfo
 
   def label: String
 
-  //def numChildren: Int
+  //def load(numChunks: Int = 10, listener: ProcessListener) : AnyRef
+
+  def numChildren: Int
+
+
 
 }
 
-trait Branch[T <: ImageSourceNode] {
+trait Branch[T <: ImageSourceNode] extends ImageSourceNode  {
 
   def children: Seq[T]
 
@@ -37,7 +43,12 @@ trait Branch[T <: ImageSourceNode] {
 
 }
 
-trait Leaf
+trait Leaf extends ImageSourceNode {
+
+  def numChildren = 0
+
+
+}
 
 
 case class ImageSource3D(index: Int = 0, metaInfo: ImageMetaInfo) extends ImageSourceNode with Leaf  {
@@ -48,7 +59,8 @@ case class ImageSource3D(index: Int = 0, metaInfo: ImageMetaInfo) extends ImageS
     implicitly[ImageMaker3D[T]].make(t, space)
   }
 
-  def numChildren = 0
+
+  def isDeterminate = true
 
   def makeImageSpace = {
 
@@ -63,31 +75,34 @@ case class ImageSource3D(index: Int = 0, metaInfo: ImageMetaInfo) extends ImageS
     }
 
     val iaxes: Seq[ImageAxis] = createImageAxes(metaInfo.dimensions.slice(0, 3), metaInfo.spacing)
+
     new ImageSpace3D(iaxes(0), iaxes(1), iaxes(2), metaInfo.coordinateMapping)
+
+
 
   }
 
 
-  def load(numChunks: Int = 10, listener: Option[ProgressListener] = None): IImageData3D = {
+  def load(numChunks: Int = 10, listener: ProcessListener = ProcessListener.default): IImageData3D = {
 
     def _load: IImageData3D = {
-      val dfile = metaInfo.dataFile
-      val ispace = makeImageSpace
+      val imageSpace = makeImageSpace
       val dataReader = metaInfo.createDataReader(index)
 
+
+
       val ret = dataReader match {
-        case r: ByteReader => make(r.read(numChunks, listener), ispace)
-        case r: ShortReader => make(r.read(numChunks, listener), ispace)
-        case r: IntReader => make(r.read(numChunks, listener), ispace)
-        case r: FloatReader => make(r.read(numChunks, listener), ispace)
-        case r: DoubleReader => make(r.read(numChunks, listener), ispace)
-        case _ => error("cannot read image of type " + metaInfo.dataType(index))
+        case r: ByteReader => make(r.read(numChunks, listener), imageSpace)
+        case r: ShortReader => make(r.read(numChunks, listener), imageSpace)
+        case r: IntReader => make(r.read(numChunks, listener), imageSpace)
+        case r: FloatReader => make(r.read(numChunks, listener), imageSpace)
+        case r: DoubleReader => make(r.read(numChunks, listener), imageSpace)
+        case _ => sys.error("cannot read image of type " + metaInfo.dataType(index))
       }
 
       image = Some(ret)
+
       ret
-
-
     }
 
     image match {
@@ -95,15 +110,16 @@ case class ImageSource3D(index: Int = 0, metaInfo: ImageMetaInfo) extends ImageS
       case None => _load
     }
 
+
+
   }
 
   def label = if (metaInfo.numVolumes == 1) metaInfo.label else metaInfo.label + "#" + index
 }
 
-case class ImageSourceSeq3D(val label: String, override val children: Seq[ImageSource3D]) extends ImageSourceNode with Branch[ImageSource3D] {
+case class ImageSourceSeq3D(label: String, override val children: Seq[ImageSource3D]) extends ImageSourceNode with Branch[ImageSource3D] {
 
-
-  def load(numChunks: Int = 10, listener: Option[ProgressListener] = None): Seq[IImageData3D] = {
+  def load(numChunks: Int = 10, listener: ProcessListener = ProcessListener.default): Seq[IImageData3D] = {
     children.map(_.load(numChunks, listener))
   }
 
@@ -111,10 +127,21 @@ case class ImageSourceSeq3D(val label: String, override val children: Seq[ImageS
 
   def subLabels = children.map(_.label)
 
+  def isDeterminate = true
 }
 
-case class ImageSourceGroup(val label: String, override val children: Seq[ImageSourceNode]) extends ImageSourceNode with Branch[ImageSourceNode] {
+case class ImageSourceGroup(label: String, override val children: Seq[ImageSourceNode]) extends ImageSourceNode with Branch[ImageSourceNode] {
   override def numChildren = children.size
+
+  def isDeterminate = true
+
+  //def load(numChunks: Int = 10, listener: ProcessListener = ProcessListener.default) = {
+  //    children.map( {
+  //      case x : ImageSource3D => x.load(numChunks, listener)
+ //       case x : ImageSourceSeq3D => x.load(numChunks, listener)
+  //      case x : ImageSourceGroup => x.load(numChunks, listener)
+  //    }
+  //}
 }
 
 

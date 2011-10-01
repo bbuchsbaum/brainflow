@@ -16,7 +16,7 @@ interface IClassLoadStrategy
     // public: ................................................................
     
     /**
-     * Selects a classloader based on a given load context.
+     * Selects a classloader based on a given createSource context.
      * 
      * @see ClassLoaderResolver#getClassLoader()
      */

@@ -147,6 +147,13 @@ public class ImageViewFactory {
 
     }
 
+    public static ImageView createMontageView(ImageViewModel displayModel, Anatomy3D displayAnatomy, int nrows, int ncols, float sliceGap) {
+        ImageView view = new MontageImageView(displayModel, displayAnatomy, nrows, ncols, sliceGap);
+        addDefaultAnnotations(view);
+        return view;
+
+    }
+
 
 
     public static ImageView createSagittalView(ImageView source) {

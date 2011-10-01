@@ -239,14 +239,14 @@ public class BrainFlow {
             }
 
         } catch (UnsupportedLookAndFeelException e) {
-            log.severe("could not load look and feel");
+            log.severe("could not createSource look and feel");
         } catch (Throwable ex) {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                 LookAndFeelFactory.installJideExtension();
 
             } catch (Throwable ex2) {
-                log.severe("could not load look and feel");
+                log.severe("could not createSource look and feel");
                 throw new RuntimeException("failed to initialize look and feel", ex2);
             }
 
@@ -282,10 +282,10 @@ public class BrainFlow {
         DisplayManager.get().newCanvas();
 
 
-        clock.start("load commands");
+        clock.start("createSource commands");
         drawSplashProgress("loading commands ...");
         loadCommands();
-        clock.stopAndReport("load commands");
+        clock.stopAndReport("createSource commands");
 
         drawSplashProgress("binding container ...");
         bindContainer();

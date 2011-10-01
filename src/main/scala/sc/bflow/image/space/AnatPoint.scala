@@ -23,9 +23,9 @@ trait AnatPoint[T, U <: CoordinateAxis] {
 
   def whichAxis(axis: AnatomicalAxis, ignoreDirection: Boolean = true) = {
     val index = if (ignoreDirection) {
-      axes.findIndexOf(x => axis.sameAxis(x.getAnatomicalAxis))
+      axes.indexWhere(x => axis.sameAxis(x.getAnatomicalAxis))
     } else {
-      axes.findIndexOf(_.getAnatomicalAxis == axis)
+      axes.indexWhere(_.getAnatomicalAxis == axis)
     }
 
     require(index >= 0)
@@ -127,6 +127,7 @@ trait ImageAxisPoint3D[T] extends AnatPoint3D[T,ImageAxis] {
 
 case class GridPoint1D(x: Double, xaxis: ImageAxis) extends ImageAxisPoint1D[Double] {
 
+  def apply() = x
 
   def reverse: GridPoint1D =  new GridPoint1D(xaxis.getNumSamples - x, xaxis.flip)
 
@@ -152,6 +153,11 @@ case class GridPoint2D(x: Double, y: Double, space: IImageSpace2D) extends Image
       case 1 => GridPoint2D(x, gp1.x, space)
     }
 
+  }
+
+  def apply(index: Int) = index match {
+    case 0 => x
+    case 1 => y
   }
 
   def apply(axis: AnatomicalAxis) = {
@@ -189,6 +195,11 @@ case class GridPoint3D(x: Double, y: Double, z:Double, space: IImageSpace3D) ext
 
   }
 
+  def apply(index: Int) = index match {
+      case 0 => x
+      case 1 => y
+      case 2 => z
+    }
 
   def apply(axis: AnatomicalAxis) = {
     val axid = whichAxis(axis, true)
@@ -199,6 +210,15 @@ case class GridPoint3D(x: Double, y: Double, z:Double, space: IImageSpace3D) ext
     }
 
     if (axis.sameDirection(axes(axid).getAnatomicalAxis)) ret else ret.reverse
+  }
+  
+  def convertTo(other: GridPoint3D) = {
+    val to_x = this(other.xaxis.getAnatomicalAxis)
+    val to_y = this(other.yaxis.getAnatomicalAxis)
+    val to_z = this(other.zaxis.getAnatomicalAxis)
+    
+    new GridPoint3D(to_x(),  to_y(),  to_z(), other.space)
+    
   }
 
   //def toWorld: RealPoint3D = {
@@ -213,7 +233,7 @@ object GridPoint3D {
 
   def fromWorld(x: Double, y: Double, z: Double, space: IImageSpace3D): GridPoint3D = {
     val grid = space.worldToGrid(x.toFloat, y.toFloat, z.toFloat)
-    return new GridPoint3D(grid(0), grid(1), grid(2), space)
+    GridPoint3D(grid(0), grid(1), grid(2), space)
   }
 
   def fromReal(x: Double, y: Double, z: Double, space: IImageSpace3D)  : GridPoint3D = {

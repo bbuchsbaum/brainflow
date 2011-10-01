@@ -25,7 +25,7 @@ object BrainVolume {
     val metaInfo = ImageFileDescriptors.readMetaInfo(file)
     val source = metaInfo match {
       case Some(info) => new ImageSource3D(0, info)
-      case None => error("could not load image: " + file.getName.getBaseName)
+      case None => error("could not createSource image: " + file.getName.getBaseName)
     }
 
     new BrainVolumeWrapper(source.load(1))

@@ -35,7 +35,6 @@ public interface IImageData extends IArray {
 
     public IImageSpace getImageSpace();
 
-   
 
     //public ImageBuffer createBuffer(boolean clear);
 

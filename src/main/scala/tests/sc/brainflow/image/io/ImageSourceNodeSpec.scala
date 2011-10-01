@@ -31,7 +31,8 @@ class ImageSourceNodeSpec extends FlatSpec {
   it should "be loadable from a FileObject" in {
     val meta = NIFTI.readMetaInfo(fileSet(0))
     val source = ImageSource3D(0, meta.get)
-    val data = source.load(1, None)
+    //val data = source.createSource(1, None)
+    val data = source.load(1)
     assert(data != None && data != null)
 
   }
@@ -40,19 +41,7 @@ class ImageSourceNodeSpec extends FlatSpec {
     val meta = NIFTI.readMetaInfo(fileSet(0))
     val source = ImageSource3D(0, meta.get)
 
-    val data = source.load(10, new ProgressListener() {
-      def finished = println("finished")
-
-      def setIndeterminate(b: Boolean) = {}
-
-      def setString(message: String) = println(message)
-
-      def setMaximum(max : Int) = println("max = " + max )
-
-      def setMinimum(min : Int) = println("min = " + min)
-
-      def setValue(value : Int) = println("file = " + value)
-    })
+    val data = source.load(10)
 
     assert(data != None && data != null)
 

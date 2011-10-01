@@ -111,7 +111,7 @@ public class LoadCoordinatesWizard {
 
         protected void initContentPane() {
             super.initContentPane();
-            addText("This wizard will help you load or enter a set of coodinates for visualization");
+            addText("This wizard will help you createSource or enter a set of coodinates for visualization");
             addSpace();
             addText("To continue, click Next.");
         }

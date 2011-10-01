@@ -30,8 +30,8 @@ class FavoritesList(implicit context: BrainFlowContext) extends Observing {
       if (favStr == null) None else Some(Favorite(favStr))
     }).flatten[Favorite].map(x => (x.uri -> x))
 
-
-    favorites.foldLeft(Map[String, Favorite]()) { (m, tup) => m(tup._1) = tup._2 }
+    favorites.toMap
+    //favorites.foldLeft(Map[String, Favorite]()) { (m, tup) => m(tup._1) = tup._2 }
 
   }
 
@@ -62,6 +62,11 @@ class FavoritesList(implicit context: BrainFlowContext) extends Observing {
   def updateMenu() = buildCommands(commandGroup)
 
   def updatePrefs() = {
+    favMap.values.zip(0 until favMap.size).foreach { case (fav: Favorite, index: Int)  =>
+      userPrefs.put("favorite-" + (index + 1), fav.toString)
+    }
+
+    userPrefs.flush
 
   }
 

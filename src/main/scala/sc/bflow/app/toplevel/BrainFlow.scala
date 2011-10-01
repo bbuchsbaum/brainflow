@@ -1,10 +1,7 @@
 package sc.bflow.app.toplevel
 
-import com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel
-import com.jidesoft.plaf._
-import javax.swing.{UIManager, UnsupportedLookAndFeelException}
+
 import com.pietschy.command.configuration.ParseException
-import brainflow.app.toplevel.BrainFlow
 import com.pietschy.command. {CommandContainer, GuiCommands}
 
 /**
@@ -46,15 +43,11 @@ object BrainFlow extends BrainFlowApplication with BrainFlowContext {
       case e: ParseException => throw new RuntimeException(e)
     }
 
-    return true
+    true
   }
 
 
   def main(args: Array[String]) = BrainFlow.launch()
-
-
-
-
 
 
 }

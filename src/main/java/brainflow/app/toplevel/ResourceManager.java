@@ -57,7 +57,7 @@ public class ResourceManager {
             return Collections.unmodifiableMap(cachedMaps);
 
         } catch (IOException e) {
-            log.severe("Could not load property file for color map preloading, aborting");
+            log.severe("Could not createSource property file for color map preloading, aborting");
             throw new RuntimeException(e);
         }
 
@@ -85,7 +85,7 @@ public class ResourceManager {
 
 
         Properties props = new Properties();
-        props.load(istream);
+        props.createSource(istream);
 
         Enumeration enumer = props.propertyNames();
 
@@ -98,8 +98,8 @@ public class ResourceManager {
                 IndexColorModel icm = ColorTable.createFromXMLInputStream(url.openStream());
                 cachedMaps.put(name, icm);
             } catch (Exception bfe) {
-                log.severe("Failed to load colormap: " + name + ", at: " + location);
-                throw new RuntimeException("Failed to load colormap: " + name + ", at: " + location, bfe);
+                log.severe("Failed to createSource colormap: " + name + ", at: " + location);
+                throw new RuntimeException("Failed to createSource colormap: " + name + ", at: " + location, bfe);
             }
         }*/
 

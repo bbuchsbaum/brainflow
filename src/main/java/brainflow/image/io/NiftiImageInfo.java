@@ -392,7 +392,7 @@ public class NiftiImageInfo extends ImageInfo {
             a = Math.sqrt(a);                     /* angle = 2*arccos(a) */
         }
 
-        /* load rotation matrix, including scaling factors for voxel sizes */
+        /* createSource rotation matrix, including scaling factors for voxel sizes */
 
         xd = (dx > 0.0) ? dx : 1.0;       /* make sure are positive */
         yd = (dy > 0.0) ? dy : 1.0;
@@ -410,7 +410,7 @@ public class NiftiImageInfo extends ImageInfo {
         R.m21 = (float) (2.0 * (c * d + a * b) * yd);
         R.m22 = (float) ((a * a + d * d - c * c - b * b) * zd);
 
-        /* load offsets */
+        /* createSource offsets */
 
         R.m03 = qx;
         R.m13 = qy;

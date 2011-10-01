@@ -1,10 +1,9 @@
 package sc.bflow.app.toplevel
 
-import _root_.brainflow.app.toplevel.BrainFlow
+
 import boxwood.io.VFSUtils
 import joptsimple.{OptionSet, OptionParser}
 import scalaj.collection.Imports._
-import org.apache.commons.vfs.FileObject
 import sc.bflow.image.io.ImageFileDescriptors
 
 

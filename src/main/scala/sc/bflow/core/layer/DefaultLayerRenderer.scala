@@ -11,6 +11,7 @@ import brainflow.colormap.IColorMap
 import scala.math._
 import sc.bflow.image.space.GridPoint3D
 import sc.bflow._
+import brainflow.core.ClipRange
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,22 +25,26 @@ class DefaultLayerRenderer3D(val layer: ImageLayer3D, val refSpace: IImageSpace3
 
 
   lazy val zslice = {
-    //println("display anat: " + displayAnatomy)
-    //println("cut point " + cutPoint)
     val zdisp = cutPoint(displayAnatomy.ZAXIS)
-    //println("z slice " + zdisp)
     val index: Int = max((zdisp.x - .5f).toInt, 0)
-    //println("index " + index)
-    min(index, refSpace.getDimension(displayAnatomy.ZAXIS) - 1)
+     min(index, refSpace.getDimension(displayAnatomy.ZAXIS) - 1)
   }
 
   lazy val data = {
-    var slice: Int = zslice
     ImageSlicer.createSlicer(refSpace, layer.data).getSlice(displayAnatomy, zslice)
   }
 
   lazy val rgbImage = {
-    colorMap.getRGBAImage(data)
+    // need to sync clip range and color map range...
+    val cmap = layer.colorMap()
+    val colorRange = new ClipRange(cmap.getMinimumValue, cmap.getMaximumValue, cmap.getLowClip, cmap.getHighClip)
+    val clipRange = layer.clipRange()
+    if (clipRange != colorRange) {
+      layer.colorMap.updateSilently(colorMap.newClipRange(clipRange.getLowClip, clipRange.getHighClip, clipRange.getMin, clipRange.getMax))
+      layer.colorMap().getRGBAImage(data)
+    } else {
+      colorMap.getRGBAImage(data)
+    }
   }
 
   lazy val bufferedImage = {

@@ -48,7 +48,7 @@ object BrainFlowInitialization {
 
     } catch {
       case e: UnsupportedLookAndFeelException => {
-        //log.severe("could not load look and feel, exiting")
+        //log.severe("could not createSource look and feel, exiting")
         System.exit(1)
       }
     }

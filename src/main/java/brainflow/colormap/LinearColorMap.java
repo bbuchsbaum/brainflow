@@ -52,7 +52,7 @@ public final class LinearColorMap extends AbstractColorMap {
 
     public LinearColorMap(double min, double max, double lowClip, double highClip, LinearColorMap lcm) {
         assert max > min : "max must exceed min in LinearColorMap2";
-        assert highClip >= lowClip : "highClip must begreater than or equal to lowClip";
+        assert highClip >= lowClip : "highClip must be greater than or equal to lowClip";
         assert highClip <= max : "maximum must be greater than highClip";
         assert lowClip >= min : "minimum must be less than lowClip";
 

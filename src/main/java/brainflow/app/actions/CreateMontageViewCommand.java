@@ -9,6 +9,8 @@ import brainflow.image.anatomy.Anatomy3D;
 import brainflow.image.axis.ImageAxis;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.CellConstraints;
+import net.miginfocom.swing.MigLayout;
+import sun.jdbc.odbc.JdbcOdbc;
 
 import javax.swing.*;
 
@@ -33,10 +35,12 @@ public class CreateMontageViewCommand extends BrainFlowCommand {
             InputPanel ip = new InputPanel(view);
             IBrainCanvas canvas = getSelectedCanvas();
 
-            JOptionPane.showMessageDialog(canvas.getComponent(), ip);
-            ImageView sview = ImageViewFactory.createMontageView(view.getModel(), ip.getRows(), ip.getColumns(), (float) ip.getSliceGap());
+            int result = JOptionPane.showConfirmDialog(canvas.getComponent(), ip, "Montage View", JOptionPane.OK_CANCEL_OPTION);
 
-            BrainFlow.get().displayView(sview);
+            if (result == JOptionPane.OK_OPTION) {
+                ImageView sview = ImageViewFactory.createMontageView(view.getModel(), view.getSelectedPlot().getDisplayAnatomy(), ip.getRows(), ip.getColumns(), (float) ip.getSliceGap());
+                BrainFlow.get().displayView(sview);
+            }
 
         }
 
@@ -45,7 +49,7 @@ public class CreateMontageViewCommand extends BrainFlowCommand {
 
     class InputPanel extends JPanel {
 
-        FormLayout layout;
+        MigLayout layout;
 
         JSpinner rowSpinner;
         JSpinner colSpinner;
@@ -53,10 +57,9 @@ public class CreateMontageViewCommand extends BrainFlowCommand {
 
         public InputPanel(ImageView view) {
 
-            layout = new FormLayout("6dlu, l:p, 4dlu, 1dlu, l:45dlu, 6dlu", "8dlu, p, 6dlu, p, 6dlu, p, 8dlu");
-            layout.addGroupedColumn(2);
-            layout.addGroupedColumn(4);
-            CellConstraints cc = new CellConstraints();
+            //layout = new FormLayout("6dlu, l:p, 4dlu, 1dlu, l:45dlu, 6dlu", "8dlu, p, 6dlu, p, 6dlu, p, 8dlu");
+            layout = new MigLayout();
+
             setLayout(layout);
 
             rowSpinner = new JSpinner(new SpinnerNumberModel(3, 1, 6, 1));
@@ -67,13 +70,13 @@ public class CreateMontageViewCommand extends BrainFlowCommand {
             ImageAxis iaxis = view.getModel().getImageSpace().getImageAxis(anatomy.ZAXIS, true);
             gapSpinner = new JSpinner(new SpinnerNumberModel(iaxis.getSpacing(), iaxis.getSpacing(), 20, 1));
 
-            add(rowSpinner, cc.xyw(4, 2, 2));
-            add(colSpinner, cc.xyw(4, 4, 2));
-            add(gapSpinner, cc.xyw(4, 6, 2));
+            add(new JLabel("Rows:"));
+            add(rowSpinner, "width 30:60:90, wrap");
+            add(new JLabel("Columns:"));
+            add(colSpinner, "growx, wrap");
+            add(new JLabel("Slice Gap:"));
+            add(gapSpinner, "growx, wrap");
 
-            add(new JLabel("Rows:"), cc.xy(2, 2));
-            add(new JLabel("Columns:"), cc.xy(2, 4));
-            add(new JLabel("Slice Gap:"), cc.xy(2, 6));
 
 
         }

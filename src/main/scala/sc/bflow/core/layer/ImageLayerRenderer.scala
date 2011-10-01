@@ -27,5 +27,5 @@ trait ImageLayerRenderer3D {
 
   def data: IImageData2D
 
-  def renderUnto(frame: Rectangle2D, g2: Graphics2D): Unit
+  def renderUnto(frame: Rectangle2D, g2: Graphics2D)
 }

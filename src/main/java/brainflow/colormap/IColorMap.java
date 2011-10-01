@@ -39,6 +39,8 @@ public interface IColorMap {
 
     public RGBAImage getRGBAImage(IImageData2D data);
 
+
+
     public AbstractColorBar createColorBar();
 
 

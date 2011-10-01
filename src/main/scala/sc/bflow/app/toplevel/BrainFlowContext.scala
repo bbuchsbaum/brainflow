@@ -1,5 +1,7 @@
 package sc.bflow.app.toplevel
 
+import sc.bflow.app.commands.CommandComponent
+
 /**
  * Created by IntelliJ IDEA.
  * User: Brad
@@ -8,10 +10,11 @@ package sc.bflow.app.toplevel
  * To change this template use File | Settings | File Templates.
  */
 
-trait BrainFlowContext extends FileSystemComponent with BrainFlowApplication {
+trait BrainFlowContext extends FileSystemComponent with BrainFlowApplication with CommandComponent with DisplayComponent {
 
   val fileSystemService = new FileSystemService
 
+  val displayService = new DisplayService
 
 
 }

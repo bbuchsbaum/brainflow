@@ -15,7 +15,7 @@ public class PreviousSliceCommand extends BrainFlowCommand {
 
 
     public PreviousSliceCommand() {
-        super("previous-cutPoint");
+        super("previous-slice");
     }
 
     protected void handleExecute() {

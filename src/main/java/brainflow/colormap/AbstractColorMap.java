@@ -97,6 +97,8 @@ public abstract class AbstractColorMap implements IColorMap {
     public abstract AbstractColorBar createColorBar();
 
 
+
+
     public RGBAImage getRGBAImage(IImageData2D data) {
 
 

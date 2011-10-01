@@ -16,7 +16,7 @@ public class EDTHogging extends JFrame {
 		hogEDT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Action started");
-				// simulate load
+				// simulate createSource
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException ie) {

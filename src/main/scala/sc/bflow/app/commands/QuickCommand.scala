@@ -15,16 +15,25 @@ object QuickCommand {
 
   def apply(f: => Unit) = {
     new ActionCommand {
-      def handleExecute = f
+      def handleExecute() { f }
     }
+  }
+
+  def apply(id: String)(f: => Unit) = {
+    val ret = new ActionCommand(id) {
+      def handleExecute() { f }
+    }
+
+    ret
+
   }
 
   def apply(f: => Unit, text: String) = {
     val ret = new ActionCommand {
-      def handleExecute = f
+      def handleExecute() { f }
     }
 
-    ret.getDefaultFace().setText(text)
+    ret.getDefaultFace.setText(text)
     ret
 
   }

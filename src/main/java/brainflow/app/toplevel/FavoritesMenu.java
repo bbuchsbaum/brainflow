@@ -119,7 +119,7 @@ public class FavoritesMenu {
 
 
                 } catch (ParseException e) {
-                    System.out.println("could not load favorite " + "favorite-" + (i + 1));
+                    System.out.println("could not createSource favorite " + "favorite-" + (i + 1));
                     Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
                 }
             }
@@ -218,7 +218,7 @@ public class FavoritesMenu {
         }
 
         protected void handleExecute() {
-            System.out.println("want to load " + URI);
+            System.out.println("want to createSource " + URI);
             System.out.println("name is " + name);
 
             try {

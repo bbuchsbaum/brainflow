@@ -73,7 +73,7 @@ public class ImageIODescriptor {
             headerReader = Class.forName(headerReaderClassName);
 
         } catch (ClassNotFoundException e) {
-            throw new BrainFlowException("ImageIODescriptor() : couldn'three load class " + dataReaderClassName, e);
+            throw new BrainFlowException("ImageIODescriptor() : couldn'three createSource class " + dataReaderClassName, e);
         }
     }
 

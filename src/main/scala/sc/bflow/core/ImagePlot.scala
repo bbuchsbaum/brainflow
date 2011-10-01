@@ -85,22 +85,26 @@ class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], displa
 
   private[this] var cachedImage: Option[BufferedImage] = None
 
-
-
   val plotSlice = Observable[GridPoint3D](slice0)
 
   val plotAnatomy = Observable[Anatomy3D](displayAnatomy0)
 
   observe(plotSlice) { e =>
+    println("plot slice changed to" + e.newValue.z)
     cachedImage = None
     repaint()
   }
 
   observe(plotAnatomy) { e =>
-    println("anatomy is now " + plotAnatomy)
+    //println("anatomy is now " + plotAnatomy)
     cachedImage = None
     repaint()
 
+  }
+  
+  def clearAndRepaint() { 
+    cachedImage = None 
+    repaint()
   }
 
   def plotBounds = plotBounds0
@@ -108,7 +112,7 @@ class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], displa
 
   def preserveAspectRatio = true
 
-  def plotState_(state: ImagePlotBounds) = {
+  def plotState_(state: ImagePlotBounds) {
     plotBounds0 = state
     repaint()
   }

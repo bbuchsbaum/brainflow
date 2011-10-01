@@ -125,7 +125,7 @@ public class ColorIntervalEditor extends JComponent {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             LookAndFeelFactory.installJideExtension(LookAndFeelFactory.OFFICE2003_STYLE);
         } catch (Exception e) {
-            Logger.getAnonymousLogger().severe("Could not load Look and Feel, aborting");
+            Logger.getAnonymousLogger().severe("Could not createSource Look and Feel, aborting");
         }
 
 

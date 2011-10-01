@@ -1,8 +1,11 @@
 package sc.bflow.image
 
-import io.{ImageMetaInfo, ImageFileDescriptors}
-import boxwood.io.VFSUtils
-import brainflow.utils.ProgressListener
+import io.{ImageSourceNode, ImageSource3D, ImageMetaInfo, ImageFileDescriptors}
+import org.apache.commons.vfs.{FileObject}
+import boxwood.io.RichFileObject._
+import java.io.{IOException}
+import brainflow.utils.{ProgressListener}
+import boxwood.io.{RichFileObject, VFSUtils}
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,19 +33,25 @@ package object io {
     Some(listener)
   }
 
-  def readMetaInfo[T <: ImageMetaInfo](fileName: String) : Option[T] = {
-    require(ImageFileDescriptors.supportedFileType(fileName))
-    val fileObject = VFSUtils.resolveFileObject(fileName)
-
-    val res = fileObject match {
-      case Left(e) => throw e
-      case Right(fobj) => fobj
-    }
-
-    val reader = ImageFileDescriptors.createInfoReader(res)
-    None
+  def readMetaInfo(fileObject: FileObject) : Either[Throwable, ImageMetaInfo] = {
+    //require(ImageFileDescriptors.supportedFileType(fileObject.path))
+    val metaInfo = ImageFileDescriptors.readMetaInfo(fileObject)
+    if (metaInfo.isDefined) Right(metaInfo.get) else Left(new IOException("could not read header for file " + fileObject.getName.getPath))
 
   }
+
+
+
+  def makeImageSource(info: ImageMetaInfo) : ImageSourceNode = {
+    if (info.numVolumes == 1)
+      ImageSource3D(0, info)
+    else if (info.numVolumes > 1)
+      ImageSourceSeq3D(info.label, (0 until info.numVolumes).map(i => ImageSource3D(i, info)))
+    else sys.error("number of volumes must be >= 0 " + "found " + info.numVolumes + " in " + info.headerFile.path)
+  }
+
+
+
 
 
 

@@ -15,7 +15,7 @@ import boxwood.binding.{ObservableBuffer, Observable}
 
 trait FileSystemComponent {
 
-  val fileSystemService : FileSystemService
+  def fileSystemService : FileSystemService
 
   class FileSystemService {
 
@@ -23,7 +23,7 @@ trait FileSystemComponent {
 
     lazy val currentDirectory = Observable(RichFileObject(System.getProperty("user.dir")))
 
-    def mount(fileObj: FileObject) = {
+    def mount(fileObj: FileObject) : Unit = {
       println("mounting file to " + System.identityHashCode(fileRoots))
       println("mounting file to " + fileRoots)
 

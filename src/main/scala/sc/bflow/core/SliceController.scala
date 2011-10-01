@@ -17,17 +17,17 @@ trait SliceController {
 
   def apply: GridPoint3D = self.selectedPlot().plotSlice()
 
-  def update(slice: GridPoint3D): Unit = self.selectedPlot().plotSlice := slice
+  def update(slice: GridPoint3D) { self.selectedPlot().plotSlice := slice  }
 
-  def nextSlice: Unit = update(incrementSlice(zaxis.getSpacing))
+  def nextSlice() { update(incrementSlice(zaxis.getSpacing)) }
 
-  def previousSlice: Unit = update(incrementSlice(-zaxis.getSpacing))
+  def previousSlice() { update(incrementSlice(-zaxis.getSpacing)) }
 
-  def pageBack: Unit = update(incrementSlice(-(zaxis.getExtent * pageStep)))
+  def pageBack() { update(incrementSlice(-(zaxis.getExtent * pageStep))) }
 
-  def pageForward: Unit = update(incrementSlice(zaxis.getExtent * pageStep))
+  def pageForward() { update(incrementSlice(zaxis.getExtent * pageStep))  }
 
-  def zaxis = apply.findAxis(self.selectedPlot().displayAnatomy.ZAXIS)
+  def zaxis = apply.findAxis(self.selectedPlot().displayAnatomy.ZAXIS, true)
 
   protected def incrementSlice(incr: Double): GridPoint3D = {
     val curSlice = apply

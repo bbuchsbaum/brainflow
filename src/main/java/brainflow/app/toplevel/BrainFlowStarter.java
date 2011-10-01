@@ -156,7 +156,7 @@ public class BrainFlowStarter {
                 if (ImageIOManager.getInstance().isLoadableImage(provis.getPath())) {
                     IImageSource[] sources = ImageIOManager.getInstance().findLoadableImages(new File[]{provis});
                     if (sources.length == 0) {
-                        System.err.println("could not load file " + provis);
+                        System.err.println("could not createSource file " + provis);
                         System.exit(1);
                     }
 
@@ -177,7 +177,7 @@ public class BrainFlowStarter {
                 IImageSource[] sources = ImageIOManager.getInstance().findLoadableImages(new File[]{file});
 
                 if (sources.length == 0) {
-                    System.err.println("could not load file " + provis);
+                    System.err.println("could not createSource file " + provis);
                     System.exit(1);
                 }
 
@@ -210,7 +210,7 @@ public class BrainFlowStarter {
             });
 
             ExecutorService service = Executors.newFixedThreadPool(1);
-            //System.out.println("submitting load task");
+            //System.out.println("submitting createSource task");
             service.submit(loadTask);
 
         }

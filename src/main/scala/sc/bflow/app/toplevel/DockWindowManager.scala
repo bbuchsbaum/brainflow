@@ -18,35 +18,33 @@ import com.jidesoft.docking.event.DockableFrameEvent
 
 class DockWindowManager {
 
-
   var windowMap = Map.empty[String, DockableFrame]
 
   val dockMenu = new JideMenu("Window")
 
   dockMenu.setMnemonic('W')
 
-
   def createDockableFrame(title: String, state: Int, side: Int): DockableFrame = {
-    val dframe: DockableFrame = new DockableFrame(title)
-    dframe.getContext.setInitMode(state)
-    dframe.getContext.setInitSide(side)
-    dframe.getContext.setInitIndex(0)
-    dframe.getContext.setHidable(true)
-    dockMenu.add(createCommand(dframe, title).createMenuItem())
-    windowMap += (title -> dframe)
-    dframe
+    val dockableFrame: DockableFrame = new DockableFrame(title)
+    dockableFrame.getContext.setInitMode(state)
+    dockableFrame.getContext.setInitSide(side)
+    dockableFrame.getContext.setInitIndex(0)
+    dockableFrame.getContext.setHidable(true)
+    dockMenu.add(createCommand(dockableFrame, title).createMenuItem())
+    windowMap += (title -> dockableFrame)
+    dockableFrame
   }
 
 
   def createDockableFrame(title: String, iconLocation: String, state: Int, side: Int): DockableFrame = {
-    val dframe: DockableFrame = new DockableFrame(title, new ImageIcon(getClass.getClassLoader.getResource(iconLocation)))
-    dframe.getContext.setInitMode(state)
-    dframe.getContext.setInitSide(side)
-    dframe.getContext.setInitIndex(0)
-    dframe.getContext.setHidable(true)
-    dockMenu.add(createCommand(dframe, title).createMenuItem())
-    windowMap += (title -> dframe)
-    dframe
+    val dockableFrame: DockableFrame = new DockableFrame(title, new ImageIcon(getClass.getClassLoader.getResource(iconLocation)))
+    dockableFrame.getContext.setInitMode(state)
+    dockableFrame.getContext.setInitSide(side)
+    dockableFrame.getContext.setInitIndex(0)
+    dockableFrame.getContext.setHidable(true)
+    dockMenu.add(createCommand(dockableFrame, title).createMenuItem())
+    windowMap += (title -> dockableFrame)
+    dockableFrame
   }
 
 
@@ -60,14 +58,14 @@ class DockWindowManager {
 
 
   def createDockableFrame(title: String, iconLocation: String, state: Int, side: Int, index: Int): DockableFrame = {
-    val dframe: DockableFrame = new DockableFrame(title, new ImageIcon(getClass.getClassLoader.getResource(iconLocation)))
-    dframe.getContext.setInitMode(state)
-    dframe.getContext.setInitSide(side)
-    dframe.getContext.setInitIndex(index)
+    val dockableFrame: DockableFrame = new DockableFrame(title, new ImageIcon(getClass.getClassLoader.getResource(iconLocation)))
+    dockableFrame.getContext.setInitMode(state)
+    dockableFrame.getContext.setInitSide(side)
+    dockableFrame.getContext.setInitIndex(index)
    // dframe.addDockableFrameListener(this)
-    windowMap += (title -> dframe)
-    dockMenu.add(createCommand(dframe, title).createMenuItem())
-    dframe
+    windowMap += (title -> dockableFrame)
+    dockMenu.add(createCommand(dockableFrame, title).createMenuItem())
+    dockableFrame
   }
 
 

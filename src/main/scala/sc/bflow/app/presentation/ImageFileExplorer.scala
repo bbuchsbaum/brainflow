@@ -74,7 +74,7 @@ class ImageFileExplorer(roots: FileObject*) extends JPanel with ImageNodeFactory
         println("spawning actor, executing thunk")
         thunk
         SwingUtilities.invokeLater(new Runnable() {
-          def run = {
+          def run() {
             println("calling continuation")
             k()
           }
@@ -200,8 +200,8 @@ class ImageFileExplorer(roots: FileObject*) extends JPanel with ImageNodeFactory
           ImageLeafNode3D(parent, ImageSource3D(0, info))
         else if (info.numVolumes > 1)
           ImageBucketNode(parent, new ImageSourceSeq3D(info.label, (0 until info.numVolumes).map(i => ImageSource3D(i, info))), fileObject)
-        else error("number of volumes must be >= 0 " + "found " + info.numVolumes + " in " + fileObject.path)
-      case None => error("could not load meta information for file " + fileObject)
+        else sys.error("number of volumes must be >= 0 " + "found " + info.numVolumes + " in " + fileObject.path)
+      case None => sys.error("could not createSource meta information for file " + fileObject)
     }
 
   }
@@ -306,7 +306,6 @@ case class ImageFolderNode(override var parent: Option[MutableTreeNode] = None, 
   lazy val icon = SystemResource("icons/folder.png").toImageIcon
 
   lazy val expandedIcon = SystemResource("icons/folderOpen.png").toImageIcon
-
 
   override def hashCode = System.identityHashCode(this)
 }

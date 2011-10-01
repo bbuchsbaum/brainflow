@@ -60,7 +60,7 @@ public class DataSourceManager {
         int uid = limg.getUniqueID();
         if (imageMap.containsKey(uid)) {
 
-            log.warning("Attempt to load image already in memory: " + limg.getHeaderFile());
+            log.warning("Attempt to createSource image already in memory: " + limg.getHeaderFile());
             throw new IllegalArgumentException("IImageDataSource " + limg.getStem() + " with uinique ID " + uid + " is already registered.");
         }
 

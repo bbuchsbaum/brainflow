@@ -104,6 +104,36 @@ public class ClipRange implements IClipRange {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClipRange clipRange = (ClipRange) o;
+
+        if (Double.compare(clipRange.highClip, highClip) != 0) return false;
+        if (Double.compare(clipRange.lowClip, lowClip) != 0) return false;
+        if (Double.compare(clipRange.maxValue, maxValue) != 0) return false;
+        if (Double.compare(clipRange.minValue, minValue) != 0) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = minValue != +0.0d ? Double.doubleToLongBits(minValue) : 0L;
+        result = (int) (temp ^ (temp >>> 32));
+        temp = maxValue != +0.0d ? Double.doubleToLongBits(maxValue) : 0L;
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = lowClip != +0.0d ? Double.doubleToLongBits(lowClip) : 0L;
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = highClip != +0.0d ? Double.doubleToLongBits(highClip) : 0L;
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "ClipRange{" +
                 "minValue=" + minValue +

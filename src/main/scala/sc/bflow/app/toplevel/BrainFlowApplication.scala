@@ -1,22 +1,23 @@
 package sc.bflow.app.toplevel
 
-import com.jidesoft.document.DocumentPane
 import com.jidesoft.status.StatusBar
 import java.awt.{Toolkit, BorderLayout, Dimension}
 import com.jidesoft.docking.{DockingManager, DefaultDockingManager, DockContext}
 import javax.swing._
 import border.EmptyBorder
-import com.pietschy.command.factory. {MenuFactory, ButtonFactory}
-import com.jidesoft.swing. {JideMenu, JideToggleButton, JideButton}
-import com.pietschy.command.GuiCommands
-import com.jidesoft.action. {CommandBar, CommandMenuBar, DefaultDockableBarDockableHolder}
-import brainflow.app.actions. {ExitApplicationCommand, MountFileSystemCommand, GoToVoxelCommand}
-import com.pietschy.command.group. {ExpansionPointBuilder, CommandGroup}
-import sc.bflow.app.presentation. {SearchableImageFileExplorer, ImageFileExplorer}
+import com.pietschy.command.factory.{MenuFactory, ButtonFactory}
+
+import com.jidesoft.action.{CommandBar, CommandMenuBar, DefaultDockableBarDockableHolder}
+
+import sc.bflow.app.presentation.{SearchableImageFileExplorer, ImageFileExplorer}
 import org.apache.commons.vfs.FileObject
-import boxwood.binding. {Observing, Add, ElemAdd}
-import brainflow.app.toplevel. {RecentPathMenu, DockWindowManager}
-import sc.bflow.app.commands.{RecentPathList, ExitApplication, MountFileSystem}
+import boxwood.binding._
+import sc.bflow.core.{ImageCanvasDesktop, ImageCanvas}
+import com.jidesoft.document.{DocumentComponentEvent, DocumentComponentAdapter, DocumentComponent, DocumentPane}
+import com.pietschy.command.ActionCommand
+import sc.bflow.app.commands.{QuickCommand, RecentPathList, ExitApplication, MountFileSystem}
+import com.pietschy.command.group.{GroupVisitor, ExpansionPointBuilder, CommandGroup}
+import com.jidesoft.swing.{ButtonStyle, JideButton}
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,25 +36,60 @@ trait BrainFlowApplication extends Observing {
 
   lazy val statusBar = new StatusBar()
 
-  lazy val fileExplorer =  new SearchableImageFileExplorer(fileSystemService.currentDirectory())
+  lazy val fileExplorer = new SearchableImageFileExplorer(fileSystemService.currentDirectory())
 
   lazy val dockWindowManager = new DockWindowManager()
 
+  lazy val selectedCanvas: ObservableVar[ImageCanvas] = Observable(new ImageCanvasDesktop())
 
+  lazy val canvasList = ObservableBuffer[ImageCanvas](Seq(selectedCanvas()))
 
   implicit val context = this
-
 
 
   //initMainFrame
   //initFileExplorer
 
   private[this] def initMainFrame = {
+    documentPane.setTabPlacement(SwingConstants.BOTTOM)
     mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
     mainFrame.getDockingManager.getWorkspace.setLayout(new BorderLayout)
     mainFrame.getDockingManager.getWorkspace.add(documentPane, BorderLayout.CENTER)
     mainFrame.getDockingManager.beginLoadLayoutData
     mainFrame.getDockingManager.setInitSplitPriority(DockingManager.SPLIT_EAST_WEST_SOUTH_NORTH)
+
+
+  }
+
+  def makeCanvasDocument(canvas: ImageCanvas, name: String) = {
+    val doc: DocumentComponent = new DocumentComponent(new JScrollPane(canvas.component), name)
+    doc.addDocumentComponentListener(new DocumentComponentAdapter {
+      override def documentComponentActivated(documentComponentEvent: DocumentComponentEvent): Unit = {
+        selectedCanvas := canvas
+      }
+    })
+
+    doc
+  }
+
+  def addCanvas(canvas: ImageCanvas): Unit = {
+    val comp: JComponent = canvas.component
+    comp.setRequestFocusEnabled(true)
+    comp.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1))
+    //var handler: BrainCanvasTransferHandler = new BrainCanvasTransferHandler
+    //comp.setTransferHandler(handler)
+    //var cbar: CanvasBar = new CanvasBar
+    //canvas.getComponent.add(cbar.getComponent, BorderLayout.NORTH)
+    val canvasName: String = "Canvas-" + (documentPane.getDocumentCount + 1)
+    documentPane.openDocument(makeCanvasDocument(canvas, canvasName))
+    documentPane.setActiveDocument(canvasName)
+    selectedCanvas := canvas
+  }
+
+  def initCanvas {
+
+    val canvas = selectedCanvas()
+    addCanvas(canvas)
 
 
   }
@@ -66,7 +102,7 @@ trait BrainFlowApplication extends Observing {
     mainFrame.getDockingManager.addFrame(dock)
 
     observe(fileSystemService.fileRoots) {
-      case ev @ Add(_, ElemAdd(x:FileObject,i)) => println("adding file root: " + x); fileExplorer.addFileRoot(x)
+      case ev@Add(_, ElemAdd(x: FileObject, i)) => println("adding file root: " + x); fileExplorer.addFileRoot(x)
       case _ =>
     }
 
@@ -77,10 +113,18 @@ trait BrainFlowApplication extends Observing {
 
   def show = {
     println("showing")
-    initMenu
-    initMainFrame
+
+    initCanvas
 
     initFileExplorer
+
+
+
+
+
+     initMainFrame
+
+
 
     mainFrame.getDockableBarManager.loadLayoutData
 
@@ -90,12 +134,22 @@ trait BrainFlowApplication extends Observing {
     mainFrame.getDockingManager.loadLayoutData
     mainFrame.setVisible(true)
     mainFrame.getDockingManager.loadLayoutData
+
+    initToolBar
+    initMenu
+  }
+
+  def bindCommand(command: ActionCommand, installShortCut: Boolean=false): Unit = {
+    command.bind(mainFrame)
+    if (installShortCut) {
+      command.installShortCut(documentPane, JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+    }
   }
 
   def initMenu = {
-    val gotoVoxelCommand: GoToVoxelCommand = new GoToVoxelCommand
-    gotoVoxelCommand.bind(mainFrame)
-    gotoVoxelCommand.installShortCut(documentPane, JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
+    ///val gotoVoxelCommand: GoToVoxelCommand = new GoToVoxelCommand
+    //gotoVoxelCommand.bind(mainFrame)
+    //gotoVoxelCommand.installShortCut(documentPane, JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT)
 
 
     val fileMenuGroup: CommandGroup = new CommandGroup("file-menu")
@@ -120,11 +174,8 @@ trait BrainFlowApplication extends Observing {
 
     mainFrame.getDockableBarManager.addDockableBar(menuBar)
 
-    val exitCommand: ExitApplication = new ExitApplication
-    exitCommand.bind(mainFrame)
-
-    val mountFileSystem: MountFileSystem = new MountFileSystem
-    mountFileSystem.bind(mainFrame)
+    bindCommand(new ExitApplication)
+    bindCommand(new MountFileSystem)
 
     val pathMenu = new RecentPathList()
     val builder: ExpansionPointBuilder = fileMenuGroup.getExpansionPointBuilder
@@ -140,9 +191,54 @@ trait BrainFlowApplication extends Observing {
     //menuBar.add(favMenu)
 
 
-
   }
 
+  def initToolBar = {
+    val mainToolbarGroup: CommandGroup = new CommandGroup("main-toolbar")
+    mainToolbarGroup.bind(mainFrame)
+
+    val mainToolbar: CommandBar = new CommandBar
+    mainToolbar.setPaintBackground(false)
+    mainToolbar.setBorder(new EmptyBorder(0, 0, 0, 0))
+    mainToolbar.setKey("toolbar")
+
+
+    bindCommand(this.newCanvas, true)
+    bindCommand(this.openImage, true)
+    bindCommand(this.createAxial, true)
+    bindCommand(this.createCoronal, true)
+    bindCommand(this.createSagittal, true)
+    bindCommand(this.prevSlice, true)
+    bindCommand(this.nextSlice, true)
+    bindCommand(this.pageBackSlice, true)
+    bindCommand(this.pageForwardSlice, true)
+    bindCommand(this.decreaseContrast, true)
+    bindCommand(this.increaseContrast, true)
+    bindCommand(this.createOrthoTriangular, true)
+
+
+
+    mainToolbarGroup.visitMembers(new GroupVisitor {
+      def visit(actionCommand: ActionCommand): Unit = {
+        println("adding command to toolbar")
+        val jb: JideButton = new JideButton(actionCommand.getActionAdapter)
+        jb.setButtonStyle(ButtonStyle.TOOLBAR_STYLE)
+        jb.setText("")
+        mainToolbar.add(jb)
+      }
+
+      def visit(commandGroup: CommandGroup): Unit = {
+        println("adding command group to toolbar")
+        val jc: JComponent = commandGroup.createButton(GuiFactory)
+        mainToolbar.add(jc)
+      }
+    })
+
+    mainFrame.getDockableBarManager.addDockableBar(mainToolbar)
+
+
+
+  }
 
 
 }

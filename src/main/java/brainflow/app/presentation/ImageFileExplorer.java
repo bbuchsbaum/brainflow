@@ -548,7 +548,7 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
             } catch (InterruptedException e) {
                 log.fine("file expansion interrupted");
             } catch (ExecutionException e) {
-                log.severe("failed to load all image nodes");
+                log.severe("failed to createSource all image nodes");
                 //throw new RuntimeException(e);
             }
 
@@ -616,15 +616,15 @@ public class ImageFileExplorer extends AbstractPresenter implements TreeSelectio
 
         } catch (FileSystemException e) {
             e.printStackTrace();
-            log.severe("failed to load image info for file : " + fobj);
+            log.severe("failed to createSource image info for file : " + fobj);
             throw new RuntimeException(e);
         } catch (BrainFlowException e) {
             e.printStackTrace();
-            log.severe("failed to load image info for file : " + fobj);
+            log.severe("failed to createSource image info for file : " + fobj);
             throw new RuntimeException(e);
         } catch (RuntimeException e) {
             e.printStackTrace();
-            log.severe("failed to load image info for file : " + fobj);
+            log.severe("failed to createSource image info for file : " + fobj);
             throw new RuntimeException(e);
         }
 
