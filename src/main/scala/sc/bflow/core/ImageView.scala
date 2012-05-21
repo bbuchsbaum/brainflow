@@ -69,7 +69,7 @@ trait ImageViewLayout[T <: ImagePlot] {
 }
 
 
-abstract class ImageViewPanel(val model: ImageViewModel) extends JPanel with ImageView[ImagePlotPanel] with Observing with BindManager {
+abstract class ImageViewPanel(val model: ImageViewModel) extends JPanel with ImageView[ImagePlotPanel] with Onlooker with BindManager {
 
   lazy val plots = makePlots
 

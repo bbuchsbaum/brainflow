@@ -30,6 +30,7 @@ object BrainFlow extends BrainFlowApplication with BrainFlowContext {
     commandContainer.bind(self.mainFrame)
     self.show
 
+
   }
 
 

@@ -7,7 +7,7 @@ import brainflow.app.actions.MountDirectoryCommand
 import org.apache.commons.vfs.{VFS, FileObject}
 import com.pietschy.command.face.Face
 import java.util.prefs.{BackingStoreException, Preferences}
-import boxwood.binding.{Add, ElemAdd, Observing}
+import boxwood.binding.{Add, ElemAdd, Onlooker}
 import boxwood.io._
 import boxwood.io.RichFileObject._
 import VFSUtils._
@@ -20,7 +20,7 @@ import VFSUtils._
  * To change this template use File | Settings | File Templates.
  */
 
-class RecentPathList(implicit context: BrainFlowContext) extends Observing {
+class RecentPathList(implicit context: BrainFlowContext) extends Onlooker {
 
   val NDIRS = 6
 

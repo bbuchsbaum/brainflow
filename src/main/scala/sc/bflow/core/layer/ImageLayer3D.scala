@@ -13,7 +13,7 @@ import scala.math._
 import sc.bflow.image.space.GridPoint3D
 import brainflow.image.anatomy.Anatomy3D
 import collection.mutable.Publisher
-import boxwood.binding.{Observing, Observable}
+import boxwood.binding.{Onlooker, Observable}
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,7 +23,7 @@ import boxwood.binding.{Observing, Observable}
  * To change this template use File | Settings | File Templates.
  */
 
-class ImageLayer3D(val data: IImageData3D) extends ImageLayer with Publisher[LayerProperty[_]] with Observing with LayerProperties {
+class ImageLayer3D(val data: IImageData3D) extends ImageLayer with Publisher[LayerProperty[_]] with Onlooker with LayerProperties {
   self =>
 
   type D = IImageData3D

@@ -2,7 +2,7 @@ package sc.bflow.core.layer
 
 import brainflow.core.IClipRange
 import brainflow.colormap.IColorMap
-import boxwood.binding.{Observing, ObservableVar}
+import boxwood.binding.{Onlooker, ObservableVar}
 import collection.mutable.Publisher
 import brainflow.display.InterpolationType
 

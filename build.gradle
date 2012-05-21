@@ -3,7 +3,7 @@ import groovy.xml.MarkupBuilder
 
 GRADLE_OPTS = "Xmx500m"
 
-version = "0.1.3"
+version = "0.1.4"
 
 usePlugin("java")
 
@@ -81,7 +81,6 @@ task izpackConfig << {
       panel(classname: "PacksPanel")
       panel(classname: "InstallPanel")
       panel(classname: "ShortcutPanel")
-      panel(classname: "JDKPathPanel")
       panel(classname: "FinishPanel")
     }
     guiprefs(width: "650", height: "500", resizable: "no")
@@ -104,7 +103,7 @@ task izpackConfig << {
       pack(name: "Bin", required: "yes") {
         description("application binary and startup scripts")
         xml.file(src: "brainflow.bat", targetdir: "\$INSTALL_PATH/bin")
-        xml.file(src: "../build/libs/brainflow-${version}.jar", targetdir: "\$INSTALL_PATH/bin")
+        xml.file(src: "../build/libs/brainflow-app-${version}.jar", targetdir: "\$INSTALL_PATH/bin")
         xml.file(src: "brainflow-icon.ico", targetdir: "\$INSTALL_PATH/bin")
         xml.file(src: "brainflow.version", targetdir: "\$INSTALL_PATH/bin")
         xml.file(src: "brainflow.vmoptions", targetdir: "\$INSTALL_PATH/bin")
@@ -137,7 +136,7 @@ task izpack(dependsOn: ['assemble', 'collectRuntimeLibs', 'izpackConfig']) << {
   ant {
     taskdef(name: 'IzPack',
             classname: 'com.izforge.izpack.ant.IzPackTask',
-            classpath: new File('/home/brad/pkgs/IzPack/lib/standalone-compiler.jar'))
+            classpath: new File('c:/Program Files/IzPack/lib/standalone-compiler.jar'))
 
   }
 
@@ -147,13 +146,13 @@ task izpack(dependsOn: ['assemble', 'collectRuntimeLibs', 'izpackConfig']) << {
 
   ant.copy(file: "izpack/brainflow-install.jar", todir: rootDir)
 
-  def command = "python /home/brad/pkgs/IzPack/utils/wrappers/izpack2exe/izpack2exe.py --file=brainflow-install.jar  --with-7z=\"/usr/bin/p7zip\""
+  def command = "izpack2exe --file=brainflow-install.jar --no-upx --with-7z=\"c:\\Progra~1\\IzPack\\utils\\wrappers\\izpack2exe\\7za\""
   def proc = command.execute()
   proc.waitFor()
 
-  //println "return code: ${ proc.exitValue()}"
-  //println "stderr: ${proc.err.text}"
-  //println "stdout: ${proc.in.text}"
+  println "return code: ${ proc.exitValue()}"
+  println "stderr: ${proc.err.text}"
+  println "stdout: ${proc.in.text}"
 
 }
 
@@ -182,14 +181,19 @@ task constructManifest(dependsOn: 'compileJava') << {
 
 task leanjar(type: Jar, dependsOn: 'constructManifest') {
   appendix = "app"
-  zipFileSet(dir: "build/classes") {
-    exclude("data/**")
+  zipFileSet(dir: "build/classes/main") {
+    include("brainflow/**")
+    include("colormaps/**")
+    include("config/**")
+    include("commands/**")
+    include("icons/**")
+    exclude("brainflow/data/**")
   }
 }
 
 task corejar(type: Jar, dependsOn: 'constructManifest') {
   appendix = "core"
-  zipFileSet(dir: "build/classes") {
+  zipFileSet(dir: "build/classes/main") {
     include("brainflow/**")
     exclude("brainflow/app/**")
   }
@@ -197,7 +201,7 @@ task corejar(type: Jar, dependsOn: 'constructManifest') {
 
 task appjar(type: Jar, dependsOn: 'constructManifest') {
   appendix = "app-testdata"
-  zipFileSet(dir: "build/classes") {
+  zipFileSet(dir: "build/classes/main") {
     include("brainflow/app/**")
   }
 
@@ -226,7 +230,7 @@ task googleup(dependsOn: 'izpack') << {
   ant.gcupload(username: "brad.buchsbaum@gmail.com",
           password: "s2f2c9k7",
           projectname: "brainflow",
-          filename: "izpack/brainflow-install.jar",
+          filename: "brainflow-install.jar",
           targetfilename: "brainflow-install-${version}.jar",
           summary: "cross-platform installer",
           labels: "Featured, Type-Package, OpSys-All")
@@ -234,10 +238,12 @@ task googleup(dependsOn: 'izpack') << {
   ant.gcupload(username: "brad.buchsbaum@gmail.com",
           password: "s2f2c9k7",
           projectname: "brainflow",
-          filename: "izpack/brainflow-install.jar",
-          targetfilename: "brainflow-install-${version}.jar",
-          summary: "cross-platform installer",
-          labels: "Featured, Type-Package, OpSys-All")
+          filename: "setup.exe",
+          targetfilename: "brainflow-installer-${version}.exe",
+          summary: "windows executable installer",
+          labels: "Featured, Type-Executable, OpSys-Windows")
+
+
 
 }
 

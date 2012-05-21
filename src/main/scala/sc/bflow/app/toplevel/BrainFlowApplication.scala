@@ -27,7 +27,7 @@ import com.jidesoft.swing.{ButtonStyle, JideButton}
  * To change this template use File | Settings | File Templates.
  */
 
-trait BrainFlowApplication extends Observing {
+trait BrainFlowApplication extends Onlooker {
   this: BrainFlowContext =>
 
   val mainFrame = new DefaultDockableBarDockableHolder("BrainFlow")

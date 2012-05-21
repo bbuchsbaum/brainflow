@@ -6,7 +6,7 @@ import java.text.{ParseException, DateFormat}
 import com.pietschy.command.group.{GroupBuilder, CommandGroup}
 import org.apache.commons.vfs.VFS
 import sc.bflow.app.toplevel.BrainFlowContext
-import boxwood.binding.Observing
+import boxwood.binding.Onlooker
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +16,7 @@ import boxwood.binding.Observing
  * To change this template use File | Settings | File Templates.
  */
 
-class FavoritesList(implicit context: BrainFlowContext) extends Observing {
+class FavoritesList(implicit context: BrainFlowContext) extends Onlooker {
 
   val userPrefs = Preferences.userNodeForPackage(classOf[FavoritesList])
 

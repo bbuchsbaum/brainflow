@@ -11,7 +11,7 @@ import java.awt._
 import brainflow.image.space.Axis
 import brainflow.image.anatomy.Anatomy3D
 import sc.bflow.image.space.GridPoint3D
-import boxwood.binding.{Observing, Observable}
+import boxwood.binding.{Onlooker, Observable}
 
 /**
  * Created by IntelliJ IDEA.
@@ -76,7 +76,7 @@ case class ImagePlotBounds(xrange: AxisRange, yrange: AxisRange, plotInsets: Ins
 }
 
 
-class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], displayAnatomy0: Anatomy3D, slice0: GridPoint3D, private[this] var plotBounds0: ImagePlotBounds) extends JPanel with ImagePlot with Observing {
+class ImagePlotPanel(val modelRenderer: ImageViewRenderer[BufferedImage], displayAnatomy0: Anatomy3D, slice0: GridPoint3D, private[this] var plotBounds0: ImagePlotBounds) extends JPanel with ImagePlot with Onlooker {
   setBackground(Color.BLACK)
   setOpaque(true)
 

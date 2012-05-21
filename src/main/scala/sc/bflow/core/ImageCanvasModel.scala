@@ -10,7 +10,7 @@ import boxwood.binding._
  * To change this template use File | Settings | File Templates.
  */
 
-trait ImageCanvasModel extends Observing {
+trait ImageCanvasModel extends Onlooker {
 
   val selectedIndex: ObservableVar[Option[Int]]
 

@@ -22,7 +22,7 @@ class Selectable(init: Boolean = false) extends ToggleCommand with Observable[Bo
 
   private[this] var _selected: Boolean = this.isSelected
 
-  override def addObserver(observer: Observer[Boolean])(implicit observing: Observing) = {
+  override def addObserver(observer: Observer[Boolean])(implicit observing: Onlooker) = {
     println("somebody is observing me!")
     super.addObserver(observer)
   }

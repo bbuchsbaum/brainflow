@@ -1,1 +1,1 @@
-java -Xmx999m -jar brainflow-0.1.2.jar
+java -Xmx999m -jar brainflow-0.1.4.jar
